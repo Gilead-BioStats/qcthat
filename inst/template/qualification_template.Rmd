@@ -9,9 +9,11 @@ knitr::opts_chunk$set(
 )
 ```
 
-```{r setup}
+```{r setup, echo=FALSE}
 library(here)
 library(testthat)
+library(gt)
+devtools::load_all()
 
 qualification_test_paths <- list.files(
   here::here(
@@ -37,4 +39,8 @@ qualification_test_results <- purrr::map_df(
          Tests = gsub(".R", "", Tests))
 ```
 
-# 
+# Qualification Test Results
+
+```{r}
+gt::gt(qualification_test_results)
+```

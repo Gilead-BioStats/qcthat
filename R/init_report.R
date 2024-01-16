@@ -1,7 +1,7 @@
 #' Initialize Qualification Report Template
 #'
 #' @keywords internal
-init_report <- function(package_name = NULL) {
+init_report <- function(package_name = read.dcf("DESCRIPTION")[[1]]) {
 
   if (is.null(package_name)) {
 

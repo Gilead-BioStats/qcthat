@@ -12,3 +12,6 @@ RoxygenNote: 7.2.3
 Imports: 
     dplyr,
     usethis
+Config/Needs/website: rmarkdown
+Suggests: 
+    testthat

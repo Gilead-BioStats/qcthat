@@ -9,13 +9,13 @@ init_test_cases <- function() {
 
   usethis:::check_is_project()
 
-  rlang::check_installed("testthat")
-
   directory_path <- paste0(getwd(), "/tests/testqualification/qualification")
 
   create_directory(directory_path = directory_path)
 
   copy_test_case_template(directory_path = directory_path)
+
+  usethis:::use_dependency("testthat", "Suggests")
 
 }
 

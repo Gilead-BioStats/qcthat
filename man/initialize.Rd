@@ -7,7 +7,7 @@
 initialize(package_name = read.dcf("DESCRIPTION")[[1]])
 }
 \arguments{
-\item{`package_name`}{Name of package.}
+\item{package_name}{Name of package.}
 }
 \value{
 Testing framework described in \code{{qcthat}} README.

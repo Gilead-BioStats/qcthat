@@ -13,6 +13,7 @@ knitr::opts_chunk$set(
 library(here)
 library(testthat)
 library(gt)
+library(XXXXXXXXXX)
 devtools::load_all()
 
 qualification_test_paths <- list.files(

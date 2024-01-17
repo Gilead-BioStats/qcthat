@@ -1,5 +1,6 @@
 #' Initialize Qualification Report Template
 #'
+#' @importFrom here here
 #' @keywords internal
 init_report <- function(package_name = read.dcf("DESCRIPTION")[[1]]) {
 

@@ -2,20 +2,33 @@
 #'
 #' @return `tests/testqualification/qualification` directory; `test_qual_T1_1.R` file.
 #'
-#' @importFrom rlang check_installed
+#' @import usethis
+#' @importFrom utils getFromNamespace
 #'
 #' @export
 init_test_cases <- function() {
 
-  usethis:::check_is_project()
+  if (check_project_status()) {
 
-  directory_path <- paste0(getwd(), "/tests/testqualification/qualification")
+    directory_path <- paste0(
+      usethis::proj_sitrep()$working_directory,
+      "/tests/testqualification/qualification"
+      )
 
-  create_directory(directory_path = directory_path)
+    create_directory(directory_path = directory_path)
 
-  copy_test_case_template(directory_path = directory_path)
+    copy_test_case_template(directory_path = directory_path)
 
-  usethis:::use_dependency("testthat", "Suggests")
+
+    use_dep <- utils::getFromNamespace("use_dependency", "usethis")
+
+    use_dep("testthat", "Suggests")
+
+  } else {
+    usethis::ui_oops("You are either not in an R project or your working directory has been changed.")
+  }
+
+
 
 }
 

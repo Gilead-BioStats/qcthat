@@ -7,19 +7,20 @@
 #' init_specs()
 #' }
 #'
+#' @import usethis
 #' @importFrom dplyr tibble
-#' @importFrom usethis ui_done ui_path ui_stop
 #' @importFrom utils write.csv
 #'
 #' @export
 init_specs <- function() {
-  usethis:::check_is_project()
 
-  directory_path <- paste0(getwd(), "/inst/qualification")
+  if (check_project_status()) {
+    directory_path <- paste0(usethis::proj_sitrep()$working_directory, "/inst/qualification")
 
-  create_directory(directory_path = directory_path)
+    create_directory(directory_path = directory_path)
 
-  create_specs_template(directory_path = directory_path)
+    create_specs_template(directory_path = directory_path)
+  }
 
 }
 

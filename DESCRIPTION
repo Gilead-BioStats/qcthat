@@ -15,4 +15,5 @@ Imports:
     usethis
 Config/Needs/website: rmarkdown
 Suggests: 
+    rlang,
     testthat

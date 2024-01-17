@@ -18,3 +18,13 @@ create_directory <- function(directory_path) {
 
   return(invisible(TRUE))
 }
+
+#' @importFrom usethis proj_sitrep
+#' @keywords internal
+check_project_status <- function() {
+
+  project_status <- usethis::proj_sitrep()
+
+  return(project_status[[1]] == project_status[[3]])
+
+}

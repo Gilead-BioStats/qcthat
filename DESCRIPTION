@@ -5,13 +5,15 @@ Authors@R:
     person("First", "Last", , "first.last@example.com", role = c("aut", "cre"),
            comment = c(ORCID = "YOUR-ORCID-ID"))
 Description: Lightweight quality control framework for R packages used in Clinical Trials. Minimal dependencies, flexible, and customizable.
-License: Apache License (>= 2) + file LICENSE
+License: Apache License (>= 2)
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.2.3
 Imports: 
     dplyr,
+    here,
     usethis
 Config/Needs/website: rmarkdown
 Suggests: 
+    rlang,
     testthat

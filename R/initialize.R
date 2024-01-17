@@ -1,6 +1,6 @@
 #' Initialize `{qcthat}` testing framework.
 #'
-#' @param `package_name` Name of package.
+#' @param package_name Name of package.
 #'
 #' @return Testing framework described in `{qcthat}` README.
 #'

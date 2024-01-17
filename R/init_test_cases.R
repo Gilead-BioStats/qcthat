@@ -11,7 +11,7 @@ init_test_cases <- function() {
   if (check_project_status()) {
 
     directory_path <- paste0(
-      usethis::proj_sitrep()$working_directory,
+      usethis::proj_path(),
       "/tests/testqualification/qualification"
       )
 

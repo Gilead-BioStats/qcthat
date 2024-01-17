@@ -25,6 +25,6 @@ check_project_status <- function() {
 
   project_status <- usethis::proj_sitrep()
 
-  return(project_status$active_rstudio_proj == project_status$working_directory)
+  return(project_status[[1]] == project_status[[3]])
 
 }

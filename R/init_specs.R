@@ -15,7 +15,7 @@
 init_specs <- function() {
 
   if (check_project_status()) {
-    directory_path <- paste0(usethis::proj_sitrep()$working_directory, "/inst/qualification")
+    directory_path <- paste0(usethis::proj_path(), "/inst/qualification")
 
     create_directory(directory_path = directory_path)
 

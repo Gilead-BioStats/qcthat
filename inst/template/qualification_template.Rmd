@@ -9,6 +9,7 @@ knitr::opts_chunk$set(
 )
 
 to_md <- function(data) {
+  # ChatGPT Generated this function :O
   # Get column names
   col_names <- colnames(data)
   # Get number of columns
@@ -30,9 +31,7 @@ to_md <- function(data) {
 ```
 
 ```{r setup, echo=FALSE}
-library(here)
 library(testthat)
-library(gt)
 
 if (rlang::is_installed("XXXXXXXXXX")) {
   library(XXXXXXXXXX)
@@ -40,17 +39,12 @@ if (rlang::is_installed("XXXXXXXXXX")) {
 
 devtools::load_all()
 
-qualification_test_paths <- list.files(
-  here::here(
-    'tests', 
-    'testqualification', 
-    'qualification'
-    ),
-  pattern = ".R",
-  full.names = TRUE
-  )
+qualification_test_paths <- list.files('tests/testqualification/qualification', pattern = ".R", full.names = TRUE)
 
-qualification_test_results <- lapply(qualification_test_paths, function(x) {
+
+if (length(qualification_test_paths) > 0) {
+  
+  qualification_test_results <- lapply(qualification_test_paths, function(x) {
   test_results_raw <- testthat::test_file(x, reporter = testthat::ListReporter, package = "XXXXXXXXXX")
   
   test_results_parsed <- data.frame(test_results_raw)
@@ -66,10 +60,20 @@ qualification_test_results <- lapply(qualification_test_paths, function(x) {
 })
 
 tests <- do.call(rbind, qualification_test_results)
+  
+} else {
+  tests <- NULL
+}
+
 ```
 
 # Qualification Test Results
 
-```{r}
-to_md(tests)
+```{r, results='asis', include=FALSE}
+
+if (!is.null(tests)) {
+  cat(to_md(tests), sep = "\n")
+} else {
+  cat("No qualification test results to display.")
+}
 ```

@@ -17,4 +17,6 @@ initialize <- function(package_name = read.dcf("DESCRIPTION")[[1]]) {
   init_test_cases()
 
   init_report(package_name = package_name)
+
+  init_github_actions()
 }

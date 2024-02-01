@@ -39,7 +39,7 @@ if (rlang::is_installed("XXXXXXXXXX")) {
 
 devtools::load_all()
 
-qualification_test_paths <- list.files('tests/testqualification/qualification', pattern = ".R", full.names = TRUE)
+qualification_test_paths <- list.files(system.file("tests", "testqualification", "qualification", package = "XXXXXXXXXX"), pattern = ".R", full.names = TRUE)
 
 
 if (length(qualification_test_paths) > 0) {
@@ -69,7 +69,7 @@ tests <- do.call(rbind, qualification_test_results)
 
 # Qualification Test Results
 
-```{r, results='asis', include=FALSE}
+```{r, results='asis', echo=FALSE}
 
 if (!is.null(tests)) {
   cat(to_md(tests), sep = "\n")

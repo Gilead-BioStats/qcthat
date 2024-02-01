@@ -30,22 +30,26 @@ qualification_test_paths <- list.files(
   full.names = TRUE
   )
 
-qualification_test_results <- purrr::map_df(
-  qualification_test_paths, 
-  function(x) {
-    testResultsRaw <- testthat::test_file(
-      x, 
-      reporter = testthat::ListReporter, package = "XXXXXXXXXX") %>% 
-      dplyr::as_tibble()
-    
-    return(testResultsRaw)
-}) %>% 
-  dplyr::mutate(Tests = gsub("test_qual_", "", file),
-         Tests = gsub(".R", "", Tests))
+qualification_test_results <- lapply(qualification_test_paths, function(x) {
+  test_results_raw <- testthat::test_file(x, reporter = testthat::ListReporter, package = "qcthat")
+  
+  test_results_parsed <- data.frame(test_results_raw)
+  
+  output <- data.frame(
+    File = test_results_parsed$file,
+    Passed = ifelse(test_results_parsed$passed == 1, TRUE, FALSE),
+    Skipped = test_results_parsed$skipped,
+    Description = test_results_parsed$test
+  )
+  
+  return(output)
+})
+
+tests <- do.call(rbind, qualification_test_results)
 ```
 
 # Qualification Test Results
 
 ```{r}
-gt::gt(qualification_test_results)
+gt::gt(tests)
 ```

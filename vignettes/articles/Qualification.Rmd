@@ -1,0 +1,79 @@
+---
+title: "Qualification Report"
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+
+to_md <- function(data) {
+  # ChatGPT Generated this function :O
+  # Get column names
+  col_names <- colnames(data)
+  # Get number of columns
+  num_cols <- length(col_names)
+  # Create header row
+  header <- paste("|", paste(col_names, collapse = " | "), " |", sep = "")
+  # Create separator row
+  separator <- paste("|", paste(rep("---", num_cols), collapse = " | "), " |", sep = "")
+  # Create data rows
+  data_rows <- apply(data, 1, function(row) {
+    paste("|", paste(row, collapse = " | "), " |", sep = "")
+  })
+  # Combine all parts
+  markdown_table <- c(header, separator, data_rows)
+  # Return markdown formatted table
+  return(markdown_table)
+}
+
+```
+
+```{r setup, echo=FALSE, warning=FALSE, message=FALSE}
+library(testthat)
+
+if (rlang::is_installed("qcthat")) {
+  library(qcthat)
+}
+
+devtools::load_all()
+
+qualification_test_paths <- list.files(system.file("tests", "testqualification", "qualification", package = "qcthat"), pattern = ".R", full.names = TRUE)
+
+
+if (length(qualification_test_paths) > 0) {
+  
+  qualification_test_results <- lapply(qualification_test_paths, function(x) {
+  test_results_raw <- testthat::test_file(x, reporter = testthat::ListReporter, package = "qcthat")
+  
+  test_results_parsed <- data.frame(test_results_raw)
+  
+  output <- data.frame(
+    File = test_results_parsed$file,
+    Passed = ifelse(test_results_parsed$passed == 1, TRUE, FALSE),
+    Skipped = test_results_parsed$skipped,
+    Description = test_results_parsed$test
+  )
+  
+  return(output)
+})
+
+tests <- do.call(rbind, qualification_test_results)
+  
+} else {
+  tests <- NULL
+}
+
+```
+
+# Qualification Test Results
+
+```{r, results='asis', echo=FALSE}
+
+if (!is.null(tests)) {
+  cat(to_md(tests), sep = "\n")
+} else {
+  cat("No qualification test results to display.")
+}
+```

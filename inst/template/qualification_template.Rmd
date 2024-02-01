@@ -30,11 +30,11 @@ to_md <- function(data) {
 
 ```
 
-```{r setup, echo=FALSE}
+```{r setup, echo=FALSE, warning=FALSE, message=FALSE}
 library(testthat)
 
 if (rlang::is_installed("XXXXXXXXXX")) {
-  library(XXXXXXXXXX ,quietly = TRUE)
+  library(XXXXXXXXXX)
 }
 
 devtools::load_all()

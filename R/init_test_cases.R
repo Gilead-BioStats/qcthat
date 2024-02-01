@@ -23,7 +23,7 @@ init_test_cases <- function() {
     copy_test_case_template(directory_path = directory_path)
 
     # use the {testthat} library - now need to add as a Suggests dependency
-    usethis::ui_done("Adding [ {testthat} ] to Suggests")
+    usethis::ui_done("Adding [ `testthat` ] to Suggests")
     use_dep <- utils::getFromNamespace("use_dependency", "usethis")
     use_dep("testthat", "Suggests")
   } else {

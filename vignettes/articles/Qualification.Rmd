@@ -1,5 +1,14 @@
 ---
 title: "Qualification Report"
+date: "Report Run Date: `r Sys.Date()`"
+output: 
+  pdf_document:
+    toc: true
+    number_sections: true
+vignette: >
+  %\VignetteIndexEntry{Qualification}
+  %\VignetteEncoding{UTF-8}
+  %\VignetteEngine{knitr::rmarkdown_notangle}
 ---
 
 ```{r, include = FALSE}

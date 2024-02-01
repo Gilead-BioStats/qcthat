@@ -34,7 +34,7 @@ to_md <- function(data) {
 library(testthat)
 
 if (rlang::is_installed("XXXXXXXXXX")) {
-  library(XXXXXXXXXX)
+  library(XXXXXXXXXX ,quietly = TRUE)
 }
 
 devtools::load_all()

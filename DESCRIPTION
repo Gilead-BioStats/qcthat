@@ -15,5 +15,8 @@ Imports:
     usethis
 Config/Needs/website: rmarkdown
 Suggests: 
+    knitr,
     rlang,
+    rmarkdown,
     testthat
+VignetteBuilder: knitr

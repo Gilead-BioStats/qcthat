@@ -11,12 +11,12 @@ init_report <- function(package_name = read.dcf("DESCRIPTION")[[1]]) {
   } else {
 
     # add basic rmd to `~/vignettes/articles`
-    usethis::use_vignette("Qualification", "Qualification")
+    dir.create("vignettes", showWarnings = FALSE)
 
     # modify the report to add the current package name
     report_template <- readLines(system.file("template", "qualification_template.Rmd", package = "qcthat"))
     report_template <- gsub("XXXXXXXXXX", package_name, report_template)
-    writeLines(report_template, here::here("vignettes", "Qualification.Rmd"))
+    writeLines(report_template, "vignettes/Qualification.Rmd")
 
   }
 

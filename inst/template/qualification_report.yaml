@@ -39,7 +39,7 @@ jobs:
           devtools::install(dependencies=TRUE)
 
       - name: build vignette
-        run: tools::buildVignette("./vignettes/articles/Qualification.Rmd")
+        run: tools::buildVignette("./vignettes/Qualification.Rmd")
         shell: Rscript {0}
 
       # Upload the qulafication report to the release

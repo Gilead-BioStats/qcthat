@@ -23,7 +23,7 @@ library(qcthat)
 
 # Overview
 
-This vignette explains the structure of the `{qcthat}` framework, and outlines the files and directories added to your R package after running `qcthat::initialize()`.
+This vignette explains the structure of the `{qcthat}` framework, and outlines the files and directories added to your R package after running `qcthat::qcthat()`.
 
 ## 📁 `./inst/qualification` 
 

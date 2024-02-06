@@ -3,7 +3,7 @@
 export(init_github_actions)
 export(init_specs)
 export(init_test_cases)
-export(initialize)
+export(qcthat)
 import(usethis)
 importFrom(dplyr,tibble)
 importFrom(here,here)

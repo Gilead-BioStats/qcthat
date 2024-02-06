@@ -6,11 +6,11 @@
 #'
 #' @examples
 #' \dontrun{
-#' initialize()
+#' qcthat()
 #' }
 #'
 #' @export
-initialize <- function(package_name = read.dcf("DESCRIPTION")[[1]]) {
+qcthat <- function(package_name = read.dcf("DESCRIPTION")[[1]]) {
 
   init_specs()
 

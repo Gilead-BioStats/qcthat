@@ -53,7 +53,7 @@ knitr::kable(
 - `test_qual_T1_1.R` is a template test case that shows how to link the test case to the specification (`qualification_specs.csv`).
 
 
-## 📁 `./vignettes/Qualification.Rmd`
+## 📁 `./vignettes/articles/Qualification.Rmd`
 
 - A `Qualification.Rmd` template file is created with minimal dependencies. This `.Rmd` file will run the qualification tests in your repository (found in the filepath above), aggregate the results, and display a basic table showing the test results. 
 - This file can and should be modified to fit your needs! 

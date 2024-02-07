@@ -26,6 +26,7 @@ init_test_cases <- function() {
     usethis::ui_done("Adding [ `testthat` ] to Suggests")
     use_dep <- utils::getFromNamespace("use_dependency", "usethis")
     use_dep("testthat", "Suggests")
+    usethis::ui_done("Added `testthat` to Suggests in DESCRIPTION file.")
   } else {
     usethis::ui_oops("You are either not in an R project or your working directory has been changed.")
   }

@@ -18,6 +18,13 @@ init_report <- function(package_name = read.dcf("DESCRIPTION")[[1]]) {
     report_template <- gsub("XXXXXXXXXX", package_name, report_template)
     writeLines(report_template, "vignettes/Qualification.Rmd")
 
+    use_dep <- utils::getFromNamespace("use_dependency", "usethis")
+    use_dep("devtools", "Suggests")
+    use_dep("rlang", "Suggests")
+
+    usethis::ui_done("Added `devtools` to Suggests in DESCRIPTION file.")
+    usethis::ui_done("Added `rlang` to Suggests in DESCRIPTION file.")
+
   }
 
 

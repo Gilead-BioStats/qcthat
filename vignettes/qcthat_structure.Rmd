@@ -25,6 +25,8 @@ library(qcthat)
 
 This vignette explains the structure of the `{qcthat}` framework, and outlines the files and directories added to your R package after running `qcthat::qcthat()`.
 
+---
+
 ## 📁 `./inst/qualification` 
 
 - A `qualification` folder is added to `inst`, which will store the specifications file.
@@ -46,17 +48,22 @@ knitr::kable(
 )
 ```
 
+---
 
 ## 📁 `./tests/testqualification/qualification`
 
 - A `testqualification/qualification` folder is added to `tests`, which will store the test cases/qualification tests.
 - `test_qual_T1_1.R` is a template test case that shows how to link the test case to the specification (`qualification_specs.csv`).
 
+---
+
 
 ## 📁 `./vignettes/articles/Qualification.Rmd`
 
 - A `Qualification.Rmd` template file is created with minimal dependencies. This `.Rmd` file will run the qualification tests in your repository (found in the filepath above), aggregate the results, and display a basic table showing the test results. 
 - This file can and should be modified to fit your needs! 
+
+---
 
 ## 📁 `./.github/workflows`
 

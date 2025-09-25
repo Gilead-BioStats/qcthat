@@ -1,0 +1,9 @@
+pandoc: 3.1.11
+pkgdown: 2.1.3
+pkgdown_sha: ~
+articles:
+  qcthat_structure: qcthat_structure.html
+last_built: 2025-09-25T18:25Z
+urls:
+  reference: https://gilead-biostats.github.io/qcthat/reference
+  article: https://gilead-biostats.github.io/qcthat/articles

@@ -1,2 +1,5 @@
 .Rproj.user
 docs
+.Rhistory
+.RData
+inst/doc

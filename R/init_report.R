@@ -1,5 +1,6 @@
 #' Initialize Qualification Report Template
 #'
+#' @importFrom here here
 #' @keywords internal
 init_report <- function(package_name = read.dcf("DESCRIPTION")[[1]]) {
 
@@ -10,12 +11,20 @@ init_report <- function(package_name = read.dcf("DESCRIPTION")[[1]]) {
   } else {
 
     # add basic rmd to `~/vignettes/articles`
-    usethis::use_article("Qualification", "Qualification Report")
+    dir.create("vignettes", showWarnings = FALSE)
+    dir.create("vignettes/articles", showWarnings = FALSE)
 
     # modify the report to add the current package name
     report_template <- readLines(system.file("template", "qualification_template.Rmd", package = "qcthat"))
     report_template <- gsub("XXXXXXXXXX", package_name, report_template)
-    writeLines(report_template, here::here("vignettes", "articles", "Qualification.Rmd"))
+    writeLines(report_template, "vignettes/articles/Qualification.Rmd")
+
+    use_dep <- utils::getFromNamespace("use_dependency", "usethis")
+    use_dep("devtools", "Suggests")
+    use_dep("rlang", "Suggests")
+
+    usethis::ui_done("Added `devtools` to Suggests in DESCRIPTION file.")
+    usethis::ui_done("Added `rlang` to Suggests in DESCRIPTION file.")
 
   }
 

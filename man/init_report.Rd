@@ -4,7 +4,7 @@
 \alias{init_report}
 \title{Initialize Qualification Report Template}
 \usage{
-init_report(package_name = NULL)
+init_report(package_name = read.dcf("DESCRIPTION")[[1]])
 }
 \description{
 Initialize Qualification Report Template

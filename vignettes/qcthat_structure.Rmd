@@ -1,0 +1,74 @@
+---
+title: "qcthat structure"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{qcthat structure}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  echo = FALSE,
+  warning = FALSE,
+  message = FALSE,
+  comment = "#>"
+)
+```
+
+```{r setup, echo=FALSE}
+library(qcthat)
+```
+
+# Overview
+
+This vignette explains the structure of the `{qcthat}` framework, and outlines the files and directories added to your R package after running `qcthat::qcthat()`.
+
+---
+
+## 📁 `./inst/qualification` 
+
+- A `qualification` folder is added to `inst`, which will store the specifications file.
+- `./inst/qualification/qualification_specs.csv` is a template file used for storing all qualification specifications. This file should be modified by the development team to add new specifications as needed. The qualification developer will use this file to write test cases that confirm the specifications.
+
+```{r, echo=FALSE}
+  spec_template <- dplyr::tibble(
+    Spec = "1",
+    "Test ID" = "1",
+    "Tests" = "T1_1",
+    "Function Name" = NA_character_,
+    "Description" = "This is the description for Spec 1 Test 1...",
+    "Risk" = NA_character_,
+    "Impact" = NA_character_
+  )
+
+knitr::kable(
+  spec_template
+)
+```
+
+---
+
+## 📁 `./tests/testqualification/qualification`
+
+- A `testqualification/qualification` folder is added to `tests`, which will store the test cases/qualification tests.
+- `test_qual_T1_1.R` is a template test case that shows how to link the test case to the specification (`qualification_specs.csv`).
+
+---
+
+
+## 📁 `./vignettes/articles/Qualification.Rmd`
+
+- A `Qualification.Rmd` template file is created with minimal dependencies. This `.Rmd` file will run the qualification tests in your repository (found in the filepath above), aggregate the results, and display a basic table showing the test results. 
+- This file can and should be modified to fit your needs! 
+
+---
+
+## 📁 `./.github/workflows`
+
+- A `.github/workflows` folder is created, which will store the YAML workflow file that triggers GitHub Actions.
+- If your repository has a `{pkgdown}` site, your qualification report will be included as a vignette by default.
+- If you create a pull request that targets your `main` branch, or if you release a new package version, a `.pdf` qualification report will be attached to your release. This can be fully customized based on your needs by modifying `.github/workflows/qualification_report.yaml`.
+
+

@@ -1,0 +1,9 @@
+.navbar-dark input[type="search"] {
+    border-color: #666;
+    background-color: #fff;
+    color: #fff;
+}
+
+h1,h2 {
+  font-weight: bold;
+}

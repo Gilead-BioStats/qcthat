@@ -1,25 +1,40 @@
 Package: qcthat
-Title: Lightweight quality control framework for R packages used in Clinical Trials
-Version: 0.1
-Authors@R: 
-    c(
-        person("Jeremy", "Wildfire", email="jwildfire@gmail.com", role = c("aut", "cre")),
-        person("Matt", "Roumaya", email = "Matt.Roumaya@atorusresearch.com", role = c("aut"), comment = c(ORCID = "0000-0002-8009-2771")),
-        person(given = "Gilead Sciences", role = "cph")
-    )
-Description: Lightweight quality control framework for R packages used in Clinical Trials. Minimal dependencies, flexible, and customizable.
+Title: Lightweight quality control framework for R packages used in
+    Clinical Trials
+Version: 0.1.0
+Authors@R: c(
+    person("Jeremy", "Wildfire", , "jwildfire@gmail.com", role = c("aut", "cre")),
+    person("Jon", "Harmon", , "jon.harmon@atorusresearch.com", role = "aut",
+           comment = c(ORCID = "0000-0003-4781-4346")),
+    person("Natalia", "Andriychuk", , "Natalia.Andriychuk@gilead.com", role = "aut"),
+    person("Matt", "Roumaya", , "Matt.Roumaya@atorusresearch.com", role = "aut",
+           comment = c(ORCID = "0000-0002-8009-2771")),
+    person("Gilead Sciences", role = "cph")
+  )
+Description: Lightweight quality control framework for R packages used in
+    Clinical Trials. Minimal dependencies, flexible, and customizable.
 License: Apache License (>= 2)
-Encoding: UTF-8
-Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.2.3
+URL: https://gilead-biostats.github.io/qcthat/,
+    https://github.com/Gilead-BioStats/qcthat
+BugReports: https://github.com/Gilead-BioStats/qcthat/issues
+Depends: 
+    R (>= 4.0)
 Imports: 
     dplyr,
     here,
     usethis
-Config/Needs/website: rmarkdown
 Suggests: 
     knitr,
     rlang,
     rmarkdown,
-    testthat
-VignetteBuilder: knitr
+    testthat (>= 3.0.0)
+VignetteBuilder: 
+    knitr
+Config/Needs/website: rmarkdown
+Config/testthat/edition: 3
+Config/testthat/parallel: true
+Encoding: UTF-8
+Language: en-US
+LazyData: true
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.3.2

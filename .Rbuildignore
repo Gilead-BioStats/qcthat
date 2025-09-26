@@ -1,8 +1,11 @@
 ^qcthat\.Rproj$
 ^\.Rproj\.user$
-^LICENSE\.md$
+^\.github$
+^codecov\.yml$
+^doc$
+^README\.Rmd$
 ^_pkgdown\.yml$
 ^docs$
 ^pkgdown$
-^vignettes/articles$
-^\.github$
+^LICENSE\.md$
+^CODE_OF_CONDUCT\.md$

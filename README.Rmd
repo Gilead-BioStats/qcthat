@@ -52,10 +52,6 @@ Before submitting a pull request, make sure to file an [issue](https://github.co
 
 New code should generally follow the [tidyverse style guide](https://style.tidyverse.org/).
 
-## Code of Conduct
-
-Please note that the qcthat project is released with a [Contributor Code of Conduct](https://gilead-biostats.github.io/qcthat/CODE_OF_CONDUCT.html). By contributing to this project, you agree to abide by its terms.
-
 # Business Process
 
 ## Roles:
@@ -111,3 +107,8 @@ Please note that the qcthat project is released with a [Contributor Code of Cond
 -   Release:
 
     -   Upon acceptance, the PD or QCP creates a formal release in accordance with established version control conventions. This serves as an equivalent of program deployment into production environment.
+    
+## Code of Conduct
+
+Please note that the qcthat project is released with a [Contributor Code of Conduct](https://gilead-biostats.github.io/qcthat/CODE_OF_CONDUCT.html). By contributing to this project, you agree to abide by its terms.
+

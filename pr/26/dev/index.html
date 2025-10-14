@@ -79,7 +79,7 @@
 </div>
 </div>
 <div class="section level1">
-<h1 id="business-process">Business Process<a class="anchor" aria-label="anchor" href="#business-process"></a>
+<h1 id="business-process-overview">Business Process Overview<a class="anchor" aria-label="anchor" href="#business-process-overview"></a>
 </h1>
 <div class="section level2">
 <h2 id="roles">Roles<a class="anchor" aria-label="anchor" href="#roles"></a>
@@ -99,8 +99,8 @@
 <h3 id="intake">Intake<a class="anchor" aria-label="anchor" href="#intake"></a>
 </h3>
 <ul>
-<li>PD Receives feature/programming request from USR.</li>
-<li>PD Documents Business Requirements based on the feature/programming request. PD creates an issue for each Business Requirement and adds an appropriate Tag (“Requirement”). Issue name must label the issue as a business requirement (e.g. “Business Requirement: {description}”).</li>
+<li>PD receives feature/programming request from USR.</li>
+<li>PD documents Business Requirements based on the feature/programming request.* PD creates an issue for each Business Requirement and adds an appropriate Tag (“Requirement”). Issue name must label the issue as a business requirement (e.g. “Business Requirement: {description}”).</li>
 <li>PD creates and links separate issues or sub-issues to document technical requirements and implementation details for each business requirement. Appropriate Type is added (e.g., “Feature”, “Technical Task”, “Documentation Task”).</li>
 </ul>
 </div>
@@ -108,13 +108,14 @@
 <h3 id="code-development">Code Development<a class="anchor" aria-label="anchor" href="#code-development"></a>
 </h3>
 <ul>
+<li>PD develops or modifies program using the user requirements.*</li>
 <li>All stakeholders (PD, TL, QCP and USR) add comments and reactions on the issue to finalize scope as needed.</li>
 <li>USR and/or TL documents approval of business requirements via comment or a “thumbs up” reaction as needed.</li>
 <li>PD provides clear description of changes with every commit comment. If developer chooses to provide a message addressing a specific change, the commit comment should be a descriptive, concise, single-line summary of the change. If more context is needed, PD should add a comment to an issue in GitHub.</li>
 </ul>
 </div>
 <div class="section level3">
-<h3 id="testing">Testing:<a class="anchor" aria-label="anchor" href="#testing"></a>
+<h3 id="testing">Testing<a class="anchor" aria-label="anchor" href="#testing"></a>
 </h3>
 <ul>
 <li>Where applicable, QCP or PD defines an automated test for every applicable user requirement to demonstrate that the information displayed by the report/application is fit for purpose and meets the stated requirement. Testing is performed by using common frameworks {testthat} and {shinytest2} depending on the development process. Tests are linked to the corresponding business requirements.</li>
@@ -122,12 +123,12 @@
 </ul>
 </div>
 <div class="section level3">
-<h3 id="code-review">Code Review:<a class="anchor" aria-label="anchor" href="#code-review"></a>
+<h3 id="code-review">Code Review<a class="anchor" aria-label="anchor" href="#code-review"></a>
 </h3>
 <ul>
-<li>Upon completion of code development and testing, the PD initiates a Pull Request (PR).</li>
-<li>All relevant issues and tests are linked to the PR.</li>
-<li>QCP conducts code review. All questions and necessary code adjustments are addressed in the process of code review.</li>
+<li>Upon completion of code development and testing, the PD initiates a Pull Request (PR). All relevant issues and tests are linked to the PR.</li>
+<li>QCP determines appropriate level of review. Verifies the code and/or output against the user requirements and documents the method and results.*</li>
+<li>All questions and necessary code adjustments are addressed in the process of code review.</li>
 </ul>
 </div>
 <div class="section level3">
@@ -135,14 +136,14 @@
 </h3>
 <ul>
 <li>Once the PD has addressed all required feedback, the TL conducts a final review of the code changes and documentation. TL verifies that all tests have passed, the website is successfully deployed (if applicable), and the release pull request (PR) correctly targets the primary branch.</li>
-<li>Final acceptance of the utility program or interactive report is documented by the TL or QCP through formal approval of the Pull Request (PR) within the SCM system. Once the request is approved, the finalized code is merged into the main code base and ready for release.</li>
+<li>When the qualification of the program is completed, QCP confirms and documents the result and acceptance.* Final acceptance of the utility program or interactive report is documented by the TL or QCP through formal approval of the Pull Request (PR) within the SCM system. Once the request is approved, the finalized code is merged into the main code base and ready for release.</li>
 </ul>
 </div>
 <div class="section level3">
 <h3 id="release">Release:<a class="anchor" aria-label="anchor" href="#release"></a>
 </h3>
 <ul>
-<li>Upon acceptance, the PD or QCP creates a formal release in accordance with established version control conventions. This serves as an equivalent of program deployment into a production environment.</li>
+<li>Upon acceptance, the PD or QCP creates a formal release in accordance with established version control conventions. This serves as documentation and as an equivalent of program deployment into a production environment.</li>
 </ul>
 </div>
 </div>

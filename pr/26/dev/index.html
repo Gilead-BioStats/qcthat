@@ -60,6 +60,7 @@
 </h1></div>
 <!-- badges: start -->
 
+<!-- badges: end -->
 <p><a href="https://gilead-biostats.github.io/qcthat/">qcthat</a> is a quality control framework for R packages used in Clinical Trials. It has been adopted from the qualification framework used in <a href="https://github.com/Gilead-BioStats/gsm" class="external-link"><code>{gsm}</code></a>.</p>
 <p>The benefit of using <a href="https://gilead-biostats.github.io/qcthat/">qcthat</a> is that you are given a basic scaffold to build out a qualification testing strategy for your R package. This includes:</p>
 <ul>
@@ -88,12 +89,78 @@
 </ul>
 <p>New code should generally follow the <a href="https://style.tidyverse.org/" class="external-link">tidyverse style guide</a>.</p>
 </div>
+</div>
+<div class="section level1">
+<h1 id="business-process">Business Process<a class="anchor" aria-label="anchor" href="#business-process"></a>
+</h1>
+<div class="section level2">
+<h2 id="roles">Roles:<a class="anchor" aria-label="anchor" href="#roles"></a>
+</h2>
+<ul>
+<li><p>TL - Team Lead</p></li>
+<li><p>PD - Program Developer</p></li>
+<li><p>QCP - Quality Control Programmer</p></li>
+<li><p>USR - User or Requestor</p></li>
+<li><p>BR - Business Requirements</p></li>
+</ul>
+</div>
+<div class="section level2">
+<h2 id="process">Process<a class="anchor" aria-label="anchor" href="#process"></a>
+</h2>
+<ul>
+<li>
+<p>Intake:</p>
+<ul>
+<li><p>PD Receives feature/programming request from USR.</p></li>
+<li><p>PD Documents Business Requirements based on the feature/programming request. PD creates an issue for each Business Requirement and adds an appropriate Tag (“Requirement”). Issue name must label the issue as a business requirement (e.g. “Business Requirement: {description}”).</p></li>
+<li><p>PD creates and links separate issues or sub-issues to document technical requirements and implementation details for each business requirement. Appropriate Tag is added (e.g., “Feature”, “Technical”, “Documentation”) Development Process:</p></li>
+</ul>
+</li>
+<li>
+<p>Code Development:</p>
+<ul>
+<li><p>All stakeholders (PD, TL, QCP and USR) add comments and reactions on the issue to finalize scope as needed.</p></li>
+<li><p>USR and/or TL documents approval of business requirements via comment or a “thumbs up” reaction as needed.</p></li>
+<li><p>PD provides clear description of changes with every commit comment. If developer chooses to provide a message addressing specific change, the commit comment should be descriptive, concise, single-line summary of the change. If more context is needed, PD should add comment to an issue in GitHub</p></li>
+</ul>
+</li>
+<li>
+<p>Testing:</p>
+<ul>
+<li><p>Where applicable, QCP or PD defines an automated test for every applicable user requirement to demonstrate that the information displayed by the report/application is fit for purpose and meets the stated requirement. Testing is performed by using common frameworks {testthat} and {shinytest2} depending on the development process. Tests linked to the corresponding business requirements.</p></li>
+<li><p>Testing strategy for each requirement can be documented by updating the Business Requirement GitHub issues or by referencing the issue number in the commit message for test code. Testing is executed via automated services (such as GitHub Actions).</p></li>
+</ul>
+</li>
+<li>
+<p>Code Review:</p>
+<ul>
+<li><p>Upon completion of code development and testing, the PD initiates a Pull Request (PR)).</p></li>
+<li><p>All relevant issues and tests are linked to the PR.</p></li>
+<li><p>QCP conducts code review. All questions and necesarry code adjustments are addressed in the process of code review.</p></li>
+</ul>
+</li>
+<li>
+<p>QC and Acceptance:</p>
+<ul>
+<li><p>Once the PD has addressed all required feedback, the TL conducts a final review of the code changes and documentation. TL verifies that all tests have passed, the website is successfully deployed (if applicable), and the release pull request (PR) correctly targets the primary branch.</p></li>
+<li><p>Final acceptance of the utility program or interactive report is documented by the TL or QCP through formal approval of the Pull Request (PR) within the SCM system. Once request is approved, the finalized code is merged into the main code base and ready for release.</p></li>
+</ul>
+</li>
+<li>
+<p>Release:</p>
+<ul>
+<li>Upon acceptance, the PD or QCP creates a formal release in accordance with established version control conventions. This serves as an equivalent of program deployment into production environment.</li>
+</ul>
+</li>
+</ul>
+</div>
 <div class="section level2">
 <h2 id="code-of-conduct">Code of Conduct<a class="anchor" aria-label="anchor" href="#code-of-conduct"></a>
 </h2>
 <p>Please note that the qcthat project is released with a <a href="https://gilead-biostats.github.io/qcthat/CODE_OF_CONDUCT.html">Contributor Code of Conduct</a>. By contributing to this project, you agree to abide by its terms.</p>
 </div>
 </div>
+
   </main><aside class="col-md-3"><div class="links">
 <h2 data-toc-skip>Links</h2>
 <ul class="list-unstyled">

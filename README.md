@@ -43,6 +43,15 @@ pak::pak("Gilead-BioStats/qcthat")
 
 # Business Process Overview
 
+The minimal development process for {qcthat} can be summarized as: "Tests that reference GitHub issues are summarized in a Qualification Report."  
+
+To break this down further, the minimum required steps for {qcthat} implementation are summarized below. For each required step, additional (optional) configuration details for each core step are described in the following sections. Throughout this section 🧑‍💼 is used to indicate a manual task, and 💻 is used to indicate automated tasks. 
+
+1. **File Issues 🧑‍💼** - Program developer documents feature/programming requirements using Github Issues.
+2. **Write Code 🧑‍💼** - Program developer updates code and associated documentation in R package. 
+3. **Write Tests 🧑‍💼** - Quality Control Programer writes needed tests and includes a link to the issue by including `Tests #{issue-number}` in the test description.
+4. **Release Package 💻** - Upon a GitHub release, all tests are automatically run and a summary report linking issues with associated tests is created and attached to the release. 
+
 ## Roles
 
 - TL: Team Lead
@@ -50,14 +59,12 @@ pak::pak("Gilead-BioStats/qcthat")
 - QCP: Quality Control Programmer
 - USR: User or Requester
 - BR: Business Requirements
-
-## Development Process
-
+  
 ### Intake
 
 - PD receives feature/programming request from USR.
-- PD documents Business Requirements based on the feature/programming
-  request.\* PD creates an issue for each Business Requirement and adds
+- PD documents  feature/programming request from USR using Github Issues.\*
+- PD creates an issue for each Business Requirement and adds
   an appropriate Tag (“Requirement”). Issue name must label the issue as
   a business requirement (e.g. “Business Requirement: {description}”).
 - PD creates and links separate issues or sub-issues to document

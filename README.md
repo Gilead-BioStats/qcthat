@@ -1,7 +1,7 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# Overview ✅
+# qcthat ✅
 
 <!-- badges: start -->
 
@@ -11,25 +11,14 @@ coverage](https://codecov.io/gh/Gilead-BioStats/qcthat/graph/badge.svg)](https:/
 
 <!-- badges: end -->
 
-`{qcthat}` is a quality control framework for R packages used in
-Clinical Trials. It has been adopted from the qualification framework
-used in [`{gsm}`](https://github.com/Gilead-BioStats/gsm).
+`{qcthat}` is a quality control framework for R packages, particularly
+those used in Clinical Trials. It is being adapted from the
+qualification framework used in the `gsm` family of packages, such as
+[`{gsm.core}`](https://github.com/Gilead-BioStats/gsm.core) and
+[`{gsm.app}`](https://github.com/Gilead-BioStats/gsm.app).
 
-The benefit of using `{qcthat}` is that you are given a basic scaffold
-to build out a qualification testing strategy for your R package. This
-includes:
-
-- A qualification testing folder that lives inside of your `/tests`
-  folder; designed to use with
-  [`{testthat}`](https://testthat.r-lib.org/).
-- A basic `.Rmd` report that displays the results of qualification
-  tests.
-- A `.github/workflows` folder that includes a templated YAML file,
-  which will automate the creation of a qualification report for every
-  new release of your R package. This can be easily customized to fit
-  your needs.
-
-Read more in `vignette("qcthat_structure")`.
+`{qcthat}` is under active development. Here we describe what we are
+aiming toward, not necessarily what is currently implemented.
 
 ## Installation 📥
 
@@ -41,9 +30,29 @@ You can install the development version of qcthat from
 pak::pak("Gilead-BioStats/qcthat")
 ```
 
-# Business Process Overview
+## Business Process Overview 📄
 
-## Roles
+The goal of `{qcthat}` is to provide a qualification report linking
+GitHub issues to evidence that those issues have been implemented.
+
+To break this down further, the minimum required steps for {qcthat}
+implementation are summarized below. For each required step, additional
+(optional) configuration details for each core step are described in the
+following sections. Throughout this section 🧑‍💼 is used to indicate a
+manual task, and 💻 is used to indicate automated tasks.
+
+1.  **File Issues 🧑‍💼** - Program developer documents feature/programming
+    requirements using Github Issues.
+2.  **Write Code 🧑‍💼** - Program developer updates code and associated
+    documentation in R package.
+3.  **Write Tests 🧑‍💼** - Quality Control Programmer writes needed tests
+    and includes a link to the issue by including
+    `Tests #{issue-number}` in the test description.
+4.  **Release Package 💻** - Upon a GitHub release, all tests are
+    automatically run and a summary report linking issues with
+    associated tests is created and attached to the release.
+
+### Roles
 
 - TL: Team Lead
 - PD: Program Developer
@@ -51,15 +60,13 @@ pak::pak("Gilead-BioStats/qcthat")
 - USR: User or Requester
 - BR: Business Requirements
 
-## Development Process
-
 ### Intake
 
 - PD receives feature/programming request from USR.
-- PD documents Business Requirements based on the feature/programming
-  request.\* PD creates an issue for each Business Requirement and adds
-  an appropriate Tag (“Requirement”). Issue name must label the issue as
-  a business requirement (e.g. “Business Requirement: {description}”).
+- PD documents feature/programming request from USR using Github Issues.
+- PD creates an issue for each Business Requirement and adds an
+  appropriate Tag (“Requirement”). Issue name must label the issue as a
+  business requirement (e.g. “Business Requirement: {description}”).
 - PD creates and links separate issues or sub-issues to document
   technical requirements and implementation details for each business
   requirement. Appropriate Type is added (e.g., “Feature”, “Technical
@@ -67,7 +74,7 @@ pak::pak("Gilead-BioStats/qcthat")
 
 ### Code Development
 
-- PD develops or modifies program using the user requirements.\*
+- PD develops or modifies program using the user requirements.
 - All stakeholders (PD, TL, QCP and USR) add comments and reactions on
   the issue to finalize scope as needed.
 - USR and/or TL documents approval of business requirements via comment
@@ -97,7 +104,7 @@ pak::pak("Gilead-BioStats/qcthat")
   Pull Request (PR). All relevant issues and tests are linked to the PR.
 - QCP determines appropriate level of review. Verifies the code and/or
   output against the user requirements and documents the method and
-  results.\*
+  results.
 - All questions and necessary code adjustments are addressed in the
   process of code review.
 
@@ -109,7 +116,7 @@ pak::pak("Gilead-BioStats/qcthat")
   applicable), and the release pull request (PR) correctly targets the
   primary branch.
 - When the qualification of the program is completed, QCP confirms and
-  documents the result and acceptance.\* Final acceptance of the utility
+  documents the result and acceptance. Final acceptance of the utility
   program or interactive report is documented by the TL or QCP through
   formal approval of the Pull Request (PR) within the SCM system. Once
   the request is approved, the finalized code is merged into the main
@@ -122,7 +129,7 @@ pak::pak("Gilead-BioStats/qcthat")
   documentation and as an equivalent of program deployment into a
   production environment.
 
-# Contributing 👩‍💻
+## Contributing 👩‍💻
 
 Contributions are welcome! Creating a utility package that is
 generalizable and extensible to all sorts of repository structures is
@@ -139,7 +146,7 @@ generally fall under one of the following categories:
 New code should generally follow the [tidyverse style
 guide](https://style.tidyverse.org/).
 
-## Code of Conduct
+### Code of Conduct
 
 Please note that the qcthat project is released with a [Contributor Code
 of

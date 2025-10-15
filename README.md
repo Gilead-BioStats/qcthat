@@ -1,7 +1,7 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# Overview ✅
+# qcthat ✅
 
 <!-- badges: start -->
 
@@ -11,25 +11,14 @@ coverage](https://codecov.io/gh/Gilead-BioStats/qcthat/graph/badge.svg)](https:/
 
 <!-- badges: end -->
 
-`{qcthat}` is a quality control framework for R packages used in
-Clinical Trials. It has been adopted from the qualification framework
-used in [`{gsm}`](https://github.com/Gilead-BioStats/gsm).
+`{qcthat}` is a quality control framework for R packages, particularly
+those used in Clinical Trials. It is being adapted from the
+qualification framework used in the `gsm` family of packages, such as
+[`{gsm.core}`](https://github.com/Gilead-BioStats/gsm.core) and
+[`{gsm.app}`](https://github.com/Gilead-BioStats/gsm.app).
 
-The benefit of using `{qcthat}` is that you are given a basic scaffold
-to build out a qualification testing strategy for your R package. This
-includes:
-
-- A qualification testing folder that lives inside of your `/tests`
-  folder; designed to use with
-  [`{testthat}`](https://testthat.r-lib.org/).
-- A basic `.Rmd` report that displays the results of qualification
-  tests.
-- A `.github/workflows` folder that includes a templated YAML file,
-  which will automate the creation of a qualification report for every
-  new release of your R package. This can be easily customized to fit
-  your needs.
-
-Read more in `vignette("qcthat_structure")`.
+`{qcthat}` is under active development. Here we describe what we are
+aiming toward, not necessarily what is currently implemented.
 
 ## Installation 📥
 
@@ -41,11 +30,10 @@ You can install the development version of qcthat from
 pak::pak("Gilead-BioStats/qcthat")
 ```
 
-# Business Process Overview
+## Business Process Overview 📄
 
-The minimal development process for {qcthat} can be summarized as:
-“Tests that reference GitHub issues are summarized in a Qualification
-Report.”
+The goal of `{qcthat}` is to provide a qualification report linking
+GitHub issues to evidence that those issues have been implemented.
 
 To break this down further, the minimum required steps for {qcthat}
 implementation are summarized below. For each required step, additional
@@ -57,14 +45,14 @@ manual task, and 💻 is used to indicate automated tasks.
     requirements using Github Issues.
 2.  **Write Code 🧑‍💼** - Program developer updates code and associated
     documentation in R package.
-3.  **Write Tests 🧑‍💼** - Quality Control Programer writes needed tests
+3.  **Write Tests 🧑‍💼** - Quality Control Programmer writes needed tests
     and includes a link to the issue by including
     `Tests #{issue-number}` in the test description.
 4.  **Release Package 💻** - Upon a GitHub release, all tests are
     automatically run and a summary report linking issues with
     associated tests is created and attached to the release.
 
-## Roles
+### Roles
 
 - TL: Team Lead
 - PD: Program Developer
@@ -72,7 +60,7 @@ manual task, and 💻 is used to indicate automated tasks.
 - USR: User or Requester
 - BR: Business Requirements
 
-## Intake
+### Intake
 
 - PD receives feature/programming request from USR.
 - PD documents feature/programming request from USR using Github Issues.
@@ -84,7 +72,7 @@ manual task, and 💻 is used to indicate automated tasks.
   requirement. Appropriate Type is added (e.g., “Feature”, “Technical
   Task”, “Documentation Task”).
 
-## Code Development
+### Code Development
 
 - PD develops or modifies program using the user requirements.
 - All stakeholders (PD, TL, QCP and USR) add comments and reactions on
@@ -97,7 +85,7 @@ manual task, and 💻 is used to indicate automated tasks.
   summary of the change. If more context is needed, PD should add a
   comment to an issue in GitHub.
 
-## Testing
+### Testing
 
 - Where applicable, QCP or PD defines an automated test for every
   applicable user requirement to demonstrate that the information
@@ -110,7 +98,7 @@ manual task, and 💻 is used to indicate automated tasks.
   number in the commit message for test code. Testing is executed via
   automated services (such as GitHub Actions).
 
-## Code Review
+### Code Review
 
 - Upon completion of code development and testing, the PD initiates a
   Pull Request (PR). All relevant issues and tests are linked to the PR.
@@ -120,7 +108,7 @@ manual task, and 💻 is used to indicate automated tasks.
 - All questions and necessary code adjustments are addressed in the
   process of code review.
 
-## QC and Acceptance:
+### QC and Acceptance:
 
 - Once the PD has addressed all required feedback, the TL conducts a
   final review of the code changes and documentation. TL verifies that
@@ -134,14 +122,14 @@ manual task, and 💻 is used to indicate automated tasks.
   the request is approved, the finalized code is merged into the main
   code base and ready for release.
 
-## Release:
+### Release:
 
 - Upon acceptance, the PD or QCP creates a formal release in accordance
   with established version control conventions. This serves as
   documentation and as an equivalent of program deployment into a
   production environment.
 
-# Contributing 👩‍💻
+## Contributing 👩‍💻
 
 Contributions are welcome! Creating a utility package that is
 generalizable and extensible to all sorts of repository structures is
@@ -158,7 +146,7 @@ generally fall under one of the following categories:
 New code should generally follow the [tidyverse style
 guide](https://style.tidyverse.org/).
 
-## Code of Conduct
+### Code of Conduct
 
 Please note that the qcthat project is released with a [Contributor Code
 of

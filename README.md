@@ -43,14 +43,26 @@ pak::pak("Gilead-BioStats/qcthat")
 
 # Business Process Overview
 
-The minimal development process for {qcthat} can be summarized as: "Tests that reference GitHub issues are summarized in a Qualification Report."  
+The minimal development process for {qcthat} can be summarized as:
+“Tests that reference GitHub issues are summarized in a Qualification
+Report.”
 
-To break this down further, the minimum required steps for {qcthat} implementation are summarized below. For each required step, additional (optional) configuration details for each core step are described in the following sections. Throughout this section 🧑‍💼 is used to indicate a manual task, and 💻 is used to indicate automated tasks. 
+To break this down further, the minimum required steps for {qcthat}
+implementation are summarized below. For each required step, additional
+(optional) configuration details for each core step are described in the
+following sections. Throughout this section 🧑‍💼 is used to indicate a
+manual task, and 💻 is used to indicate automated tasks.
 
-1. **File Issues 🧑‍💼** - Program developer documents feature/programming requirements using Github Issues.
-2. **Write Code 🧑‍💼** - Program developer updates code and associated documentation in R package. 
-3. **Write Tests 🧑‍💼** - Quality Control Programer writes needed tests and includes a link to the issue by including `Tests #{issue-number}` in the test description.
-4. **Release Package 💻** - Upon a GitHub release, all tests are automatically run and a summary report linking issues with associated tests is created and attached to the release. 
+1.  **File Issues 🧑‍💼** - Program developer documents feature/programming
+    requirements using Github Issues.
+2.  **Write Code 🧑‍💼** - Program developer updates code and associated
+    documentation in R package.
+3.  **Write Tests 🧑‍💼** - Quality Control Programer writes needed tests
+    and includes a link to the issue by including
+    `Tests #{issue-number}` in the test description.
+4.  **Release Package 💻** - Upon a GitHub release, all tests are
+    automatically run and a summary report linking issues with
+    associated tests is created and attached to the release.
 
 ## Roles
 
@@ -59,22 +71,22 @@ To break this down further, the minimum required steps for {qcthat} implementati
 - QCP: Quality Control Programmer
 - USR: User or Requester
 - BR: Business Requirements
-  
-### Intake
+
+## Intake
 
 - PD receives feature/programming request from USR.
-- PD documents  feature/programming request from USR using Github Issues.\*
-- PD creates an issue for each Business Requirement and adds
-  an appropriate Tag (“Requirement”). Issue name must label the issue as
-  a business requirement (e.g. “Business Requirement: {description}”).
+- PD documents feature/programming request from USR using Github Issues.
+- PD creates an issue for each Business Requirement and adds an
+  appropriate Tag (“Requirement”). Issue name must label the issue as a
+  business requirement (e.g. “Business Requirement: {description}”).
 - PD creates and links separate issues or sub-issues to document
   technical requirements and implementation details for each business
   requirement. Appropriate Type is added (e.g., “Feature”, “Technical
   Task”, “Documentation Task”).
 
-### Code Development
+## Code Development
 
-- PD develops or modifies program using the user requirements.\*
+- PD develops or modifies program using the user requirements.
 - All stakeholders (PD, TL, QCP and USR) add comments and reactions on
   the issue to finalize scope as needed.
 - USR and/or TL documents approval of business requirements via comment
@@ -85,7 +97,7 @@ To break this down further, the minimum required steps for {qcthat} implementati
   summary of the change. If more context is needed, PD should add a
   comment to an issue in GitHub.
 
-### Testing
+## Testing
 
 - Where applicable, QCP or PD defines an automated test for every
   applicable user requirement to demonstrate that the information
@@ -98,17 +110,17 @@ To break this down further, the minimum required steps for {qcthat} implementati
   number in the commit message for test code. Testing is executed via
   automated services (such as GitHub Actions).
 
-### Code Review
+## Code Review
 
 - Upon completion of code development and testing, the PD initiates a
   Pull Request (PR). All relevant issues and tests are linked to the PR.
 - QCP determines appropriate level of review. Verifies the code and/or
   output against the user requirements and documents the method and
-  results.\*
+  results.
 - All questions and necessary code adjustments are addressed in the
   process of code review.
 
-### QC and Acceptance:
+## QC and Acceptance:
 
 - Once the PD has addressed all required feedback, the TL conducts a
   final review of the code changes and documentation. TL verifies that
@@ -116,13 +128,13 @@ To break this down further, the minimum required steps for {qcthat} implementati
   applicable), and the release pull request (PR) correctly targets the
   primary branch.
 - When the qualification of the program is completed, QCP confirms and
-  documents the result and acceptance.\* Final acceptance of the utility
+  documents the result and acceptance. Final acceptance of the utility
   program or interactive report is documented by the TL or QCP through
   formal approval of the Pull Request (PR) within the SCM system. Once
   the request is approved, the finalized code is merged into the main
   code base and ready for release.
 
-### Release:
+## Release:
 
 - Upon acceptance, the PD or QCP creates a formal release in accordance
   with established version control conventions. This serves as

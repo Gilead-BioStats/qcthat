@@ -21,10 +21,13 @@ Depends:
     R (>= 4.1)
 Imports: 
     cli,
+    dplyr,
+    gh,
     purrr,
     rlang,
     stringr,
-    tibble
+    tibble,
+    tidyr
 Suggests: 
     testthat (>= 3.0.0)
 Config/Needs/website: rmarkdown

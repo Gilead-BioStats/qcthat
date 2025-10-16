@@ -4,6 +4,7 @@ GenerateTestResult <- function(
   chrDisposition = c("pass", "fail", "skip"),
   intGHIssues = integer()
 ) {
+  chrDisposition <- match.arg(chrDisposition)
   classes <- switch(
     chrDisposition,
     pass = c("expectation_success", "expectation", "condition"),

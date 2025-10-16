@@ -136,7 +136,7 @@ FetchRepoIssues <- function(
 }
 
 .SeparateParentColumn <- function(dfIssues) {
-  tidyr::separate_wider_regex(
+  dfIssues <- tidyr::separate_wider_regex(
     dfIssues,
     "ParentUrl",
     patterns = c(
@@ -148,4 +148,6 @@ FetchRepoIssues <- function(
       ParentNumber = "\\d+$"
     )
   )
+  dfIssues$ParentNumber <- as.integer(dfIssues$ParentNumber)
+  return(dfIssues)
 }

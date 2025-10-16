@@ -46,7 +46,7 @@ test_that("FetchRepoIssues returns a formatted df for real issues (#34)", {
     ),
     ParentOwner = NA_character_,
     ParentRepo = NA_character_,
-    ParentNumber = NA_character_,
+    ParentNumber = NA_integer_,
     CreatedAt = as.POSIXct(NA, tz = "UTC"),
     ClosedAt = as.POSIXct(
       dplyr::if_else(

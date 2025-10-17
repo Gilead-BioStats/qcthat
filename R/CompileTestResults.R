@@ -7,13 +7,13 @@
 #'   typically obtained by running something like [testthat::test_local()] with
 #'   `stop_on_failure = FALSE`, and assigning it to a name.
 #'
-#' @returns A [tibble::tibble()] with columns:
-#'   - `Description`: The `desc` field of the test from
-#'   [testthat::test_that()].
+#' @returns A `qcthat_TestResults` object, which is a [tibble::tibble()] with
+#'   columns:
+#'   - `Test`: The `desc` field of the test from [testthat::test_that()].
 #'   - `File`: File where the test is defined.
 #'   - `Disposition`: Factor with levels `pass`, `fail`, and `skip`
 #'   indicating the overall outcome of the test.
-#'   - `IssueNumbers`: List column containing integer vectors of associated
+#'   - `Issues`: List column containing integer vectors of associated
 #'   GitHub issue numbers.
 #' @export
 #'
@@ -58,16 +58,34 @@ CompileTestResults <- function(lTestResults) {
       class = "qcthat-error-bad_input"
     )
   }
-  return(
+  AsTestResultsDF(
     tibble::tibble(
-      Description = purrr::map_chr(lTestResults, "test"),
+      Test = purrr::map_chr(lTestResults, "test"),
       File = purrr::map_chr(lTestResults, "file"),
       Disposition = CompileDispositions(lTestResults),
-      IssueNumbers = purrr::map(
-        stringr::str_extract_all(.data$Description, "(?<=#)\\d+"),
+      Issues = purrr::map(
+        stringr::str_extract_all(.data$Test, "(?<=#)\\d+"),
         as.integer
       )
     )
+  )
+}
+
+#' Assign the qcthat_TestResults class to a data frame
+#'
+#' @inheritParams AsExpectedDF
+#' @returns A `qcthat_TestResults` object.
+#' @keywords internal
+AsTestResultsDF <- function(df) {
+  AsExpectedDF(
+    df,
+    tibble::tibble(
+      Test = character(),
+      File = character(),
+      Disposition = factor(levels = c("pass", "fail", "skip")),
+      Issues = list()
+    ),
+    chrClass = "qcthat_TestResults"
   )
 }
 

@@ -8,8 +8,9 @@
 #' @param strGHToken (`length-1 character`) GitHub token with permissions to
 #'   read issues.
 #'
-#' @returns A [tibble::tibble()] with columns:
-#'   - `Number`: Issue number.
+#' @returns A `qcthat_Issues` object, which is a [tibble::tibble()] with
+#'   columns:
+#'   - `Issue`: Issue number.
 #'   - `Title`: Issue title.
 #'   - `Labels`: List column of character vectors of issue labels.
 #'   - `State`: Issue state (`open` or `closed`).
@@ -90,7 +91,7 @@ RemovePRsFromIssues <- function(lIssuesRaw) {
 #' @keywords internal
 CompileIssuesDF <- function(lIssuesNonPR) {
   if (!length(lIssuesNonPR)) {
-    return(EmptyIssuesDF())
+    return(AsIssuesDF(EmptyIssuesDF()))
   }
   EnframeIssues(lIssuesNonPR) |>
     dplyr::mutate(
@@ -100,7 +101,21 @@ CompileIssuesDF <- function(lIssuesNonPR) {
       CreatedAt = as.POSIXct(.data$CreatedAt, tz = "UTC"),
       ClosedAt = as.POSIXct(.data$ClosedAt, tz = "UTC")
     ) |>
-    SeparateParentColumn()
+    SeparateParentColumn() |>
+    AsIssuesDF()
+}
+
+#' Assign the qcthat_Issues class to a data frame
+#'
+#' @inheritParams AsExpectedDF
+#' @returns A `qcthat_Issues` object.
+#' @keywords internal
+AsIssuesDF <- function(df) {
+  AsExpectedDF(
+    df,
+    EmptyIssuesDF(),
+    chrClass = "qcthat_Issues"
+  )
 }
 
 #' Empty issues data frame
@@ -109,8 +124,9 @@ CompileIssuesDF <- function(lIssuesNonPR) {
 #' @keywords internal
 EmptyIssuesDF <- function() {
   tibble::tibble(
-    Number = integer(0),
+    Issue = integer(0),
     Title = character(0),
+    Body = character(0),
     Labels = list(),
     State = character(0),
     StateReason = character(0),
@@ -135,8 +151,9 @@ EnframeIssues <- function(lIssuesNonPR) {
     tidyr::unnest_wider("value") |>
     dplyr::select(
       dplyr::any_of(c(
-        Number = "number",
+        Issue = "number",
         Title = "title",
+        Body = "body",
         Labels = "labels",
         State = "state",
         StateReason = "state_reason",
@@ -163,8 +180,9 @@ EnframeIssues <- function(lIssuesNonPR) {
 #' @keywords internal
 EmptyIssuesDFRaw <- function() {
   tibble::tibble(
-    Number = integer(0),
+    Issue = integer(0),
     Title = character(0),
+    Body = character(0),
     Labels = list(),
     State = character(0),
     StateReason = character(0),
@@ -172,8 +190,8 @@ EmptyIssuesDFRaw <- function() {
     Type = list(),
     Url = character(0),
     ParentUrl = character(0),
-    CreatedAt = as.POSIXct(character(0)),
-    ClosedAt = as.POSIXct(character(0))
+    CreatedAt = character(0),
+    ClosedAt = character(0)
   )
 }
 

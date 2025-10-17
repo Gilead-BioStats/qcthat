@@ -13,27 +13,31 @@ test_that("CompileTestResults errors informatively for bad input (#32)", {
 
 test_that("CompileTestResults works for empty testthat_results (#32)", {
   lEmptyResults <- structure(list(), class = "testthat_results")
+  test_result <- CompileTestResults(lEmptyResults)
+  expect_s3_class(test_result, "qcthat_TestResults")
+  expect_s3_class(test_result, "tbl_df")
+  class(test_result) <- class(tibble::tibble())
   expect_equal(
-    {
-      CompileTestResults(lEmptyResults)
-    },
+    test_result,
     tibble::tibble(
-      Description = character(),
+      Test = character(),
       File = character(),
       Disposition = factor(levels = c("pass", "fail", "skip")),
-      IssueNumbers = list()
+      Issues = list()
     )
   )
 })
 
 test_that("CompileTestResults returns the expected object (#32)", {
   lTestResults <- GenerateStandardTestResults()
+  test_result <- CompileTestResults(lTestResults)
+  expect_s3_class(test_result, "qcthat_TestResults")
+  expect_s3_class(test_result, "tbl_df")
+  class(test_result) <- class(tibble::tibble())
   expect_equal(
-    {
-      CompileTestResults(lTestResults)
-    },
+    test_result,
     tibble::tibble(
-      Description = c(
+      Test = c(
         "First test with one GH issue (#32)",
         "Second test with multiple GH issues (#32, #33, #34)",
         "Third test with 0 GH issues, failure",
@@ -49,7 +53,7 @@ test_that("CompileTestResults returns the expected object (#32)", {
         c("pass", "pass", "fail", "skip"),
         levels = c("pass", "fail", "skip")
       ),
-      IssueNumbers = list(
+      Issues = list(
         32L,
         32:34,
         integer(),

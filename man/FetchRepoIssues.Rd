@@ -19,9 +19,10 @@ FetchRepoIssues(
 read issues.}
 }
 \value{
-A \code{\link[tibble:tibble]{tibble::tibble()}} with columns:
+A \code{qcthat_Issues} object, which is a \code{\link[tibble:tibble]{tibble::tibble()}} with
+columns:
 \itemize{
-\item \code{Number}: Issue number.
+\item \code{Issue}: Issue number.
 \item \code{Title}: Issue title.
 \item \code{Labels}: List column of character vectors of issue labels.
 \item \code{State}: Issue state (\code{open} or \code{closed}).

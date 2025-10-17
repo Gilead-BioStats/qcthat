@@ -12,14 +12,14 @@ typically obtained by running something like \code{\link[testthat:test_package]{
 \code{stop_on_failure = FALSE}, and assigning it to a name.}
 }
 \value{
-A \code{\link[tibble:tibble]{tibble::tibble()}} with columns:
+A \code{qcthat_TestResults} object, which is a \code{\link[tibble:tibble]{tibble::tibble()}} with
+columns:
 \itemize{
-\item \code{Description}: The \code{desc} field of the test from
-\code{\link[testthat:test_that]{testthat::test_that()}}.
+\item \code{Test}: The \code{desc} field of the test from \code{\link[testthat:test_that]{testthat::test_that()}}.
 \item \code{File}: File where the test is defined.
 \item \code{Disposition}: Factor with levels \code{pass}, \code{fail}, and \code{skip}
 indicating the overall outcome of the test.
-\item \code{IssueNumbers}: List column containing integer vectors of associated
+\item \code{Issues}: List column containing integer vectors of associated
 GitHub issue numbers.
 }
 }

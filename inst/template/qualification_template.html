@@ -128,7 +128,7 @@ window.buildTabsets = function(tocID) {
     var match = tabset.attr('class').match(/level(\d) /);
     if (match === null)
       return;
-    var tabsetLevel = Number(match[1]);
+    var tabsetLevel = Issue(match[1]);
     var tabLevel = tabsetLevel + 1;
 
     // find all subheadings immediately below

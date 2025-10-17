@@ -1,18 +1,57 @@
+#' Fetch repository issues
+#'
+#' Download (non-pull-request) issues in a repository and parse them into a tidy
+#' [tibble::tibble()].
+#'
+#' @param strOwner (`length-1 character`) GitHub username or organization name.
+#' @param strRepo (`length-1 character`) GitHub repository name.
+#' @param strGHToken (`length-1 character`) GitHub token with permissions to
+#'   read issues.
+#'
+#' @returns A [tibble::tibble()] with columns:
+#'   - `Number`: Issue number.
+#'   - `Title`: Issue title.
+#'   - `Labels`: List column of character vectors of issue labels.
+#'   - `State`: Issue state (`open` or `closed`).
+#'   - `StateReason`: Reason for issue state (e.g., `completed`) or `NA` if not
+#'   applicable.
+#'   - `Milestone`: Issue milestone title or `NA` if not applicable.
+#'   - `Type`: Issue type or `NA` if not applicable.
+#'   - `Url`: URL of the issue on GitHub.
+#'   - `ParentOwner`: GitHub username or organization name of the parent issue
+#'   if applicable, otherwise `NA`.
+#'   - `ParentRepo`: GitHub repository name of the parent issue if applicable,
+#'   otherwise `NA`.
+#'   - `ParentNumber`: GitHub issue number of the parent issue if applicable,
+#'   otherwise `NA`.
+#'   - `CreatedAt`: `POSIXct` timestamp of when the issue was created.
+#'   - `ClosedAt`: `POSIXct` timestamp of when the issue was closed, or `NA` if
+#'   the issue is still open.
+#' @export
+#'
+#' @examplesIf interactive()
+#'
+#'   FetchRepoIssues()
 FetchRepoIssues <- function(
   strOwner = gh::gh_tree_remote()[["username"]],
   strRepo = gh::gh_tree_remote()[["repo"]],
   strGHToken = gh::gh_token()
 ) {
-  lIssuesRaw <- .FetchRawRepoIssues(
+  lIssuesRaw <- FetchRawRepoIssues(
     strOwner = strOwner,
     strRepo = strRepo,
     strGHToken = strGHToken
   )
-  lIssuesNonPR <- .RemovePRsFromIssues(lIssuesRaw)
-  .CompileIssuesDF(lIssuesNonPR)
+  lIssuesNonPR <- RemovePRsFromIssues(lIssuesRaw)
+  CompileIssuesDF(lIssuesNonPR)
 }
 
-.FetchRawRepoIssues <- function(
+#' Fetch all repo issues from GitHub
+#'
+#' @inheritParams FetchRepoIssues
+#' @returns A list of raw issue objects as returned by [gh::gh()].
+#' @keywords internal
+FetchRawRepoIssues <- function(
   strOwner = gh::gh_tree_remote()[["username"]],
   strRepo = gh::gh_tree_remote()[["repo"]],
   strGHToken = gh::gh_token()
@@ -30,34 +69,50 @@ FetchRepoIssues <- function(
   # nocov end
 }
 
-.RemovePRsFromIssues <- function(lIssuesRaw) {
+#' Get rid of PRs in the issues list
+#'
+#' @param lIssuesRaw (`list`) List of raw issue objects as returned by
+#'   [gh::gh()].
+#' @returns A list of issue objects without PRs.
+#' @keywords internal
+RemovePRsFromIssues <- function(lIssuesRaw) {
   purrr::keep(
     lIssuesRaw,
     function(lIssue) is.null(lIssue[["pull_request"]])
   )
 }
 
-.CompileIssuesDF <- function(lIssuesNonPR) {
+#' Get rid of PRs in the issues list
+#'
+#' @param lIssuesNonPR (`list`) List of issue objects as returned by
+#'   [RemovePRsFromIssues()].
+#' @inherit FetchRepoIssues return
+#' @keywords internal
+CompileIssuesDF <- function(lIssuesNonPR) {
   if (!length(lIssuesNonPR)) {
-    return(.EmptyIssuesDF())
+    return(EmptyIssuesDF())
   }
-  .EnframeIssues(lIssuesNonPR) |>
+  EnframeIssues(lIssuesNonPR) |>
     dplyr::mutate(
-      Labels = .ExtractLabels(.data$Labels),
-      Milestone = .ExtractName(.data$Milestone, "title"),
-      Type = .ExtractName(.data$Type, "name"),
+      Labels = ExtractLabels(.data$Labels),
+      Milestone = ExtractName(.data$Milestone, "title"),
+      Type = ExtractName(.data$Type, "name"),
       CreatedAt = as.POSIXct(.data$CreatedAt, tz = "UTC"),
       ClosedAt = as.POSIXct(.data$ClosedAt, tz = "UTC")
     ) |>
-    .SeparateParentColumn()
+    SeparateParentColumn()
 }
 
-.EmptyIssuesDF <- function() {
+#' Empty issues data frame
+#'
+#' @returns A standard [tibble::tibble()] with the correct columns but no rows.
+#' @keywords internal
+EmptyIssuesDF <- function() {
   tibble::tibble(
     Number = integer(0),
     Title = character(0),
     Labels = list(),
-    Status = character(0),
+    State = character(0),
     StateReason = character(0),
     Milestone = character(0),
     Type = character(0),
@@ -70,7 +125,12 @@ FetchRepoIssues <- function(
   )
 }
 
-.EnframeIssues <- function(lIssuesNonPR) {
+#' Transform issues list into tibble with expected columns
+#'
+#' @inheritParams CompileIssuesDF
+#' @returns A [tibble::tibble()] with raw issue data.
+#' @keywords internal
+EnframeIssues <- function(lIssuesNonPR) {
   dfIssues <- tibble::enframe(lIssuesNonPR, name = NULL) |>
     tidyr::unnest_wider("value") |>
     dplyr::select(
@@ -78,7 +138,7 @@ FetchRepoIssues <- function(
         Number = "number",
         Title = "title",
         Labels = "labels",
-        Status = "state",
+        State = "state",
         StateReason = "state_reason",
         Milestone = "milestone",
         Type = "type",
@@ -91,17 +151,22 @@ FetchRepoIssues <- function(
 
   # Bind to the "standard" empty to ensure all columns are present.
   dplyr::bind_rows(
-    .EmptyIssuesDFRaw(),
+    EmptyIssuesDFRaw(),
     dfIssues
   )
 }
 
-.EmptyIssuesDFRaw <- function() {
+#' Empty issues data frame (raw)
+#'
+#' @returns A standard [tibble::tibble()] with the correct columns (before
+#'   transformations) but no rows.
+#' @keywords internal
+EmptyIssuesDFRaw <- function() {
   tibble::tibble(
     Number = integer(0),
     Title = character(0),
     Labels = list(),
-    Status = character(0),
+    State = character(0),
     StateReason = character(0),
     Milestone = list(),
     Type = list(),
@@ -112,14 +177,29 @@ FetchRepoIssues <- function(
   )
 }
 
-.ExtractLabels <- function(lLabels) {
+#' Extract label names from label objects
+#'
+#' @param lLabels (`list`) List column of label objects as returned by GitHub
+#'   API.
+#'
+#' @returns A list column of character vectors of label names.
+#' @keywords internal
+ExtractLabels <- function(lLabels) {
   purrr::map(lLabels, function(lLabelSet) {
     chrExtractedLabels <- purrr::map_chr(lLabelSet, "name")
-    return(.NullIfEmpty(chrExtractedLabels))
+    return(NullIfEmpty(chrExtractedLabels))
   })
 }
 
-.ExtractName <- function(lColumn, strName) {
+#' Extract label names from label objects
+#'
+#' @param lColumn (`list`) A list column of objects.
+#' @param strName (`length-1 character`) Name of the field to extract from each
+#'   object.
+#' @returns A character vector of the target field from each object, or `NA` if
+#'   the field is missing from a given element of the list.
+#' @keywords internal
+ExtractName <- function(lColumn, strName) {
   purrr::map_chr(
     lColumn,
     function(lObject) {
@@ -128,14 +208,26 @@ FetchRepoIssues <- function(
   )
 }
 
-.NullIfEmpty <- function(x) {
+#' Flatten empty vectors into NULL
+#'
+#' @param x An object to potentially flatten.
+#'
+#' @returns `NULL` if `x` has length 0, otherwise `x`.
+#' @keywords internal
+NullIfEmpty <- function(x) {
   if (!length(x)) {
     return(NULL)
   }
   return(x)
 }
 
-.SeparateParentColumn <- function(dfIssues) {
+#' Parse the ParentUrl column into its components
+#'
+#' @param dfIssues (`data.frame`) Data frame with a `ParentUrl` column.
+#' @returns The input data frame with `ParentUrl` split into `ParentOwner`,
+#'   `ParentRepo`, and `ParentNumber` columns.
+#' @keywords internal
+SeparateParentColumn <- function(dfIssues) {
   dfIssues <- tidyr::separate_wider_regex(
     dfIssues,
     "ParentUrl",

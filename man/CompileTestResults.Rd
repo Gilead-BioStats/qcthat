@@ -7,24 +7,25 @@
 CompileTestResults(lTestResults)
 }
 \arguments{
-\item{lTestResults}{A \code{testthat_results} object, typically obtained by
-running something like \code{testthat::test_local(stop_on_failure = FALSE)} and
-assigning it to a name.}
+\item{lTestResults}{(\code{testthat_results}) A testthat test ressults object,
+typically obtained by running something like \code{\link[testthat:test_package]{testthat::test_local()}} with
+\code{stop_on_failure = FALSE}, and assigning it to a name.}
 }
 \value{
-A tibble with columns:
+A \code{\link[tibble:tibble]{tibble::tibble()}} with columns:
 \itemize{
-\item \code{test}: Name of the test.
-\item \code{file}: File where the test is located.
-\item \code{disposition}: Factor with levels \code{pass}, \code{fail}, and \code{skip} indicating the
-overall outcome of the test.
-\item \code{issues}: List column containing integer vectors of associated GitHub issue
-numbers extracted from the test names.
+\item \code{Description}: The \code{desc} field of the test from
+\code{\link[testthat:test_that]{testthat::test_that()}}.
+\item \code{File}: File where the test is defined.
+\item \code{Disposition}: Factor with levels \code{pass}, \code{fail}, and \code{skip}
+indicating the overall outcome of the test.
+\item \code{IssueNumbers}: List column containing integer vectors of associated
+GitHub issue numbers.
 }
 }
 \description{
 Extract relevant information from a \code{testthat_results} object into a tidy
-tibble format.
+\code{\link[tibble:tibble]{tibble::tibble()}}.
 }
 \examples{
 # Generate a test results object.

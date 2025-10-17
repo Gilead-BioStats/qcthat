@@ -1,19 +1,20 @@
 #' Extract information from testthat results
 #'
 #' Extract relevant information from a `testthat_results` object into a tidy
-#' tibble format.
+#' [tibble::tibble()].
 #'
-#' @param lTestResults A `testthat_results` object, typically obtained by
-#'   running something like `testthat::test_local(stop_on_failure = FALSE)` and
-#'   assigning it to a name.
+#' @param lTestResults (`testthat_results`) A testthat test ressults object,
+#'   typically obtained by running something like [testthat::test_local()] with
+#'   `stop_on_failure = FALSE`, and assigning it to a name.
 #'
-#' @returns A tibble with columns:
-#'   - `test`: Name of the test.
-#'   - `file`: File where the test is located.
-#'   - `disposition`: Factor with levels `pass`, `fail`, and `skip` indicating the
-#'   overall outcome of the test.
-#'   - `issues`: List column containing integer vectors of associated GitHub issue
-#'   numbers extracted from the test names.
+#' @returns A [tibble::tibble()] with columns:
+#'   - `Description`: The `desc` field of the test from
+#'   [testthat::test_that()].
+#'   - `File`: File where the test is defined.
+#'   - `Disposition`: Factor with levels `pass`, `fail`, and `skip`
+#'   indicating the overall outcome of the test.
+#'   - `IssueNumbers`: List column containing integer vectors of associated
+#'   GitHub issue numbers.
 #' @export
 #'
 #' @examples
@@ -59,11 +60,11 @@ CompileTestResults <- function(lTestResults) {
   }
   return(
     tibble::tibble(
-      test = purrr::map_chr(lTestResults, "test"),
-      file = purrr::map_chr(lTestResults, "file"),
-      disposition = .CompileDispositions(lTestResults),
-      issues = purrr::map(
-        stringr::str_extract_all(.data$test, "(?<=#)\\d+"),
+      Description = purrr::map_chr(lTestResults, "test"),
+      File = purrr::map_chr(lTestResults, "file"),
+      Disposition = CompileDispositions(lTestResults),
+      IssueNumbers = purrr::map(
+        stringr::str_extract_all(.data$Description, "(?<=#)\\d+"),
         as.integer
       )
     )
@@ -75,11 +76,11 @@ CompileTestResults <- function(lTestResults) {
 #' @inheritParams CompileTestResults
 #' @returns A factor with levels `pass`, `fail`, and `skip`.
 #' @keywords internal
-.CompileDispositions <- function(lTestResults) {
+CompileDispositions <- function(lTestResults) {
   factor(
     purrr::map_chr(
       lTestResults,
-      .ExtractDisposition
+      ExtractDisposition
     ),
     levels = c("pass", "fail", "skip")
   )
@@ -90,7 +91,7 @@ CompileTestResults <- function(lTestResults) {
 #' @param lTestResult A single element from a `testthat_results` object.
 #' @returns The string `"pass"`, `"fail"`, or `"skip"`.
 #' @keywords internal
-.ExtractDisposition <- function(lTestResult) {
+ExtractDisposition <- function(lTestResult) {
   classes <- unlist(purrr::map(lTestResult$results, class))
   classes <- setdiff(classes, c("expectation", "condition", "error"))
   if (identical(classes, "expectation_success")) {

@@ -1,6 +1,8 @@
 test_that("CompileTestResults errors informatively for bad input (#32)", {
   expect_error(
-    CompileTestResults(123),
+    {
+      CompileTestResults(123)
+    },
     class = "qcthat-error-bad_input"
   )
   expect_snapshot(
@@ -12,12 +14,14 @@ test_that("CompileTestResults errors informatively for bad input (#32)", {
 test_that("CompileTestResults works for empty testthat_results (#32)", {
   lEmptyResults <- structure(list(), class = "testthat_results")
   expect_equal(
-    CompileTestResults(lEmptyResults),
+    {
+      CompileTestResults(lEmptyResults)
+    },
     tibble::tibble(
-      test = character(),
-      file = character(),
-      disposition = factor(levels = c("pass", "fail", "skip")),
-      issues = list()
+      Description = character(),
+      File = character(),
+      Disposition = factor(levels = c("pass", "fail", "skip")),
+      IssueNumbers = list()
     )
   )
 })
@@ -29,23 +33,23 @@ test_that("CompileTestResults returns the expected object (#32)", {
       CompileTestResults(lTestResults)
     },
     tibble::tibble(
-      test = c(
+      Description = c(
         "First test with one GH issue (#32)",
         "Second test with multiple GH issues (#32, #33, #34)",
         "Third test with 0 GH issues, failure",
         "Fourth test with 1 GH issue, skipped (#35)"
       ),
-      file = c(
+      File = c(
         "test-file1.R",
         "test-file1.R",
         "test-file2.R",
         "test-file2.R"
       ),
-      disposition = factor(
+      Disposition = factor(
         c("pass", "pass", "fail", "skip"),
         levels = c("pass", "fail", "skip")
       ),
-      issues = list(
+      IssueNumbers = list(
         32L,
         32:34,
         integer(),
@@ -55,7 +59,7 @@ test_that("CompileTestResults returns the expected object (#32)", {
   )
 })
 
-test_that(".ExtractDisposition() helper errors informatively for weird results", {
+test_that("ExtractDisposition() helper errors informatively for weird results", {
   lTestResult <- list(
     results = list(
       structure(
@@ -65,11 +69,13 @@ test_that(".ExtractDisposition() helper errors informatively for weird results",
     )
   )
   expect_error(
-    .ExtractDisposition(lTestResult),
+    {
+      ExtractDisposition(lTestResult)
+    },
     class = "qcthat-error-unexpected_result_class"
   )
   expect_snapshot(
-    .ExtractDisposition(lTestResult),
+    ExtractDisposition(lTestResult),
     error = TRUE
   )
 })

@@ -1,14 +1,16 @@
 test_that("FetchRepoIssues returns an empty df when no issues found (#34)", {
   local_mocked_bindings(
-    .FetchRawRepoIssues = function(...) list()
+    FetchRawRepoIssues = function(...) list()
   )
   expect_equal(
-    FetchRepoIssues(),
+    {
+      FetchRepoIssues()
+    },
     tibble::tibble(
       Number = integer(0),
       Title = character(0),
       Labels = list(),
-      Status = character(0),
+      State = character(0),
       StateReason = character(0),
       Milestone = character(0),
       Type = character(0),
@@ -24,7 +26,7 @@ test_that("FetchRepoIssues returns an empty df when no issues found (#34)", {
 
 test_that("FetchRepoIssues returns a formatted df for real issues (#34)", {
   local_mocked_bindings(
-    .FetchRawRepoIssues = function(...) {
+    FetchRawRepoIssues = function(...) {
       GenerateRawRepoIssues()
     }
   )
@@ -32,12 +34,8 @@ test_that("FetchRepoIssues returns a formatted df for real issues (#34)", {
     Number = c(1L, 2L, 4L, 5L, 6L, 7L, 8L, 9L, 10L),
     Title = paste("Issue number", .data$Number),
     Labels = list(NULL, "x", "x", NULL, "x", NULL, "x", NULL, "x"),
-    Status = c(rep("open", 4), "closed", rep("open", 2), "closed", "open"),
-    StateReason = dplyr::if_else(
-      .data$Status == "closed",
-      "completed",
-      NA
-    ),
+    State = c(rep("open", 4), "closed", rep("open", 2), "closed", "open"),
+    StateReason = dplyr::if_else(.data$State == "closed", "completed", NA),
     Milestone = c(NA, NA, "Milestone 1", NA, NA, NA, "Milestone 2", NA, NA),
     Type = c(NA, NA, NA, NA, "Feature", NA, NA, "Feature", NA),
     Url = paste0(
@@ -49,16 +47,14 @@ test_that("FetchRepoIssues returns a formatted df for real issues (#34)", {
     ParentNumber = NA_integer_,
     CreatedAt = as.POSIXct(NA, tz = "UTC"),
     ClosedAt = as.POSIXct(
-      dplyr::if_else(
-        .data$Status == "closed",
-        "2025-10-16 15:53:00",
-        NA
-      ),
+      dplyr::if_else(.data$State == "closed", "2025-10-16 15:53:00", NA),
       tz = "UTC"
     )
   )
   expect_equal(
-    FetchRepoIssues(),
+    {
+      FetchRepoIssues()
+    },
     expected_result
   )
 })

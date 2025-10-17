@@ -7,11 +7,11 @@
       ! Input must be a <testthat_results> object.
       i `lTestResults` is a number.
 
-# .ExtractDisposition() helper errors informatively for weird results
+# ExtractDisposition() helper errors informatively for weird results
 
     Code
-      .ExtractDisposition(lTestResult)
+      ExtractDisposition(lTestResult)
     Condition
-      Error in `.ExtractDisposition()`:
+      Error in `ExtractDisposition()`:
       ! Unexpected result classes: "some_weird_class"
 

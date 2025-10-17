@@ -18,7 +18,7 @@ URL: https://gilead-biostats.github.io/qcthat/,
     https://github.com/Gilead-BioStats/qcthat
 BugReports: https://github.com/Gilead-BioStats/qcthat/issues
 Depends: 
-    R (>= 4.1)
+    R (>= 4.4)
 Imports: 
     cli,
     dplyr,

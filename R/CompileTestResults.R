@@ -3,7 +3,7 @@
 #' Extract relevant information from a `testthat_results` object into a tidy
 #' [tibble::tibble()].
 #'
-#' @param lTestResults (`testthat_results`) A testthat test ressults object,
+#' @param lTestResults (`testthat_results`) A testthat test results object,
 #'   typically obtained by running something like [testthat::test_local()] with
 #'   `stop_on_failure = FALSE`, and assigning it to a name.
 #'

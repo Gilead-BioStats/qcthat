@@ -7,7 +7,7 @@
 CompileDispositions(lTestResults)
 }
 \arguments{
-\item{lTestResults}{(\code{testthat_results}) A testthat test ressults object,
+\item{lTestResults}{(\code{testthat_results}) A testthat test results object,
 typically obtained by running something like \code{\link[testthat:test_package]{testthat::test_local()}} with
 \code{stop_on_failure = FALSE}, and assigning it to a name.}
 }

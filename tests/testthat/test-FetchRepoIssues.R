@@ -43,7 +43,17 @@ test_that("FetchRepoIssues returns a formatted df for real issues (#34)", {
     State = c(rep("open", 4), "closed", rep("open", 2), "closed", "open"),
     StateReason = dplyr::if_else(.data$State == "closed", "completed", NA),
     Milestone = c(NA, NA, "Milestone 1", NA, NA, NA, "Milestone 2", NA, NA),
-    Type = c(NA, NA, NA, NA, "Feature", NA, NA, "Feature", NA),
+    Type = c(
+      "Issue",
+      "Issue",
+      "Issue",
+      "Issue",
+      "Feature",
+      "Issue",
+      "Issue",
+      "Feature",
+      "Issue"
+    ),
     Url = paste0(
       "https://github.com/Gilead-BioStats/fakerepo/issues/",
       .data$Issue

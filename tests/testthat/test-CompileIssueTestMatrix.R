@@ -57,7 +57,6 @@ test_that("CompileIssueTestMatrix nests by issue (#35)", {
     dfTestResults = dfTestResults
   )
   test_subtbl <- test_result$IssueTestResults[[1]]
-
   intExpectedIssues <- dfRepoIssues$Issue[
     !is.na(dfRepoIssues$Milestone) &
       dfRepoIssues$Milestone == test_result$Milestone[[1]]
@@ -66,4 +65,16 @@ test_that("CompileIssueTestMatrix nests by issue (#35)", {
   expect_contains(colnames(test_subtbl), "TestResults")
   expect_type(test_subtbl$TestResults, "list")
   expect_s3_class(test_subtbl$TestResults[[1]], "tbl_df")
+
+  # Specifically check the NA Milestone for issue-less tests.
+  test_subtbl <- test_result$IssueTestResults[is.na(test_result$Milestone)][[1]]
+  intExpectedIssues <- dfRepoIssues$Issue[is.na(dfRepoIssues$Milestone)]
+  has_IssuelessTests <- any(!lengths(dfTestResults$Issues))
+  if (has_IssuelessTests) {
+    intExpectedIssues <- c(intExpectedIssues, NA_integer_)
+  }
+  expect_setequal(test_subtbl$Issue, intExpectedIssues)
+  expect_contains(colnames(test_subtbl), "TestResults")
+  expect_type(test_subtbl$TestResults, "list")
+  expect_s3_class(test_subtbl$TestResults[[3]], "tbl_df")
 })

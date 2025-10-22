@@ -11,7 +11,7 @@ CompileTestResultsByIssue(dfTestResults)
 results as returned by \code{\link[=CompileTestResults]{CompileTestResults()}}.}
 }
 \value{
-A data frame with \code{TestResults} nested by \code{Issue}
+A \code{qcthat_IssueTestResults} with \code{TestResults} nested by \code{Issue}.
 }
 \description{
 Compile test results by issue

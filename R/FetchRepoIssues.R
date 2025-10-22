@@ -17,7 +17,7 @@
 #'   - `StateReason`: Reason for issue state (e.g., `completed`) or `NA` if not
 #'   applicable.
 #'   - `Milestone`: Issue milestone title or `NA` if not applicable.
-#'   - `Type`: Issue type or `NA` if not applicable.
+#'   - `Type`: Issue type or `"Issue"` if no issue type is available.
 #'   - `Url`: URL of the issue on GitHub.
 #'   - `ParentOwner`: GitHub username or organization name of the parent issue
 #'   if applicable, otherwise `NA`.
@@ -97,7 +97,7 @@ CompileIssuesDF <- function(lIssuesNonPR) {
     dplyr::mutate(
       Labels = ExtractLabels(.data$Labels),
       Milestone = ExtractName(.data$Milestone, "title"),
-      Type = ExtractName(.data$Type, "name"),
+      Type = dplyr::coalesce(ExtractName(.data$Type, "name"), "Issue"),
       CreatedAt = as.POSIXct(.data$CreatedAt, tz = "UTC"),
       ClosedAt = as.POSIXct(.data$ClosedAt, tz = "UTC")
     ) |>

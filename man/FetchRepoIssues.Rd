@@ -29,7 +29,7 @@ columns:
 \item \code{StateReason}: Reason for issue state (e.g., \code{completed}) or \code{NA} if not
 applicable.
 \item \code{Milestone}: Issue milestone title or \code{NA} if not applicable.
-\item \code{Type}: Issue type or \code{NA} if not applicable.
+\item \code{Type}: Issue type or \code{"Issue"} if no issue type is available.
 \item \code{Url}: URL of the issue on GitHub.
 \item \code{ParentOwner}: GitHub username or organization name of the parent issue
 if applicable, otherwise \code{NA}.

@@ -22,14 +22,18 @@ Depends:
 Imports: 
     cli,
     dplyr,
+    emoji,
     gh,
+    glue,
+    pillar,
     purrr,
     rlang,
     stringr,
     tibble,
     tidyr
 Suggests: 
-    testthat (>= 3.0.0)
+    testthat (>= 3.0.0),
+    withr
 Config/Needs/website: rmarkdown
 Config/testthat/edition: 3
 Config/testthat/parallel: true

@@ -5,7 +5,7 @@
     Output
       # A qcthat issue test matrix with 0 milestones, 0 issues, and 0 tests
 
-# Printing an IssueTestMatrix outputs a user-friendly tree (#36)
+# Printing an IssueTestMatrix outputs a user-friendly tree (#31, #36)
 
     Code
       dfITM

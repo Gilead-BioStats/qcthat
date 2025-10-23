@@ -1,4 +1,4 @@
-test_that("Printing an IssueTestMatrix returns input invisibly", {
+test_that("Printing an IssueTestMatrix returns input invisibly (#36)", {
   dfITM <- CompileIssueTestMatrix(
     dfRepoIssues = tibble::tibble(),
     dfTestResults = tibble::tibble()
@@ -11,7 +11,7 @@ test_that("Printing an IssueTestMatrix returns input invisibly", {
   expect_identical(test_result$value, dfITM)
 })
 
-test_that("Printing an IssueTestMatrix outputs a user-friendly tree", {
+test_that("Printing an IssueTestMatrix outputs a user-friendly tree (#36)", {
   dfRepoIssues <- GenerateSampleDFRepoIssues()
   dfTestResults <- GenerateSampleDFTestResults()
   dfITM <- CompileIssueTestMatrix(

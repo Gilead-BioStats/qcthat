@@ -118,6 +118,8 @@ ExtractDisposition <- function(lTestResult) {
     return("fail")
   } else if ("expectation_skip" %in% classes) {
     return("skip")
+  } else if ("expectation_warning" %in% classes) {
+    return("fail")
   }
   cli::cli_abort(
     c(

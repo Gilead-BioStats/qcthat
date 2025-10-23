@@ -63,6 +63,18 @@ test_that("CompileTestResults returns the expected object (#32)", {
   )
 })
 
+test_that("ExtractDisposition() helper counts warnings as errors", {
+  lTestResult <- list(
+    results = list(
+      structure(
+        list(),
+        class = c("expectation_warning", "expectation", "condition")
+      )
+    )
+  )
+  expect_equal(ExtractDisposition(lTestResult), "fail")
+})
+
 test_that("ExtractDisposition() helper errors informatively for weird results", {
   lTestResult <- list(
     results = list(

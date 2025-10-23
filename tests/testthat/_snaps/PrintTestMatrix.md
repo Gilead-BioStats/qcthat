@@ -1,11 +1,11 @@
-# Printing an IssueTestMatrix returns input invisibly
+# Printing an IssueTestMatrix returns input invisibly (#36)
 
     Code
       test_result <- withVisible(print(dfITM))
     Output
       # A qcthat issue test matrix with 0 milestones, 0 issues, and 0 tests
 
-# Printing an IssueTestMatrix outputs a user-friendly tree
+# Printing an IssueTestMatrix outputs a user-friendly tree (#36)
 
     Code
       dfITM

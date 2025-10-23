@@ -9,7 +9,7 @@ name: Package QC Report
 permissions: read-all
 
 jobs:
-  test-coverage:
+  qc-report:
     runs-on: ubuntu-latest
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}

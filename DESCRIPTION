@@ -18,23 +18,26 @@ URL: https://gilead-biostats.github.io/qcthat/,
     https://github.com/Gilead-BioStats/qcthat
 BugReports: https://github.com/Gilead-BioStats/qcthat/issues
 Depends: 
-    R (>= 4.0)
+    R (>= 4.4)
 Imports: 
+    cli,
     dplyr,
-    here,
-    usethis
-Suggests: 
-    knitr,
+    emoji,
+    gh,
+    glue,
+    pillar,
+    purrr,
     rlang,
-    rmarkdown,
-    testthat (>= 3.0.0)
-VignetteBuilder: 
-    knitr
+    stringr,
+    tibble,
+    tidyr
+Suggests: 
+    testthat (>= 3.0.0),
+    withr
 Config/Needs/website: rmarkdown
 Config/testthat/edition: 3
 Config/testthat/parallel: true
 Encoding: UTF-8
 Language: en-US
-LazyData: true
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.3.2
+RoxygenNote: 7.3.3

@@ -24,42 +24,54 @@ knitr::opts_chunk$set(
 
 `{qcthat}` is a quality control framework for R packages, particularly those used in Clinical Trials. It is being adapted from the qualification framework used in the `gsm` family of packages, such as [`{gsm.core}`](https://github.com/Gilead-BioStats/gsm.core) and [`{gsm.app}`](https://github.com/Gilead-BioStats/gsm.app).
 
-`{qcthat}` is under active development. Here we describe what we are aiming toward, not necessarily what is currently implemented.
+The goal of `{qcthat}` is to provide a qualification report linking GitHub issues to evidence that those issues have been implemented. This report can be used as part of a quality control and acceptance process for R packages, particularly those used in regulated environments such as clinical trials.
 
-## Installation 📥
+## ⚙️ Installation and Setup
 
-You can install the development version of qcthat from [GitHub](https://github.com/) with:
+You can install the development version of `{qcthat}` from [GitHub](https://github.com/) with:
 
 ``` r
 # install.packages("pak")
 pak::pak("Gilead-BioStats/qcthat")
 ```
 
-## Business Process Overview 📄
+To utilize `{qcthat}`, you must 
 
-The goal of `{qcthat}` is to provide a qualification report linking GitHub issues to evidence that those issues have been implemented.
+1. Use GitHub Issues to document requirements (see [Chapter 20: Software development practices from *R Packages (2e)* by Hadley Wickham and Jennifer Bryan](https://r-pkgs.org/software-development-practices.html)).
+2. Use {testthat} to verify the implementation of those requirements (see the [Testing section of *R Packages (2e)* by Hadley Wickham and Jennifer Bryan](https://r-pkgs.org/testing-basics.html)).
+3. Link tests to issues by including `#{issue-number}` in the test description, such as:
 
-To break this down further, the minimum required steps for {qcthat} implementation are summarized below. For each required step, additional (optional) configuration details for each core step are described in the following sections. Throughout this section 🧑‍💼 is used to indicate a manual task, and 💻 is used to indicate automated tasks. 
+```{r, eval=FALSE}
+test_that("Users can view a matrix of GitHub issues and test results (#31)", {
+  # Expectations that prove that this worked.
+})
+```
 
-1. **File Issues 🧑‍💼** - Program developer documents feature/programming requirements using Github Issues.
-2. **Write Code 🧑‍💼** - Program developer updates code and associated documentation in R package. 
-3. **Write Tests 🧑‍💼** - Quality Control Programmer writes needed tests and includes a link to the issue by including `Tests #{issue-number}` in the test description.
-4. **Release Package 💻** - Upon a GitHub release, all tests are automatically run and a summary report linking issues with associated tests is created and attached to the release. 
+## 📄 Example Business Process
+
+Here we describe a business process for implementing quality control using `{qcthat}`. This process is intended to ensure that program development, testing, review, and acceptance are conducted in a structured manner. Additional (optional) configuration details for each core step are described in the following sections.
 
 ### Roles
 
--   TL: Team Lead
--   PD: Program Developer
--   QCP: Quality Control Programmer
--   USR: User or Requester
--   BR: Business Requirements
+-   👑 or TL: Team Lead
+-   🧑‍💻 or PD: Program Developer
+-   🧑‍🔬 or QCP: Quality Control Programmer
+-   🧑‍💼 or USR: User or Requester
+-   🤖 or AUTO: Automated System
+
+### Overview
+
+1. **🧑‍💻 File Issues:** Program developer documents feature/programming requirements using Github Issues.
+2. **🧑‍💻 Write Code:** Program developer updates code and associated documentation in R package. 
+3. **🧑‍🔬 Write Tests:** Quality Control Programmer writes needed tests and includes a link to the issue by including `(#{issue-number})` in the test description.
+4. **🤖 Release Package:** Upon a GitHub release, all tests are automatically ran and a summary report linking issues with associated tests is created and attached to the release. 
 
 ### Intake
 
--   PD receives feature/programming request from USR.
--   PD documents feature/programming request from USR using Github Issues.
--   PD creates an issue for each Business Requirement and adds an appropriate Tag ("Requirement"). Issue name must label the issue as a business requirement (e.g. "Business Requirement: {description}").
--   PD creates and links separate issues or sub-issues to document technical requirements and implementation details for each business requirement. Appropriate Type is added (e.g., “Feature”, “Technical Task”, “Documentation Task”).
+-   🧑‍💻 + 🧑‍💼: PD receives feature/programming request from USR.
+-   🧑‍💻 + 🧑‍💼: PD documents feature/programming request from USR using Github Issues.
+-   🧑‍💻: PD creates an issue for each Business Requirement.
+-   🧑‍💻: PD creates and links separate issues or sub-issues to document technical requirements and implementation details for each business requirement.
 
 ### Code Development
 

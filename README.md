@@ -174,16 +174,16 @@ core step are described in the following sections.
 ### Roles
 
 - 👑 or TL: Team Lead
-- 💻 or PD: Program Developer
+- 🧑‍💻 or PD: Program Developer
 - 🧪 or QCP: Quality Control Programmer
 - 💼 or USR: User or Requester
 - 🤖 or AUTO: Automated System
 
 ### Overview
 
-1.  **💻 File Issues:** Program developer documents feature/programming
+1.  **🧑‍💻 File Issues:** Program developer documents feature/programming
     requirements using Github Issues.
-2.  **💻 Write Code:** Program developer updates code and associated
+2.  **🧑‍💻 Write Code:** Program developer updates code and associated
     documentation in R package.
 3.  **🧪 Write Tests:** Quality Control Programmer writes needed tests
     and includes a link to the issue by including `(#{issue_number})` in
@@ -192,52 +192,52 @@ core step are described in the following sections.
     automatically run and a summary report linking issues with
     associated tests is created and attached to the release.
 
-### Intake 💻💼
+### Intake 🧑‍💻💼
 
-- 💻💼: PD receives feature/programming request from USR.
-- 💻💼: PD documents feature/programming request from USR using Github
+- 🧑‍💻💼: PD receives feature/programming request from USR.
+- 🧑‍💻💼: PD documents feature/programming request from USR using Github
   Issues.
-- 💻: PD creates an issue for each Business Requirement.
-- 💻: PD creates and links separate issues or sub-issues to document
+- 🧑‍💻: PD creates an issue for each Business Requirement.
+- 🧑‍💻: PD creates and links separate issues or sub-issues to document
   technical requirements and implementation details for each business
   requirement.
 
-### Code Development 💻👑🧪💼
+### Code Development 🧑‍💻👑🧪💼
 
-- 💻: PD develops or modifies program using the user requirements.
-- 👑💻🧪💼: All stakeholders (PD, TL, QCP and USR) add comments and
+- 🧑‍💻: PD develops or modifies program using the user requirements.
+- 👑🧑‍💻🧪💼: All stakeholders (PD, TL, QCP and USR) add comments and
   reactions on the issue to finalize scope as needed.
 - 👑💼: USR and/or TL documents approval of business requirements via
   comment or a “thumbs up” reaction as needed.
-- 💻: PD provides clear description of changes with every commit
+- 🧑‍💻: PD provides clear description of changes with every commit
   comment. If developer chooses to provide a message addressing a
   specific change, the commit comment should be a descriptive, concise,
   single-line summary of the change. If more context is needed, PD
   should add a comment to an issue in GitHub.
 
-### Testing 💻🧪
+### Testing 🧑‍💻🧪
 
-- 💻🧪🤖: Where applicable, QCP or PD defines an automated test for
+- 🧑‍💻🧪🤖: Where applicable, QCP or PD defines an automated test for
   every applicable user requirement to demonstrate that the information
   displayed by the report/application is fit for purpose and meets the
   stated requirement. Testing is performed by using common frameworks
   {testthat} and {shinytest2} depending on the development process.
   Tests are linked to the corresponding business requirements with
   “(#{issue_number})” in the description.
-- 💻🧪🤖: Testing strategy for each requirement is documented by
+- 🧑‍💻🧪🤖: Testing strategy for each requirement is documented by
   updating the Business Requirement GitHub issues or by referencing the
   issue number in the commit message for test code. Testing is executed
   via automated services (such as GitHub Actions).
 
-### Code Review 💻🧪
+### Code Review 🧑‍💻🧪
 
-- 💻: Upon completion of code development and testing, the PD initiates
+- 🧑‍💻: Upon completion of code development and testing, the PD initiates
   a Pull Request (PR). All relevant issues and tests are linked to the
   PR.
 - 🧪: QCP determines appropriate level of review. Verifies the code
   and/or output against the user requirements and documents the method
   and results.
-- 💻🧪: All questions and necessary code adjustments are addressed in
+- 🧑‍💻🧪: All questions and necessary code adjustments are addressed in
   the process of code review.
 
 ### QC and Acceptance 👑🧪
@@ -254,7 +254,7 @@ core step are described in the following sections.
   system. Once the request is approved, the finalized code is merged
   into the main code base and ready for release.
 
-### Release 💻🧪
+### Release 🧑‍💻🧪
 
 - Upon acceptance, the PD or QCP creates a formal release in accordance
   with established version control conventions. This serves as

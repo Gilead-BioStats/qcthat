@@ -9,99 +9,104 @@
 #' @param dfTestResults (`qcthat_TestResults` or data frame) Data frame of test
 #'   results as returned by [CompileTestResults()].
 #'
-#' @returns A `qcthat_IssueTestMatrix` object, which is a nested tibble with
-#'   columns:
+#' @returns A `qcthat_IssueTestMatrix` object, which is a tibble with columns:
 #'   - `Milestone`: The milestone title associated with the issues.
-#'   - `IssueTestResults`: A nested tibble with the other columns returned by
-#'   [FetchRepoIssues()], plus `TestResults`, which is a nested tibble with
-#'   the remaining columns from [CompileTestResults()].
+#'   - `Issue`: Issue number.
+#'   - `Title`: Issue title.
+#'   - `Body`: Issue body (the full text of the issue).
+#'   - `Labels`: List column of character vectors of issue labels.
+#'   - `State`: Issue state (`open` or `closed`).
+#'   - `StateReason`: Reason for issue state (e.g., `completed`) or `NA` if not
+#'   applicable.
+#'   - `Type`: Issue type or `"Issue"` if no issue type is available.
+#'   - `Url`: URL of the issue on GitHub.
+#'   - `ParentOwner`: GitHub username or organization name of the parent issue
+#'   if applicable, otherwise `NA`.
+#'   - `ParentRepo`: GitHub repository name of the parent issue if applicable,
+#'   otherwise `NA`.
+#'   - `ParentNumber`: GitHub issue number of the parent issue if applicable,
+#'   otherwise `NA`.
+#'   - `CreatedAt`: `POSIXct` timestamp of when the issue was created.
+#'   - `ClosedAt`: `POSIXct` timestamp of when the issue was closed, or `NA` if
+#'   the issue is still open.
+#'   - `Test`: The `desc` field of the test from [testthat::test_that()].
+#'   - `File`: File where the test is defined.
+#'   - `Disposition`: Factor with levels `pass`, `fail`, and `skip` indicating
+#'   the overall outcome of the test.
 #' @export
 #'
 #' @examplesIf interactive()
-#'   lTestResults <- testthat::test_local(stop_on_failure = FALSE)
-#'   CompileIssueTestMatrix(
-#'     dfRepoIssues = FetchRepoIssues(),
-#'     dfTestResults = CompileTestResults(lTestResults)
-#'   )
+#' lTestResults <- testthat::test_local(stop_on_failure = FALSE)
+#' CompileIssueTestMatrix(
+#'   dfRepoIssues = FetchRepoIssues(),
+#'   dfTestResults = CompileTestResults(lTestResults)
+#' )
 CompileIssueTestMatrix <- function(dfRepoIssues, dfTestResults) {
   AsIssueTestMatrix(
     CompileIssueTestResultsByMilestone(
-      AsIssuesDF(dfRepoIssues),
-      CompileTestResultsByIssue(dfTestResults)
+      dfRepoIssues,
+      dfTestResults
     )
   )
 }
 
 #' Assign the qcthat_IssueTestMatrix class to a data frame
 #'
-#' @inheritParams AsExpectedDF
+#' @inheritParams AsExpected
 #' @returns A `qcthat_IssueTestMatrix` object.
 #' @keywords internal
-AsIssueTestMatrix <- function(df) {
-  AsExpectedDF(
-    df,
-    tibble::tibble(
-      Milestone = character(),
-      IssueTestResults = list()
-    ),
+AsIssueTestMatrix <- function(x) {
+  AsExpected(
+    x,
+    EmptyIssueTestMatrix(),
     chrClass = "qcthat_IssueTestMatrix"
   )
 }
 
-#' Compile test results by issue
+
+#' Compile issue test results by milestone
 #'
 #' @inheritParams CompileIssueTestMatrix
-#' @returns A `qcthat_IssueTestResults` with `TestResults` nested by `Issue`.
+#' @returns A data frame with `IssueTestResults` nested by `Milestone`
 #' @keywords internal
-CompileTestResultsByIssue <- function(dfTestResults) {
+CompileIssueTestResultsByMilestone <- function(dfRepoIssues, dfTestResults) {
+  dfITRbyM <- dplyr::full_join(
+    AsIssuesDF(dfRepoIssues),
+    ExpandTestResultsByIssue(dfTestResults),
+    by = "Issue"
+  ) |>
+    dplyr::arrange(.data$Milestone, dplyr::desc(.data$Issue)) |>
+    dplyr::relocate("Milestone")
+  class(dfITRbyM) <- class(tibble::tibble())
+  return(dfITRbyM)
+}
+
+#' Unnest test results
+#'
+#' @inheritParams CompileIssueTestMatrix
+#' @returns A tibble with `"Issues"` from [AsTestResultsDF()] unnested into
+#'   `"Issue"`, and the `"Issue"` column first.
+#' @keywords internal
+ExpandTestResultsByIssue <- function(dfTestResults) {
   tidyr::unnest_longer(
+    # Confirm that dfTestResults is a TestResults object.
     AsTestResultsDF(dfTestResults),
     "Issues",
     values_to = "Issue",
     keep_empty = TRUE
   ) |>
-    tidyr::nest(.by = "Issue", .key = "TestResults")
-}
-
-#' Assign the qcthat_IssueTestResults class to a data frame
-#'
-#' @inheritParams AsExpectedDF
-#' @returns A `qcthat_IssueTestResults` object.
-#' @keywords internal
-AsIssueTestResultsDF <- function(df) {
-  AsExpectedDF(
-    df,
-    EmptyIssueTestResultsDF(),
-    chrClass = "qcthat_IssueTestResults"
-  )
+    dplyr::relocate("Issue")
 }
 
 #' Empty issue test results data frame
 #'
 #' @returns A standard [tibble::tibble()] with the correct columns but no rows.
 #' @keywords internal
-EmptyIssueTestResultsDF <- function() {
-  df <- EmptyIssuesDF()
-  df$Milestone <- NULL
-  df$TestResults <- list()
-  return(df)
-}
-
-#' Compile issue test results by milestone
-#'
-#' @param dfTestResultsByIssue (`data.frame`) Data frame with `TestResults`
-#'   nested by `Issue`, as returned by [CompileTestResultsByIssue()].
-#' @inheritParams CompileIssueTestMatrix
-#' @returns A data frame with `IssueTestResults` nested by `Milestone`
-#' @keywords internal
-CompileIssueTestResultsByMilestone <- function(
-  dfRepoIssues,
-  dfTestResultsByIssue
-) {
-  dplyr::full_join(dfTestResultsByIssue, dfRepoIssues, by = "Issue") |>
-    # Move "TestResults" to the end.
-    dplyr::relocate(!dplyr::any_of("TestResults"), ) |>
-    AsIssueTestResultsDF() |>
-    dplyr::arrange(dplyr::desc(.data$Issue)) |>
-    tidyr::nest(.by = dplyr::any_of("Milestone"), .key = "IssueTestResults")
+EmptyIssueTestMatrix <- function() {
+  dplyr::full_join(
+    AsIssuesDF(NULL),
+    ExpandTestResultsByIssue(NULL),
+    by = "Issue"
+  ) |>
+    dplyr::relocate("Milestone")
 }

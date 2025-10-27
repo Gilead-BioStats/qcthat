@@ -4,10 +4,10 @@
 \alias{AsTestResultsDF}
 \title{Assign the qcthat_TestResults class to a data frame}
 \usage{
-AsTestResultsDF(df)
+AsTestResultsDF(x)
 }
 \arguments{
-\item{df}{(\code{data.frame}) Data frame to assign the class to.}
+\item{x}{Object to assign the class to.}
 }
 \value{
 A \code{qcthat_TestResults} object.

@@ -11,10 +11,10 @@
 #'   columns:
 #'   - `Test`: The `desc` field of the test from [testthat::test_that()].
 #'   - `File`: File where the test is defined.
-#'   - `Disposition`: Factor with levels `pass`, `fail`, and `skip`
-#'   indicating the overall outcome of the test.
-#'   - `Issues`: List column containing integer vectors of associated
-#'   GitHub issue numbers.
+#'   - `Disposition`: Factor with levels `pass`, `fail`, and `skip` indicating
+#'   the overall outcome of the test.
+#'   - `Issues`: List column containing integer vectors of associated GitHub
+#'   issue numbers.
 #' @export
 #'
 #' @examples
@@ -73,19 +73,27 @@ CompileTestResults <- function(lTestResults) {
 
 #' Assign the qcthat_TestResults class to a data frame
 #'
-#' @inheritParams AsExpectedDF
+#' @inheritParams AsExpected
 #' @returns A `qcthat_TestResults` object.
 #' @keywords internal
-AsTestResultsDF <- function(df) {
-  AsExpectedDF(
-    df,
-    tibble::tibble(
-      Test = character(),
-      File = character(),
-      Disposition = factor(levels = c("pass", "fail", "skip")),
-      Issues = list()
-    ),
+AsTestResultsDF <- function(x) {
+  AsExpected(
+    x,
+    EmptyTestResultsDF(),
     chrClass = "qcthat_TestResults"
+  )
+}
+
+#' Empty test results data frame
+#'
+#' @returns A standard [tibble::tibble()] with the correct columns but no rows.
+#' @keywords internal
+EmptyTestResultsDF <- function() {
+  tibble::tibble(
+    Test = character(),
+    File = character(),
+    Disposition = factor(levels = c("pass", "fail", "skip")),
+    Issues = list()
   )
 }
 

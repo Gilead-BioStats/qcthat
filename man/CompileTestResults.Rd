@@ -17,10 +17,10 @@ columns:
 \itemize{
 \item \code{Test}: The \code{desc} field of the test from \code{\link[testthat:test_that]{testthat::test_that()}}.
 \item \code{File}: File where the test is defined.
-\item \code{Disposition}: Factor with levels \code{pass}, \code{fail}, and \code{skip}
-indicating the overall outcome of the test.
-\item \code{Issues}: List column containing integer vectors of associated
-GitHub issue numbers.
+\item \code{Disposition}: Factor with levels \code{pass}, \code{fail}, and \code{skip} indicating
+the overall outcome of the test.
+\item \code{Issues}: List column containing integer vectors of associated GitHub
+issue numbers.
 }
 }
 \description{

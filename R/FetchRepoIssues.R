@@ -12,6 +12,7 @@
 #'   columns:
 #'   - `Issue`: Issue number.
 #'   - `Title`: Issue title.
+#'   - `Body`: Issue body (the full text of the issue).
 #'   - `Labels`: List column of character vectors of issue labels.
 #'   - `State`: Issue state (`open` or `closed`).
 #'   - `StateReason`: Reason for issue state (e.g., `completed`) or `NA` if not
@@ -108,12 +109,12 @@ CompileIssuesDF <- function(lIssuesNonPR) {
 
 #' Assign the qcthat_Issues class to a data frame
 #'
-#' @inheritParams AsExpectedDF
+#' @inheritParams AsExpected
 #' @returns A `qcthat_Issues` object.
 #' @keywords internal
-AsIssuesDF <- function(df) {
-  AsExpectedDF(
-    df,
+AsIssuesDF <- function(x) {
+  AsExpected(
+    x,
     EmptyIssuesDF(),
     chrClass = "qcthat_Issues"
   )

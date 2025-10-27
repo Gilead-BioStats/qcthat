@@ -22,7 +22,6 @@ Depends:
 Imports: 
     cli,
     dplyr,
-    emoji,
     gh,
     glue,
     pillar,
@@ -32,6 +31,7 @@ Imports:
     tibble,
     tidyr
 Suggests: 
+    emoji,
     testthat (>= 3.0.0),
     withr
 Config/Needs/website: rmarkdown

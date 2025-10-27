@@ -166,7 +166,7 @@ Here we describe a business process for implementing quality control using `{qct
 1. **💻 File Issues:** Program developer documents feature/programming requirements using Github Issues.
 2. **💻 Write Code:** Program developer updates code and associated documentation in R package. 
 3. **🧪 Write Tests:** Quality Control Programmer writes needed tests and includes a link to the issue by including `(#{issue_number})` in the test description.
-4. **🤖 Release Package:** Upon a GitHub release, all tests are automatically ran and a summary report linking issues with associated tests is created and attached to the release. 
+4. **🤖 Release Package:** Upon a GitHub release, all tests are automatically run and a summary report linking issues with associated tests is created and attached to the release. 
 
 ### Intake 💻💼
 

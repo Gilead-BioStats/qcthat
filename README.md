@@ -189,7 +189,7 @@ core step are described in the following sections.
     and includes a link to the issue by including `(#{issue_number})` in
     the test description.
 4.  **🤖 Release Package:** Upon a GitHub release, all tests are
-    automatically ran and a summary report linking issues with
+    automatically run and a summary report linking issues with
     associated tests is created and attached to the release.
 
 ### Intake 💻💼

@@ -65,7 +65,8 @@ FetchRawRepoIssues <- function(
     owner = strOwner,
     repo = strRepo,
     state = "all",
-    .token = strGHToken
+    .token = strGHToken,
+    .limit = Inf
   )
   # nocov end
 }

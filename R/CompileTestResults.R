@@ -110,21 +110,29 @@ CompileDispositions <- function(lTestResults) {
 #' @returns The string `"pass"`, `"fail"`, or `"skip"`.
 #' @keywords internal
 ExtractDisposition <- function(lTestResult) {
-  classes <- unlist(purrr::map(lTestResult$results, class))
-  classes <- setdiff(classes, c("expectation", "condition", "error"))
-  if (identical(classes, "expectation_success")) {
-    return("pass")
-  } else if ("expectation_failure" %in% classes) {
-    return("fail")
-  } else if ("expectation_skip" %in% classes) {
-    return("skip")
-  } else if ("expectation_warning" %in% classes) {
-    return("fail")
+  if (length(lTestResult$results)) {
+    classes <- unlist(purrr::map(lTestResult$results, class))
+    classes <- setdiff(classes, c("expectation", "condition", "error"))
+    if (identical(classes, "expectation_success")) {
+      return("pass")
+    } else if ("expectation_failure" %in% classes) {
+      return("fail")
+    } else if ("expectation_skip" %in% classes) {
+      return("skip")
+    } else if ("expectation_warning" %in% classes) {
+      return("fail")
+    }
+    cli::cli_abort(
+      "Unexpected result classes: {.val {classes}}",
+      class = "qcthat-error-unexpected_result_class"
+    )
   }
   cli::cli_abort(
     c(
-      "Unexpected result classes: {.val {classes}}"
+      "No test results found.",
+      i = "You may need to rerun tests with a different {.arg reporter}.",
+      i = "We recommend the {.str silent} reporter."
     ),
-    class = "qcthat-error-unexpected_result_class"
+    class = "qcthat-error-missing_results"
   )
 }

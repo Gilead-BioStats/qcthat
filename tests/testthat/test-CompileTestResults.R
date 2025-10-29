@@ -95,3 +95,19 @@ test_that("ExtractDisposition() helper errors informatively for weird results", 
     error = TRUE
   )
 })
+
+test_that("ExtractDisposition() helper errors informatively for missing results within lTestResult object", {
+  lTestResult <- list(
+    results = list()
+  )
+  expect_error(
+    {
+      ExtractDisposition(lTestResult)
+    },
+    class = "qcthat-error-missing_results"
+  )
+  expect_snapshot(
+    ExtractDisposition(lTestResult),
+    error = TRUE
+  )
+})

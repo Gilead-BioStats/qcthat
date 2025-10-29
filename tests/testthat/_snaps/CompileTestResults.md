@@ -15,3 +15,13 @@
       Error in `ExtractDisposition()`:
       ! Unexpected result classes: "some_weird_class"
 
+# ExtractDisposition() helper errors informatively for missing results within lTestResult object
+
+    Code
+      ExtractDisposition(lTestResult)
+    Condition
+      Error in `ExtractDisposition()`:
+      ! No test results found.
+      i You may need to rerun tests with a different `reporter`.
+      i We recommend the "silent" reporter.
+

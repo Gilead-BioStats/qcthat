@@ -40,9 +40,14 @@ fix)") and the disposition of tests ("passed", "failed", or "skipped").
 \examples{
 \dontshow{if (interactive()) withAutoprint(\{ # examplesIf}
 
-  lTestResults <- testthat::test_local(stop_on_failure = FALSE)
-  IssueTestMatrix <- CompileIssueTestMatrix( dfRepoIssues =
-  FetchRepoIssues(), dfTestResults = CompileTestResults(lTestResults) )
+  lTestResults <- testthat::test_local(
+    stop_on_failure = FALSE,
+    reporter = "silent"
+  )
+  IssueTestMatrix <- CompileIssueTestMatrix(
+    dfRepoIssues = FetchRepoIssues(),
+    dfTestResults = CompileTestResults(lTestResults)
+  )
   print(IssueTestMatrix)
 
   # Remove the "qcthat_IssueTestMatrix" class to see the raw tibble.

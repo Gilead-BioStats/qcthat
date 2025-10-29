@@ -5,7 +5,8 @@
 #'
 #' @param lTestResults (`testthat_results`) A testthat test results object,
 #'   typically obtained by running something like [testthat::test_local()] with
-#'   `stop_on_failure = FALSE`, and assigning it to a name.
+#'   `stop_on_failure = FALSE` and a reporter that doesn't cause issues in
+#'   parallel testing, like `reporter = "silent"`, and assigning it to a name.
 #'
 #' @returns A `qcthat_TestResults` object, which is a [tibble::tibble()] with
 #'   columns:
@@ -20,7 +21,10 @@
 #' @examples
 #' # Generate a test results object.
 #'
-#' # lTestResults <- testthat::test_local(stop_on_failure = FALSE)
+#' # lTestResults <- testthat::test_local(
+#' #  stop_on_failure = FALSE,
+#' #  reporter = "silent"
+#' # )
 #'
 #' lTestResults <- structure(
 #'   list(

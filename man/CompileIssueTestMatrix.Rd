@@ -48,7 +48,10 @@ and associated tests.
 }
 \examples{
 \dontshow{if (interactive()) withAutoprint(\{ # examplesIf}
-lTestResults <- testthat::test_local(stop_on_failure = FALSE)
+lTestResults <- testthat::test_local(
+  stop_on_failure = FALSE,
+  reporter = "silent"
+)
 CompileIssueTestMatrix(
   dfRepoIssues = FetchRepoIssues(),
   dfTestResults = CompileTestResults(lTestResults)

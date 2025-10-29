@@ -51,7 +51,8 @@ tibble::tibble()."><meta name="robots" content="noindex"></head><body>
 <dl><dt id="arg-ltestresults">lTestResults<a class="anchor" aria-label="anchor" href="#arg-ltestresults"></a></dt>
 <dd><p>(<code>testthat_results</code>) A testthat test results object,
 typically obtained by running something like <code><a href="https://testthat.r-lib.org/reference/test_package.html" class="external-link">testthat::test_local()</a></code> with
-<code>stop_on_failure = FALSE</code>, and assigning it to a name.</p></dd>
+<code>stop_on_failure = FALSE</code> and a reporter that doesn't cause issues in
+parallel testing, like <code>reporter = "silent"</code>, and assigning it to a name.</p></dd>
 
 </dl></div>
     <div class="section level2">
@@ -69,7 +70,10 @@ issue numbers.</p></li>
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># Generate a test results object.</span></span></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co"># lTestResults &lt;- testthat::test_local(stop_on_failure = FALSE)</span></span></span>
+<span class="r-in"><span><span class="co"># lTestResults &lt;- testthat::test_local(</span></span></span>
+<span class="r-in"><span><span class="co">#  stop_on_failure = FALSE,</span></span></span>
+<span class="r-in"><span><span class="co">#  reporter = "silent"</span></span></span>
+<span class="r-in"><span><span class="co"># )</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">lTestResults</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/structure.html" class="external-link">structure</a></span><span class="op">(</span></span></span>
 <span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span></span>

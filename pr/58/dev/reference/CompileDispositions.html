@@ -48,7 +48,8 @@
 <dl><dt id="arg-ltestresults">lTestResults<a class="anchor" aria-label="anchor" href="#arg-ltestresults"></a></dt>
 <dd><p>(<code>testthat_results</code>) A testthat test results object,
 typically obtained by running something like <code><a href="https://testthat.r-lib.org/reference/test_package.html" class="external-link">testthat::test_local()</a></code> with
-<code>stop_on_failure = FALSE</code>, and assigning it to a name.</p></dd>
+<code>stop_on_failure = FALSE</code> and a reporter that doesn't cause issues in
+parallel testing, like <code>reporter = "silent"</code>, and assigning it to a name.</p></dd>
 
 </dl></div>
     <div class="section level2">

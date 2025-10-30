@@ -22,7 +22,7 @@ test_that("CompileTestResults works for empty testthat_results (#32)", {
     tibble::tibble(
       Test = character(),
       File = character(),
-      Disposition = factor(levels = c("pass", "fail", "skip")),
+      Disposition = factor(levels = c("fail", "skip", "pass")),
       Issues = list()
     )
   )
@@ -51,7 +51,7 @@ test_that("CompileTestResults returns the expected object (#32)", {
       ),
       Disposition = factor(
         c("pass", "pass", "fail", "skip"),
-        levels = c("pass", "fail", "skip")
+        levels = c("fail", "skip", "pass")
       ),
       Issues = list(
         32L,

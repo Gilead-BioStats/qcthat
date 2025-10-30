@@ -96,7 +96,7 @@ EmptyTestResultsDF <- function() {
   tibble::tibble(
     Test = character(),
     File = character(),
-    Disposition = factor(levels = c("pass", "fail", "skip")),
+    Disposition = factor(levels = c("fail", "skip", "pass")),
     Issues = list()
   )
 }
@@ -112,7 +112,7 @@ CompileDispositions <- function(lTestResults) {
       lTestResults,
       ExtractDisposition
     ),
-    levels = c("pass", "fail", "skip")
+    levels = c("fail", "skip", "pass")
   )
 }
 

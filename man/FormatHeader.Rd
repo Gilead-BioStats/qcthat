@@ -13,7 +13,7 @@ FormatHeader(x, ..., lglUseEmoji = getOption("qcthat.emoji", TRUE))
 
 \method{FormatHeader}{default}(x, ...)
 
-\method{FormatHeader}{qcthat_IssueTestMatrix}(x, ...)
+\method{FormatHeader}{qcthat_IssueTestMatrix}(x, ..., lglUseEmoji = getOption("qcthat.emoji", TRUE))
 
 \method{FormatHeader}{qcthat_Milestone}(x, ...)
 

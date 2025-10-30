@@ -5,12 +5,12 @@
     Output
       █ A qcthat issue test matrix with 0 milestones, 0 issues, and 0 tests
 
-# Printing an IssueTestMatrix outputs a user-friendly tree (#31, #36)
+# Printing an IssueTestMatrix outputs a user-friendly tree (#31, #36, #60)
 
     Code
       dfITM
     Output
-      █ A qcthat issue test matrix with 1 milestone, 6 issues, and 8 tests
+      [!] A qcthat issue test matrix with 1 milestone, 6 issues, and 8 tests
       ├─█─Milestone: v0.2.0 (4 issues, 7 tests)
       │ ├─[o]─Feature 35: Generate Issue-Test Matrix
       │ │ ├─[v]─CompileIssueTestMatrix returns an empty IssueTestMatrix with empty input (#35, #31)
@@ -33,4 +33,6 @@
           └─[v]─ExtractDisposition() helper errors informatively for weird results
       # Issue state: [o] = open, [x] = closed (completed), [-] = closed (won't fix)
       # Test disposition: [v] = passed, [!] = failed, [S] = skipped
+      
+      [!] At least one test failed
 

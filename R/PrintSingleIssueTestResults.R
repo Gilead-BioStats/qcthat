@@ -34,6 +34,7 @@ FormatSITRHeader <- function(x, lglUseEmoji = getOption("qcthat.emoji", TRUE)) {
 #'
 #' @param strStateReason (`length-1 character`) Reason for issue state (e.g.,
 #'   `completed`) or `NA` if not applicable.
+#' @inheritParams printing
 #' @inherit ChooseEmoji return
 #' @keywords internal
 ChooseStateIndicator <- function(
@@ -69,12 +70,9 @@ FormatBody.qcthat_SingleIssueTestResults <- function(
       FinalizeTree("(no tests)")
     )
   }
-  TestResults$DispositionIndicator <- dplyr::case_match(
+  TestResults$DispositionIndicator <- ChooseDispositionIndicator(
     TestResults$Disposition,
-    "pass" ~ ChooseEmoji("passed", lglUseEmoji = lglUseEmoji),
-    "fail" ~ ChooseEmoji("failed", lglUseEmoji = lglUseEmoji),
-    "skip" ~ ChooseEmoji("skipped", lglUseEmoji = lglUseEmoji),
-    .default = "[?]"
+    lglUseEmoji = lglUseEmoji
   )
   chrFormattedResults <- glue::glue(
     "{TestResults$DispositionIndicator}",
@@ -82,4 +80,26 @@ FormatBody.qcthat_SingleIssueTestResults <- function(
     "{TestResults$Test}"
   )
   FinalizeTree(chrFormattedResults)
+}
+
+#' Choose emoji to indicate test disposition
+#'
+#' @param chrDisposition (`character`) Test disposition. Generally one of
+#'   `"pass"`, `"fail"`, or `"skip"`.
+#' @inheritParams printing
+#' @returns A character vector of the same length as `chrDisposition`, with each
+#'   element being the emoji or ASCII indicator for the corresponding test
+#'   disposition.
+#' @keywords internal
+ChooseDispositionIndicator <- function(
+  chrDisposition,
+  lglUseEmoji = getOption("qcthat.emoji", TRUE)
+) {
+  dplyr::case_match(
+    chrDisposition,
+    "pass" ~ ChooseEmoji("passed", lglUseEmoji = lglUseEmoji),
+    "fail" ~ ChooseEmoji("failed", lglUseEmoji = lglUseEmoji),
+    "skip" ~ ChooseEmoji("skipped", lglUseEmoji = lglUseEmoji),
+    .default = "[?]"
+  )
 }

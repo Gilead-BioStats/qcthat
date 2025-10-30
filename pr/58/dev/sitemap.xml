@@ -13,7 +13,10 @@
 <url><loc>https://gilead-biostats.github.io/qcthat/dev/reference/AsRowDFList.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/qcthat/dev/reference/AsSingleIssueTestResults.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/qcthat/dev/reference/AsTestResultsDF.html</loc></url>
+<url><loc>https://gilead-biostats.github.io/qcthat/dev/reference/ChooseDispositionIndicator.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/qcthat/dev/reference/ChooseEmoji.html</loc></url>
+<url><loc>https://gilead-biostats.github.io/qcthat/dev/reference/ChooseOverallDispositionIndicator.html</loc></url>
+<url><loc>https://gilead-biostats.github.io/qcthat/dev/reference/ChooseOverallDispositionMessage.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/qcthat/dev/reference/ChooseStateIndicator.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/qcthat/dev/reference/CompileDispositions.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/qcthat/dev/reference/CompileIssueTestMatrix.html</loc></url>
@@ -38,6 +41,7 @@
 <url><loc>https://gilead-biostats.github.io/qcthat/dev/reference/FormatHeader.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/qcthat/dev/reference/FormatSITRHeader.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/qcthat/dev/reference/GetChrCode.html</loc></url>
+<url><loc>https://gilead-biostats.github.io/qcthat/dev/reference/MakeITRDispositionFooter.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/qcthat/dev/reference/MakeKeyItem.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/qcthat/dev/reference/NullIfEmpty.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/qcthat/dev/reference/RemovePRsFromIssues.html</loc></url>

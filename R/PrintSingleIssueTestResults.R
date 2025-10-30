@@ -48,6 +48,10 @@ ChooseStateIndicator <- function(
       "closed (won't fix)",
       lglUseEmoji = lglUseEmoji
     ),
+    "duplicate" = ChooseEmoji(
+      "closed (won't fix)",
+      lglUseEmoji = lglUseEmoji
+    ),
     ChooseEmoji("open", lglUseEmoji = lglUseEmoji)
   )
 }

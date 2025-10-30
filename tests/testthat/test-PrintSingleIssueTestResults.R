@@ -42,3 +42,10 @@ test_that("Printing a SingleIssueTestResults outputs a user-friendly tree", {
     lSeparatedIssueTestResults[[3]]
   })
 })
+
+test_that("Issues closed as duplicates display the proper symbol (#61)", {
+  expect_identical(
+    ChooseStateIndicator("duplicate", lglUseEmoji = FALSE),
+    "[-]"
+  )
+})

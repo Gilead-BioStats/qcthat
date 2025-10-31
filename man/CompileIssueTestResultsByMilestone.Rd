@@ -4,14 +4,14 @@
 \alias{CompileIssueTestResultsByMilestone}
 \title{Compile issue test results by milestone}
 \usage{
-CompileIssueTestResultsByMilestone(dfRepoIssues, dfTestResultsByIssue)
+CompileIssueTestResultsByMilestone(dfRepoIssues, dfTestResults)
 }
 \arguments{
 \item{dfRepoIssues}{(\code{qcthat_Issues} or data frame) Data frame of GitHub
 issues as returned by \code{\link[=FetchRepoIssues]{FetchRepoIssues()}}.}
 
-\item{dfTestResultsByIssue}{(\code{data.frame}) Data frame with \code{TestResults}
-nested by \code{Issue}, as returned by \code{\link[=CompileTestResultsByIssue]{CompileTestResultsByIssue()}}.}
+\item{dfTestResults}{(\code{qcthat_TestResults} or data frame) Data frame of test
+results as returned by \code{\link[=CompileTestResults]{CompileTestResults()}}.}
 }
 \value{
 A data frame with \code{IssueTestResults} nested by \code{Milestone}

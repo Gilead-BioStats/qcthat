@@ -4,10 +4,10 @@
 \alias{AsIssuesDF}
 \title{Assign the qcthat_Issues class to a data frame}
 \usage{
-AsIssuesDF(df)
+AsIssuesDF(x)
 }
 \arguments{
-\item{df}{(\code{data.frame}) Data frame to assign the class to.}
+\item{x}{Object to assign the class to.}
 }
 \value{
 A \code{qcthat_Issues} object.

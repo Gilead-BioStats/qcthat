@@ -5,22 +5,26 @@
 #'
 #' @param lTestResults (`testthat_results`) A testthat test results object,
 #'   typically obtained by running something like [testthat::test_local()] with
-#'   `stop_on_failure = FALSE`, and assigning it to a name.
+#'   `stop_on_failure = FALSE` and a reporter that doesn't cause issues in
+#'   parallel testing, like `reporter = "silent"`, and assigning it to a name.
 #'
 #' @returns A `qcthat_TestResults` object, which is a [tibble::tibble()] with
 #'   columns:
 #'   - `Test`: The `desc` field of the test from [testthat::test_that()].
 #'   - `File`: File where the test is defined.
-#'   - `Disposition`: Factor with levels `pass`, `fail`, and `skip`
-#'   indicating the overall outcome of the test.
-#'   - `Issues`: List column containing integer vectors of associated
-#'   GitHub issue numbers.
+#'   - `Disposition`: Factor with levels `pass`, `fail`, and `skip` indicating
+#'   the overall outcome of the test.
+#'   - `Issues`: List column containing integer vectors of associated GitHub
+#'   issue numbers.
 #' @export
 #'
 #' @examples
 #' # Generate a test results object.
 #'
-#' # lTestResults <- testthat::test_local(stop_on_failure = FALSE)
+#' # lTestResults <- testthat::test_local(
+#' #  stop_on_failure = FALSE,
+#' #  reporter = "silent"
+#' # )
 #'
 #' lTestResults <- structure(
 #'   list(
@@ -73,19 +77,27 @@ CompileTestResults <- function(lTestResults) {
 
 #' Assign the qcthat_TestResults class to a data frame
 #'
-#' @inheritParams AsExpectedDF
+#' @inheritParams AsExpected
 #' @returns A `qcthat_TestResults` object.
 #' @keywords internal
-AsTestResultsDF <- function(df) {
-  AsExpectedDF(
-    df,
-    tibble::tibble(
-      Test = character(),
-      File = character(),
-      Disposition = factor(levels = c("pass", "fail", "skip")),
-      Issues = list()
-    ),
+AsTestResultsDF <- function(x) {
+  AsExpected(
+    x,
+    EmptyTestResultsDF(),
     chrClass = "qcthat_TestResults"
+  )
+}
+
+#' Empty test results data frame
+#'
+#' @returns A standard [tibble::tibble()] with the correct columns but no rows.
+#' @keywords internal
+EmptyTestResultsDF <- function() {
+  tibble::tibble(
+    Test = character(),
+    File = character(),
+    Disposition = factor(levels = c("fail", "skip", "pass")),
+    Issues = list()
   )
 }
 
@@ -100,7 +112,7 @@ CompileDispositions <- function(lTestResults) {
       lTestResults,
       ExtractDisposition
     ),
-    levels = c("pass", "fail", "skip")
+    levels = c("fail", "skip", "pass")
   )
 }
 

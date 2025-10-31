@@ -4,10 +4,10 @@
 \alias{AsIssueTestMatrix}
 \title{Assign the qcthat_IssueTestMatrix class to a data frame}
 \usage{
-AsIssueTestMatrix(df)
+AsIssueTestMatrix(x)
 }
 \arguments{
-\item{df}{(\code{data.frame}) Data frame to assign the class to.}
+\item{x}{Object to assign the class to.}
 }
 \value{
 A \code{qcthat_IssueTestMatrix} object.

@@ -14,13 +14,31 @@ issues as returned by \code{\link[=FetchRepoIssues]{FetchRepoIssues()}}.}
 results as returned by \code{\link[=CompileTestResults]{CompileTestResults()}}.}
 }
 \value{
-A \code{qcthat_IssueTestMatrix} object, which is a nested tibble with
-columns:
+A \code{qcthat_IssueTestMatrix} object, which is a tibble with columns:
 \itemize{
 \item \code{Milestone}: The milestone title associated with the issues.
-\item \code{IssueTestResults}: A nested tibble with the other columns returned by
-\code{\link[=FetchRepoIssues]{FetchRepoIssues()}}, plus \code{TestResults}, which is a nested tibble with
-the remaining columns from \code{\link[=CompileTestResults]{CompileTestResults()}}.
+\item \code{Issue}: Issue number.
+\item \code{Title}: Issue title.
+\item \code{Body}: Issue body (the full text of the issue).
+\item \code{Labels}: List column of character vectors of issue labels.
+\item \code{State}: Issue state (\code{open} or \code{closed}).
+\item \code{StateReason}: Reason for issue state (e.g., \code{completed}) or \code{NA} if not
+applicable.
+\item \code{Type}: Issue type or \code{"Issue"} if no issue type is available.
+\item \code{Url}: URL of the issue on GitHub.
+\item \code{ParentOwner}: GitHub username or organization name of the parent issue
+if applicable, otherwise \code{NA}.
+\item \code{ParentRepo}: GitHub repository name of the parent issue if applicable,
+otherwise \code{NA}.
+\item \code{ParentNumber}: GitHub issue number of the parent issue if applicable,
+otherwise \code{NA}.
+\item \code{CreatedAt}: \code{POSIXct} timestamp of when the issue was created.
+\item \code{ClosedAt}: \code{POSIXct} timestamp of when the issue was closed, or \code{NA} if
+the issue is still open.
+\item \code{Test}: The \code{desc} field of the test from \code{\link[testthat:test_that]{testthat::test_that()}}.
+\item \code{File}: File where the test is defined.
+\item \code{Disposition}: Factor with levels \code{pass}, \code{fail}, and \code{skip} indicating
+the overall outcome of the test.
 }
 }
 \description{
@@ -30,10 +48,13 @@ and associated tests.
 }
 \examples{
 \dontshow{if (interactive()) withAutoprint(\{ # examplesIf}
-  lTestResults <- testthat::test_local(stop_on_failure = FALSE)
-  CompileIssueTestMatrix(
-    dfRepoIssues = FetchRepoIssues(),
-    dfTestResults = CompileTestResults(lTestResults)
-  )
+lTestResults <- testthat::test_local(
+  stop_on_failure = FALSE,
+  reporter = "silent"
+)
+CompileIssueTestMatrix(
+  dfRepoIssues = FetchRepoIssues(),
+  dfTestResults = CompileTestResults(lTestResults)
+)
 \dontshow{\}) # examplesIf}
 }

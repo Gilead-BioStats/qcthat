@@ -9,7 +9,8 @@ CompileTestResults(lTestResults)
 \arguments{
 \item{lTestResults}{(\code{testthat_results}) A testthat test results object,
 typically obtained by running something like \code{\link[testthat:test_package]{testthat::test_local()}} with
-\code{stop_on_failure = FALSE}, and assigning it to a name.}
+\code{stop_on_failure = FALSE} and a reporter that doesn't cause issues in
+parallel testing, like \code{reporter = "silent"}, and assigning it to a name.}
 }
 \value{
 A \code{qcthat_TestResults} object, which is a \code{\link[tibble:tibble]{tibble::tibble()}} with
@@ -17,10 +18,10 @@ columns:
 \itemize{
 \item \code{Test}: The \code{desc} field of the test from \code{\link[testthat:test_that]{testthat::test_that()}}.
 \item \code{File}: File where the test is defined.
-\item \code{Disposition}: Factor with levels \code{pass}, \code{fail}, and \code{skip}
-indicating the overall outcome of the test.
-\item \code{Issues}: List column containing integer vectors of associated
-GitHub issue numbers.
+\item \code{Disposition}: Factor with levels \code{pass}, \code{fail}, and \code{skip} indicating
+the overall outcome of the test.
+\item \code{Issues}: List column containing integer vectors of associated GitHub
+issue numbers.
 }
 }
 \description{
@@ -30,7 +31,10 @@ Extract relevant information from a \code{testthat_results} object into a tidy
 \examples{
 # Generate a test results object.
 
-# lTestResults <- testthat::test_local(stop_on_failure = FALSE)
+# lTestResults <- testthat::test_local(
+#  stop_on_failure = FALSE,
+#  reporter = "silent"
+# )
 
 lTestResults <- structure(
   list(

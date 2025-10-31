@@ -24,6 +24,7 @@ columns:
 \itemize{
 \item \code{Issue}: Issue number.
 \item \code{Title}: Issue title.
+\item \code{Body}: Issue body (the full text of the issue).
 \item \code{Labels}: List column of character vectors of issue labels.
 \item \code{State}: Issue state (\code{open} or \code{closed}).
 \item \code{StateReason}: Reason for issue state (e.g., \code{completed}) or \code{NA} if not

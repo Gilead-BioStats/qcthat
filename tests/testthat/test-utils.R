@@ -1,4 +1,4 @@
-test_that("AsExpectedDF works with empty dfs", {
+test_that("AsExpected works with empty dfs", {
   dfShape <- data.frame(
     A = integer(),
     B = character(),
@@ -6,22 +6,22 @@ test_that("AsExpectedDF works with empty dfs", {
   )
   dfExpected <- structure(
     dfShape,
-    class = c("my_expected_class", "data.frame")
+    class = c("my_expected_class", "qcthat_Object", "data.frame")
   )
-  test_result <- AsExpectedDF(
+  test_result <- AsExpected(
     data.frame(),
     dfShape,
     "my_expected_class"
   )
   expect_s3_class(
     test_result,
-    c("my_expected_class", "data.frame"),
+    c("my_expected_class", "qcthat_Object", "data.frame"),
     exact = TRUE
   )
   expect_equal(test_result, dfExpected)
 })
 
-test_that("AsExpectedDF works with non-empty dfs", {
+test_that("AsExpected works with non-empty dfs", {
   dfShape <- data.frame(
     A = integer(),
     B = character(),
@@ -34,17 +34,128 @@ test_that("AsExpectedDF works with non-empty dfs", {
   )
   dfExpected <- structure(
     dfGiven,
-    class = c("my_expected_class", "data.frame")
+    class = c("my_expected_class", "qcthat_Object", "data.frame")
   )
-  test_result <- AsExpectedDF(
+  test_result <- AsExpected(
     dfGiven,
     dfShape,
     "my_expected_class"
   )
   expect_s3_class(
     test_result,
-    c("my_expected_class", "data.frame"),
+    c("my_expected_class", "qcthat_Object", "data.frame"),
     exact = TRUE
   )
   expect_equal(test_result, dfExpected)
+})
+
+test_that("AsExpectedFlat works with NULL", {
+  lShape <- list(A = integer())
+  lExpected <- structure(
+    lShape,
+    class = c("my_expected_flat_class", "qcthat_Object", "list")
+  )
+  test_result <- AsExpectedFlat(NULL, lShape, "my_expected_flat_class")
+  expect_s3_class(
+    test_result,
+    c("my_expected_flat_class", "qcthat_Object", "list"),
+    exact = TRUE
+  )
+  expect_equal(test_result, lExpected)
+})
+
+test_that("AsExpectedFlat works with empty lists", {
+  lShape <- list(
+    A = integer(),
+    B = character(),
+    C = logical()
+  )
+  lExpected <- structure(
+    lShape,
+    class = c("my_expected_flat_class", "qcthat_Object", "list")
+  )
+  test_result <- AsExpectedFlat(
+    list(),
+    lShape,
+    "my_expected_flat_class"
+  )
+  expect_s3_class(
+    test_result,
+    c("my_expected_flat_class", "qcthat_Object", "list"),
+    exact = TRUE
+  )
+  expect_equal(test_result, lExpected)
+})
+
+test_that("AsExpectedFlat works with non-empty data.frames", {
+  dfGiven <- data.frame(
+    A = 1,
+    B = "a",
+    C = TRUE
+  )
+  lShape <- list(
+    A = integer(),
+    B = character(),
+    C = logical()
+  )
+  lExpected <- structure(
+    list(
+      A = 1,
+      B = "a",
+      C = TRUE
+    ),
+    class = c("my_expected_flat_class", "qcthat_Object", "list")
+  )
+  test_result <- AsExpectedFlat(
+    dfGiven,
+    lShape,
+    "my_expected_flat_class"
+  )
+  expect_s3_class(
+    test_result,
+    c("my_expected_flat_class", "qcthat_Object", "list"),
+    exact = TRUE
+  )
+  expect_equal(test_result, lExpected)
+})
+
+test_that("AsRowDFList splits and transforms correctly", {
+  dfInput <- data.frame(
+    X = 1:3,
+    Y = letters[1:3],
+    Z = c(TRUE, FALSE, TRUE)
+  )
+  fnTransform <- function(dfRow) {
+    dfRow$Y <- toupper(dfRow$Y)
+    return(dfRow)
+  }
+  test_result <- AsRowDFList(dfInput, fnTransform)
+  expect_equal(length(test_result), 3)
+  for (i in seq_along(test_result)) {
+    expect_s3_class(test_result[[i]], "data.frame")
+    expect_equal(nrow(test_result[[i]]), 1)
+    expect_equal(test_result[[i]]$X, dfInput$X[i])
+    expect_equal(test_result[[i]]$Y, toupper(dfInput$Y[i]))
+    expect_equal(test_result[[i]]$Z, dfInput$Z[i])
+  }
+})
+
+test_that("CountNonNA counts unique non-NA values correctly", {
+  vecInput1 <- c(1, 2, 2, NA, 3, NA, 1)
+  expect_equal(CountNonNA(vecInput1), 3)
+
+  vecInput2 <- c(NA, NA, NA)
+  expect_equal(CountNonNA(vecInput2), 0)
+
+  vecInput3 <- c("a", "b", "a", "c", NA, "b")
+  expect_equal(CountNonNA(vecInput3), 3)
+
+  vecInput4 <- numeric(0)
+  expect_equal(CountNonNA(vecInput4), 0)
+})
+
+test_that("SimplePluralize returns correct singular/plural forms", {
+  expect_equal(SimplePluralize("cat", 1), "cat")
+  expect_equal(SimplePluralize("cat", 2), "cats")
+  expect_equal(SimplePluralize("dog", 0), "dogs")
 })

@@ -18,6 +18,7 @@ tibble::tibble()."><meta name="robots" content="noindex"></head><body>
 
     <div id="navbar" class="collapse navbar-collapse ms-3">
       <ul class="navbar-nav me-auto"><li class="active nav-item"><a class="nav-link" href="../reference/index.html">Reference</a></li>
+<li class="nav-item"><a class="nav-link" href="../news/index.html">Changelog</a></li>
       </ul><ul class="navbar-nav"><li class="nav-item"><form class="form-inline" role="search">
  <input class="form-control" type="search" name="search-input" id="search-input" autocomplete="off" aria-label="Search site" placeholder="Search for" data-search-index="../search.json"></form></li>
 <li class="nav-item"><a class="external-link nav-link" href="https://github.com/Gilead-BioStats/qcthat/" aria-label="GitHub"><span class="fa fab fa-github fa-lg"></span></a></li>
@@ -51,7 +52,8 @@ tibble::tibble()."><meta name="robots" content="noindex"></head><body>
 <dl><dt id="arg-ltestresults">lTestResults<a class="anchor" aria-label="anchor" href="#arg-ltestresults"></a></dt>
 <dd><p>(<code>testthat_results</code>) A testthat test results object,
 typically obtained by running something like <code><a href="https://testthat.r-lib.org/reference/test_package.html" class="external-link">testthat::test_local()</a></code> with
-<code>stop_on_failure = FALSE</code>, and assigning it to a name.</p></dd>
+<code>stop_on_failure = FALSE</code> and a reporter that doesn't cause issues in
+parallel testing, like <code>reporter = "silent"</code>, and assigning it to a name.</p></dd>
 
 </dl></div>
     <div class="section level2">
@@ -59,17 +61,20 @@ typically obtained by running something like <code><a href="https://testthat.r-l
     <p>A <code>qcthat_TestResults</code> object, which is a <code><a href="https://tibble.tidyverse.org/reference/tibble.html" class="external-link">tibble::tibble()</a></code> with
 columns:</p><ul><li><p><code>Test</code>: The <code>desc</code> field of the test from <code><a href="https://testthat.r-lib.org/reference/test_that.html" class="external-link">testthat::test_that()</a></code>.</p></li>
 <li><p><code>File</code>: File where the test is defined.</p></li>
-<li><p><code>Disposition</code>: Factor with levels <code>pass</code>, <code>fail</code>, and <code>skip</code>
-indicating the overall outcome of the test.</p></li>
-<li><p><code>Issues</code>: List column containing integer vectors of associated
-GitHub issue numbers.</p></li>
+<li><p><code>Disposition</code>: Factor with levels <code>pass</code>, <code>fail</code>, and <code>skip</code> indicating
+the overall outcome of the test.</p></li>
+<li><p><code>Issues</code>: List column containing integer vectors of associated GitHub
+issue numbers.</p></li>
 </ul></div>
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># Generate a test results object.</span></span></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co"># lTestResults &lt;- testthat::test_local(stop_on_failure = FALSE)</span></span></span>
+<span class="r-in"><span><span class="co"># lTestResults &lt;- testthat::test_local(</span></span></span>
+<span class="r-in"><span><span class="co">#  stop_on_failure = FALSE,</span></span></span>
+<span class="r-in"><span><span class="co">#  reporter = "silent"</span></span></span>
+<span class="r-in"><span><span class="co"># )</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">lTestResults</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/structure.html" class="external-link">structure</a></span><span class="op">(</span></span></span>
 <span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span></span>

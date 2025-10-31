@@ -20,6 +20,7 @@ and associated tests."><meta name="robots" content="noindex"></head><body>
 
     <div id="navbar" class="collapse navbar-collapse ms-3">
       <ul class="navbar-nav me-auto"><li class="active nav-item"><a class="nav-link" href="../reference/index.html">Reference</a></li>
+<li class="nav-item"><a class="nav-link" href="../news/index.html">Changelog</a></li>
       </ul><ul class="navbar-nav"><li class="nav-item"><form class="form-inline" role="search">
  <input class="form-control" type="search" name="search-input" id="search-input" autocomplete="off" aria-label="Search site" placeholder="Search for" data-search-index="../search.json"></form></li>
 <li class="nav-item"><a class="external-link nav-link" href="https://github.com/Gilead-BioStats/qcthat/" aria-label="GitHub"><span class="fa fab fa-github fa-lg"></span></a></li>
@@ -63,21 +64,42 @@ results as returned by <code><a href="CompileTestResults.html">CompileTestResult
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
-    <p>A <code>qcthat_IssueTestMatrix</code> object, which is a nested tibble with
-columns:</p><ul><li><p><code>Milestone</code>: The milestone title associated with the issues.</p></li>
-<li><p><code>IssueTestResults</code>: A nested tibble with the other columns returned by
-<code><a href="FetchRepoIssues.html">FetchRepoIssues()</a></code>, plus <code>TestResults</code>, which is a nested tibble with
-the remaining columns from <code><a href="CompileTestResults.html">CompileTestResults()</a></code>.</p></li>
+    <p>A <code>qcthat_IssueTestMatrix</code> object, which is a tibble with columns:</p><ul><li><p><code>Milestone</code>: The milestone title associated with the issues.</p></li>
+<li><p><code>Issue</code>: Issue number.</p></li>
+<li><p><code>Title</code>: Issue title.</p></li>
+<li><p><code>Body</code>: Issue body (the full text of the issue).</p></li>
+<li><p><code>Labels</code>: List column of character vectors of issue labels.</p></li>
+<li><p><code>State</code>: Issue state (<code>open</code> or <code>closed</code>).</p></li>
+<li><p><code>StateReason</code>: Reason for issue state (e.g., <code>completed</code>) or <code>NA</code> if not
+applicable.</p></li>
+<li><p><code>Type</code>: Issue type or <code>"Issue"</code> if no issue type is available.</p></li>
+<li><p><code>Url</code>: URL of the issue on GitHub.</p></li>
+<li><p><code>ParentOwner</code>: GitHub username or organization name of the parent issue
+if applicable, otherwise <code>NA</code>.</p></li>
+<li><p><code>ParentRepo</code>: GitHub repository name of the parent issue if applicable,
+otherwise <code>NA</code>.</p></li>
+<li><p><code>ParentNumber</code>: GitHub issue number of the parent issue if applicable,
+otherwise <code>NA</code>.</p></li>
+<li><p><code>CreatedAt</code>: <code>POSIXct</code> timestamp of when the issue was created.</p></li>
+<li><p><code>ClosedAt</code>: <code>POSIXct</code> timestamp of when the issue was closed, or <code>NA</code> if
+the issue is still open.</p></li>
+<li><p><code>Test</code>: The <code>desc</code> field of the test from <code><a href="https://testthat.r-lib.org/reference/test_that.html" class="external-link">testthat::test_that()</a></code>.</p></li>
+<li><p><code>File</code>: File where the test is defined.</p></li>
+<li><p><code>Disposition</code>: Factor with levels <code>pass</code>, <code>fail</code>, and <code>skip</code> indicating
+the overall outcome of the test.</p></li>
 </ul></div>
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span> <span class="co"># interactive()</span></span></span>
-<span class="r-in"><span>  <span class="va">lTestResults</span> <span class="op">&lt;-</span> <span class="fu">testthat</span><span class="fu">::</span><span class="fu"><a href="https://testthat.r-lib.org/reference/test_package.html" class="external-link">test_local</a></span><span class="op">(</span>stop_on_failure <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
-<span class="r-in"><span>  <span class="fu">CompileIssueTestMatrix</span><span class="op">(</span></span></span>
-<span class="r-in"><span>    dfRepoIssues <span class="op">=</span> <span class="fu"><a href="FetchRepoIssues.html">FetchRepoIssues</a></span><span class="op">(</span><span class="op">)</span>,</span></span>
-<span class="r-in"><span>    dfTestResults <span class="op">=</span> <span class="fu"><a href="CompileTestResults.html">CompileTestResults</a></span><span class="op">(</span><span class="va">lTestResults</span><span class="op">)</span></span></span>
-<span class="r-in"><span>  <span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">lTestResults</span> <span class="op">&lt;-</span> <span class="fu">testthat</span><span class="fu">::</span><span class="fu"><a href="https://testthat.r-lib.org/reference/test_package.html" class="external-link">test_local</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>  stop_on_failure <span class="op">=</span> <span class="cn">FALSE</span>,</span></span>
+<span class="r-in"><span>  reporter <span class="op">=</span> <span class="st">"silent"</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">CompileIssueTestMatrix</span><span class="op">(</span></span></span>
+<span class="r-in"><span>  dfRepoIssues <span class="op">=</span> <span class="fu"><a href="FetchRepoIssues.html">FetchRepoIssues</a></span><span class="op">(</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>  dfTestResults <span class="op">=</span> <span class="fu"><a href="CompileTestResults.html">CompileTestResults</a></span><span class="op">(</span><span class="va">lTestResults</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">}</span></span></span>
 </code></pre></div>
     </div>

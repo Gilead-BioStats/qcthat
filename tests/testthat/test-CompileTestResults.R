@@ -96,7 +96,7 @@ test_that("ExtractDisposition() helper errors informatively for weird results", 
   )
 })
 
-test_that("ExtractDisposition() helper errors informatively for missing results within lTestResult object", {
+test_that("ExtractDisposition() helper errors informatively for missing results within lTestResult object (#45)", {
   lTestResult <- list(
     results = list()
   )

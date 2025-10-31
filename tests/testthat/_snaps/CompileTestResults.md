@@ -15,7 +15,7 @@
       Error in `ExtractDisposition()`:
       ! Unexpected result classes: "some_weird_class"
 
-# ExtractDisposition() helper errors informatively for missing results within lTestResult object
+# ExtractDisposition() helper errors informatively for missing results within lTestResult object (#45)
 
     Code
       ExtractDisposition(lTestResult)

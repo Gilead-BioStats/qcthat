@@ -93,75 +93,81 @@ print(IssueTestMatrix)
 ```
 
 For example, this is the output for a recent report for this {qcthat}
-repository.
+repository (issues nested under milestones other than v0.2.0 have been
+removed).
 
-    # A qcthat issue test matrix with 2 milestones, 24 issues, and 16 tests
-    █
-    ├─█─Milestone: <none> (17 issues)
-    │ ├─█─📥─Technical Task 49: Unnest IssueTestMatrix for easier filtering
-    │ │    └─(no tests)
-    │ ├─█─📥─Feature 48: Add filters (and apply by default)
-    │ │    └─(no tests)
-    │ ├─█─📥─Bug 47: Fetch *all* repo issues
-    │ │    └─(no tests)
-    │ ├─█─📥─Feature 46: Wrapper to run everything
-    │ │    └─(no tests)
-    │ ├─█─📥─Bug 45: Deal with length-0 results
-    │ │    └─(no tests)
-    │ ├─█─📥─Feature 44: Helper to run tests
-    │ │    └─(no tests)
-    │ ├─█─📥─Documentation Task 43: Log Process in README
-    │ │    └─(no tests)
-    │ ├─█─📥─Feature 42: Print as HTML
-    │ │    └─(no tests)
-    │ ├─█─📥─Feature 41: Function to Implement GHA
-    │ │    └─(no tests)
-    │ ├─█─📥─Feature 40: Print Without Milestones
-    │ │    └─(no tests)
-    │ ├─█─📥─Feature 39: Add print methods for sub-parts
-    │ │    └─(no tests)
-    │ ├─█─📥─Feature 38: Nest issues under parent
-    │ │    └─(no tests)
-    │ ├─█─📥─Technical Task 30: Update basic infrastructure
-    │ │    └─(no tests)
-    │ ├─█─☑️─Documentation Task 24: Outline business process for business requirements and testing
-    │ │    └─(no tests)
-    │ ├─█─⛔─Bug 21: Bugfix: Unit test coverage is missing
-    │ │    └─(no tests)
-    │ ├─█─⛔─Bug 19: Pull Requests don't currently get pulled in
-    │ │    └─(no tests)
-    │ └─█─<no issue>
-    │      ├─✅─ExtractDisposition() helper counts warnings as errors
-    │      ├─✅─ExtractDisposition() helper errors informatively for weird results
-    │      ├─✅─Formatting an IssueTestMatrix can return the formatted tree directly
-    │      ├─✅─AsExpectedDF works with empty dfs
-    │      └─✅─AsExpectedDF works with non-empty dfs
-    └─█─Milestone: v0.2.0 (8 issues)
-      ├─█─☑️─Feature 37: Package QC Report GHA
-      │    └─(no tests)
-      ├─█─☑️─Feature 36: Print IssueTestMatrix
-      │    ├─✅─Printing an IssueTestMatrix returns input invisibly (#36)
-      │    └─✅─Printing an IssueTestMatrix outputs a user-friendly tree (#31, #36)
-      ├─█─☑️─Feature 35: Generate Issue-Test Matrix
-      │    ├─✅─CompileIssueTestMatrix returns an empty IssueTestMatrix with empty input (#35)
-      │    ├─✅─CompileIssueTestMatrix combines issues and test results into an IssueTestMatrix tibble (#35)
-      │    ├─✅─CompileIssueTestMatrix nests by milestone (#35)
-      │    └─✅─CompileIssueTestMatrix nests by issue (#35)
-      ├─█─☑️─Feature 34: Get repo issues
-      │    ├─✅─FetchRepoIssues returns an empty df when no issues found (#34)
-      │    └─✅─FetchRepoIssues returns a formatted df for real issues (#34)
-      ├─█─☑️─Feature 32: Extract test information from test results
-      │    ├─✅─CompileTestResults errors informatively for bad input (#32)
-      │    ├─✅─CompileTestResults works for empty testthat_results (#32)
-      │    └─✅─CompileTestResults returns the expected object (#32)
-      ├─█─☑️─Requirement 31: Generate package QC report
-      │    └─✅─Printing an IssueTestMatrix outputs a user-friendly tree (#31, #36)
-      ├─█─☑️─Technical Task 20: Fix pkgdown github workflows
-      │    └─(no tests)
-      └─█─📥─Requirement 18: Capture requirements via issues
-           └─(no tests)
+    ✅ A qcthat issue test matrix with 6 milestones, 43 issues, and 31 tests
+    ├─█─Milestone: v0.1 (1 issue, 0 tests)
+    ├─█─Milestone: v0.1.9 (10 issues, 0 tests)
+    ├─█─Milestone: v0.2.0 (17 issues, 11 tests)
+    │ ├─☑️─Bug 61: Show "won't fix" for "duplicate"
+    │ │ └─✅─Issues closed as duplicates display the proper symbol (#61)
+    │ ├─☑️─Feature 60: Show summary of report
+    │ │ ├─✅─Printing an IssueTestMatrix outputs a user-friendly tree (#31, #36, #60)
+    │ │ └─✅─Disposition indicators deal with all cases (#60)
+    │ ├─⛔─Bug 57: Check GitHub results
+    │ │ └─(no tests)
+    │ ├─☑️─Technical Task 49: Unnest IssueTestMatrix for easier filtering
+    │ │ └─✅─CompileIssueTestMatrix combines issues and test results into an IssueTestMatrix tibble (#35, #49)
+    │ ├─☑️─Bug 47: Fetch *all* repo issues
+    │ │ └─(no tests)
+    │ ├─☑️─Bug 45: Deal with length-0 results
+    │ │ └─✅─ExtractDisposition() helper errors informatively for missing results within lTestResult object (#45)
+    │ ├─☑️─Documentation Task 43: Log Process in README
+    │ │ └─(no tests)
+    │ ├─☑️─Feature 37: Package QC Report GHA
+    │ │ └─(no tests)
+    │ ├─☑️─Feature 36: Print IssueTestMatrix
+    │ │ └─✅─Printing an IssueTestMatrix outputs a user-friendly tree (#31, #36, #60)
+    │ ├─☑️─Feature 35: Generate Issue-Test Matrix
+    │ │ ├─✅─CompileIssueTestMatrix returns an empty IssueTestMatrix with empty input (#35)
+    │ │ └─✅─CompileIssueTestMatrix combines issues and test results into an IssueTestMatrix tibble (#35, #49)
+    │ ├─☑️─Feature 34: Get repo issues
+    │ │ ├─✅─FetchRepoIssues returns an empty df when no issues found (#34)
+    │ │ └─✅─FetchRepoIssues returns a formatted df for real issues (#34)
+    │ ├─☑️─Feature 32: Extract test information from test results
+    │ │ ├─✅─CompileTestResults errors informatively for bad input (#32)
+    │ │ ├─✅─CompileTestResults works for empty testthat_results (#32)
+    │ │ └─✅─CompileTestResults returns the expected object (#32)
+    │ ├─📥─Requirement 31: Generate package QC report
+    │ │ └─✅─Printing an IssueTestMatrix outputs a user-friendly tree (#31, #36, #60)
+    │ ├─📥─Technical Task 30: Update basic infrastructure
+    │ │ └─(no tests)
+    │ ├─☑️─Documentation Task 24: Outline business process for business requirements and testing
+    │ │ └─(no tests)
+    │ ├─☑️─Technical Task 20: Fix pkgdown github workflows
+    │ │ └─(no tests)
+    │ └─⛔─Requirement 18: Capture requirements via issues
+    │   └─(no tests)
+    ├─█─Milestone: v0.3.0 (7 issues, 0 tests)
+    ├─█─Milestone: v0.4.0 (5 issues, 0 tests)
+    ├─█─Milestone: v0.5.0 (3 issues, 0 tests)
+    └─█─Milestone: <none> (0 issues, 20 tests)
+      └─█─<no issue>
+        ├─✅─ExtractDisposition() helper counts warnings as errors
+        ├─✅─ExtractDisposition() helper errors informatively for weird results
+        ├─✅─Printing a generic qcthat_object returns input invisibly
+        ├─✅─MakeKeyItem works
+        ├─✅─ChooseEmoji switches to ASCII if emoji not allowed
+        ├─✅─GetChrCode returns the expected code
+        ├─✅─FinalizeTree adds tree characters correctly
+        ├─✅─Printing an IssueTestMatrix returns input invisibly
+        ├─✅─Printing a Milestone returns input invisibly
+        ├─✅─Printing a Milestone outputs a user-friendly tree
+        ├─✅─Printing a SingleIssueTestResults returns input invisibly
+        ├─✅─Printing a SingleIssueTestResults outputs a user-friendly tree
+        ├─✅─AsExpected works with empty dfs
+        ├─✅─AsExpected works with non-empty dfs
+        ├─✅─AsExpectedFlat works with NULL
+        ├─✅─AsExpectedFlat works with empty lists
+        ├─✅─AsExpectedFlat works with non-empty data.frames
+        ├─✅─AsRowDFList splits and transforms correctly
+        ├─✅─CountNonNA counts unique non-NA values correctly
+        └─✅─SimplePluralize returns correct singular/plural forms
     # Issue state: 📥 = open, ☑️ = closed (completed), ⛔ = closed (won't fix)
     # Test disposition: ✅ = passed, ❌ = failed, 🚫 = skipped
+
+    ✅ All tests passed
 
 ## 📄 Example Business Process
 

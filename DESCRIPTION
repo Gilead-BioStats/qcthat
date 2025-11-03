@@ -1,7 +1,7 @@
 Package: qcthat
 Title: Lightweight quality control framework for R packages used in
     Clinical Trials
-Version: 0.1.0.9000
+Version: 0.2.0
 Authors@R: c(
     person("Jeremy", "Wildfire", , "jwildfire@gmail.com", role = c("aut", "cre")),
     person("Jon", "Harmon", , "jon.harmon@atorusresearch.com", role = "aut",

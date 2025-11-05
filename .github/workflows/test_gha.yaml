@@ -4,17 +4,16 @@ on:
 
 name: Functionality on GHA
 
-permissions: read-all
+permissions:
+  contents: write
+  pull-requests: write
+  issues: read
 
 jobs:
-  qc-report:
+  testing:
     runs-on: ubuntu-latest
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
-    permissions:
-      contents: write
-      pull-requests: write
-
     steps:
       - uses: actions/checkout@v5
 
@@ -28,7 +27,6 @@ jobs:
 
       - name: Check FetchRepoIssues
         run: |
-          print(gh::gh_tree_remote())
           dfRepoIssues <- qcthat::FetchRepoIssues()
           print(dfRepoIssues)
         shell: Rscript {0}

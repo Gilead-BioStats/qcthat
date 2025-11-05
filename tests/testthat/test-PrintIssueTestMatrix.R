@@ -1,4 +1,4 @@
-test_that("Printing an IssueTestMatrix returns input invisibly", {
+test_that("Printing an IssueTestMatrix returns input invisibly (#31)", {
   dfITM <- CompileIssueTestMatrix(
     dfRepoIssues = tibble::tibble(),
     dfTestResults = tibble::tibble()

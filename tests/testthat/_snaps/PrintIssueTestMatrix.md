@@ -1,4 +1,4 @@
-# Printing an IssueTestMatrix returns input invisibly
+# Printing an IssueTestMatrix returns input invisibly (#31)
 
     Code
       test_result <- withVisible(print(dfITM))

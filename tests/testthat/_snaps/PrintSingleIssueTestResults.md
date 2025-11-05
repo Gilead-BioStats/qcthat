@@ -1,4 +1,4 @@
-# Printing a SingleIssueTestResults outputs a user-friendly tree
+# Printing a SingleIssueTestResults outputs a user-friendly tree (#39)
 
     Code
       lSeparatedIssueTestResults[[1]]

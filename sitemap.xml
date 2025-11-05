@@ -1,42 +1,56 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url>
-    <loc>/404.html</loc>
-  </url>
-  <url>
-    <loc>/LICENSE.html</loc>
-  </url>
-  <url>
-    <loc>/articles/index.html</loc>
-  </url>
-  <url>
-    <loc>/articles/qcthat_structure.html</loc>
-  </url>
-  <url>
-    <loc>/authors.html</loc>
-  </url>
-  <url>
-    <loc>/index.html</loc>
-  </url>
-  <url>
-    <loc>/reference/create_directory.html</loc>
-  </url>
-  <url>
-    <loc>/reference/index.html</loc>
-  </url>
-  <url>
-    <loc>/reference/init_github_actions.html</loc>
-  </url>
-  <url>
-    <loc>/reference/init_report.html</loc>
-  </url>
-  <url>
-    <loc>/reference/init_specs.html</loc>
-  </url>
-  <url>
-    <loc>/reference/init_test_cases.html</loc>
-  </url>
-  <url>
-    <loc>/reference/qcthat.html</loc>
-  </url>
+<urlset xmlns = 'http://www.sitemaps.org/schemas/sitemap/0.9'>
+<url><loc>https://gilead-biostats.github.io/qcthat/404.html</loc></url>
+<url><loc>https://gilead-biostats.github.io/qcthat/CODE_OF_CONDUCT.html</loc></url>
+<url><loc>https://gilead-biostats.github.io/qcthat/CONTRIBUTING.html</loc></url>
+<url><loc>https://gilead-biostats.github.io/qcthat/LICENSE.html</loc></url>
+<url><loc>https://gilead-biostats.github.io/qcthat/authors.html</loc></url>
+<url><loc>https://gilead-biostats.github.io/qcthat/index.html</loc></url>
+<url><loc>https://gilead-biostats.github.io/qcthat/news/index.html</loc></url>
+<url><loc>https://gilead-biostats.github.io/qcthat/reference/AsExpected.html</loc></url>
+<url><loc>https://gilead-biostats.github.io/qcthat/reference/AsExpectedFlat.html</loc></url>
+<url><loc>https://gilead-biostats.github.io/qcthat/reference/AsIssueTestMatrix.html</loc></url>
+<url><loc>https://gilead-biostats.github.io/qcthat/reference/AsIssuesDF.html</loc></url>
+<url><loc>https://gilead-biostats.github.io/qcthat/reference/AsMilestone.html</loc></url>
+<url><loc>https://gilead-biostats.github.io/qcthat/reference/AsNestedIssueTestMatrix.html</loc></url>
+<url><loc>https://gilead-biostats.github.io/qcthat/reference/AsRowDFList.html</loc></url>
+<url><loc>https://gilead-biostats.github.io/qcthat/reference/AsSingleIssueTestResults.html</loc></url>
+<url><loc>https://gilead-biostats.github.io/qcthat/reference/AsTestResultsDF.html</loc></url>
+<url><loc>https://gilead-biostats.github.io/qcthat/reference/ChooseDispositionIndicator.html</loc></url>
+<url><loc>https://gilead-biostats.github.io/qcthat/reference/ChooseEmoji.html</loc></url>
+<url><loc>https://gilead-biostats.github.io/qcthat/reference/ChooseOverallDispositionIndicator.html</loc></url>
+<url><loc>https://gilead-biostats.github.io/qcthat/reference/ChooseOverallDispositionMessage.html</loc></url>
+<url><loc>https://gilead-biostats.github.io/qcthat/reference/ChooseStateIndicator.html</loc></url>
+<url><loc>https://gilead-biostats.github.io/qcthat/reference/CompileDispositions.html</loc></url>
+<url><loc>https://gilead-biostats.github.io/qcthat/reference/CompileIssueTestMatrix.html</loc></url>
+<url><loc>https://gilead-biostats.github.io/qcthat/reference/CompileIssueTestResultsByMilestone.html</loc></url>
+<url><loc>https://gilead-biostats.github.io/qcthat/reference/CompileIssuesDF.html</loc></url>
+<url><loc>https://gilead-biostats.github.io/qcthat/reference/CompileTestResults.html</loc></url>
+<url><loc>https://gilead-biostats.github.io/qcthat/reference/CountNonNA.html</loc></url>
+<url><loc>https://gilead-biostats.github.io/qcthat/reference/EmptyIssueTestMatrix.html</loc></url>
+<url><loc>https://gilead-biostats.github.io/qcthat/reference/EmptyIssuesDF.html</loc></url>
+<url><loc>https://gilead-biostats.github.io/qcthat/reference/EmptyIssuesDFRaw.html</loc></url>
+<url><loc>https://gilead-biostats.github.io/qcthat/reference/EmptyTestResultsDF.html</loc></url>
+<url><loc>https://gilead-biostats.github.io/qcthat/reference/EnframeIssues.html</loc></url>
+<url><loc>https://gilead-biostats.github.io/qcthat/reference/ExpandTestResultsByIssue.html</loc></url>
+<url><loc>https://gilead-biostats.github.io/qcthat/reference/ExtractDisposition.html</loc></url>
+<url><loc>https://gilead-biostats.github.io/qcthat/reference/ExtractLabels.html</loc></url>
+<url><loc>https://gilead-biostats.github.io/qcthat/reference/ExtractName.html</loc></url>
+<url><loc>https://gilead-biostats.github.io/qcthat/reference/FetchRawRepoIssues.html</loc></url>
+<url><loc>https://gilead-biostats.github.io/qcthat/reference/FetchRepoIssues.html</loc></url>
+<url><loc>https://gilead-biostats.github.io/qcthat/reference/FinalizeTree.html</loc></url>
+<url><loc>https://gilead-biostats.github.io/qcthat/reference/FormatBody.html</loc></url>
+<url><loc>https://gilead-biostats.github.io/qcthat/reference/FormatFooter.html</loc></url>
+<url><loc>https://gilead-biostats.github.io/qcthat/reference/FormatHeader.html</loc></url>
+<url><loc>https://gilead-biostats.github.io/qcthat/reference/FormatSITRHeader.html</loc></url>
+<url><loc>https://gilead-biostats.github.io/qcthat/reference/GetChrCode.html</loc></url>
+<url><loc>https://gilead-biostats.github.io/qcthat/reference/MakeITRDispositionFooter.html</loc></url>
+<url><loc>https://gilead-biostats.github.io/qcthat/reference/MakeKeyItem.html</loc></url>
+<url><loc>https://gilead-biostats.github.io/qcthat/reference/NullIfEmpty.html</loc></url>
+<url><loc>https://gilead-biostats.github.io/qcthat/reference/RemovePRsFromIssues.html</loc></url>
+<url><loc>https://gilead-biostats.github.io/qcthat/reference/SeparateParentColumn.html</loc></url>
+<url><loc>https://gilead-biostats.github.io/qcthat/reference/SimplePluralize.html</loc></url>
+<url><loc>https://gilead-biostats.github.io/qcthat/reference/index.html</loc></url>
+<url><loc>https://gilead-biostats.github.io/qcthat/reference/printing.html</loc></url>
+<url><loc>https://gilead-biostats.github.io/qcthat/reference/qcthat-package.html</loc></url>
 </urlset>
+

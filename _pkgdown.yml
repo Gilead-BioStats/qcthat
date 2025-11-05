@@ -1,4 +1,4 @@
-url: ~
+url: https://gilead-biostats.github.io/qcthat/
 template:
   bootstrap: 5
   bslib:
@@ -10,4 +10,7 @@ template:
     code_font: {google: "JetBrains Mono"}
 navbar:
   bg: "primary"
+  structure:
+    left: [intro, reference, news]
+    right: [search, github]
 

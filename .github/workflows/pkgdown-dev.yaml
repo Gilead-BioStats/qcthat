@@ -1,23 +1,23 @@
 on:
   push:
-    branches: [main]
+    branches: [dev]
   workflow_dispatch:
 
-name: pkgdown-main
+name: pkgdown-dev
 
 jobs:
-  pkgdown-main:
+  pkgdown:
     runs-on: ubuntu-latest
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
-      PKGDOWN_DEV_MODE: release
+      PKGDOWN_DEV_MODE: devel
     permissions:
       contents: write
 
     steps:
       - uses: actions/checkout@v5
         with:
-          ref: main
+          ref: dev
 
       - uses: r-lib/actions/setup-pandoc@v2
 
@@ -34,4 +34,4 @@ jobs:
         run: |
           git config --local user.email "actions@github.com"
           git config --local user.name "GitHub Actions"
-          Rscript -e 'pkgdown::deploy_to_branch(new_process = FALSE)'
+          Rscript -e 'pkgdown::deploy_to_branch(new_process = FALSE, install = FALSE)'

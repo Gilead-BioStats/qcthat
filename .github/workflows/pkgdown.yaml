@@ -54,7 +54,7 @@ jobs:
       - name: Give PR site URL 🌐
         if: github.event_name == 'pull_request'
         run: |
-          echo "🌐 URL: https://gilead-biostats.github.io/qcthat/pr/${{ github.event.number }}/dev"
+          echo "🌐 URL: https://gilead-biostats.github.io/${{ github.event.repository.name }}/pr/${{ github.event.number }}/dev"
 
       - name: Deploy pkgdown 📃
         if: github.event_name != 'pull_request'

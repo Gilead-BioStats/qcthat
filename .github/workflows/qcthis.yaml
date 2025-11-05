@@ -12,16 +12,16 @@ on:
 
 name: Package QC Report
 
-permissions: read-all
+permissions:
+  contents: write
+  pull-requests: write
+  issues: read
 
 jobs:
   qc-report:
     runs-on: ubuntu-latest
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
-    permissions:
-      contents: write
-      pull-requests: write
 
     steps:
       - uses: actions/checkout@v5

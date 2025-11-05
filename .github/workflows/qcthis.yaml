@@ -51,7 +51,7 @@ jobs:
         shell: Rscript {0}
 
       - name: Add to release
-        if: github.event_name == 'release' || inputs.tag != ""
+        if: github.event_name == 'release' || inputs.tag != ''
         uses: svenstaro/upload-release-action@v2
         with:
           file: qc_report.txt

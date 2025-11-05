@@ -55,6 +55,6 @@ jobs:
         uses: svenstaro/upload-release-action@v2
         with:
           file: qc_report.txt
-          asset_name: QC Report (txt)
+          asset_name: qc_report_$tag.txt
           tag: ${{ github.event.release.tag_name || inputs.tag }}
           overwrite: true

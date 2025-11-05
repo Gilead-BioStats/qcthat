@@ -55,11 +55,15 @@ format.qcthat_Object <- function(
   lglUseEmoji = getOption("qcthat.emoji", TRUE),
   transform = identity
 ) {
-  transform(c(
-    FormatHeader(x, lglUseEmoji = lglUseEmoji),
-    FormatBody(x, lglUseEmoji = lglUseEmoji),
-    FormatFooter(x, lglUseEmoji = lglUseEmoji)
-  ))
+  transform(
+    c(
+      FormatHeader(x, lglUseEmoji = lglUseEmoji),
+      FormatBody(x, lglUseEmoji = lglUseEmoji),
+      FormatFooter(x, lglUseEmoji = lglUseEmoji)
+    ),
+    # Allow users to pass in transform args, notably `con` for `writeLines`.
+    ...
+  )
 }
 
 # Format helpers ----

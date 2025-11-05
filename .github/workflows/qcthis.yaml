@@ -2,7 +2,13 @@ on:
   push:
     branches: [main]
   pull_request:
+  release:
+    types: [released]
   workflow_dispatch:
+    inputs:
+      tag:
+        description: Tag to which the report should be attached
+        required: false
 
 name: Package QC Report
 
@@ -13,6 +19,9 @@ jobs:
     runs-on: ubuntu-latest
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
+    permissions:
+      contents: write
+      pull-requests: write
 
     steps:
       - uses: actions/checkout@v5
@@ -36,4 +45,16 @@ jobs:
             dfTestResults = qcthat::CompileTestResults(lTestResults)
           )
           print(IssueTestMatrix)
+
+          # Also print to a file.
+          print(IssueTestMatrix, con = "qc_report.txt")
         shell: Rscript {0}
+
+      - name: Add to release
+        if: github.event_name == 'release' || inputs.tag != ''
+        uses: svenstaro/upload-release-action@v2
+        with:
+          file: qc_report.txt
+          asset_name: QC Report (txt)
+          tag: ${{ github.event.release.tag_name || inputs.tag }}
+          overwrite: true

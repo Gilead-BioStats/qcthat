@@ -3,10 +3,7 @@
 #' Download (non-pull-request) issues in a repository and parse them into a tidy
 #' [tibble::tibble()].
 #'
-#' @param strOwner (`length-1 character`) GitHub username or organization name.
-#' @param strRepo (`length-1 character`) GitHub repository name.
-#' @param strGHToken (`length-1 character`) GitHub token with permissions to
-#'   read issues.
+#' @inheritParams shared-params
 #'
 #' @returns A `qcthat_Issues` object, which is a [tibble::tibble()] with
 #'   columns:
@@ -50,7 +47,7 @@ FetchRepoIssues <- function(
 
 #' Fetch all repo issues from GitHub
 #'
-#' @inheritParams FetchRepoIssues
+#' @inheritParams shared-params
 #' @returns A list of raw issue objects as returned by [gh::gh()].
 #' @keywords internal
 FetchRawRepoIssues <- function(
@@ -70,10 +67,10 @@ FetchRawRepoIssues <- function(
 
 #' Wrapper around gh::gh() for mocking
 #'
-#' @inheritParams FetchRawRepoIssues
 #' @param strEndpoint (`length-1 character`) The endpoint to call, e.g., `"GET
 #'   /repos/{owner}/{repo}/issues"`.
 #' @param ... Additional parameters passed to [gh::gh()].
+#' @inheritParams shared-params
 #' @returns The result of the [gh::gh()] call.
 #' @keywords internal
 CallGHAPI <- function(
@@ -111,8 +108,6 @@ RemovePRsFromIssues <- function(lIssuesRaw) {
 
 #' Get rid of PRs in the issues list
 #'
-#' @param lIssuesNonPR (`list`) List of issue objects as returned by
-#'   [RemovePRsFromIssues()].
 #' @inherit FetchRepoIssues return
 #' @keywords internal
 CompileIssuesDF <- function(lIssuesNonPR) {
@@ -169,7 +164,7 @@ EmptyIssuesDF <- function() {
 
 #' Transform issues list into tibble with expected columns
 #'
-#' @inheritParams CompileIssuesDF
+#' @inheritParams shared-params
 #' @returns A [tibble::tibble()] with raw issue data.
 #' @keywords internal
 EnframeIssues <- function(lIssuesNonPR) {
@@ -250,19 +245,6 @@ ExtractName <- function(lColumn, strName) {
       lObject[[strName]] %||% NA_character_
     }
   )
-}
-
-#' Flatten empty vectors into NULL
-#'
-#' @param x An object to potentially flatten.
-#'
-#' @returns `NULL` if `x` has length 0, otherwise `x`.
-#' @keywords internal
-NullIfEmpty <- function(x) {
-  if (!length(x)) {
-    return(NULL)
-  }
-  return(x)
 }
 
 #' Parse the ParentUrl column into its components

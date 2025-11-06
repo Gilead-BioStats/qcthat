@@ -8,10 +8,6 @@ AsExpected(x, objShape, chrClass)
 }
 \arguments{
 \item{x}{Object to assign the class to.}
-
-\item{objShape}{(\verb{0-row data.frame}, etc) Object with the expected structure.}
-
-\item{chrClass}{(\code{character}) Class name(s) to assign to the object.}
 }
 \value{
 An object with the expected structure and class. Note: If \code{x} has a

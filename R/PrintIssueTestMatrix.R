@@ -59,8 +59,8 @@ FormatFooter.qcthat_IssueTestMatrix <- function(
 
 #' Add a summary message to ITR footer
 #'
-#' @param fctDisposition (`factor`) Disposition factor with levels `c("fail", "skip", "pass")`.
 #' @inheritParams printing
+#' @inheritParams shared-params
 #' @returns A string summary message or `NULL` if no disposition is available.
 #' @keywords internal
 MakeITRDispositionFooter <- function(
@@ -83,7 +83,7 @@ MakeITRDispositionFooter <- function(
 
 #' Add a summary message to ITR footer
 #'
-#' @inheritParams MakeITRDispositionFooter
+#' @inheritParams shared-params
 #' @returns A string summary message or `NULL` if no disposition is available.
 #' @keywords internal
 ChooseOverallDispositionMessage <- function(fctDisposition) {
@@ -101,7 +101,7 @@ ChooseOverallDispositionMessage <- function(fctDisposition) {
 
 #' Add a summary message to ITR footer
 #'
-#' @inheritParams MakeITRDispositionFooter
+#' @inheritParams shared-params
 #' @returns An emoji or other string indicating the overall disposition of all
 #'   tests.
 #' @keywords internal

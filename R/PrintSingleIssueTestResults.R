@@ -34,7 +34,7 @@ FormatSITRHeader <- function(x, lglUseEmoji = getOption("qcthat.emoji", TRUE)) {
 #'
 #' @param strStateReason (`length-1 character`) Reason for issue state (e.g.,
 #'   `completed`) or `NA` if not applicable.
-#' @inheritParams printing
+#' @inheritParams shared-params
 #' @inherit ChooseEmoji return
 #' @keywords internal
 ChooseStateIndicator <- function(

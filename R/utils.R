@@ -1,8 +1,6 @@
 #' Assign a class and expected structure to an object
 #'
 #' @param x Object to assign the class to.
-#' @param objShape (`0-row data.frame`, etc) Object with the expected structure.
-#' @param chrClass (`character`) Class name(s) to assign to the object.
 #' @returns An object with the expected structure and class. Note: If `x` has a
 #'   length and/or rows, the structure is not validated against `objShape`.
 #' @keywords internal
@@ -17,7 +15,7 @@ AsExpected <- function(x, objShape, chrClass) {
 #'
 #' @param x (`data.frame` or `list`) Object to convert to a list.
 #' @param lShape (`list`) List with the expected shape.
-#' @inheritParams AsExpected
+#' @inheritParams shared-params
 #' @returns A list with the expected shape and class.
 #' @keywords internal
 AsExpectedFlat <- function(x, lShape, chrClass) {
@@ -49,6 +47,19 @@ AsRowDFList <- function(df, fnAsDF) {
 #' @keywords internal
 CountNonNA <- function(x) {
   sum(!is.na(unique(x)))
+}
+
+#' Flatten empty vectors into NULL
+#'
+#' @param x An object to potentially flatten.
+#'
+#' @returns `NULL` if `x` has length 0, otherwise `x`.
+#' @keywords internal
+NullIfEmpty <- function(x) {
+  if (!length(x)) {
+    return(NULL)
+  }
+  return(x)
 }
 
 #' Add an s to a word based on count

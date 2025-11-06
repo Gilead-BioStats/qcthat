@@ -1,0 +1,128 @@
+# Workflow derived from
+# https://github.com/Gilead-BioStats/qcthat/tree/v0.3.0/inst/workflows/qcthat-completed_issues.yaml.
+on:
+  push:
+    branches: [main]
+  pull_request:
+  release:
+    types: [released]
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: Tag to which the report should be attached (leave blank for none).
+        required: false
+      pr:
+        description: PR number to which comment should be added (leave blank for none).
+        required: false
+
+name: qcthat Completed Issues Report
+
+permissions:
+  # Required for report.
+  issues: read
+  # Required to attach report to a release.
+  contents: write
+  # Required to add report to pull requests as a comment.
+  pull-requests: write
+
+jobs:
+  qcthat-completed_issues:
+    runs-on: ubuntu-latest
+    env:
+      GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
+
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: r-lib/actions/setup-r@v2
+        with:
+          use-public-rspm: true
+
+      - uses: r-lib/actions/setup-r-dependencies@v2
+        with:
+          extra-packages: local::.
+
+      - name: Generate Completed Issues QC Report
+        run: |
+          IssueTestMatrix <- qcthat::QCCompletedIssues()
+          print(IssueTestMatrix)
+
+          # Also print to a file.
+          print(IssueTestMatrix, con = "qc_report.txt")
+        shell: Rscript {0}
+
+      # Delete or comment out this step to prevent PR comments.
+      - name: Add comment to PR
+        if: github.event_name == 'pull_request' || inputs.pr != ''
+        uses: actions/github-script@v6
+        with:
+          script: |
+            let prNumber;
+            if (context.eventName === 'pull_request') {
+              prNumber = context.issue.number;
+            } else if (context.payload.inputs.pr) {
+              prNumber = context.payload.inputs.pr;
+            }
+
+            if (!prNumber) {
+              console.log('Could not determine PR number. Skipping comment.');
+              return;
+            }
+
+            const fs = require('fs');
+            let reportContent;
+            try {
+              reportContent = fs.readFileSync('qc_report.txt', 'utf8');
+            } catch (err) {
+              console.error('Error reading qc_report.txt:', err);
+              core.setFailed('Failed to read qc_report.txt');
+              return;
+            }
+
+            const lines = reportContent.split(/[\r\n]+/).filter(line => line.trim() !== '');
+
+            if (lines.length < 2) {
+              console.log('Report has less than 2 non-empty lines. Skipping comment.');
+              return;
+            }
+
+            const reportSummary = lines[0];
+            const reportOutcome = lines[lines.length - 1];
+            const bodyContent = lines.slice(1, -1).join('\n');
+
+            const commentBody = `
+            ## QC Report
+
+            <details>
+            <summary>${reportSummary}</summary>
+
+            \`\`\`
+            ${bodyContent}
+            \`\`\`
+
+            </details>
+
+            ${reportOutcome}
+            `;
+
+            try {
+              await github.rest.issues.createComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: prNumber,
+                body: commentBody,
+              });
+            } catch (error) {
+              console.error(`Error creating comment: ${error.message}`);
+              core.setFailed(`Failed to create PR comment: ${error.message}`);
+            };
+
+      # Delete or comment out this step to prevent reports from being attached to released tags.
+      - name: Add to release
+        if: github.event_name == 'release' || inputs.tag != ''
+        uses: svenstaro/upload-release-action@v2
+        with:
+          file: qc_report.txt
+          asset_name: qc_report_$tag.txt
+          tag: ${{ github.event.release.tag_name || inputs.tag }}
+          overwrite: true

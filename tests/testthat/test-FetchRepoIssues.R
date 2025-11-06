@@ -69,3 +69,16 @@ test_that("FetchRepoIssues returns a formatted df for real issues (#34)", {
   )
   expect_equal(test_result, expected_result)
 })
+
+test_that("FetchRepoIssues fetch all repo issues (#47)", {
+  # This is a kinda convoluted test, but basically I just have to make sure I
+  # haven't removed the `.limit` param.
+  local_mocked_bindings(
+    CallGHAPI = function(.limit, ...) {
+      stopifnot(
+        .limit == Inf
+      )
+    }
+  )
+  expect_no_error(FetchRepoIssues())
+})

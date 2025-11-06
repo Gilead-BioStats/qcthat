@@ -1,4 +1,4 @@
-# Printing a Milestone outputs a user-friendly tree
+# Printing a Milestone outputs a user-friendly tree (#39)
 
     Code
       lMilestones[[1]]

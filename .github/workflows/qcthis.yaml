@@ -7,7 +7,10 @@ on:
   workflow_dispatch:
     inputs:
       tag:
-        description: Tag to which the report should be attached
+        description: Tag to which the report should be attached (leave blank for none).
+        required: false
+      pr:
+        description: PR number to which comment should be added (leave blank for none).
         required: false
 
 name: Package QC Report
@@ -49,6 +52,88 @@ jobs:
           # Also print to a file.
           print(IssueTestMatrix, con = "qc_report.txt")
         shell: Rscript {0}
+
+      - name: Add comment to PR
+        if: github.event_name == 'pull_request' || inputs.pr != ''
+        uses: actions/github-script@v6
+        with:
+          script: |
+            // Figure out issue number first so we can give up fast if we can't
+            // find it.
+            let issueNumber;
+            if (context.eventName === 'pull_request') {
+              issueNumber = context.issue.number;
+            } else if (context.payload.inputs.pr) {
+              issueNumber = context.payload.inputs.pr;
+            }
+            if (!issueNumber) {
+              console.log('Could not determine issue/PR number. Skipping comment.');
+              return;
+            }
+
+            // Parse qc_report.txt to generate comment.
+
+            const fs = require('fs');
+
+            let reportContent;
+            try {
+              reportContent = fs.readFileSync('qc_report.txt', 'utf8');
+            } catch (err) {
+              console.error('Error reading qc_report.txt:', err);
+              core.setFailed('Failed to read qc_report.txt');
+              return;
+            }
+
+            // Split into lines
+            const lines = reportContent.split(/[\r\n]+/);
+
+            // Find the index of the first non-empty line
+            const firstLineIndex = lines.findIndex(line => line.trim() !== '');
+
+            // If there aren't any, there's nothing to comment.
+            if (firstLineIndex === -1) {
+              console.log('Empty qc_report.txt. Skipping comment.');
+              return;
+            }
+
+            // Find the index of the last non-empty line
+            const lastLineIndex = lines.findLastIndex(line => line.trim() !== '');
+
+            if (lastLineIndex <= firstLineIndex) {
+              console.log('Empty qc_report.txt. Skipping comment.');
+              return;
+            }
+
+            const reportSummary = lines[firstLineIndex].trim();
+            const reportOutcome = lines[lastLineIndex].trim();
+            const bodyContent = lines.slice(firstLineIndex + 1, lastLineIndex).join('\n');
+
+            const commentBody = `
+            ## QC Report
+
+            <details>
+            <summary>${reportSummary}</summary>
+
+            \`\`\`
+            ${bodyContent}
+            \`\`\`
+
+            </details>
+
+            ${reportOutcome}
+            `;
+
+            try {
+              await github.rest.issues.createComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: issueNumber,
+                body: commentBody,
+              });
+            } catch (error) {
+              console.error(`Error creating comment: ${error.message}`);
+              core.setFailed(`Failed to create PR comment: ${error.message}`);
+            };
 
       - name: Add to release
         if: github.event_name == 'release' || inputs.tag != ''

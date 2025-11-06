@@ -58,16 +58,40 @@ FetchRawRepoIssues <- function(
   strRepo = gh::gh_tree_remote()[["repo"]],
   strGHToken = gh::gh_token()
 ) {
+  CallGHAPI(
+    strEndpoint = "GET /repos/{owner}/{repo}/issues",
+    strOwner = strOwner,
+    strRepo = strRepo,
+    strGHToken = strGHToken,
+    state = "all",
+    .limit = Inf
+  )
+}
+
+#' Wrapper around gh::gh() for mocking
+#'
+#' @inheritParams FetchRawRepoIssues
+#' @param strEndpoint (`length-1 character`) The endpoint to call, e.g., `"GET
+#'   /repos/{owner}/{repo}/issues"`.
+#' @param ... Additional parameters passed to [gh::gh()].
+#' @returns The result of the [gh::gh()] call.
+#' @keywords internal
+CallGHAPI <- function(
+  strEndpoint,
+  strOwner = gh::gh_tree_remote()[["username"]],
+  strRepo = gh::gh_tree_remote()[["repo"]],
+  strGHToken = gh::gh_token(),
+  ...
+) {
   # Tested manually.
 
   # nocov start
   gh::gh(
-    "GET /repos/{owner}/{repo}/issues",
+    strEndpoint,
     owner = strOwner,
     repo = strRepo,
-    state = "all",
     .token = strGHToken,
-    .limit = Inf
+    ...
   )
   # nocov end
 }

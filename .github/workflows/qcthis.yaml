@@ -109,6 +109,8 @@ jobs:
             bodyContent = lines.slice(firstLineIndex + 1, lastLineIndex).join('\n');
 
             const commentBody = `
+            ## QC Report
+
             ${reportOutcome}
 
             <details>

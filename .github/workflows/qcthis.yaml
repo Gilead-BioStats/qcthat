@@ -111,8 +111,6 @@ jobs:
             const commentBody = `
             ## QC Report
 
-            ${reportOutcome}
-
             <details>
             <summary>${reportSummary}</summary>
 
@@ -121,6 +119,8 @@ jobs:
             \`\`\`
 
             </details>
+
+            ${reportOutcome}
             `;
 
             try {

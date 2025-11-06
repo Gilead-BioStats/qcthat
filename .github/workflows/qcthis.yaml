@@ -63,8 +63,8 @@ jobs:
             let issueNumber;
             if (context.eventName === 'pull_request') {
               issueNumber = context.issue.number;
-            } else if (inputs.pr) {
-              issueNumber = inputs.pr;
+            } else if (context.payload.inputs.pr) {
+              issueNumber = context.payload.inputs.pr;
             }
             if (!issueNumber) {
               console.log('Could not determine issue/PR number. Skipping comment.');
@@ -91,7 +91,7 @@ jobs:
             const firstLineIndex = lines.findIndex(line => line.trim() !== '');
 
             // If there aren't any, there's nothing to comment.
-            if (firstLineIndex == -1) {
+            if (firstLineIndex === -1) {
               console.log('Empty qc_report.txt. Skipping comment.');
               return;
             }
@@ -104,9 +104,9 @@ jobs:
               return;
             }
 
-            reportSummary = lines[firstLineIndex].trim();
-            reportOutcome = lines[lastLineIndex].trim();
-            bodyContent = lines.slice(firstLineIndex + 1, lastLineIndex).join('\n');
+            const reportSummary = lines[firstLineIndex].trim();
+            const reportOutcome = lines[lastLineIndex].trim();
+            const bodyContent = lines.slice(firstLineIndex + 1, lastLineIndex).join('\n');
 
             const commentBody = `
             ## QC Report

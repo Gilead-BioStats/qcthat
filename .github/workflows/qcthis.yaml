@@ -58,6 +58,21 @@ jobs:
         uses: actions/github-script@v6
         with:
           script: |
+            // Figure out issue number first so we can give up fast if we can't
+            // find it.
+            let issueNumber;
+            if (context.eventName === 'pull_request') {
+              issueNumber = context.issue.number;
+            } else if (inputs.pr) {
+              issueNumber = inputs.pr;
+            }
+            if (!issueNumber) {
+              console.log('Could not determine issue/PR number. Skipping comment.');
+              return;
+            }
+
+            // Parse qc_report.txt to generate comment.
+
             const fs = require('fs');
 
             let reportContent;
@@ -69,27 +84,42 @@ jobs:
               return;
             }
 
+            // Split into lines
+            const lines = reportContent.split(/[\r\n]+/);
+
+            // Find the index of the first non-empty line
+            const firstLineIndex = lines.findIndex(line => line.trim() !== '');
+
+            // If there aren't any, there's nothing to comment.
+            if (firstLineIndex == -1) {
+              console.log('Empty qc_report.txt. Skipping comment.');
+              return;
+            }
+
+            // Find the index of the last non-empty line
+            const lastLineIndex = lines.findLastIndex(line => line.trim() !== '');
+
+            if (lastLineIndex <= firstLineIndex) {
+              console.log('Empty qc_report.txt. Skipping comment.');
+              return;
+            }
+
+            reportSummary = lines[firstLineIndex].trim();
+            reportOutcome = lines[lastLineIndex].trim();
+            bodyContent = lines.slice(firstLineIndex + 1, lastLineIndex).join('\n');
+
             const commentBody = `
+            ${reportOutcome}
+
             <details>
-            <summary>QC Report</summary>
+            <summary>${reportSummary}</summary>
 
             \`\`\`
-            ${reportContent}
+            ${bodyContent}
             \`\`\`
 
             </details>
             `;
-
-            let issueNumber;
-            if (context.eventName === 'pull_request') {
-              issueNumber = context.issue.number;
-            } else if (inputs.pr) {
-              issueNumber = inputs.pr;
-            }
-            if (!issueNumber) {
-              core.setFailed('Could not determine issue/PR number.');
-              return;
-            }
 
             try {
               await github.rest.issues.createComment({

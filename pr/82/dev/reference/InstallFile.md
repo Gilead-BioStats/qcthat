@@ -25,7 +25,7 @@ InstallFile(
 
 - chrTargetPath:
 
-  (`character`) Components of a path to a targer file. The file
+  (`character`) Components of a path to a target file. The file
   extension should be included in the filename or omitted (NOT sent as a
   separate piece of the vector).
 

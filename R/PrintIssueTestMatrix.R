@@ -3,20 +3,31 @@
 FormatHeader.qcthat_IssueTestMatrix <- function(
   x,
   ...,
-  lglUseEmoji = getOption("qcthat.emoji", TRUE)
+  lglUseEmoji = getOption("qcthat.emoji", TRUE),
+  lglShowMilestones = TRUE
 ) {
-  intMilestones <- CountNonNA(x$Milestone)
   intIssues <- CountNonNA(x$Issue)
   intTests <- CountNonNA(x$Test)
-  strMilestone <- SimplePluralize("milestone", intMilestones)
   strIssue <- SimplePluralize("issue", intIssues)
   strTest <- SimplePluralize("test", intTests)
+  if (lglShowMilestones) {
+    intMilestones <- CountNonNA(x$Milestone)
+    strMilestone <- SimplePluralize("milestone", intMilestones)
+    strSummary <- glue::glue(
+      "{intMilestones} {strMilestone},",
+      "{intIssues} {strIssue},",
+      "and {intTests} {strTest}",
+      .sep = " "
+    )
+  } else {
+    strSummary <- glue::glue(
+      "{intIssues} {strIssue} and {intTests} {strTest}"
+    )
+  }
+
   glue::glue(
     ChooseOverallDispositionIndicator(x$Disposition, lglUseEmoji = lglUseEmoji),
-    "A qcthat issue test matrix with",
-    "{intMilestones} {strMilestone},",
-    "{intIssues} {strIssue},",
-    "and {intTests} {strTest}",
+    "A qcthat issue test matrix with {strSummary}",
     .sep = " "
   )
 }
@@ -119,8 +130,23 @@ ChooseOverallDispositionIndicator <- function(
 
 #' @rdname FormatBody
 #' @export
-FormatBody.qcthat_IssueTestMatrix <- function(x, ...) {
+FormatBody.qcthat_IssueTestMatrix <- function(
+  x,
+  ...,
+  lglShowMilestones = TRUE
+) {
   if (NROW(x)) {
+    if (!lglShowMilestones) {
+      x$Milestone <- NA
+      x <- AsNestedIssueTestMatrix(x)
+      lFormattedIssues <- purrr::map(
+        AsRowDFList(x$IssueTestResults[[1]], AsSingleIssueTestResults),
+        function(x) {
+          format(x, ...)
+        }
+      )
+      return(FinalizeTree(lFormattedIssues))
+    }
     x <- AsNestedIssueTestMatrix(x)
     lFormattedMilestones <- purrr::map(
       AsRowDFList(x, AsMilestone),

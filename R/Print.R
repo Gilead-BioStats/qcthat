@@ -49,12 +49,21 @@ format.qcthat_Object <- function(
   x,
   ...,
   lglUseEmoji = getOption("qcthat.emoji", TRUE),
+  lglShowMilestones = TRUE,
   fnTransform = identity
 ) {
   fnTransform(
     c(
-      FormatHeader(x, lglUseEmoji = lglUseEmoji),
-      FormatBody(x, lglUseEmoji = lglUseEmoji),
+      FormatHeader(
+        x,
+        lglUseEmoji = lglUseEmoji,
+        lglShowMilestones = lglShowMilestones
+      ),
+      FormatBody(
+        x,
+        lglUseEmoji = lglUseEmoji,
+        lglShowMilestones = lglShowMilestones
+      ),
       FormatFooter(x, lglUseEmoji = lglUseEmoji)
     ),
     # Allow users to pass in fnTransform args, notably `con` for `writeLines`.

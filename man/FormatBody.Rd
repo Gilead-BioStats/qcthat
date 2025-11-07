@@ -13,7 +13,7 @@ FormatBody(x, ..., lglUseEmoji = getOption("qcthat.emoji", TRUE))
 
 \method{FormatBody}{default}(x, ..., lglUseEmoji = getOption("qcthat.emoji", TRUE))
 
-\method{FormatBody}{qcthat_IssueTestMatrix}(x, ...)
+\method{FormatBody}{qcthat_IssueTestMatrix}(x, ..., lglShowMilestones = TRUE)
 
 \method{FormatBody}{qcthat_Milestone}(x, ...)
 
@@ -28,6 +28,9 @@ FormatBody(x, ..., lglUseEmoji = getOption("qcthat.emoji", TRUE))
 the emoji package is installed) or ASCII indicators (if \code{FALSE}) in the
 output. By default, this is determined by the \code{qcthat.emoji} option, which
 defaults to \code{TRUE}.}
+
+\item{lglShowMilestones}{(\verb{length-1 logical}) Whether to separate issues by
+milestones in reports.}
 }
 \value{
 A character vector representing the formatted body of the object. By

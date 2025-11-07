@@ -12,6 +12,7 @@
   x,
   ...,
   lglUseEmoji = getOption("qcthat.emoji", TRUE),
+  lglShowMilestones = TRUE,
   fnTransform = identity
 )
 }
@@ -24,6 +25,9 @@
 the emoji package is installed) or ASCII indicators (if \code{FALSE}) in the
 output. By default, this is determined by the \code{qcthat.emoji} option, which
 defaults to \code{TRUE}.}
+
+\item{lglShowMilestones}{(\verb{length-1 logical}) Whether to separate issues by
+milestones in reports.}
 
 \item{fnTransform}{(\code{function}) A function to transform the output before
 returning it. By default, this is \code{\link[base:identity]{base::identity()}} for \code{format()}

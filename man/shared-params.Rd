@@ -36,6 +36,9 @@ parallel testing, like \code{reporter = "silent"}, and assigning it to a name.}
 \item{lglOverwrite}{(\verb{length-1 logical}) Whether to overwrite files if they
 already exist.}
 
+\item{lglShowMilestones}{(\verb{length-1 logical}) Whether to separate issues by
+milestones in reports.}
+
 \item{lglUseEmoji}{(\verb{length-1 logical}) Whether to use emojis (if \code{TRUE} and
 the emoji package is installed) or ASCII indicators (if \code{FALSE}) in the
 output. By default, this is determined by the \code{qcthat.emoji} option, which

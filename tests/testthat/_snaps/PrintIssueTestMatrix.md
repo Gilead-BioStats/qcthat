@@ -36,7 +36,7 @@
       
       [!] At least one test failed
 
-# Can print without milestone info (#40)
+# Can print without milestone info (#40, #69)
 
     Code
       print(dfITM, lglShowMilestones = FALSE)

@@ -19,7 +19,7 @@ test_that("InstallAction calls InstallFile with expected parts (#73)", {
   )
 })
 
-test_that("Action_QCCompletedIssues targets the expected action (#73)", {
+test_that("Action_QCCompletedIssues targets the expected action (#73, #69)", {
   local_mocked_bindings(
     InstallAction = function(strActionName, ...) {
       strActionName

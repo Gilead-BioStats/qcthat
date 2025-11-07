@@ -40,7 +40,7 @@ test_that("Disposition indicators deal with all cases (#60)", {
   )
 })
 
-test_that("Can print without milestone info (#40)", {
+test_that("Can print without milestone info (#40, #69)", {
   dfRepoIssues <- GenerateSampleDFRepoIssues()
   dfTestResults <- GenerateSampleDFTestResults()
   dfITM <- CompileIssueTestMatrix(

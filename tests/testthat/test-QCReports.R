@@ -1,4 +1,4 @@
-test_that("QCPackage wraps the core qcthat functions (#46)", {
+test_that("QCPackage wraps the core qcthat functions (#46, #69)", {
   local_mocked_bindings(
     FetchRepoIssues = function(...) "repo issues",
     GetPkgRoot = function(strPkgRoot, ...) strPkgRoot,
@@ -16,7 +16,7 @@ test_that("QCPackage wraps the core qcthat functions (#46)", {
   )
 })
 
-test_that("QCCompletedIssues filters to completed issues (#80)", {
+test_that("QCCompletedIssues filters to completed issues (#80, #69)", {
   local_mocked_bindings(
     QCPackage = function(...) {
       tibble::tibble(

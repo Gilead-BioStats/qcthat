@@ -59,6 +59,7 @@ fix)") and the disposition of tests ("passed", "failed", or "skipped").</p>
 <span>  <span class="va">x</span>,</span>
 <span>  <span class="va">...</span>,</span>
 <span>  lglUseEmoji <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">getOption</a></span><span class="op">(</span><span class="st">"qcthat.emoji"</span>, <span class="cn">TRUE</span><span class="op">)</span>,</span>
+<span>  lglShowMilestones <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  fnTransform <span class="op">=</span> <span class="va">identity</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
@@ -80,6 +81,11 @@ fix)") and the disposition of tests ("passed", "failed", or "skipped").</p>
 the emoji package is installed) or ASCII indicators (if <code>FALSE</code>) in the
 output. By default, this is determined by the <code>qcthat.emoji</code> option, which
 defaults to <code>TRUE</code>.</p></dd>
+
+
+<dt id="arg-lglshowmilestones">lglShowMilestones<a class="anchor" aria-label="anchor" href="#arg-lglshowmilestones"></a></dt>
+<dd><p>(<code>length-1 logical</code>) Whether to separate issues by
+milestones in reports.</p></dd>
 
 
 <dt id="arg-fntransform">fnTransform<a class="anchor" aria-label="anchor" href="#arg-fntransform"></a></dt>

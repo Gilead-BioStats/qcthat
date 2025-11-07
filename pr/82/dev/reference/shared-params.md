@@ -61,6 +61,11 @@ Reused parameter definitions are gathered here for easier usage. Use
 
   (`length-1 logical`) Whether to overwrite files if they already exist.
 
+- lglShowMilestones:
+
+  (`length-1 logical`) Whether to separate issues by milestones in
+  reports.
+
 - lglUseEmoji:
 
   (`length-1 logical`) Whether to use emojis (if `TRUE` and the emoji

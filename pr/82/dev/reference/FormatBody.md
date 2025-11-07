@@ -11,7 +11,7 @@ FormatBody(x, ..., lglUseEmoji = getOption("qcthat.emoji", TRUE))
 FormatBody(x, ..., lglUseEmoji = getOption("qcthat.emoji", TRUE))
 
 # S3 method for class 'qcthat_IssueTestMatrix'
-FormatBody(x, ...)
+FormatBody(x, ..., lglShowMilestones = TRUE)
 
 # S3 method for class 'qcthat_Milestone'
 FormatBody(x, ...)
@@ -36,6 +36,11 @@ FormatBody(x, ..., lglUseEmoji = getOption("qcthat.emoji", TRUE))
   package is installed) or ASCII indicators (if `FALSE`) in the output.
   By default, this is determined by the `qcthat.emoji` option, which
   defaults to `TRUE`.
+
+- lglShowMilestones:
+
+  (`length-1 logical`) Whether to separate issues by milestones in
+  reports.
 
 ## Value
 

@@ -18,6 +18,7 @@ format(
   x,
   ...,
   lglUseEmoji = getOption("qcthat.emoji", TRUE),
+  lglShowMilestones = TRUE,
   fnTransform = identity
 )
 ```
@@ -38,6 +39,11 @@ format(
   package is installed) or ASCII indicators (if `FALSE`) in the output.
   By default, this is determined by the `qcthat.emoji` option, which
   defaults to `TRUE`.
+
+- lglShowMilestones:
+
+  (`length-1 logical`) Whether to separate issues by milestones in
+  reports.
 
 - fnTransform:
 

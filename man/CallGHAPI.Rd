@@ -9,6 +9,7 @@ CallGHAPI(
   strOwner = gh::gh_tree_remote()[["username"]],
   strRepo = gh::gh_tree_remote()[["repo"]],
   strGHToken = gh::gh_token(),
+  numLimit = Inf,
   ...
 )
 }
@@ -21,6 +22,9 @@ CallGHAPI(
 
 \item{strGHToken}{(\verb{length-1 character}) GitHub token with permissions to
 read issues.}
+
+\item{numLimit}{(\verb{length-1 numeric}) Maximum number of results to return.
+Default is \code{Inf} (no limit).}
 
 \item{...}{Additional parameters passed to \code{\link[gh:gh]{gh::gh()}}.}
 }

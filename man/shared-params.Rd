@@ -6,6 +6,9 @@
 \arguments{
 \item{chrClass}{(\code{character}) Class name(s) to assign to the object.}
 
+\item{chrKeywords}{(\code{character}) Keywords to search for just before issue
+numbers in commit messages. Defaults to the \href{https://docs.github.com/en/issues/tracking-your-work-with-issues/using-issues/linking-a-pull-request-to-an-issue#linking-a-pull-request-to-an-issue-using-a-keyword}{GitHub issue-linking keywords}}
+
 \item{chrSourcePath}{(\code{character}) Components of a path to a source file. The
 file extension should be included in the filename or omitted (NOT sent as a
 separate piece of the vector).}
@@ -13,6 +16,9 @@ separate piece of the vector).}
 \item{chrTargetPath}{(\code{character}) Components of a path to a target file. The
 file extension should be included in the filename or omitted (NOT sent as a
 separate piece of the vector).}
+
+\item{chrTests}{(\code{character}) A vector of test descriptions from a
+\code{\link[=CompileIssueTestMatrix]{CompileIssueTestMatrix()}} matrix.}
 
 \item{dfRepoIssues}{(\code{qcthat_Issues} or data frame) Data frame of GitHub
 issues as returned by \code{\link[=FetchRepoIssues]{FetchRepoIssues()}}.}
@@ -24,6 +30,14 @@ results as returned by \code{\link[=CompileTestResults]{CompileTestResults()}}.}
 Typically set to \code{\link[rlang:stack]{rlang::caller_env()}}.}
 
 \item{fctDisposition}{(\code{factor}) Disposition factor with levels \code{c("fail", "skip", "pass")}.}
+
+\item{intIssues}{(\code{integer}) A vector of issue numbers from a
+\code{\link[=CompileIssueTestMatrix]{CompileIssueTestMatrix()}} matrix or from GitHub.}
+
+\item{intMaxCommits}{(\verb{length-1 integer}) The maximum number of commits to
+return from git logs. Leaving this at the default should almost always be
+fine, but you can reduce the number if your repository has a long commit
+history and this function is slow.}
 
 \item{lIssuesNonPR}{(\code{list}) List of issue objects as returned by
 \code{\link[=RemovePRsFromIssues]{RemovePRsFromIssues()}}.}
@@ -60,6 +74,16 @@ read issues.}
 the package. Will be expanded using \code{\link[pkgload:packages]{pkgload::pkg_path()}}.}
 
 \item{strRepo}{(\verb{length-1 character}) GitHub repository name.}
+
+\item{strSourceRef}{(\verb{length-1 character}) Name of the git reference that
+contains changes. Defaults to the active branch in this repository.}
+
+\item{strState}{(\verb{length-1 character}) State of issues or pull requests to
+fetch. Must be one of \code{"open"}, \code{"closed"}, or \code{"all"}. Defaults to
+\code{"open"} for pull requests and \code{"all"} for issues.}
+
+\item{strTargetRef}{(\verb{length-1 character}) Name of the git reference that
+will be merged into. Defaults to the default branch of this repository.}
 }
 \description{
 Reused parameter definitions are gathered here for easier usage. Use

@@ -37,3 +37,50 @@ test_that("QCCompletedIssues filters to completed issues (#80, #69)", {
   )
   expect_identical(test_result, expected_result)
 })
+
+test_that("QCBranch filters to ref-specific issues (#68, #84)", {
+  local_mocked_bindings(
+    FindKeywordIssues = function(...) {
+      3:4
+    },
+    QCPackage = function(...) {
+      tibble::tibble(
+        Issue = c(NA, 1:5),
+        OtherColumn = 1:6
+      )
+    }
+  )
+  expected_result <- tibble::tibble(Issue = 3:4, OtherColumn = 4:5)
+  expect_identical(QCBranch(), expected_result)
+})
+
+test_that("QCIssues reports on specific issues (#86)", {
+  local_mocked_bindings(
+    QCPackage = function(...) {
+      tibble::tibble(
+        Issue = c(1L, 2L, 3L),
+        OtherColumn = 1:3
+      )
+    }
+  )
+  expected_result <- tibble::tibble(Issue = 2:3, OtherColumn = 2:3)
+  expect_identical(QCIssues(2:3), expected_result)
+})
+
+test_that("QCIssues warns about unknown issues (#86)", {
+  local_mocked_bindings(
+    QCPackage = function(...) {
+      tibble::tibble(
+        Issue = c(1L, 2L, 3L),
+        OtherColumn = 1:3
+      )
+    }
+  )
+  expect_warning(
+    test_result <- QCIssues(2:4),
+    "Unknown issues: 4",
+    class = "qcthat-warning-unknown_issues"
+  )
+  expected_result <- tibble::tibble(Issue = 2:3, OtherColumn = 2:3)
+  expect_identical(test_result, expected_result)
+})

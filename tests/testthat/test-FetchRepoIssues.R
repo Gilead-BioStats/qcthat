@@ -2,7 +2,7 @@ test_that("FetchRepoIssues returns an empty df when no issues found (#34)", {
   local_mocked_bindings(
     FetchRawRepoIssues = function(...) list()
   )
-  test_result <- FetchRepoIssues()
+  test_result <- FetchRepoIssues("someowner", "myrepo", "mytoken")
   expect_s3_class(test_result, "qcthat_Issues")
   expect_s3_class(test_result, "tbl_df")
   class(test_result) <- class(tibble::tibble())
@@ -31,7 +31,7 @@ test_that("FetchRepoIssues returns a formatted df for real issues (#34)", {
   local_mocked_bindings(
     FetchRawRepoIssues = function(...) GenerateRawRepoIssues()
   )
-  test_result <- FetchRepoIssues()
+  test_result <- FetchRepoIssues("someowner", "myrepo", "mytoken")
   expect_s3_class(test_result, "qcthat_Issues")
   expect_s3_class(test_result, "tbl_df")
   class(test_result) <- class(tibble::tibble())
@@ -72,13 +72,13 @@ test_that("FetchRepoIssues returns a formatted df for real issues (#34)", {
 
 test_that("FetchRepoIssues fetches all repo issues (#47)", {
   # This is a kinda convoluted test, but basically I just have to make sure I
-  # haven't removed the `.limit` param.
+  # haven't overridden the `numLimit` param.
   local_mocked_bindings(
-    CallGHAPI = function(.limit, ...) {
+    CallGHAPI = function(numLimit = Inf, ...) {
       stopifnot(
-        .limit == Inf
+        numLimit == Inf
       )
     }
   )
-  expect_no_error(FetchRepoIssues())
+  expect_no_error(FetchRepoIssues("someowner", "myrepo", "mytoken"))
 })

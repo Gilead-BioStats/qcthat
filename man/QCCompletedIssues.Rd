@@ -6,8 +6,8 @@
 \usage{
 QCCompletedIssues(
   strPkgRoot = ".",
-  strOwner = gh::gh_tree_remote()[["username"]],
-  strRepo = gh::gh_tree_remote()[["repo"]],
+  strOwner = gh::gh_tree_remote(strPkgRoot)[["username"]],
+  strRepo = gh::gh_tree_remote(strPkgRoot)[["repo"]],
   strGHToken = gh::gh_token()
 )
 }
@@ -23,9 +23,8 @@ the package. Will be expanded using \code{\link[pkgload:packages]{pkgload::pkg_p
 read issues.}
 }
 \value{
-A \code{qcthat_IssueTestMatrix} object as returned by
-\code{\link[=CompileIssueTestMatrix]{CompileIssueTestMatrix()}}, filtered to issues that were closed as
-completed.
+A \code{qcthat_IssueTestMatrix} object as returned by \code{\link[=QCPackage]{QCPackage()}},
+filtered to issues that were closed as completed.
 }
 \description{
 A simple wrapper around \code{\link[=QCPackage]{QCPackage()}} that filters the resulting issue-test

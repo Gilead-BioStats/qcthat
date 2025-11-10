@@ -2,7 +2,7 @@
 % Please edit documentation in R/PrintIssueTestMatrix.R
 \name{ChooseOverallDispositionMessage}
 \alias{ChooseOverallDispositionMessage}
-\title{Add a summary message to ITR footer}
+\title{Choose overall disposition message}
 \usage{
 ChooseOverallDispositionMessage(fctDisposition)
 }
@@ -13,6 +13,6 @@ ChooseOverallDispositionMessage(fctDisposition)
 A string summary message or \code{NULL} if no disposition is available.
 }
 \description{
-Add a summary message to ITR footer
+Choose overall disposition message
 }
 \keyword{internal}

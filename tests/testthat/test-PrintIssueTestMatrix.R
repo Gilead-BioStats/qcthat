@@ -11,7 +11,7 @@ test_that("Printing an IssueTestMatrix returns input invisibly (#31)", {
   expect_identical(test_result$value, dfITM)
 })
 
-test_that("Printing an IssueTestMatrix outputs a user-friendly tree (#31, #36, #60)", {
+test_that("Printing an IssueTestMatrix outputs a user-friendly tree (#31, #36, #60, #85)", {
   dfRepoIssues <- GenerateSampleDFRepoIssues()
   dfTestResults <- GenerateSampleDFTestResults()
   dfITM <- CompileIssueTestMatrix(
@@ -50,4 +50,16 @@ test_that("Can print without milestone info (#40, #69)", {
   expect_unformatted_snapshot({
     print(dfITM, lglShowMilestones = FALSE)
   })
+})
+
+test_that("MakeITRCoverageFooter deals with all cases (#85)", {
+  expect_null(MakeITRCoverageFooter(integer(), character()))
+  expect_equal(
+    MakeITRCoverageFooter(1L, "Test", lglUseEmoji = FALSE),
+    "[#] All issues have at least one test"
+  )
+  expect_equal(
+    MakeITRCoverageFooter(NA_integer_, "Test", lglUseEmoji = FALSE),
+    "[~] At least one test is not linked to any issue"
+  )
 })

@@ -63,20 +63,19 @@ FormatFooter.qcthat_IssueTestMatrix <- function(
           .sep = " "
         )
       )),
-      MakeITRDispositionFooter(x$Disposition, lglUseEmoji = lglUseEmoji)
+      MakeITRDispositionFooter(x$Disposition, lglUseEmoji = lglUseEmoji),
+      MakeITRCoverageFooter(x$Issue, x$Test, lglUseEmoji = lglUseEmoji)
     )
   }
 }
 
 #' Add a summary message to ITR footer
 #'
-#' @inheritParams printing
 #' @inheritParams shared-params
 #' @returns A string summary message or `NULL` if no disposition is available.
 #' @keywords internal
 MakeITRDispositionFooter <- function(
   fctDisposition,
-  ...,
   lglUseEmoji = getOption("qcthat.emoji", TRUE)
 ) {
   if (!length(fctDisposition) || all(is.na(fctDisposition))) {
@@ -92,7 +91,7 @@ MakeITRDispositionFooter <- function(
   }
 }
 
-#' Add a summary message to ITR footer
+#' Choose overall disposition message
 #'
 #' @inheritParams shared-params
 #' @returns A string summary message or `NULL` if no disposition is available.
@@ -110,7 +109,7 @@ ChooseOverallDispositionMessage <- function(fctDisposition) {
   )
 }
 
-#' Add a summary message to ITR footer
+#' Choose overall disposition indicator
 #'
 #' @inheritParams shared-params
 #' @returns An emoji or other string indicating the overall disposition of all
@@ -126,6 +125,64 @@ ChooseOverallDispositionIndicator <- function(
     )
   }
   return(GetChrCode("box"))
+}
+
+#' Add a coverage summary message to ITR footer
+#'
+#' @inheritParams shared-params
+#' @returns One or two string summary messages or `NULL` if neither message
+#'   applies.
+#' @keywords internal
+MakeITRCoverageFooter <- function(
+  intIssues,
+  chrTests,
+  lglUseEmoji = getOption("qcthat.emoji", TRUE)
+) {
+  c(
+    ChooseCoverageFooter(intIssues, chrTests, lglUseEmoji = lglUseEmoji),
+    ChooseOrphanFooter(intIssues, chrTests, lglUseEmoji = lglUseEmoji)
+  )
+}
+
+#' Choose coverage footer
+#'
+#' @inheritParams shared-params
+#' @returns A string with or without an emoji describing test coverage of
+#'   issues, or `NULL` if there aren't any issues.
+#' @keywords internal
+ChooseCoverageFooter <- function(
+  intIssues,
+  chrTests,
+  lglUseEmoji = getOption("qcthat.emoji", TRUE)
+) {
+  if (any(!is.na(intIssues))) {
+    if (any(!is.na(intIssues) & is.na(chrTests))) {
+      strCoverageIndicator <- ChooseEmoji("uncovered", lglUseEmoji)
+      strCoverageMessage <- "At least one issue lacks tests"
+    } else {
+      strCoverageIndicator <- ChooseEmoji("covered", lglUseEmoji)
+      strCoverageMessage <- "All issues have at least one test"
+    }
+    glue::glue("{strCoverageIndicator} {strCoverageMessage}")
+  }
+}
+
+#' Choose orphan footer
+#'
+#' @inheritParams shared-params
+#' @returns A string with or without an emoji describing test linkage to issues,
+#'   or `NULL` if there aren't any tests.
+#' @keywords internal
+ChooseOrphanFooter <- function(
+  intIssues,
+  chrTests,
+  lglUseEmoji = getOption("qcthat.emoji", TRUE)
+) {
+  if (any(!is.na(chrTests) & is.na(intIssues))) {
+    strOrphanedIndicator <- ChooseEmoji("orphaned", lglUseEmoji)
+    strOrphanedMessage <- "At least one test is not linked to any issue"
+    glue::glue("{strOrphanedIndicator} {strOrphanedMessage}")
+  }
 }
 
 #' @rdname FormatBody

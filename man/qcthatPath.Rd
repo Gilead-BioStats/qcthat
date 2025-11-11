@@ -4,10 +4,15 @@
 \alias{qcthatPath}
 \title{Find a path within qcthat}
 \usage{
-qcthatPath(chrPath)
+qcthatPath(chrPath, strExtension)
 }
 \arguments{
 \item{chrPath}{(\code{character}) Components of a path}
+
+\item{strExtension}{(\verb{length-1 character}) The file extension to use for the
+target file. If the target path already includes an extension, it will be
+replaced with this value. If the value is already correct, this won't have
+any effect.}
 }
 \value{
 The full path to the file within the \code{qcthat} package.

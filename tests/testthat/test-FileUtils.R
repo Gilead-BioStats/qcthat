@@ -1,6 +1,6 @@
 test_that("qcthatPath constructs paths (#73)", {
   expect_equal(
-    qcthatPath(c("dir1", "dir2", "file.txt")),
+    qcthatPath(c("dir1", "dir2", "file"), "txt"),
     system.file("dir1", "dir2", "file.txt", package = "qcthat")
   )
 })
@@ -13,12 +13,13 @@ test_that("InstallFile copies files as expected (#73)", {
     tmpdir = strqcthatRoot,
     fileext = ".txt"
   )
-  strSourceFileBase <- fs::path_file(strSourceFile)
+  strSourceFileBase <- fs::path_file(strSourceFile) |>
+    fs::path_ext_remove()
   strTargetPath <- fs::path(strPkgRoot, "targetdir", "targetfile.txt")
   local_mocked_bindings(
     GetPkgRoot = function(strPkgRoot, ...) strPkgRoot,
-    qcthatPath = function(chrPath) {
-      rlang::inject(fs::path(strqcthatRoot, !!!chrPath))
+    qcthatPath = function(chrPath, strExtension) {
+      rlang::inject(fs::path(strqcthatRoot, !!!chrPath, ext = strExtension))
     }
   )
   expect_snapshot(

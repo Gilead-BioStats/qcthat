@@ -42,5 +42,9 @@ InstallAction <- function(
 #'
 #'   Action_QCCompletedIssues()
 Action_QCCompletedIssues <- function(lglOverwrite = FALSE, strPkgRoot = ".") {
-  InstallAction("completed_issues", strPkgRoot, lglOverwrite)
+  InstallAction(
+    "completed_issues",
+    strPkgRoot = strPkgRoot,
+    lglOverwrite = lglOverwrite
+  )
 }

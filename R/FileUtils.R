@@ -28,10 +28,12 @@ GetPkgRoot <- function(strPkgRoot, envCall = rlang::caller_env()) {
 #' Exists primarily to make it easier to mock this for testing.
 #'
 #' @param chrPath (`character`) Components of a path
+#' @inheritParams shared-params
 #' @returns The full path to the file within the `qcthat` package.
 #' @keywords internal
-qcthatPath <- function(chrPath) {
-  rlang::inject(system.file(!!!chrPath, package = "qcthat"))
+qcthatPath <- function(chrPath, strExtension) {
+  strPath <- rlang::inject(fs::path(!!!chrPath, ext = strExtension))
+  system.file(strPath, package = "qcthat")
 }
 
 #' Install a file from qcthat into a package repo
@@ -54,7 +56,7 @@ InstallFile <- function(
   )
   strTargetPath <- fs::path_ext_set(strTargetPath, strExtension)
   fs::dir_create(fs::path_dir(strTargetPath))
-  strSourcePath <- qcthatPath(chrSourcePath)
+  strSourcePath <- qcthatPath(chrSourcePath, strExtension)
   strSourcePath <- fs::path_ext_set(strSourcePath, strExtension)
   strCreatedPath <- fs::file_copy(
     strSourcePath,

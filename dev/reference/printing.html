@@ -59,7 +59,8 @@ fix)") and the disposition of tests ("passed", "failed", or "skipped").</p>
 <span>  <span class="va">x</span>,</span>
 <span>  <span class="va">...</span>,</span>
 <span>  lglUseEmoji <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">getOption</a></span><span class="op">(</span><span class="st">"qcthat.emoji"</span>, <span class="cn">TRUE</span><span class="op">)</span>,</span>
-<span>  transform <span class="op">=</span> <span class="va">identity</span></span>
+<span>  lglShowMilestones <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  fnTransform <span class="op">=</span> <span class="va">identity</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -82,7 +83,12 @@ output. By default, this is determined by the <code>qcthat.emoji</code> option, 
 defaults to <code>TRUE</code>.</p></dd>
 
 
-<dt id="arg-transform">transform<a class="anchor" aria-label="anchor" href="#arg-transform"></a></dt>
+<dt id="arg-lglshowmilestones">lglShowMilestones<a class="anchor" aria-label="anchor" href="#arg-lglshowmilestones"></a></dt>
+<dd><p>(<code>length-1 logical</code>) Whether to separate issues by
+milestones in reports.</p></dd>
+
+
+<dt id="arg-fntransform">fnTransform<a class="anchor" aria-label="anchor" href="#arg-fntransform"></a></dt>
 <dd><p>(<code>function</code>) A function to transform the output before
 returning it. By default, this is <code><a href="https://rdrr.io/r/base/identity.html" class="external-link">base::identity()</a></code> for <code><a href="https://rdrr.io/r/base/format.html" class="external-link">format()</a></code>
 (returns the formatted output), and <code><a href="https://rdrr.io/r/base/writeLines.html" class="external-link">base::writeLines()</a></code> for <code><a href="https://rdrr.io/r/base/print.html" class="external-link">print()</a></code>
@@ -118,7 +124,7 @@ returning it. By default, this is <code><a href="https://rdrr.io/r/base/identity
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.3.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.</p>
 </div>
 
     </footer></div>

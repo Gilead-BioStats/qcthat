@@ -5,6 +5,7 @@
 <url><loc>https://gilead-biostats.github.io/qcthat/dev/authors.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/qcthat/dev/index.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/qcthat/dev/news/index.html</loc></url>
+<url><loc>https://gilead-biostats.github.io/qcthat/dev/reference/Action_QCCompletedIssues.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/qcthat/dev/reference/AsExpected.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/qcthat/dev/reference/AsExpectedFlat.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/qcthat/dev/reference/AsIssueTestMatrix.html</loc></url>
@@ -43,14 +44,21 @@
 <url><loc>https://gilead-biostats.github.io/qcthat/dev/reference/FormatHeader.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/qcthat/dev/reference/FormatSITRHeader.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/qcthat/dev/reference/GetChrCode.html</loc></url>
+<url><loc>https://gilead-biostats.github.io/qcthat/dev/reference/GetPkgRoot.html</loc></url>
+<url><loc>https://gilead-biostats.github.io/qcthat/dev/reference/InstallAction.html</loc></url>
+<url><loc>https://gilead-biostats.github.io/qcthat/dev/reference/InstallFile.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/qcthat/dev/reference/MakeITRDispositionFooter.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/qcthat/dev/reference/MakeKeyItem.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/qcthat/dev/reference/NullIfEmpty.html</loc></url>
+<url><loc>https://gilead-biostats.github.io/qcthat/dev/reference/QCCompletedIssues.html</loc></url>
+<url><loc>https://gilead-biostats.github.io/qcthat/dev/reference/QCPackage.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/qcthat/dev/reference/RemovePRsFromIssues.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/qcthat/dev/reference/SeparateParentColumn.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/qcthat/dev/reference/SimplePluralize.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/qcthat/dev/reference/index.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/qcthat/dev/reference/printing.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/qcthat/dev/reference/qcthat-package.html</loc></url>
+<url><loc>https://gilead-biostats.github.io/qcthat/dev/reference/qcthatPath.html</loc></url>
+<url><loc>https://gilead-biostats.github.io/qcthat/dev/reference/shared-params.html</loc></url>
 </urlset>
 

@@ -4,10 +4,7 @@
 #' nested tibble organized by milestone, with each milestone containing issues
 #' and associated tests.
 #'
-#' @param dfRepoIssues (`qcthat_Issues` or data frame) Data frame of GitHub
-#'   issues as returned by [FetchRepoIssues()].
-#' @param dfTestResults (`qcthat_TestResults` or data frame) Data frame of test
-#'   results as returned by [CompileTestResults()].
+#' @inheritParams shared-params
 #'
 #' @returns A `qcthat_IssueTestMatrix` object, which is a tibble with columns:
 #'   - `Milestone`: The milestone title associated with the issues.
@@ -69,7 +66,7 @@ AsIssueTestMatrix <- function(x) {
 
 #' Compile issue test results by milestone
 #'
-#' @inheritParams CompileIssueTestMatrix
+#' @inheritParams shared-params
 #' @returns A data frame with `IssueTestResults` nested by `Milestone`
 #' @keywords internal
 CompileIssueTestResultsByMilestone <- function(dfRepoIssues, dfTestResults) {
@@ -86,7 +83,7 @@ CompileIssueTestResultsByMilestone <- function(dfRepoIssues, dfTestResults) {
 
 #' Unnest test results
 #'
-#' @inheritParams CompileIssueTestMatrix
+#' @inheritParams shared-params
 #' @returns A tibble with `"Issues"` from [AsTestResultsDF()] unnested into
 #'   `"Issue"`, and the `"Issue"` column first.
 #' @keywords internal

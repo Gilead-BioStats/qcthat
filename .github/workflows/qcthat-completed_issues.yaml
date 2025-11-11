@@ -1,3 +1,5 @@
+# Workflow derived from
+# https://github.com/Gilead-BioStats/qcthat/tree/v0.3.0/inst/workflows/qcthat-completed_issues.yaml.
 on:
   push:
     branches: [main]
@@ -13,15 +15,18 @@ on:
         description: PR number to which comment should be added (leave blank for none).
         required: false
 
-name: Package QC Report
+name: qcthat Completed Issues Report
 
 permissions:
-  contents: write
-  pull-requests: write
+  # Required for report.
   issues: read
+  # Required to attach report to a release.
+  contents: write
+  # Required to add report to pull requests as a comment.
+  pull-requests: write
 
 jobs:
-  qc-report:
+  qcthat-completed_issues:
     runs-on: ubuntu-latest
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
@@ -37,44 +42,34 @@ jobs:
         with:
           extra-packages: local::.
 
-      - name: QC report
+      - name: Generate Completed Issues QC Report
         run: |
-          lTestResults <- testthat::test_local(
-            stop_on_failure = FALSE,
-            reporter = "silent"
-          )
-          IssueTestMatrix <- qcthat::CompileIssueTestMatrix(
-            dfRepoIssues = qcthat::FetchRepoIssues(),
-            dfTestResults = qcthat::CompileTestResults(lTestResults)
-          )
+          IssueTestMatrix <- qcthat::QCCompletedIssues()
           print(IssueTestMatrix)
 
           # Also print to a file.
           print(IssueTestMatrix, con = "qc_report.txt")
         shell: Rscript {0}
 
+      # Delete or comment out this step to prevent PR comments.
       - name: Add comment to PR
         if: github.event_name == 'pull_request' || inputs.pr != ''
         uses: actions/github-script@v6
         with:
           script: |
-            // Figure out issue number first so we can give up fast if we can't
-            // find it.
-            let issueNumber;
+            let prNumber;
             if (context.eventName === 'pull_request') {
-              issueNumber = context.issue.number;
+              prNumber = context.issue.number;
             } else if (context.payload.inputs.pr) {
-              issueNumber = context.payload.inputs.pr;
+              prNumber = context.payload.inputs.pr;
             }
-            if (!issueNumber) {
-              console.log('Could not determine issue/PR number. Skipping comment.');
+
+            if (!prNumber) {
+              console.log('Could not determine PR number. Skipping comment.');
               return;
             }
 
-            // Parse qc_report.txt to generate comment.
-
             const fs = require('fs');
-
             let reportContent;
             try {
               reportContent = fs.readFileSync('qc_report.txt', 'utf8');
@@ -84,32 +79,19 @@ jobs:
               return;
             }
 
-            // Split into lines
-            const lines = reportContent.split(/[\r\n]+/);
+            const lines = reportContent.split(/[\r\n]+/).filter(line => line.trim() !== '');
 
-            // Find the index of the first non-empty line
-            const firstLineIndex = lines.findIndex(line => line.trim() !== '');
-
-            // If there aren't any, there's nothing to comment.
-            if (firstLineIndex === -1) {
-              console.log('Empty qc_report.txt. Skipping comment.');
+            if (lines.length < 2) {
+              console.log('Report has less than 2 non-empty lines. Skipping comment.');
               return;
             }
 
-            // Find the index of the last non-empty line
-            const lastLineIndex = lines.findLastIndex(line => line.trim() !== '');
-
-            if (lastLineIndex <= firstLineIndex) {
-              console.log('Empty qc_report.txt. Skipping comment.');
-              return;
-            }
-
-            const reportSummary = lines[firstLineIndex].trim();
-            const reportOutcome = lines[lastLineIndex].trim();
-            const bodyContent = lines.slice(firstLineIndex + 1, lastLineIndex).join('\n');
+            const reportSummary = lines[0];
+            const reportOutcome = lines[lines.length - 1];
+            const bodyContent = lines.slice(1, -1).join('\n');
 
             const commentBody = `
-            ## QC Report
+            ## [{qcthat}](https://gilead-biostats.github.io/qcthat/) Report: Completed Issues
 
             <details>
             <summary>${reportSummary}</summary>
@@ -127,7 +109,7 @@ jobs:
               await github.rest.issues.createComment({
                 owner: context.repo.owner,
                 repo: context.repo.repo,
-                issue_number: issueNumber,
+                issue_number: prNumber,
                 body: commentBody,
               });
             } catch (error) {
@@ -135,6 +117,7 @@ jobs:
               core.setFailed(`Failed to create PR comment: ${error.message}`);
             };
 
+      # Delete or comment out this step to prevent reports from being attached to released tags.
       - name: Add to release
         if: github.event_name == 'release' || inputs.tag != ''
         uses: svenstaro/upload-release-action@v2

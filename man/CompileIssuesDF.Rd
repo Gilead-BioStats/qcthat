@@ -6,10 +6,6 @@
 \usage{
 CompileIssuesDF(lIssuesNonPR)
 }
-\arguments{
-\item{lIssuesNonPR}{(\code{list}) List of issue objects as returned by
-\code{\link[=RemovePRsFromIssues]{RemovePRsFromIssues()}}.}
-}
 \value{
 A \code{qcthat_Issues} object, which is a \code{\link[tibble:tibble]{tibble::tibble()}} with
 columns:

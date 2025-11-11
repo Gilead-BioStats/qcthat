@@ -159,3 +159,13 @@ test_that("SimplePluralize returns correct singular/plural forms (#39)", {
   expect_equal(SimplePluralize("cat", 2), "cats")
   expect_equal(SimplePluralize("dog", 0), "dogs")
 })
+
+test_that("NullIfEmpty returns NULL for empty inputs (#34)", {
+  expect_null(NullIfEmpty(integer(0)))
+  expect_null(NullIfEmpty(character(0)))
+  expect_null(NullIfEmpty(list()))
+  expect_null(NullIfEmpty(NULL))
+  expect_equal(NullIfEmpty(c(1, 2, 3)), c(1, 2, 3))
+  expect_equal(NullIfEmpty("hello"), "hello")
+  expect_equal(NullIfEmpty(list(a = 1)), list(a = 1))
+})

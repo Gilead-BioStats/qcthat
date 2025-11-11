@@ -13,7 +13,12 @@ FormatHeader(x, ..., lglUseEmoji = getOption("qcthat.emoji", TRUE))
 
 \method{FormatHeader}{default}(x, ...)
 
-\method{FormatHeader}{qcthat_IssueTestMatrix}(x, ..., lglUseEmoji = getOption("qcthat.emoji", TRUE))
+\method{FormatHeader}{qcthat_IssueTestMatrix}(
+  x,
+  ...,
+  lglUseEmoji = getOption("qcthat.emoji", TRUE),
+  lglShowMilestones = TRUE
+)
 
 \method{FormatHeader}{qcthat_Milestone}(x, ...)
 
@@ -28,6 +33,9 @@ FormatHeader(x, ..., lglUseEmoji = getOption("qcthat.emoji", TRUE))
 the emoji package is installed) or ASCII indicators (if \code{FALSE}) in the
 output. By default, this is determined by the \code{qcthat.emoji} option, which
 defaults to \code{TRUE}.}
+
+\item{lglShowMilestones}{(\verb{length-1 logical}) Whether to separate issues by
+milestones in reports.}
 }
 \value{
 A character vector representing the formatted header of the object.

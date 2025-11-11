@@ -9,16 +9,12 @@
 #' fix)") and the disposition of tests ("passed", "failed", or "skipped").
 #'
 #' @param x (`qcthat_Object`) The qcthat object to format.
-#' @param lglUseEmoji (`length-1 logical`) Whether to use emojis (if `TRUE` and
-#'   the emoji package is installed) or ASCII indicators (if `FALSE`) in the
-#'   output. By default, this is determined by the `qcthat.emoji` option, which
-#'   defaults to `TRUE`.
-#' @param transform (`function`) A function to transform the output before
+#' @param fnTransform (`function`) A function to transform the output before
 #'   returning it. By default, this is [base::identity()] for `format()`
 #'   (returns the formatted output), and [base::writeLines()] for `print()`
 #'   (sends the output to [stdout()]).
 #' @param ... Additional arguments passed to methods.
-#'
+#' @inheritParams shared-params
 #' @examplesIf interactive()
 #'
 #'   lTestResults <- testthat::test_local(
@@ -40,10 +36,10 @@ NULL
 #' @rdname printing
 #' @export
 print.qcthat_Object <- function(x, ...) {
-  # The `transform` argument causes the output to be printed to stdout as a side
-  # effect rather than returned. This method is borrowed from {pillar}, which is
-  # what {tibble} uses for printing/formatting.
-  format(x, ..., transform = writeLines)
+  # The `fnTransform` argument causes the output to be printed to stdout as a
+  # side effect rather than returned. This method is borrowed from {pillar},
+  # which is what {tibble} uses for printing/formatting.
+  format(x, ..., fnTransform = writeLines)
   invisible(x)
 }
 
@@ -53,15 +49,24 @@ format.qcthat_Object <- function(
   x,
   ...,
   lglUseEmoji = getOption("qcthat.emoji", TRUE),
-  transform = identity
+  lglShowMilestones = TRUE,
+  fnTransform = identity
 ) {
-  transform(
+  fnTransform(
     c(
-      FormatHeader(x, lglUseEmoji = lglUseEmoji),
-      FormatBody(x, lglUseEmoji = lglUseEmoji),
+      FormatHeader(
+        x,
+        lglUseEmoji = lglUseEmoji,
+        lglShowMilestones = lglShowMilestones
+      ),
+      FormatBody(
+        x,
+        lglUseEmoji = lglUseEmoji,
+        lglShowMilestones = lglShowMilestones
+      ),
       FormatFooter(x, lglUseEmoji = lglUseEmoji)
     ),
-    # Allow users to pass in transform args, notably `con` for `writeLines`.
+    # Allow users to pass in fnTransform args, notably `con` for `writeLines`.
     ...
   )
 }
@@ -139,7 +144,7 @@ FormatFooter.default <- function(x, ...) {
 #'
 #' @param strCondition (`length-1 character`) The condition to create a key item
 #'   for.
-#' @inheritParams printing
+#' @inheritParams shared-params
 #' @returns A length-1 character vector representing the key item with an emoji.
 #' @keywords internal
 MakeKeyItem <- function(

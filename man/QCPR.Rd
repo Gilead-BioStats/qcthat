@@ -5,7 +5,7 @@
 \title{Generate a QC report of issues associated with a GitHub pull request}
 \usage{
 QCPR(
-  intPRNumber = FetchLatestRepoPRNumber("open", strOwner, strRepo, strGHToken),
+  intPRNumber = FetchLatestRepoPRNumber(strOwner, strRepo, strGHToken, "open"),
   strPkgRoot = ".",
   strOwner = gh::gh_tree_remote(strPkgRoot)[["username"]],
   strRepo = gh::gh_tree_remote(strPkgRoot)[["repo"]],
@@ -14,6 +14,9 @@ QCPR(
 )
 }
 \arguments{
+\item{intPRNumber}{(\verb{length-1 integer}) The number of the pull request to fetch
+information about.}
+
 \item{strPkgRoot}{(\verb{length-1 character}) The path to the root directory of
 the package. Will be expanded using \code{\link[pkgload:packages]{pkgload::pkg_path()}}.}
 

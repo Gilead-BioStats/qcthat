@@ -39,6 +39,9 @@ return from git logs. Leaving this at the default should almost always be
 fine, but you can reduce the number if your repository has a long commit
 history and this function is slow.}
 
+\item{intPRNumber}{(\verb{length-1 integer}) The number of the pull request to fetch
+information about.}
+
 \item{lIssuesNonPR}{(\code{list}) List of issue objects as returned by
 \code{\link[=RemovePRsFromIssues]{RemovePRsFromIssues()}}.}
 

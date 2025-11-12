@@ -170,38 +170,3 @@ AsPRsDF <- function(x) {
     chrClass = "qcthat_PRs"
   )
 }
-
-#' Fetch the latest pull request number for a GitHub repository
-#'
-#' Fetch the latest pull request number for a GitHub repository, optionally
-#' filtered by state.
-#'
-#' @inheritParams shared-params
-#'
-#' @returns The latest pull request number as an integer, or `NA_integer_` if no
-#'  pull requests are found.
-#' @export
-#'
-#' @examplesIf interactive()
-#'
-#'   FetchLatestRepoPRNumber()
-FetchLatestRepoPRNumber <- function(
-  strOwner = gh::gh_tree_remote()[["username"]],
-  strRepo = gh::gh_tree_remote()[["repo"]],
-  strGHToken = gh::gh_token(),
-  strState = c("open", "closed", "all")
-) {
-  strState <- match.arg(strState)
-  dfPRs <- FetchRepoPRs(
-    strOwner = strOwner,
-    strRepo = strRepo,
-    strGHToken = strGHToken,
-    strState = strState
-  ) |>
-    dplyr::arrange(dplyr::desc(.data$CreatedAt))
-  if (NROW(dfPRs) && length(dfPRs$PR[[1]])) {
-    return(dfPRs$PR[[1]])
-  } else {
-    return(NA_integer_)
-  }
-}

@@ -55,27 +55,3 @@ test_that("FetchRepoPRs returns a formatted df for real PRs (#84)", {
   )
   expect_equal(test_result, expected_result)
 })
-
-test_that("FetchLatestRepoPRNumber fetches the most recently created PR (#84)", {
-  local_mocked_bindings(
-    CallGHAPI = function(...) {
-      list(
-        list(number = 10L, created_at = "2025-10-10T12:00:00Z"),
-        list(number = 15L, created_at = "2025-10-15T12:00:00Z"),
-        list(number = 12L, created_at = "2025-10-12T12:00:00Z")
-      )
-    }
-  )
-  latest_pr_number <- FetchLatestRepoPRNumber("someowner", "myrepo", "mytoken")
-  expect_equal(latest_pr_number, 15L)
-})
-
-test_that("FetchLatestRepoPRNumber returns NA if no PRs (#84)", {
-  local_mocked_bindings(
-    CallGHAPI = function(...) {
-      list()
-    }
-  )
-  latest_pr_number <- FetchLatestRepoPRNumber("someowner", "myrepo", "mytoken")
-  expect_true(is.na(latest_pr_number))
-})

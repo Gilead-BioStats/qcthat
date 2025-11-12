@@ -5,7 +5,7 @@
 \title{Generate a QC report of issues associated with a GitHub pull request}
 \usage{
 QCPR(
-  intPRNumber = FetchLatestRepoPRNumber(strOwner, strRepo, strGHToken, "open"),
+  intPRNumber = GuessPRNumber(strPkgRoot, strOwner, strRepo, strGHToken),
   strPkgRoot = ".",
   strOwner = gh::gh_tree_remote(strPkgRoot)[["username"]],
   strRepo = gh::gh_tree_remote(strPkgRoot)[["repo"]],

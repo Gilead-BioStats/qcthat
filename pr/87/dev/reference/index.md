@@ -10,10 +10,14 @@
   : Extract information from testthat results
 - [`FetchLatestRepoPRNumber()`](https://gilead-biostats.github.io/qcthat/dev/reference/FetchLatestRepoPRNumber.md)
   : Fetch the latest pull request number for a GitHub repository
+- [`FetchRefPRNumber()`](https://gilead-biostats.github.io/qcthat/dev/reference/FetchRefPRNumber.md)
+  : Fetch the pull request number for a branch or other git ref
 - [`FetchRepoIssues()`](https://gilead-biostats.github.io/qcthat/dev/reference/FetchRepoIssues.md)
   : Fetch repository issues
 - [`FetchRepoPRs()`](https://gilead-biostats.github.io/qcthat/dev/reference/FetchRepoPRs.md)
   : Fetch repository pull requests
+- [`GuessPRNumber()`](https://gilead-biostats.github.io/qcthat/dev/reference/GuessPRNumber.md)
+  : Guess the most relevant pull request number
 - [`QCCompletedIssues()`](https://gilead-biostats.github.io/qcthat/dev/reference/QCCompletedIssues.md)
   : Generate a QC report of completed issues
 - [`QCIssues()`](https://gilead-biostats.github.io/qcthat/dev/reference/QCIssues.md)

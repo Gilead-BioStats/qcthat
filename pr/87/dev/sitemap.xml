@@ -58,6 +58,7 @@
 <url><loc>https://gilead-biostats.github.io/qcthat/dev/reference/FetchPRRefs.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/qcthat/dev/reference/FetchRawRepoIssues.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/qcthat/dev/reference/FetchRawRepoPRs.html</loc></url>
+<url><loc>https://gilead-biostats.github.io/qcthat/dev/reference/FetchRefPRNumber.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/qcthat/dev/reference/FetchRepoIssues.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/qcthat/dev/reference/FetchRepoPRs.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/qcthat/dev/reference/FinalizeTree.html</loc></url>
@@ -73,6 +74,7 @@
 <url><loc>https://gilead-biostats.github.io/qcthat/dev/reference/GetDefaultBranch.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/qcthat/dev/reference/GetGitLog.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/qcthat/dev/reference/GetPkgRoot.html</loc></url>
+<url><loc>https://gilead-biostats.github.io/qcthat/dev/reference/GuessPRNumber.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/qcthat/dev/reference/InstallAction.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/qcthat/dev/reference/InstallFile.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/qcthat/dev/reference/MakeITRCoverageFooter.html</loc></url>

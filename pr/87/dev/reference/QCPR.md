@@ -10,7 +10,7 @@ for details on how issues can become associated with a pull request.
 
 ``` r
 QCPR(
-  intPRNumber = FetchLatestRepoPRNumber(strOwner, strRepo, strGHToken, "open"),
+  intPRNumber = GuessPRNumber(strPkgRoot, strOwner, strRepo, strGHToken),
   strPkgRoot = ".",
   strOwner = gh::gh_tree_remote(strPkgRoot)[["username"]],
   strRepo = gh::gh_tree_remote(strPkgRoot)[["repo"]],

@@ -1,3 +1,8 @@
+#' Fetch the source and target refs for a PR
+#'
+#' @inheritParams shared-params
+#' @returns A named character vector with `strSourceRef` and `strTargetRef`.
+#' @keywords internal
 FetchPRRefs <- function(
   intPRNumber = FetchLatestRepoPRNumber(strOwner, strRepo, strGHToken, "open"),
   strOwner = gh::gh_tree_remote()[["username"]],

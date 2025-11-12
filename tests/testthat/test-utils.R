@@ -169,3 +169,8 @@ test_that("NullIfEmpty returns NULL for empty inputs (#34)", {
   expect_equal(NullIfEmpty("hello"), "hello")
   expect_equal(NullIfEmpty(list(a = 1)), list(a = 1))
 })
+
+test_that("CompletelyFlatten flattens, unnames, and uniquifies nested listed (#84)", {
+  nested_list <- list(a = 1, b = list(c = 2, d = list(e = 3)), f = 3)
+  expect_equal(CompletelyFlatten(nested_list), 1:3)
+})

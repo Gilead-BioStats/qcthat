@@ -6,6 +6,8 @@
 \arguments{
 \item{chrClass}{(\code{character}) Class name(s) to assign to the object.}
 
+\item{chrCommitSHAs}{(\code{character}) SHAs of git commits.}
+
 \item{chrKeywords}{(\code{character}) Keywords to search for just before issue
 numbers in commit messages. Defaults to the \href{https://docs.github.com/en/issues/tracking-your-work-with-issues/using-issues/linking-a-pull-request-to-an-issue#linking-a-pull-request-to-an-issue-using-a-keyword}{GitHub issue-linking keywords}}
 
@@ -41,6 +43,8 @@ history and this function is slow.}
 
 \item{intPRNumber}{(\verb{length-1 integer}) The number of the pull request to fetch
 information about.}
+
+\item{intPRNumbers}{(\code{integer}) A vector of pull request numbers.}
 
 \item{lIssuesNonPR}{(\code{list}) List of issue objects as returned by
 \code{\link[=RemovePRsFromIssues]{RemovePRsFromIssues()}}.}

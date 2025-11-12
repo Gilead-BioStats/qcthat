@@ -218,6 +218,24 @@ QCPR <- function(
   )
 }
 
+#' Generate a QC report of issues associated with a GitHub merge
+#'
+#' Finds all commits in `strSourceRef` that are not in `strTargetRef`, finds all
+#' pull requests associated with those commits, finds all issues associated with
+#' those pull requests, and generates a QC report for those issues.
+#'
+#' @inheritParams shared-params
+#'
+#' @returns A `qcthat_IssueTestMatrix` object as returned by [QCPackage()],
+#'   filtered to issues that are associated with pull requests that will be
+#'   merged when `strSourceRef` is merged into `strTargetRef`.
+#' @export
+#'
+#' @examplesIf interactive()
+#'
+#'   # This will only make sense if you are working in a git repository and have
+#'   # an active branch that is different from the default branch.
+#'   QCMergeGH()
 QCMergeGH <- function(
   strSourceRef = GetActiveBranch(strPkgRoot),
   strTargetRef = GetDefaultBranch(strPkgRoot),
@@ -234,72 +252,18 @@ QCMergeGH <- function(
     strRepo = strRepo,
     strGHToken = strGHToken
   )
-  intSHAPRs <- sort(unique(unlist(
-    purrr::map(
-      chrCommitSHAs,
-      \(chrSHA) {
-        FetchSHAPRNumbers(
-          chrSHA,
-          strOwner = strOwner,
-          strRepo = strRepo,
-          strGHToken = strGHToken
-        )
-      }
-    )
-  )))
-
-  commit_pr_query_template <- '
-  c<alias>: object(oid: "<sha>") {
-    ... on Commit {
-      # Get the PR(s) associated with this commit
-      associatedPullRequests(first: 100) {
-        nodes {
-          number
-        }
-      }
-    }
-  }
-'
-  aliases <- paste0("i_", seq_along(commit_shas))
-  all_commit_pr_queries <- purrr::map2_chr(
-    commit_shas,
-    aliases,
-    ~ glue::glue(
-      commit_pr_query_template,
-      sha = .x,
-      alias = .y
-    )
-  ) |>
-    paste(collapse = "\n")
-
-  final_pr_query <- glue::glue(
-    '
-  query {{
-    repository(owner: "{strOwner}", name: "{strRepo}") {{
-      {all_commit_pr_queries}
-    }}
-  }}
-  '
+  intPRNumbers <- FetchAllMergePRNumbers(
+    chrCommitSHAs,
+    strOwner = strOwner,
+    strRepo = strRepo,
+    strGHToken = strGHToken
   )
-
-  pr_response <- gh::gh_gql(query = final_pr_query)
-  pr_numbers <- pr_response$data$repository |>
-    # Get all commit objects
-    purrr::map("associatedPullRequests") |>
-    purrr::map("nodes") |>
-    purrr::list_flatten() |>
-    # Get the PR numbers
-    purrr::map_int("number") |>
-    unique() |>
-    sort()
-
-  intPRIssues <- FetchAllPRIssues(
+  intPRIssues <- FetchAllPRIssueNumbers(
     intPRNumbers,
     strOwner = strOwner,
     strRepo = strRepo,
     strGHToken = strGHToken
   )
-
   QCIssues(
     intPRIssues,
     strPkgRoot = strPkgRoot,

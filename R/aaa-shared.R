@@ -4,6 +4,7 @@
 #' `@inheritParams shared-params` to document parameters defined here.
 #'
 #' @param chrClass (`character`) Class name(s) to assign to the object.
+#' @param chrCommitSHAs (`character`) SHAs of git commits.
 #' @param chrKeywords (`character`) Keywords to search for just before issue
 #'   numbers in commit messages. Defaults to the [GitHub issue-linking
 #'   keywords](https://docs.github.com/en/issues/tracking-your-work-with-issues/using-issues/linking-a-pull-request-to-an-issue#linking-a-pull-request-to-an-issue-using-a-keyword)
@@ -31,6 +32,7 @@
 #'   history and this function is slow.
 #' @param intPRNumber (`length-1 integer`) The number of the pull request to fetch
 #'   information about.
+#' @param intPRNumbers (`integer`) A vector of pull request numbers.
 #' @param lIssuesNonPR (`list`) List of issue objects as returned by
 #'   [RemovePRsFromIssues()].
 #' @param lTestResults (`testthat_results`) A testthat test results object,

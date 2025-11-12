@@ -308,6 +308,8 @@ By contributing to this project, you agree to abide by its terms.
   : Generate a QC report of completed issues
 - [`QCIssues()`](https://gilead-biostats.github.io/qcthat/dev/reference/QCIssues.md)
   : Generate a QC report of specific issues
+- [`QCMergeGH()`](https://gilead-biostats.github.io/qcthat/dev/reference/QCMergeGH.md)
+  : Generate a QC report of issues associated with a GitHub merge
 - [`QCMergeLocal()`](https://gilead-biostats.github.io/qcthat/dev/reference/QCMergeLocal.md)
   : Generate a QC report of issues associated with merging a branch into
   another

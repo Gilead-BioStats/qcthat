@@ -9,6 +9,10 @@ Reused parameter definitions are gathered here for easier usage. Use
 
   (`character`) Class name(s) to assign to the object.
 
+- chrCommitSHAs:
+
+  (`character`) SHAs of git commits.
+
 - chrKeywords:
 
   (`character`) Keywords to search for just before issue numbers in
@@ -72,6 +76,10 @@ Reused parameter definitions are gathered here for easier usage. Use
 
   (`length-1 integer`) The number of the pull request to fetch
   information about.
+
+- intPRNumbers:
+
+  (`integer`) A vector of pull request numbers.
 
 - lIssuesNonPR:
 

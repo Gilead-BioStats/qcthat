@@ -14,8 +14,7 @@ QCPR(
   strPkgRoot = ".",
   strOwner = gh::gh_tree_remote(strPkgRoot)[["username"]],
   strRepo = gh::gh_tree_remote(strPkgRoot)[["repo"]],
-  strGHToken = gh::gh_token(),
-  intMaxCommits = 100000L
+  strGHToken = gh::gh_token()
 )
 ```
 
@@ -43,13 +42,6 @@ QCPR(
 - strGHToken:
 
   (`length-1 character`) GitHub token with permissions to read issues.
-
-- intMaxCommits:
-
-  (`length-1 integer`) The maximum number of commits to return from git
-  logs. Leaving this at the default should almost always be fine, but
-  you can reduce the number if your repository has a long commit history
-  and this function is slow.
 
 ## Value
 

@@ -14,13 +14,13 @@
   : Fetch repository issues
 - [`FetchRepoPRs()`](https://gilead-biostats.github.io/qcthat/dev/reference/FetchRepoPRs.md)
   : Fetch repository pull requests
-- [`QCBranch()`](https://gilead-biostats.github.io/qcthat/dev/reference/QCBranch.md)
-  : Generate a QC report of issues associated with a branch or other Git
-  ref
 - [`QCCompletedIssues()`](https://gilead-biostats.github.io/qcthat/dev/reference/QCCompletedIssues.md)
   : Generate a QC report of completed issues
 - [`QCIssues()`](https://gilead-biostats.github.io/qcthat/dev/reference/QCIssues.md)
   : Generate a QC report of specific issues
+- [`QCMergeLocal()`](https://gilead-biostats.github.io/qcthat/dev/reference/QCMergeLocal.md)
+  : Generate a QC report of issues associated with merging a branch into
+  another
 - [`QCPR()`](https://gilead-biostats.github.io/qcthat/dev/reference/QCPR.md)
   : Generate a QC report of issues associated with a GitHub pull request
 - [`QCPackage()`](https://gilead-biostats.github.io/qcthat/dev/reference/QCPackage.md)

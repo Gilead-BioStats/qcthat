@@ -23,7 +23,6 @@ FindKeywordIssues <- function(
   ),
   strOwner = gh::gh_tree_remote(strPkgRoot)[["username"]],
   strRepo = gh::gh_tree_remote(strPkgRoot)[["repo"]],
-  strGHToken = gh::gh_token(),
   intMaxCommits = 100000L
 ) {
   strPkgRoot <- GetPkgRoot(strPkgRoot)

@@ -9,8 +9,7 @@ QCPR(
   strPkgRoot = ".",
   strOwner = gh::gh_tree_remote(strPkgRoot)[["username"]],
   strRepo = gh::gh_tree_remote(strPkgRoot)[["repo"]],
-  strGHToken = gh::gh_token(),
-  intMaxCommits = 100000L
+  strGHToken = gh::gh_token()
 )
 }
 \arguments{
@@ -26,11 +25,6 @@ the package. Will be expanded using \code{\link[pkgload:packages]{pkgload::pkg_p
 
 \item{strGHToken}{(\verb{length-1 character}) GitHub token with permissions to
 read issues.}
-
-\item{intMaxCommits}{(\verb{length-1 integer}) The maximum number of commits to
-return from git logs. Leaving this at the default should almost always be
-fine, but you can reduce the number if your repository has a long commit
-history and this function is slow.}
 }
 \value{
 A \code{qcthat_IssueTestMatrix} object as returned by \code{\link[=QCPackage]{QCPackage()}},

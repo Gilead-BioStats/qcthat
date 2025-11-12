@@ -73,7 +73,7 @@ QCCompletedIssues <- function(
   )
 }
 
-#' Generate a QC report of issues associated with a branch or other Git ref
+#' Generate a QC report of issues associated with merging a branch into another
 #'
 #' Find issues associated with merging a source ref into a target ref and
 #' generate a report about their test status.
@@ -91,8 +91,8 @@ QCCompletedIssues <- function(
 #'
 #'   # This will only make sense if you are working in a git repository and have
 #'   # an active branch that is different from the default branch.
-#'   QCBranch()
-QCBranch <- function(
+#'   QCMergeLocal()
+QCMergeLocal <- function(
   strSourceRef = GetActiveBranch(strPkgRoot),
   strTargetRef = GetDefaultBranch(strPkgRoot),
   strPkgRoot = ".",
@@ -119,7 +119,6 @@ QCBranch <- function(
     chrKeywords = chrKeywords,
     strOwner = strOwner,
     strRepo = strRepo,
-    strGHToken = strGHToken,
     intMaxCommits = intMaxCommits
   )
   QCIssues(
@@ -201,42 +200,54 @@ QCPR <- function(
   strPkgRoot = ".",
   strOwner = gh::gh_tree_remote(strPkgRoot)[["username"]],
   strRepo = gh::gh_tree_remote(strPkgRoot)[["repo"]],
-  strGHToken = gh::gh_token(),
-  intMaxCommits = 100000L
+  strGHToken = gh::gh_token()
 ) {
-  # Technically we look at the refs (what's merging into what) on GitHub, and
-  # then find all issues associated with any PRs that differentiate those refs
-  # from one another.
-  #
-  # 1. Get the strSourceRef (HeadRef) and strTargetRef (BaseRef) for intPRNumber
-  #
-  dfPR <- FetchRepoPRs(
+  chrPRRefs <- FetchPRRefs(
+    intPRNumber = intPRNumber,
     strOwner = strOwner,
     strRepo = strRepo,
-    strGHToken = strGHToken,
-    strState = "all"
-  ) |>
-    dplyr::filter(.data$PR == intPRNumber)
-  if (!NROW(dfPR)) {
-    cli::cli_abort(
-      c(
-        "{.arg intPRNumber} must refer to a pull request in the specified repository.",
-        i = "Pull request number {.val {intPRNumber}} not found in repository {.val {strOwner}/{strRepo}}."
-      ),
-      class = "qcthat-error-pr_not_found"
-    )
-  }
-  strSourceRef <- dfPR$HeadRef[[1]]
-  strTargetRef <- dfPR$BaseRef[[1]]
-  compare <- gh::gh(
-    "GET /repos/{owner}/{repo}/compare/{target}...{source}",
-    owner = strOwner,
-    repo = strRepo,
-    target = strTargetRef,
-    source = strSourceRef,
-    .limit = Inf
+    strGHToken = strGHToken
   )
-  commit_shas <- purrr::map_chr(compare$commits, "sha")
+  QCMergeGH(
+    strSourceRef = chrPRRefs[["strSourceRef"]],
+    strTargetRef = chrPRRefs[["strTargetRef"]],
+    strPkgRoot = strPkgRoot,
+    strOwner = strOwner,
+    strRepo = strRepo,
+    strGHToken = strGHToken
+  )
+}
+
+QCMergeGH <- function(
+  strSourceRef = GetActiveBranch(strPkgRoot),
+  strTargetRef = GetDefaultBranch(strPkgRoot),
+  strPkgRoot = ".",
+  strOwner = gh::gh_tree_remote(strPkgRoot)[["username"]],
+  strRepo = gh::gh_tree_remote(strPkgRoot)[["repo"]],
+  strGHToken = gh::gh_token(),
+  envCall = rlang::caller_env()
+) {
+  chrCommitSHAs <- FetchMergeCommitSHAs(
+    strSourceRef = strSourceRef,
+    strTargetRef = strTargetRef,
+    strOwner = strOwner,
+    strRepo = strRepo,
+    strGHToken = strGHToken
+  )
+  intSHAPRs <- sort(unique(unlist(
+    purrr::map(
+      chrCommitSHAs,
+      \(chrSHA) {
+        FetchSHAPRNumbers(
+          chrSHA,
+          strOwner = strOwner,
+          strRepo = strRepo,
+          strGHToken = strGHToken
+        )
+      }
+    )
+  )))
+
   commit_pr_query_template <- '
   c<alias>: object(oid: "<sha>") {
     ... on Commit {
@@ -281,4 +292,19 @@ QCPR <- function(
     purrr::map_int("number") |>
     unique() |>
     sort()
+
+  intPRIssues <- FetchAllPRIssues(
+    intPRNumbers,
+    strOwner = strOwner,
+    strRepo = strRepo,
+    strGHToken = strGHToken
+  )
+
+  QCIssues(
+    intPRIssues,
+    strPkgRoot = strPkgRoot,
+    strOwner = strOwner,
+    strRepo = strRepo,
+    strGHToken = strGHToken
+  )
 }

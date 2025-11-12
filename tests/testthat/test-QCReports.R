@@ -38,7 +38,7 @@ test_that("QCCompletedIssues filters to completed issues (#80, #69)", {
   expect_identical(test_result, expected_result)
 })
 
-test_that("QCBranch filters to ref-specific issues (#68, #84)", {
+test_that("QCMergeLocal filters to ref-specific issues (#68, #84)", {
   local_mocked_bindings(
     FindKeywordIssues = function(...) {
       3:4
@@ -51,7 +51,7 @@ test_that("QCBranch filters to ref-specific issues (#68, #84)", {
     }
   )
   expected_result <- tibble::tibble(Issue = 3:4, OtherColumn = 4:5)
-  expect_identical(QCBranch(), expected_result)
+  expect_identical(QCMergeLocal(), expected_result)
 })
 
 test_that("QCIssues reports on specific issues (#86)", {

@@ -12,7 +12,6 @@ FindKeywordIssues(
     "resolves", "resolved"),
   strOwner = gh::gh_tree_remote(strPkgRoot)[["username"]],
   strRepo = gh::gh_tree_remote(strPkgRoot)[["repo"]],
-  strGHToken = gh::gh_token(),
   intMaxCommits = 100000L
 )
 }
@@ -32,9 +31,6 @@ numbers in commit messages. Defaults to the \href{https://docs.github.com/en/iss
 \item{strOwner}{(\verb{length-1 character}) GitHub username or organization name.}
 
 \item{strRepo}{(\verb{length-1 character}) GitHub repository name.}
-
-\item{strGHToken}{(\verb{length-1 character}) GitHub token with permissions to
-read issues.}
 
 \item{intMaxCommits}{(\verb{length-1 integer}) The maximum number of commits to
 return from git logs. Leaving this at the default should almost always be

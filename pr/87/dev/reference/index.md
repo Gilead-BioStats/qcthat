@@ -4,6 +4,8 @@
 
 - [`Action_QCCompletedIssues()`](https://gilead-biostats.github.io/qcthat/dev/reference/Action_QCCompletedIssues.md)
   : Use a GitHub Action to QC completed issues
+- [`Action_QCPRIssues()`](https://gilead-biostats.github.io/qcthat/dev/reference/Action_QCPRIssues.md)
+  : Use a GitHub Action to QC pull-request-associated issues
 - [`CompileIssueTestMatrix()`](https://gilead-biostats.github.io/qcthat/dev/reference/CompileIssueTestMatrix.md)
   : Create a nested tibble of issues and tests
 - [`CompileTestResults()`](https://gilead-biostats.github.io/qcthat/dev/reference/CompileTestResults.md)

@@ -2,6 +2,7 @@
 # https://github.com/Gilead-BioStats/qcthat/tree/v0.3.0/inst/workflows/qcthat-pr_issues.yaml.
 on:
   pull_request:
+    types: [opened, edited, reopened, synchronize]
   workflow_dispatch:
     inputs:
       pr:

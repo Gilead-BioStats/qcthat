@@ -48,3 +48,25 @@ Action_QCCompletedIssues <- function(lglOverwrite = FALSE, strPkgRoot = ".") {
     lglOverwrite = lglOverwrite
   )
 }
+
+#' Use a GitHub Action to QC pull-request-associated issues
+#'
+#' Install a GitHub Action into a package repository to generate a QC report
+#' with [QCCompletedIssues()] of issues that will be closed by the triggering
+#' pull request. We recommend reviewing the generated action to determine
+#' whether you would like to turn any features off.
+#'
+#' @inheritParams shared-params
+#' @returns The path to the created GitHub Action YAML file (invisibly).
+#' @export
+#'
+#' @examplesIf interactive()
+#'
+#'   Action_QCPRIssues()
+Action_QCPRIssues <- function(lglOverwrite = FALSE, strPkgRoot = ".") {
+  InstallAction(
+    "pr_issues",
+    strPkgRoot = strPkgRoot,
+    lglOverwrite = lglOverwrite
+  )
+}

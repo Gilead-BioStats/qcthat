@@ -67,39 +67,6 @@ FetchRawRepoIssues <- function(
     state = strState
   )
 }
-
-#' Wrapper around gh::gh() for mocking
-#'
-#' @param strEndpoint (`length-1 character`) The endpoint to call, e.g., `"GET
-#'   /repos/{owner}/{repo}/issues"`.
-#' @param numLimit (`length-1 numeric`) Maximum number of results to return.
-#'   Default is `Inf` (no limit).
-#' @param ... Additional parameters passed to [gh::gh()].
-#' @inheritParams shared-params
-#' @returns The result of the [gh::gh()] call.
-#' @keywords internal
-CallGHAPI <- function(
-  strEndpoint,
-  strOwner = gh::gh_tree_remote()[["username"]],
-  strRepo = gh::gh_tree_remote()[["repo"]],
-  strGHToken = gh::gh_token(),
-  numLimit = Inf,
-  ...
-) {
-  # Tested manually.
-
-  # nocov start
-  gh::gh(
-    strEndpoint,
-    owner = strOwner,
-    repo = strRepo,
-    .token = strGHToken,
-    .limit = numLimit,
-    ...
-  )
-  # nocov end
-}
-
 #' Get rid of PRs in the issues list
 #'
 #' @param lIssuesRaw (`list`) List of raw issue objects as returned by

@@ -1,3 +1,60 @@
+#' Generate a QC report of issues associated with merging a branch into another
+#'
+#' Find issues associated with merging a source ref into a target ref and
+#' generate a report about their test status.
+#'
+#' @inheritParams shared-params
+#'
+#' @returns A `qcthat_IssueTestMatrix` object as returned by [QCPackage()],
+#'   filtered to issues that will be closed by merging `strSourceRef` into
+#'   `strTargetRef`, using the [GitHub keywords for linking issues to pull
+#'   requests](https://docs.github.com/en/issues/tracking-your-work-with-issues/using-issues/linking-a-pull-request-to-an-issue#linking-a-pull-request-to-an-issue-using-a-keyword).
+#'
+#' @export
+#'
+#' @examplesIf interactive()
+#'
+#'   # This will only make sense if you are working in a git repository and have
+#'   # an active branch that is different from the default branch.
+#'   QCMergeLocal()
+QCMergeLocal <- function(
+  strSourceRef = GetActiveBranch(strPkgRoot),
+  strTargetRef = GetDefaultBranch(strPkgRoot),
+  strPkgRoot = ".",
+  chrKeywords = c(
+    "close",
+    "closes",
+    "closed",
+    "fix",
+    "fixes",
+    "fixed",
+    "resolve",
+    "resolves",
+    "resolved"
+  ),
+  strOwner = gh::gh_tree_remote(strPkgRoot)[["username"]],
+  strRepo = gh::gh_tree_remote(strPkgRoot)[["repo"]],
+  strGHToken = gh::gh_token(),
+  intMaxCommits = 100000L
+) {
+  intAssociatedIssues <- FindKeywordIssues(
+    strSourceRef = strSourceRef,
+    strTargetRef = strTargetRef,
+    strPkgRoot = strPkgRoot,
+    chrKeywords = chrKeywords,
+    strOwner = strOwner,
+    strRepo = strRepo,
+    intMaxCommits = intMaxCommits
+  )
+  QCIssues(
+    intAssociatedIssues,
+    strPkgRoot = strPkgRoot,
+    strOwner = strOwner,
+    strRepo = strRepo,
+    strGHToken = strGHToken
+  )
+}
+
 #' Find issues that will be closed by merging one branch into another
 #'
 #' @inheritParams shared-params

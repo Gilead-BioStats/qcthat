@@ -1,3 +1,19 @@
+test_that("QCMergeLocal filters to ref-specific issues (#68, #84)", {
+  local_mocked_bindings(
+    FindKeywordIssues = function(...) {
+      3:4
+    },
+    QCPackage = function(...) {
+      tibble::tibble(
+        Issue = c(NA, 1:5),
+        OtherColumn = 1:6
+      )
+    }
+  )
+  expected_result <- tibble::tibble(Issue = 3:4, OtherColumn = 4:5)
+  expect_identical(QCMergeLocal(), expected_result)
+})
+
 test_that("FindKeywordIssues extracts issues that will be closed by commits (#84)", {
   skip_if_not_installed("gert")
   local_mocked_bindings(

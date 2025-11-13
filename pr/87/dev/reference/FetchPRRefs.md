@@ -6,7 +6,7 @@ Fetch the source and target refs for a PR
 
 ``` r
 FetchPRRefs(
-  intPRNumber = FetchLatestRepoPRNumber(strOwner, strRepo, strGHToken, "open"),
+  intPRNumber = GuessPRNumber(".", strOwner, strRepo, strGHToken),
   strOwner = gh::gh_tree_remote()[["username"]],
   strRepo = gh::gh_tree_remote()[["repo"]],
   strGHToken = gh::gh_token(),

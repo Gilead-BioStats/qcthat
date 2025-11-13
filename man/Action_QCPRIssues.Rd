@@ -18,9 +18,13 @@ The path to the created GitHub Action YAML file (invisibly).
 }
 \description{
 Install a GitHub Action into a package repository to generate a QC report
-with \code{\link[=QCCompletedIssues]{QCCompletedIssues()}} of issues that will be closed by the triggering
-pull request. We recommend reviewing the generated action to determine
-whether you would like to turn any features off.
+with \code{\link[=QCPR]{QCPR()}} of issues that will be closed by the triggering pull request.
+We recommend reviewing the generated action to determine whether you would
+like to turn any features off. Note: This workflow cannot be triggered when
+an issue is connected to (or disconnected from) the pull request via the
+"Development" UI of the PR or issue. In that situation, either trigger the
+workflow manually, or edit the PR body to mention the issue (such as "Closes
+#55").
 }
 \examples{
 \dontshow{if (interactive()) withAutoprint(\{ # examplesIf}

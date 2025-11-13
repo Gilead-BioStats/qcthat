@@ -2,6 +2,10 @@
 # https://github.com/Gilead-BioStats/qcthat/tree/v0.3.0/inst/workflows/qcthat-pr_issues.yaml.
 on:
   pull_request:
+  # NOTE: This workflow cannot be triggered when an issue is connected to (or
+  # disconnected from) the pull request via the "Development" UI of the PR or
+  # issue. In that situation, either trigger the workflow manually, or edit the
+  # PR body to mention the issue (such as "Closes #55").
     types: [opened, edited, reopened, synchronize]
   workflow_dispatch:
     inputs:

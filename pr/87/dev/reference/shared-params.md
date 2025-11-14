@@ -19,6 +19,10 @@ Reused parameter definitions are gathered here for easier usage. Use
   commit messages. Defaults to the [GitHub issue-linking
   keywords](https://docs.github.com/en/issues/tracking-your-work-with-issues/using-issues/linking-a-pull-request-to-an-issue#linking-a-pull-request-to-an-issue-using-a-keyword)
 
+- chrMilestones:
+
+  (`character`) The name(s) of milestone(s) to filter issues by.
+
 - chrSourcePath:
 
   (`character`) Components of a path to a source file. The file
@@ -110,6 +114,12 @@ Reused parameter definitions are gathered here for easier usage. Use
   package is installed) or ASCII indicators (if `FALSE`) in the output.
   By default, this is determined by the `qcthat.emoji` option, which
   defaults to `TRUE`.
+
+- lglWarn:
+
+  (`length-1 logical`) Whether to warn when an extra value is included
+  in the filter (but the report still returns results). Defaults to
+  `TRUE`.
 
 - objShape:
 

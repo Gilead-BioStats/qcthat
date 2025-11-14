@@ -1,16 +1,13 @@
-# Generate a QC report of issues associated with a GitHub merge
+# Generate a QC report of a specific milestone or milestones
 
-Finds all commits in `strSourceRef` that are not in `strTargetRef`,
-finds all pull requests associated with those commits, finds all issues
-associated with those pull requests, and generates a QC report for those
-issues.
+Generate a report about the test status of issues in a milestone or
+milestones.
 
 ## Usage
 
 ``` r
-QCMergeGH(
-  strSourceRef = GetActiveBranch(strPkgRoot),
-  strTargetRef = GetDefaultBranch(strPkgRoot),
+QCMilestones(
+  chrMilestones,
   strPkgRoot = ".",
   strOwner = gh::gh_tree_remote(strPkgRoot)[["username"]],
   strRepo = gh::gh_tree_remote(strPkgRoot)[["repo"]],
@@ -22,15 +19,9 @@ QCMergeGH(
 
 ## Arguments
 
-- strSourceRef:
+- chrMilestones:
 
-  (`length-1 character`) Name of the git reference that contains
-  changes. Defaults to the active branch in this repository.
-
-- strTargetRef:
-
-  (`length-1 character`) Name of the git reference that will be merged
-  into. Defaults to the default branch of this repository.
+  (`character`) The name(s) of milestone(s) to filter issues by.
 
 - strPkgRoot:
 
@@ -66,16 +57,15 @@ QCMergeGH(
 
 A `qcthat_IssueTestMatrix` object as returned by
 [`QCPackage()`](https://gilead-biostats.github.io/qcthat/dev/reference/QCPackage.md),
-filtered to issues that are associated with pull requests that will be
-merged when `strSourceRef` is merged into `strTargetRef`.
+filtered to the indicated issues.
 
 ## Examples
 
 ``` r
 if (FALSE) { # interactive()
 
-  # This will only make sense if you are working in a git repository and have
-  # an active branch that is different from the default branch.
-  QCMergeGH()
+  # This will only make sense if you are working in a git repository that has
+  # a milestone named "v0.1.0" on GitHub.
+  QCMilestones("v0.1.0")
 }
 ```

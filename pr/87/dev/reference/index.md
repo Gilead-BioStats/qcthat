@@ -4,6 +4,8 @@
 
 - [`Action_QCCompletedIssues()`](https://gilead-biostats.github.io/qcthat/dev/reference/Action_QCCompletedIssues.md)
   : Use a GitHub Action to QC completed issues
+- [`Action_QCMilestone()`](https://gilead-biostats.github.io/qcthat/dev/reference/Action_QCMilestone.md)
+  : Use a GitHub Action to QC a milestone
 - [`Action_QCPRIssues()`](https://gilead-biostats.github.io/qcthat/dev/reference/Action_QCPRIssues.md)
   : Use a GitHub Action to QC pull-request-associated issues
 - [`CompileIssueTestMatrix()`](https://gilead-biostats.github.io/qcthat/dev/reference/CompileIssueTestMatrix.md)
@@ -29,6 +31,8 @@
 - [`QCMergeLocal()`](https://gilead-biostats.github.io/qcthat/dev/reference/QCMergeLocal.md)
   : Generate a QC report of issues associated with merging a branch into
   another
+- [`QCMilestones()`](https://gilead-biostats.github.io/qcthat/dev/reference/QCMilestones.md)
+  : Generate a QC report of a specific milestone or milestones
 - [`QCPR()`](https://gilead-biostats.github.io/qcthat/dev/reference/QCPR.md)
   : Generate a QC report of issues associated with a GitHub pull request
 - [`QCPackage()`](https://gilead-biostats.github.io/qcthat/dev/reference/QCPackage.md)

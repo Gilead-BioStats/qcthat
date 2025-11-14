@@ -11,6 +11,7 @@ QCIssues(
   strOwner = gh::gh_tree_remote(strPkgRoot)[["username"]],
   strRepo = gh::gh_tree_remote(strPkgRoot)[["repo"]],
   strGHToken = gh::gh_token(),
+  lglWarn = TRUE,
   envCall = rlang::caller_env()
 )
 ```
@@ -40,6 +41,12 @@ QCIssues(
 - strGHToken:
 
   (`length-1 character`) GitHub token with permissions to read issues.
+
+- lglWarn:
+
+  (`length-1 logical`) Whether to warn when an extra value is included
+  in the filter (but the report still returns results). Defaults to
+  `TRUE`.
 
 - envCall:
 

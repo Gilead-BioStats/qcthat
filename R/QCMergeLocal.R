@@ -35,6 +35,7 @@ QCMergeLocal <- function(
   strOwner = gh::gh_tree_remote(strPkgRoot)[["username"]],
   strRepo = gh::gh_tree_remote(strPkgRoot)[["repo"]],
   strGHToken = gh::gh_token(),
+  lglWarn = TRUE,
   intMaxCommits = 100000L
 ) {
   intAssociatedIssues <- FindKeywordIssues(
@@ -51,7 +52,8 @@ QCMergeLocal <- function(
     strPkgRoot = strPkgRoot,
     strOwner = strOwner,
     strRepo = strRepo,
-    strGHToken = strGHToken
+    strGHToken = strGHToken,
+    lglWarn = lglWarn
   )
 }
 

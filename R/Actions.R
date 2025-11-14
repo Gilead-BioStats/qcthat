@@ -74,3 +74,28 @@ Action_QCPRIssues <- function(lglOverwrite = FALSE, strPkgRoot = ".") {
     lglOverwrite = lglOverwrite
   )
 }
+
+#' Use a GitHub Action to QC a milestone
+#'
+#' Install a GitHub Action into a package repository to generate a QC report
+#' with [QCMilestones()] of issues associated with a particular milestone. We
+#' recommend reviewing the generated action to determine whether you would like
+#' to turn any features off. Note: When triggered by a release, the workflow
+#' looks for milestones that match the title of the release or the name of the
+#' tag attached to the release. If the names do not match, the workflow will
+#' fail.
+#'
+#' @inheritParams shared-params
+#' @returns The path to the created GitHub Action YAML file (invisibly).
+#' @export
+#'
+#' @examplesIf interactive()
+#'
+#'   Action_QCPRIssues()
+Action_QCMilestone <- function(lglOverwrite = FALSE, strPkgRoot = ".") {
+  InstallAction(
+    "milestone",
+    strPkgRoot = strPkgRoot,
+    lglOverwrite = lglOverwrite
+  )
+}

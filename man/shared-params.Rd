@@ -11,6 +11,9 @@
 \item{chrKeywords}{(\code{character}) Keywords to search for just before issue
 numbers in commit messages. Defaults to the \href{https://docs.github.com/en/issues/tracking-your-work-with-issues/using-issues/linking-a-pull-request-to-an-issue#linking-a-pull-request-to-an-issue-using-a-keyword}{GitHub issue-linking keywords}}
 
+\item{chrMilestones}{(\code{character}) The name(s) of milestone(s) to filter
+issues by.}
+
 \item{chrSourcePath}{(\code{character}) Components of a path to a source file. The
 file extension should be included in the filename or omitted (NOT sent as a
 separate piece of the vector).}
@@ -41,8 +44,8 @@ return from git logs. Leaving this at the default should almost always be
 fine, but you can reduce the number if your repository has a long commit
 history and this function is slow.}
 
-\item{intPRNumber}{(\verb{length-1 integer}) The number of the pull request to fetch
-information about.}
+\item{intPRNumber}{(\verb{length-1 integer}) The number of the pull request to
+fetch information about.}
 
 \item{intPRNumbers}{(\code{integer}) A vector of pull request numbers.}
 
@@ -64,6 +67,10 @@ milestones in reports.}
 the emoji package is installed) or ASCII indicators (if \code{FALSE}) in the
 output. By default, this is determined by the \code{qcthat.emoji} option, which
 defaults to \code{TRUE}.}
+
+\item{lglWarn}{(\verb{length-1 logical}) Whether to warn when an extra value is
+included in the filter (but the report still returns results). Defaults to
+\code{TRUE}.}
 
 \item{objShape}{(\verb{0-row data.frame}, etc) Object with the expected structure.}
 

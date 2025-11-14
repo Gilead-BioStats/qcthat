@@ -36,3 +36,12 @@ test_that("Action_QCPRIssues targets the expected action (#55, #68)", {
   )
   expect_identical(Action_QCPRIssues(), "pr_issues")
 })
+
+test_that("Action_QCMilestone targets the expected action (#88, #68)", {
+  local_mocked_bindings(
+    InstallAction = function(strActionName, ...) {
+      strActionName
+    }
+  )
+  expect_identical(Action_QCMilestone(), "milestone")
+})

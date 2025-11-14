@@ -13,6 +13,7 @@ QCMergeLocal(
   strOwner = gh::gh_tree_remote(strPkgRoot)[["username"]],
   strRepo = gh::gh_tree_remote(strPkgRoot)[["repo"]],
   strGHToken = gh::gh_token(),
+  lglWarn = TRUE,
   intMaxCommits = 100000L
 )
 }
@@ -35,6 +36,10 @@ numbers in commit messages. Defaults to the \href{https://docs.github.com/en/iss
 
 \item{strGHToken}{(\verb{length-1 character}) GitHub token with permissions to
 read issues.}
+
+\item{lglWarn}{(\verb{length-1 logical}) Whether to warn when an extra value is
+included in the filter (but the report still returns results). Defaults to
+\code{TRUE}.}
 
 \item{intMaxCommits}{(\verb{length-1 integer}) The maximum number of commits to
 return from git logs. Leaving this at the default should almost always be

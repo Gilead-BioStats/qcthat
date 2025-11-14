@@ -95,6 +95,7 @@ QCIssues <- function(
   strOwner = gh::gh_tree_remote(strPkgRoot)[["username"]],
   strRepo = gh::gh_tree_remote(strPkgRoot)[["repo"]],
   strGHToken = gh::gh_token(),
+  lglWarn = TRUE,
   envCall = rlang::caller_env()
 ) {
   dfITM <- QCPackage(
@@ -106,13 +107,85 @@ QCIssues <- function(
   )
   intMissingIssues <- intIssues[!intIssues %in% dfITM$Issue]
   if (length(intMissingIssues)) {
-    cli::cli_warn(
-      c(
-        "Some {.arg intIssues} are not in the issue-test matrix.",
-        i = "Unknown issues: {intMissingIssues}"
-      ),
-      class = "qcthat-warning-unknown_issues"
-    )
+    if (length(intMissingIssues) == length(intIssues)) {
+      cli::cli_abort(
+        c(
+          "{.arg intIssues} must refer to at least one issue in the issue-test matrix.",
+          i = "Unknown issues: {intMissingIssues}"
+        ),
+        class = "qcthat-error-unknown_issues"
+      )
+    }
+    if (lglWarn) {
+      cli::cli_warn(
+        c(
+          "Some {.arg intIssues} are not in the issue-test matrix.",
+          i = "Unknown issues: {intMissingIssues}"
+        ),
+        class = "qcthat-warning-unknown_issues"
+      )
+    }
   }
   dplyr::filter(dfITM, !is.na(.data$Issue), .data$Issue %in% intIssues)
+}
+
+#' Generate a QC report of a specific milestone or milestones
+#'
+#' Generate a report about the test status of issues in a milestone or
+#' milestones.
+#'
+#' @inheritParams shared-params
+#'
+#' @returns A `qcthat_IssueTestMatrix` object as returned by [QCPackage()],
+#'   filtered to the indicated issues.
+#'
+#' @export
+#'
+#' @examplesIf interactive()
+#'
+#'   # This will only make sense if you are working in a git repository that has
+#'   # a milestone named "v0.1.0" on GitHub.
+#'   QCMilestones("v0.1.0")
+QCMilestones <- function(
+  chrMilestones,
+  strPkgRoot = ".",
+  strOwner = gh::gh_tree_remote(strPkgRoot)[["username"]],
+  strRepo = gh::gh_tree_remote(strPkgRoot)[["repo"]],
+  strGHToken = gh::gh_token(),
+  lglWarn = TRUE,
+  envCall = rlang::caller_env()
+) {
+  dfITM <- QCPackage(
+    strPkgRoot = strPkgRoot,
+    strOwner = strOwner,
+    strRepo = strRepo,
+    strGHToken = strGHToken,
+    envCall = envCall
+  )
+  chrMissingMilestones <- chrMilestones[!chrMilestones %in% dfITM$Milestone]
+  if (length(chrMissingMilestones)) {
+    if (length(chrMissingMilestones) == length(chrMilestones)) {
+      cli::cli_abort(
+        c(
+          "{.arg chrMilestones} must refer to at least one milestone in the issue-test matrix.",
+          i = "Unknown milestones: {chrMissingMilestones}"
+        ),
+        class = "qcthat-error-unknown_milestones"
+      )
+    }
+    if (lglWarn) {
+      cli::cli_warn(
+        c(
+          "Some {.arg chrMilestones} are not in the issue-test matrix.",
+          i = "Unknown milestones: {chrMissingMilestones}"
+        ),
+        class = "qcthat-warning-unknown_milestones"
+      )
+    }
+  }
+  dplyr::filter(
+    dfITM,
+    !is.na(.data$Milestone),
+    .data$Milestone %in% chrMilestones
+  )
 }

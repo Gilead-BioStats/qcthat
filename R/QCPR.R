@@ -24,7 +24,8 @@ QCPR <- function(
   strPkgRoot = ".",
   strOwner = gh::gh_tree_remote(strPkgRoot)[["username"]],
   strRepo = gh::gh_tree_remote(strPkgRoot)[["repo"]],
-  strGHToken = gh::gh_token()
+  strGHToken = gh::gh_token(),
+  lglWarn = TRUE
 ) {
   chrPRRefs <- FetchPRRefs(
     intPRNumber = intPRNumber,
@@ -38,7 +39,8 @@ QCPR <- function(
     strPkgRoot = strPkgRoot,
     strOwner = strOwner,
     strRepo = strRepo,
-    strGHToken = strGHToken
+    strGHToken = strGHToken,
+    lglWarn = lglWarn
   )
 }
 

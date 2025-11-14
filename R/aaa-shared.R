@@ -8,6 +8,8 @@
 #' @param chrKeywords (`character`) Keywords to search for just before issue
 #'   numbers in commit messages. Defaults to the [GitHub issue-linking
 #'   keywords](https://docs.github.com/en/issues/tracking-your-work-with-issues/using-issues/linking-a-pull-request-to-an-issue#linking-a-pull-request-to-an-issue-using-a-keyword)
+#' @param chrMilestones (`character`) The name(s) of milestone(s) to filter
+#'   issues by.
 #' @param chrSourcePath (`character`) Components of a path to a source file. The
 #'   file extension should be included in the filename or omitted (NOT sent as a
 #'   separate piece of the vector).
@@ -30,8 +32,8 @@
 #'   return from git logs. Leaving this at the default should almost always be
 #'   fine, but you can reduce the number if your repository has a long commit
 #'   history and this function is slow.
-#' @param intPRNumber (`length-1 integer`) The number of the pull request to fetch
-#'   information about.
+#' @param intPRNumber (`length-1 integer`) The number of the pull request to
+#'   fetch information about.
 #' @param intPRNumbers (`integer`) A vector of pull request numbers.
 #' @param lIssuesNonPR (`list`) List of issue objects as returned by
 #'   [RemovePRsFromIssues()].
@@ -47,6 +49,9 @@
 #'   the emoji package is installed) or ASCII indicators (if `FALSE`) in the
 #'   output. By default, this is determined by the `qcthat.emoji` option, which
 #'   defaults to `TRUE`.
+#' @param lglWarn (`length-1 logical`) Whether to warn when an extra value is
+#'   included in the filter (but the report still returns results). Defaults to
+#'   `TRUE`.
 #' @param objShape (`0-row data.frame`, etc) Object with the expected structure.
 #' @param strExtension (`length-1 character`) The file extension to use for the
 #'   target file. If the target path already includes an extension, it will be

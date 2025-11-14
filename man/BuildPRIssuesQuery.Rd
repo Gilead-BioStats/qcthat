@@ -7,8 +7,8 @@
 BuildPRIssuesQuery(intPRNumber)
 }
 \arguments{
-\item{intPRNumber}{(\verb{length-1 integer}) The number of the pull request to fetch
-information about.}
+\item{intPRNumber}{(\verb{length-1 integer}) The number of the pull request to
+fetch information about.}
 }
 \value{
 A character string for the GraphQL sub-query.

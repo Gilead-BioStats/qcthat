@@ -9,12 +9,13 @@ QCPR(
   strPkgRoot = ".",
   strOwner = gh::gh_tree_remote(strPkgRoot)[["username"]],
   strRepo = gh::gh_tree_remote(strPkgRoot)[["repo"]],
-  strGHToken = gh::gh_token()
+  strGHToken = gh::gh_token(),
+  lglWarn = TRUE
 )
 }
 \arguments{
-\item{intPRNumber}{(\verb{length-1 integer}) The number of the pull request to fetch
-information about.}
+\item{intPRNumber}{(\verb{length-1 integer}) The number of the pull request to
+fetch information about.}
 
 \item{strPkgRoot}{(\verb{length-1 character}) The path to the root directory of
 the package. Will be expanded using \code{\link[pkgload:packages]{pkgload::pkg_path()}}.}
@@ -25,6 +26,10 @@ the package. Will be expanded using \code{\link[pkgload:packages]{pkgload::pkg_p
 
 \item{strGHToken}{(\verb{length-1 character}) GitHub token with permissions to
 read issues.}
+
+\item{lglWarn}{(\verb{length-1 logical}) Whether to warn when an extra value is
+included in the filter (but the report still returns results). Defaults to
+\code{TRUE}.}
 }
 \value{
 A \code{qcthat_IssueTestMatrix} object as returned by \code{\link[=QCPackage]{QCPackage()}},

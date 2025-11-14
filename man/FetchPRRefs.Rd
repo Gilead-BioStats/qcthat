@@ -13,8 +13,8 @@ FetchPRRefs(
 )
 }
 \arguments{
-\item{intPRNumber}{(\verb{length-1 integer}) The number of the pull request to fetch
-information about.}
+\item{intPRNumber}{(\verb{length-1 integer}) The number of the pull request to
+fetch information about.}
 
 \item{strOwner}{(\verb{length-1 character}) GitHub username or organization name.}
 

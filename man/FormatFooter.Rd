@@ -6,11 +6,21 @@
 \alias{FormatFooter.qcthat_IssueTestMatrix}
 \title{Format the footer of a qcthat object}
 \usage{
-FormatFooter(x, ..., lglUseEmoji = getOption("qcthat.emoji", TRUE))
+FormatFooter(
+  x,
+  ...,
+  lglUseEmoji = getOption("qcthat.emoji", TRUE),
+  lglShowIgnoredLabels = FALSE
+)
 
 \method{FormatFooter}{default}(x, ...)
 
-\method{FormatFooter}{qcthat_IssueTestMatrix}(x, ..., lglUseEmoji = getOption("qcthat.emoji", TRUE))
+\method{FormatFooter}{qcthat_IssueTestMatrix}(
+  x,
+  ...,
+  lglUseEmoji = getOption("qcthat.emoji", TRUE),
+  lglShowIgnoredLabels = FALSE
+)
 }
 \arguments{
 \item{x}{(\code{qcthat_Object}) The qcthat object to format.}
@@ -21,6 +31,10 @@ FormatFooter(x, ..., lglUseEmoji = getOption("qcthat.emoji", TRUE))
 the emoji package is installed) or ASCII indicators (if \code{FALSE}) in the
 output. By default, this is determined by the \code{qcthat.emoji} option, which
 defaults to \code{TRUE}.}
+
+\item{lglShowIgnoredLabels}{(\verb{length-1 logical}) Whether to show information
+in reports about issue labels (such as \code{"qcthat-nocov"}) that have been
+ignored.}
 }
 \value{
 A character vector representing the formatted footer of the object.

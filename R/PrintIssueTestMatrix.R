@@ -37,7 +37,8 @@ FormatHeader.qcthat_IssueTestMatrix <- function(
 FormatFooter.qcthat_IssueTestMatrix <- function(
   x,
   ...,
-  lglUseEmoji = getOption("qcthat.emoji", TRUE)
+  lglUseEmoji = getOption("qcthat.emoji", TRUE),
+  lglShowIgnoredLabels = FALSE
 ) {
   if (NROW(x)) {
     c(
@@ -64,7 +65,12 @@ FormatFooter.qcthat_IssueTestMatrix <- function(
         )
       )),
       MakeITRDispositionFooter(x$Disposition, lglUseEmoji = lglUseEmoji),
-      MakeITRCoverageFooter(x$Issue, x$Test, lglUseEmoji = lglUseEmoji)
+      MakeITRCoverageFooter(x$Issue, x$Test, lglUseEmoji = lglUseEmoji),
+      MakeITRIgnoredLabelsFooter(
+        lIgnoredIssues = attr(x, "IgnoredIssues"),
+        lglUseEmoji = lglUseEmoji,
+        lglShowIgnoredLabels = lglShowIgnoredLabels
+      )
     )
   }
 }
@@ -100,11 +106,15 @@ ChooseOverallDispositionMessage <- function(fctDisposition) {
   if (!length(fctDisposition) || all(is.na(fctDisposition))) {
     return(NULL)
   }
+  fctDisposition <- as.character(sort(fctDisposition))
+  intNPass <- sum(fctDisposition == "pass")
+  intNFail <- sum(fctDisposition == "fail")
+  intNSkip <- sum(fctDisposition == "skip")
   switch(
-    as.character(sort(fctDisposition)[[1]]),
+    fctDisposition[[1]],
     "pass" = "All tests passed",
-    "fail" = "At least one test failed",
-    "skip" = "At least one test was skipped",
+    "fail" = cli::format_inline("{intNFail} test{?s} failed"),
+    "skip" = cli::format_inline("{intNSkip} test{?s} {?was/were} skipped"),
     "Tests have unknown disposition"
   )
 }
@@ -156,9 +166,12 @@ ChooseCoverageFooter <- function(
   lglUseEmoji = getOption("qcthat.emoji", TRUE)
 ) {
   if (any(!is.na(intIssues))) {
-    if (any(!is.na(intIssues) & is.na(chrTests))) {
+    intIssueLacksTests <- sum(!is.na(intIssues) & is.na(chrTests))
+    if (intIssueLacksTests > 0) {
       strCoverageIndicator <- ChooseEmoji("uncovered", lglUseEmoji)
-      strCoverageMessage <- "At least one issue lacks tests"
+      strCoverageMessage <- cli::format_inline(
+        "{intIssueLacksTests} issue{?s} {?lacks/lack} tests"
+      )
     } else {
       strCoverageIndicator <- ChooseEmoji("covered", lglUseEmoji)
       strCoverageMessage <- "All issues have at least one test"
@@ -178,10 +191,48 @@ ChooseOrphanFooter <- function(
   chrTests,
   lglUseEmoji = getOption("qcthat.emoji", TRUE)
 ) {
-  if (any(!is.na(chrTests) & is.na(intIssues))) {
+  intLackIssues <- sum(!is.na(chrTests) & is.na(intIssues))
+  if (intLackIssues > 0) {
     strOrphanedIndicator <- ChooseEmoji("orphaned", lglUseEmoji)
-    strOrphanedMessage <- "At least one test is not linked to any issue"
+    strOrphanedMessage <- cli::format_inline(
+      "{intLackIssues} test{?s} {?is/are} not linked to any issue"
+    )
     glue::glue("{strOrphanedIndicator} {strOrphanedMessage}")
+  }
+}
+
+#' Add an ignored issue summary message to ITR footer
+#'
+#' @param lIgnoredIssues (`list`) A named list of integer vectors, where each
+#'   name is an ignored label and each integer vector contains the issue numbers
+#'   that were ignored for that label.
+#' @inheritParams shared-params
+#' @returns A string summary messages or `NULL` if no ignored issues are
+#'   present.
+#' @keywords internal
+MakeITRIgnoredLabelsFooter <- function(
+  lIgnoredIssues,
+  lglUseEmoji = getOption("qcthat.emoji", TRUE),
+  lglShowIgnoredLabels = TRUE
+) {
+  if (length(lIgnoredIssues) && length(unlist(lIgnoredIssues))) {
+    strIgnoredIndicator <- ChooseEmoji("ignored", lglUseEmoji)
+    lIgnoredMessages <- purrr::imap(
+      lIgnoredIssues,
+      function(intIssues, strLabel) {
+        intN <- length(intIssues)
+        if (intN > 0) {
+          cli::format_inline(
+            "{intN} issue{?s} with label {.str {strLabel}} {?was/were} ignored"
+          )
+        }
+      }
+    )
+    strIgnoredMessage <- glue::glue_collapse(
+      unlist(lIgnoredMessages),
+      sep = "; "
+    )
+    glue::glue("{strIgnoredIndicator} {strIgnoredMessage}")
   }
 }
 

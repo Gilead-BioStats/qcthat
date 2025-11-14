@@ -32,7 +32,7 @@ test_that("Disposition indicators deal with all cases (#60)", {
   )
   expect_identical(
     ChooseOverallDispositionMessage("skip"),
-    "At least one test was skipped"
+    "1 test was skipped"
   )
   expect_identical(
     ChooseOverallDispositionMessage("weird status"),
@@ -60,6 +60,27 @@ test_that("MakeITRCoverageFooter deals with all cases (#85)", {
   )
   expect_equal(
     MakeITRCoverageFooter(NA_integer_, "Test", lglUseEmoji = FALSE),
-    "[~] At least one test is not linked to any issue"
+    "[~] 1 test is not linked to any issue"
   )
+  expect_equal(
+    MakeITRCoverageFooter(
+      c(NA_integer_, NA_integer_),
+      c("Test", "Test"),
+      lglUseEmoji = FALSE
+    ),
+    "[~] 2 tests are not linked to any issue"
+  )
+})
+
+test_that("Can report ignored issue counts (#67, #81)", {
+  dfRepoIssues <- GenerateSampleDFRepoIssues()
+  dfTestResults <- GenerateSampleDFTestResults()
+  dfITM <- CompileIssueTestMatrix(
+    dfRepoIssues = dfRepoIssues,
+    dfTestResults = dfTestResults,
+    chrIgnoredLabels = DefaultIgnoreLabels()
+  )
+  expect_unformatted_snapshot({
+    print(dfITM, lglShowIgnoredLabels = TRUE)
+  })
 })

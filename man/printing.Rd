@@ -13,6 +13,7 @@
   ...,
   lglUseEmoji = getOption("qcthat.emoji", TRUE),
   lglShowMilestones = TRUE,
+  lglShowIgnoredLabels = FALSE,
   fnTransform = identity
 )
 }
@@ -28,6 +29,10 @@ defaults to \code{TRUE}.}
 
 \item{lglShowMilestones}{(\verb{length-1 logical}) Whether to separate issues by
 milestones in reports.}
+
+\item{lglShowIgnoredLabels}{(\verb{length-1 logical}) Whether to show information
+in reports about issue labels (such as \code{"qcthat-nocov"}) that have been
+ignored.}
 
 \item{fnTransform}{(\code{function}) A function to transform the output before
 returning it. By default, this is \code{\link[base:identity]{base::identity()}} for \code{format()}

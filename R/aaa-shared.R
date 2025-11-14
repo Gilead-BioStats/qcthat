@@ -5,6 +5,8 @@
 #'
 #' @param chrClass (`character`) Class name(s) to assign to the object.
 #' @param chrCommitSHAs (`character`) SHAs of git commits.
+#' @param chrIgnoredLabels (`character`) GitHub labels to ignore, such as
+#'   `"qcthat-nocov"`.
 #' @param chrKeywords (`character`) Keywords to search for just before issue
 #'   numbers in commit messages. Defaults to the [GitHub issue-linking
 #'   keywords](https://docs.github.com/en/issues/tracking-your-work-with-issues/using-issues/linking-a-pull-request-to-an-issue#linking-a-pull-request-to-an-issue-using-a-keyword)
@@ -18,6 +20,8 @@
 #'   separate piece of the vector).
 #' @param chrTests (`character`) A vector of test descriptions from a
 #'   [CompileIssueTestMatrix()] matrix.
+#' @param dfITM (`qcthat_IssueTestMatrix`) A `qcthat_IssueTestMatrix` object as
+#'   returned by [AsIssueTestMatrix()].
 #' @param dfRepoIssues (`qcthat_Issues` or data frame) Data frame of GitHub
 #'   issues as returned by [FetchRepoIssues()].
 #' @param dfTestResults (`qcthat_TestResults` or data frame) Data frame of test
@@ -45,6 +49,9 @@
 #'   already exist.
 #' @param lglShowMilestones (`length-1 logical`) Whether to separate issues by
 #'   milestones in reports.
+#' @param lglShowIgnoredLabels (`length-1 logical`) Whether to show information
+#'   in reports about issue labels (such as `"qcthat-nocov"`) that have been
+#'   ignored.
 #' @param lglUseEmoji (`length-1 logical`) Whether to use emojis (if `TRUE` and
 #'   the emoji package is installed) or ASCII indicators (if `FALSE`) in the
 #'   output. By default, this is determined by the `qcthat.emoji` option, which

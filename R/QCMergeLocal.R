@@ -36,6 +36,7 @@ QCMergeLocal <- function(
   strRepo = gh::gh_tree_remote(strPkgRoot)[["repo"]],
   strGHToken = gh::gh_token(),
   lglWarn = TRUE,
+  chrIgnoredLabels = DefaultIgnoreLabels(),
   intMaxCommits = 100000L
 ) {
   intAssociatedIssues <- FindKeywordIssues(
@@ -53,7 +54,8 @@ QCMergeLocal <- function(
     strOwner = strOwner,
     strRepo = strRepo,
     strGHToken = strGHToken,
-    lglWarn = lglWarn
+    lglWarn = lglWarn,
+    chrIgnoredLabels = chrIgnoredLabels
   )
 }
 

@@ -9,6 +9,7 @@ QCPackage(
   strOwner = gh::gh_tree_remote(strPkgRoot)[["username"]],
   strRepo = gh::gh_tree_remote(strPkgRoot)[["repo"]],
   strGHToken = gh::gh_token(),
+  chrIgnoredLabels = DefaultIgnoreLabels(),
   envCall = rlang::caller_env()
 )
 }
@@ -22,6 +23,9 @@ the package. Will be expanded using \code{\link[pkgload:packages]{pkgload::pkg_p
 
 \item{strGHToken}{(\verb{length-1 character}) GitHub token with permissions to
 read issues.}
+
+\item{chrIgnoredLabels}{(\code{character}) GitHub labels to ignore, such as
+\code{"qcthat-nocov"}.}
 
 \item{envCall}{(\code{environment}) The environment to use for error reporting.
 Typically set to \code{\link[rlang:stack]{rlang::caller_env()}}.}

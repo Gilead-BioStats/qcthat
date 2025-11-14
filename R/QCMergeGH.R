@@ -24,6 +24,7 @@ QCMergeGH <- function(
   strRepo = gh::gh_tree_remote(strPkgRoot)[["repo"]],
   strGHToken = gh::gh_token(),
   lglWarn = TRUE,
+  chrIgnoredLabels = DefaultIgnoreLabels(),
   envCall = rlang::caller_env()
 ) {
   chrCommitSHAs <- FetchMergeCommitSHAs(
@@ -51,7 +52,8 @@ QCMergeGH <- function(
     strOwner = strOwner,
     strRepo = strRepo,
     strGHToken = strGHToken,
-    lglWarn = lglWarn
+    lglWarn = lglWarn,
+    chrIgnoredLabels = chrIgnoredLabels
   )
 }
 

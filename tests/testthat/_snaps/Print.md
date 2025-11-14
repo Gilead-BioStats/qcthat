@@ -10,7 +10,7 @@
     Code
       MakeKeyItem("open")
     Output
-      📥 = open
+      [o] = open
 
 # FinalizeTree adds tree characters correctly (#39)
 

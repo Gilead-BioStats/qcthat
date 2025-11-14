@@ -11,6 +11,7 @@ QCIssues(
   strRepo = gh::gh_tree_remote(strPkgRoot)[["repo"]],
   strGHToken = gh::gh_token(),
   lglWarn = TRUE,
+  chrIgnoredLabels = DefaultIgnoreLabels(),
   envCall = rlang::caller_env()
 )
 }
@@ -31,6 +32,9 @@ read issues.}
 \item{lglWarn}{(\verb{length-1 logical}) Whether to warn when an extra value is
 included in the filter (but the report still returns results). Defaults to
 \code{TRUE}.}
+
+\item{chrIgnoredLabels}{(\code{character}) GitHub labels to ignore, such as
+\code{"qcthat-nocov"}.}
 
 \item{envCall}{(\code{environment}) The environment to use for error reporting.
 Typically set to \code{\link[rlang:stack]{rlang::caller_env()}}.}

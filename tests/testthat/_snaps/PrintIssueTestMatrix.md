@@ -34,9 +34,9 @@
       # Issue state: [o] = open, [x] = closed (completed), [-] = closed (won't fix)
       # Test disposition: [v] = passed, [!] = failed, [S] = skipped
       
-      [!] At least one test failed
-      [ ] At least one issue lacks tests
-      [~] At least one test is not linked to any issue
+      [!] 1 test failed
+      [ ] 2 issues lack tests
+      [~] 1 test is not linked to any issue
 
 # Can print without milestone info (#40, #69)
 
@@ -65,7 +65,39 @@
       # Issue state: [o] = open, [x] = closed (completed), [-] = closed (won't fix)
       # Test disposition: [v] = passed, [!] = failed, [S] = skipped
       
-      [!] At least one test failed
-      [ ] At least one issue lacks tests
-      [~] At least one test is not linked to any issue
+      [!] 1 test failed
+      [ ] 2 issues lack tests
+      [~] 1 test is not linked to any issue
+
+# Can report ignored issue counts (#67, #81)
+
+    Code
+      print(dfITM, lglShowIgnoredLabels = TRUE)
+    Output
+      [!] A qcthat issue test matrix with 1 milestone, 5 issues, and 8 tests
+      ├─█─Milestone: v0.2.0 (4 issues, 7 tests)
+      │ ├─[o]─Feature 35: Generate Issue-Test Matrix
+      │ │ ├─[v]─CompileIssueTestMatrix returns an empty IssueTestMatrix with empty input (#35, #31)
+      │ │ └─[!]─CompileIssueTestMatrix combines issues and test results into a nested tibble (#35)
+      │ ├─[o]─Feature 34: Get repo issues
+      │ │ ├─[v]─FetchRepoIssues returns an empty df when no issues found (#34)
+      │ │ └─[v]─FetchRepoIssues returns a formatted df for real issues (#34)
+      │ ├─[o]─Feature 32: Extract test information from test results
+      │ │ ├─[v]─CompileTestResults errors informatively for bad input (#32)
+      │ │ ├─[v]─CompileTestResults works for empty testthat_results (#32)
+      │ │ └─[v]─CompileTestResults returns the expected object (#32)
+      │ └─[o]─Requirement 31: Generate package QC report
+      │   └─[v]─CompileIssueTestMatrix returns an empty IssueTestMatrix with empty input (#35, #31)
+      └─█─Milestone: <none> (1 issue, 1 test)
+        ├─[-]─Bug 21: Bugfix: Unit test coverage is missing
+        │ └─(no tests)
+        └─█─<no issue>
+          └─[v]─ExtractDisposition() helper errors informatively for weird results
+      # Issue state: [o] = open, [x] = closed (completed), [-] = closed (won't fix)
+      # Test disposition: [v] = passed, [!] = failed, [S] = skipped
+      
+      [!] 1 test failed
+      [ ] 1 issue lacks tests
+      [~] 1 test is not linked to any issue
+      [nocov] 1 issue with label "qcthat-nocov" was ignored
 

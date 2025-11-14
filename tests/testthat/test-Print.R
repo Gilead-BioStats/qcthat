@@ -5,7 +5,7 @@ test_that("Printing a generic qcthat_object returns input invisibly (#39)", {
   )
   # Test print at the same time so the output doesn't show up in the test
   # results.
-  expect_snapshot({
+  expect_unformatted_snapshot({
     # Adds `visible` flag to object
     test_result <- withVisible(print(obj))
   })
@@ -14,7 +14,7 @@ test_that("Printing a generic qcthat_object returns input invisibly (#39)", {
 })
 
 test_that("MakeKeyItem works (#39)", {
-  expect_snapshot({
+  expect_unformatted_snapshot({
     MakeKeyItem("open")
   })
 })

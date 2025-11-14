@@ -10,7 +10,8 @@ QCPR(
   strOwner = gh::gh_tree_remote(strPkgRoot)[["username"]],
   strRepo = gh::gh_tree_remote(strPkgRoot)[["repo"]],
   strGHToken = gh::gh_token(),
-  lglWarn = TRUE
+  lglWarn = TRUE,
+  chrIgnoredLabels = DefaultIgnoreLabels()
 )
 }
 \arguments{
@@ -30,6 +31,9 @@ read issues.}
 \item{lglWarn}{(\verb{length-1 logical}) Whether to warn when an extra value is
 included in the filter (but the report still returns results). Defaults to
 \code{TRUE}.}
+
+\item{chrIgnoredLabels}{(\code{character}) GitHub labels to ignore, such as
+\code{"qcthat-nocov"}.}
 }
 \value{
 A \code{qcthat_IssueTestMatrix} object as returned by \code{\link[=QCPackage]{QCPackage()}},

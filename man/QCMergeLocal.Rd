@@ -14,6 +14,7 @@ QCMergeLocal(
   strRepo = gh::gh_tree_remote(strPkgRoot)[["repo"]],
   strGHToken = gh::gh_token(),
   lglWarn = TRUE,
+  chrIgnoredLabels = DefaultIgnoreLabels(),
   intMaxCommits = 100000L
 )
 }
@@ -40,6 +41,9 @@ read issues.}
 \item{lglWarn}{(\verb{length-1 logical}) Whether to warn when an extra value is
 included in the filter (but the report still returns results). Defaults to
 \code{TRUE}.}
+
+\item{chrIgnoredLabels}{(\code{character}) GitHub labels to ignore, such as
+\code{"qcthat-nocov"}.}
 
 \item{intMaxCommits}{(\verb{length-1 integer}) The maximum number of commits to
 return from git logs. Leaving this at the default should almost always be

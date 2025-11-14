@@ -8,6 +8,9 @@
 
 \item{chrCommitSHAs}{(\code{character}) SHAs of git commits.}
 
+\item{chrIgnoredLabels}{(\code{character}) GitHub labels to ignore, such as
+\code{"qcthat-nocov"}.}
+
 \item{chrKeywords}{(\code{character}) Keywords to search for just before issue
 numbers in commit messages. Defaults to the \href{https://docs.github.com/en/issues/tracking-your-work-with-issues/using-issues/linking-a-pull-request-to-an-issue#linking-a-pull-request-to-an-issue-using-a-keyword}{GitHub issue-linking keywords}}
 
@@ -24,6 +27,9 @@ separate piece of the vector).}
 
 \item{chrTests}{(\code{character}) A vector of test descriptions from a
 \code{\link[=CompileIssueTestMatrix]{CompileIssueTestMatrix()}} matrix.}
+
+\item{dfITM}{(\code{qcthat_IssueTestMatrix}) A \code{qcthat_IssueTestMatrix} object as
+returned by \code{\link[=AsIssueTestMatrix]{AsIssueTestMatrix()}}.}
 
 \item{dfRepoIssues}{(\code{qcthat_Issues} or data frame) Data frame of GitHub
 issues as returned by \code{\link[=FetchRepoIssues]{FetchRepoIssues()}}.}
@@ -62,6 +68,10 @@ already exist.}
 
 \item{lglShowMilestones}{(\verb{length-1 logical}) Whether to separate issues by
 milestones in reports.}
+
+\item{lglShowIgnoredLabels}{(\verb{length-1 logical}) Whether to show information
+in reports about issue labels (such as \code{"qcthat-nocov"}) that have been
+ignored.}
 
 \item{lglUseEmoji}{(\verb{length-1 logical}) Whether to use emojis (if \code{TRUE} and
 the emoji package is installed) or ASCII indicators (if \code{FALSE}) in the

@@ -4,7 +4,11 @@
 \alias{CompileIssueTestMatrix}
 \title{Create a nested tibble of issues and tests}
 \usage{
-CompileIssueTestMatrix(dfRepoIssues, dfTestResults)
+CompileIssueTestMatrix(
+  dfRepoIssues,
+  dfTestResults,
+  chrIgnoredLabels = character()
+)
 }
 \arguments{
 \item{dfRepoIssues}{(\code{qcthat_Issues} or data frame) Data frame of GitHub
@@ -12,6 +16,9 @@ issues as returned by \code{\link[=FetchRepoIssues]{FetchRepoIssues()}}.}
 
 \item{dfTestResults}{(\code{qcthat_TestResults} or data frame) Data frame of test
 results as returned by \code{\link[=CompileTestResults]{CompileTestResults()}}.}
+
+\item{chrIgnoredLabels}{(\code{character}) GitHub labels to ignore, such as
+\code{"qcthat-nocov"}.}
 }
 \value{
 A \code{qcthat_IssueTestMatrix} object, which is a tibble with columns:

@@ -2,7 +2,7 @@
 # https://github.com/Gilead-BioStats/qcthat/tree/v0.3.0/inst/workflows/qcthat-milestone.yaml.
 on:
   pull_request:
-    types: [milestoned]
+    types: [opened, reopened, synchronize, milestoned]
   release:
     types: [released]
   workflow_dispatch:
@@ -29,6 +29,7 @@ permissions:
 
 jobs:
   qcthat-milestone:
+    if: github.event_name != 'pull_request' || github.event.pull_request.milestone != null
     runs-on: ubuntu-latest
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}

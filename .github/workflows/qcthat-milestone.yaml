@@ -47,13 +47,13 @@ jobs:
       - name: Generate Milestone QC Report
         run: |
           milestoneName <- if ("${{ github.event_name }}" == "pull_request") {
-            ${{ github.event.pull_request.milestone.title }}
+            "${{ github.event.pull_request.milestone.title }}"
           } else if ("${{ github.event_name }}" == "release") {
             strRelease <- "${{ github.event.release.name }}"
             strTag <- "${{ github.event.release.tag_name }}"
             c(strRelease, strTag)
           } else if ("${{ inputs.milestone }}" != "") {
-            ${{ inputs.milestone }}
+            "${{ inputs.milestone }}"
           } else {
             NA_integer_
           }

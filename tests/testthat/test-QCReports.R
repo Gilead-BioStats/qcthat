@@ -91,14 +91,16 @@ test_that("QCMilestones reports on specific milestones (#88, #68)", {
       tibble::tibble(
         Milestone = c("A", "B", "A"),
         Issue = 1:3,
-        OtherColumn = 1:3
+        OtherColumn = 1:3,
+        StateReason = NA
       )
     }
   )
   expected_result <- tibble::tibble(
     Milestone = "A",
     Issue = c(1L, 3L),
-    OtherColumn = Issue
+    OtherColumn = Issue,
+    StateReason = NA
   )
   expect_identical(QCMilestones("A"), expected_result)
 })
@@ -109,7 +111,8 @@ test_that("QCMilestones warns about unknown milestones (#88)", {
       tibble::tibble(
         Milestone = c("A", "B", "A"),
         Issue = 1:3,
-        OtherColumn = 1:3
+        OtherColumn = 1:3,
+        StateReason = NA
       )
     }
   )
@@ -121,7 +124,8 @@ test_that("QCMilestones warns about unknown milestones (#88)", {
   expected_result <- tibble::tibble(
     Milestone = "A",
     Issue = c(1L, 3L),
-    OtherColumn = Issue
+    OtherColumn = Issue,
+    StateReason = NA
   )
   expect_identical(test_result, expected_result)
 })
@@ -132,7 +136,8 @@ test_that("QCMilestones errors with no valid milestones (#88)", {
       tibble::tibble(
         Milestone = c("A", "B", "A"),
         Issue = 1:3,
-        OtherColumn = 1:3
+        OtherColumn = 1:3,
+        StateReason = NA
       )
     }
   )

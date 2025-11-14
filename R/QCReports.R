@@ -186,6 +186,8 @@ QCMilestones <- function(
   dplyr::filter(
     dfITM,
     !is.na(.data$Milestone),
-    .data$Milestone %in% chrMilestones
+    .data$Milestone %in% chrMilestones,
+    # Remove issues that are marked "duplicate" or "won't fix".
+    is.na(.data$StateReason) | .data$StateReason == "completed"
   )
 }

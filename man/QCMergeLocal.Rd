@@ -2,7 +2,8 @@
 % Please edit documentation in R/QCMergeLocal.R
 \name{QCMergeLocal}
 \alias{QCMergeLocal}
-\title{Generate a QC report of issues associated with merging a branch into another}
+\title{Generate a QC report of issues probably related to changes between local git
+refs}
 \usage{
 QCMergeLocal(
   strSourceRef = GetActiveBranch(strPkgRoot),
@@ -56,8 +57,11 @@ filtered to issues that will be closed by merging \code{strSourceRef} into
 \code{strTargetRef}, using the \href{https://docs.github.com/en/issues/tracking-your-work-with-issues/using-issues/linking-a-pull-request-to-an-issue#linking-a-pull-request-to-an-issue-using-a-keyword}{GitHub keywords for linking issues to pull requests}.
 }
 \description{
-Find issues associated with merging a source ref into a target ref and
-generate a report about their test status.
+Find issues associated with merging a source ref into a target ref based
+purely on GitHub commit keywords, and generate a report about their test
+status. This report is useful while you're developing a feature on a branch
+other than the default branch, but you have not yet created a pull request on
+GitHub.
 }
 \examples{
 \dontshow{if (interactive()) withAutoprint(\{ # examplesIf}
@@ -66,4 +70,10 @@ generate a report about their test status.
   # an active branch that is different from the default branch.
   QCMergeLocal()
 \dontshow{\}) # examplesIf}
+}
+\seealso{
+\code{\link[=QCMergeGH]{QCMergeGH()}} to use the GitHub API to find more formal, concrete
+connections between issues and the commits that closed them, and \code{\link[=QCPR]{QCPR()}}
+for a wrapper around \code{\link[=QCMergeGH]{QCMergeGH()}} that specifically looks at the commits
+associated with a specified pull request.
 }

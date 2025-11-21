@@ -54,3 +54,7 @@ for details on how issues can become associated with a pull request.
   QCPR()
 \dontshow{\}) # examplesIf}
 }
+\seealso{
+\code{\link[=QCMergeLocal]{QCMergeLocal()}} to use local git data to guess connections between
+issues and the commits that closed them.
+}

@@ -10,7 +10,8 @@
 #'
 #' @returns A `qcthat_IssueTestMatrix` object as returned by [QCPackage()],
 #'   filtered to issues that will be closed by merging the pull request.
-#'
+#' @seealso [QCMergeLocal()] to use local git data to guess connections between
+#'   issues and the commits that closed them.
 #' @export
 #'
 #' @examplesIf interactive()

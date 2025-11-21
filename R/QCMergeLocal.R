@@ -1,7 +1,11 @@
-#' Generate a QC report of issues associated with merging a branch into another
+#' Generate a QC report of issues probably related to changes between local git
+#' refs
 #'
-#' Find issues associated with merging a source ref into a target ref and
-#' generate a report about their test status.
+#' Find issues associated with merging a source ref into a target ref based
+#' purely on GitHub commit keywords, and generate a report about their test
+#' status. This report is useful while you're developing a feature on a branch
+#' other than the default branch, but you have not yet created a pull request on
+#' GitHub.
 #'
 #' @inheritParams shared-params
 #'
@@ -9,7 +13,10 @@
 #'   filtered to issues that will be closed by merging `strSourceRef` into
 #'   `strTargetRef`, using the [GitHub keywords for linking issues to pull
 #'   requests](https://docs.github.com/en/issues/tracking-your-work-with-issues/using-issues/linking-a-pull-request-to-an-issue#linking-a-pull-request-to-an-issue-using-a-keyword).
-#'
+#' @seealso [QCMergeGH()] to use the GitHub API to find more formal, concrete
+#'   connections between issues and the commits that closed them, and [QCPR()]
+#'   for a wrapper around [QCMergeGH()] that specifically looks at the commits
+#'   associated with a specified pull request.
 #' @export
 #'
 #' @examplesIf interactive()

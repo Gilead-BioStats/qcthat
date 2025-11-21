@@ -72,3 +72,14 @@ NullIfEmpty <- function(x) {
 SimplePluralize <- function(strSingular, intN) {
   ifelse(intN == 1, strSingular, paste0(strSingular, "s"))
 }
+
+#' Get rid of list structure
+#'
+#' @param lPuffy (`list`) A potentially nested list with one type of object you
+#'   want to keep.
+#'
+#' @returns A sorted, unnamed vector of unique values from the unlisted list.
+#' @keywords internal
+CompletelyFlatten <- function(lPuffy) {
+  sort(unique(unname(unlist(lPuffy))))
+}

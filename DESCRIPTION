@@ -28,13 +28,15 @@ Imports:
     purrr,
     rlang,
     stringr,
+    testthat,
     tibble,
     tidyr
 Suggests: 
     emoji,
     fs,
+    gert,
     pkgload,
-    testthat (>= 3.0.0),
+    usethis,
     withr
 Config/Needs/website: rmarkdown
 Config/testthat/edition: 3

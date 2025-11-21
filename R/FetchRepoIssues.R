@@ -34,12 +34,14 @@
 FetchRepoIssues <- function(
   strOwner = gh::gh_tree_remote()[["username"]],
   strRepo = gh::gh_tree_remote()[["repo"]],
-  strGHToken = gh::gh_token()
+  strGHToken = gh::gh_token(),
+  strState = c("all", "open", "closed")
 ) {
   lIssuesRaw <- FetchRawRepoIssues(
     strOwner = strOwner,
     strRepo = strRepo,
-    strGHToken = strGHToken
+    strGHToken = strGHToken,
+    strState = strState
   )
   lIssuesNonPR <- RemovePRsFromIssues(lIssuesRaw)
   CompileIssuesDF(lIssuesNonPR)
@@ -53,46 +55,18 @@ FetchRepoIssues <- function(
 FetchRawRepoIssues <- function(
   strOwner = gh::gh_tree_remote()[["username"]],
   strRepo = gh::gh_tree_remote()[["repo"]],
-  strGHToken = gh::gh_token()
+  strGHToken = gh::gh_token(),
+  strState = c("all", "open", "closed")
 ) {
+  strState <- match.arg(strState)
   CallGHAPI(
     strEndpoint = "GET /repos/{owner}/{repo}/issues",
     strOwner = strOwner,
     strRepo = strRepo,
     strGHToken = strGHToken,
-    state = "all",
-    .limit = Inf
+    state = strState
   )
 }
-
-#' Wrapper around gh::gh() for mocking
-#'
-#' @param strEndpoint (`length-1 character`) The endpoint to call, e.g., `"GET
-#'   /repos/{owner}/{repo}/issues"`.
-#' @param ... Additional parameters passed to [gh::gh()].
-#' @inheritParams shared-params
-#' @returns The result of the [gh::gh()] call.
-#' @keywords internal
-CallGHAPI <- function(
-  strEndpoint,
-  strOwner = gh::gh_tree_remote()[["username"]],
-  strRepo = gh::gh_tree_remote()[["repo"]],
-  strGHToken = gh::gh_token(),
-  ...
-) {
-  # Tested manually.
-
-  # nocov start
-  gh::gh(
-    strEndpoint,
-    owner = strOwner,
-    repo = strRepo,
-    .token = strGHToken,
-    ...
-  )
-  # nocov end
-}
-
 #' Get rid of PRs in the issues list
 #'
 #' @param lIssuesRaw (`list`) List of raw issue objects as returned by
@@ -106,7 +80,7 @@ RemovePRsFromIssues <- function(lIssuesRaw) {
   )
 }
 
-#' Get rid of PRs in the issues list
+#' Compile issues data frame
 #'
 #' @inherit FetchRepoIssues return
 #' @keywords internal

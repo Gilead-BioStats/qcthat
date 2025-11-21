@@ -48,3 +48,54 @@ Action_QCCompletedIssues <- function(lglOverwrite = FALSE, strPkgRoot = ".") {
     lglOverwrite = lglOverwrite
   )
 }
+
+#' Use a GitHub Action to QC pull-request-associated issues
+#'
+#' Install a GitHub Action into a package repository to generate a QC report
+#' with [QCPR()] of issues that will be closed by the triggering pull request.
+#' We recommend reviewing the generated action to determine whether you would
+#' like to turn any features off. Note: This workflow cannot be triggered when
+#' an issue is connected to (or disconnected from) the pull request via the
+#' "Development" UI of the PR or issue. In that situation, either trigger the
+#' workflow manually, or edit the PR body to mention the issue (such as "Closes
+#' #55").
+#'
+#' @inheritParams shared-params
+#' @returns The path to the created GitHub Action YAML file (invisibly).
+#' @export
+#'
+#' @examplesIf interactive()
+#'
+#'   Action_QCPRIssues()
+Action_QCPRIssues <- function(lglOverwrite = FALSE, strPkgRoot = ".") {
+  InstallAction(
+    "pr_issues",
+    strPkgRoot = strPkgRoot,
+    lglOverwrite = lglOverwrite
+  )
+}
+
+#' Use a GitHub Action to QC a milestone
+#'
+#' Install a GitHub Action into a package repository to generate a QC report
+#' with [QCMilestones()] of issues associated with a particular milestone. We
+#' recommend reviewing the generated action to determine whether you would like
+#' to turn any features off. Note: When triggered by a release, the workflow
+#' looks for milestones that match the title of the release or the name of the
+#' tag attached to the release. If the names do not match, the workflow will
+#' fail.
+#'
+#' @inheritParams shared-params
+#' @returns The path to the created GitHub Action YAML file (invisibly).
+#' @export
+#'
+#' @examplesIf interactive()
+#'
+#'   Action_QCPRIssues()
+Action_QCMilestone <- function(lglOverwrite = FALSE, strPkgRoot = ".") {
+  InstallAction(
+    "milestone",
+    strPkgRoot = strPkgRoot,
+    lglOverwrite = lglOverwrite
+  )
+}

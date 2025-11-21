@@ -5,7 +5,7 @@
     Output
       █ A qcthat issue test matrix with 0 milestones, 0 issues, and 0 tests
 
-# Printing an IssueTestMatrix outputs a user-friendly tree (#31, #36, #60)
+# Printing an IssueTestMatrix outputs a user-friendly tree (#31, #36, #60, #85)
 
     Code
       dfITM
@@ -35,6 +35,8 @@
       # Test disposition: [v] = passed, [!] = failed, [S] = skipped
       
       [!] At least one test failed
+      [ ] At least one issue lacks tests
+      [~] At least one test is not linked to any issue
 
 # Can print without milestone info (#40, #69)
 
@@ -64,4 +66,6 @@
       # Test disposition: [v] = passed, [!] = failed, [S] = skipped
       
       [!] At least one test failed
+      [ ] At least one issue lacks tests
+      [~] At least one test is not linked to any issue
 

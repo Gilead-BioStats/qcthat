@@ -173,7 +173,10 @@ ChooseEmoji <- function(
       `closed (won't fix)` = "no_entry",
       passed = "white_check_mark",
       failed = "cross_mark",
-      skipped = "no_entry_sign"
+      skipped = "no_entry_sign",
+      covered = "green_circle",
+      uncovered = "hollow_red_circle",
+      orphaned = "broken_chain"
     )
     emoji::emoji(chrEmoji[[strCondition]])
     # nocov end
@@ -184,7 +187,10 @@ ChooseEmoji <- function(
       `closed (won't fix)` = "[-]",
       passed = "[v]",
       failed = "[!]",
-      skipped = "[S]"
+      skipped = "[S]",
+      covered = "[#]",
+      uncovered = "[ ]",
+      orphaned = "[~]"
     )
     chrASCII[[strCondition]]
   }

@@ -2,7 +2,7 @@
 % Please edit documentation in R/PrintIssueTestMatrix.R
 \name{ChooseOverallDispositionIndicator}
 \alias{ChooseOverallDispositionIndicator}
-\title{Add a summary message to ITR footer}
+\title{Choose overall disposition indicator}
 \usage{
 ChooseOverallDispositionIndicator(
   fctDisposition,
@@ -22,6 +22,6 @@ An emoji or other string indicating the overall disposition of all
 tests.
 }
 \description{
-Add a summary message to ITR footer
+Choose overall disposition indicator
 }
 \keyword{internal}

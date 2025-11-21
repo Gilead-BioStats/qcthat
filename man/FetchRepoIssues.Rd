@@ -7,7 +7,8 @@
 FetchRepoIssues(
   strOwner = gh::gh_tree_remote()[["username"]],
   strRepo = gh::gh_tree_remote()[["repo"]],
-  strGHToken = gh::gh_token()
+  strGHToken = gh::gh_token(),
+  strState = c("all", "open", "closed")
 )
 }
 \arguments{
@@ -17,6 +18,10 @@ FetchRepoIssues(
 
 \item{strGHToken}{(\verb{length-1 character}) GitHub token with permissions to
 read issues.}
+
+\item{strState}{(\verb{length-1 character}) State of issues or pull requests to
+fetch. Must be one of \code{"open"}, \code{"closed"}, or \code{"all"}. Defaults to
+\code{"open"} for pull requests and \code{"all"} for issues.}
 }
 \value{
 A \code{qcthat_Issues} object, which is a \code{\link[tibble:tibble]{tibble::tibble()}} with

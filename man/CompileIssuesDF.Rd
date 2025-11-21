@@ -2,7 +2,7 @@
 % Please edit documentation in R/FetchRepoIssues.R
 \name{CompileIssuesDF}
 \alias{CompileIssuesDF}
-\title{Get rid of PRs in the issues list}
+\title{Compile issues data frame}
 \usage{
 CompileIssuesDF(lIssuesNonPR)
 }
@@ -32,6 +32,6 @@ the issue is still open.
 }
 }
 \description{
-Get rid of PRs in the issues list
+Compile issues data frame
 }
 \keyword{internal}

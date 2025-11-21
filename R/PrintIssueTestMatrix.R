@@ -229,7 +229,7 @@ MakeITRIgnoredLabelsFooter <- function(
         intN <- length(intIssues)
         if (intN > 0) {
           cli::format_inline(
-            "{intN} issue{?s} with label {.str {strLabel}} {qty(intN)} {?was/were} ignored"
+            "{intN} issue{?s} with label {.str {strLabel}} {qty(intN)}{?was/were} ignored"
           )
         }
       }

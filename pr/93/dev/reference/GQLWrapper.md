@@ -2,13 +2,9 @@
 
 Wrap a GraphQL query with repository info
 
-Wrap a GraphQL query with repository info
-
 ## Usage
 
 ``` r
-GQLWrapper(strQuery, strOwner, strRepo)
-
 GQLWrapper(strQuery, strOwner, strRepo)
 ```
 
@@ -27,7 +23,5 @@ GQLWrapper(strQuery, strOwner, strRepo)
   (`length-1 character`) GitHub repository name.
 
 ## Value
-
-A single character string containing the full query.
 
 A single character string containing the full query.

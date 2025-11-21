@@ -2,19 +2,9 @@
 
 Fetch commit SHAs from a comparison
 
-Fetch commit SHAs from a comparison
-
 ## Usage
 
 ``` r
-FetchMergeCommitSHAs(
-  strSourceRef,
-  strTargetRef,
-  strOwner = gh::gh_tree_remote()[["username"]],
-  strRepo = gh::gh_tree_remote()[["repo"]],
-  strGHToken = gh::gh_token()
-)
-
 FetchMergeCommitSHAs(
   strSourceRef,
   strTargetRef,
@@ -49,7 +39,5 @@ FetchMergeCommitSHAs(
   (`length-1 character`) GitHub token with permissions to read issues.
 
 ## Value
-
-(`character`) A sorted, unique vector of commit SHAs.
 
 (`character`) A sorted, unique vector of commit SHAs.

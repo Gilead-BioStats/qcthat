@@ -2,13 +2,9 @@
 
 Build a GraphQL sub-query for a single commit's PRs
 
-Build a GraphQL sub-query for a single commit's PRs
-
 ## Usage
 
 ``` r
-BuildCommitPRQuery(chrSHA, intIndex)
-
 BuildCommitPRQuery(chrSHA, intIndex)
 ```
 
@@ -23,7 +19,5 @@ BuildCommitPRQuery(chrSHA, intIndex)
   (`length-1 integer`) A unique index for the query alias.
 
 ## Value
-
-A character string for the GraphQL sub-query.
 
 A character string for the GraphQL sub-query.

@@ -2,8 +2,10 @@
 
 Finds all commits in `strSourceRef` that are not in `strTargetRef`,
 finds all pull requests associated with those commits, finds all issues
-associated with those pull requests, and generates a QC report for those
-issues.
+associated with those pull requests (according to GitHub's graph of
+connections between issues and commits), and generates a QC report for
+those issues. This is a more robust check than
+[`QCMergeLocal()`](https://gilead-biostats.github.io/qcthat/dev/reference/QCMergeLocal.md).
 
 ## Usage
 
@@ -74,13 +76,18 @@ A `qcthat_IssueTestMatrix` object as returned by
 filtered to issues that are associated with pull requests that will be
 merged when `strSourceRef` is merged into `strTargetRef`.
 
+## See also
+
+[`QCMergeLocal()`](https://gilead-biostats.github.io/qcthat/dev/reference/QCMergeLocal.md)
+to use local git data to guess connections between issues and the
+commits that closed them.
+
 ## Examples
 
 ``` r
 if (FALSE) { # interactive()
 
   # This will only make sense if you are working in a git repository and have
-  # an active branch that is different from the default branch.
-  QCMergeGH()
+  # an active branch that is different from the default branch. QCMergeGH()
 }
 ```

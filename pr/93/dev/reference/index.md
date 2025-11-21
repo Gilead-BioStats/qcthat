@@ -33,8 +33,8 @@
 - [`QCMergeGH()`](https://gilead-biostats.github.io/qcthat/dev/reference/QCMergeGH.md)
   : Generate a QC report of issues associated with a GitHub merge
 - [`QCMergeLocal()`](https://gilead-biostats.github.io/qcthat/dev/reference/QCMergeLocal.md)
-  : Generate a QC report of issues associated with merging a branch into
-  another
+  : Generate a QC report of issues probably related to changes between
+  local git refs
 - [`QCMilestones()`](https://gilead-biostats.github.io/qcthat/dev/reference/QCMilestones.md)
   : Generate a QC report of a specific milestone or milestones
 - [`QCPR()`](https://gilead-biostats.github.io/qcthat/dev/reference/QCPR.md)

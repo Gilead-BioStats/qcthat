@@ -61,6 +61,12 @@ A `qcthat_IssueTestMatrix` object as returned by
 [`QCPackage()`](https://gilead-biostats.github.io/qcthat/dev/reference/QCPackage.md),
 filtered to issues that will be closed by merging the pull request.
 
+## See also
+
+[`QCMergeLocal()`](https://gilead-biostats.github.io/qcthat/dev/reference/QCMergeLocal.md)
+to use local git data to guess connections between issues and the
+commits that closed them.
+
 ## Examples
 
 ``` r

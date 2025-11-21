@@ -114,7 +114,9 @@ ChooseOverallDispositionMessage <- function(fctDisposition) {
     fctDisposition[[1]],
     "pass" = "All tests passed",
     "fail" = cli::format_inline("{intNFail} test{?s} failed"),
-    "skip" = cli::format_inline("{intNSkip} test{?s} {?was/were} skipped"),
+    "skip" = cli::format_inline(
+      "{intNSkip} test{?s} {qty(intNSkip)}{?was/were} skipped"
+    ),
     "Tests have unknown disposition"
   )
 }
@@ -227,7 +229,8 @@ MakeITRIgnoredLabelsFooter <- function(
         intN <- length(intIssues)
         if (intN > 0) {
           cli::format_inline(
-            "{intN} issue{?s} with label {.str {strLabel}} {?was/were} ignored"
+            "{intN} issue{?s} with label {.str {strLabel}}",
+            "{qty(intN)} {?was/were} ignored"
           )
         }
       }

@@ -215,7 +215,11 @@ MakeITRIgnoredLabelsFooter <- function(
   lglUseEmoji = getOption("qcthat.emoji", TRUE),
   lglShowIgnoredLabels = TRUE
 ) {
-  if (length(lIgnoredIssues) && length(unlist(lIgnoredIssues))) {
+  if (
+    lglShowIgnoredLabels &&
+      length(lIgnoredIssues) &&
+      length(unlist(lIgnoredIssues))
+  ) {
     strIgnoredIndicator <- ChooseEmoji("ignored", lglUseEmoji)
     lIgnoredMessages <- purrr::imap(
       lIgnoredIssues,

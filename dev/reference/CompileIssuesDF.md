@@ -1,6 +1,6 @@
-# Get rid of PRs in the issues list
+# Compile issues data frame
 
-Get rid of PRs in the issues list
+Compile issues data frame
 
 ## Usage
 

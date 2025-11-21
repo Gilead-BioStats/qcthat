@@ -49,6 +49,20 @@
 <dd><p>(<code>character</code>) Class name(s) to assign to the object.</p></dd>
 
 
+<dt id="arg-chrcommitshas">chrCommitSHAs<a class="anchor" aria-label="anchor" href="#arg-chrcommitshas"></a></dt>
+<dd><p>(<code>character</code>) SHAs of git commits.</p></dd>
+
+
+<dt id="arg-chrkeywords">chrKeywords<a class="anchor" aria-label="anchor" href="#arg-chrkeywords"></a></dt>
+<dd><p>(<code>character</code>) Keywords to search for just before issue
+numbers in commit messages. Defaults to the <a href="https://docs.github.com/en/issues/tracking-your-work-with-issues/using-issues/linking-a-pull-request-to-an-issue#linking-a-pull-request-to-an-issue-using-a-keyword" class="external-link">GitHub issue-linking keywords</a></p></dd>
+
+
+<dt id="arg-chrmilestones">chrMilestones<a class="anchor" aria-label="anchor" href="#arg-chrmilestones"></a></dt>
+<dd><p>(<code>character</code>) The name(s) of milestone(s) to filter
+issues by.</p></dd>
+
+
 <dt id="arg-chrsourcepath">chrSourcePath<a class="anchor" aria-label="anchor" href="#arg-chrsourcepath"></a></dt>
 <dd><p>(<code>character</code>) Components of a path to a source file. The
 file extension should be included in the filename or omitted (NOT sent as a
@@ -59,6 +73,11 @@ separate piece of the vector).</p></dd>
 <dd><p>(<code>character</code>) Components of a path to a target file. The
 file extension should be included in the filename or omitted (NOT sent as a
 separate piece of the vector).</p></dd>
+
+
+<dt id="arg-chrtests">chrTests<a class="anchor" aria-label="anchor" href="#arg-chrtests"></a></dt>
+<dd><p>(<code>character</code>) A vector of test descriptions from a
+<code><a href="CompileIssueTestMatrix.html">CompileIssueTestMatrix()</a></code> matrix.</p></dd>
 
 
 <dt id="arg-dfrepoissues">dfRepoIssues<a class="anchor" aria-label="anchor" href="#arg-dfrepoissues"></a></dt>
@@ -78,6 +97,27 @@ Typically set to <code><a href="https://rlang.r-lib.org/reference/stack.html" cl
 
 <dt id="arg-fctdisposition">fctDisposition<a class="anchor" aria-label="anchor" href="#arg-fctdisposition"></a></dt>
 <dd><p>(<code>factor</code>) Disposition factor with levels <code>c("fail", "skip", "pass")</code>.</p></dd>
+
+
+<dt id="arg-intissues">intIssues<a class="anchor" aria-label="anchor" href="#arg-intissues"></a></dt>
+<dd><p>(<code>integer</code>) A vector of issue numbers from a
+<code><a href="CompileIssueTestMatrix.html">CompileIssueTestMatrix()</a></code> matrix or from GitHub.</p></dd>
+
+
+<dt id="arg-intmaxcommits">intMaxCommits<a class="anchor" aria-label="anchor" href="#arg-intmaxcommits"></a></dt>
+<dd><p>(<code>length-1 integer</code>) The maximum number of commits to
+return from git logs. Leaving this at the default should almost always be
+fine, but you can reduce the number if your repository has a long commit
+history and this function is slow.</p></dd>
+
+
+<dt id="arg-intprnumber">intPRNumber<a class="anchor" aria-label="anchor" href="#arg-intprnumber"></a></dt>
+<dd><p>(<code>length-1 integer</code>) The number of the pull request to
+fetch information about.</p></dd>
+
+
+<dt id="arg-intprnumbers">intPRNumbers<a class="anchor" aria-label="anchor" href="#arg-intprnumbers"></a></dt>
+<dd><p>(<code>integer</code>) A vector of pull request numbers.</p></dd>
 
 
 <dt id="arg-lissuesnonpr">lIssuesNonPR<a class="anchor" aria-label="anchor" href="#arg-lissuesnonpr"></a></dt>
@@ -109,6 +149,12 @@ output. By default, this is determined by the <code>qcthat.emoji</code> option, 
 defaults to <code>TRUE</code>.</p></dd>
 
 
+<dt id="arg-lglwarn">lglWarn<a class="anchor" aria-label="anchor" href="#arg-lglwarn"></a></dt>
+<dd><p>(<code>length-1 logical</code>) Whether to warn when an extra value is
+included in the filter (but the report still returns results). Defaults to
+<code>TRUE</code>.</p></dd>
+
+
 <dt id="arg-objshape">objShape<a class="anchor" aria-label="anchor" href="#arg-objshape"></a></dt>
 <dd><p>(<code>0-row data.frame</code>, etc) Object with the expected structure.</p></dd>
 
@@ -136,6 +182,22 @@ the package. Will be expanded using <code><a href="https://pkgload.r-lib.org/ref
 
 <dt id="arg-strrepo">strRepo<a class="anchor" aria-label="anchor" href="#arg-strrepo"></a></dt>
 <dd><p>(<code>length-1 character</code>) GitHub repository name.</p></dd>
+
+
+<dt id="arg-strsourceref">strSourceRef<a class="anchor" aria-label="anchor" href="#arg-strsourceref"></a></dt>
+<dd><p>(<code>length-1 character</code>) Name of the git reference that
+contains changes. Defaults to the active branch in this repository.</p></dd>
+
+
+<dt id="arg-strstate">strState<a class="anchor" aria-label="anchor" href="#arg-strstate"></a></dt>
+<dd><p>(<code>length-1 character</code>) State of issues or pull requests to
+fetch. Must be one of <code>"open"</code>, <code>"closed"</code>, or <code>"all"</code>. Defaults to
+<code>"open"</code> for pull requests and <code>"all"</code> for issues.</p></dd>
+
+
+<dt id="arg-strtargetref">strTargetRef<a class="anchor" aria-label="anchor" href="#arg-strtargetref"></a></dt>
+<dd><p>(<code>length-1 character</code>) Name of the git reference that
+will be merged into. Defaults to the default branch of this repository.</p></dd>
 
 </dl></div>
 

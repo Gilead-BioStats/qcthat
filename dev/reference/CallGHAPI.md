@@ -10,6 +10,7 @@ CallGHAPI(
   strOwner = gh::gh_tree_remote()[["username"]],
   strRepo = gh::gh_tree_remote()[["repo"]],
   strGHToken = gh::gh_token(),
+  numLimit = Inf,
   ...
 )
 ```
@@ -32,6 +33,11 @@ CallGHAPI(
 - strGHToken:
 
   (`length-1 character`) GitHub token with permissions to read issues.
+
+- numLimit:
+
+  (`length-1 numeric`) Maximum number of results to return. Default is
+  `Inf` (no limit).
 
 - ...:
 

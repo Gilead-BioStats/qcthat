@@ -10,8 +10,8 @@ were closed as "completed".
 ``` r
 QCCompletedIssues(
   strPkgRoot = ".",
-  strOwner = gh::gh_tree_remote()[["username"]],
-  strRepo = gh::gh_tree_remote()[["repo"]],
+  strOwner = gh::gh_tree_remote(strPkgRoot)[["username"]],
+  strRepo = gh::gh_tree_remote(strPkgRoot)[["repo"]],
   strGHToken = gh::gh_token()
 )
 ```
@@ -39,7 +39,7 @@ QCCompletedIssues(
 ## Value
 
 A `qcthat_IssueTestMatrix` object as returned by
-[`CompileIssueTestMatrix()`](https://gilead-biostats.github.io/qcthat/dev/reference/CompileIssueTestMatrix.md),
+[`QCPackage()`](https://gilead-biostats.github.io/qcthat/dev/reference/QCPackage.md),
 filtered to issues that were closed as completed.
 
 ## Examples

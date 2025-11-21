@@ -8,7 +8,8 @@ Fetch all repo issues from GitHub
 FetchRawRepoIssues(
   strOwner = gh::gh_tree_remote()[["username"]],
   strRepo = gh::gh_tree_remote()[["repo"]],
-  strGHToken = gh::gh_token()
+  strGHToken = gh::gh_token(),
+  strState = c("all", "open", "closed")
 )
 ```
 
@@ -25,6 +26,12 @@ FetchRawRepoIssues(
 - strGHToken:
 
   (`length-1 character`) GitHub token with permissions to read issues.
+
+- strState:
+
+  (`length-1 character`) State of issues or pull requests to fetch. Must
+  be one of `"open"`, `"closed"`, or `"all"`. Defaults to `"open"` for
+  pull requests and `"all"` for issues.
 
 ## Value
 

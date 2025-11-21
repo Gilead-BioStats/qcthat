@@ -1,6 +1,6 @@
-# Add a summary message to ITR footer
+# Choose overall disposition message
 
-Add a summary message to ITR footer
+Choose overall disposition message
 
 ## Usage
 

@@ -13,8 +13,8 @@ using
 ``` r
 QCPackage(
   strPkgRoot = ".",
-  strOwner = gh::gh_tree_remote()[["username"]],
-  strRepo = gh::gh_tree_remote()[["repo"]],
+  strOwner = gh::gh_tree_remote(strPkgRoot)[["username"]],
+  strRepo = gh::gh_tree_remote(strPkgRoot)[["repo"]],
   strGHToken = gh::gh_token(),
   envCall = rlang::caller_env()
 )

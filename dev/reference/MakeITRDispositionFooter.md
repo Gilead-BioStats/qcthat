@@ -7,7 +7,6 @@ Add a summary message to ITR footer
 ``` r
 MakeITRDispositionFooter(
   fctDisposition,
-  ...,
   lglUseEmoji = getOption("qcthat.emoji", TRUE)
 )
 ```
@@ -17,10 +16,6 @@ MakeITRDispositionFooter(
 - fctDisposition:
 
   (`factor`) Disposition factor with levels `c("fail", "skip", "pass")`.
-
-- ...:
-
-  Additional arguments passed to methods.
 
 - lglUseEmoji:
 

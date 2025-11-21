@@ -2,9 +2,18 @@
 
 Fetch associated issue data for pull requests via GraphQL
 
+Fetch associated issue data for pull requests via GraphQL
+
 ## Usage
 
 ``` r
+FetchAllPRIssueNumbersRaw(
+  intPRNumbers,
+  strOwner = gh::gh_tree_remote()[["username"]],
+  strRepo = gh::gh_tree_remote()[["repo"]],
+  strGHToken = gh::gh_token()
+)
+
 FetchAllPRIssueNumbersRaw(
   intPRNumbers,
   strOwner = gh::gh_tree_remote()[["username"]],
@@ -32,6 +41,9 @@ FetchAllPRIssueNumbersRaw(
   (`length-1 character`) GitHub token with permissions to read issues.
 
 ## Value
+
+A raw list response from the
+[`gh::gh_gql()`](https://gh.r-lib.org/reference/gh_gql.html) call.
 
 A raw list response from the
 [`gh::gh_gql()`](https://gh.r-lib.org/reference/gh_gql.html) call.

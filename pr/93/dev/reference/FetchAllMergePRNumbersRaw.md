@@ -2,9 +2,18 @@
 
 Fetch associated PR data for commits via GraphQL
 
+Fetch associated PR data for commits via GraphQL
+
 ## Usage
 
 ``` r
+FetchAllMergePRNumbersRaw(
+  chrCommitSHAs,
+  strOwner = gh::gh_tree_remote()[["username"]],
+  strRepo = gh::gh_tree_remote()[["repo"]],
+  strGHToken = gh::gh_token()
+)
+
 FetchAllMergePRNumbersRaw(
   chrCommitSHAs,
   strOwner = gh::gh_tree_remote()[["username"]],
@@ -32,6 +41,9 @@ FetchAllMergePRNumbersRaw(
   (`length-1 character`) GitHub token with permissions to read issues.
 
 ## Value
+
+A raw list response from the
+[`gh::gh_gql()`](https://gh.r-lib.org/reference/gh_gql.html) call.
 
 A raw list response from the
 [`gh::gh_gql()`](https://gh.r-lib.org/reference/gh_gql.html) call.

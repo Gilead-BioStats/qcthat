@@ -2,9 +2,19 @@
 
 Wrapper for GitHub GraphQL API calls
 
+Wrapper for GitHub GraphQL API calls
+
 ## Usage
 
 ``` r
+FetchGQL(
+  strQuery,
+  ...,
+  strOwner = gh::gh_tree_remote()[["username"]],
+  strRepo = gh::gh_tree_remote()[["repo"]],
+  strGHToken = gh::gh_token()
+)
+
 FetchGQL(
   strQuery,
   ...,
@@ -38,6 +48,9 @@ FetchGQL(
   (`length-1 character`) GitHub token with permissions to read issues.
 
 ## Value
+
+The result of the
+[`gh::gh_gql()`](https://gh.r-lib.org/reference/gh_gql.html) call.
 
 The result of the
 [`gh::gh_gql()`](https://gh.r-lib.org/reference/gh_gql.html) call.

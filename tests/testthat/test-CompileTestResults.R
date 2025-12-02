@@ -111,3 +111,15 @@ test_that("ExtractDisposition() helper errors informatively for missing results 
     error = TRUE
   )
 })
+
+test_that("ExtractDisposition() helper counts test errors as failures (#67)", {
+  lTestResult <- list(
+    results = list(
+      structure(
+        list(),
+        class = c("expectation_error", "expectation", "condition")
+      )
+    )
+  )
+  expect_equal(ExtractDisposition(lTestResult), "fail")
+})

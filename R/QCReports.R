@@ -116,6 +116,10 @@ QCIssues <- function(
   )
   intMissingIssues <- intIssues[!intIssues %in% dfITM$Issue]
   if (length(intMissingIssues)) {
+    lIgnoredIssues <- attr(dfITM, "IgnoredIssues")
+    intIgnoredIssues <- CompletelyFlatten(lIgnoredIssues[chrIgnoredLabels])
+    intMissingIssues <- setdiff(intMissingIssues, intIgnoredIssues)
+
     if (length(intMissingIssues) == length(intIssues)) {
       cli::cli_abort(
         c(
@@ -125,7 +129,7 @@ QCIssues <- function(
         class = "qcthat-error-unknown_issues"
       )
     }
-    if (lglWarn) {
+    if (length(intMissingIssues) && lglWarn) {
       cli::cli_warn(
         c(
           "Some {.arg intIssues} are not in the issue-test matrix.",

@@ -50,6 +50,7 @@ format.qcthat_Object <- function(
   ...,
   lglUseEmoji = getOption("qcthat.emoji", TRUE),
   lglShowMilestones = TRUE,
+  lglShowIgnoredLabels = FALSE,
   fnTransform = identity
 ) {
   fnTransform(
@@ -64,7 +65,11 @@ format.qcthat_Object <- function(
         lglUseEmoji = lglUseEmoji,
         lglShowMilestones = lglShowMilestones
       ),
-      FormatFooter(x, lglUseEmoji = lglUseEmoji)
+      FormatFooter(
+        x,
+        lglUseEmoji = lglUseEmoji,
+        lglShowIgnoredLabels = lglShowIgnoredLabels
+      )
     ),
     # Allow users to pass in fnTransform args, notably `con` for `writeLines`.
     ...
@@ -127,7 +132,8 @@ FormatBody.default <- function(
 FormatFooter <- function(
   x,
   ...,
-  lglUseEmoji = getOption("qcthat.emoji", TRUE)
+  lglUseEmoji = getOption("qcthat.emoji", TRUE),
+  lglShowIgnoredLabels = FALSE
 ) {
   UseMethod("FormatFooter")
 }
@@ -176,7 +182,8 @@ ChooseEmoji <- function(
       skipped = "no_entry_sign",
       covered = "green_circle",
       uncovered = "hollow_red_circle",
-      orphaned = "broken_chain"
+      orphaned = "broken_chain",
+      ignored = "see_no_evil"
     )
     emoji::emoji(chrEmoji[[strCondition]])
     # nocov end
@@ -190,7 +197,8 @@ ChooseEmoji <- function(
       skipped = "[S]",
       covered = "[#]",
       uncovered = "[ ]",
-      orphaned = "[~]"
+      orphaned = "[~]",
+      ignored = "[nocov]"
     )
     chrASCII[[strCondition]]
   }

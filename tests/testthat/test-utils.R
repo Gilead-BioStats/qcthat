@@ -174,3 +174,23 @@ test_that("CompletelyFlatten flattens, unnames, and uniquifies nested listed (#8
   nested_list <- list(a = 1, b = list(c = 2, d = list(e = 3)), f = 3)
   expect_equal(CompletelyFlatten(nested_list), 1:3)
 })
+
+test_that("HaveString finds strings in lists of characters (#67)", {
+  list_with_strings <- list(
+    c("apple", "banana"),
+    c("cherry", "date"),
+    c("date", "apple")
+  )
+  expect_identical(
+    HaveString(list_with_strings, "apple"),
+    c(TRUE, FALSE, TRUE)
+  )
+  expect_identical(
+    HaveString(list_with_strings, "banana"),
+    c(TRUE, FALSE, FALSE)
+  )
+  expect_identical(
+    HaveString(list_with_strings, "date"),
+    c(FALSE, TRUE, TRUE)
+  )
+})

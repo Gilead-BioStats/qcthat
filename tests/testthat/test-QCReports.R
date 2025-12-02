@@ -12,7 +12,17 @@ test_that("QCPackage wraps the core qcthat functions (#46, #69)", {
       strRepo = "repo",
       strGHToken = "token"
     ),
-    "repo issues|test results"
+    "repo issues|test results|qcthat-nocov"
+  )
+  expect_identical(
+    QCPackage(
+      strPkgRoot = "package root",
+      strOwner = "owner",
+      strRepo = "repo",
+      strGHToken = "token",
+      chrIgnoredLabels = character()
+    ),
+    "repo issues|test results|"
   )
 })
 

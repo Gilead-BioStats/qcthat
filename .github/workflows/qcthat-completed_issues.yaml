@@ -45,10 +45,10 @@ jobs:
       - name: Generate Completed Issues QC Report
         run: |
           IssueTestMatrix <- qcthat::QCCompletedIssues()
-          print(IssueTestMatrix)
+          print(IssueTestMatrix, lglShowIgnoredLabels = TRUE)
 
           # Also print to a file.
-          print(IssueTestMatrix, con = "qc_report.txt")
+          print(IssueTestMatrix, lglShowIgnoredLabels = TRUE, con = "qc_report.txt")
         shell: Rscript {0}
 
       # Delete or comment out this step to prevent PR comments.

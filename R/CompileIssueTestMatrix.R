@@ -41,13 +41,18 @@
 #'   dfRepoIssues = FetchRepoIssues(),
 #'   dfTestResults = CompileTestResults(lTestResults)
 #' )
-CompileIssueTestMatrix <- function(dfRepoIssues, dfTestResults) {
-  AsIssueTestMatrix(
+CompileIssueTestMatrix <- function(
+  dfRepoIssues,
+  dfTestResults,
+  chrIgnoredLabels = character()
+) {
+  dfITM <- AsIssueTestMatrix(
     CompileIssueTestResultsByMilestone(
       dfRepoIssues,
       dfTestResults
     )
   )
+  return(ApplyITMIgnoredLabels(dfITM, chrIgnoredLabels))
 }
 
 #' Assign the qcthat_IssueTestMatrix class to a data frame
@@ -109,4 +114,33 @@ EmptyIssueTestMatrix <- function() {
     by = "Issue"
   ) |>
     dplyr::relocate("Milestone")
+}
+
+#' Apply ignored labels to an Issue Test Matrix
+#'
+#' @inheritParams shared-params
+#' @returns A filtered `qcthat_IssueTestMatrix` object with issues that are
+#'   tagged to any of the specified ignored labels removed. The returned object
+#'   has an attribute `IgnoredLabels` which is a named list of integer vectors
+#'   of the issues that were removed for each ignored label (or an empty named
+#'   list if `chrIgnoredLabels` is empty).
+#' @keywords internal
+ApplyITMIgnoredLabels <- function(dfITM, chrIgnoredLabels) {
+  lIgnoredIssues <- purrr::map(
+    rlang::set_names(chrIgnoredLabels, chrIgnoredLabels),
+    function(chrLabel) {
+      dfITM$Issue[HaveString(dfITM$Labels, chrLabel)]
+    }
+  )
+  dfITM_LabelsIgnored <- dplyr::filter(
+    dfITM,
+    !(.data$Issue %in% unlist(lIgnoredIssues))
+  )
+  return(
+    # Attach information about labels that have been filtered out.
+    structure(
+      dfITM_LabelsIgnored,
+      IgnoredIssues = lIgnoredIssues
+    )
+  )
 }

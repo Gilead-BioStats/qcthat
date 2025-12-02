@@ -18,7 +18,7 @@ GenerateSampleDFRepoIssues <- function() {
       "## Summary\nOutline business process for business requirements and testing according to updated SOP and BED\n",
       "## Expected Behavior\n<!--- What should happen -->\nUnit test coverage should be displayed in the Qualification report\n\n## Current Behavior\n<!--- What happens instead of the expected behavior -->\nUnit test coverage section is no longer included in the Qualification report\n\n## Possible Solution\n<!--- Not required, suggest a fix/reason for the bug, -->\n\n## Steps to Reproduce\n<!--- Provide a link to an example, or an unambiguous set of steps to -->\n<!--- reproduce this bug. Include code to reproduce, if relevant -->\n1.\n2.\n3.\n4.\n\n## Context (Environment)\n<!--- Providing context helps us reproduce the issue and come up with a solution -->\n\n## Possible Implementation\n<!--- Not required, suggest an idea for implementing addition or change -->\n\n## Additional Comments\n<!--- Not required, anything else import pertaining to this bug -->\n"
     ),
-    Labels = list(NULL, NULL, NULL, NULL, "documentation", NULL),
+    Labels = list(NULL, NULL, NULL, NULL, "qcthat-nocov", NULL),
     State = c("open", "open", "open", "open", "closed", "closed"),
     StateReason = c(NA, NA, NA, NA, "completed", "not_planned"),
     Milestone = c("v0.2.0", "v0.2.0", "v0.2.0", "v0.2.0", NA, NA),

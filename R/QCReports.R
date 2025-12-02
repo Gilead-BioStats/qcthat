@@ -18,6 +18,7 @@ QCPackage <- function(
   strOwner = gh::gh_tree_remote(strPkgRoot)[["username"]],
   strRepo = gh::gh_tree_remote(strPkgRoot)[["repo"]],
   strGHToken = gh::gh_token(),
+  chrIgnoredLabels = DefaultIgnoreLabels(),
   envCall = rlang::caller_env()
 ) {
   dfRepoIssues <- FetchRepoIssues(
@@ -34,7 +35,11 @@ QCPackage <- function(
     )
   )
   return(
-    CompileIssueTestMatrix(dfRepoIssues, dfTestResults)
+    CompileIssueTestMatrix(
+      dfRepoIssues,
+      dfTestResults,
+      chrIgnoredLabels = chrIgnoredLabels
+    )
   )
 }
 
@@ -57,13 +62,15 @@ QCCompletedIssues <- function(
   strPkgRoot = ".",
   strOwner = gh::gh_tree_remote(strPkgRoot)[["username"]],
   strRepo = gh::gh_tree_remote(strPkgRoot)[["repo"]],
-  strGHToken = gh::gh_token()
+  strGHToken = gh::gh_token(),
+  chrIgnoredLabels = DefaultIgnoreLabels()
 ) {
   dfIssueTestMatrix <- QCPackage(
     strPkgRoot = strPkgRoot,
     strOwner = strOwner,
     strRepo = strRepo,
-    strGHToken = strGHToken
+    strGHToken = strGHToken,
+    chrIgnoredLabels = chrIgnoredLabels
   )
   return(
     dplyr::filter(
@@ -96,6 +103,7 @@ QCIssues <- function(
   strRepo = gh::gh_tree_remote(strPkgRoot)[["repo"]],
   strGHToken = gh::gh_token(),
   lglWarn = TRUE,
+  chrIgnoredLabels = DefaultIgnoreLabels(),
   envCall = rlang::caller_env()
 ) {
   dfITM <- QCPackage(
@@ -103,6 +111,7 @@ QCIssues <- function(
     strOwner = strOwner,
     strRepo = strRepo,
     strGHToken = strGHToken,
+    chrIgnoredLabels = chrIgnoredLabels,
     envCall = envCall
   )
   intMissingIssues <- intIssues[!intIssues %in% dfITM$Issue]
@@ -153,6 +162,7 @@ QCMilestones <- function(
   strRepo = gh::gh_tree_remote(strPkgRoot)[["repo"]],
   strGHToken = gh::gh_token(),
   lglWarn = TRUE,
+  chrIgnoredLabels = DefaultIgnoreLabels(),
   envCall = rlang::caller_env()
 ) {
   dfITM <- QCPackage(
@@ -160,6 +170,7 @@ QCMilestones <- function(
     strOwner = strOwner,
     strRepo = strRepo,
     strGHToken = strGHToken,
+    chrIgnoredLabels = chrIgnoredLabels,
     envCall = envCall
   )
   chrMissingMilestones <- chrMilestones[!chrMilestones %in% dfITM$Milestone]

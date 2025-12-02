@@ -64,3 +64,33 @@ test_that("CompileIssueTestMatrix combines issues and test results into an Issue
     )
   )
 })
+
+test_that("CompileIssueTestMatrix excludes issues in chrIgnoredLabels (#67)", {
+  dfRepoIssues <- GenerateSampleDFRepoIssues()
+  dfTestResults <- GenerateSampleDFTestResults()
+  test_result_with_nocov <- CompileIssueTestMatrix(
+    dfRepoIssues = dfRepoIssues,
+    dfTestResults = dfTestResults
+  )
+  test_result_no_nocov <- CompileIssueTestMatrix(
+    dfRepoIssues = dfRepoIssues,
+    dfTestResults = dfTestResults,
+    chrIgnoredLabels = DefaultIgnoreLabels()
+  )
+  expect_lt(
+    nrow(test_result_no_nocov),
+    nrow(test_result_with_nocov)
+  )
+  # Our labels for the test are only length-1, so we can subset relatively
+  # easily.
+  nocov_issues <- list(
+    "qcthat-nocov" = dfRepoIssues$Issue[dfRepoIssues$Labels == "qcthat-nocov"]
+  )
+  # This can be cleaner as of testthat 3.3.0, but some of our machines use
+  # 3.2.3.
+  #
+  # expect_disjoint(test_result_no_nocov$Issue, nocov_issues)
+  expect_false(any(test_result_no_nocov$Issue %in% nocov_issues))
+  expect_contains(test_result_with_nocov$Issue, nocov_issues)
+  expect_identical(attr(test_result_no_nocov, "IgnoredIssues"), nocov_issues)
+})

@@ -12,6 +12,7 @@ QCMergeGH(
   strRepo = gh::gh_tree_remote(strPkgRoot)[["repo"]],
   strGHToken = gh::gh_token(),
   lglWarn = TRUE,
+  chrIgnoredLabels = DefaultIgnoreLabels(),
   envCall = rlang::caller_env()
 )
 }
@@ -36,6 +37,9 @@ read issues.}
 included in the filter (but the report still returns results). Defaults to
 \code{TRUE}.}
 
+\item{chrIgnoredLabels}{(\code{character}) GitHub labels to ignore, such as
+\code{"qcthat-nocov"}.}
+
 \item{envCall}{(\code{environment}) The environment to use for error reporting.
 Typically set to \code{\link[rlang:stack]{rlang::caller_env()}}.}
 }
@@ -47,7 +51,9 @@ merged when \code{strSourceRef} is merged into \code{strTargetRef}.
 \description{
 Finds all commits in \code{strSourceRef} that are not in \code{strTargetRef}, finds all
 pull requests associated with those commits, finds all issues associated with
-those pull requests, and generates a QC report for those issues.
+those pull requests (according to GitHub's graph of connections between
+issues and commits), and generates a QC report for those issues. This is a
+more robust check than \code{\link[=QCMergeLocal]{QCMergeLocal()}}.
 }
 \examples{
 \dontshow{if (interactive()) withAutoprint(\{ # examplesIf}
@@ -56,4 +62,8 @@ those pull requests, and generates a QC report for those issues.
   # an active branch that is different from the default branch.
   QCMergeGH()
 \dontshow{\}) # examplesIf}
+}
+\seealso{
+\code{\link[=QCMergeLocal]{QCMergeLocal()}} to use local git data to guess connections between
+issues and the commits that closed them.
 }

@@ -83,3 +83,19 @@ SimplePluralize <- function(strSingular, intN) {
 CompletelyFlatten <- function(lPuffy) {
   sort(unique(unname(unlist(lPuffy))))
 }
+
+#' Detect strings in lists of characters
+#'
+#' @param lCharacters (`list` of `character`) A list of character vectors.
+#' @param strTarget (`length-1 character`) The target string to search for.
+#' @returns A logical vector indicating whether `strTarget` is present in each
+#'   element of `lCharacters`.
+#' @keywords internal
+HaveString <- function(lCharacters, strTarget) {
+  purrr::map_lgl(
+    lCharacters,
+    function(chrSet) {
+      length(strTarget) && any(strTarget %in% chrSet)
+    }
+  )
+}

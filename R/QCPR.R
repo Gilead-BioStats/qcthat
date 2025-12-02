@@ -10,7 +10,8 @@
 #'
 #' @returns A `qcthat_IssueTestMatrix` object as returned by [QCPackage()],
 #'   filtered to issues that will be closed by merging the pull request.
-#'
+#' @seealso [QCMergeLocal()] to use local git data to guess connections between
+#'   issues and the commits that closed them.
 #' @export
 #'
 #' @examplesIf interactive()
@@ -25,7 +26,8 @@ QCPR <- function(
   strOwner = gh::gh_tree_remote(strPkgRoot)[["username"]],
   strRepo = gh::gh_tree_remote(strPkgRoot)[["repo"]],
   strGHToken = gh::gh_token(),
-  lglWarn = TRUE
+  lglWarn = TRUE,
+  chrIgnoredLabels = DefaultIgnoreLabels()
 ) {
   chrPRRefs <- FetchPRRefs(
     intPRNumber = intPRNumber,
@@ -40,7 +42,8 @@ QCPR <- function(
     strOwner = strOwner,
     strRepo = strRepo,
     strGHToken = strGHToken,
-    lglWarn = lglWarn
+    lglWarn = lglWarn,
+    chrIgnoredLabels = chrIgnoredLabels
   )
 }
 

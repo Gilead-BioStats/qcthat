@@ -2,13 +2,17 @@
 #'
 #' Finds all commits in `strSourceRef` that are not in `strTargetRef`, finds all
 #' pull requests associated with those commits, finds all issues associated with
-#' those pull requests, and generates a QC report for those issues.
+#' those pull requests (according to GitHub's graph of connections between
+#' issues and commits), and generates a QC report for those issues. This is a
+#' more robust check than [QCMergeLocal()].
 #'
 #' @inheritParams shared-params
 #'
 #' @returns A `qcthat_IssueTestMatrix` object as returned by [QCPackage()],
 #'   filtered to issues that are associated with pull requests that will be
 #'   merged when `strSourceRef` is merged into `strTargetRef`.
+#' @seealso [QCMergeLocal()] to use local git data to guess connections between
+#'   issues and the commits that closed them.
 #' @export
 #'
 #' @examplesIf interactive()
@@ -24,6 +28,7 @@ QCMergeGH <- function(
   strRepo = gh::gh_tree_remote(strPkgRoot)[["repo"]],
   strGHToken = gh::gh_token(),
   lglWarn = TRUE,
+  chrIgnoredLabels = DefaultIgnoreLabels(),
   envCall = rlang::caller_env()
 ) {
   chrCommitSHAs <- FetchMergeCommitSHAs(
@@ -51,7 +56,8 @@ QCMergeGH <- function(
     strOwner = strOwner,
     strRepo = strRepo,
     strGHToken = strGHToken,
-    lglWarn = lglWarn
+    lglWarn = lglWarn,
+    chrIgnoredLabels = chrIgnoredLabels
   )
 }
 

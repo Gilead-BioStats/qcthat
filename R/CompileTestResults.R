@@ -124,6 +124,8 @@ ExtractDisposition <- function(lTestResult) {
     classes <- setdiff(classes, c("expectation", "condition", "error"))
     if (identical(classes, "expectation_success")) {
       return("pass")
+    } else if ("expectation_error" %in% classes) {
+      return("fail")
     } else if ("expectation_failure" %in% classes) {
       return("fail")
     } else if ("expectation_skip" %in% classes) {

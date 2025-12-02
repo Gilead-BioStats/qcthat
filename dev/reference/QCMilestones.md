@@ -13,6 +13,7 @@ QCMilestones(
   strRepo = gh::gh_tree_remote(strPkgRoot)[["repo"]],
   strGHToken = gh::gh_token(),
   lglWarn = TRUE,
+  chrIgnoredLabels = DefaultIgnoreLabels(),
   envCall = rlang::caller_env()
 )
 ```
@@ -46,6 +47,10 @@ QCMilestones(
   (`length-1 logical`) Whether to warn when an extra value is included
   in the filter (but the report still returns results). Defaults to
   `TRUE`.
+
+- chrIgnoredLabels:
+
+  (`character`) GitHub labels to ignore, such as `"qcthat-nocov"`.
 
 - envCall:
 

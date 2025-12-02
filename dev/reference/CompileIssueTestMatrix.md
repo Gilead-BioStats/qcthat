@@ -10,7 +10,11 @@ containing issues and associated tests.
 ## Usage
 
 ``` r
-CompileIssueTestMatrix(dfRepoIssues, dfTestResults)
+CompileIssueTestMatrix(
+  dfRepoIssues,
+  dfTestResults,
+  chrIgnoredLabels = character()
+)
 ```
 
 ## Arguments
@@ -26,6 +30,10 @@ CompileIssueTestMatrix(dfRepoIssues, dfTestResults)
   (`qcthat_TestResults` or data frame) Data frame of test results as
   returned by
   [`CompileTestResults()`](https://gilead-biostats.github.io/qcthat/dev/reference/CompileTestResults.md).
+
+- chrIgnoredLabels:
+
+  (`character`) GitHub labels to ignore, such as `"qcthat-nocov"`.
 
 ## Value
 

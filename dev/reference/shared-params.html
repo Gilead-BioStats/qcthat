@@ -53,6 +53,11 @@
 <dd><p>(<code>character</code>) SHAs of git commits.</p></dd>
 
 
+<dt id="arg-chrignoredlabels">chrIgnoredLabels<a class="anchor" aria-label="anchor" href="#arg-chrignoredlabels"></a></dt>
+<dd><p>(<code>character</code>) GitHub labels to ignore, such as
+<code>"qcthat-nocov"</code>.</p></dd>
+
+
 <dt id="arg-chrkeywords">chrKeywords<a class="anchor" aria-label="anchor" href="#arg-chrkeywords"></a></dt>
 <dd><p>(<code>character</code>) Keywords to search for just before issue
 numbers in commit messages. Defaults to the <a href="https://docs.github.com/en/issues/tracking-your-work-with-issues/using-issues/linking-a-pull-request-to-an-issue#linking-a-pull-request-to-an-issue-using-a-keyword" class="external-link">GitHub issue-linking keywords</a></p></dd>
@@ -78,6 +83,11 @@ separate piece of the vector).</p></dd>
 <dt id="arg-chrtests">chrTests<a class="anchor" aria-label="anchor" href="#arg-chrtests"></a></dt>
 <dd><p>(<code>character</code>) A vector of test descriptions from a
 <code><a href="CompileIssueTestMatrix.html">CompileIssueTestMatrix()</a></code> matrix.</p></dd>
+
+
+<dt id="arg-dfitm">dfITM<a class="anchor" aria-label="anchor" href="#arg-dfitm"></a></dt>
+<dd><p>(<code>qcthat_IssueTestMatrix</code>) A <code>qcthat_IssueTestMatrix</code> object as
+returned by <code><a href="AsIssueTestMatrix.html">AsIssueTestMatrix()</a></code>.</p></dd>
 
 
 <dt id="arg-dfrepoissues">dfRepoIssues<a class="anchor" aria-label="anchor" href="#arg-dfrepoissues"></a></dt>
@@ -140,6 +150,12 @@ already exist.</p></dd>
 <dt id="arg-lglshowmilestones">lglShowMilestones<a class="anchor" aria-label="anchor" href="#arg-lglshowmilestones"></a></dt>
 <dd><p>(<code>length-1 logical</code>) Whether to separate issues by
 milestones in reports.</p></dd>
+
+
+<dt id="arg-lglshowignoredlabels">lglShowIgnoredLabels<a class="anchor" aria-label="anchor" href="#arg-lglshowignoredlabels"></a></dt>
+<dd><p>(<code>length-1 logical</code>) Whether to show information
+in reports about issue labels (such as <code>"qcthat-nocov"</code>) that have been
+ignored.</p></dd>
 
 
 <dt id="arg-lgluseemoji">lglUseEmoji<a class="anchor" aria-label="anchor" href="#arg-lgluseemoji"></a></dt>

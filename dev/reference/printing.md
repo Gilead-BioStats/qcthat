@@ -19,6 +19,7 @@ format(
   ...,
   lglUseEmoji = getOption("qcthat.emoji", TRUE),
   lglShowMilestones = TRUE,
+  lglShowIgnoredLabels = FALSE,
   fnTransform = identity
 )
 ```
@@ -44,6 +45,11 @@ format(
 
   (`length-1 logical`) Whether to separate issues by milestones in
   reports.
+
+- lglShowIgnoredLabels:
+
+  (`length-1 logical`) Whether to show information in reports about
+  issue labels (such as `"qcthat-nocov"`) that have been ignored.
 
 - fnTransform:
 

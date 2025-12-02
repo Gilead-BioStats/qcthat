@@ -45,7 +45,11 @@ and associated tests.</p>
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">CompileIssueTestMatrix</span><span class="op">(</span><span class="va">dfRepoIssues</span>, <span class="va">dfTestResults</span><span class="op">)</span></span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">CompileIssueTestMatrix</span><span class="op">(</span></span>
+<span>  <span class="va">dfRepoIssues</span>,</span>
+<span>  <span class="va">dfTestResults</span>,</span>
+<span>  chrIgnoredLabels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/character.html" class="external-link">character</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -60,6 +64,11 @@ issues as returned by <code><a href="FetchRepoIssues.html">FetchRepoIssues()</a>
 <dt id="arg-dftestresults">dfTestResults<a class="anchor" aria-label="anchor" href="#arg-dftestresults"></a></dt>
 <dd><p>(<code>qcthat_TestResults</code> or data frame) Data frame of test
 results as returned by <code><a href="CompileTestResults.html">CompileTestResults()</a></code>.</p></dd>
+
+
+<dt id="arg-chrignoredlabels">chrIgnoredLabels<a class="anchor" aria-label="anchor" href="#arg-chrignoredlabels"></a></dt>
+<dd><p>(<code>character</code>) GitHub labels to ignore, such as
+<code>"qcthat-nocov"</code>.</p></dd>
 
 </dl></div>
     <div class="section level2">

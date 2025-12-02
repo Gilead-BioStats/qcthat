@@ -13,6 +13,10 @@ Reused parameter definitions are gathered here for easier usage. Use
 
   (`character`) SHAs of git commits.
 
+- chrIgnoredLabels:
+
+  (`character`) GitHub labels to ignore, such as `"qcthat-nocov"`.
+
 - chrKeywords:
 
   (`character`) Keywords to search for just before issue numbers in
@@ -40,6 +44,12 @@ Reused parameter definitions are gathered here for easier usage. Use
   (`character`) A vector of test descriptions from a
   [`CompileIssueTestMatrix()`](https://gilead-biostats.github.io/qcthat/dev/reference/CompileIssueTestMatrix.md)
   matrix.
+
+- dfITM:
+
+  (`qcthat_IssueTestMatrix`) A `qcthat_IssueTestMatrix` object as
+  returned by
+  [`AsIssueTestMatrix()`](https://gilead-biostats.github.io/qcthat/dev/reference/AsIssueTestMatrix.md).
 
 - dfRepoIssues:
 
@@ -107,6 +117,11 @@ Reused parameter definitions are gathered here for easier usage. Use
 
   (`length-1 logical`) Whether to separate issues by milestones in
   reports.
+
+- lglShowIgnoredLabels:
+
+  (`length-1 logical`) Whether to show information in reports about
+  issue labels (such as `"qcthat-nocov"`) that have been ignored.
 
 - lglUseEmoji:
 

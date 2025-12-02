@@ -1,7 +1,10 @@
-# Generate a QC report of issues associated with merging a branch into another
+# Generate a QC report of issues probably related to changes between local git refs
 
-Find issues associated with merging a source ref into a target ref and
-generate a report about their test status.
+Find issues associated with merging a source ref into a target ref based
+purely on GitHub commit keywords, and generate a report about their test
+status. This report is useful while you're developing a feature on a
+branch other than the default branch, but you have not yet created a
+pull request on GitHub.
 
 ## Usage
 
@@ -16,6 +19,7 @@ QCMergeLocal(
   strRepo = gh::gh_tree_remote(strPkgRoot)[["repo"]],
   strGHToken = gh::gh_token(),
   lglWarn = TRUE,
+  chrIgnoredLabels = DefaultIgnoreLabels(),
   intMaxCommits = 100000L
 )
 ```
@@ -62,6 +66,10 @@ QCMergeLocal(
   in the filter (but the report still returns results). Defaults to
   `TRUE`.
 
+- chrIgnoredLabels:
+
+  (`character`) GitHub labels to ignore, such as `"qcthat-nocov"`.
+
 - intMaxCommits:
 
   (`length-1 integer`) The maximum number of commits to return from git
@@ -76,6 +84,17 @@ A `qcthat_IssueTestMatrix` object as returned by
 filtered to issues that will be closed by merging `strSourceRef` into
 `strTargetRef`, using the [GitHub keywords for linking issues to pull
 requests](https://docs.github.com/en/issues/tracking-your-work-with-issues/using-issues/linking-a-pull-request-to-an-issue#linking-a-pull-request-to-an-issue-using-a-keyword).
+
+## See also
+
+[`QCMergeGH()`](https://gilead-biostats.github.io/qcthat/dev/reference/QCMergeGH.md)
+to use the GitHub API to find more formal, concrete connections between
+issues and the commits that closed them, and
+[`QCPR()`](https://gilead-biostats.github.io/qcthat/dev/reference/QCPR.md)
+for a wrapper around
+[`QCMergeGH()`](https://gilead-biostats.github.io/qcthat/dev/reference/QCMergeGH.md)
+that specifically looks at the commits associated with a specified pull
+request.
 
 ## Examples
 

@@ -12,7 +12,8 @@ QCCompletedIssues(
   strPkgRoot = ".",
   strOwner = gh::gh_tree_remote(strPkgRoot)[["username"]],
   strRepo = gh::gh_tree_remote(strPkgRoot)[["repo"]],
-  strGHToken = gh::gh_token()
+  strGHToken = gh::gh_token(),
+  chrIgnoredLabels = DefaultIgnoreLabels()
 )
 ```
 
@@ -35,6 +36,10 @@ QCCompletedIssues(
 - strGHToken:
 
   (`length-1 character`) GitHub token with permissions to read issues.
+
+- chrIgnoredLabels:
+
+  (`character`) GitHub labels to ignore, such as `"qcthat-nocov"`.
 
 ## Value
 

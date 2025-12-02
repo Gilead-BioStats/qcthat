@@ -16,6 +16,7 @@ QCPackage(
   strOwner = gh::gh_tree_remote(strPkgRoot)[["username"]],
   strRepo = gh::gh_tree_remote(strPkgRoot)[["repo"]],
   strGHToken = gh::gh_token(),
+  chrIgnoredLabels = DefaultIgnoreLabels(),
   envCall = rlang::caller_env()
 )
 ```
@@ -39,6 +40,10 @@ QCPackage(
 - strGHToken:
 
   (`length-1 character`) GitHub token with permissions to read issues.
+
+- chrIgnoredLabels:
+
+  (`character`) GitHub labels to ignore, such as `"qcthat-nocov"`.
 
 - envCall:
 

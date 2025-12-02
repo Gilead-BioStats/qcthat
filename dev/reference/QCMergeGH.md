@@ -2,8 +2,10 @@
 
 Finds all commits in `strSourceRef` that are not in `strTargetRef`,
 finds all pull requests associated with those commits, finds all issues
-associated with those pull requests, and generates a QC report for those
-issues.
+associated with those pull requests (according to GitHub's graph of
+connections between issues and commits), and generates a QC report for
+those issues. This is a more robust check than
+[`QCMergeLocal()`](https://gilead-biostats.github.io/qcthat/dev/reference/QCMergeLocal.md).
 
 ## Usage
 
@@ -16,6 +18,7 @@ QCMergeGH(
   strRepo = gh::gh_tree_remote(strPkgRoot)[["repo"]],
   strGHToken = gh::gh_token(),
   lglWarn = TRUE,
+  chrIgnoredLabels = DefaultIgnoreLabels(),
   envCall = rlang::caller_env()
 )
 ```
@@ -56,6 +59,10 @@ QCMergeGH(
   in the filter (but the report still returns results). Defaults to
   `TRUE`.
 
+- chrIgnoredLabels:
+
+  (`character`) GitHub labels to ignore, such as `"qcthat-nocov"`.
+
 - envCall:
 
   (`environment`) The environment to use for error reporting. Typically
@@ -68,6 +75,12 @@ A `qcthat_IssueTestMatrix` object as returned by
 [`QCPackage()`](https://gilead-biostats.github.io/qcthat/dev/reference/QCPackage.md),
 filtered to issues that are associated with pull requests that will be
 merged when `strSourceRef` is merged into `strTargetRef`.
+
+## See also
+
+[`QCMergeLocal()`](https://gilead-biostats.github.io/qcthat/dev/reference/QCMergeLocal.md)
+to use local git data to guess connections between issues and the
+commits that closed them.
 
 ## Examples
 

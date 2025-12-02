@@ -50,6 +50,7 @@ package (see <code><a href="FetchRepoIssues.html">FetchRepoIssues()</a></code>) 
 <span>  strOwner <span class="op">=</span> <span class="fu">gh</span><span class="fu">::</span><span class="fu"><a href="https://gh.r-lib.org/reference/gh_tree_remote.html" class="external-link">gh_tree_remote</a></span><span class="op">(</span><span class="va">strPkgRoot</span><span class="op">)</span><span class="op">[[</span><span class="st">"username"</span><span class="op">]</span><span class="op">]</span>,</span>
 <span>  strRepo <span class="op">=</span> <span class="fu">gh</span><span class="fu">::</span><span class="fu"><a href="https://gh.r-lib.org/reference/gh_tree_remote.html" class="external-link">gh_tree_remote</a></span><span class="op">(</span><span class="va">strPkgRoot</span><span class="op">)</span><span class="op">[[</span><span class="st">"repo"</span><span class="op">]</span><span class="op">]</span>,</span>
 <span>  strGHToken <span class="op">=</span> <span class="fu">gh</span><span class="fu">::</span><span class="fu"><a href="https://gh.r-lib.org/reference/gh_token.html" class="external-link">gh_token</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  chrIgnoredLabels <span class="op">=</span> <span class="fu"><a href="DefaultIgnoreLabels.html">DefaultIgnoreLabels</a></span><span class="op">(</span><span class="op">)</span>,</span>
 <span>  envCall <span class="op">=</span> <span class="fu">rlang</span><span class="fu">::</span><span class="fu"><a href="https://rlang.r-lib.org/reference/stack.html" class="external-link">caller_env</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
@@ -74,6 +75,11 @@ the package. Will be expanded using <code><a href="https://pkgload.r-lib.org/ref
 <dt id="arg-strghtoken">strGHToken<a class="anchor" aria-label="anchor" href="#arg-strghtoken"></a></dt>
 <dd><p>(<code>length-1 character</code>) GitHub token with permissions to
 read issues.</p></dd>
+
+
+<dt id="arg-chrignoredlabels">chrIgnoredLabels<a class="anchor" aria-label="anchor" href="#arg-chrignoredlabels"></a></dt>
+<dd><p>(<code>character</code>) GitHub labels to ignore, such as
+<code>"qcthat-nocov"</code>.</p></dd>
 
 
 <dt id="arg-envcall">envCall<a class="anchor" aria-label="anchor" href="#arg-envcall"></a></dt>

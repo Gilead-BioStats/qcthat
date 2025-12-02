@@ -60,6 +60,7 @@ fix)") and the disposition of tests ("passed", "failed", or "skipped").</p>
 <span>  <span class="va">...</span>,</span>
 <span>  lglUseEmoji <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">getOption</a></span><span class="op">(</span><span class="st">"qcthat.emoji"</span>, <span class="cn">TRUE</span><span class="op">)</span>,</span>
 <span>  lglShowMilestones <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  lglShowIgnoredLabels <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  fnTransform <span class="op">=</span> <span class="va">identity</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
@@ -86,6 +87,12 @@ defaults to <code>TRUE</code>.</p></dd>
 <dt id="arg-lglshowmilestones">lglShowMilestones<a class="anchor" aria-label="anchor" href="#arg-lglshowmilestones"></a></dt>
 <dd><p>(<code>length-1 logical</code>) Whether to separate issues by
 milestones in reports.</p></dd>
+
+
+<dt id="arg-lglshowignoredlabels">lglShowIgnoredLabels<a class="anchor" aria-label="anchor" href="#arg-lglshowignoredlabels"></a></dt>
+<dd><p>(<code>length-1 logical</code>) Whether to show information
+in reports about issue labels (such as <code>"qcthat-nocov"</code>) that have been
+ignored.</p></dd>
 
 
 <dt id="arg-fntransform">fnTransform<a class="anchor" aria-label="anchor" href="#arg-fntransform"></a></dt>

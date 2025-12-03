@@ -9,7 +9,7 @@ FormatFooter(
   x,
   ...,
   lglUseEmoji = getOption("qcthat.emoji", TRUE),
-  lglShowIgnoredLabels = FALSE
+  lglShowIgnoredLabels = TRUE
 )
 
 # Default S3 method
@@ -20,7 +20,7 @@ FormatFooter(
   x,
   ...,
   lglUseEmoji = getOption("qcthat.emoji", TRUE),
-  lglShowIgnoredLabels = FALSE
+  lglShowIgnoredLabels = TRUE
 )
 ```
 

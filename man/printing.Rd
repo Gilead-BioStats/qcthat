@@ -13,7 +13,7 @@
   ...,
   lglUseEmoji = getOption("qcthat.emoji", TRUE),
   lglShowMilestones = TRUE,
-  lglShowIgnoredLabels = FALSE,
+  lglShowIgnoredLabels = TRUE,
   fnTransform = identity
 )
 }

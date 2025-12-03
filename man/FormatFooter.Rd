@@ -10,7 +10,7 @@ FormatFooter(
   x,
   ...,
   lglUseEmoji = getOption("qcthat.emoji", TRUE),
-  lglShowIgnoredLabels = FALSE
+  lglShowIgnoredLabels = TRUE
 )
 
 \method{FormatFooter}{default}(x, ...)
@@ -19,7 +19,7 @@ FormatFooter(
   x,
   ...,
   lglUseEmoji = getOption("qcthat.emoji", TRUE),
-  lglShowIgnoredLabels = FALSE
+  lglShowIgnoredLabels = TRUE
 )
 }
 \arguments{

@@ -50,7 +50,7 @@ format.qcthat_Object <- function(
   ...,
   lglUseEmoji = getOption("qcthat.emoji", TRUE),
   lglShowMilestones = TRUE,
-  lglShowIgnoredLabels = FALSE,
+  lglShowIgnoredLabels = TRUE,
   fnTransform = identity
 ) {
   fnTransform(
@@ -133,7 +133,7 @@ FormatFooter <- function(
   x,
   ...,
   lglUseEmoji = getOption("qcthat.emoji", TRUE),
-  lglShowIgnoredLabels = FALSE
+  lglShowIgnoredLabels = TRUE
 ) {
   UseMethod("FormatFooter")
 }

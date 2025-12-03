@@ -79,6 +79,31 @@ test_that("QCIssues warns about unknown issues (#86)", {
   expect_identical(test_result, expected_result)
 })
 
+test_that("QCIssues doesn't warn about ignored issues (#96)", {
+  lIgnoredIssues <- list(`qcthat-nocov` = 3L)
+  local_mocked_bindings(
+    QCPackage = function(...) {
+      structure(
+        tibble::tibble(
+          Issue = 1:2,
+          OtherColumn = 1:2
+        ),
+        IgnoredIssues = lIgnoredIssues
+      )
+    }
+  )
+  expect_warning(
+    test_result <- QCIssues(2:4),
+    "Unknown issues: 4",
+    class = "qcthat-warning-unknown_issues"
+  )
+  expected_result <- structure(
+    tibble::tibble(Issue = 2L, OtherColumn = 2L),
+    IgnoredIssues = lIgnoredIssues
+  )
+  expect_identical(test_result, expected_result)
+})
+
 test_that("QCIssues errors with no valid issues (#86)", {
   local_mocked_bindings(
     QCPackage = function(...) {

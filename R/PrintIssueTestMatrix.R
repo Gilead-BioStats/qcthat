@@ -38,7 +38,7 @@ FormatFooter.qcthat_IssueTestMatrix <- function(
   x,
   ...,
   lglUseEmoji = getOption("qcthat.emoji", TRUE),
-  lglShowIgnoredLabels = FALSE
+  lglShowIgnoredLabels = TRUE
 ) {
   if (NROW(x)) {
     c(

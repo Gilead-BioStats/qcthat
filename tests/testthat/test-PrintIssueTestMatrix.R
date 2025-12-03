@@ -84,3 +84,19 @@ test_that("Can report ignored issue counts (#67, #81)", {
     print(dfITM, lglShowIgnoredLabels = TRUE)
   })
 })
+
+test_that("Ignored issues are shown by default (#101)", {
+  dfRepoIssues <- GenerateSampleDFRepoIssues()
+  dfTestResults <- GenerateSampleDFTestResults()
+  dfITM <- CompileIssueTestMatrix(
+    dfRepoIssues = dfRepoIssues,
+    dfTestResults = dfTestResults,
+    chrIgnoredLabels = DefaultIgnoreLabels()
+  )
+  expect_unformatted_snapshot({
+    print(dfITM)
+  })
+  expect_unformatted_snapshot({
+    print(dfITM, lglShowIgnoredLabels = FALSE)
+  })
+})

@@ -40,7 +40,7 @@ jobs:
 
       - uses: r-lib/actions/setup-r-dependencies@v2
         with:
-          extra-packages: local::., Gilead-BioStats/qcthat@dev
+          extra-packages: local::., Gilead-BioStats/qcthat@main
 
       - name: Generate Completed Issues QC Report
         run: |

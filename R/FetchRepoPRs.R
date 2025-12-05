@@ -28,8 +28,8 @@
 #'
 #'   FetchRepoPRs()
 FetchRepoPRs <- function(
-  strOwner = gh::gh_tree_remote()[["username"]],
-  strRepo = gh::gh_tree_remote()[["repo"]],
+  strOwner = GetGHOwner(),
+  strRepo = GetGHRepo(),
   strGHToken = gh::gh_token(),
   strState = c("open", "closed", "all")
 ) {
@@ -49,8 +49,8 @@ FetchRepoPRs <- function(
 #' @returns A list of raw pull request objects as returned by [gh::gh()].
 #' @keywords internal
 FetchRawRepoPRs <- function(
-  strOwner = gh::gh_tree_remote()[["username"]],
-  strRepo = gh::gh_tree_remote()[["repo"]],
+  strOwner = GetGHOwner(),
+  strRepo = GetGHRepo(),
   strGHToken = gh::gh_token(),
   strState = c("open", "closed", "all")
 ) {

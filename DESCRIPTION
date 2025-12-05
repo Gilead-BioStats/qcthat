@@ -22,9 +22,11 @@ Depends:
 Imports: 
     cli,
     dplyr,
+    gert,
     gh,
     glue,
     pillar,
+    pkgload,
     purrr,
     rlang,
     stringr,
@@ -34,8 +36,6 @@ Imports:
 Suggests: 
     emoji,
     fs,
-    gert,
-    pkgload,
     usethis,
     withr
 Config/Needs/website: rmarkdown

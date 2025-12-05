@@ -7,16 +7,16 @@ GetPkgRoot <- function(strPkgRoot, envCall = rlang::caller_env()) {
   # Tested manually.
   #
   # nocov start
-  rlang::check_installed("pkgload", "to manipulate package files.")
   tryCatch(
     pkgload::pkg_path(strPkgRoot),
     pkgload_no_desc = function(cnd) {
-      cli::cli_abort(
+      qcthatAbort(
         c(
           "{.arg strPkgRoot} must be a path within an R package.",
           i = "No package DESCRIPTION file could be found at {.path {fs::path_abs(strPkgRoot)}}."
         ),
-        call = envCall
+        envCall = envCall,
+        strErrorSubclass = "not_package"
       )
     }
   )

@@ -1,3 +1,20 @@
+test_that("GetGHOwner and GetGHRepo work (#65)", {
+  local_mocked_bindings(
+    GetGHRemote = function(...) {
+      list(
+        username = "test_owner",
+        repo = "test_repo"
+      )
+    }
+  )
+  expect_identical(GetGHOwner(), "test_owner")
+  expect_identical(GetGHRepo(), "test_repo")
+})
+
+test_that("UsesGit works in any situation", {
+  expect_false(UsesGit("fake_dir"))
+})
+
 test_that("PrepareGQLQuery constructs a query (#84)", {
   expect_snapshot({
     PrepareGQLQuery(

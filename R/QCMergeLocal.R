@@ -39,8 +39,8 @@ QCMergeLocal <- function(
     "resolves",
     "resolved"
   ),
-  strOwner = gh::gh_tree_remote(strPkgRoot)[["username"]],
-  strRepo = gh::gh_tree_remote(strPkgRoot)[["repo"]],
+  strOwner = GetGHOwner(strPkgRoot),
+  strRepo = GetGHRepo(strPkgRoot),
   strGHToken = gh::gh_token(),
   lglWarn = TRUE,
   chrIgnoredLabels = DefaultIgnoreLabels(),
@@ -89,12 +89,11 @@ FindKeywordIssues <- function(
     "resolves",
     "resolved"
   ),
-  strOwner = gh::gh_tree_remote(strPkgRoot)[["username"]],
-  strRepo = gh::gh_tree_remote(strPkgRoot)[["repo"]],
+  strOwner = GetGHOwner(strPkgRoot),
+  strRepo = GetGHRepo(strPkgRoot),
   intMaxCommits = 100000L
 ) {
   strPkgRoot <- GetPkgRoot(strPkgRoot)
-  rlang::check_installed("gert", "to get information about branches.")
   dfCommits <- CompileGitLogDiff(
     strSourceRef = strSourceRef,
     strTargetRef = strTargetRef,
@@ -118,7 +117,6 @@ GetActiveBranch <- function(strPkgRoot = ".") {
   # Tested manually
 
   # nocov start
-  rlang::check_installed("gert", "to find the active branch.")
   gert::git_branch(strPkgRoot)
   # nocov end
 }
@@ -196,8 +194,8 @@ ExtractGHClosingIssues <- function(
     "resolves",
     "resolved"
   ),
-  strOwner = gh::gh_tree_remote()[["username"]],
-  strRepo = gh::gh_tree_remote()[["repo"]]
+  strOwner = GetGHOwner(),
+  strRepo = GetGHRepo()
 ) {
   stringr::str_extract_all(
     chrCommitMessages,
@@ -230,8 +228,8 @@ GHKeywordRegex <- function(
     "resolves",
     "resolved"
   ),
-  strOwner = gh::gh_tree_remote()[["username"]],
-  strRepo = gh::gh_tree_remote()[["repo"]]
+  strOwner = GetGHOwner(),
+  strRepo = GetGHRepo()
 ) {
   strKeywordsRegex <- paste(chrKeywords, collapse = "|")
   glue::glue(

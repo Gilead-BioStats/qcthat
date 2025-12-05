@@ -3,13 +3,18 @@
 #' Reused parameter definitions are gathered here for easier usage. Use
 #' `@inheritParams shared-params` to document parameters defined here.
 #'
+#' @param chrChecks (`character`) Items for the user to check. These will be
+#'   preceded by checkboxes in the associated issue.
 #' @param chrClass (`character`) Class name(s) to assign to the object.
 #' @param chrCommitSHAs (`character`) SHAs of git commits.
 #' @param chrIgnoredLabels (`character`) GitHub labels to ignore, such as
 #'   `"qcthat-nocov"`.
+#' @param chrInstructions (`character`) Instructions for how to review an issue.
+#'   Included in the associated issue before the checklist.
 #' @param chrKeywords (`character`) Keywords to search for just before issue
 #'   numbers in commit messages. Defaults to the [GitHub issue-linking
 #'   keywords](https://docs.github.com/en/issues/tracking-your-work-with-issues/using-issues/linking-a-pull-request-to-an-issue#linking-a-pull-request-to-an-issue-using-a-keyword)
+#' @param chrLabels (`character`) The name(s) of labels(s) to use.
 #' @param chrMilestones (`character`) The name(s) of milestone(s) to filter
 #'   issues by.
 #' @param chrSourcePath (`character`) Components of a path to a source file. The
@@ -28,14 +33,20 @@
 #'   results as returned by [CompileTestResults()].
 #' @param envCall (`environment`) The environment to use for error reporting.
 #'   Typically set to [rlang::caller_env()].
+#' @param envErrorMessage (`environment`) The environment to pass to
+#'   [glue::glue()] to resolve variables.
 #' @param fctDisposition (`factor`) Disposition factor with levels `c("fail",
 #'   "skip", "pass")`.
+#' @param intIssue (`length-1 integer`) The issue with which a check is
+#'   associated.
 #' @param intIssues (`integer`) A vector of issue numbers from a
 #'   [CompileIssueTestMatrix()] matrix or from GitHub.
 #' @param intMaxCommits (`length-1 integer`) The maximum number of commits to
 #'   return from git logs. Leaving this at the default should almost always be
 #'   fine, but you can reduce the number if your repository has a long commit
 #'   history and this function is slow.
+#' @param intParentIssue (`length-1 integer`) The number of an issue to which a
+#'   child issue will attach.
 #' @param intPRNumber (`length-1 integer`) The number of the pull request to
 #'   fetch information about.
 #' @param intPRNumbers (`integer`) A vector of pull request numbers.
@@ -60,15 +71,29 @@
 #'   included in the filter (but the report still returns results). Defaults to
 #'   `TRUE`.
 #' @param objShape (`0-row data.frame`, etc) Object with the expected structure.
+#' @param strBody (`length-1 character`) The body of an issue, in GitHub
+#'   markdown.
+#' @param strChildIssueID (`length-1 character`) The `id` field of an issue to
+#'   connect to a parent issue.
+#' @param strConditionSubclass (`length-1 character`) A subclass for a
+#'   condition.
+#' @param strConditionClass (`length-1 character`) One of "error", "warning", or
+#'   "message".
+#' @param strErrorSubclass (`length-1 character`) A subclass for an error
+#'   condition.
+#' @param strErrorMessage (`length-1 character`) A message to include in and
+#'   error report. Can include [glue::glue()] syntax.
 #' @param strExtension (`length-1 character`) The file extension to use for the
 #'   target file. If the target path already includes an extension, it will be
 #'   replaced with this value. If the value is already correct, this won't have
 #'   any effect.
+#' @param strFailureMode (`length-1 character`) Whether to `"ignore"` failures
+#'   (default) or `"fail"` (and show as a failure in testthat tests).
 #' @param strGHToken (`length-1 character`) GitHub token with permissions to
 #'   read issues.
 #' @param strOwner (`length-1 character`) GitHub username or organization name.
-#' @param strPkgRoot (`length-1 character`) The path to the root directory of
-#'   the package. Will be expanded using [pkgload::pkg_path()].
+#' @param strPkgRoot (`length-1 character`) The path to a directory in the
+#'   package. Will be expanded using [gert::git_find()].
 #' @param strRepo (`length-1 character`) GitHub repository name.
 #' @param strSourceRef (`length-1 character`) Name of the git reference that
 #'   contains changes. Defaults to the active branch in this repository.
@@ -77,6 +102,7 @@
 #'   `"open"` for pull requests and `"all"` for issues.
 #' @param strTargetRef (`length-1 character`) Name of the git reference that
 #'   will be merged into. Defaults to the default branch of this repository.
+#' @param strTitle (`length-1 character`) A title for an issue.
 #'
 #' @name shared-params
 #' @keywords internal

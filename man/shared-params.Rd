@@ -4,6 +4,9 @@
 \alias{shared-params}
 \title{Parameters used in multiple functions}
 \arguments{
+\item{chrChecks}{(\code{character}) Items for the user to check. These will be
+preceded by checkboxes in the associated issue.}
+
 \item{chrClass}{(\code{character}) Class name(s) to assign to the object.}
 
 \item{chrCommitSHAs}{(\code{character}) SHAs of git commits.}
@@ -11,8 +14,13 @@
 \item{chrIgnoredLabels}{(\code{character}) GitHub labels to ignore, such as
 \code{"qcthat-nocov"}.}
 
+\item{chrInstructions}{(\code{character}) Instructions for how to review an issue.
+Included in the associated issue before the checklist.}
+
 \item{chrKeywords}{(\code{character}) Keywords to search for just before issue
 numbers in commit messages. Defaults to the \href{https://docs.github.com/en/issues/tracking-your-work-with-issues/using-issues/linking-a-pull-request-to-an-issue#linking-a-pull-request-to-an-issue-using-a-keyword}{GitHub issue-linking keywords}}
+
+\item{chrLabels}{(\code{character}) The name(s) of labels(s) to use.}
 
 \item{chrMilestones}{(\code{character}) The name(s) of milestone(s) to filter
 issues by.}
@@ -40,7 +48,13 @@ results as returned by \code{\link[=CompileTestResults]{CompileTestResults()}}.}
 \item{envCall}{(\code{environment}) The environment to use for error reporting.
 Typically set to \code{\link[rlang:stack]{rlang::caller_env()}}.}
 
+\item{envErrorMessage}{(\code{environment}) The environment to pass to
+\code{\link[glue:glue]{glue::glue()}} to resolve variables.}
+
 \item{fctDisposition}{(\code{factor}) Disposition factor with levels \code{c("fail", "skip", "pass")}.}
+
+\item{intIssue}{(\verb{length-1 integer}) The issue with which a check is
+associated.}
 
 \item{intIssues}{(\code{integer}) A vector of issue numbers from a
 \code{\link[=CompileIssueTestMatrix]{CompileIssueTestMatrix()}} matrix or from GitHub.}
@@ -49,6 +63,9 @@ Typically set to \code{\link[rlang:stack]{rlang::caller_env()}}.}
 return from git logs. Leaving this at the default should almost always be
 fine, but you can reduce the number if your repository has a long commit
 history and this function is slow.}
+
+\item{intParentIssue}{(\verb{length-1 integer}) The number of an issue to which a
+child issue will attach.}
 
 \item{intPRNumber}{(\verb{length-1 integer}) The number of the pull request to
 fetch information about.}
@@ -84,18 +101,39 @@ included in the filter (but the report still returns results). Defaults to
 
 \item{objShape}{(\verb{0-row data.frame}, etc) Object with the expected structure.}
 
+\item{strBody}{(\verb{length-1 character}) The body of an issue, in GitHub
+markdown.}
+
+\item{strChildIssueID}{(\verb{length-1 character}) The \code{id} field of an issue to
+connect to a parent issue.}
+
+\item{strConditionSubclass}{(\verb{length-1 character}) A subclass for a
+condition.}
+
+\item{strConditionClass}{(\verb{length-1 character}) One of "error", "warning", or
+"message".}
+
+\item{strErrorSubclass}{(\verb{length-1 character}) A subclass for an error
+condition.}
+
+\item{strErrorMessage}{(\verb{length-1 character}) A message to include in and
+error report. Can include \code{\link[glue:glue]{glue::glue()}} syntax.}
+
 \item{strExtension}{(\verb{length-1 character}) The file extension to use for the
 target file. If the target path already includes an extension, it will be
 replaced with this value. If the value is already correct, this won't have
 any effect.}
+
+\item{strFailureMode}{(\verb{length-1 character}) Whether to \code{"ignore"} failures
+(default) or \code{"fail"} (and show as a failure in testthat tests).}
 
 \item{strGHToken}{(\verb{length-1 character}) GitHub token with permissions to
 read issues.}
 
 \item{strOwner}{(\verb{length-1 character}) GitHub username or organization name.}
 
-\item{strPkgRoot}{(\verb{length-1 character}) The path to the root directory of
-the package. Will be expanded using \code{\link[pkgload:packages]{pkgload::pkg_path()}}.}
+\item{strPkgRoot}{(\verb{length-1 character}) The path to a directory in the
+package. Will be expanded using \code{\link[gert:git_repo]{gert::git_find()}}.}
 
 \item{strRepo}{(\verb{length-1 character}) GitHub repository name.}
 
@@ -108,6 +146,8 @@ fetch. Must be one of \code{"open"}, \code{"closed"}, or \code{"all"}. Defaults 
 
 \item{strTargetRef}{(\verb{length-1 character}) Name of the git reference that
 will be merged into. Defaults to the default branch of this repository.}
+
+\item{strTitle}{(\verb{length-1 character}) A title for an issue.}
 }
 \description{
 Reused parameter definitions are gathered here for easier usage. Use

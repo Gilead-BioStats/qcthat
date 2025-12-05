@@ -15,8 +15,8 @@
 #'   QCPackage()
 QCPackage <- function(
   strPkgRoot = ".",
-  strOwner = gh::gh_tree_remote(strPkgRoot)[["username"]],
-  strRepo = gh::gh_tree_remote(strPkgRoot)[["repo"]],
+  strOwner = GetGHOwner(strPkgRoot),
+  strRepo = GetGHRepo(strPkgRoot),
   strGHToken = gh::gh_token(),
   chrIgnoredLabels = DefaultIgnoreLabels(),
   envCall = rlang::caller_env()
@@ -60,8 +60,8 @@ QCPackage <- function(
 #'   QCCompletedIssues()
 QCCompletedIssues <- function(
   strPkgRoot = ".",
-  strOwner = gh::gh_tree_remote(strPkgRoot)[["username"]],
-  strRepo = gh::gh_tree_remote(strPkgRoot)[["repo"]],
+  strOwner = GetGHOwner(strPkgRoot),
+  strRepo = GetGHRepo(strPkgRoot),
   strGHToken = gh::gh_token(),
   chrIgnoredLabels = DefaultIgnoreLabels()
 ) {
@@ -99,8 +99,8 @@ QCCompletedIssues <- function(
 QCIssues <- function(
   intIssues,
   strPkgRoot = ".",
-  strOwner = gh::gh_tree_remote(strPkgRoot)[["username"]],
-  strRepo = gh::gh_tree_remote(strPkgRoot)[["repo"]],
+  strOwner = GetGHOwner(strPkgRoot),
+  strRepo = GetGHRepo(strPkgRoot),
   strGHToken = gh::gh_token(),
   lglWarn = TRUE,
   chrIgnoredLabels = DefaultIgnoreLabels(),
@@ -121,12 +121,13 @@ QCIssues <- function(
     intMissingIssues <- setdiff(intMissingIssues, intIgnoredIssues)
 
     if (length(intMissingIssues) == length(intIssues)) {
-      cli::cli_abort(
+      qcthatAbort(
         c(
           "{.arg intIssues} must refer to at least one issue in the issue-test matrix.",
           i = "Unknown issues: {intMissingIssues}"
         ),
-        class = "qcthat-error-unknown_issues"
+        strErrorSubclass = "unknown_issues",
+        envCall = envCall
       )
     }
     if (length(intMissingIssues) && lglWarn) {
@@ -135,7 +136,8 @@ QCIssues <- function(
           "Some {.arg intIssues} are not in the issue-test matrix.",
           i = "Unknown issues: {intMissingIssues}"
         ),
-        class = "qcthat-warning-unknown_issues"
+        class = CompileConditionClasses("unknown_issues", "warning"),
+        env = envCall
       )
     }
   }
@@ -162,8 +164,8 @@ QCIssues <- function(
 QCMilestones <- function(
   chrMilestones,
   strPkgRoot = ".",
-  strOwner = gh::gh_tree_remote(strPkgRoot)[["username"]],
-  strRepo = gh::gh_tree_remote(strPkgRoot)[["repo"]],
+  strOwner = GetGHOwner(strPkgRoot),
+  strRepo = GetGHRepo(strPkgRoot),
   strGHToken = gh::gh_token(),
   lglWarn = TRUE,
   chrIgnoredLabels = DefaultIgnoreLabels(),
@@ -180,12 +182,13 @@ QCMilestones <- function(
   chrMissingMilestones <- chrMilestones[!chrMilestones %in% dfITM$Milestone]
   if (length(chrMissingMilestones)) {
     if (length(chrMissingMilestones) == length(chrMilestones)) {
-      cli::cli_abort(
+      qcthatAbort(
         c(
           "{.arg chrMilestones} must refer to at least one milestone in the issue-test matrix.",
           i = "Unknown milestones: {chrMissingMilestones}"
         ),
-        class = "qcthat-error-unknown_milestones"
+        strErrorSubclass = "unknown_milestones",
+        envCall = envCall
       )
     }
     if (lglWarn) {
@@ -194,7 +197,8 @@ QCMilestones <- function(
           "Some {.arg chrMilestones} are not in the issue-test matrix.",
           i = "Unknown milestones: {chrMissingMilestones}"
         ),
-        class = "qcthat-warning-unknown_milestones"
+        class = CompileConditionClasses("unknown_milestones", "warning"),
+        envCall = envCall
       )
     }
   }

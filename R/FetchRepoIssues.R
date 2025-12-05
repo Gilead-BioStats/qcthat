@@ -32,8 +32,8 @@
 #'
 #'   FetchRepoIssues()
 FetchRepoIssues <- function(
-  strOwner = gh::gh_tree_remote()[["username"]],
-  strRepo = gh::gh_tree_remote()[["repo"]],
+  strOwner = GetGHOwner(),
+  strRepo = GetGHRepo(),
   strGHToken = gh::gh_token(),
   strState = c("all", "open", "closed")
 ) {
@@ -53,8 +53,8 @@ FetchRepoIssues <- function(
 #' @returns A list of raw issue objects as returned by [gh::gh()].
 #' @keywords internal
 FetchRawRepoIssues <- function(
-  strOwner = gh::gh_tree_remote()[["username"]],
-  strRepo = gh::gh_tree_remote()[["repo"]],
+  strOwner = GetGHOwner(),
+  strRepo = GetGHRepo(),
   strGHToken = gh::gh_token(),
   strState = c("all", "open", "closed")
 ) {

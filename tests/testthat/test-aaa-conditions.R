@@ -1,4 +1,4 @@
-test_that("CompileConditionClasses compiles classes as expected", {
+test_that("CompileConditionClasses compiles classes as expected (#112)", {
   expect_equal(
     CompileConditionClasses("this_subclass"),
     c("qcthat-error-this_subclass", "qcthat-error", "qcthat-condition")
@@ -13,7 +13,7 @@ test_that("CompileConditionClasses compiles classes as expected", {
   )
 })
 
-test_that("qcthatAbort creates an error condition with expected classes and message", {
+test_that("qcthatAbort creates an error condition with expected classes and message (#112)", {
   variable <- "sample"
   test_message <- "This is a test {variable} error message."
   test_condition <- expect_error(

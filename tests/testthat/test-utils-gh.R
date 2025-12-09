@@ -1,4 +1,4 @@
-test_that("GetGHOwner and GetGHRepo work (#65)", {
+test_that("GetGHOwner and GetGHRepo work (#110)", {
   local_mocked_bindings(
     GetGHRemote = function(...) {
       list(
@@ -11,7 +11,7 @@ test_that("GetGHOwner and GetGHRepo work (#65)", {
   expect_identical(GetGHRepo(), "test_repo")
 })
 
-test_that("UsesGit works in any situation", {
+test_that("UsesGit works in any situation (#110)", {
   expect_false(UsesGit("fake_dir"))
 })
 

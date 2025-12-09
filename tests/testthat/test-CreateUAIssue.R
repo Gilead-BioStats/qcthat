@@ -1,4 +1,29 @@
-test_that("CreateChildIssue uses the expected process", {
+test_that("CreateUAIssue constructs the expected call (#111)", {
+  local_mocked_bindings(
+    CreateChildIssue = function(...) list(...)
+  )
+  expect_equal(
+    CreateUAIssue(
+      intIssue = 123L,
+      chrChecks = c("Check 1", "Check 2"),
+      chrInstructions = "These are instructions",
+      strOwner = "test-owner",
+      strRepo = "test-repo",
+      strGHToken = "test-token"
+    ),
+    list(
+      123L,
+      paste("qcthat Acceptance:", rlang::hash(c("Check 1", "Check 2"))),
+      "Review the following checks and close this issue to indicate your acceptance.\n\nThese are instructions\n\n- [ ] Check 1\n- [ ] Check 2",
+      chrLabels = "qcthat-uat",
+      strOwner = "test-owner",
+      strRepo = "test-repo",
+      strGHToken = "test-token"
+    )
+  )
+})
+
+test_that("CreateChildIssue uses the expected process (#111)", {
   local_mocked_bindings(
     CreateRepoIssueRaw = function(strTitle, strBody, chrLabels, ...) {
       list(
@@ -34,7 +59,7 @@ test_that("CreateChildIssue uses the expected process", {
   expect_equal(result$ParentNumber, 1L)
 })
 
-test_that("CreateRepoIssueRaw hits the expected endpoint (#65)", {
+test_that("CreateRepoIssueRaw hits the expected endpoint (#111)", {
   local_mocked_bindings(
     CallGHAPI = function(...) list(...)
   )
@@ -60,7 +85,7 @@ test_that("CreateRepoIssueRaw hits the expected endpoint (#65)", {
   )
 })
 
-test_that("ConnectChildIssueByID returns the URL to the parent", {
+test_that("ConnectChildIssueByID returns the URL to the parent (#111)", {
   local_mocked_bindings(
     CallGHAPI = function(...) list(...)
   )

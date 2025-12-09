@@ -1,3 +1,39 @@
+#' Create a user-acceptance sub-issue for an issue
+#'
+#' @inheritParams shared-params
+#' @returns A data frame representing the created user-acceptance issue.
+#' @keywords internal
+CreateUAIssue <- function(
+  intIssue,
+  chrChecks,
+  chrInstructions = character(),
+  strOwner = GetGHOwner(),
+  strRepo = GetGHRepo(),
+  strGHToken = gh::gh_token()
+) {
+  strTitle <- paste("qcthat Acceptance:", rlang::hash(chrChecks))
+  strBody <- paste(
+    stringr::str_flatten(
+      c(
+        "Review the following checks and close this issue to indicate your acceptance.",
+        chrInstructions
+      ),
+      collapse = "\n\n"
+    ),
+    paste("- [ ]", chrChecks, collapse = "\n"),
+    sep = "\n\n"
+  )
+  CreateChildIssue(
+    intIssue,
+    strTitle,
+    strBody,
+    chrLabels = "qcthat-uat",
+    strOwner = strOwner,
+    strRepo = strRepo,
+    strGHToken = strGHToken
+  )
+}
+
 #' Create a child issue linked to a parent issue
 #'
 #' @param ... Additional parameters passed to [CreateRepoIssueRaw()].

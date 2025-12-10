@@ -1,5 +1,5 @@
 # Workflow derived from
-# https://github.com/Gilead-BioStats/qcthat/tree/v0.3.0/inst/workflows/qcthat-milestone.yaml.
+# https://github.com/Gilead-BioStats/qcthat/tree/v1.0.0/inst/workflows/qcthat-milestone.yaml.
 on:
   pull_request:
     types: [opened, reopened, synchronize, milestoned]

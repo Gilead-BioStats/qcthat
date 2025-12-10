@@ -2,8 +2,8 @@
 
 ## qcthat 1.0.0
 
-You can now use this package to implement a QC framework in any GitHub
-repository.
+You can now use this package to implement a QC framework for any R
+package associated with a GitHub repository.
 
 ### New features
 

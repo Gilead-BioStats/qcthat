@@ -2,7 +2,7 @@ pandoc: 3.1.11
 pkgdown: 2.2.0
 pkgdown_sha: ~
 articles: {}
-last_built: 2025-12-10T18:55Z
+last_built: 2025-12-10T18:58Z
 urls:
   reference: https://gilead-biostats.github.io/qcthat/reference
   article: https://gilead-biostats.github.io/qcthat/articles

@@ -1,4 +1,4 @@
-test_that("FetchUAIssue returns the issue as a list if found (#114)", {
+test_that("FetchUAIssue returns the issue as a list if found (#111)", {
   local_mocked_bindings(
     FetchIssueUAChildren = function(...) {
       data.frame(
@@ -27,7 +27,7 @@ test_that("FetchUAIssue returns the issue as a list if found (#114)", {
   )
 })
 
-test_that("FetchUAIssue returns the issue as a list if created (#114)", {
+test_that("FetchUAIssue returns the issue as a list if created (#111)", {
   local_mocked_bindings(
     FetchIssueUAChildren = function(...) {
       data.frame(
@@ -61,7 +61,7 @@ test_that("FetchUAIssue returns the issue as a list if created (#114)", {
   )
 })
 
-test_that("FetchIssueUAChildren fetches 'qcthat-uat'-labeled child issues (#114)", {
+test_that("FetchIssueUAChildren fetches 'qcthat-uat'-labeled child issues (#111)", {
   local_mocked_bindings(
     FetchIssueChildren = function(...) {
       tibble::tibble(
@@ -73,7 +73,7 @@ test_that("FetchIssueUAChildren fetches 'qcthat-uat'-labeled child issues (#114)
   expect_equal(FetchIssueUAChildren(123)$Number, 2)
 })
 
-test_that("FetchIssueChildren returns a DF of issue children (#114)", {
+test_that("FetchIssueChildren returns a DF of issue children (#111)", {
   local_mocked_bindings(
     CallGHAPI = function(
       strEndpoint,

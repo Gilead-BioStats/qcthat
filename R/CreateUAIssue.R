@@ -23,14 +23,19 @@ CreateUAIssue <- function(
     paste("- [ ]", chrChecks, collapse = "\n"),
     sep = "\n\n"
   )
-  CreateChildIssue(
-    intIssue,
-    strTitle,
-    strBody,
-    chrLabels = "qcthat-uat",
-    strOwner = strOwner,
-    strRepo = strRepo,
-    strGHToken = strGHToken
+  tryCatch(
+    {
+      CreateChildIssue(
+        intIssue,
+        strTitle,
+        strBody,
+        chrLabels = "qcthat-uat",
+        strOwner = strOwner,
+        strRepo = strRepo,
+        strGHToken = strGHToken
+      )
+    },
+    error = function(e) NULL
   )
 }
 

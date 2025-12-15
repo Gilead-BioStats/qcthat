@@ -99,3 +99,19 @@ test_that("ConnectChildIssueByID returns the URL to the parent (#111)", {
     "https://api.github.com/repos/test-owner/test-repo/issues/123"
   )
 })
+
+test_that("CreateUAIssue returns NULL when it can't create an issue (#120)", {
+  local_mocked_bindings(
+    CreateChildIssue = function(...) stop("Can't create issue")
+  )
+  expect_null({
+    CreateUAIssue(
+      intIssue = 123L,
+      chrChecks = c("Check 1", "Check 2"),
+      chrInstructions = "These are instructions",
+      strOwner = "test-owner",
+      strRepo = "test-repo",
+      strGHToken = "test-token"
+    )
+  })
+})

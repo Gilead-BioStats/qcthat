@@ -4,7 +4,7 @@ test_that("FetchUAIssue returns the issue as a list if found (#111)", {
       data.frame(
         Number = 123:124,
         Title = c(
-          paste("qcthat Acceptance:", rlang::hash(c("check1", "check2"))),
+          TitleUAIssue(c("check1", "check2")),
           "Wrong item"
         ),
         State = "closed",
@@ -20,7 +20,7 @@ test_that("FetchUAIssue returns the issue as a list if found (#111)", {
     result,
     list(
       Number = 123L,
-      Title = paste("qcthat Acceptance:", rlang::hash(c("check1", "check2"))),
+      Title = TitleUAIssue(c("check1", "check2")),
       State = "closed",
       Url = "http://example.com/issue/123"
     )
@@ -40,7 +40,7 @@ test_that("FetchUAIssue returns the issue as a list if created (#111)", {
     CreateUAIssue = function(...) {
       data.frame(
         Number = 123L,
-        Title = paste("qcthat Acceptance:", rlang::hash(c("check1", "check2"))),
+        Title = TitleUAIssue(c("check1", "check2")),
         State = "closed",
         Url = "http://example.com/issue/123"
       )
@@ -54,7 +54,7 @@ test_that("FetchUAIssue returns the issue as a list if created (#111)", {
     result,
     list(
       Number = 123L,
-      Title = paste("qcthat Acceptance:", rlang::hash(c("check1", "check2"))),
+      Title = TitleUAIssue(c("check1", "check2")),
       State = "closed",
       Url = "http://example.com/issue/123"
     )
@@ -122,5 +122,13 @@ test_that("FetchIssueChildren returns a DF of issue children (#111)", {
       CreatedAt = as.POSIXct(c(NA, NA), tz = "UTC"),
       ClosedAt = as.POSIXct(c(NA, NA), tz = "UTC")
     )
+  )
+})
+
+test_that("TitleUAIssue gives the expected title (#111)", {
+  chrChecks <- c("check1", "check2")
+  expect_equal(
+    TitleUAIssue(chrChecks),
+    glue::glue("qcthat Acceptance Issue (ID {rlang::hash(chrChecks)})")
   )
 })

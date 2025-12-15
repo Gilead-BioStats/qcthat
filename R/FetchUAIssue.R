@@ -22,7 +22,7 @@ FetchUAIssue <- function(
     strGHToken = strGHToken
   ) |>
     dplyr::filter(
-      .data$Title == paste("qcthat Acceptance:", rlang::hash(chrChecks))
+      .data$Title == TitleUAIssue(chrChecks)
     ) |>
     # If somehow multiple issues match, only use the first one.
     head(1)
@@ -81,4 +81,13 @@ FetchIssueChildren <- function(
     strGHToken = strGHToken
   )
   CompileIssuesDF(lIssueChildrenRaw)
+}
+
+#' Generate a title for a UAT issue
+#'
+#' @inheritParams shared-params
+#' @returns A string title for the UAT issue.
+#' @keywords internal
+TitleUAIssue <- function(chrChecks) {
+  glue::glue("qcthat Acceptance Issue (ID {rlang::hash(chrChecks)})")
 }

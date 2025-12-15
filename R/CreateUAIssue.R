@@ -11,7 +11,7 @@ CreateUAIssue <- function(
   strRepo = GetGHRepo(),
   strGHToken = gh::gh_token()
 ) {
-  strTitle <- paste("qcthat Acceptance:", rlang::hash(chrChecks))
+  strTitle <- TitleUAIssue(chrChecks)
   strBody <- paste(
     stringr::str_flatten(
       c(

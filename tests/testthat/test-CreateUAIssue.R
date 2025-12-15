@@ -13,7 +13,7 @@ test_that("CreateUAIssue constructs the expected call (#111)", {
     ),
     list(
       123L,
-      paste("qcthat Acceptance:", rlang::hash(c("Check 1", "Check 2"))),
+      TitleUAIssue(c("Check 1", "Check 2")),
       "Review the following checks and close this issue to indicate your acceptance.\n\nThese are instructions\n\n- [ ] Check 1\n- [ ] Check 2",
       chrLabels = "qcthat-uat",
       strOwner = "test-owner",

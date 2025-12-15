@@ -29,6 +29,7 @@
 <url><loc>https://gilead-biostats.github.io/qcthat/dev/reference/ChooseOverallDispositionIndicator.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/qcthat/dev/reference/ChooseOverallDispositionMessage.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/qcthat/dev/reference/ChooseStateIndicator.html</loc></url>
+<url><loc>https://gilead-biostats.github.io/qcthat/dev/reference/ClearGHCache.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/qcthat/dev/reference/CompileConditionClasses.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/qcthat/dev/reference/CompileDispositions.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/qcthat/dev/reference/CompileGitLogDiff.html</loc></url>
@@ -119,6 +120,7 @@
 <url><loc>https://gilead-biostats.github.io/qcthat/dev/reference/SeparateParentColumn.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/qcthat/dev/reference/SetupGHLabels.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/qcthat/dev/reference/SimplePluralize.html</loc></url>
+<url><loc>https://gilead-biostats.github.io/qcthat/dev/reference/TitleUAIssue.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/qcthat/dev/reference/UsesGit.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/qcthat/dev/reference/ValidateDFLabels.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/qcthat/dev/reference/index.html</loc></url>

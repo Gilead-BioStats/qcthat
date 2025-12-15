@@ -91,7 +91,7 @@ CreateRepoIssueRaw <- function(
   strRepo = GetGHRepo(),
   strGHToken = gh::gh_token()
 ) {
-  CallGHAPI(
+  lIssue <- CallGHAPI(
     "POST /repos/{owner}/{repo}/issues",
     title = strTitle,
     body = strBody,
@@ -102,6 +102,20 @@ CreateRepoIssueRaw <- function(
     strRepo = strRepo,
     strGHToken = strGHToken
   )
+  # Clear cache so future calls see the new issue.
+  if (length(lIssue)) {
+    ClearGHCache()
+  }
+  return(lIssue)
+}
+
+#' Clear the cache used by gh
+#'
+#' @returns `0` for success, `1` for failure, invisibly (as returned by
+#'   [unlink()]).
+#' @keywords internal
+ClearGHCache <- function() {
+  unlink(dir(tools::R_user_dir("gh", "cache"), full.names = TRUE))
 }
 
 #' Connect an issue to a parent issue
@@ -126,6 +140,7 @@ ConnectChildIssueByID <- function(
     strRepo = strRepo,
     strGHToken = strGHToken
   )
+  ClearGHCache()
   # Return this URL because it's the new piece of information for the child
   # issue.
   glue::glue(

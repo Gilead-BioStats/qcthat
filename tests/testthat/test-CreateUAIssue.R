@@ -85,6 +85,24 @@ test_that("CreateRepoIssueRaw hits the expected endpoint (#111)", {
   )
 })
 
+test_that("CreateRepoIssueRaw clears the cache when an issue is created (#116)", {
+  local_mocked_bindings(
+    CallGHAPI = function(...) list(...),
+    ClearGHCache = function() message("Cache cleared")
+  )
+  expect_message(
+    CreateRepoIssueRaw(
+      strTitle = "Test Issue",
+      strBody = "This is a test issue body.",
+      chrLabels = c("label1", "label2"),
+      strOwner = "test-owner",
+      strRepo = "test-repo",
+      strGHToken = "test-token"
+    ),
+    "Cache cleared"
+  )
+})
+
 test_that("ConnectChildIssueByID returns the URL to the parent (#111)", {
   local_mocked_bindings(
     CallGHAPI = function(...) list(...)

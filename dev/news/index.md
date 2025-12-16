@@ -1,6 +1,67 @@
 # Changelog
 
-## qcthat (development version)
+## qcthat 1.0.0
+
+You can now use this package to implement a QC framework for any R
+package associated with a GitHub repository.
+
+### New features
+
+A series of `QC*()` functions to generate QC reports for different sets
+of issues:
+
+- [`QCPackage()`](https://gilead-biostats.github.io/qcthat/dev/reference/QCPackage.md)
+  for all issues and tests for an R package and its associated GitHub
+  repository
+  ([\#46](https://github.com/Gilead-BioStats/qcthat/issues/46),
+  [\#69](https://github.com/Gilead-BioStats/qcthat/issues/69)).
+- [`QCCompletedIssues()`](https://gilead-biostats.github.io/qcthat/dev/reference/QCCompletedIssues.md)
+  for only issues closed as completed
+  ([\#69](https://github.com/Gilead-BioStats/qcthat/issues/69),
+  [\#80](https://github.com/Gilead-BioStats/qcthat/issues/80)).
+- [`QCIssues()`](https://gilead-biostats.github.io/qcthat/dev/reference/QCIssues.md)
+  for specific issues
+  ([\#86](https://github.com/Gilead-BioStats/qcthat/issues/86)), and
+  [`QCMilestones()`](https://gilead-biostats.github.io/qcthat/dev/reference/QCMilestones.md)
+  for issues associated with specific named milestones
+  ([\#68](https://github.com/Gilead-BioStats/qcthat/issues/68),
+  [\#88](https://github.com/Gilead-BioStats/qcthat/issues/88))
+- [`QCPR()`](https://gilead-biostats.github.io/qcthat/dev/reference/QCPR.md)
+  for issues associated with specific GitHub pull requests,
+  [`QCMergeGH()`](https://gilead-biostats.github.io/qcthat/dev/reference/QCMergeGH.md)
+  to generalize to issues associated with any GitHub merge using
+  GitHub’s graph to determine connections, and
+  [`QCMergeLocal()`](https://gilead-biostats.github.io/qcthat/dev/reference/QCMergeLocal.md)
+  to detect probable associations based on commit messages
+  ([\#68](https://github.com/Gilead-BioStats/qcthat/issues/68),
+  [\#84](https://github.com/Gilead-BioStats/qcthat/issues/84)).
+
+A series of `Action_*()` functions to set up GitHub actions for QC
+reports:
+
+- [`Action_QCCompletedIssues()`](https://gilead-biostats.github.io/qcthat/dev/reference/Action_QCCompletedIssues.md)
+  to run
+  [`QCCompletedIssues()`](https://gilead-biostats.github.io/qcthat/dev/reference/QCCompletedIssues.md)
+  ([\#69](https://github.com/Gilead-BioStats/qcthat/issues/69),
+  [\#73](https://github.com/Gilead-BioStats/qcthat/issues/73)).
+- [`Action_QCPRIssues()`](https://gilead-biostats.github.io/qcthat/dev/reference/Action_QCPRIssues.md)
+  to run
+  [`QCPR()`](https://gilead-biostats.github.io/qcthat/dev/reference/QCPR.md)
+  for specific pull requests
+  ([\#55](https://github.com/Gilead-BioStats/qcthat/issues/55),
+  [\#68](https://github.com/Gilead-BioStats/qcthat/issues/68)).
+- [`Action_QCMilestone()`](https://gilead-biostats.github.io/qcthat/dev/reference/Action_QCMilestone.md)
+  to run
+  [`QCMilestones()`](https://gilead-biostats.github.io/qcthat/dev/reference/QCMilestones.md)
+  for pull requests associated with milestones, and for releases with
+  names that match milestones
+  ([\#68](https://github.com/Gilead-BioStats/qcthat/issues/68),
+  [\#88](https://github.com/Gilead-BioStats/qcthat/issues/88)).
+
+### Other changes
+
+This release also includes a number of helper functions and internal
+improvements.
 
 ## qcthat 0.2.0
 

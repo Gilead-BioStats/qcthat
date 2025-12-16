@@ -9,7 +9,7 @@ tibble::tibble()."></head><body>
 
     <a class="navbar-brand me-2" href="../index.html">qcthat</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.2.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -45,7 +45,8 @@ tibble::tibble()."></head><body>
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">FetchRepoIssues</span><span class="op">(</span></span>
 <span>  strOwner <span class="op">=</span> <span class="fu">gh</span><span class="fu">::</span><span class="fu"><a href="https://gh.r-lib.org/reference/gh_tree_remote.html" class="external-link">gh_tree_remote</a></span><span class="op">(</span><span class="op">)</span><span class="op">[[</span><span class="st">"username"</span><span class="op">]</span><span class="op">]</span>,</span>
 <span>  strRepo <span class="op">=</span> <span class="fu">gh</span><span class="fu">::</span><span class="fu"><a href="https://gh.r-lib.org/reference/gh_tree_remote.html" class="external-link">gh_tree_remote</a></span><span class="op">(</span><span class="op">)</span><span class="op">[[</span><span class="st">"repo"</span><span class="op">]</span><span class="op">]</span>,</span>
-<span>  strGHToken <span class="op">=</span> <span class="fu">gh</span><span class="fu">::</span><span class="fu"><a href="https://gh.r-lib.org/reference/gh_token.html" class="external-link">gh_token</a></span><span class="op">(</span><span class="op">)</span></span>
+<span>  strGHToken <span class="op">=</span> <span class="fu">gh</span><span class="fu">::</span><span class="fu"><a href="https://gh.r-lib.org/reference/gh_token.html" class="external-link">gh_token</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  strState <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"all"</span>, <span class="st">"open"</span>, <span class="st">"closed"</span><span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -64,6 +65,12 @@ tibble::tibble()."></head><body>
 <dt id="arg-strghtoken">strGHToken<a class="anchor" aria-label="anchor" href="#arg-strghtoken"></a></dt>
 <dd><p>(<code>length-1 character</code>) GitHub token with permissions to
 read issues.</p></dd>
+
+
+<dt id="arg-strstate">strState<a class="anchor" aria-label="anchor" href="#arg-strstate"></a></dt>
+<dd><p>(<code>length-1 character</code>) State of issues or pull requests to
+fetch. Must be one of <code>"open"</code>, <code>"closed"</code>, or <code>"all"</code>. Defaults to
+<code>"open"</code> for pull requests and <code>"all"</code> for issues.</p></dd>
 
 </dl></div>
     <div class="section level2">
@@ -107,7 +114,7 @@ the issue is still open.</p></li>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.3.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.</p>
 </div>
 
     </footer></div>

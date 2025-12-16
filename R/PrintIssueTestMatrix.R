@@ -220,13 +220,13 @@ MakeITRIgnoredLabelsFooter <- function(
   if (
     lglShowIgnoredLabels &&
       length(lIgnoredIssues) &&
-      length(unlist(lIgnoredIssues))
+      NROW(dplyr::bind_rows(lIgnoredIssues))
   ) {
     strIgnoredIndicator <- ChooseEmoji("ignored", lglUseEmoji)
     lIgnoredMessages <- purrr::imap(
       lIgnoredIssues,
-      function(intIssues, strLabel) {
-        intN <- length(intIssues)
+      function(dfIssues, strLabel) {
+        intN <- NROW(dfIssues)
         if (intN > 0) {
           cli::format_inline(
             "{intN} issue{?s} with label {.str {strLabel}} {qty(intN)}{?was/were} ignored"

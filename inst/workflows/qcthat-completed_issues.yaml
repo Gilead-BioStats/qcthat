@@ -1,5 +1,5 @@
 # Workflow derived from
-# https://github.com/Gilead-BioStats/qcthat/tree/v0.3.0/inst/workflows/qcthat-completed_issues.yaml.
+# https://github.com/Gilead-BioStats/qcthat/tree/v1.0.0/inst/workflows/qcthat-completed_issues.yaml.
 on:
   push:
     branches: [main]
@@ -40,7 +40,7 @@ jobs:
 
       - uses: r-lib/actions/setup-r-dependencies@v2
         with:
-          extra-packages: local::., Gilead-BioStats/qcthat@dev
+          extra-packages: local::., Gilead-BioStats/qcthat@main
 
       - name: Generate Completed Issues QC Report
         run: |

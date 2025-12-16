@@ -1,5 +1,5 @@
 # Workflow derived from
-# https://github.com/Gilead-BioStats/qcthat/tree/v0.3.0/inst/workflows/qcthat-pr_issues.yaml.
+# https://github.com/Gilead-BioStats/qcthat/tree/v1.0.0/inst/workflows/qcthat-pr_issues.yaml.
 on:
   pull_request:
   # NOTE: This workflow cannot be triggered when an issue is connected to (or
@@ -36,7 +36,7 @@ jobs:
 
       - uses: r-lib/actions/setup-r-dependencies@v2
         with:
-          extra-packages: local::., Gilead-BioStats/qcthat@dev
+          extra-packages: local::., Gilead-BioStats/qcthat@main
 
       - name: Generate PR-Associated Issues QC Report
         run: |

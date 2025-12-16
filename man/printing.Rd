@@ -12,7 +12,9 @@
   x,
   ...,
   lglUseEmoji = getOption("qcthat.emoji", TRUE),
-  transform = identity
+  lglShowMilestones = TRUE,
+  lglShowIgnoredLabels = TRUE,
+  fnTransform = identity
 )
 }
 \arguments{
@@ -25,7 +27,14 @@ the emoji package is installed) or ASCII indicators (if \code{FALSE}) in the
 output. By default, this is determined by the \code{qcthat.emoji} option, which
 defaults to \code{TRUE}.}
 
-\item{transform}{(\code{function}) A function to transform the output before
+\item{lglShowMilestones}{(\verb{length-1 logical}) Whether to separate issues by
+milestones in reports.}
+
+\item{lglShowIgnoredLabels}{(\verb{length-1 logical}) Whether to show information
+in reports about issue labels (such as \code{"qcthat-nocov"}) that have been
+ignored.}
+
+\item{fnTransform}{(\code{function}) A function to transform the output before
 returning it. By default, this is \code{\link[base:identity]{base::identity()}} for \code{format()}
 (returns the formatted output), and \code{\link[base:writeLines]{base::writeLines()}} for \code{print()}
 (sends the output to \code{\link[=stdout]{stdout()}}).}

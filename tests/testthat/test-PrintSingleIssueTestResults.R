@@ -1,4 +1,4 @@
-test_that("Printing a SingleIssueTestResults returns input invisibly", {
+test_that("Printing a SingleIssueTestResults returns input invisibly (#39)", {
   lSingleIssueTestResults <- AsSingleIssueTestResults(NULL)
   # Adds `visible` flag to object
   test_result <- withVisible(print(lSingleIssueTestResults))
@@ -6,7 +6,7 @@ test_that("Printing a SingleIssueTestResults returns input invisibly", {
   expect_identical(test_result$value, lSingleIssueTestResults)
 })
 
-test_that("Printing a SingleIssueTestResults outputs a user-friendly tree", {
+test_that("Printing a SingleIssueTestResults outputs a user-friendly tree (#39)", {
   dfITMNested <- AsNestedIssueTestMatrix(CompileIssueTestMatrix(
     GenerateSampleDFRepoIssues(),
     GenerateSampleDFTestResults()

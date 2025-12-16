@@ -3,10 +3,7 @@
 #' Download (non-pull-request) issues in a repository and parse them into a tidy
 #' [tibble::tibble()].
 #'
-#' @param strOwner (`length-1 character`) GitHub username or organization name.
-#' @param strRepo (`length-1 character`) GitHub repository name.
-#' @param strGHToken (`length-1 character`) GitHub token with permissions to
-#'   read issues.
+#' @inheritParams shared-params
 #'
 #' @returns A `qcthat_Issues` object, which is a [tibble::tibble()] with
 #'   columns:
@@ -37,12 +34,14 @@
 FetchRepoIssues <- function(
   strOwner = gh::gh_tree_remote()[["username"]],
   strRepo = gh::gh_tree_remote()[["repo"]],
-  strGHToken = gh::gh_token()
+  strGHToken = gh::gh_token(),
+  strState = c("all", "open", "closed")
 ) {
   lIssuesRaw <- FetchRawRepoIssues(
     strOwner = strOwner,
     strRepo = strRepo,
-    strGHToken = strGHToken
+    strGHToken = strGHToken,
+    strState = strState
   )
   lIssuesNonPR <- RemovePRsFromIssues(lIssuesRaw)
   CompileIssuesDF(lIssuesNonPR)
@@ -50,28 +49,24 @@ FetchRepoIssues <- function(
 
 #' Fetch all repo issues from GitHub
 #'
-#' @inheritParams FetchRepoIssues
+#' @inheritParams shared-params
 #' @returns A list of raw issue objects as returned by [gh::gh()].
 #' @keywords internal
 FetchRawRepoIssues <- function(
   strOwner = gh::gh_tree_remote()[["username"]],
   strRepo = gh::gh_tree_remote()[["repo"]],
-  strGHToken = gh::gh_token()
+  strGHToken = gh::gh_token(),
+  strState = c("all", "open", "closed")
 ) {
-  # Tested manually.
-
-  # nocov start
-  gh::gh(
-    "GET /repos/{owner}/{repo}/issues",
-    owner = strOwner,
-    repo = strRepo,
-    state = "all",
-    .token = strGHToken,
-    .limit = Inf
+  strState <- match.arg(strState)
+  CallGHAPI(
+    strEndpoint = "GET /repos/{owner}/{repo}/issues",
+    strOwner = strOwner,
+    strRepo = strRepo,
+    strGHToken = strGHToken,
+    state = strState
   )
-  # nocov end
 }
-
 #' Get rid of PRs in the issues list
 #'
 #' @param lIssuesRaw (`list`) List of raw issue objects as returned by
@@ -85,10 +80,8 @@ RemovePRsFromIssues <- function(lIssuesRaw) {
   )
 }
 
-#' Get rid of PRs in the issues list
+#' Compile issues data frame
 #'
-#' @param lIssuesNonPR (`list`) List of issue objects as returned by
-#'   [RemovePRsFromIssues()].
 #' @inherit FetchRepoIssues return
 #' @keywords internal
 CompileIssuesDF <- function(lIssuesNonPR) {
@@ -145,7 +138,7 @@ EmptyIssuesDF <- function() {
 
 #' Transform issues list into tibble with expected columns
 #'
-#' @inheritParams CompileIssuesDF
+#' @inheritParams shared-params
 #' @returns A [tibble::tibble()] with raw issue data.
 #' @keywords internal
 EnframeIssues <- function(lIssuesNonPR) {
@@ -226,19 +219,6 @@ ExtractName <- function(lColumn, strName) {
       lObject[[strName]] %||% NA_character_
     }
   )
-}
-
-#' Flatten empty vectors into NULL
-#'
-#' @param x An object to potentially flatten.
-#'
-#' @returns `NULL` if `x` has length 0, otherwise `x`.
-#' @keywords internal
-NullIfEmpty <- function(x) {
-  if (!length(x)) {
-    return(NULL)
-  }
-  return(x)
 }
 
 #' Parse the ParentUrl column into its components

@@ -1,8 +1,6 @@
 #' Assign a class and expected structure to an object
 #'
 #' @param x Object to assign the class to.
-#' @param objShape (`0-row data.frame`, etc) Object with the expected structure.
-#' @param chrClass (`character`) Class name(s) to assign to the object.
 #' @returns An object with the expected structure and class. Note: If `x` has a
 #'   length and/or rows, the structure is not validated against `objShape`.
 #' @keywords internal
@@ -17,7 +15,7 @@ AsExpected <- function(x, objShape, chrClass) {
 #'
 #' @param x (`data.frame` or `list`) Object to convert to a list.
 #' @param lShape (`list`) List with the expected shape.
-#' @inheritParams AsExpected
+#' @inheritParams shared-params
 #' @returns A list with the expected shape and class.
 #' @keywords internal
 AsExpectedFlat <- function(x, lShape, chrClass) {
@@ -51,6 +49,19 @@ CountNonNA <- function(x) {
   sum(!is.na(unique(x)))
 }
 
+#' Flatten empty vectors into NULL
+#'
+#' @param x An object to potentially flatten.
+#'
+#' @returns `NULL` if `x` has length 0, otherwise `x`.
+#' @keywords internal
+NullIfEmpty <- function(x) {
+  if (!length(x)) {
+    return(NULL)
+  }
+  return(x)
+}
+
 #' Add an s to a word based on count
 #'
 #' @param strSingular (`character`) Singular form of the word.
@@ -60,4 +71,31 @@ CountNonNA <- function(x) {
 #' @keywords internal
 SimplePluralize <- function(strSingular, intN) {
   ifelse(intN == 1, strSingular, paste0(strSingular, "s"))
+}
+
+#' Get rid of list structure
+#'
+#' @param lPuffy (`list`) A potentially nested list with one type of object you
+#'   want to keep.
+#'
+#' @returns A sorted, unnamed vector of unique values from the unlisted list.
+#' @keywords internal
+CompletelyFlatten <- function(lPuffy) {
+  sort(unique(unname(unlist(lPuffy))))
+}
+
+#' Detect strings in lists of characters
+#'
+#' @param lCharacters (`list` of `character`) A list of character vectors.
+#' @param strTarget (`length-1 character`) The target string to search for.
+#' @returns A logical vector indicating whether `strTarget` is present in each
+#'   element of `lCharacters`.
+#' @keywords internal
+HaveString <- function(lCharacters, strTarget) {
+  purrr::map_lgl(
+    lCharacters,
+    function(chrSet) {
+      length(strTarget) && any(strTarget %in% chrSet)
+    }
+  )
 }

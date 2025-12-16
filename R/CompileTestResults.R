@@ -3,10 +3,7 @@
 #' Extract relevant information from a `testthat_results` object into a tidy
 #' [tibble::tibble()].
 #'
-#' @param lTestResults (`testthat_results`) A testthat test results object,
-#'   typically obtained by running something like [testthat::test_local()] with
-#'   `stop_on_failure = FALSE` and a reporter that doesn't cause issues in
-#'   parallel testing, like `reporter = "silent"`, and assigning it to a name.
+#' @inheritParams shared-params
 #'
 #' @returns A `qcthat_TestResults` object, which is a [tibble::tibble()] with
 #'   columns:
@@ -103,7 +100,7 @@ EmptyTestResultsDF <- function() {
 
 #' Extract disposition information from testthat results
 #'
-#' @inheritParams CompileTestResults
+#' @inheritParams shared-params
 #' @returns A factor with levels `pass`, `fail`, and `skip`.
 #' @keywords internal
 CompileDispositions <- function(lTestResults) {
@@ -127,6 +124,8 @@ ExtractDisposition <- function(lTestResult) {
     classes <- setdiff(classes, c("expectation", "condition", "error"))
     if (identical(classes, "expectation_success")) {
       return("pass")
+    } else if ("expectation_error" %in% classes) {
+      return("fail")
     } else if ("expectation_failure" %in% classes) {
       return("fail")
     } else if ("expectation_skip" %in% classes) {

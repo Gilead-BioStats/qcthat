@@ -1,4 +1,4 @@
-test_that("Printing a Milestone returns input invisibly", {
+test_that("Printing a Milestone returns input invisibly (#39)", {
   lMilestone <- AsMilestone(NULL)
   # Adds `visible` flag to object
   test_result <- withVisible(print(lMilestone))
@@ -6,7 +6,7 @@ test_that("Printing a Milestone returns input invisibly", {
   expect_identical(test_result$value, lMilestone)
 })
 
-test_that("Printing a Milestone outputs a user-friendly tree", {
+test_that("Printing a Milestone outputs a user-friendly tree (#39)", {
   dfITMNested <- AsNestedIssueTestMatrix(CompileIssueTestMatrix(
     GenerateSampleDFRepoIssues(),
     GenerateSampleDFTestResults()

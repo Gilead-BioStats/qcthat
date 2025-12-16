@@ -6,14 +6,11 @@
 \usage{
 MakeITRDispositionFooter(
   fctDisposition,
-  ...,
   lglUseEmoji = getOption("qcthat.emoji", TRUE)
 )
 }
 \arguments{
 \item{fctDisposition}{(\code{factor}) Disposition factor with levels \code{c("fail", "skip", "pass")}.}
-
-\item{...}{Additional arguments passed to methods.}
 
 \item{lglUseEmoji}{(\verb{length-1 logical}) Whether to use emojis (if \code{TRUE} and
 the emoji package is installed) or ASCII indicators (if \code{FALSE}) in the

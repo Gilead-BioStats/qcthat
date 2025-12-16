@@ -7,7 +7,7 @@
       ! Input must be a <testthat_results> object.
       i `lTestResults` is a number.
 
-# ExtractDisposition() helper errors informatively for weird results
+# ExtractDisposition() helper errors informatively for weird results (#32)
 
     Code
       ExtractDisposition(lTestResult)

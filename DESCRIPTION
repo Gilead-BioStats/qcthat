@@ -1,7 +1,7 @@
 Package: qcthat
 Title: Lightweight quality control framework for R packages used in
     Clinical Trials
-Version: 0.2.0
+Version: 1.0.0
 Authors@R: c(
     person("Jeremy", "Wildfire", , "jwildfire@gmail.com", role = c("aut", "cre")),
     person("Jon", "Harmon", , "jon.harmon@atorusresearch.com", role = "aut",
@@ -28,11 +28,15 @@ Imports:
     purrr,
     rlang,
     stringr,
+    testthat,
     tibble,
     tidyr
 Suggests: 
     emoji,
-    testthat (>= 3.0.0),
+    fs,
+    gert,
+    pkgload,
+    usethis,
     withr
 Config/Needs/website: rmarkdown
 Config/testthat/edition: 3

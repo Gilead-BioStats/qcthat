@@ -2,13 +2,9 @@
 % Please edit documentation in R/FetchRepoIssues.R
 \name{CompileIssuesDF}
 \alias{CompileIssuesDF}
-\title{Get rid of PRs in the issues list}
+\title{Compile issues data frame}
 \usage{
 CompileIssuesDF(lIssuesNonPR)
-}
-\arguments{
-\item{lIssuesNonPR}{(\code{list}) List of issue objects as returned by
-\code{\link[=RemovePRsFromIssues]{RemovePRsFromIssues()}}.}
 }
 \value{
 A \code{qcthat_Issues} object, which is a \code{\link[tibble:tibble]{tibble::tibble()}} with
@@ -36,6 +32,6 @@ the issue is still open.
 }
 }
 \description{
-Get rid of PRs in the issues list
+Compile issues data frame
 }
 \keyword{internal}

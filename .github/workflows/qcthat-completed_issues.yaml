@@ -47,8 +47,22 @@ jobs:
           IssueTestMatrix <- qcthat::QCCompletedIssues()
           print(IssueTestMatrix)
 
-          # Also print to a file.
-          print(IssueTestMatrix, con = "qc_report.txt")
+          # Also post as a comment.
+          prNumber <- if ("${{ github.event_name }}" == "pull_request") {
+            ${{ github.event.pull_request.number }}
+          } else if ("${{ inputs.pr }}" != "") {
+            ${{ inputs.pr }}
+          } else {
+            NA_integer_
+          }
+
+          if (!is.na(prNumber)) {
+            qcthat::CommentReport(
+              IssueTestMatrix,
+              "Completed Issues",
+              intPRNumber = prNumber
+            )
+          }
         shell: Rscript {0}
 
       # Delete or comment out this step to prevent PR comments.

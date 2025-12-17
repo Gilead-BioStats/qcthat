@@ -37,6 +37,11 @@ CommentIssue(
   (`length-1 character`) A unique ID for a comment within a given
   context, which is usually a hash of the title of the comment.
 
+- lglUpdate:
+
+  (`length-1 logical`) Whether to update an existing comment if it
+  already exists (rather than creating a new comment).
+
 - strOwner:
 
   (`length-1 character`) GitHub username or organization name.

@@ -157,6 +157,11 @@ Reused parameter definitions are gathered here for easier usage. Use
   (`length-1 logical`) Whether to show information in reports about
   issue labels (such as `"qcthat-nocov"`) that have been ignored.
 
+- lglUpdate:
+
+  (`length-1 logical`) Whether to update an existing comment if it
+  already exists (rather than creating a new comment).
+
 - lglUseEmoji:
 
   (`length-1 logical`) Whether to use emojis (if `TRUE` and the emoji

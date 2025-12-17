@@ -49,10 +49,10 @@ test_that("FetchRefPRNumber fetches PR number for a branch (#84)", {
     }
   )
   expect_equal(FetchRefPRNumber("feature-branch"), 25L)
-  expect_equal(FetchRefPRNumber("no-branch"), integer(0))
+  expect_equal(FetchRefPRNumber("no-branch"), integer())
   expect_warning(
     {
-      expect_equal(FetchRefPRNumber("other-branch"), integer(0))
+      expect_equal(FetchRefPRNumber("other-branch"), integer())
     },
     "Multiple PRs found"
   )

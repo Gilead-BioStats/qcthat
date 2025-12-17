@@ -121,18 +121,18 @@ EnframePRs <- function(lPRs) {
 #' @keywords internal
 EmptyPRsDF <- function() {
   tibble::tibble(
-    PR = integer(0),
-    Title = character(0),
-    State = character(0),
-    HeadRef = character(0),
-    BaseRef = character(0),
-    Body = character(0),
-    MergeCommitSHA = character(0),
-    IsDraft = logical(0),
-    Url = character(0),
-    CreatedAt = as.POSIXct(character(0)),
-    ClosedAt = as.POSIXct(character(0)),
-    MergedAt = as.POSIXct(character(0))
+    PR = integer(),
+    Title = character(),
+    State = character(),
+    HeadRef = character(),
+    BaseRef = character(),
+    Body = character(),
+    MergeCommitSHA = character(),
+    IsDraft = logical(),
+    Url = character(),
+    CreatedAt = as.POSIXct(character()),
+    ClosedAt = as.POSIXct(character()),
+    MergedAt = as.POSIXct(character())
   )
 }
 
@@ -143,18 +143,18 @@ EmptyPRsDF <- function() {
 #' @keywords internal
 EmptyPRsDFRaw <- function() {
   tibble::tibble(
-    PR = integer(0),
-    Title = character(0),
-    State = character(0),
+    PR = integer(),
+    Title = character(),
+    State = character(),
     HeadRef = list(),
     BaseRef = list(),
-    Body = character(0),
-    MergeCommitSHA = character(0),
-    IsDraft = logical(0),
-    Url = character(0),
-    CreatedAt = character(0),
-    ClosedAt = character(0),
-    MergedAt = character(0)
+    Body = character(),
+    MergeCommitSHA = character(),
+    IsDraft = logical(),
+    Url = character(),
+    CreatedAt = character(),
+    ClosedAt = character(),
+    MergedAt = character()
   )
 }
 

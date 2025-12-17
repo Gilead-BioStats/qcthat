@@ -309,7 +309,7 @@ AsMilestone <- function(x) {
   AsExpectedFlat(
     x,
     lShape = list(
-      Milestone = character(0),
+      Milestone = character(),
       IssueTestResults = tibble::tibble()
     ),
     chrClass = "qcthat_Milestone"

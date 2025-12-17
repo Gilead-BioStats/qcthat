@@ -50,6 +50,8 @@
 #' @param intPRNumber (`length-1 integer`) The number of the pull request to
 #'   fetch information about.
 #' @param intPRNumbers (`integer`) A vector of pull request numbers.
+#' @param lCommentsRaw (`list`) List of raw comment objects as returned by
+#'   [gh::gh()].
 #' @param lIssuesNonPR (`list`) List of issue objects as returned by
 #'   [RemovePRsFromIssues()].
 #' @param lTestResults (`testthat_results`) A testthat test results object,
@@ -71,10 +73,15 @@
 #'   included in the filter (but the report still returns results). Defaults to
 #'   `TRUE`.
 #' @param objShape (`0-row data.frame`, etc) Object with the expected structure.
-#' @param strBody (`length-1 character`) The body of an issue, in GitHub
-#'   markdown.
+#' @param strBody (`length-1 character`) The body of an issue, PR, or comment,
+#'   in GitHub markdown.
+#' @param strBodyCompiled (`length-1 character`) The full body of an issue, PR,
+#'   or comment, in GitHub markdown, including components such as a title and a
+#'   hidden `qcthat-comment-id`.
 #' @param strChildIssueID (`length-1 character`) The `id` field of an issue to
 #'   connect to a parent issue.
+#' @param strCommentID (`length-1 character`) A unique ID for a comment within a
+#'   given context, which is usually a hash of the title of the comment.
 #' @param strConditionSubclass (`length-1 character`) A subclass for a
 #'   condition.
 #' @param strConditionClass (`length-1 character`) One of "error", "warning", or

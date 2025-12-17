@@ -21,7 +21,7 @@ FormatHeader.qcthat_Milestone <- function(x, ...) {
 #' @export
 FormatBody.qcthat_Milestone <- function(x, ...) {
   if (!length(x) || !any(lengths(x))) {
-    return(character(0))
+    return(character())
   }
   lFormattedIssues <- purrr::map(
     AsRowDFList(x$IssueTestResults, AsSingleIssueTestResults),
@@ -42,11 +42,11 @@ AsSingleIssueTestResults <- function(x) {
   AsExpectedFlat(
     x,
     lShape = list(
-      Issue = integer(0),
-      Title = character(0),
-      State = character(0),
-      StateReason = character(0),
-      Type = character(0),
+      Issue = integer(),
+      Title = character(),
+      State = character(),
+      StateReason = character(),
+      Type = character(),
       TestResults = tibble::tibble()
     ),
     chrClass = "qcthat_SingleIssueTestResults"

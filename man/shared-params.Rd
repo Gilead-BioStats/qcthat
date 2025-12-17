@@ -72,6 +72,9 @@ fetch information about.}
 
 \item{intPRNumbers}{(\code{integer}) A vector of pull request numbers.}
 
+\item{lCommentsRaw}{(\code{list}) List of raw comment objects as returned by
+\code{\link[gh:gh]{gh::gh()}}.}
+
 \item{lIssuesNonPR}{(\code{list}) List of issue objects as returned by
 \code{\link[=RemovePRsFromIssues]{RemovePRsFromIssues()}}.}
 
@@ -101,11 +104,18 @@ included in the filter (but the report still returns results). Defaults to
 
 \item{objShape}{(\verb{0-row data.frame}, etc) Object with the expected structure.}
 
-\item{strBody}{(\verb{length-1 character}) The body of an issue, in GitHub
-markdown.}
+\item{strBody}{(\verb{length-1 character}) The body of an issue, PR, or comment,
+in GitHub markdown.}
+
+\item{strBodyCompiled}{(\verb{length-1 character}) The full body of an issue, PR,
+or comment, in GitHub markdown, including components such as a title and a
+hidden \code{qcthat-comment-id}.}
 
 \item{strChildIssueID}{(\verb{length-1 character}) The \code{id} field of an issue to
 connect to a parent issue.}
+
+\item{strCommentID}{(\verb{length-1 character}) A unique ID for a comment within a
+given context, which is usually a hash of the title of the comment.}
 
 \item{strConditionSubclass}{(\verb{length-1 character}) A subclass for a
 condition.}

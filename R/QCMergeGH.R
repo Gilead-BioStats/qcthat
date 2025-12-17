@@ -98,7 +98,7 @@ FetchAllMergePRNumbers <- function(
   strGHToken = gh::gh_token()
 ) {
   if (!length(chrCommitSHAs)) {
-    return(integer(0))
+    return(integer())
   }
   lPRNumbers <- FetchAllMergePRNumbersRaw(
     chrCommitSHAs = chrCommitSHAs,
@@ -162,7 +162,7 @@ FetchAllPRIssueNumbers <- function(
   strGHToken = gh::gh_token()
 ) {
   if (!length(intPRNumbers)) {
-    return(integer(0))
+    return(integer())
   }
   lIssues <- FetchAllPRIssueNumbersRaw(
     intPRNumbers = intPRNumbers,

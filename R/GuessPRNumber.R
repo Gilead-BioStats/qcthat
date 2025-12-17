@@ -47,7 +47,7 @@ GetGHAPRNumber <- function() {
 #'
 #' @inheritParams shared-params
 #'
-#' @returns An integer pull request number, or `integer(0)` if no matching PR
+#' @returns An integer pull request number, or `integer()` if no matching PR
 #'   (or more than one matching PR) is found.
 #' @export
 #'
@@ -69,14 +69,14 @@ FetchRefPRNumber <- function(
     dplyr::filter(.data$HeadRef == strSourceRef)
 
   if (!NROW(dfPRs)) {
-    return(integer(0))
+    return(integer())
   }
   if (NROW(dfPRs) == 1L) {
     return(dfPRs$PR)
   }
   cli::cli_warn(c(
-    "Multiple PRs found. Returning `integer(0)`.",
+    "Multiple PRs found. Returning `integer()`.",
     i = "PRs: {dfPRs$PR}"
   ))
-  return(integer(0))
+  return(integer())
 }

@@ -37,7 +37,7 @@ test_that("CommentIssue updates when told to do so (#83)", {
   )
 })
 
-test_that("UpdateIssueComment updates when a comment exists", {
+test_that("UpdateIssueComment updates when a comment exists (#83)", {
   local_mocked_bindings(
     FetchIssueCommentGHID = function(...) 12345,
     UpdateCommentRaw = function(...) "Success",
@@ -57,7 +57,7 @@ test_that("UpdateIssueComment updates when a comment exists", {
   )
 })
 
-test_that("UpdateIssueComment creates when a comment doesn't exist", {
+test_that("UpdateIssueComment creates when a comment doesn't exist (#83)", {
   local_mocked_bindings(
     FetchIssueCommentGHID = function(...) double(),
     UpdateCommentRaw = function(...) stop("Should not be called"),
@@ -77,7 +77,7 @@ test_that("UpdateIssueComment creates when a comment doesn't exist", {
   )
 })
 
-test_that("FetchIssueCommentGHID returns the correct GH ID when found", {
+test_that("FetchIssueCommentGHID returns the correct GH ID when found (#83)", {
   local_mocked_bindings(
     CallGHAPI = function(...) {
       list(
@@ -103,7 +103,7 @@ test_that("FetchIssueCommentGHID returns the correct GH ID when found", {
   )
 })
 
-test_that("FetchIssueCommentGHID returns nothing when no matching comment found", {
+test_that("FetchIssueCommentGHID returns nothing when no matching comment found (#83)", {
   local_mocked_bindings(
     CallGHAPI = function(...) {
       list(
@@ -129,7 +129,7 @@ test_that("FetchIssueCommentGHID returns nothing when no matching comment found"
   )
 })
 
-test_that("UpdateCommentRaw calls the API as expected", {
+test_that("UpdateCommentRaw calls the API as expected (#83)", {
   local_mocked_bindings(
     CallGHAPI = function(...) list(...)
   )
@@ -150,7 +150,7 @@ test_that("UpdateCommentRaw calls the API as expected", {
   )
 })
 
-test_that("CommentIssueRaw calls the API as expected", {
+test_that("CommentIssueRaw calls the API as expected (#83)", {
   local_mocked_bindings(
     CallGHAPI = function(...) list(...)
   )
@@ -168,5 +168,36 @@ test_that("CommentIssueRaw calls the API as expected", {
   expect_equal(
     test_result[[1]],
     "POST /repos/{owner}/{repo}/issues/{issue_number}/comments"
+  )
+})
+
+test_that("CommentIssue updates a comment as expected (#83)", {
+  ExpectUserAccepts(
+    c(
+      "A new comment appears on the targeted issue.",
+      "The comment updates when you re-comment"
+    ),
+    intIssue = 83,
+    chrInstructions = 'Run this code. Make sure `strTitle` is unique, for example by changing "My" to your name.
+
+```r
+# Make this semi-unique, so it definitely will not use an existing comment.
+strTitle <- "My Test Comment"
+CommentIssue(
+  83,
+  strTitle = strTitle
+  strBody = "This is a test comment created for testing purposes."
+)
+```
+
+After confirming that step, run this code to update the comment.
+
+```r
+CommentIssue(
+  83,
+  strTitle = strTitle
+  strBody = "This is an update to an existing comment."
+)
+```'
   )
 })

@@ -159,6 +159,11 @@ fetch information about.</p></dd>
 <dd><p>(<code>integer</code>) A vector of pull request numbers.</p></dd>
 
 
+<dt id="arg-lcommentsraw">lCommentsRaw<a class="anchor" aria-label="anchor" href="#arg-lcommentsraw"></a></dt>
+<dd><p>(<code>list</code>) List of raw comment objects as returned by
+<code><a href="https://gh.r-lib.org/reference/gh.html" class="external-link">gh::gh()</a></code>.</p></dd>
+
+
 <dt id="arg-lissuesnonpr">lIssuesNonPR<a class="anchor" aria-label="anchor" href="#arg-lissuesnonpr"></a></dt>
 <dd><p>(<code>list</code>) List of issue objects as returned by
 <code><a href="RemovePRsFromIssues.html">RemovePRsFromIssues()</a></code>.</p></dd>
@@ -205,13 +210,24 @@ included in the filter (but the report still returns results). Defaults to
 
 
 <dt id="arg-strbody">strBody<a class="anchor" aria-label="anchor" href="#arg-strbody"></a></dt>
-<dd><p>(<code>length-1 character</code>) The body of an issue, in GitHub
-markdown.</p></dd>
+<dd><p>(<code>length-1 character</code>) The body of an issue, PR, or comment,
+in GitHub markdown.</p></dd>
+
+
+<dt id="arg-strbodycompiled">strBodyCompiled<a class="anchor" aria-label="anchor" href="#arg-strbodycompiled"></a></dt>
+<dd><p>(<code>length-1 character</code>) The full body of an issue, PR,
+or comment, in GitHub markdown, including components such as a title and a
+hidden <code>qcthat-comment-id</code>.</p></dd>
 
 
 <dt id="arg-strchildissueid">strChildIssueID<a class="anchor" aria-label="anchor" href="#arg-strchildissueid"></a></dt>
 <dd><p>(<code>length-1 character</code>) The <code>id</code> field of an issue to
 connect to a parent issue.</p></dd>
+
+
+<dt id="arg-strcommentid">strCommentID<a class="anchor" aria-label="anchor" href="#arg-strcommentid"></a></dt>
+<dd><p>(<code>length-1 character</code>) A unique ID for a comment within a
+given context, which is usually a hash of the title of the comment.</p></dd>
 
 
 <dt id="arg-strconditionsubclass">strConditionSubclass<a class="anchor" aria-label="anchor" href="#arg-strconditionsubclass"></a></dt>

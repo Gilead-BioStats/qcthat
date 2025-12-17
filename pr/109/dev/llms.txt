@@ -298,6 +298,8 @@ By contributing to this project, you agree to abide by its terms.
   : Use a GitHub Action to QC a milestone
 - [`Action_QCPRIssues()`](https://gilead-biostats.github.io/qcthat/dev/reference/Action_QCPRIssues.md)
   : Use a GitHub Action to QC pull-request-associated issues
+- [`CommentIssue()`](https://gilead-biostats.github.io/qcthat/dev/reference/CommentIssue.md)
+  : Comment on a GitHub Issue
 - [`CompileIssueTestMatrix()`](https://gilead-biostats.github.io/qcthat/dev/reference/CompileIssueTestMatrix.md)
   : Create a nested tibble of issues and tests
 - [`CompileTestResults()`](https://gilead-biostats.github.io/qcthat/dev/reference/CompileTestResults.md)

@@ -124,6 +124,11 @@ Reused parameter definitions are gathered here for easier usage. Use
 
   (`integer`) A vector of pull request numbers.
 
+- lCommentsRaw:
+
+  (`list`) List of raw comment objects as returned by
+  [`gh::gh()`](https://gh.r-lib.org/reference/gh.html).
+
 - lIssuesNonPR:
 
   (`list`) List of issue objects as returned by
@@ -171,12 +176,24 @@ Reused parameter definitions are gathered here for easier usage. Use
 
 - strBody:
 
-  (`length-1 character`) The body of an issue, in GitHub markdown.
+  (`length-1 character`) The body of an issue, PR, or comment, in GitHub
+  markdown.
+
+- strBodyCompiled:
+
+  (`length-1 character`) The full body of an issue, PR, or comment, in
+  GitHub markdown, including components such as a title and a hidden
+  `qcthat-comment-id`.
 
 - strChildIssueID:
 
   (`length-1 character`) The `id` field of an issue to connect to a
   parent issue.
+
+- strCommentID:
+
+  (`length-1 character`) A unique ID for a comment within a given
+  context, which is usually a hash of the title of the comment.
 
 - strConditionSubclass:
 

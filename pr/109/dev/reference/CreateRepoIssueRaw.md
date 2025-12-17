@@ -24,7 +24,8 @@ CreateRepoIssueRaw(
 
 - strBody:
 
-  (`length-1 character`) The body of an issue, in GitHub markdown.
+  (`length-1 character`) The body of an issue, PR, or comment, in GitHub
+  markdown.
 
 - ...:
 

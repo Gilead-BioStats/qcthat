@@ -34,7 +34,8 @@ FetchRefPRNumber(
 
 ## Value
 
-An integer pull request number, or `integer(0)` if no matching PR (or
+An integer pull request number, or
+[`integer()`](https://rdrr.io/r/base/integer.html) if no matching PR (or
 more than one matching PR) is found.
 
 ## Examples

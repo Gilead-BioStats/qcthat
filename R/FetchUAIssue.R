@@ -25,7 +25,7 @@ FetchUAIssue <- function(
       .data$Title == TitleUAIssue(chrChecks)
     ) |>
     # If somehow multiple issues match, only use the first one.
-    head(1)
+    dplyr::slice(1)
   if (!NROW(dfMatchingIssue)) {
     dfMatchingIssue <- CreateUAIssue(
       intIssue = intIssue,

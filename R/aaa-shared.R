@@ -65,6 +65,8 @@
 #' @param lglShowIgnoredLabels (`length-1 logical`) Whether to show information
 #'   in reports about issue labels (such as `"qcthat-nocov"`) that have been
 #'   ignored.
+#' @param lglUpdate (`length-1 logical`) Whether to update an existing comment
+#'   if it already exists (rather than creating a new comment).
 #' @param lglUseEmoji (`length-1 logical`) Whether to use emojis (if `TRUE` and
 #'   the emoji package is installed) or ASCII indicators (if `FALSE`) in the
 #'   output. By default, this is determined by the `qcthat.emoji` option, which

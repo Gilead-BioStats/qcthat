@@ -93,6 +93,9 @@ milestones in reports.}
 in reports about issue labels (such as \code{"qcthat-nocov"}) that have been
 ignored.}
 
+\item{lglUpdate}{(\verb{length-1 logical}) Whether to update an existing comment
+if it already exists (rather than creating a new comment).}
+
 \item{lglUseEmoji}{(\verb{length-1 logical}) Whether to use emojis (if \code{TRUE} and
 the emoji package is installed) or ASCII indicators (if \code{FALSE}) in the
 output. By default, this is determined by the \code{qcthat.emoji} option, which

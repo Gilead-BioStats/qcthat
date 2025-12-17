@@ -55,31 +55,10 @@ jobs:
           IssueTestMatrix <- qcthat::QCPR(intPRNumber = prNumber)
           print(IssueTestMatrix)
 
-          # Also post as a comment. See #99 for the plan to improve this.
-          options(pillar.subtle = FALSE)
-          chrReport <- format(IssueTestMatrix)
-          chrHeader <- chrReport[[1]]
-          chrReport <- chrReport[-1]
-          chrFooter <- ""
-
-          intFooterRowHack <- which(!nchar(chrReport))
-          if (length(intFooterRowHack)) {
-            chrFooter <- chrReport[seq_along(chrReport) > intFooterRowHack]
-            chrReport <- chrReport[seq_along(chrReport) < intFooterRowHack]
-          }
-
-          strTitle <- "[{qcthat}](https://gilead-biostats.github.io/qcthat/) Report: PR-Associated Issues"
-          strBody <- glue::glue(
-            "<details>",
-            "<summary>{chrHeader}</summary>",
-            "",
-            "```",
-            paste(chrReport, collapse = "\n"),
-            "```",
-            "</details>",
-            paste(chrFooter, collapse = "\n\n"),
-            .sep = "\n"
+          # Also post as a comment.
+          qcthat::CommentReport(
+            IssueTestMatrix,
+            "PR-Associated Issues",
+            intPRNumber = prNumber
           )
-
-          qcthat::CommentIssue(prNumber, strTitle, strBody)
         shell: Rscript {0}

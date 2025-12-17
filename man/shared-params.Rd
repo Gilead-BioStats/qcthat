@@ -150,6 +150,9 @@ package. Will be expanded using \code{\link[gert:git_repo]{gert::git_find()}}.}
 
 \item{strRepo}{(\verb{length-1 character}) GitHub repository name.}
 
+\item{strReportType}{(\verb{length-1 character}) The main title of the report,
+such as \code{"Completed Issues"} or \code{"PR-Associated Issues"}.}
+
 \item{strSourceRef}{(\verb{length-1 character}) Name of the git reference that
 contains changes. Defaults to the active branch in this repository.}
 

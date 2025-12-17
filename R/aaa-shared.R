@@ -104,6 +104,8 @@
 #' @param strPkgRoot (`length-1 character`) The path to a directory in the
 #'   package. Will be expanded using [gert::git_find()].
 #' @param strRepo (`length-1 character`) GitHub repository name.
+#' @param strReportType (`length-1 character`) The main title of the report,
+#'   such as `"Completed Issues"` or `"PR-Associated Issues"`.
 #' @param strSourceRef (`length-1 character`) Name of the git reference that
 #'   contains changes. Defaults to the active branch in this repository.
 #' @param strState (`length-1 character`) State of issues or pull requests to

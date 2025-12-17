@@ -10,6 +10,8 @@
   : Use a GitHub Action to QC pull-request-associated issues
 - [`CommentIssue()`](https://gilead-biostats.github.io/qcthat/dev/reference/CommentIssue.md)
   : Comment on a GitHub Issue
+- [`CommentReport()`](https://gilead-biostats.github.io/qcthat/dev/reference/CommentReport.md)
+  : Comment on a PR or issue with a QC report
 - [`CompileIssueTestMatrix()`](https://gilead-biostats.github.io/qcthat/dev/reference/CompileIssueTestMatrix.md)
   : Create a nested tibble of issues and tests
 - [`CompileTestResults()`](https://gilead-biostats.github.io/qcthat/dev/reference/CompileTestResults.md)

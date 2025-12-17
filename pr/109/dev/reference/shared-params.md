@@ -249,6 +249,11 @@ Reused parameter definitions are gathered here for easier usage. Use
 
   (`length-1 character`) GitHub repository name.
 
+- strReportType:
+
+  (`length-1 character`) The main title of the report, such as
+  `"Completed Issues"` or `"PR-Associated Issues"`.
+
 - strSourceRef:
 
   (`length-1 character`) Name of the git reference that contains

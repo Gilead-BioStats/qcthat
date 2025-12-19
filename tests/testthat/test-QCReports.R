@@ -3,7 +3,9 @@ test_that("QCPackage wraps the core qcthat functions (#46, #69)", {
     FetchRepoIssues = function(...) "repo issues",
     GetPkgRoot = function(strPkgRoot, ...) strPkgRoot,
     CompileTestResults = function(...) "test results",
-    CompileIssueTestMatrix = function(...) paste(..., sep = "|")
+    CompileIssueTestMatrix = function(...) {
+      paste(unlist(list(...)), collapse = "|")
+    }
   )
   expect_identical(
     QCPackage(
@@ -12,7 +14,7 @@ test_that("QCPackage wraps the core qcthat functions (#46, #69)", {
       strRepo = "repo",
       strGHToken = "token"
     ),
-    "repo issues|test results|qcthat-nocov"
+    "repo issues|test results|qcthat-nocov|qcthat-uat"
   )
   expect_identical(
     QCPackage(
@@ -22,7 +24,7 @@ test_that("QCPackage wraps the core qcthat functions (#46, #69)", {
       strGHToken = "token",
       chrIgnoredLabels = character()
     ),
-    "repo issues|test results|"
+    "repo issues|test results"
   )
 })
 

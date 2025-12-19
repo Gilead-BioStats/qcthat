@@ -1,11 +1,14 @@
 test_that("Default helpers return expected values (#90)", {
-  expect_equal(DefaultIgnoreLabels(), "qcthat-nocov")
-  expect_match(DefaultIgnoreLabelDescriptions(), "Do not include")
+  expect_equal(DefaultIgnoreLabels(), c("qcthat-nocov", "qcthat-uat"))
+  expect_match(
+    DefaultIgnoreLabelDescriptions(),
+    "(Do not include)|(user acceptance testing)"
+  )
 
   dfDefaults <- DefaultIgnoreLabelsDF()
   expect_s3_class(dfDefaults, "tbl_df")
   expect_named(dfDefaults, c("Label", "Description", "Color"))
-  expect_equal(dfDefaults$Label, "qcthat-nocov")
+  expect_equal(dfDefaults$Label, c("qcthat-nocov", "qcthat-uat"))
 })
 
 test_that("SetupGHLabels creates missing labels (#90)", {
@@ -34,7 +37,7 @@ test_that("SetupGHLabels skips existing labels (#90)", {
   local_mocked_bindings(
     CallGHAPI = function(strEndpoint, ...) {
       if (grepl("GET", strEndpoint)) {
-        return(list(list(name = "qcthat-nocov")))
+        return(list(list(name = "qcthat-nocov"), list(name = "qcthat-uat")))
       } else if (grepl("POST", strEndpoint)) {
         stop("Should not attempt to create label if it exists")
       }

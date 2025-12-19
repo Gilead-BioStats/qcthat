@@ -11,8 +11,8 @@ A character vector of label names.
 }
 \description{
 Returns the character vector of issue labels that are ignored by default in
-QC reports. Currently, this list only includes \code{"qcthat-nocov"}, but it may
-change as we add more standard labels.
+QC reports. Currently, this list only includes \code{"qcthat-nocov"} and
+\code{"qcthat-uat"}, but it may change as we add more standard labels.
 }
 \examples{
 DefaultIgnoreLabels()

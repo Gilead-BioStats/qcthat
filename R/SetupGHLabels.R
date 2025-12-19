@@ -1,8 +1,8 @@
 #' Default labels to ignore
 #'
 #' Returns the character vector of issue labels that are ignored by default in
-#' QC reports. Currently, this list only includes `"qcthat-nocov"`, but it may
-#' change as we add more standard labels.
+#' QC reports. Currently, this list only includes `"qcthat-nocov"` and
+#' `"qcthat-uat"`, but it may change as we add more standard labels.
 #'
 #' @returns A character vector of label names.
 #' @export
@@ -10,7 +10,7 @@
 #' @examples
 #' DefaultIgnoreLabels()
 DefaultIgnoreLabels <- function() {
-  "qcthat-nocov"
+  c("qcthat-nocov", "qcthat-uat")
 }
 
 #' Default descriptions for ignored labels
@@ -21,7 +21,10 @@ DefaultIgnoreLabels <- function() {
 #' @returns A character vector of label descriptions.
 #' @keywords internal
 DefaultIgnoreLabelDescriptions <- function() {
-  "Do not include in issue-test coverage reports"
+  c(
+    "Do not include in issue-test coverage reports",
+    "Special issues for user acceptance testing"
+  )
 }
 
 #' Default ignored labels as a tibble
@@ -57,8 +60,8 @@ DefaultIgnoreLabelsDF <- function() {
 #' @export
 SetupGHLabels <- function(
   dfLabels = DefaultIgnoreLabelsDF(),
-  strOwner = gh::gh_tree_remote()[["username"]],
-  strRepo = gh::gh_tree_remote()[["repo"]],
+  strOwner = GetGHOwner(),
+  strRepo = GetGHRepo(),
   strGHToken = gh::gh_token()
 ) {
   dfLabels <- PrepareDFLabels(dfLabels, strOwner, strRepo, strGHToken)
@@ -85,8 +88,8 @@ SetupGHLabels <- function(
 #'   repository.
 #' @keywords internal
 FetchGHLabels <- function(
-  strOwner = gh::gh_tree_remote()[["username"]],
-  strRepo = gh::gh_tree_remote()[["repo"]],
+  strOwner = GetGHOwner(),
+  strRepo = GetGHRepo(),
   strGHToken = gh::gh_token()
 ) {
   lExistingLabels <- CallGHAPI(
@@ -105,8 +108,8 @@ FetchGHLabels <- function(
 #' @keywords internal
 PrepareDFLabels <- function(
   dfLabels,
-  strOwner = gh::gh_tree_remote()[["username"]],
-  strRepo = gh::gh_tree_remote()[["repo"]],
+  strOwner = GetGHOwner(),
+  strRepo = GetGHRepo(),
   strGHToken = gh::gh_token()
 ) {
   ValidateDFLabels(dfLabels)
@@ -130,12 +133,12 @@ PrepareDFLabels <- function(
 ValidateDFLabels <- function(dfLabels) {
   missingCols <- setdiff(c("Label", "Description", "Color"), colnames(dfLabels))
   if (length(missingCols)) {
-    cli::cli_abort(
+    qcthatAbort(
       c(
         "The labels data frame is missing required columns: ",
         i = "{.val {missingCols}}"
       ),
-      class = "qcthat-error-invalid_dfLabels"
+      strErrorSubclass = "invalid_dfLabels"
     )
   }
 }
@@ -176,8 +179,8 @@ CreateGHLabel <- function(
   strLabelDescription = "{qcthat}: A new label",
   strLabelColor = "#444444",
   lglVerbose = getOption("qcthat-verbose", FALSE),
-  strOwner = gh::gh_tree_remote()[["username"]],
-  strRepo = gh::gh_tree_remote()[["repo"]],
+  strOwner = GetGHOwner(),
+  strRepo = GetGHRepo(),
   strGHToken = gh::gh_token()
 ) {
   lGHAPIReturn <- CallGHAPI(
@@ -193,13 +196,13 @@ CreateGHLabel <- function(
     if (lglVerbose) {
       cli::cli_inform(
         "Created label {.val {strLabel}}.",
-        class = "qcthat-message-create_label"
+        class = CompileConditionClasses("create_label", "message")
       )
     }
     return(invisible(lGHAPIReturn))
   }
-  cli::cli_abort(
+  qcthatAbort(
     "Failed to create label {.val {strLabel}}.",
-    class = "qcthat-error-create_label"
+    strErrorSubclass = "create_label"
   )
 }

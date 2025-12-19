@@ -1,3 +1,67 @@
+#' Find the owner of the target repository
+#'
+#' A wrapper to safely call [gh::gh_tree_remote()] and extract the owner
+#' (`"username"`).
+#'
+#' @inheritParams shared-params
+#'
+#' @returns A length-1 `character` vector representing the GitHub owner of the
+#'   repository at `strPkgRoot`.
+#' @export
+#'
+#' @examplesIf interactive()
+#'   GetGHOwner()
+GetGHOwner <- function(strPkgRoot = ".") {
+  remote <- GetGHRemote(strPkgRoot)
+  return(remote[["username"]])
+}
+
+#' Find the name of the target repository
+#'
+#' A wrapper to safely call [gh::gh_tree_remote()] and extract the name
+#' (`"repo"`).
+#'
+#' @inheritParams shared-params
+#'
+#' @returns A length-1 `character` vector representing the GitHub repo name of
+#'   the repository at `strPkgRoot`.
+#' @export
+#'
+#' @examplesIf interactive()
+#'   GetGHRepo()
+GetGHRepo <- function(strPkgRoot = ".") {
+  remote <- GetGHRemote(strPkgRoot)
+  return(remote[["repo"]])
+}
+
+#' Find the target repository
+#'
+#' A wrapper to safely call [gh::gh_tree_remote()] if the project uses git.
+#'
+#' @inheritParams shared-params
+#'
+#' @returns A list representing the GitHub repository at `strPkgRoot`.
+#' @keywords internal
+GetGHRemote <- function(strPkgRoot = ".") {
+  # nocov start
+  if (UsesGit(strPkgRoot)) {
+    repo <- gert::git_find(strPkgRoot)
+    return(gh::gh_tree_remote(repo))
+  }
+  # nocov end
+}
+
+#' Check whether a package uses git
+#'
+#' @inheritParams shared-params
+#' @returns A length-1 `logical` indicating whether the package at `strPkgRoot`
+#'   is a git repository.
+#' @keywords internal
+UsesGit <- function(strPkgRoot = ".") {
+  repo <- tryCatch(gert::git_find(strPkgRoot), error = function(e) NULL)
+  !is.null(repo)
+}
+
 #' Wrapper around gh::gh() for mocking
 #'
 #' @param strEndpoint (`length-1 character`) The endpoint to call, e.g., `"GET
@@ -10,8 +74,8 @@
 #' @keywords internal
 CallGHAPI <- function(
   strEndpoint,
-  strOwner = gh::gh_tree_remote()[["username"]],
-  strRepo = gh::gh_tree_remote()[["repo"]],
+  strOwner = GetGHOwner(),
+  strRepo = GetGHRepo(),
   strGHToken = gh::gh_token(),
   numLimit = Inf,
   ...
@@ -41,8 +105,8 @@ CallGHAPI <- function(
 FetchGQL <- function(
   strQuery,
   ...,
-  strOwner = gh::gh_tree_remote()[["username"]],
-  strRepo = gh::gh_tree_remote()[["repo"]],
+  strOwner = GetGHOwner(),
+  strRepo = GetGHRepo(),
   strGHToken = gh::gh_token()
 ) {
   # nocov start

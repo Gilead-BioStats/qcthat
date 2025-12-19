@@ -8,8 +8,8 @@ ExtractGHClosingIssues(
   chrCommitMessages,
   chrKeywords = c("close", "closes", "closed", "fix", "fixes", "fixed", "resolve",
     "resolves", "resolved"),
-  strOwner = gh::gh_tree_remote()[["username"]],
-  strRepo = gh::gh_tree_remote()[["repo"]]
+  strOwner = GetGHOwner(),
+  strRepo = GetGHRepo()
 )
 }
 \arguments{

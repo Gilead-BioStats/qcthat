@@ -150,7 +150,7 @@ test_that("CountNonNA counts unique non-NA values correctly (#39)", {
   vecInput3 <- c("a", "b", "a", "c", NA, "b")
   expect_equal(CountNonNA(vecInput3), 3)
 
-  vecInput4 <- numeric(0)
+  vecInput4 <- double()
   expect_equal(CountNonNA(vecInput4), 0)
 })
 
@@ -161,8 +161,8 @@ test_that("SimplePluralize returns correct singular/plural forms (#39)", {
 })
 
 test_that("NullIfEmpty returns NULL for empty inputs (#34)", {
-  expect_null(NullIfEmpty(integer(0)))
-  expect_null(NullIfEmpty(character(0)))
+  expect_null(NullIfEmpty(integer()))
+  expect_null(NullIfEmpty(character()))
   expect_null(NullIfEmpty(list()))
   expect_null(NullIfEmpty(NULL))
   expect_equal(NullIfEmpty(c(1, 2, 3)), c(1, 2, 3))

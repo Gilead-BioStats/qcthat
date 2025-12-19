@@ -9,20 +9,20 @@ test_that("FetchRepoIssues returns an empty df when no issues found (#34)", {
   expect_equal(
     test_result,
     tibble::tibble(
-      Issue = integer(0),
-      Title = character(0),
-      Body = character(0),
+      Issue = integer(),
+      Title = character(),
+      Body = character(),
       Labels = list(),
-      State = character(0),
-      StateReason = character(0),
-      Milestone = character(0),
-      Type = character(0),
-      Url = character(0),
-      ParentOwner = character(0),
-      ParentRepo = character(0),
-      ParentNumber = integer(0),
-      CreatedAt = as.POSIXct(character(0)),
-      ClosedAt = as.POSIXct(character(0))
+      State = character(),
+      StateReason = character(),
+      Milestone = character(),
+      Type = character(),
+      Url = character(),
+      ParentOwner = character(),
+      ParentRepo = character(),
+      ParentNumber = integer(),
+      CreatedAt = as.POSIXct(character()),
+      ClosedAt = as.POSIXct(character())
     )
   )
 })

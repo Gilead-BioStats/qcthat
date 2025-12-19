@@ -10,8 +10,8 @@ Action_QCPRIssues(lglOverwrite = FALSE, strPkgRoot = ".")
 \item{lglOverwrite}{(\verb{length-1 logical}) Whether to overwrite files if they
 already exist.}
 
-\item{strPkgRoot}{(\verb{length-1 character}) The path to the root directory of
-the package. Will be expanded using \code{\link[pkgload:packages]{pkgload::pkg_path()}}.}
+\item{strPkgRoot}{(\verb{length-1 character}) The path to a directory in the
+package. Will be expanded using \code{\link[gert:git_repo]{gert::git_find()}}.}
 }
 \value{
 The path to the created GitHub Action YAML file (invisibly).

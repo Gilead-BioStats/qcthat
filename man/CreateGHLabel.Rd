@@ -9,8 +9,8 @@ CreateGHLabel(
   strLabelDescription = "{qcthat}: A new label",
   strLabelColor = "#444444",
   lglVerbose = getOption("qcthat-verbose", FALSE),
-  strOwner = gh::gh_tree_remote()[["username"]],
-  strRepo = gh::gh_tree_remote()[["repo"]],
+  strOwner = GetGHOwner(),
+  strRepo = GetGHRepo(),
   strGHToken = gh::gh_token()
 )
 }

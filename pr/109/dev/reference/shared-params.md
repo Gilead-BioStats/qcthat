@@ -208,6 +208,10 @@ Reused parameter definitions are gathered here for easier usage. Use
 
   (`length-1 character`) One of "error", "warning", or "message".
 
+- strDescription:
+
+  (`length-1 character`) A brief description of a user expectation.
+
 - strErrorSubclass:
 
   (`length-1 character`) A subclass for an error condition.

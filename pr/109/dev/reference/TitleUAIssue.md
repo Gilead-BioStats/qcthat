@@ -5,15 +5,18 @@ Generate a title for a UAT issue
 ## Usage
 
 ``` r
-TitleUAIssue(chrChecks)
+TitleUAIssue(strDescription, intIssue)
 ```
 
 ## Arguments
 
-- chrChecks:
+- strDescription:
 
-  (`character`) Items for the user to check. These will be preceded by
-  checkboxes in the associated issue.
+  (`length-1 character`) A brief description of a user expectation.
+
+- intIssue:
+
+  (`length-1 integer`) The issue with which a check is associated.
 
 ## Value
 

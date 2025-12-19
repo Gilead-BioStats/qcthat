@@ -7,9 +7,10 @@ complete.
 
 ``` r
 ExpectUserAccepts(
-  chrChecks,
+  strDescription,
   intIssue,
   chrInstructions = character(),
+  chrChecks = character(),
   strFailureMode = c("ignore", "fail"),
   strOwner = GetGHOwner(),
   strRepo = GetGHRepo(),
@@ -19,10 +20,9 @@ ExpectUserAccepts(
 
 ## Arguments
 
-- chrChecks:
+- strDescription:
 
-  (`character`) Items for the user to check. These will be preceded by
-  checkboxes in the associated issue.
+  (`length-1 character`) A brief description of a user expectation.
 
 - intIssue:
 
@@ -32,6 +32,11 @@ ExpectUserAccepts(
 
   (`character`) Instructions for how to review an issue. Included in the
   associated issue before the checklist.
+
+- chrChecks:
+
+  (`character`) Items for the user to check. These will be preceded by
+  checkboxes in the associated issue.
 
 - strFailureMode:
 

@@ -6,8 +6,9 @@ Create a user-acceptance sub-issue for an issue
 
 ``` r
 CreateUAIssue(
+  strDescription,
   intIssue,
-  chrChecks,
+  chrChecks = character(),
   chrInstructions = character(),
   strOwner = GetGHOwner(),
   strRepo = GetGHRepo(),
@@ -16,6 +17,10 @@ CreateUAIssue(
 ```
 
 ## Arguments
+
+- strDescription:
+
+  (`length-1 character`) A brief description of a user expectation.
 
 - intIssue:
 

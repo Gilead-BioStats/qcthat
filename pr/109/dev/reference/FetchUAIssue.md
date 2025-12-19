@@ -6,8 +6,9 @@ Fetch or create a user-acceptance issue
 
 ``` r
 FetchUAIssue(
+  strDescription,
   intIssue,
-  chrChecks,
+  chrChecks = character(),
   chrInstructions = character(),
   strOwner = GetGHOwner(),
   strRepo = GetGHRepo(),
@@ -16,6 +17,10 @@ FetchUAIssue(
 ```
 
 ## Arguments
+
+- strDescription:
+
+  (`length-1 character`) A brief description of a user expectation.
 
 - intIssue:
 

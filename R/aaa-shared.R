@@ -25,6 +25,7 @@
 #'   separate piece of the vector).
 #' @param chrTests (`character`) A vector of test descriptions from a
 #'   [CompileIssueTestMatrix()] matrix.
+#' @param dttmTimestamp (`POSIXct`) A system timestamp.
 #' @param dfITM (`qcthat_IssueTestMatrix`) A `qcthat_IssueTestMatrix` object as
 #'   returned by [AsIssueTestMatrix()].
 #' @param dfRepoIssues (`qcthat_Issues` or data frame) Data frame of GitHub
@@ -45,11 +46,13 @@
 #'   return from git logs. Leaving this at the default should almost always be
 #'   fine, but you can reduce the number if your repository has a long commit
 #'   history and this function is slow.
-#' @param intParentIssue (`length-1 integer`) The number of an issue to which a
-#'   child issue will attach.
+#' @param intParentIssue (`length-1 integer`) The number of the parent issue in
+#'   a parent-child issue relationship.
 #' @param intPRNumber (`length-1 integer`) The number of the pull request to
 #'   fetch information about.
 #' @param intPRNumbers (`integer`) A vector of pull request numbers.
+#' @param intUATIssue (`integer`) The number of an issue that tracks
+#'   user-acceptance testing.
 #' @param lCommentsRaw (`list`) List of raw comment objects as returned by
 #'   [gh::gh()].
 #' @param lIssuesNonPR (`list`) List of issue objects as returned by
@@ -90,6 +93,8 @@
 #'   "message".
 #' @param strDescription (`length-1 character`) A brief description of a user
 #'   expectation.
+#' @param strDisposition (`length-1 character`) The result of a test, such as
+#'   "pass", "fail", or "skip", or "accepted" or "pending" for UAT.
 #' @param strErrorSubclass (`length-1 character`) A subclass for an error
 #'   condition.
 #' @param strErrorMessage (`length-1 character`) A message to include in and

@@ -16,8 +16,8 @@ CreateChildIssue(
 )
 }
 \arguments{
-\item{intParentIssue}{(\verb{length-1 integer}) The number of an issue to which a
-child issue will attach.}
+\item{intParentIssue}{(\verb{length-1 integer}) The number of the parent issue in
+a parent-child issue relationship.}
 
 \item{strTitle}{(\verb{length-1 character}) A title for an issue.}
 

@@ -36,6 +36,8 @@ separate piece of the vector).}
 \item{chrTests}{(\code{character}) A vector of test descriptions from a
 \code{\link[=CompileIssueTestMatrix]{CompileIssueTestMatrix()}} matrix.}
 
+\item{dttmTimestamp}{(\code{POSIXct}) A system timestamp.}
+
 \item{dfITM}{(\code{qcthat_IssueTestMatrix}) A \code{qcthat_IssueTestMatrix} object as
 returned by \code{\link[=AsIssueTestMatrix]{AsIssueTestMatrix()}}.}
 
@@ -64,13 +66,16 @@ return from git logs. Leaving this at the default should almost always be
 fine, but you can reduce the number if your repository has a long commit
 history and this function is slow.}
 
-\item{intParentIssue}{(\verb{length-1 integer}) The number of an issue to which a
-child issue will attach.}
+\item{intParentIssue}{(\verb{length-1 integer}) The number of the parent issue in
+a parent-child issue relationship.}
 
 \item{intPRNumber}{(\verb{length-1 integer}) The number of the pull request to
 fetch information about.}
 
 \item{intPRNumbers}{(\code{integer}) A vector of pull request numbers.}
+
+\item{intUATIssue}{(\code{integer}) The number of an issue that tracks
+user-acceptance testing.}
 
 \item{lCommentsRaw}{(\code{list}) List of raw comment objects as returned by
 \code{\link[gh:gh]{gh::gh()}}.}
@@ -128,6 +133,9 @@ condition.}
 
 \item{strDescription}{(\verb{length-1 character}) A brief description of a user
 expectation.}
+
+\item{strDisposition}{(\verb{length-1 character}) The result of a test, such as
+"pass", "fail", or "skip", or "accepted" or "pending" for UAT.}
 
 \item{strErrorSubclass}{(\verb{length-1 character}) A subclass for an error
 condition.}

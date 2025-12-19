@@ -36,6 +36,7 @@ Imports:
 Suggests: 
     emoji,
     fs,
+    httr2,
     usethis,
     withr
 Config/Needs/website: rmarkdown

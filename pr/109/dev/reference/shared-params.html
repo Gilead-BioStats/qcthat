@@ -99,6 +99,10 @@ separate piece of the vector).</p></dd>
 <code><a href="CompileIssueTestMatrix.html">CompileIssueTestMatrix()</a></code> matrix.</p></dd>
 
 
+<dt id="arg-dttmtimestamp">dttmTimestamp<a class="anchor" aria-label="anchor" href="#arg-dttmtimestamp"></a></dt>
+<dd><p>(<code>POSIXct</code>) A system timestamp.</p></dd>
+
+
 <dt id="arg-dfitm">dfITM<a class="anchor" aria-label="anchor" href="#arg-dfitm"></a></dt>
 <dd><p>(<code>qcthat_IssueTestMatrix</code>) A <code>qcthat_IssueTestMatrix</code> object as
 returned by <code><a href="AsIssueTestMatrix.html">AsIssueTestMatrix()</a></code>.</p></dd>
@@ -146,8 +150,8 @@ history and this function is slow.</p></dd>
 
 
 <dt id="arg-intparentissue">intParentIssue<a class="anchor" aria-label="anchor" href="#arg-intparentissue"></a></dt>
-<dd><p>(<code>length-1 integer</code>) The number of an issue to which a
-child issue will attach.</p></dd>
+<dd><p>(<code>length-1 integer</code>) The number of the parent issue in
+a parent-child issue relationship.</p></dd>
 
 
 <dt id="arg-intprnumber">intPRNumber<a class="anchor" aria-label="anchor" href="#arg-intprnumber"></a></dt>
@@ -157,6 +161,11 @@ fetch information about.</p></dd>
 
 <dt id="arg-intprnumbers">intPRNumbers<a class="anchor" aria-label="anchor" href="#arg-intprnumbers"></a></dt>
 <dd><p>(<code>integer</code>) A vector of pull request numbers.</p></dd>
+
+
+<dt id="arg-intuatissue">intUATIssue<a class="anchor" aria-label="anchor" href="#arg-intuatissue"></a></dt>
+<dd><p>(<code>integer</code>) The number of an issue that tracks
+user-acceptance testing.</p></dd>
 
 
 <dt id="arg-lcommentsraw">lCommentsRaw<a class="anchor" aria-label="anchor" href="#arg-lcommentsraw"></a></dt>
@@ -248,6 +257,11 @@ condition.</p></dd>
 <dt id="arg-strdescription">strDescription<a class="anchor" aria-label="anchor" href="#arg-strdescription"></a></dt>
 <dd><p>(<code>length-1 character</code>) A brief description of a user
 expectation.</p></dd>
+
+
+<dt id="arg-strdisposition">strDisposition<a class="anchor" aria-label="anchor" href="#arg-strdisposition"></a></dt>
+<dd><p>(<code>length-1 character</code>) The result of a test, such as
+"pass", "fail", or "skip", or "accepted" or "pending" for UAT.</p></dd>
 
 
 <dt id="arg-strerrorsubclass">strErrorSubclass<a class="anchor" aria-label="anchor" href="#arg-strerrorsubclass"></a></dt>

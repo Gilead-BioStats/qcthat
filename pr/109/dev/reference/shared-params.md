@@ -59,6 +59,10 @@ Reused parameter definitions are gathered here for easier usage. Use
   [`CompileIssueTestMatrix()`](https://gilead-biostats.github.io/qcthat/dev/reference/CompileIssueTestMatrix.md)
   matrix.
 
+- dttmTimestamp:
+
+  (`POSIXct`) A system timestamp.
+
 - dfITM:
 
   (`qcthat_IssueTestMatrix`) A `qcthat_IssueTestMatrix` object as
@@ -112,8 +116,8 @@ Reused parameter definitions are gathered here for easier usage. Use
 
 - intParentIssue:
 
-  (`length-1 integer`) The number of an issue to which a child issue
-  will attach.
+  (`length-1 integer`) The number of the parent issue in a parent-child
+  issue relationship.
 
 - intPRNumber:
 
@@ -123,6 +127,11 @@ Reused parameter definitions are gathered here for easier usage. Use
 - intPRNumbers:
 
   (`integer`) A vector of pull request numbers.
+
+- intUATIssue:
+
+  (`integer`) The number of an issue that tracks user-acceptance
+  testing.
 
 - lCommentsRaw:
 
@@ -211,6 +220,11 @@ Reused parameter definitions are gathered here for easier usage. Use
 - strDescription:
 
   (`length-1 character`) A brief description of a user expectation.
+
+- strDisposition:
+
+  (`length-1 character`) The result of a test, such as "pass", "fail",
+  or "skip", or "accepted" or "pending" for UAT.
 
 - strErrorSubclass:
 

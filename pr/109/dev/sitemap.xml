@@ -111,6 +111,8 @@
 <url><loc>https://gilead-biostats.github.io/qcthat/dev/reference/HaveString.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/qcthat/dev/reference/InstallAction.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/qcthat/dev/reference/InstallFile.html</loc></url>
+<url><loc>https://gilead-biostats.github.io/qcthat/dev/reference/IsOnline.html</loc></url>
+<url><loc>https://gilead-biostats.github.io/qcthat/dev/reference/LogUAT.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/qcthat/dev/reference/MakeITRCoverageFooter.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/qcthat/dev/reference/MakeITRDispositionFooter.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/qcthat/dev/reference/MakeITRIgnoredLabelsFooter.html</loc></url>

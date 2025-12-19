@@ -21,8 +21,8 @@ CreateChildIssue(
 
 - intParentIssue:
 
-  (`length-1 integer`) The number of an issue to which a child issue
-  will attach.
+  (`length-1 integer`) The number of the parent issue in a parent-child
+  issue relationship.
 
 - strTitle:
 

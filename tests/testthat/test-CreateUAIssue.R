@@ -2,9 +2,12 @@ test_that("CreateUAIssue constructs the expected call (#111)", {
   local_mocked_bindings(
     CreateChildIssue = function(...) list(...)
   )
+  intIssue <- 123L
+  strDescription <- "The thing renders"
   expect_equal(
     CreateUAIssue(
-      intIssue = 123L,
+      strDescription = strDescription,
+      intIssue = intIssue,
       chrChecks = c("Check 1", "Check 2"),
       chrInstructions = "These are instructions",
       strOwner = "test-owner",
@@ -12,9 +15,9 @@ test_that("CreateUAIssue constructs the expected call (#111)", {
       strGHToken = "test-token"
     ),
     list(
-      123L,
-      TitleUAIssue(c("Check 1", "Check 2")),
-      "Review the following checks and close this issue to indicate your acceptance.\n\nThese are instructions\n\n- [ ] Check 1\n- [ ] Check 2",
+      intIssue,
+      TitleUAIssue(strDescription, intIssue),
+      "Close this issue to indicate your acceptance.\n\nThese are instructions\n\n- [ ] Check 1\n\n- [ ] Check 2",
       chrLabels = "qcthat-uat",
       strOwner = "test-owner",
       strRepo = "test-repo",
@@ -125,6 +128,7 @@ test_that("CreateUAIssue returns NULL when it can't create an issue (#120)", {
   expect_null({
     CreateUAIssue(
       intIssue = 123L,
+      strDescription = "The thing renders",
       chrChecks = c("Check 1", "Check 2"),
       chrInstructions = "These are instructions",
       strOwner = "test-owner",

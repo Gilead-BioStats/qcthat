@@ -4,24 +4,22 @@
 #' @returns A data frame representing the created user-acceptance issue.
 #' @keywords internal
 CreateUAIssue <- function(
+  strDescription,
   intIssue,
-  chrChecks,
+  chrChecks = character(),
   chrInstructions = character(),
   strOwner = GetGHOwner(),
   strRepo = GetGHRepo(),
   strGHToken = gh::gh_token()
 ) {
-  strTitle <- TitleUAIssue(chrChecks)
-  strBody <- paste(
-    stringr::str_flatten(
-      c(
-        "Review the following checks and close this issue to indicate your acceptance.",
-        chrInstructions
-      ),
-      collapse = "\n\n"
+  strTitle <- TitleUAIssue(strDescription, intIssue)
+  strBody <- stringr::str_flatten(
+    c(
+      "Close this issue to indicate your acceptance.",
+      chrInstructions,
+      glue::glue("- [ ] {chrChecks}", sep = "\n")
     ),
-    paste("- [ ]", chrChecks, collapse = "\n"),
-    sep = "\n\n"
+    collapse = "\n\n"
   )
   tryCatch(
     {

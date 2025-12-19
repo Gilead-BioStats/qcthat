@@ -5,16 +5,14 @@
 #' @returns A list representing the user-acceptance issue.
 #' @keywords internal
 FetchUAIssue <- function(
+  strDescription,
   intIssue,
-  chrChecks,
+  chrChecks = character(),
   chrInstructions = character(),
   strOwner = GetGHOwner(),
   strRepo = GetGHRepo(),
   strGHToken = gh::gh_token()
 ) {
-  # I *think* a hash of the checks is the best way to find these, but we should
-  # also figure out some sort of cleanup mechanism to identify unused UAT
-  # issues.
   dfMatchingIssue <- FetchIssueUAChildren(
     intIssue = intIssue,
     strOwner = strOwner,
@@ -22,12 +20,13 @@ FetchUAIssue <- function(
     strGHToken = strGHToken
   ) |>
     dplyr::filter(
-      .data$Title == TitleUAIssue(chrChecks)
+      .data$Title == TitleUAIssue(strDescription, intIssue)
     ) |>
     # If somehow multiple issues match, only use the first one.
-    dplyr::slice(1)
+    dplyr::slice_head(n = 1)
   if (!NROW(dfMatchingIssue)) {
     dfMatchingIssue <- CreateUAIssue(
+      strDescription = strDescription,
       intIssue = intIssue,
       chrChecks = chrChecks,
       chrInstructions = chrInstructions,
@@ -88,6 +87,6 @@ FetchIssueChildren <- function(
 #' @inheritParams shared-params
 #' @returns A string title for the UAT issue.
 #' @keywords internal
-TitleUAIssue <- function(chrChecks) {
-  glue::glue("qcthat Acceptance Issue (ID {rlang::hash(chrChecks)})")
+TitleUAIssue <- function(strDescription, intIssue) {
+  glue::glue("qcthat Acceptance for #{intIssue}: {strDescription}")
 }

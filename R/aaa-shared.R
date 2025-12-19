@@ -88,6 +88,8 @@
 #'   condition.
 #' @param strConditionClass (`length-1 character`) One of "error", "warning", or
 #'   "message".
+#' @param strDescription (`length-1 character`) A brief description of a user
+#'   expectation.
 #' @param strErrorSubclass (`length-1 character`) A subclass for an error
 #'   condition.
 #' @param strErrorMessage (`length-1 character`) A message to include in and

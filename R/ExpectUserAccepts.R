@@ -7,9 +7,10 @@
 #' @returns The input `chrChecks`, invisibly.
 #' @export
 ExpectUserAccepts <- function(
-  chrChecks,
+  strDescription,
   intIssue,
   chrInstructions = character(),
+  chrChecks = character(),
   strFailureMode = c("ignore", "fail"),
   strOwner = GetGHOwner(),
   strRepo = GetGHRepo(),
@@ -18,9 +19,10 @@ ExpectUserAccepts <- function(
   if (!OnCran() && UsesGit()) {
     strFailureMode <- rlang::arg_match(strFailureMode)
     lUAIssue <- FetchUAIssue(
+      strDescription = strDescription,
       intIssue = intIssue,
-      chrChecks = chrChecks,
       chrInstructions = chrInstructions,
+      chrChecks = chrChecks,
       strOwner = strOwner,
       strRepo = strRepo,
       strGHToken = strGHToken
@@ -34,7 +36,7 @@ ExpectUserAccepts <- function(
       ))
     }
   }
-  return(invisible(chrChecks))
+  return(invisible(strDescription))
 }
 
 #' Check whether this is being tested on CRAN

@@ -126,6 +126,9 @@ condition.}
 \item{strConditionClass}{(\verb{length-1 character}) One of "error", "warning", or
 "message".}
 
+\item{strDescription}{(\verb{length-1 character}) A brief description of a user
+expectation.}
+
 \item{strErrorSubclass}{(\verb{length-1 character}) A subclass for an error
 condition.}
 

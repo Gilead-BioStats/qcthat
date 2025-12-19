@@ -1,13 +1,15 @@
-test_that("ExpectUserAccepts returns the input chrChecks", {
+test_that("ExpectUserAccepts returns the input strDescription", {
   local_mocked_bindings(
     OnCran = function() TRUE
   )
+  strDescription <- "The thing renders"
   chrChecks <- c("check1", "check2")
   result <- ExpectUserAccepts(
-    chrChecks = chrChecks,
-    intIssue = 123
+    strDescription,
+    intIssue = 12L,
+    chrChecks = chrChecks
   )
-  expect_identical(result, chrChecks)
+  expect_identical(result, strDescription)
 })
 
 test_that("ExpectUserAccepts passes when the issue is closed", {
@@ -20,8 +22,9 @@ test_that("ExpectUserAccepts passes when the issue is closed", {
   )
   expect_success({
     ExpectUserAccepts(
-      chrChecks = c("check1", "check2"),
-      intIssue = 123
+      strDescription = "The thing renders",
+      intIssue = 12L,
+      chrChecks = c("check1", "check2")
     )
   })
 })
@@ -37,8 +40,9 @@ test_that("ExpectUserAccepts fails when the issue isn't closed and strFailureMod
   expect_failure(
     {
       ExpectUserAccepts(
+        strDescription = "The thing renders",
+        intIssue = 12L,
         chrChecks = c("check1", "check2"),
-        intIssue = 123,
         strFailureMode = "fail"
       )
     },
@@ -55,11 +59,13 @@ test_that("ExpectUserAccepts returns silently when the issue isn't closed and st
     }
   )
   chrChecks <- c("check1", "check2")
+  strDescription <- "The thing renders"
   result <- ExpectUserAccepts(
-    chrChecks = chrChecks,
-    intIssue = 123
+    strDescription = strDescription,
+    intIssue = 12L,
+    chrChecks = chrChecks
   )
-  expect_identical(result, chrChecks)
+  expect_identical(result, strDescription)
 })
 
 test_that("OnCran returns FALSE when envvar unset or true (#113)", {

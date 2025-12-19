@@ -5,9 +5,10 @@
 \title{Does a user accept the feature?}
 \usage{
 ExpectUserAccepts(
-  chrChecks,
+  strDescription,
   intIssue,
   chrInstructions = character(),
+  chrChecks = character(),
   strFailureMode = c("ignore", "fail"),
   strOwner = GetGHOwner(),
   strRepo = GetGHRepo(),
@@ -15,14 +16,17 @@ ExpectUserAccepts(
 )
 }
 \arguments{
-\item{chrChecks}{(\code{character}) Items for the user to check. These will be
-preceded by checkboxes in the associated issue.}
+\item{strDescription}{(\verb{length-1 character}) A brief description of a user
+expectation.}
 
 \item{intIssue}{(\verb{length-1 integer}) The issue with which a check is
 associated.}
 
 \item{chrInstructions}{(\code{character}) Instructions for how to review an issue.
 Included in the associated issue before the checklist.}
+
+\item{chrChecks}{(\code{character}) Items for the user to check. These will be
+preceded by checkboxes in the associated issue.}
 
 \item{strFailureMode}{(\verb{length-1 character}) Whether to \code{"ignore"} failures
 (default) or \code{"fail"} (and show as a failure in testthat tests).}

@@ -4,11 +4,14 @@
 \alias{TitleUAIssue}
 \title{Generate a title for a UAT issue}
 \usage{
-TitleUAIssue(chrChecks)
+TitleUAIssue(strDescription, intIssue)
 }
 \arguments{
-\item{chrChecks}{(\code{character}) Items for the user to check. These will be
-preceded by checkboxes in the associated issue.}
+\item{strDescription}{(\verb{length-1 character}) A brief description of a user
+expectation.}
+
+\item{intIssue}{(\verb{length-1 integer}) The issue with which a check is
+associated.}
 }
 \value{
 A string title for the UAT issue.

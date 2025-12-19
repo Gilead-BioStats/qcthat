@@ -173,11 +173,12 @@ test_that("CommentIssueRaw calls the API as expected (#83)", {
 
 test_that("CommentIssue updates a comment as expected (#83)", {
   ExpectUserAccepts(
-    c(
+    "CommentIssue updates a comment",
+    intIssue = 83,
+    chrChecks = c(
       "A new comment appears on the targeted issue.",
       "The comment updates when you re-comment"
     ),
-    intIssue = 83,
     chrInstructions = 'Run this code. Make sure `strTitle` is unique, for example by changing "My" to your name.
 
 ```r

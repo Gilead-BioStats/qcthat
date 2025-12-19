@@ -5,8 +5,9 @@
 \title{Fetch or create a user-acceptance issue}
 \usage{
 FetchUAIssue(
+  strDescription,
   intIssue,
-  chrChecks,
+  chrChecks = character(),
   chrInstructions = character(),
   strOwner = GetGHOwner(),
   strRepo = GetGHRepo(),
@@ -14,6 +15,9 @@ FetchUAIssue(
 )
 }
 \arguments{
+\item{strDescription}{(\verb{length-1 character}) A brief description of a user
+expectation.}
+
 \item{intIssue}{(\verb{length-1 integer}) The issue with which a check is
 associated.}
 

@@ -11,8 +11,7 @@ FormatReportGH(dfITM)
 returned by \code{\link[=AsIssueTestMatrix]{AsIssueTestMatrix()}}.}
 }
 \value{
-A character string containing the report formatted in GitHub
-markdown.
+A string containing the report formatted in GitHub markdown.
 }
 \description{
 Format a QC report in GitHub markdown

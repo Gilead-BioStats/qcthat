@@ -61,4 +61,7 @@ jobs:
             "PR-Associated Issues",
             intPRNumber = prNumber
           )
+
+          # Also post a comment for UAT.
+          qcthat::CommentUAT(intPRNumber = prNumber)
         shell: Rscript {0}

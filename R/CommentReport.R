@@ -37,8 +37,7 @@ CommentReport <- function(
 #' Format a QC report in GitHub markdown
 #'
 #' @inheritParams shared-params
-#' @returns A character string containing the report formatted in GitHub
-#'   markdown.
+#' @returns A string containing the report formatted in GitHub markdown.
 #' @keywords internal
 FormatReportGH <- function(dfITM) {
   lOptions <- options(pillar.subtle = FALSE)

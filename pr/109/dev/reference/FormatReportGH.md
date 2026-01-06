@@ -18,4 +18,4 @@ FormatReportGH(dfITM)
 
 ## Value
 
-A character string containing the report formatted in GitHub markdown.
+A string containing the report formatted in GitHub markdown.

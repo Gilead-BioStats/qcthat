@@ -34,6 +34,7 @@
 <url><loc>https://gilead-biostats.github.io/qcthat/dev/reference/CommentIssue.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/qcthat/dev/reference/CommentIssueRaw.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/qcthat/dev/reference/CommentReport.html</loc></url>
+<url><loc>https://gilead-biostats.github.io/qcthat/dev/reference/CommentUAT.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/qcthat/dev/reference/CompileCommentsDF.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/qcthat/dev/reference/CompileConditionClasses.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/qcthat/dev/reference/CompileDispositions.html</loc></url>
@@ -98,6 +99,7 @@
 <url><loc>https://gilead-biostats.github.io/qcthat/dev/reference/FormatKey.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/qcthat/dev/reference/FormatReportGH.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/qcthat/dev/reference/FormatSITRHeader.html</loc></url>
+<url><loc>https://gilead-biostats.github.io/qcthat/dev/reference/FormatUATGH.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/qcthat/dev/reference/GHKeywordRegex.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/qcthat/dev/reference/GQLWrapper.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/qcthat/dev/reference/GetActiveBranch.html</loc></url>

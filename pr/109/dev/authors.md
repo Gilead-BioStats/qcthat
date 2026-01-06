@@ -17,7 +17,7 @@
 Source:
 [`DESCRIPTION`](https://github.com/Gilead-BioStats/qcthat/blob/fix-65-acceptance_testing/DESCRIPTION)
 
-Wildfire J, Harmon J, Andriychuk N, Roumaya M (2025). *qcthat:
+Wildfire J, Harmon J, Andriychuk N, Roumaya M (2026). *qcthat:
 Lightweight quality control framework for R packages used in Clinical
 Trials*. R package version 1.0.0,
 <https://gilead-biostats.github.io/qcthat/>.
@@ -25,7 +25,7 @@ Trials*. R package version 1.0.0,
     @Manual{,
       title = {qcthat: Lightweight quality control framework for R packages used in Clinical Trials},
       author = {Jeremy Wildfire and Jon Harmon and Natalia Andriychuk and Matt Roumaya},
-      year = {2025},
+      year = {2026},
       note = {R package version 1.0.0},
       url = {https://gilead-biostats.github.io/qcthat/},
     }

@@ -93,7 +93,9 @@
 <url><loc>https://gilead-biostats.github.io/qcthat/dev/reference/FindKeywordIssues.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/qcthat/dev/reference/FormatBody.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/qcthat/dev/reference/FormatFooter.html</loc></url>
+<url><loc>https://gilead-biostats.github.io/qcthat/dev/reference/FormatFooterMain.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/qcthat/dev/reference/FormatHeader.html</loc></url>
+<url><loc>https://gilead-biostats.github.io/qcthat/dev/reference/FormatKey.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/qcthat/dev/reference/FormatReportGH.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/qcthat/dev/reference/FormatSITRHeader.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/qcthat/dev/reference/GHKeywordRegex.html</loc></url>

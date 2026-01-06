@@ -89,7 +89,7 @@ LogUAT <- function(
   strRepo = GetGHRepo(),
   dttmTimestamp = Sys.time()
 ) {
-  cli::cli_inform("Logging UAT result: {intUATIssue}")
+  cli::cli_inform("Logging UAT result: {intUATIssue} (PID: {Sys.getpid()})")
   dfUpdatedIssue <- tibble::tibble(
     ParentIssue = intParentIssue,
     UATIssue = intUATIssue,

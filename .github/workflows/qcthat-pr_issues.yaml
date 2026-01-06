@@ -64,6 +64,12 @@ jobs:
             intPRNumber = prNumber
           )
 
+          # Temporary: Check info about the UAT df.
+          intUATRows <- NROW(qcthat:::envQcthat$UATIssues)
+          glue::glue(
+            "UAT rows: {intUATRows}"
+          )
+
           # Also post a comment for UAT.
           CommentUAT(intPRNumber = prNumber)
         shell: Rscript {0}

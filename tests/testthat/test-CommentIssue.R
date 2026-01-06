@@ -172,7 +172,7 @@ test_that("CommentIssueRaw calls the API as expected (#83)", {
 })
 
 test_that("CommentIssue updates a comment as expected (#83)", {
-  ExpectUserAccepts(
+  qcthat::ExpectUserAccepts(
     "CommentIssue updates a comment",
     intIssue = 83,
     chrChecks = c(

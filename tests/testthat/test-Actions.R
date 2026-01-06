@@ -47,7 +47,7 @@ test_that("Action_QCMilestone targets the expected action (#88, #68)", {
 })
 
 test_that("qcthat is installed as part of the GHA (#95)", {
-  ExpectUserAccepts(
+  qcthat::ExpectUserAccepts(
     "The qcthat GHAs install qcthat",
     intIssue = 95,
     chrInstructions = "Call the functions in a repo other than qcthat, with qcthat installed locally. Ensure that the installed workflows install qcthat.",
@@ -60,7 +60,7 @@ test_that("qcthat is installed as part of the GHA (#95)", {
 })
 
 test_that("Reports generated via GHA include information about the issues (#77)", {
-  ExpectUserAccepts(
+  qcthat::ExpectUserAccepts(
     "qcthat reports show the expected issue information",
     intIssue = 77,
     chrInstructions = "Check the reports in any PRs attached to issue #77.",

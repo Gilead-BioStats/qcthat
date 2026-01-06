@@ -52,16 +52,18 @@ jobs:
             cli::cli_abort("Could not determine PR number.")
           }
 
-          IssueTestMatrix <- qcthat::QCPR(intPRNumber = prNumber)
+          library(qcthat)
+
+          IssueTestMatrix <- QCPR(intPRNumber = prNumber)
           print(IssueTestMatrix)
 
           # Also post as a comment.
-          qcthat::CommentReport(
+          CommentReport(
             IssueTestMatrix,
             "PR-Associated Issues",
             intPRNumber = prNumber
           )
 
           # Also post a comment for UAT.
-          qcthat::CommentUAT(intPRNumber = prNumber)
+          CommentUAT(intPRNumber = prNumber)
         shell: Rscript {0}

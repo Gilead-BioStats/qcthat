@@ -52,7 +52,7 @@ jobs:
             cli::cli_abort("Could not determine PR number.")
           }
 
-          library(qcthat)
+          pkgload::load_all()
 
           IssueTestMatrix <- QCPR(intPRNumber = prNumber)
           print(IssueTestMatrix)

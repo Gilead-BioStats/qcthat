@@ -17,7 +17,7 @@ test_that("CommentIssue compiles the body as expected (#83)", {
   )
 })
 
-test_that("CommentIssue updates when told to do so (#83)", {
+test_that("CommentIssue updates when told to do so (#83, #100)", {
   local_mocked_bindings(
     CommentIssueRaw = function(...) stop("Should not be called"),
     UpdateIssueComment = function(...) "Success"

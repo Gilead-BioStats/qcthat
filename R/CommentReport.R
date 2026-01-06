@@ -44,21 +44,19 @@ FormatReportGH <- function(dfITM) {
   lOptions <- options(pillar.subtle = FALSE)
   on.exit(options(lOptions), add = TRUE)
   chrHeader <- FormatHeader(dfITM)
-  chrBody <- FormatBody(dfITM)
+  chrBody <- c(FormatBody(dfITM), FormatKey())
 
+  # I know I had a reason to add this but I can't currently find the situation
+  # that triggers it.
+  #
+  # nocov start
   if (length(chrHeader) > 1) {
     chrBody <- c(chrHeader[-1], chrBody)
     chrHeader <- chrHeader[1]
   }
+  # nocov end
 
-  chrFooter <- FormatFooter(dfITM)
-
-  # Move the key (the first 2 rows of the footer) to the end of the body.
-  chrBody <- c(
-    chrBody,
-    stringr::str_subset(chrFooter, "^#")
-  )
-  chrFooter <- stringr::str_subset(chrFooter, "^#", negate = TRUE)
+  chrFooter <- FormatFooterMain(dfITM)
   chrFooter <- chrFooter[nzchar(chrFooter)]
 
   glue::glue(

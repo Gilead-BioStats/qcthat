@@ -21,6 +21,7 @@ test_that("ExpectUserAccepts passes when the issue is closed", {
     },
     IsOnline = function() TRUE
   )
+  local_dfUATIssues()
   expect_success({
     ExpectUserAccepts(
       strDescription = "The thing renders",
@@ -41,6 +42,7 @@ test_that("ExpectUserAccepts fails when the issue isn't closed and strFailureMod
     },
     IsOnline = function() TRUE
   )
+  local_dfUATIssues()
   expect_failure(
     {
       ExpectUserAccepts(
@@ -64,6 +66,7 @@ test_that("ExpectUserAccepts returns silently when the issue isn't closed and st
       list(State = "open", Url = "http://example.com/issue/123")
     }
   )
+  local_dfUATIssues()
   chrChecks <- c("check1", "check2")
   strDescription <- "The thing renders"
   result <- ExpectUserAccepts(
@@ -89,11 +92,7 @@ test_that("OnCran returns TRUE when envvar set to false (#113)", {
 })
 
 test_that("LogUAT logs UAT status (#115)", {
-  dfUATIssues_Start <- envQcthat$UATIssues
-  withr::defer({
-    envQcthat$UATIssues <- dfUATIssues_Start
-  })
-  envQcthat$UATIssues <- dfUATIssues_Empty
+  local_dfUATIssues()
 
   strRandom1 <- paste(sample(letters, 32, replace = TRUE), collapse = "")
   strRandom2 <- paste(sample(letters, 32, replace = TRUE), collapse = "")

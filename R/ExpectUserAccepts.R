@@ -28,24 +28,10 @@ ExpectUserAccepts <- function(
       strGHToken = strGHToken
     )
     if (identical(lUAIssue[["State"]], "closed")) {
-      LogUAT(
-        intParentIssue = intIssue,
-        intUATIssue = lUAIssue[["Number"]],
-        strDescription = strDescription,
-        strDisposition = "accepted",
-        strOwner = strOwner,
-        strRepo = strRepo
-      )
+      strDisposition <- "accepted"
       testthat::pass()
     } else {
-      LogUAT(
-        intParentIssue = intIssue,
-        intUATIssue = lUAIssue[["Number"]],
-        strDescription = strDescription,
-        strDisposition = "pending",
-        strOwner = strOwner,
-        strRepo = strRepo
-      )
+      strDisposition <- "pending"
       if (identical(strFailureMode, "fail")) {
         testthat::fail(c(
           "User must accept the checks and close the issue.",
@@ -55,6 +41,14 @@ ExpectUserAccepts <- function(
         ))
       }
     }
+    LogUAT(
+      intParentIssue = intIssue,
+      intUATIssue = lUAIssue[["Issue"]],
+      strDescription = strDescription,
+      strDisposition = strDisposition,
+      strOwner = strOwner,
+      strRepo = strRepo
+    )
   }
   return(invisible(strDescription))
 }

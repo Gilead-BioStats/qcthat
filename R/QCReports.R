@@ -27,6 +27,13 @@ QCPackage <- function(
     strGHToken = strGHToken
   )
   strPkgRoot <- GetPkgRoot(strPkgRoot, envCall = envCall)
+  strTestthatParallel <- Sys.getenv("TESTTHAT_PARALLEL")
+  on.exit(
+    Sys.setenv(TESTTHAT_PARALLEL = strTestthatParallel),
+    add = TRUE
+  )
+  Sys.setenv(TESTTHAT_PARALLEL = "FALSE")
+
   dfTestResults <- CompileTestResults(
     testthat::test_local(
       strPkgRoot,

@@ -52,8 +52,6 @@ jobs:
             cli::cli_abort("Could not determine PR number.")
           }
 
-          Sys.setenv(TESTTHAT_PARALLEL = "false")
-
           pkgload::load_all()
 
           IssueTestMatrix <- QCPR(intPRNumber = prNumber)
@@ -64,15 +62,6 @@ jobs:
             IssueTestMatrix,
             "PR-Associated Issues",
             intPRNumber = prNumber
-          )
-
-          # Temporary: Check info about the UAT df.
-          intUATRows <- NROW(qcthat:::envQcthat$UATIssues)
-          glue::glue(
-            "UAT rows: {intUATRows} (PID: {Sys.getpid()})"
-          )
-          glue::glue(
-            "UAT df class: {class(qcthat:::envQcthat$UATIssues)} (PID: {Sys.getpid()})"
           )
 
           # Also post a comment for UAT.

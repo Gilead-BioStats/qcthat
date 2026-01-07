@@ -39,6 +39,8 @@ jobs:
           extra-packages: local::., Gilead-BioStats/qcthat@main
 
       - name: Generate PR-Associated Issues QC Report
+        env:
+          qcthat_UAT: true
         run: |
           prNumber <- if ("${{ github.event_name }}" == "pull_request") {
             ${{ github.event.pull_request.number }}
@@ -66,4 +68,8 @@ jobs:
 
           # Also post a comment for UAT.
           CommentUAT(intPRNumber = prNumber)
+
+          if (any(IssueTestMatrix$Disposition == "fail", na.rm = TRUE)) {
+            cli::cli_abort("One or more tests failed or were skipped.")
+          }
         shell: Rscript {0}

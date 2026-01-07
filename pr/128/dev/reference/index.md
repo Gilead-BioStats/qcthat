@@ -36,6 +36,8 @@
   : Find the name of the target repository
 - [`GuessPRNumber()`](https://gilead-biostats.github.io/qcthat/dev/reference/GuessPRNumber.md)
   : Guess the most relevant pull request number
+- [`IsCheckingUAT()`](https://gilead-biostats.github.io/qcthat/dev/reference/IsCheckingUAT.md)
+  : Detect whether the user is specifically checking UAT issues
 - [`QCCompletedIssues()`](https://gilead-biostats.github.io/qcthat/dev/reference/QCCompletedIssues.md)
   : Generate a QC report of completed issues
 - [`QCIssues()`](https://gilead-biostats.github.io/qcthat/dev/reference/QCIssues.md)

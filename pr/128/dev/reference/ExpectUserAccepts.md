@@ -11,7 +11,7 @@ ExpectUserAccepts(
   intIssue,
   chrInstructions = character(),
   chrChecks = character(),
-  strFailureMode = c("ignore", "fail"),
+  lglReportFailure = IsCheckingUAT(),
   strOwner = GetGHOwner(),
   strRepo = GetGHRepo(),
   strGHToken = gh::gh_token()
@@ -38,10 +38,11 @@ ExpectUserAccepts(
   (`character`) Items for the user to check. These will be preceded by
   checkboxes in the associated issue.
 
-- strFailureMode:
+- lglReportFailure:
 
-  (`length-1 character`) Whether to `"ignore"` failures (default) or
-  `"fail"` (and show as a failure in testthat tests).
+  (`length-1 logical`) Whether to ignore failures (default unless a
+  "qcthat_UAT" environment variable is "true"), or fail (and show as a
+  failure in testthat tests).
 
 - strOwner:
 

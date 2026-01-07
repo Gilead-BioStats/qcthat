@@ -185,6 +185,12 @@ typically obtained by running something like <code><a href="https://testthat.r-l
 parallel testing, like <code>reporter = "silent"</code>, and assigning it to a name.</p></dd>
 
 
+<dt id="arg-lglreportfailure">lglReportFailure<a class="anchor" aria-label="anchor" href="#arg-lglreportfailure"></a></dt>
+<dd><p>(<code>length-1 logical</code>) Whether to ignore failures
+(default unless a "qcthat_UAT" environment variable is "true"), or fail
+(and show as a failure in testthat tests).</p></dd>
+
+
 <dt id="arg-lgloverwrite">lglOverwrite<a class="anchor" aria-label="anchor" href="#arg-lgloverwrite"></a></dt>
 <dd><p>(<code>length-1 logical</code>) Whether to overwrite files if they
 already exist.</p></dd>
@@ -279,11 +285,6 @@ error report. Can include <code><a href="https://glue.tidyverse.org/reference/gl
 target file. If the target path already includes an extension, it will be
 replaced with this value. If the value is already correct, this won't have
 any effect.</p></dd>
-
-
-<dt id="arg-strfailuremode">strFailureMode<a class="anchor" aria-label="anchor" href="#arg-strfailuremode"></a></dt>
-<dd><p>(<code>length-1 character</code>) Whether to <code>"ignore"</code> failures
-(default) or <code>"fail"</code> (and show as a failure in testthat tests).</p></dd>
 
 
 <dt id="arg-strghtoken">strGHToken<a class="anchor" aria-label="anchor" href="#arg-strghtoken"></a></dt>

@@ -152,6 +152,12 @@ Reused parameter definitions are gathered here for easier usage. Use
   issues in parallel testing, like `reporter = "silent"`, and assigning
   it to a name.
 
+- lglReportFailure:
+
+  (`length-1 logical`) Whether to ignore failures (default unless a
+  "qcthat_UAT" environment variable is "true"), or fail (and show as a
+  failure in testthat tests).
+
 - lglOverwrite:
 
   (`length-1 logical`) Whether to overwrite files if they already exist.
@@ -243,11 +249,6 @@ Reused parameter definitions are gathered here for easier usage. Use
   If the target path already includes an extension, it will be replaced
   with this value. If the value is already correct, this won't have any
   effect.
-
-- strFailureMode:
-
-  (`length-1 character`) Whether to `"ignore"` failures (default) or
-  `"fail"` (and show as a failure in testthat tests).
 
 - strGHToken:
 

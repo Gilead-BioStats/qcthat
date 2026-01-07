@@ -47,7 +47,7 @@ complete.</p>
 <span>  <span class="va">intIssue</span>,</span>
 <span>  chrInstructions <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/character.html" class="external-link">character</a></span><span class="op">(</span><span class="op">)</span>,</span>
 <span>  chrChecks <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/character.html" class="external-link">character</a></span><span class="op">(</span><span class="op">)</span>,</span>
-<span>  strFailureMode <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"ignore"</span>, <span class="st">"fail"</span><span class="op">)</span>,</span>
+<span>  lglReportFailure <span class="op">=</span> <span class="fu"><a href="IsCheckingUAT.html">IsCheckingUAT</a></span><span class="op">(</span><span class="op">)</span>,</span>
 <span>  strOwner <span class="op">=</span> <span class="fu"><a href="GetGHOwner.html">GetGHOwner</a></span><span class="op">(</span><span class="op">)</span>,</span>
 <span>  strRepo <span class="op">=</span> <span class="fu"><a href="GetGHRepo.html">GetGHRepo</a></span><span class="op">(</span><span class="op">)</span>,</span>
 <span>  strGHToken <span class="op">=</span> <span class="fu">gh</span><span class="fu">::</span><span class="fu"><a href="https://gh.r-lib.org/reference/gh_token.html" class="external-link">gh_token</a></span><span class="op">(</span><span class="op">)</span></span>
@@ -78,9 +78,10 @@ Included in the associated issue before the checklist.</p></dd>
 preceded by checkboxes in the associated issue.</p></dd>
 
 
-<dt id="arg-strfailuremode">strFailureMode<a class="anchor" aria-label="anchor" href="#arg-strfailuremode"></a></dt>
-<dd><p>(<code>length-1 character</code>) Whether to <code>"ignore"</code> failures
-(default) or <code>"fail"</code> (and show as a failure in testthat tests).</p></dd>
+<dt id="arg-lglreportfailure">lglReportFailure<a class="anchor" aria-label="anchor" href="#arg-lglreportfailure"></a></dt>
+<dd><p>(<code>length-1 logical</code>) Whether to ignore failures
+(default unless a "qcthat_UAT" environment variable is "true"), or fail
+(and show as a failure in testthat tests).</p></dd>
 
 
 <dt id="arg-strowner">strOwner<a class="anchor" aria-label="anchor" href="#arg-strowner"></a></dt>

@@ -31,8 +31,7 @@ QCPackage <- function(
     testthat::test_local(
       strPkgRoot,
       stop_on_failure = FALSE,
-      reporter = "silent",
-      env = envCall
+      reporter = "silent"
     )
   )
   return(

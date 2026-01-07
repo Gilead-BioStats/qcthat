@@ -1,5 +1,5 @@
 # Workflow derived from
-# https://github.com/Gilead-BioStats/qcthat/tree/v1.0.0/inst/workflows/qcthat-completed_issues.yaml.
+# https://github.com/Gilead-BioStats/qcthat/tree/v1.1.0/inst/workflows/qcthat-completed_issues.yaml.
 on:
   push:
     branches: [main]

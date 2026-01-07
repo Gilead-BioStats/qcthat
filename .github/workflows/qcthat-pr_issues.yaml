@@ -68,4 +68,8 @@ jobs:
 
           # Also post a comment for UAT.
           CommentUAT(intPRNumber = prNumber)
+
+          if (any(IssueTestMatrix$Disposition == "fail", na.rm = TRUE)) {
+            cli::cli_abort("One or more tests failed or were skipped.")
+          }
         shell: Rscript {0}

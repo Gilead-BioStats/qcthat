@@ -61,6 +61,9 @@
 #'   typically obtained by running something like [testthat::test_local()] with
 #'   `stop_on_failure = FALSE` and a reporter that doesn't cause issues in
 #'   parallel testing, like `reporter = "silent"`, and assigning it to a name.
+#' @param lglReportFailure (`length-1 logical`) Whether to ignore failures
+#'   (default unless a "qcthat_UAT" environment variable is "true"), or fail
+#'   (and show as a failure in testthat tests).
 #' @param lglOverwrite (`length-1 logical`) Whether to overwrite files if they
 #'   already exist.
 #' @param lglShowMilestones (`length-1 logical`) Whether to separate issues by
@@ -103,8 +106,6 @@
 #'   target file. If the target path already includes an extension, it will be
 #'   replaced with this value. If the value is already correct, this won't have
 #'   any effect.
-#' @param strFailureMode (`length-1 character`) Whether to `"ignore"` failures
-#'   (default) or `"fail"` (and show as a failure in testthat tests).
 #' @param strGHToken (`length-1 character`) GitHub token with permissions to
 #'   read issues.
 #' @param strOwner (`length-1 character`) GitHub username or organization name.

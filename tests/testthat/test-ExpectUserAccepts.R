@@ -49,7 +49,7 @@ test_that("ExpectUserAccepts fails when the issue isn't closed and strFailureMod
         strDescription = "The thing renders",
         intIssue = 12L,
         chrChecks = c("check1", "check2"),
-        strFailureMode = "fail",
+        lglReportFailure = TRUE,
         strOwner = "owner",
         strRepo = "repo"
       )
@@ -58,7 +58,7 @@ test_that("ExpectUserAccepts fails when the issue isn't closed and strFailureMod
   )
 })
 
-test_that("ExpectUserAccepts returns silently when the issue isn't closed and strFailureMode is 'ignore'", {
+test_that("ExpectUserAccepts returns silently when the issue isn't closed and lglIgnore is TRUE", {
   local_mocked_bindings(
     OnCran = function() FALSE,
     UsesGit = function() TRUE,
@@ -74,7 +74,8 @@ test_that("ExpectUserAccepts returns silently when the issue isn't closed and st
     intIssue = 12L,
     chrChecks = chrChecks,
     strOwner = "owner",
-    strRepo = "repo"
+    strRepo = "repo",
+    lglReportFailure = FALSE
   )
   expect_identical(result, strDescription)
 })
@@ -162,4 +163,13 @@ test_that("LogUAT logs UAT status (#115)", {
     ) |>
       dplyr::arrange(.data$Timestamp)
   )
+})
+
+test_that("IsCheckingUAT reports whether the qcthat_UAT envvar is true", {
+  withr::local_envvar(list(qcthat_UAT = "true"))
+  expect_true(IsCheckingUAT())
+  withr::local_envvar(list(qcthat_UAT = "false"))
+  expect_false(IsCheckingUAT())
+  withr::local_envvar(list(qcthat_UAT = ""))
+  expect_false(IsCheckingUAT())
 })

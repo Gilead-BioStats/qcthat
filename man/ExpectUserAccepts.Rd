@@ -9,7 +9,7 @@ ExpectUserAccepts(
   intIssue,
   chrInstructions = character(),
   chrChecks = character(),
-  strFailureMode = c("ignore", "fail"),
+  lglReportFailure = IsCheckingUAT(),
   strOwner = GetGHOwner(),
   strRepo = GetGHRepo(),
   strGHToken = gh::gh_token()
@@ -28,8 +28,9 @@ Included in the associated issue before the checklist.}
 \item{chrChecks}{(\code{character}) Items for the user to check. These will be
 preceded by checkboxes in the associated issue.}
 
-\item{strFailureMode}{(\verb{length-1 character}) Whether to \code{"ignore"} failures
-(default) or \code{"fail"} (and show as a failure in testthat tests).}
+\item{lglReportFailure}{(\verb{length-1 logical}) Whether to ignore failures
+(default unless a "qcthat_UAT" environment variable is "true"), or fail
+(and show as a failure in testthat tests).}
 
 \item{strOwner}{(\verb{length-1 character}) GitHub username or organization name.}
 

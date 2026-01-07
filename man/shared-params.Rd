@@ -88,6 +88,10 @@ typically obtained by running something like \code{\link[testthat:test_package]{
 \code{stop_on_failure = FALSE} and a reporter that doesn't cause issues in
 parallel testing, like \code{reporter = "silent"}, and assigning it to a name.}
 
+\item{lglReportFailure}{(\verb{length-1 logical}) Whether to ignore failures
+(default unless a "qcthat_UAT" environment variable is "true"), or fail
+(and show as a failure in testthat tests).}
+
 \item{lglOverwrite}{(\verb{length-1 logical}) Whether to overwrite files if they
 already exist.}
 
@@ -147,9 +151,6 @@ error report. Can include \code{\link[glue:glue]{glue::glue()}} syntax.}
 target file. If the target path already includes an extension, it will be
 replaced with this value. If the value is already correct, this won't have
 any effect.}
-
-\item{strFailureMode}{(\verb{length-1 character}) Whether to \code{"ignore"} failures
-(default) or \code{"fail"} (and show as a failure in testthat tests).}
 
 \item{strGHToken}{(\verb{length-1 character}) GitHub token with permissions to
 read issues.}

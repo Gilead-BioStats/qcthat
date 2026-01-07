@@ -11,13 +11,12 @@ ExpectUserAccepts <- function(
   intIssue,
   chrInstructions = character(),
   chrChecks = character(),
-  strFailureMode = c("ignore", "fail"),
+  lglReportFailure = IsCheckingUAT(),
   strOwner = GetGHOwner(),
   strRepo = GetGHRepo(),
   strGHToken = gh::gh_token()
 ) {
   if (!OnCran() && UsesGit() && IsOnline()) {
-    strFailureMode <- rlang::arg_match(strFailureMode)
     lUAIssue <- FetchUAIssue(
       strDescription = strDescription,
       intIssue = intIssue,
@@ -32,7 +31,7 @@ ExpectUserAccepts <- function(
       testthat::pass()
     } else {
       strDisposition <- "pending"
-      if (identical(strFailureMode, "fail")) {
+      if (isTRUE(lglReportFailure)) {
         testthat::fail(c(
           "User must accept the checks and close the issue.",
           cli::format_inline(
@@ -73,6 +72,29 @@ IsOnline <- function() {
   rlang::check_installed("httr2", "to check online status.")
   httr2::is_online()
   # nocov end
+}
+
+#' Detect whether the user is specifically checking UAT issues
+#'
+#' Checks the value of an environment variable (default: `qcthat_UAT`) to
+#' determine if the user is intentionally checking user-acceptance tests.
+#'
+#' @param strUATEnvVar (`length-1 character`) The name of the environment
+#'   variable to check.
+#'
+#' @returns `TRUE` if the specified environment variable is set to `"TRUE"`
+#'   (case-insensitive), `FALSE` otherwise.
+#' @export
+#'
+#' @examples
+#' CurrentValue <- Sys.getenv("qcthat_UAT")
+#' Sys.setenv(qcthat_UAT = "")
+#' IsCheckingUAT()
+#' Sys.setenv(qcthat_UAT = "true")
+#' IsCheckingUAT()
+#' Sys.setenv(qcthat_UAT = CurrentValue)
+IsCheckingUAT <- function(strUATEnvVar = "qcthat_UAT") {
+  identical(toupper(Sys.getenv(strUATEnvVar)), "TRUE")
 }
 
 #' Log ExpectUserAccepts results

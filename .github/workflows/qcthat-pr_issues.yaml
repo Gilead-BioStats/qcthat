@@ -52,6 +52,8 @@ jobs:
             cli::cli_abort("Could not determine PR number.")
           }
 
+          Sys.setenv(TESTTHAT_PARALLEL = "false")
+
           pkgload::load_all()
 
           IssueTestMatrix <- QCPR(intPRNumber = prNumber)

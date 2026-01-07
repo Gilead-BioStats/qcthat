@@ -52,13 +52,7 @@ jobs:
             cli::cli_abort("Could not determine PR number.")
           }
 
-          library(qcthat)
-
-          # Make the local package no longer match qcthat exactly to avoid
-          # namespace issues.
-          desc <- readLines("DESCRIPTION")
-          desc[[1]] <- "Package: qcthat2"
-          writeLines(desc, "DESCRIPTION")
+          pkgload::load_all()
 
           IssueTestMatrix <- QCPR(intPRNumber = prNumber)
           print(IssueTestMatrix)

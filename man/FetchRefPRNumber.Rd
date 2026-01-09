@@ -6,8 +6,8 @@
 \usage{
 FetchRefPRNumber(
   strSourceRef = GetActiveBranch(),
-  strOwner = gh::gh_tree_remote()[["username"]],
-  strRepo = gh::gh_tree_remote()[["repo"]],
+  strOwner = GetGHOwner(),
+  strRepo = GetGHRepo(),
   strGHToken = gh::gh_token()
 )
 }
@@ -23,7 +23,7 @@ contains changes. Defaults to the active branch in this repository.}
 read issues.}
 }
 \value{
-An integer pull request number, or \code{integer(0)} if no matching PR
+An integer pull request number, or \code{integer()} if no matching PR
 (or more than one matching PR) is found.
 }
 \description{

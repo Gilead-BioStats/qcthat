@@ -42,37 +42,74 @@ FormatFooter.qcthat_IssueTestMatrix <- function(
 ) {
   if (NROW(x)) {
     c(
-      pillar::style_subtle(c(
-        glue::glue(
-          "# Issue state:",
-          glue::glue(
-            MakeKeyItem("open", lglUseEmoji = lglUseEmoji),
-            MakeKeyItem("closed (completed)", lglUseEmoji = lglUseEmoji),
-            MakeKeyItem("closed (won't fix)", lglUseEmoji = lglUseEmoji),
-            .sep = ", "
-          ),
-          .sep = " "
-        ),
-        glue::glue(
-          "# Test disposition:",
-          glue::glue(
-            MakeKeyItem("passed", lglUseEmoji = lglUseEmoji),
-            MakeKeyItem("failed", lglUseEmoji = lglUseEmoji),
-            MakeKeyItem("skipped", lglUseEmoji = lglUseEmoji),
-            .sep = ", "
-          ),
-          .sep = " "
-        )
-      )),
-      MakeITRDispositionFooter(x$Disposition, lglUseEmoji = lglUseEmoji),
-      MakeITRCoverageFooter(x$Issue, x$Test, lglUseEmoji = lglUseEmoji),
-      MakeITRIgnoredLabelsFooter(
-        lIgnoredIssues = attr(x, "IgnoredIssues"),
+      FormatKey(lglUseEmoji = lglUseEmoji),
+      FormatFooterMain(
+        x,
         lglUseEmoji = lglUseEmoji,
         lglShowIgnoredLabels = lglShowIgnoredLabels
       )
     )
   }
+}
+
+#' Format the key for interpreting issue and test states
+#'
+#' This is a placeholder. Eventually we should use dfITM to determine which
+#' pieces of the key should be included.
+#'
+#' @inheritParams FormatFooter
+#'
+#' @returns A character vectore styled with [pillar::style_subtle()].
+#' @keywords internal
+FormatKey <- function(lglUseEmoji = getOption("qcthat.emoji", TRUE)) {
+  pillar::style_subtle(c(
+    glue::glue(
+      "# Issue state:",
+      glue::glue(
+        MakeKeyItem("open", lglUseEmoji = lglUseEmoji),
+        MakeKeyItem("closed (completed)", lglUseEmoji = lglUseEmoji),
+        MakeKeyItem("closed (won't fix)", lglUseEmoji = lglUseEmoji),
+        .sep = ", "
+      ),
+      .sep = " "
+    ),
+    glue::glue(
+      "# Test disposition:",
+      glue::glue(
+        MakeKeyItem("passed", lglUseEmoji = lglUseEmoji),
+        MakeKeyItem("failed", lglUseEmoji = lglUseEmoji),
+        MakeKeyItem("skipped", lglUseEmoji = lglUseEmoji),
+        .sep = ", "
+      ),
+      .sep = " "
+    )
+  ))
+}
+
+#' Format the non-key portion of the footer
+#'
+#' This is a placeholder. Ideally it should probably also be an S3 generic, or
+#' otherwise have a more specific name.
+#'
+#' @inheritParams FormatFooter
+#'
+#' @returns A character vector representing the formatted footer main body.
+#' @keywords internal
+FormatFooterMain <- function(
+  x,
+  ...,
+  lglUseEmoji = getOption("qcthat.emoji", TRUE),
+  lglShowIgnoredLabels = TRUE
+) {
+  c(
+    MakeITRDispositionFooter(x$Disposition, lglUseEmoji = lglUseEmoji),
+    MakeITRCoverageFooter(x$Issue, x$Test, lglUseEmoji = lglUseEmoji),
+    MakeITRIgnoredLabelsFooter(
+      lIgnoredIssues = attr(x, "IgnoredIssues"),
+      lglUseEmoji = lglUseEmoji,
+      lglShowIgnoredLabels = lglShowIgnoredLabels
+    )
+  )
 }
 
 #' Add a summary message to ITR footer
@@ -220,13 +257,13 @@ MakeITRIgnoredLabelsFooter <- function(
   if (
     lglShowIgnoredLabels &&
       length(lIgnoredIssues) &&
-      length(unlist(lIgnoredIssues))
+      NROW(dplyr::bind_rows(lIgnoredIssues))
   ) {
     strIgnoredIndicator <- ChooseEmoji("ignored", lglUseEmoji)
     lIgnoredMessages <- purrr::imap(
       lIgnoredIssues,
-      function(intIssues, strLabel) {
-        intN <- length(intIssues)
+      function(dfIssues, strLabel) {
+        intN <- NROW(dfIssues)
         if (intN > 0) {
           cli::format_inline(
             "{intN} issue{?s} with label {.str {strLabel}} {qty(intN)}{?was/were} ignored"
@@ -309,7 +346,7 @@ AsMilestone <- function(x) {
   AsExpectedFlat(
     x,
     lShape = list(
-      Milestone = character(0),
+      Milestone = character(),
       IssueTestResults = tibble::tibble()
     ),
     chrClass = "qcthat_Milestone"

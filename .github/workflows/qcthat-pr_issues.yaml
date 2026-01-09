@@ -1,5 +1,5 @@
 # Workflow derived from
-# https://github.com/Gilead-BioStats/qcthat/tree/v1.0.0/inst/workflows/qcthat-pr_issues.yaml.
+# https://github.com/Gilead-BioStats/qcthat/tree/v1.1.0/inst/workflows/qcthat-pr_issues.yaml.
 on:
   pull_request:
   # NOTE: This workflow cannot be triggered when an issue is connected to (or
@@ -39,6 +39,8 @@ jobs:
           extra-packages: local::.
 
       - name: Generate PR-Associated Issues QC Report
+        env:
+          qcthat_UAT: true
         run: |
           prNumber <- if ("${{ github.event_name }}" == "pull_request") {
             ${{ github.event.pull_request.number }}
@@ -52,74 +54,22 @@ jobs:
             cli::cli_abort("Could not determine PR number.")
           }
 
-          IssueTestMatrix <- qcthat::QCPR(intPRNumber = prNumber)
+          pkgload::load_all()
+
+          IssueTestMatrix <- QCPR(intPRNumber = prNumber)
           print(IssueTestMatrix)
 
-          # Also print to a file.
-          print(IssueTestMatrix, con = "qc_report.txt")
+          # Also post as a comment.
+          CommentReport(
+            IssueTestMatrix,
+            "PR-Associated Issues",
+            intPRNumber = prNumber
+          )
+
+          # Also post a comment for UAT.
+          CommentUAT(intPRNumber = prNumber)
+
+          if (any(IssueTestMatrix$Disposition == "fail", na.rm = TRUE)) {
+            cli::cli_abort("One or more tests failed or were skipped.")
+          }
         shell: Rscript {0}
-
-      # Delete or comment out this step to prevent PR comments.
-      - name: Add comment to PR
-        uses: actions/github-script@v6
-        with:
-          script: |
-            let prNumber;
-            if (context.eventName === 'pull_request') {
-              prNumber = context.issue.number;
-            } else if (context.payload.inputs.pr) {
-              prNumber = context.payload.inputs.pr;
-            }
-
-            if (!prNumber) {
-              console.log('Could not determine PR number. Skipping comment.');
-              return;
-            }
-
-            const fs = require('fs');
-            let reportContent;
-            try {
-              reportContent = fs.readFileSync('qc_report.txt', 'utf8');
-            } catch (err) {
-              console.error('Error reading qc_report.txt:', err);
-              core.setFailed('Failed to read qc_report.txt');
-              return;
-            }
-
-            const lines = reportContent.split(/[\r\n]+/).filter(line => line.trim() !== '');
-
-            if (lines.length < 2) {
-              console.log('Report has less than 2 non-empty lines. Skipping comment.');
-              return;
-            }
-
-            const reportSummary = lines[0];
-            const reportOutcome = lines[lines.length - 1];
-            const bodyContent = lines.slice(1, -1).join('\n');
-
-            const commentBody = `
-            ## [{qcthat}](https://gilead-biostats.github.io/qcthat/) Report: PR-Associated Issues
-
-            <details>
-            <summary>${reportSummary}</summary>
-
-            \`\`\`
-            ${bodyContent}
-            \`\`\`
-
-            </details>
-
-            ${reportOutcome}
-            `;
-
-            try {
-              await github.rest.issues.createComment({
-                owner: context.repo.owner,
-                repo: context.repo.repo,
-                issue_number: prNumber,
-                body: commentBody,
-              });
-            } catch (error) {
-              console.error(`Error creating comment: ${error.message}`);
-              core.setFailed(`Failed to create PR comment: ${error.message}`);
-            };

@@ -69,3 +69,14 @@ test_that("Reports generated via GHA include information about the issues (#77)"
     )
   )
 })
+
+test_that("Additional user acceptance sub-issue is generated in the qcthat User Acceptance report (#83)", {
+  qcthat::ExpectUserAccepts(
+    "qcthat reports show the expected test and issue information",
+    intIssue = 83,
+    chrInstructions = "Check {qcthat} Report: User Acceptance ",
+    chrChecks = c(
+      "Generated qcthat reports shows additional sub-issue for user acceptance test #83."
+    )
+  )
+})

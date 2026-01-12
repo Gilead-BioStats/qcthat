@@ -44,7 +44,7 @@ test_that("FetchMergeCommitSHAs returns unique, sorted SHAs (#84)", {
     }
   )
   expect_equal(FetchMergeCommitSHAs("source", "target"), c("123", "abc", "def"))
-  expect_equal(FetchMergeCommitSHAs("other", "target"), character(0))
+  expect_equal(FetchMergeCommitSHAs("other", "target"), character())
 })
 
 test_that("FetchAllMergePRNumbers returns unique, sorted PR numbers (#84)", {
@@ -69,8 +69,8 @@ test_that("FetchAllMergePRNumbers returns unique, sorted PR numbers (#84)", {
     c(101, 102, 103)
   )
   expect_equal(
-    FetchAllMergePRNumbers(character(0)),
-    integer(0)
+    FetchAllMergePRNumbers(character()),
+    integer()
   )
 })
 
@@ -82,7 +82,7 @@ test_that("FetchAllMergePRNumbers returns empty vector for no matching PRs (#84)
   )
   expect_equal(
     FetchAllMergePRNumbers("sha1"),
-    integer(0)
+    integer()
   )
 })
 
@@ -107,7 +107,7 @@ test_that("FetchAllPRIssueNumbers returns unique, sorted issue numbers (#84)", {
     FetchAllPRIssueNumbers(c(12, 34)),
     1:3
   )
-  expect_equal(FetchAllPRIssueNumbers(integer(0)), integer(0))
+  expect_equal(FetchAllPRIssueNumbers(integer()), integer())
 })
 
 test_that("FetchAllPRIssueNumbers returns empty vector for no matching issues (#84)", {
@@ -116,5 +116,5 @@ test_that("FetchAllPRIssueNumbers returns empty vector for no matching issues (#
       list(pr12 = list(closingIssuesReferences = list(nodes = list())))
     }
   )
-  expect_equal(FetchAllPRIssueNumbers(12), integer(0))
+  expect_equal(FetchAllPRIssueNumbers(12), integer())
 })

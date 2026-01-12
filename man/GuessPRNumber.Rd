@@ -6,14 +6,14 @@
 \usage{
 GuessPRNumber(
   strPkgRoot = ".",
-  strOwner = gh::gh_tree_remote(strPkgRoot)[["username"]],
-  strRepo = gh::gh_tree_remote(strPkgRoot)[["repo"]],
+  strOwner = GetGHOwner(strPkgRoot),
+  strRepo = GetGHRepo(strPkgRoot),
   strGHToken = gh::gh_token()
 )
 }
 \arguments{
-\item{strPkgRoot}{(\verb{length-1 character}) The path to the root directory of
-the package. Will be expanded using \code{\link[pkgload:packages]{pkgload::pkg_path()}}.}
+\item{strPkgRoot}{(\verb{length-1 character}) The path to a directory in the
+package. Will be expanded using \code{\link[gert:git_repo]{gert::git_find()}}.}
 
 \item{strOwner}{(\verb{length-1 character}) GitHub username or organization name.}
 
@@ -23,13 +23,11 @@ the package. Will be expanded using \code{\link[pkgload:packages]{pkgload::pkg_p
 read issues.}
 }
 \value{
-The latest pull request number as an integer, or \code{integer(0)} if no
+The associated pull request number as an integer, or \code{NULL} if no
 pull requests are found.
 }
 \description{
-Tries to find a pull request associated with the active branch. If it fails,
-it falls back to finding the latest pull request number, optionally filtered
-by state.
+Tries to find a pull request associated with the active branch.
 }
 \examples{
 \dontshow{if (interactive()) withAutoprint(\{ # examplesIf}

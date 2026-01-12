@@ -83,8 +83,9 @@ test_that("CompileIssueTestMatrix excludes issues in chrIgnoredLabels (#67)", {
   )
   # Our labels for the test are only length-1, so we can subset relatively
   # easily.
-  nocov_issues <- list(
-    "qcthat-nocov" = dfRepoIssues$Issue[dfRepoIssues$Labels == "qcthat-nocov"]
+  nocov_issues <- c(
+    dfRepoIssues$Issue[dfRepoIssues$Labels == "qcthat-nocov"],
+    dfRepoIssues$Issue[dfRepoIssues$Labels == "qcthat-uat"]
   )
   # This can be cleaner as of testthat 3.3.0, but some of our machines use
   # 3.2.3.
@@ -92,5 +93,26 @@ test_that("CompileIssueTestMatrix excludes issues in chrIgnoredLabels (#67)", {
   # expect_disjoint(test_result_no_nocov$Issue, nocov_issues)
   expect_false(any(test_result_no_nocov$Issue %in% nocov_issues))
   expect_contains(test_result_with_nocov$Issue, nocov_issues)
-  expect_identical(attr(test_result_no_nocov, "IgnoredIssues"), nocov_issues)
+
+  lIgnoredIssues <- attr(test_result_no_nocov, "IgnoredIssues")
+  expect_type(lIgnoredIssues, "list")
+  expect_named(lIgnoredIssues, DefaultIgnoreLabels())
+  expect_identical(
+    dplyr::bind_rows(lIgnoredIssues)$Issue,
+    nocov_issues
+  )
+})
+
+test_that("filter also removes ignored issues (#118)", {
+  dfRepoIssues <- GenerateSampleDFRepoIssues()
+  dfTestResults <- GenerateSampleDFTestResults()
+  full_ITM <- CompileIssueTestMatrix(
+    dfRepoIssues = dfRepoIssues,
+    dfTestResults = dfTestResults,
+    chrIgnoredLabels = DefaultIgnoreLabels()
+  )
+  expect_gte(NROW(dplyr::bind_rows(attr(full_ITM, "IgnoredIssues"))), 1)
+
+  filtered_ITM <- dplyr::filter(full_ITM, Issue == 35)
+  expect_equal(NROW(dplyr::bind_rows(attr(filtered_ITM, "IgnoredIssues"))), 0)
 })

@@ -121,9 +121,9 @@ EmptyIssueTestMatrix <- function() {
 #' @inheritParams shared-params
 #' @returns A filtered `qcthat_IssueTestMatrix` object with issues that are
 #'   tagged to any of the specified ignored labels removed. The returned object
-#'   has an attribute `IgnoredLabels` which is a named list of integer vectors
-#'   of the issues that were removed for each ignored label (or an empty named
-#'   list if `chrIgnoredLabels` is empty).
+#'   has an attribute `IgnoredLabels` which is a named list of of the issues
+#'   that were removed for each ignored label (as a `qcthat_IssueTestMatrix`),
+#'   or an empty named list if `chrIgnoredLabels` is empty.
 #' @keywords internal
 ApplyITMIgnoredLabels <- function(dfITM, chrIgnoredLabels) {
   lIgnoredIssues <- purrr::map(
@@ -136,6 +136,15 @@ ApplyITMIgnoredLabels <- function(dfITM, chrIgnoredLabels) {
     dfITM,
     !(.data$Issue %in% unlist(lIgnoredIssues))
   )
+  lIgnoredIssues <- purrr::map(
+    lIgnoredIssues,
+    function(intIssueNumbers) {
+      dplyr::filter(
+        dfITM,
+        .data$Issue %in% intIssueNumbers
+      )
+    }
+  )
   return(
     # Attach information about labels that have been filtered out.
     structure(
@@ -143,4 +152,22 @@ ApplyITMIgnoredLabels <- function(dfITM, chrIgnoredLabels) {
       IgnoredIssues = lIgnoredIssues
     )
   )
+}
+
+#' @exportS3Method dplyr::filter
+filter.qcthat_IssueTestMatrix <- function(.data, ...) {
+  .data <- NextMethod()
+  lIgnoredIssues <- attr(.data, "IgnoredIssues")
+  if (length(lIgnoredIssues)) {
+    lFilteredIgnoredIssues <- purrr::map(
+      lIgnoredIssues,
+      function(dfIgnoredIssues) {
+        if (!is.null(dfIgnoredIssues)) {
+          dplyr::filter(dfIgnoredIssues, ...)
+        }
+      }
+    )
+    attr(.data, "IgnoredIssues") <- lFilteredIgnoredIssues
+  }
+  return(.data)
 }

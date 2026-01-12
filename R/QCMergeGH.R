@@ -24,8 +24,8 @@ QCMergeGH <- function(
   strSourceRef = GetActiveBranch(strPkgRoot),
   strTargetRef = GetDefaultBranch(strPkgRoot),
   strPkgRoot = ".",
-  strOwner = gh::gh_tree_remote(strPkgRoot)[["username"]],
-  strRepo = gh::gh_tree_remote(strPkgRoot)[["repo"]],
+  strOwner = GetGHOwner(strPkgRoot),
+  strRepo = GetGHRepo(strPkgRoot),
   strGHToken = gh::gh_token(),
   lglWarn = TRUE,
   chrIgnoredLabels = DefaultIgnoreLabels(),
@@ -69,8 +69,8 @@ QCMergeGH <- function(
 FetchMergeCommitSHAs <- function(
   strSourceRef,
   strTargetRef,
-  strOwner = gh::gh_tree_remote()[["username"]],
-  strRepo = gh::gh_tree_remote()[["repo"]],
+  strOwner = GetGHOwner(),
+  strRepo = GetGHRepo(),
   strGHToken = gh::gh_token()
 ) {
   lCompareRaw <- CallGHAPI(
@@ -93,12 +93,12 @@ FetchMergeCommitSHAs <- function(
 #' @keywords internal
 FetchAllMergePRNumbers <- function(
   chrCommitSHAs,
-  strOwner = gh::gh_tree_remote()[["username"]],
-  strRepo = gh::gh_tree_remote()[["repo"]],
+  strOwner = GetGHOwner(),
+  strRepo = GetGHRepo(),
   strGHToken = gh::gh_token()
 ) {
   if (!length(chrCommitSHAs)) {
-    return(integer(0))
+    return(integer())
   }
   lPRNumbers <- FetchAllMergePRNumbersRaw(
     chrCommitSHAs = chrCommitSHAs,
@@ -116,8 +116,8 @@ FetchAllMergePRNumbers <- function(
 #' @keywords internal
 FetchAllMergePRNumbersRaw <- function(
   chrCommitSHAs,
-  strOwner = gh::gh_tree_remote()[["username"]],
-  strRepo = gh::gh_tree_remote()[["repo"]],
+  strOwner = GetGHOwner(),
+  strRepo = GetGHRepo(),
   strGHToken = gh::gh_token()
 ) {
   strAllCommitQueries <- paste(
@@ -157,12 +157,12 @@ BuildCommitPRQuery <- function(chrSHA, intIndex) {
 #' @keywords internal
 FetchAllPRIssueNumbers <- function(
   intPRNumbers,
-  strOwner = gh::gh_tree_remote()[["username"]],
-  strRepo = gh::gh_tree_remote()[["repo"]],
+  strOwner = GetGHOwner(),
+  strRepo = GetGHRepo(),
   strGHToken = gh::gh_token()
 ) {
   if (!length(intPRNumbers)) {
-    return(integer(0))
+    return(integer())
   }
   lIssues <- FetchAllPRIssueNumbersRaw(
     intPRNumbers = intPRNumbers,
@@ -181,8 +181,8 @@ FetchAllPRIssueNumbers <- function(
 #' @keywords internal
 FetchAllPRIssueNumbersRaw <- function(
   intPRNumbers,
-  strOwner = gh::gh_tree_remote()[["username"]],
-  strRepo = gh::gh_tree_remote()[["repo"]],
+  strOwner = GetGHOwner(),
+  strRepo = GetGHRepo(),
   strGHToken = gh::gh_token()
 ) {
   strAllPRQueries <- paste(

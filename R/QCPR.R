@@ -23,8 +23,8 @@
 QCPR <- function(
   intPRNumber = GuessPRNumber(strPkgRoot, strOwner, strRepo, strGHToken),
   strPkgRoot = ".",
-  strOwner = gh::gh_tree_remote(strPkgRoot)[["username"]],
-  strRepo = gh::gh_tree_remote(strPkgRoot)[["repo"]],
+  strOwner = GetGHOwner(strPkgRoot),
+  strRepo = GetGHRepo(strPkgRoot),
   strGHToken = gh::gh_token(),
   lglWarn = TRUE,
   chrIgnoredLabels = DefaultIgnoreLabels()
@@ -54,8 +54,8 @@ QCPR <- function(
 #' @keywords internal
 FetchPRRefs <- function(
   intPRNumber = GuessPRNumber(".", strOwner, strRepo, strGHToken),
-  strOwner = gh::gh_tree_remote()[["username"]],
-  strRepo = gh::gh_tree_remote()[["repo"]],
+  strOwner = GetGHOwner(),
+  strRepo = GetGHRepo(),
   strGHToken = gh::gh_token(),
   envCall = rlang::caller_env()
 ) {
@@ -67,13 +67,13 @@ FetchPRRefs <- function(
   ) |>
     dplyr::filter(.data$PR == intPRNumber)
   if (!NROW(dfPR)) {
-    cli::cli_abort(
+    qcthatAbort(
       c(
         "{.arg intPRNumber} must refer to a pull request in the specified repository.",
         i = "Pull request number {.val {intPRNumber}} not found in repository {.val {strOwner}/{strRepo}}."
       ),
-      class = "qcthat-error-pr_not_found",
-      call = envCall
+      strErrorSubclass = "pr_not_found",
+      envCall = envCall
     )
   }
   return(c(

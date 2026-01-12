@@ -64,7 +64,7 @@ FormatBody.qcthat_SingleIssueTestResults <- function(
   lglUseEmoji = getOption("qcthat.emoji", TRUE)
 ) {
   if (!length(x) || !any(lengths(x))) {
-    return(character(0))
+    return(character())
   }
   TestResults <- x$TestResults
   if (

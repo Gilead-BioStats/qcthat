@@ -1,21 +1,23 @@
 # Workflow derived from
-# https://github.com/Gilead-BioStats/qcthat/tree/v1.1.0/inst/workflows/qcthat-completed_issues.yaml.
+# https://github.com/Gilead-BioStats/qcthat/tree/v1.1.0/inst/workflows/qcthat-milestone.yaml.
 on:
-  push:
-    branches: [main]
   pull_request:
+    types: [opened, reopened, synchronize, milestoned]
   release:
     types: [released]
   workflow_dispatch:
     inputs:
-      tag:
-        description: Tag to which the report should be attached (leave blank for none).
-        required: false
+      milestone:
+        description: Milestone name to use to filter the report.
+        required: true
       pr:
         description: PR number to which comment should be added (leave blank for none).
         required: false
+      tag:
+        description: Tag to which the report should be attached (leave blank for none).
+        required: false
 
-name: qcthat Completed Issues Report
+name: qcthat Milestone Report
 
 permissions:
   # Required for report.
@@ -26,7 +28,8 @@ permissions:
   pull-requests: write
 
 jobs:
-  qcthat-completed_issues:
+  qcthat-milestone:
+    if: github.event_name != 'pull_request' || github.event.pull_request.milestone != null
     runs-on: ubuntu-latest
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
@@ -40,11 +43,30 @@ jobs:
 
       - uses: r-lib/actions/setup-r-dependencies@v2
         with:
-          extra-packages: local::.
+          extra-packages: local::., Gilead-BioStats/qcthat@main
 
-      - name: Generate Completed Issues QC Report
+      - name: Generate Milestone QC Report
         run: |
-          IssueTestMatrix <- qcthat::QCCompletedIssues()
+          milestoneName <- if ("${{ github.event_name }}" == "pull_request") {
+            "${{ github.event.pull_request.milestone.title }}"
+          } else if ("${{ github.event_name }}" == "release") {
+            strRelease <- "${{ github.event.release.name }}"
+            strTag <- "${{ github.event.release.tag_name }}"
+            c(strRelease, strTag)
+          } else if ("${{ inputs.milestone }}" != "") {
+            "${{ inputs.milestone }}"
+          } else {
+            NA_integer_
+          }
+
+          if (all(is.na(milestoneName))) {
+            cli::cli_abort("Could not determine milestone.")
+          }
+
+          IssueTestMatrix <- qcthat::QCMilestones(
+            chrMilestones = milestoneName,
+            lglWarn = FALSE
+          )
           print(IssueTestMatrix)
 
           # Also save as a file to attach to the release.
@@ -62,7 +84,7 @@ jobs:
           if (!is.na(prNumber)) {
             qcthat::CommentReport(
               IssueTestMatrix,
-              "Completed Issues",
+              "Milestone",
               intPRNumber = prNumber
             )
           }

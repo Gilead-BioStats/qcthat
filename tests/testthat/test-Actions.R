@@ -80,3 +80,22 @@ test_that("Additional user acceptance sub-issue is generated in the qcthat User 
     )
   )
 })
+
+test_that("qcthat is namespaced in GHA (#143)", {
+  qcthat::ExpectUserAccepts(
+    "The installed qcthat GHAs use namespaced function calls",
+    intIssue = 143,
+    chrInstructions = paste(
+      "1. Install this version of qcthat.",
+      "2. In a repo other than qcthat, call `qcthat::Action_QCPRIssues(TRUE)` (to upgrade if it's already installed).",
+      "3. Open the installed action.",
+      "4. Assign a real PR number from that repo to `prNumber`.",
+      "5. Copy/paste the rest of the code from the 'Generate PR-Associated Issues QC Report' section of the installed action.",
+      "6. Optionally delete the comments in the chosen PR if all of that works.",
+      sep = "\n"
+    ),
+    chrChecks = c(
+      "The code runs without error (other than non-qcthat issues in the tests themselves)."
+    )
+  )
+})

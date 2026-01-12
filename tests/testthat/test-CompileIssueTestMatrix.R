@@ -103,7 +103,7 @@ test_that("CompileIssueTestMatrix excludes issues in chrIgnoredLabels (#67)", {
   )
 })
 
-test_that("filter also removes ignored issues (#118)", {
+test_that("filter also removes ignored issues (#118, #123)", {
   dfRepoIssues <- GenerateSampleDFRepoIssues()
   dfTestResults <- GenerateSampleDFTestResults()
   full_ITM <- CompileIssueTestMatrix(

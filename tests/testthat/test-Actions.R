@@ -46,7 +46,7 @@ test_that("Action_QCMilestone targets the expected action (#88, #68)", {
   expect_identical(Action_QCMilestone(), "milestone")
 })
 
-test_that("qcthat is installed as part of the GHA (#95)", {
+test_that("qcthat is installed as part of the GHA (#95, #141)", {
   qcthat::ExpectUserAccepts(
     "The qcthat GHAs install qcthat",
     intIssue = 95,

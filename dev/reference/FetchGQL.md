@@ -8,8 +8,8 @@ Wrapper for GitHub GraphQL API calls
 FetchGQL(
   strQuery,
   ...,
-  strOwner = gh::gh_tree_remote()[["username"]],
-  strRepo = gh::gh_tree_remote()[["repo"]],
+  strOwner = GetGHOwner(),
+  strRepo = GetGHRepo(),
   strGHToken = gh::gh_token()
 )
 ```

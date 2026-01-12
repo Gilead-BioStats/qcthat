@@ -8,8 +8,8 @@ Fetch commit SHAs from a comparison
 FetchMergeCommitSHAs(
   strSourceRef,
   strTargetRef,
-  strOwner = gh::gh_tree_remote()[["username"]],
-  strRepo = gh::gh_tree_remote()[["repo"]],
+  strOwner = GetGHOwner(),
+  strRepo = GetGHRepo(),
   strGHToken = gh::gh_token()
 )
 ```

@@ -10,8 +10,8 @@ were closed as "completed".
 ``` r
 QCCompletedIssues(
   strPkgRoot = ".",
-  strOwner = gh::gh_tree_remote(strPkgRoot)[["username"]],
-  strRepo = gh::gh_tree_remote(strPkgRoot)[["repo"]],
+  strOwner = GetGHOwner(strPkgRoot),
+  strRepo = GetGHRepo(strPkgRoot),
   strGHToken = gh::gh_token(),
   chrIgnoredLabels = DefaultIgnoreLabels()
 )
@@ -21,9 +21,9 @@ QCCompletedIssues(
 
 - strPkgRoot:
 
-  (`length-1 character`) The path to the root directory of the package.
-  Will be expanded using
-  [`pkgload::pkg_path()`](https://pkgload.r-lib.org/reference/packages.html).
+  (`length-1 character`) The path to a directory in the package. Will be
+  expanded using
+  [`gert::git_find()`](https://docs.ropensci.org/gert/reference/git_repo.html).
 
 - strOwner:
 

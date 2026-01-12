@@ -7,8 +7,8 @@ Fetch the source and target refs for a PR
 ``` r
 FetchPRRefs(
   intPRNumber = GuessPRNumber(".", strOwner, strRepo, strGHToken),
-  strOwner = gh::gh_tree_remote()[["username"]],
-  strRepo = gh::gh_tree_remote()[["repo"]],
+  strOwner = GetGHOwner(),
+  strRepo = GetGHRepo(),
   strGHToken = gh::gh_token(),
   envCall = rlang::caller_env()
 )

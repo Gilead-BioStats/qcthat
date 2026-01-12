@@ -7,8 +7,8 @@ Prepare the data frame of labels to create
 ``` r
 PrepareDFLabels(
   dfLabels,
-  strOwner = gh::gh_tree_remote()[["username"]],
-  strRepo = gh::gh_tree_remote()[["repo"]],
+  strOwner = GetGHOwner(),
+  strRepo = GetGHRepo(),
   strGHToken = gh::gh_token()
 )
 ```

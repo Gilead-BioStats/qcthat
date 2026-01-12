@@ -7,8 +7,8 @@ Fetch all PR numbers associated with a vector of commit SHAs
 ``` r
 FetchAllMergePRNumbers(
   chrCommitSHAs,
-  strOwner = gh::gh_tree_remote()[["username"]],
-  strRepo = gh::gh_tree_remote()[["repo"]],
+  strOwner = GetGHOwner(),
+  strRepo = GetGHRepo(),
   strGHToken = gh::gh_token()
 )
 ```

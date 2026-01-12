@@ -45,8 +45,8 @@
 <span>  strPkgRoot <span class="op">=</span> <span class="st">"."</span>,</span>
 <span>  chrKeywords <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"close"</span>, <span class="st">"closes"</span>, <span class="st">"closed"</span>, <span class="st">"fix"</span>, <span class="st">"fixes"</span>, <span class="st">"fixed"</span>, <span class="st">"resolve"</span>,</span>
 <span>    <span class="st">"resolves"</span>, <span class="st">"resolved"</span><span class="op">)</span>,</span>
-<span>  strOwner <span class="op">=</span> <span class="fu">gh</span><span class="fu">::</span><span class="fu"><a href="https://gh.r-lib.org/reference/gh_tree_remote.html" class="external-link">gh_tree_remote</a></span><span class="op">(</span><span class="va">strPkgRoot</span><span class="op">)</span><span class="op">[[</span><span class="st">"username"</span><span class="op">]</span><span class="op">]</span>,</span>
-<span>  strRepo <span class="op">=</span> <span class="fu">gh</span><span class="fu">::</span><span class="fu"><a href="https://gh.r-lib.org/reference/gh_tree_remote.html" class="external-link">gh_tree_remote</a></span><span class="op">(</span><span class="va">strPkgRoot</span><span class="op">)</span><span class="op">[[</span><span class="st">"repo"</span><span class="op">]</span><span class="op">]</span>,</span>
+<span>  strOwner <span class="op">=</span> <span class="fu"><a href="GetGHOwner.html">GetGHOwner</a></span><span class="op">(</span><span class="va">strPkgRoot</span><span class="op">)</span>,</span>
+<span>  strRepo <span class="op">=</span> <span class="fu"><a href="GetGHRepo.html">GetGHRepo</a></span><span class="op">(</span><span class="va">strPkgRoot</span><span class="op">)</span>,</span>
 <span>  intMaxCommits <span class="op">=</span> <span class="fl">100000L</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
@@ -66,8 +66,8 @@ will be merged into. Defaults to the default branch of this repository.</p></dd>
 
 
 <dt id="arg-strpkgroot">strPkgRoot<a class="anchor" aria-label="anchor" href="#arg-strpkgroot"></a></dt>
-<dd><p>(<code>length-1 character</code>) The path to the root directory of
-the package. Will be expanded using <code><a href="https://pkgload.r-lib.org/reference/packages.html" class="external-link">pkgload::pkg_path()</a></code>.</p></dd>
+<dd><p>(<code>length-1 character</code>) The path to a directory in the
+package. Will be expanded using <code><a href="https://docs.ropensci.org/gert/reference/git_repo.html" class="external-link">gert::git_find()</a></code>.</p></dd>
 
 
 <dt id="arg-chrkeywords">chrKeywords<a class="anchor" aria-label="anchor" href="#arg-chrkeywords"></a></dt>

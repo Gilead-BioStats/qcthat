@@ -5,6 +5,11 @@ Reused parameter definitions are gathered here for easier usage. Use
 
 ## Arguments
 
+- chrChecks:
+
+  (`character`) Items for the user to check. These will be preceded by
+  checkboxes in the associated issue.
+
 - chrClass:
 
   (`character`) Class name(s) to assign to the object.
@@ -17,11 +22,20 @@ Reused parameter definitions are gathered here for easier usage. Use
 
   (`character`) GitHub labels to ignore, such as `"qcthat-nocov"`.
 
+- chrInstructions:
+
+  (`character`) Instructions for how to review an issue. Included in the
+  associated issue before the checklist.
+
 - chrKeywords:
 
   (`character`) Keywords to search for just before issue numbers in
   commit messages. Defaults to the [GitHub issue-linking
   keywords](https://docs.github.com/en/issues/tracking-your-work-with-issues/using-issues/linking-a-pull-request-to-an-issue#linking-a-pull-request-to-an-issue-using-a-keyword)
+
+- chrLabels:
+
+  (`character`) The name(s) of labels(s) to use.
 
 - chrMilestones:
 
@@ -44,6 +58,10 @@ Reused parameter definitions are gathered here for easier usage. Use
   (`character`) A vector of test descriptions from a
   [`CompileIssueTestMatrix()`](https://gilead-biostats.github.io/qcthat/dev/reference/CompileIssueTestMatrix.md)
   matrix.
+
+- dttmTimestamp:
+
+  (`POSIXct`) A system timestamp.
 
 - dfITM:
 
@@ -69,9 +87,19 @@ Reused parameter definitions are gathered here for easier usage. Use
   set to
   [`rlang::caller_env()`](https://rlang.r-lib.org/reference/stack.html).
 
+- envErrorMessage:
+
+  (`environment`) The environment to pass to
+  [`glue::glue()`](https://glue.tidyverse.org/reference/glue.html) to
+  resolve variables.
+
 - fctDisposition:
 
   (`factor`) Disposition factor with levels `c("fail", "skip", "pass")`.
+
+- intIssue:
+
+  (`length-1 integer`) The issue with which a check is associated.
 
 - intIssues:
 
@@ -86,6 +114,11 @@ Reused parameter definitions are gathered here for easier usage. Use
   you can reduce the number if your repository has a long commit history
   and this function is slow.
 
+- intParentIssue:
+
+  (`length-1 integer`) The number of the parent issue in a parent-child
+  issue relationship.
+
 - intPRNumber:
 
   (`length-1 integer`) The number of the pull request to fetch
@@ -94,6 +127,16 @@ Reused parameter definitions are gathered here for easier usage. Use
 - intPRNumbers:
 
   (`integer`) A vector of pull request numbers.
+
+- intUATIssue:
+
+  (`integer`) The number of an issue that tracks user-acceptance
+  testing.
+
+- lCommentsRaw:
+
+  (`list`) List of raw comment objects as returned by
+  [`gh::gh()`](https://gh.r-lib.org/reference/gh.html).
 
 - lIssuesNonPR:
 
@@ -109,6 +152,12 @@ Reused parameter definitions are gathered here for easier usage. Use
   issues in parallel testing, like `reporter = "silent"`, and assigning
   it to a name.
 
+- lglReportFailure:
+
+  (`length-1 logical`) Whether to ignore failures (default unless a
+  "qcthat_UAT" environment variable is "true"), or fail (and show as a
+  failure in testthat tests).
+
 - lglOverwrite:
 
   (`length-1 logical`) Whether to overwrite files if they already exist.
@@ -122,6 +171,11 @@ Reused parameter definitions are gathered here for easier usage. Use
 
   (`length-1 logical`) Whether to show information in reports about
   issue labels (such as `"qcthat-nocov"`) that have been ignored.
+
+- lglUpdate:
+
+  (`length-1 logical`) Whether to update an existing comment if it
+  already exists (rather than creating a new comment).
 
 - lglUseEmoji:
 
@@ -140,6 +194,55 @@ Reused parameter definitions are gathered here for easier usage. Use
 
   (`0-row data.frame`, etc) Object with the expected structure.
 
+- strBody:
+
+  (`length-1 character`) The body of an issue, PR, or comment, in GitHub
+  markdown.
+
+- strBodyCompiled:
+
+  (`length-1 character`) The full body of an issue, PR, or comment, in
+  GitHub markdown, including components such as a title and a hidden
+  `qcthat-comment-id`.
+
+- strChildIssueID:
+
+  (`length-1 character`) The `id` field of an issue to connect to a
+  parent issue.
+
+- strCommentID:
+
+  (`length-1 character`) A unique ID for a comment within a given
+  context, which is usually a hash of the title of the comment.
+
+- strConditionSubclass:
+
+  (`length-1 character`) A subclass for a condition.
+
+- strConditionClass:
+
+  (`length-1 character`) One of "error", "warning", or "message".
+
+- strDescription:
+
+  (`length-1 character`) A brief description of a user expectation.
+
+- strDisposition:
+
+  (`length-1 character`) The result of a test, such as "pass", "fail",
+  or "skip", or "accepted" or "pending" for UAT.
+
+- strErrorSubclass:
+
+  (`length-1 character`) A subclass for an error condition.
+
+- strErrorMessage:
+
+  (`length-1 character`) A message to include in and error report. Can
+  include
+  [`glue::glue()`](https://glue.tidyverse.org/reference/glue.html)
+  syntax.
+
 - strExtension:
 
   (`length-1 character`) The file extension to use for the target file.
@@ -157,13 +260,18 @@ Reused parameter definitions are gathered here for easier usage. Use
 
 - strPkgRoot:
 
-  (`length-1 character`) The path to the root directory of the package.
-  Will be expanded using
-  [`pkgload::pkg_path()`](https://pkgload.r-lib.org/reference/packages.html).
+  (`length-1 character`) The path to a directory in the package. Will be
+  expanded using
+  [`gert::git_find()`](https://docs.ropensci.org/gert/reference/git_repo.html).
 
 - strRepo:
 
   (`length-1 character`) GitHub repository name.
+
+- strReportType:
+
+  (`length-1 character`) The main title of the report, such as
+  `"Completed Issues"` or `"PR-Associated Issues"`.
 
 - strSourceRef:
 
@@ -180,3 +288,7 @@ Reused parameter definitions are gathered here for easier usage. Use
 
   (`length-1 character`) Name of the git reference that will be merged
   into. Defaults to the default branch of this repository.
+
+- strTitle:
+
+  (`length-1 character`) A title for an issue.

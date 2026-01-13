@@ -64,6 +64,40 @@ FetchRawRepoPRs <- function(
   )
 }
 
+#' Fetch a single repo PR from GitHub
+#'
+#' @inheritParams shared-params
+#' @returns A list representing a raw pull request object as returned by
+#'   [gh::gh()].
+#' @keywords internal
+FetchRawRepoPRSingle <- function(
+  intPRNumber = GuessPRNumber(".", strOwner, strRepo, strGHToken),
+  strOwner = GetGHOwner(),
+  strRepo = GetGHRepo(),
+  strGHToken = gh::gh_token(),
+  envCall = rlang::caller_env()
+) {
+  tryCatch(
+    CallGHAPI(
+      "GET /repos/{owner}/{repo}/pulls/{pull_number}",
+      strOwner = strOwner,
+      strRepo = strRepo,
+      pull_number = intPRNumber,
+      strGHToken = strGHToken
+    ),
+    error = function(e) {
+      qcthatAbort(
+        c(
+          "{.arg intPRNumber} must refer to a pull request in the specified repository.",
+          i = "Pull request number {.val {intPRNumber}} not found in repository {.val {strOwner}/{strRepo}}."
+        ),
+        strErrorSubclass = "pr_not_found",
+        envCall = envCall
+      )
+    }
+  )
+}
+
 #' Compile pull requests data frame
 #'
 #' @inherit FetchRepoIssues return

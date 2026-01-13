@@ -34,17 +34,21 @@ test_that("GetGHAPRNumber detects PR number for a GHA", {
   expect_equal(GetGHAPRNumber(), 123L)
 })
 
-test_that("FetchRefPRNumber fetches PR number for a branch (#84)", {
+test_that("FetchRefPRNumber fetches PR number for a branch (#84, #132)", {
   local_mocked_bindings(
     FetchRepoPRs = function(...) {
       tibble::tibble(
-        PR = c(20L, 25L, 30L, 35L),
+        PR = c(20L, 25L, 30L, 35L, 40L, 41L),
         HeadRef = c(
           "other-branch",
           "feature-branch",
           "another-branch",
-          "other-branch"
-        )
+          "other-branch",
+          "double-pr",
+          "double-pr"
+        ),
+        State = c("open", "open", "open", "open", "closed", "open"),
+        CreatedAt = as.Date(1:6, origin = "2026-01-01", tz = "UTC")
       )
     }
   )
@@ -52,8 +56,36 @@ test_that("FetchRefPRNumber fetches PR number for a branch (#84)", {
   expect_equal(FetchRefPRNumber("no-branch"), integer())
   expect_warning(
     {
-      expect_equal(FetchRefPRNumber("other-branch"), integer())
+      expect_equal(FetchRefPRNumber("other-branch"), 35L)
     },
-    "Multiple PRs found"
+    class = "qcthat-warning-multiple_prs"
+  )
+  expect_warning(
+    {
+      expect_equal(FetchRefPRNumber("double-pr"), 41L)
+    },
+    class = "qcthat-warning-multiple_prs"
+  )
+})
+
+test_that("ChooseRefPRNumber() deals with corner cases (#132)", {
+  expected_error_class <- "qcthat-error-invalid_pr_dataframe"
+  expect_error(
+    {
+      ChooseRefPRNumber(NULL, "ref")
+    },
+    class = expected_error_class
+  )
+  expect_error(
+    {
+      ChooseRefPRNumber(data.frame(), "ref")
+    },
+    class = expected_error_class
+  )
+  expect_error(
+    {
+      ChooseRefPRNumber(mtcars, "ref")
+    },
+    class = expected_error_class
   )
 })

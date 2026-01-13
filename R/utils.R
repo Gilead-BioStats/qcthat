@@ -99,3 +99,14 @@ HaveString <- function(lCharacters, strTarget) {
     }
   )
 }
+
+#' Default value for length-0
+#'
+#' @param x An object to return if it has length > 0.
+#' @param y An object to return if `x` has length 0.
+#'
+#' @returns `x` if it has length > 0, otherwise `y`.
+#' @keywords internal
+`%|0|%` <- function(x, y) {
+  if (!length(x)) y else x
+}

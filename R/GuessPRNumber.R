@@ -47,8 +47,10 @@ GetGHAPRNumber <- function() {
 #'
 #' @inheritParams shared-params
 #'
-#' @returns An integer pull request number, or `integer()` if no matching PR
-#'   (or more than one matching PR) is found.
+#' @returns An integer pull request number, or `integer()` if no matching PR is
+#'   found. If multiple PRs are found, first, if there are any open PRs, we
+#'   filter to only include open PRs, then the PR that was most recently created
+#'   is returned.
 #' @export
 #'
 #' @examplesIf interactive()
@@ -74,9 +76,39 @@ FetchRefPRNumber <- function(
   if (NROW(dfPRs) == 1L) {
     return(dfPRs$PR)
   }
-  cli::cli_warn(c(
-    "Multiple PRs found. Returning `integer()`.",
-    i = "PRs: {dfPRs$PR}"
-  ))
-  return(integer())
+  cli::cli_warn(
+    c(
+      "Multiple pull requests found for ref {.val {strSourceRef}}.",
+      i = "Returning the most recently created pull request (prefering open), if any."
+    ),
+    class = "qcthat-warning-multiple_prs"
+  )
+  return(ChooseRefPRNumber(dfPRs, strSourceRef))
+}
+
+#' Choose between multiple PRs
+#'
+#' @param dfPRs (`data.frame`) Data frame of pull requests as returned by
+#'   [FetchRepoPRs()].
+#' @inheritParams shared-params
+#'
+#' @returns A `length-1 integer` pull request number.
+#' @keywords internal
+ChooseRefPRNumber <- function(dfPRs, strSourceRef = GetActiveBranch()) {
+  required_fields <- c("PR", "State", "CreatedAt")
+  if (!NROW(dfPRs) || !all(required_fields %in% colnames(dfPRs))) {
+    cli::cli_abort(
+      "{.var dfPRs} must be a dataframe with columns {.field {required_fields}}.",
+      class = "qcthat-error-invalid_pr_dataframe"
+    )
+  }
+  if (any(dfPRs$State == "open", na.rm = TRUE)) {
+    dfPRs <- dplyr::filter(dfPRs, .data$State == "open")
+  }
+  if (NROW(dfPRs)) {
+    intPR <- dplyr::arrange(dfPRs, dplyr::desc(.data$CreatedAt)) |>
+      dplyr::pull(.data$PR) |>
+      head(1)
+    return(intPR)
+  }
 }

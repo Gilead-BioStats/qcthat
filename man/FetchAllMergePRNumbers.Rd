@@ -22,7 +22,7 @@ FetchAllMergePRNumbers(
 read issues.}
 }
 \value{
-A sorted, unique integer vector of associated PR numbers.
+A sorted, unique integer vector of merged PR numbers.
 }
 \description{
 Fetch all PR numbers associated with a vector of commit SHAs

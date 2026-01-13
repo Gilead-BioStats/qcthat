@@ -7,6 +7,8 @@
 #'   preceded by checkboxes in the associated issue.
 #' @param chrClass (`character`) Class name(s) to assign to the object.
 #' @param chrCommitSHAs (`character`) SHAs of git commits.
+#' @param chrErrorMessage (`character`) A message to include in an error report.
+#'   Can include [glue::glue()] syntax. Formatted via [cli::cli_bullets()].
 #' @param chrIgnoredLabels (`character`) GitHub labels to ignore, such as
 #'   `"qcthat-nocov"`.
 #' @param chrInstructions (`character`) Instructions for how to review an issue.
@@ -46,6 +48,11 @@
 #'   return from git logs. Leaving this at the default should almost always be
 #'   fine, but you can reduce the number if your repository has a long commit
 #'   history and this function is slow.
+#' @param intPageMax (`length-1 integer`) The maximum number of pages of commits
+#'   to fetch from the GitHub API. Each page contains up to 100 commits.
+#'   Defaults to 100, which fetches up to 10,000 commits. You likely never need
+#'   to increase this number, but try a larger number if a merge involves a very
+#'   large number of commits in a very large repository.
 #' @param intParentIssue (`length-1 integer`) The number of the parent issue in
 #'   a parent-child issue relationship.
 #' @param intPRNumber (`length-1 integer`) The number of the pull request to
@@ -100,8 +107,6 @@
 #'   "pass", "fail", or "skip", or "accepted" or "pending" for UAT.
 #' @param strErrorSubclass (`length-1 character`) A subclass for an error
 #'   condition.
-#' @param strErrorMessage (`length-1 character`) A message to include in and
-#'   error report. Can include [glue::glue()] syntax.
 #' @param strExtension (`length-1 character`) The file extension to use for the
 #'   target file. If the target path already includes an extension, it will be
 #'   replaced with this value. If the value is already correct, this won't have

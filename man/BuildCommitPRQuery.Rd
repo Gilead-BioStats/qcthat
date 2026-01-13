@@ -4,12 +4,7 @@
 \alias{BuildCommitPRQuery}
 \title{Build a GraphQL sub-query for a single commit's PRs}
 \usage{
-BuildCommitPRQuery(chrSHA, intIndex)
-}
-\arguments{
-\item{chrSHA}{(\verb{length-1 character}) The commit SHA.}
-
-\item{intIndex}{(\verb{length-1 integer}) A unique index for the query alias.}
+BuildCommitPRQuery(strCommitSHA)
 }
 \value{
 A character string for the GraphQL sub-query.

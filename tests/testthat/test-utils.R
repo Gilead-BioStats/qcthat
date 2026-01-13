@@ -194,3 +194,8 @@ test_that("HaveString finds strings in lists of characters (#67)", {
     c(FALSE, TRUE, TRUE)
   )
 })
+
+test_that("Zero-length util works (#149)", {
+  expect_equal(2L %|0|% 1L, 2L)
+  expect_equal(integer() %|0|% 1L, 1L)
+})

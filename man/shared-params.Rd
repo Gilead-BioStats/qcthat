@@ -11,6 +11,9 @@ preceded by checkboxes in the associated issue.}
 
 \item{chrCommitSHAs}{(\code{character}) SHAs of git commits.}
 
+\item{chrErrorMessage}{(\code{character}) A message to include in an error report.
+Can include \code{\link[glue:glue]{glue::glue()}} syntax. Formatted via \code{\link[cli:cli_bullets]{cli::cli_bullets()}}.}
+
 \item{chrIgnoredLabels}{(\code{character}) GitHub labels to ignore, such as
 \code{"qcthat-nocov"}.}
 
@@ -65,6 +68,12 @@ associated.}
 return from git logs. Leaving this at the default should almost always be
 fine, but you can reduce the number if your repository has a long commit
 history and this function is slow.}
+
+\item{intPageMax}{(\verb{length-1 integer}) The maximum number of pages of commits
+to fetch from the GitHub API. Each page contains up to 100 commits.
+Defaults to 100, which fetches up to 10,000 commits. You likely never need
+to increase this number, but try a larger number if a merge involves a very
+large number of commits in a very large repository.}
 
 \item{intParentIssue}{(\verb{length-1 integer}) The number of the parent issue in
 a parent-child issue relationship.}
@@ -143,9 +152,6 @@ expectation.}
 
 \item{strErrorSubclass}{(\verb{length-1 character}) A subclass for an error
 condition.}
-
-\item{strErrorMessage}{(\verb{length-1 character}) A message to include in and
-error report. Can include \code{\link[glue:glue]{glue::glue()}} syntax.}
 
 \item{strExtension}{(\verb{length-1 character}) The file extension to use for the
 target file. If the target path already includes an extension, it will be

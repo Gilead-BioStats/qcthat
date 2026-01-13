@@ -31,6 +31,8 @@ read issues.}
 Invisibly returns the result of \code{\link[=CommentIssue]{CommentIssue()}}.
 }
 \description{
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
+
 Add or update a comment on a GitHub pull request (or issue) with a report of
 issues that require user acceptance, formatted in GitHub markdown. Note: This
 should only be called \emph{after} the test suite has ran.

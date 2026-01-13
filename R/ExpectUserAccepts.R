@@ -1,5 +1,8 @@
 #' Does a user accept the feature?
 #'
+#' @description
+#' `r lifecycle::badge("experimental")`
+#'
 #' Create and track a sub-issue to track user acceptance that an issue is
 #' complete.
 #'

@@ -54,20 +54,18 @@ jobs:
             cli::cli_abort("Could not determine PR number.")
           }
 
-          pkgload::load_all()
-
-          IssueTestMatrix <- QCPR(intPRNumber = prNumber)
+          IssueTestMatrix <- qcthat::QCPR(intPRNumber = prNumber)
           print(IssueTestMatrix)
 
           # Also post as a comment.
-          CommentReport(
+          qcthat::CommentReport(
             IssueTestMatrix,
             "PR-Associated Issues",
             intPRNumber = prNumber
           )
 
           # Also post a comment for UAT.
-          CommentUAT(intPRNumber = prNumber)
+          qcthat::CommentUAT(intPRNumber = prNumber)
 
           if (any(IssueTestMatrix$Disposition == "fail", na.rm = TRUE)) {
             cli::cli_abort("One or more tests failed or were skipped.")

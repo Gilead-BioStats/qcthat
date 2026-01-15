@@ -29,7 +29,7 @@ test_that("CommentUAT generates the expected call (#115)", {
     Disposition = c("pending", "accepted", "pending"),
     Owner = "owner",
     Repo = "repo",
-    Timestamp = as.POSIXct(1:3, tz = "UTC")
+    Timestamp = as.POSIXct(1:3, tz = "UTC", origin = "2026-01-01")
   )
   test_result <- CommentUAT(
     intPRNumber = 99,

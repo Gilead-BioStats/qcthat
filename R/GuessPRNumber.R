@@ -79,7 +79,7 @@ FetchRefPRNumber <- function(
   cli::cli_warn(
     c(
       "Multiple pull requests found for ref {.val {strSourceRef}}.",
-      i = "Returning the most recently created pull request (prefering open), if any."
+      i = "Returning the most recently created pull request (preferring open), if any."
     ),
     class = "qcthat-warning-multiple_prs"
   )
@@ -111,4 +111,5 @@ ChooseRefPRNumber <- function(dfPRs, strSourceRef = GetActiveBranch()) {
       head(1)
     return(intPR)
   }
+  return(integer())
 }

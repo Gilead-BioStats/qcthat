@@ -110,5 +110,4 @@ ChooseRefPRNumber <- function(dfPRs, strSourceRef = GetActiveBranch()) {
       dplyr::pull(.data$PR)
     return(intPR[[1]])
   }
-  return(integer())
 }

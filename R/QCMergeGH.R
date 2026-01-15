@@ -100,7 +100,7 @@ FetchMergeCommitSHAs <- function(
     if (!length(lNext$commits)) {
       break
     }
-    lAllCommits <- unique(c(lAllCommits, lNext$commits))
+    lAllCommits <- c(lAllCommits, lNext$commits)
     if (!intTotalCommits) {
       intTotalCommits <- lNext$total_commits
     }

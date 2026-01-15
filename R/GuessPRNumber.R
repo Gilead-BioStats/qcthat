@@ -107,9 +107,8 @@ ChooseRefPRNumber <- function(dfPRs, strSourceRef = GetActiveBranch()) {
   }
   if (NROW(dfPRs)) {
     intPR <- dplyr::arrange(dfPRs, dplyr::desc(.data$CreatedAt)) |>
-      dplyr::pull(.data$PR) |>
-      _[[1]]
-    return(intPR)
+      dplyr::pull(.data$PR)
+    return(intPR[[1]])
   }
   return(integer())
 }

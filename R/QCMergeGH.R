@@ -47,7 +47,13 @@ QCMergeGH <- function(
     strRepo = strRepo,
     strGHToken = strGHToken
   )
-  intMergeIssues <- FetchAllMergeIssueNumbers(
+  intPRIssues <- FetchAllPRIssueNumbers(
+    intPRNumbers,
+    strOwner = strOwner,
+    strRepo = strRepo,
+    strGHToken = strGHToken
+  )
+  intClosedIssues <- FetchAllMergeIssueNumbers(
     intPRNumbers,
     chrCommitSHAs,
     strOwner = strOwner,
@@ -55,7 +61,7 @@ QCMergeGH <- function(
     strGHToken = strGHToken
   )
   QCIssues(
-    intMergeIssues,
+    sort(unique(c(intPRIssues, intClosedIssues))),
     strPkgRoot = strPkgRoot,
     strOwner = strOwner,
     strRepo = strRepo,
@@ -204,6 +210,41 @@ BuildCommitPRQuery <- function(strCommitSHA) {
     "}",
     "}",
     sha = strCommitSHA
+  )
+}
+
+#' Fetch all issue numbers associated with a vector of PRs
+#'
+#' @inheritParams shared-params
+#' @returns A sorted, unique integer vector of associated issue numbers.
+#' @keywords internal
+FetchAllPRIssueNumbers <- function(
+  intPRNumbers,
+  strOwner = GetGHOwner(),
+  strRepo = GetGHRepo(),
+  strGHToken = gh::gh_token()
+) {
+  FetchVectorFromGQL(
+    intPRNumbers,
+    fnBuildQuery = BuildPRIssuesQuery,
+    vecProto = integer(),
+    strOwner = strOwner,
+    strRepo = strRepo,
+    strGHToken = strGHToken
+  )
+}
+
+#' Build a GraphQL sub-query for a single PR's issues
+#'
+#' @inheritParams shared-params
+#' @returns A character string for the GraphQL sub-query.
+#' @keywords internal
+BuildPRIssuesQuery <- function(intPRNumber) {
+  PrepareGQLQuery(
+    "pr<pr_num>: pullRequest(number: <pr_num>) {",
+    "closingIssuesReferences(first: 20) { nodes { number } }",
+    "}",
+    pr_num = intPRNumber
   )
 }
 

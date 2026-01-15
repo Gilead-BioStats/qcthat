@@ -1,6 +1,4 @@
 test_that("QCMergeGH filters to merge-associated issues (#68, #84)", {
-  # Really this just tests that it calls the right things, but we test those
-  # things under the hood.
   local_mocked_bindings(
     FetchMergeCommitSHAs = function(strSourceRef, strTargetRef, ...) {
       expect_equal(strSourceRef, "source")
@@ -11,6 +9,7 @@ test_that("QCMergeGH filters to merge-associated issues (#68, #84)", {
       expect_equal(chrCommitSHAs, c("sha1", "sha2"))
       c(101, 102)
     },
+    FetchAllPRIssueNumbers = function(...) integer(),
     FetchAllMergeIssueNumbers = function(intPRNumbers, chrCommitSHAs, ...) {
       expect_equal(intPRNumbers, c(101, 102))
       expect_equal(chrCommitSHAs, c("sha1", "sha2"))
@@ -119,6 +118,39 @@ test_that("FetchAllMergePRNumbers returns empty vector for no matching PRs (#84)
 test_that("BuildCommitPRQuery builds the expected query (#133)", {
   expect_snapshot({
     BuildCommitPRQuery(c("sha1", "sha2"))
+  })
+})
+
+test_that("FetchAllPRIssueNumbers returns unique, sorted issue numbers (#133)", {
+  local_mocked_bindings(
+    FetchGQL = function(...) {
+      list(
+        pr101 = list(
+          issues = list(
+            nodes = list(list(number = 3), list(number = 1))
+          )
+        ),
+        pr102 = list(
+          issues = list(
+            nodes = list(list(number = 2), list(number = 3))
+          )
+        )
+      )
+    }
+  )
+  expect_equal(
+    FetchAllPRIssueNumbers(c(101, 102)),
+    1:3
+  )
+  expect_equal(
+    FetchAllPRIssueNumbers(integer()),
+    integer()
+  )
+})
+
+test_that("BuildPRIssuesQuery builds the expected query (#133)", {
+  expect_snapshot({
+    BuildPRIssuesQuery(c("sha1", "sha2"))
   })
 })
 

@@ -100,7 +100,7 @@ FetchMergeCommitSHAs <- function(
     if (!length(lNext$commits)) {
       break
     }
-    lAllCommits <- unique(c(lAllCommits, lNext$commits))
+    lAllCommits <- c(lAllCommits, lNext$commits)
     if (!intTotalCommits) {
       intTotalCommits <- lNext$total_commits
     }
@@ -172,7 +172,7 @@ FetchVectorFromGQL <- function(
       strGHToken = strGHToken
     )
   })
-  vecPrepared <- sort(unique(CompletelyFlatten(lAllResults))) %||% vecProto
+  vecPrepared <- CompletelyFlatten(lAllResults) %||% vecProto
   return(vecPrepared)
 }
 
@@ -269,7 +269,5 @@ FetchAllMergeIssueNumbers <- function(
       (.data$CloserSHA %in% chrCommitSHAs) |
         (.data$CloserPRNumber %in% intPRNumbers)
     ) |>
-    dplyr::pull("Issue") |>
-    unique() |>
-    sort()
+    dplyr::pull("Issue")
 }

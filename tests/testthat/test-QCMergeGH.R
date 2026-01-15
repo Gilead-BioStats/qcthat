@@ -158,7 +158,7 @@ test_that("FetchAllMergeIssueNumbers returns unique, sorted issue numbers (#149)
   local_mocked_bindings(
     FetchRepoIssueClosers = function(...) {
       tibble::tibble(
-        Issue = 5:1,
+        Issue = 1:5,
         CloserType = c(
           "PullRequest",
           "PullRequest",
@@ -173,7 +173,7 @@ test_that("FetchAllMergeIssueNumbers returns unique, sorted issue numbers (#149)
   )
   expect_equal(
     FetchAllMergeIssueNumbers(c(101, 102), c("sha1")),
-    3:5
+    1:3
   )
   expect_equal(
     FetchAllMergeIssueNumbers(integer(), character()),

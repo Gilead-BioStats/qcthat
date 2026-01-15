@@ -37,7 +37,8 @@ FetchRepoIssueClosers <- function(
     purrr::map(lIssueClosers, TibblifyIssueCloser)
   ) |>
     purrr::list_rbind() |>
-    dplyr::arrange(.data$Issue)
+    dplyr::arrange(.data$Issue) |>
+    dplyr::distinct()
 }
 
 #' Fetch raw repository issue closers

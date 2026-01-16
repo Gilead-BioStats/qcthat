@@ -1,14 +1,14 @@
-# Fetch commit SHAs from a comparison
+# Fetch a single page of commits from a comparison
 
-Fetch commit SHAs from a comparison
+Fetch a single page of commits from a comparison
 
 ## Usage
 
 ``` r
-FetchMergeCommitSHAs(
+FetchMergeCommitBatchRaw(
   strSourceRef,
   strTargetRef,
-  intPageMax = 100L,
+  intPage = 1,
   strOwner = GetGHOwner(),
   strRepo = GetGHRepo(),
   strGHToken = gh::gh_token()
@@ -27,13 +27,9 @@ FetchMergeCommitSHAs(
   (`length-1 character`) Name of the git reference that will be merged
   into. Defaults to the default branch of this repository.
 
-- intPageMax:
+- intPage:
 
-  (`length-1 integer`) The maximum number of pages of commits to fetch
-  from the GitHub API. Each page contains up to 100 commits. Defaults to
-  100, which fetches up to 10,000 commits. You likely never need to
-  increase this number, but try a larger number if a merge involves a
-  very large number of commits in a very large repository.
+  (`length-1 integer`) The page number to fetch.
 
 - strOwner:
 
@@ -49,4 +45,4 @@ FetchMergeCommitSHAs(
 
 ## Value
 
-(`character`) A sorted, unique vector of commit SHAs.
+A raw list response from the API.

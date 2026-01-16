@@ -58,6 +58,11 @@ preceded by checkboxes in the associated issue.</p></dd>
 <dd><p>(<code>character</code>) SHAs of git commits.</p></dd>
 
 
+<dt id="arg-chrerrormessage">chrErrorMessage<a class="anchor" aria-label="anchor" href="#arg-chrerrormessage"></a></dt>
+<dd><p>(<code>character</code>) A message to include in an error report.
+Can include <code><a href="https://glue.tidyverse.org/reference/glue.html" class="external-link">glue::glue()</a></code> syntax. Formatted via <code><a href="https://cli.r-lib.org/reference/cli_bullets.html" class="external-link">cli::cli_bullets()</a></code>.</p></dd>
+
+
 <dt id="arg-chrignoredlabels">chrIgnoredLabels<a class="anchor" aria-label="anchor" href="#arg-chrignoredlabels"></a></dt>
 <dd><p>(<code>character</code>) GitHub labels to ignore, such as
 <code>"qcthat-nocov"</code>.</p></dd>
@@ -147,6 +152,14 @@ associated.</p></dd>
 return from git logs. Leaving this at the default should almost always be
 fine, but you can reduce the number if your repository has a long commit
 history and this function is slow.</p></dd>
+
+
+<dt id="arg-intpagemax">intPageMax<a class="anchor" aria-label="anchor" href="#arg-intpagemax"></a></dt>
+<dd><p>(<code>length-1 integer</code>) The maximum number of pages of commits
+to fetch from the GitHub API. Each page contains up to 100 commits.
+Defaults to 100, which fetches up to 10,000 commits. You likely never need
+to increase this number, but try a larger number if a merge involves a very
+large number of commits in a very large repository.</p></dd>
 
 
 <dt id="arg-intparentissue">intParentIssue<a class="anchor" aria-label="anchor" href="#arg-intparentissue"></a></dt>
@@ -273,11 +286,6 @@ expectation.</p></dd>
 <dt id="arg-strerrorsubclass">strErrorSubclass<a class="anchor" aria-label="anchor" href="#arg-strerrorsubclass"></a></dt>
 <dd><p>(<code>length-1 character</code>) A subclass for an error
 condition.</p></dd>
-
-
-<dt id="arg-strerrormessage">strErrorMessage<a class="anchor" aria-label="anchor" href="#arg-strerrormessage"></a></dt>
-<dd><p>(<code>length-1 character</code>) A message to include in and
-error report. Can include <code><a href="https://glue.tidyverse.org/reference/glue.html" class="external-link">glue::glue()</a></code> syntax.</p></dd>
 
 
 <dt id="arg-strextension">strExtension<a class="anchor" aria-label="anchor" href="#arg-strextension"></a></dt>

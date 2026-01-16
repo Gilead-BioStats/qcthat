@@ -3,11 +3,15 @@
 pull requests associated with those commits, finds all issues associated with
 those pull requests (according to GitHub's graph of connections between
 issues and commits), and generates a QC report for those issues. This is a
-more robust check than QCMergeLocal()."><meta property="og:description" content="Finds all commits in strSourceRef that are not in strTargetRef, finds all
+more robust check than QCMergeLocal(). Note: If the comparison involves
+more than 5000 commits, increase intPageMax to fetch additional commits in
+batches of 100."><meta property="og:description" content="Finds all commits in strSourceRef that are not in strTargetRef, finds all
 pull requests associated with those commits, finds all issues associated with
 those pull requests (according to GitHub's graph of connections between
 issues and commits), and generates a QC report for those issues. This is a
-more robust check than QCMergeLocal()."><meta name="robots" content="noindex"></head><body>
+more robust check than QCMergeLocal(). Note: If the comparison involves
+more than 5000 commits, increase intPageMax to fetch additional commits in
+batches of 100."><meta name="robots" content="noindex"></head><body>
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
 
 
@@ -46,7 +50,9 @@ more robust check than QCMergeLocal()."><meta name="robots" content="noindex"></
 pull requests associated with those commits, finds all issues associated with
 those pull requests (according to GitHub's graph of connections between
 issues and commits), and generates a QC report for those issues. This is a
-more robust check than <code><a href="QCMergeLocal.html">QCMergeLocal()</a></code>.</p>
+more robust check than <code><a href="QCMergeLocal.html">QCMergeLocal()</a></code>. Note: If the comparison involves
+more than 5000 commits, increase <code>intPageMax</code> to fetch additional commits in
+batches of 100.</p>
     </div>
 
     <div class="section level2">
@@ -54,6 +60,7 @@ more robust check than <code><a href="QCMergeLocal.html">QCMergeLocal()</a></cod
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">QCMergeGH</span><span class="op">(</span></span>
 <span>  strSourceRef <span class="op">=</span> <span class="fu"><a href="GetActiveBranch.html">GetActiveBranch</a></span><span class="op">(</span><span class="va">strPkgRoot</span><span class="op">)</span>,</span>
 <span>  strTargetRef <span class="op">=</span> <span class="fu"><a href="GetDefaultBranch.html">GetDefaultBranch</a></span><span class="op">(</span><span class="va">strPkgRoot</span><span class="op">)</span>,</span>
+<span>  intPageMax <span class="op">=</span> <span class="fl">100L</span>,</span>
 <span>  strPkgRoot <span class="op">=</span> <span class="st">"."</span>,</span>
 <span>  strOwner <span class="op">=</span> <span class="fu"><a href="GetGHOwner.html">GetGHOwner</a></span><span class="op">(</span><span class="va">strPkgRoot</span><span class="op">)</span>,</span>
 <span>  strRepo <span class="op">=</span> <span class="fu"><a href="GetGHRepo.html">GetGHRepo</a></span><span class="op">(</span><span class="va">strPkgRoot</span><span class="op">)</span>,</span>
@@ -76,6 +83,14 @@ contains changes. Defaults to the active branch in this repository.</p></dd>
 <dt id="arg-strtargetref">strTargetRef<a class="anchor" aria-label="anchor" href="#arg-strtargetref"></a></dt>
 <dd><p>(<code>length-1 character</code>) Name of the git reference that
 will be merged into. Defaults to the default branch of this repository.</p></dd>
+
+
+<dt id="arg-intpagemax">intPageMax<a class="anchor" aria-label="anchor" href="#arg-intpagemax"></a></dt>
+<dd><p>(<code>length-1 integer</code>) The maximum number of pages of commits
+to fetch from the GitHub API. Each page contains up to 100 commits.
+Defaults to 100, which fetches up to 10,000 commits. You likely never need
+to increase this number, but try a larger number if a merge involves a very
+large number of commits in a very large repository.</p></dd>
 
 
 <dt id="arg-strpkgroot">strPkgRoot<a class="anchor" aria-label="anchor" href="#arg-strpkgroot"></a></dt>
@@ -129,8 +144,7 @@ issues and the commits that closed them.</p></div>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span> <span class="co"># interactive()</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span>  <span class="co"># This will only make sense if you are working in a git repository and have</span></span></span>
-<span class="r-in"><span>  <span class="co"># an active branch that is different from the default branch.</span></span></span>
-<span class="r-in"><span>  <span class="fu">QCMergeGH</span><span class="op">(</span><span class="op">)</span></span></span>
+<span class="r-in"><span>  <span class="co"># an active branch that is different from the default branch. QCMergeGH()</span></span></span>
 <span class="r-in"><span><span class="op">}</span></span></span>
 </code></pre></div>
     </div>

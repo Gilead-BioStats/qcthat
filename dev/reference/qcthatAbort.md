@@ -6,7 +6,7 @@ Generate a classed qcthat error
 
 ``` r
 qcthatAbort(
-  strErrorMessage,
+  chrErrorMessage,
   strErrorSubclass,
   envCall = rlang::caller_env(),
   envErrorMessage = rlang::caller_env(),
@@ -17,12 +17,12 @@ qcthatAbort(
 
 ## Arguments
 
-- strErrorMessage:
+- chrErrorMessage:
 
-  (`length-1 character`) A message to include in and error report. Can
-  include
+  (`character`) A message to include in an error report. Can include
   [`glue::glue()`](https://glue.tidyverse.org/reference/glue.html)
-  syntax.
+  syntax. Formatted via
+  [`cli::cli_bullets()`](https://cli.r-lib.org/reference/cli_bullets.html).
 
 - strErrorSubclass:
 

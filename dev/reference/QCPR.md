@@ -11,6 +11,7 @@ for details on how issues can become associated with a pull request.
 ``` r
 QCPR(
   intPRNumber = GuessPRNumber(strPkgRoot, strOwner, strRepo, strGHToken),
+  intPageMax = 100L,
   strPkgRoot = ".",
   strOwner = GetGHOwner(strPkgRoot),
   strRepo = GetGHRepo(strPkgRoot),
@@ -26,6 +27,14 @@ QCPR(
 
   (`length-1 integer`) The number of the pull request to fetch
   information about.
+
+- intPageMax:
+
+  (`length-1 integer`) The maximum number of pages of commits to fetch
+  from the GitHub API. Each page contains up to 100 commits. Defaults to
+  100, which fetches up to 10,000 commits. You likely never need to
+  increase this number, but try a larger number if a merge involves a
+  very large number of commits in a very large repository.
 
 - strPkgRoot:
 

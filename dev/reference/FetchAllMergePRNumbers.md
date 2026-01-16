@@ -33,4 +33,4 @@ FetchAllMergePRNumbers(
 
 ## Value
 
-A sorted, unique integer vector of associated PR numbers.
+A sorted, unique integer vector of merged PR numbers.

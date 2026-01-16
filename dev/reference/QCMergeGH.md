@@ -6,6 +6,8 @@ associated with those pull requests (according to GitHub's graph of
 connections between issues and commits), and generates a QC report for
 those issues. This is a more robust check than
 [`QCMergeLocal()`](https://gilead-biostats.github.io/qcthat/dev/reference/QCMergeLocal.md).
+Note: If the comparison involves more than 5000 commits, increase
+`intPageMax` to fetch additional commits in batches of 100.
 
 ## Usage
 
@@ -13,6 +15,7 @@ those issues. This is a more robust check than
 QCMergeGH(
   strSourceRef = GetActiveBranch(strPkgRoot),
   strTargetRef = GetDefaultBranch(strPkgRoot),
+  intPageMax = 100L,
   strPkgRoot = ".",
   strOwner = GetGHOwner(strPkgRoot),
   strRepo = GetGHRepo(strPkgRoot),
@@ -34,6 +37,14 @@ QCMergeGH(
 
   (`length-1 character`) Name of the git reference that will be merged
   into. Defaults to the default branch of this repository.
+
+- intPageMax:
+
+  (`length-1 integer`) The maximum number of pages of commits to fetch
+  from the GitHub API. Each page contains up to 100 commits. Defaults to
+  100, which fetches up to 10,000 commits. You likely never need to
+  increase this number, but try a larger number if a merge involves a
+  very large number of commits in a very large repository.
 
 - strPkgRoot:
 
@@ -88,7 +99,6 @@ commits that closed them.
 if (FALSE) { # interactive()
 
   # This will only make sense if you are working in a git repository and have
-  # an active branch that is different from the default branch.
-  QCMergeGH()
+  # an active branch that is different from the default branch. QCMergeGH()
 }
 ```

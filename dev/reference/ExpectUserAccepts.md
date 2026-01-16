@@ -1,5 +1,7 @@
 # Does a user accept the feature?
 
+**\[experimental\]**
+
 Create and track a sub-issue to track user acceptance that an issue is
 complete.
 

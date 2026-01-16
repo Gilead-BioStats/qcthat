@@ -1,11 +1,12 @@
-# Fetch associated PR data for commits via GraphQL
+# Fetch all issue numbers associated with a merge
 
-Fetch associated PR data for commits via GraphQL
+Fetch all issue numbers associated with a merge
 
 ## Usage
 
 ``` r
-FetchAllMergePRNumbersRaw(
+FetchAllMergeIssueNumbers(
+  intPRNumbers,
   chrCommitSHAs,
   strOwner = GetGHOwner(),
   strRepo = GetGHRepo(),
@@ -14,6 +15,10 @@ FetchAllMergePRNumbersRaw(
 ```
 
 ## Arguments
+
+- intPRNumbers:
+
+  (`integer`) A vector of pull request numbers.
 
 - chrCommitSHAs:
 
@@ -33,5 +38,4 @@ FetchAllMergePRNumbersRaw(
 
 ## Value
 
-A raw list response from the
-[`gh::gh_gql()`](https://gh.r-lib.org/reference/gh_gql.html) call.
+A sorted, unique integer vector of associated issue numbers.

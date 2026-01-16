@@ -18,6 +18,13 @@ Reused parameter definitions are gathered here for easier usage. Use
 
   (`character`) SHAs of git commits.
 
+- chrErrorMessage:
+
+  (`character`) A message to include in an error report. Can include
+  [`glue::glue()`](https://glue.tidyverse.org/reference/glue.html)
+  syntax. Formatted via
+  [`cli::cli_bullets()`](https://cli.r-lib.org/reference/cli_bullets.html).
+
 - chrIgnoredLabels:
 
   (`character`) GitHub labels to ignore, such as `"qcthat-nocov"`.
@@ -113,6 +120,14 @@ Reused parameter definitions are gathered here for easier usage. Use
   logs. Leaving this at the default should almost always be fine, but
   you can reduce the number if your repository has a long commit history
   and this function is slow.
+
+- intPageMax:
+
+  (`length-1 integer`) The maximum number of pages of commits to fetch
+  from the GitHub API. Each page contains up to 100 commits. Defaults to
+  100, which fetches up to 10,000 commits. You likely never need to
+  increase this number, but try a larger number if a merge involves a
+  very large number of commits in a very large repository.
 
 - intParentIssue:
 
@@ -235,13 +250,6 @@ Reused parameter definitions are gathered here for easier usage. Use
 - strErrorSubclass:
 
   (`length-1 character`) A subclass for an error condition.
-
-- strErrorMessage:
-
-  (`length-1 character`) A message to include in and error report. Can
-  include
-  [`glue::glue()`](https://glue.tidyverse.org/reference/glue.html)
-  syntax.
 
 - strExtension:
 

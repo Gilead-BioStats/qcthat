@@ -1,12 +1,11 @@
-# Fetch associated issue data for pull requests via GraphQL
+# Fetch raw repository issue closers
 
-Fetch associated issue data for pull requests via GraphQL
+Fetch raw repository issue closers
 
 ## Usage
 
 ``` r
-FetchAllPRIssueNumbersRaw(
-  intPRNumbers,
+FetchRepoIssueClosersRaw(
   strOwner = GetGHOwner(),
   strRepo = GetGHRepo(),
   strGHToken = gh::gh_token()
@@ -14,10 +13,6 @@ FetchAllPRIssueNumbersRaw(
 ```
 
 ## Arguments
-
-- intPRNumbers:
-
-  (`integer`) A vector of pull request numbers.
 
 - strOwner:
 
@@ -33,5 +28,5 @@ FetchAllPRIssueNumbersRaw(
 
 ## Value
 
-A raw list response from the
-[`gh::gh_gql()`](https://gh.r-lib.org/reference/gh_gql.html) call.
+A list of raw issue closer objects as returned by
+[`gh::gh_gql()`](https://gh.r-lib.org/reference/gh_gql.html).

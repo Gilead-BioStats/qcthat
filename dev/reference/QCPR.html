@@ -50,6 +50,7 @@ for details on how issues can become associated with a pull request.</p>
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">QCPR</span><span class="op">(</span></span>
 <span>  intPRNumber <span class="op">=</span> <span class="fu"><a href="GuessPRNumber.html">GuessPRNumber</a></span><span class="op">(</span><span class="va">strPkgRoot</span>, <span class="va">strOwner</span>, <span class="va">strRepo</span>, <span class="va">strGHToken</span><span class="op">)</span>,</span>
+<span>  intPageMax <span class="op">=</span> <span class="fl">100L</span>,</span>
 <span>  strPkgRoot <span class="op">=</span> <span class="st">"."</span>,</span>
 <span>  strOwner <span class="op">=</span> <span class="fu"><a href="GetGHOwner.html">GetGHOwner</a></span><span class="op">(</span><span class="va">strPkgRoot</span><span class="op">)</span>,</span>
 <span>  strRepo <span class="op">=</span> <span class="fu"><a href="GetGHRepo.html">GetGHRepo</a></span><span class="op">(</span><span class="va">strPkgRoot</span><span class="op">)</span>,</span>
@@ -66,6 +67,14 @@ for details on how issues can become associated with a pull request.</p>
 <dl><dt id="arg-intprnumber">intPRNumber<a class="anchor" aria-label="anchor" href="#arg-intprnumber"></a></dt>
 <dd><p>(<code>length-1 integer</code>) The number of the pull request to
 fetch information about.</p></dd>
+
+
+<dt id="arg-intpagemax">intPageMax<a class="anchor" aria-label="anchor" href="#arg-intpagemax"></a></dt>
+<dd><p>(<code>length-1 integer</code>) The maximum number of pages of commits
+to fetch from the GitHub API. Each page contains up to 100 commits.
+Defaults to 100, which fetches up to 10,000 commits. You likely never need
+to increase this number, but try a larger number if a merge involves a very
+large number of commits in a very large repository.</p></dd>
 
 
 <dt id="arg-strpkgroot">strPkgRoot<a class="anchor" aria-label="anchor" href="#arg-strpkgroot"></a></dt>

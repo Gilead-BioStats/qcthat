@@ -35,8 +35,10 @@ FetchRefPRNumber(
 ## Value
 
 An integer pull request number, or
-[`integer()`](https://rdrr.io/r/base/integer.html) if no matching PR (or
-more than one matching PR) is found.
+[`integer()`](https://rdrr.io/r/base/integer.html) if no matching PR is
+found. If multiple PRs are found, first, if there are any open PRs, we
+filter to only include open PRs, then the PR that was most recently
+created is returned.
 
 ## Examples
 

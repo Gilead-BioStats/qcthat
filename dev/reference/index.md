@@ -13,7 +13,7 @@
 - [`CommentReport()`](https://gilead-biostats.github.io/qcthat/dev/reference/CommentReport.md)
   : Comment on a PR or issue with a QC report
 - [`CommentUAT()`](https://gilead-biostats.github.io/qcthat/dev/reference/CommentUAT.md)
-  : Comment on a PR or issue with a UAT report
+  **\[experimental\]** : Comment on a PR or issue with a UAT report
 - [`CompileIssueTestMatrix()`](https://gilead-biostats.github.io/qcthat/dev/reference/CompileIssueTestMatrix.md)
   : Create a nested tibble of issues and tests
 - [`CompileTestResults()`](https://gilead-biostats.github.io/qcthat/dev/reference/CompileTestResults.md)
@@ -23,9 +23,11 @@
 - [`DefaultIgnoreLabelsDF()`](https://gilead-biostats.github.io/qcthat/dev/reference/DefaultIgnoreLabelsDF.md)
   : Default ignored labels as a tibble
 - [`ExpectUserAccepts()`](https://gilead-biostats.github.io/qcthat/dev/reference/ExpectUserAccepts.md)
-  : Does a user accept the feature?
+  **\[experimental\]** : Does a user accept the feature?
 - [`FetchRefPRNumber()`](https://gilead-biostats.github.io/qcthat/dev/reference/FetchRefPRNumber.md)
   : Fetch the pull request number for a branch or other git ref
+- [`FetchRepoIssueClosers()`](https://gilead-biostats.github.io/qcthat/dev/reference/FetchRepoIssueClosers.md)
+  : Fetch repository issue closers
 - [`FetchRepoIssues()`](https://gilead-biostats.github.io/qcthat/dev/reference/FetchRepoIssues.md)
   : Fetch repository issues
 - [`FetchRepoPRs()`](https://gilead-biostats.github.io/qcthat/dev/reference/FetchRepoPRs.md)

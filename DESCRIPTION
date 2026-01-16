@@ -37,6 +37,7 @@ Suggests:
     emoji,
     fs,
     httr2,
+    lifecycle,
     usethis,
     withr
 Config/Needs/website: rmarkdown

@@ -23,8 +23,10 @@ contains changes. Defaults to the active branch in this repository.}
 read issues.}
 }
 \value{
-An integer pull request number, or \code{integer()} if no matching PR
-(or more than one matching PR) is found.
+An integer pull request number, or \code{integer()} if no matching PR is
+found. If multiple PRs are found, first, if there are any open PRs, we
+filter to only include open PRs, then the PR that was most recently created
+is returned.
 }
 \description{
 Fetch the pull request number for a branch or other git ref

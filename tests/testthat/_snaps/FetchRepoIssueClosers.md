@@ -1,0 +1,83 @@
+# FetchRepoIssueClosersRawBatch generates the expected calls
+
+    Code
+      FetchRepoIssueClosersRawBatch(strOwner = "owner", strRepo = "repo", strGHToken = "token")
+    Output
+      [[1]]
+      issues(first: 100, states: CLOSED,  orderBy: {field: UPDATED_AT, direction: DESC}) {
+        pageInfo {
+          hasNextPage
+          endCursor
+        }
+        nodes {
+          number
+          timelineItems(last: 1, itemTypes: [CLOSED_EVENT]) {
+            nodes {
+              ... on ClosedEvent {
+                closer {
+                  __typename
+                  ... on Commit {
+                    oid
+                  }
+                  ... on PullRequest {
+                    number
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+      
+      $strOwner
+      [1] "owner"
+      
+      $strRepo
+      [1] "repo"
+      
+      $strGHToken
+      [1] "token"
+      
+
+---
+
+    Code
+      FetchRepoIssueClosersRawBatch(strOwner = "owner", strRepo = "repo", strGHToken = "token",
+        strCursor = "not-null")
+    Output
+      [[1]]
+      issues(first: 100, states: CLOSED, after: "not-null",  orderBy: {field: UPDATED_AT, direction: DESC}) {
+        pageInfo {
+          hasNextPage
+          endCursor
+        }
+        nodes {
+          number
+          timelineItems(last: 1, itemTypes: [CLOSED_EVENT]) {
+            nodes {
+              ... on ClosedEvent {
+                closer {
+                  __typename
+                  ... on Commit {
+                    oid
+                  }
+                  ... on PullRequest {
+                    number
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+      
+      $strOwner
+      [1] "owner"
+      
+      $strRepo
+      [1] "repo"
+      
+      $strGHToken
+      [1] "token"
+      
+

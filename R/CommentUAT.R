@@ -1,5 +1,8 @@
 #' Comment on a PR or issue with a UAT report
 #'
+#' @description
+#' `r lifecycle::badge("experimental")`
+#'
 #' Add or update a comment on a GitHub pull request (or issue) with a report of
 #' issues that require user acceptance, formatted in GitHub markdown. Note: This
 #' should only be called *after* the test suite has ran.

@@ -99,3 +99,7 @@ HaveString <- function(lCharacters, strTarget) {
     }
   )
 }
+
+`%|0|%` <- function(x, y) {
+  if (!length(x)) y else x
+}

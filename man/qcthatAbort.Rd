@@ -5,7 +5,7 @@
 \title{Generate a classed qcthat error}
 \usage{
 qcthatAbort(
-  strErrorMessage,
+  chrErrorMessage,
   strErrorSubclass,
   envCall = rlang::caller_env(),
   envErrorMessage = rlang::caller_env(),
@@ -14,8 +14,8 @@ qcthatAbort(
 )
 }
 \arguments{
-\item{strErrorMessage}{(\verb{length-1 character}) A message to include in and
-error report. Can include \code{\link[glue:glue]{glue::glue()}} syntax.}
+\item{chrErrorMessage}{(\code{character}) A message to include in an error report.
+Can include \code{\link[glue:glue]{glue::glue()}} syntax. Formatted via \code{\link[cli:cli_bullets]{cli::cli_bullets()}}.}
 
 \item{strErrorSubclass}{(\verb{length-1 character}) A subclass for an error
 condition.}

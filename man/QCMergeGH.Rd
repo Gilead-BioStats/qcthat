@@ -7,6 +7,7 @@
 QCMergeGH(
   strSourceRef = GetActiveBranch(strPkgRoot),
   strTargetRef = GetDefaultBranch(strPkgRoot),
+  intPageMax = 100L,
   strPkgRoot = ".",
   strOwner = GetGHOwner(strPkgRoot),
   strRepo = GetGHRepo(strPkgRoot),
@@ -22,6 +23,12 @@ contains changes. Defaults to the active branch in this repository.}
 
 \item{strTargetRef}{(\verb{length-1 character}) Name of the git reference that
 will be merged into. Defaults to the default branch of this repository.}
+
+\item{intPageMax}{(\verb{length-1 integer}) The maximum number of pages of commits
+to fetch from the GitHub API. Each page contains up to 100 commits.
+Defaults to 100, which fetches up to 10,000 commits. You likely never need
+to increase this number, but try a larger number if a merge involves a very
+large number of commits in a very large repository.}
 
 \item{strPkgRoot}{(\verb{length-1 character}) The path to a directory in the
 package. Will be expanded using \code{\link[gert:git_repo]{gert::git_find()}}.}
@@ -53,14 +60,15 @@ Finds all commits in \code{strSourceRef} that are not in \code{strTargetRef}, fi
 pull requests associated with those commits, finds all issues associated with
 those pull requests (according to GitHub's graph of connections between
 issues and commits), and generates a QC report for those issues. This is a
-more robust check than \code{\link[=QCMergeLocal]{QCMergeLocal()}}.
+more robust check than \code{\link[=QCMergeLocal]{QCMergeLocal()}}. Note: If the comparison involves
+more than 5000 commits, increase \code{intPageMax} to fetch additional commits in
+batches of 100.
 }
 \examples{
 \dontshow{if (interactive()) withAutoprint(\{ # examplesIf}
 
   # This will only make sense if you are working in a git repository and have
-  # an active branch that is different from the default branch.
-  QCMergeGH()
+  # an active branch that is different from the default branch. QCMergeGH()
 \dontshow{\}) # examplesIf}
 }
 \seealso{

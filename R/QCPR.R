@@ -22,6 +22,7 @@
 #'   QCPR()
 QCPR <- function(
   intPRNumber = GuessPRNumber(strPkgRoot, strOwner, strRepo, strGHToken),
+  intPageMax = 100L,
   strPkgRoot = ".",
   strOwner = GetGHOwner(strPkgRoot),
   strRepo = GetGHRepo(strPkgRoot),
@@ -29,6 +30,12 @@ QCPR <- function(
   lglWarn = TRUE,
   chrIgnoredLabels = DefaultIgnoreLabels()
 ) {
+  if (!length(intPRNumber)) {
+    qcthatAbort(
+      "Could not guess pull request number. Please provide `intPRNumber`.",
+      strErrorSubclass = "pr_number_not_found"
+    )
+  }
   chrPRRefs <- FetchPRRefs(
     intPRNumber = intPRNumber,
     strOwner = strOwner,
@@ -38,6 +45,7 @@ QCPR <- function(
   QCMergeGH(
     strSourceRef = chrPRRefs[["strSourceRef"]],
     strTargetRef = chrPRRefs[["strTargetRef"]],
+    intPageMax = intPageMax,
     strPkgRoot = strPkgRoot,
     strOwner = strOwner,
     strRepo = strRepo,
@@ -59,25 +67,27 @@ FetchPRRefs <- function(
   strGHToken = gh::gh_token(),
   envCall = rlang::caller_env()
 ) {
-  dfPR <- FetchRepoPRs(
+  lPR <- FetchRawRepoPRSingle(
+    intPRNumber = intPRNumber,
     strOwner = strOwner,
     strRepo = strRepo,
-    strGHToken = strGHToken,
-    strState = "all"
-  ) |>
-    dplyr::filter(.data$PR == intPRNumber)
-  if (!NROW(dfPR)) {
-    qcthatAbort(
-      c(
-        "{.arg intPRNumber} must refer to a pull request in the specified repository.",
-        i = "Pull request number {.val {intPRNumber}} not found in repository {.val {strOwner}/{strRepo}}."
-      ),
-      strErrorSubclass = "pr_not_found",
-      envCall = envCall
+    strGHToken = strGHToken
+  )
+  if (isTRUE(lPR$merged) && !is.null(lPR$merge_commit_sha)) {
+    lCommit <- CallGHAPI(
+      "GET /repos/{owner}/{repo}/commits/{ref}",
+      strOwner = strOwner,
+      strRepo = strRepo,
+      ref = lPR$merge_commit_sha,
+      strGHToken = strGHToken
     )
+    return(c(
+      strSourceRef = lPR$merge_commit_sha,
+      strTargetRef = lCommit$parents[[1]]$sha
+    ))
   }
   return(c(
-    strSourceRef = dfPR$HeadRef,
-    strTargetRef = dfPR$BaseRef
+    strSourceRef = lPR$head$ref,
+    strTargetRef = lPR$base$ref
   ))
 }

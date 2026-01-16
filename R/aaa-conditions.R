@@ -5,7 +5,7 @@
 #' @inheritParams shared-params
 #' @keywords internal
 qcthatAbort <- function(
-  strErrorMessage,
+  chrErrorMessage,
   strErrorSubclass,
   envCall = rlang::caller_env(),
   envErrorMessage = rlang::caller_env(),
@@ -13,7 +13,7 @@ qcthatAbort <- function(
   ...
 ) {
   cli::cli_abort(
-    strErrorMessage,
+    chrErrorMessage,
     class = CompileConditionClasses(strErrorSubclass),
     call = envCall,
     .envir = envErrorMessage,

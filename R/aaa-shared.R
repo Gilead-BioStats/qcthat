@@ -68,6 +68,8 @@
 #'   typically obtained by running something like [testthat::test_local()] with
 #'   `stop_on_failure = FALSE` and a reporter that doesn't cause issues in
 #'   parallel testing, like `reporter = "silent"`, and assigning it to a name.
+#' @param lPRActionRuns (`list`) A list of workflow run objects as returned by
+#'   GitHub.
 #' @param lglReportFailure (`length-1 logical`) Whether to ignore failures
 #'   (default unless a "qcthat_UAT" environment variable is "true"), or fail
 #'   (and show as a failure in testthat tests).
@@ -97,6 +99,7 @@
 #'   connect to a parent issue.
 #' @param strCommentID (`length-1 character`) A unique ID for a comment within a
 #'   given context, which is usually a hash of the title of the comment.
+#' @param strCommitSHA (`length-1 character`) The commit SHA to target.
 #' @param strConditionSubclass (`length-1 character`) A subclass for a
 #'   condition.
 #' @param strConditionClass (`length-1 character`) One of "error", "warning", or
@@ -116,6 +119,8 @@
 #' @param strOwner (`length-1 character`) GitHub username or organization name.
 #' @param strPkgRoot (`length-1 character`) The path to a directory in the
 #'   package. Will be expanded using [gert::git_find()].
+#' @param strPRHeadRef (`length-1 character`) The branch name (head ref) of the
+#'   PR.
 #' @param strRepo (`length-1 character`) GitHub repository name.
 #' @param strReportType (`length-1 character`) The main title of the report,
 #'   such as `"Completed Issues"` or `"PR-Associated Issues"`.

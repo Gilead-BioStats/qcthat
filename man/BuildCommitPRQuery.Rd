@@ -6,6 +6,9 @@
 \usage{
 BuildCommitPRQuery(strCommitSHA)
 }
+\arguments{
+\item{strCommitSHA}{(\verb{length-1 character}) The commit SHA to target.}
+}
 \value{
 A character string for the GraphQL sub-query.
 }

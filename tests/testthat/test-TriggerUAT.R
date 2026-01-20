@@ -180,11 +180,9 @@ test_that("The UAT workflow triggers properly when all UAT issues connected to a
     intIssue = 114,
     chrInstructions = "Close this issue after the initial PR report for this functionality runs."
   )
-  # # Uncomment this after the initial check.
-  #
-  # qcthat::ExpectUserAccepts(
-  #   "The qcthat-uat action triggers report re-run when all UAT issues are closed",
-  #   intIssue = 114,
-  #   chrInstructions = "Close this issue after the PR report for this functionality runs."
-  # )
+  qcthat::ExpectUserAccepts(
+    "The qcthat-uat action triggers report re-run when all UAT issues are closed",
+    intIssue = 114,
+    chrInstructions = "Close this issue after the PR report for this functionality runs."
+  )
 })

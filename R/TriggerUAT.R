@@ -172,7 +172,7 @@ FetchPRActionRuns <- function(
     lPRActionWorkflows <- purrr::keep(
       lPRActionWorkflows,
       function(lRun) {
-        stringr::str_detect(lRun$path, "qcthat-pr_issues")
+        stringr::str_detect(lRun$path, strAction)
       }
     )
   }

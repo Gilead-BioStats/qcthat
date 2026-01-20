@@ -3,6 +3,12 @@
 on:
   issues:
     types: [closed]
+  workflow_dispatch:
+    inputs:
+      issueNumber:
+        description: 'The closed issue number to process'
+        required: true
+        type: string
 
 name: UAT Manager
 
@@ -17,7 +23,9 @@ permissions:
 jobs:
   qcthat-uat_manager:
     runs-on: ubuntu-latest
-    if: contains(github.event.issue.labels.*.name, 'qcthat-uat')
+    if: >-
+      (github.event_name == 'issues' && contains(github.event.issue.labels.*.name, 'qcthat-uat')) ||
+      github.event_name == 'workflow_dispatch'
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
     steps:
@@ -33,4 +41,4 @@ jobs:
 
       - name: Run UAT Manager
         run: |
-          Rscript -e "qcthat::TriggerUAT(${{ github.event.issue.number }})"
+          Rscript -e "qcthat::TriggerUAT(${{ github.event.issue.number || inputs.issueNumber }})"

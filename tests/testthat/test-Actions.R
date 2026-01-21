@@ -99,3 +99,12 @@ test_that("qcthat is namespaced in GHA (#143)", {
     )
   )
 })
+
+test_that("Action_UAT targets the expected action (#157)", {
+  local_mocked_bindings(
+    InstallAction = function(strActionName, ...) {
+      strActionName
+    }
+  )
+  expect_identical(Action_UAT(), "uat")
+})

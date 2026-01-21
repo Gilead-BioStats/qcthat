@@ -167,6 +167,10 @@ Reused parameter definitions are gathered here for easier usage. Use
   issues in parallel testing, like `reporter = "silent"`, and assigning
   it to a name.
 
+- lPRActionRuns:
+
+  (`list`) A list of workflow run objects as returned by GitHub.
+
 - lglReportFailure:
 
   (`length-1 logical`) Whether to ignore failures (default unless a
@@ -230,6 +234,10 @@ Reused parameter definitions are gathered here for easier usage. Use
   (`length-1 character`) A unique ID for a comment within a given
   context, which is usually a hash of the title of the comment.
 
+- strCommitSHA:
+
+  (`length-1 character`) The commit SHA to target.
+
 - strConditionSubclass:
 
   (`length-1 character`) A subclass for a condition.
@@ -271,6 +279,10 @@ Reused parameter definitions are gathered here for easier usage. Use
   (`length-1 character`) The path to a directory in the package. Will be
   expanded using
   [`gert::git_find()`](https://docs.ropensci.org/gert/reference/git_repo.html).
+
+- strPRHeadRef:
+
+  (`length-1 character`) The branch name (head ref) of the PR.
 
 - strRepo:
 

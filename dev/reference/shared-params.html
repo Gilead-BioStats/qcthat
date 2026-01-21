@@ -198,6 +198,11 @@ typically obtained by running something like <code><a href="https://testthat.r-l
 parallel testing, like <code>reporter = "silent"</code>, and assigning it to a name.</p></dd>
 
 
+<dt id="arg-lpractionruns">lPRActionRuns<a class="anchor" aria-label="anchor" href="#arg-lpractionruns"></a></dt>
+<dd><p>(<code>list</code>) A list of workflow run objects as returned by
+GitHub.</p></dd>
+
+
 <dt id="arg-lglreportfailure">lglReportFailure<a class="anchor" aria-label="anchor" href="#arg-lglreportfailure"></a></dt>
 <dd><p>(<code>length-1 logical</code>) Whether to ignore failures
 (default unless a "qcthat_UAT" environment variable is "true"), or fail
@@ -263,6 +268,10 @@ connect to a parent issue.</p></dd>
 given context, which is usually a hash of the title of the comment.</p></dd>
 
 
+<dt id="arg-strcommitsha">strCommitSHA<a class="anchor" aria-label="anchor" href="#arg-strcommitsha"></a></dt>
+<dd><p>(<code>length-1 character</code>) The commit SHA to target.</p></dd>
+
+
 <dt id="arg-strconditionsubclass">strConditionSubclass<a class="anchor" aria-label="anchor" href="#arg-strconditionsubclass"></a></dt>
 <dd><p>(<code>length-1 character</code>) A subclass for a
 condition.</p></dd>
@@ -307,6 +316,11 @@ read issues.</p></dd>
 <dt id="arg-strpkgroot">strPkgRoot<a class="anchor" aria-label="anchor" href="#arg-strpkgroot"></a></dt>
 <dd><p>(<code>length-1 character</code>) The path to a directory in the
 package. Will be expanded using <code><a href="https://docs.ropensci.org/gert/reference/git_repo.html" class="external-link">gert::git_find()</a></code>.</p></dd>
+
+
+<dt id="arg-strprheadref">strPRHeadRef<a class="anchor" aria-label="anchor" href="#arg-strprheadref"></a></dt>
+<dd><p>(<code>length-1 character</code>) The branch name (head ref) of the
+PR.</p></dd>
 
 
 <dt id="arg-strrepo">strRepo<a class="anchor" aria-label="anchor" href="#arg-strrepo"></a></dt>

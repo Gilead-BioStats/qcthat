@@ -57,6 +57,8 @@
   : Generate a QC report for a package
 - [`SetupGHLabels()`](https://gilead-biostats.github.io/qcthat/dev/reference/SetupGHLabels.md)
   : Setup qcthat labels in a GitHub repository
+- [`TriggerUAT()`](https://gilead-biostats.github.io/qcthat/dev/reference/TriggerUAT.md)
+  : Trigger the UAT cycle for closed issues
 - [`print(`*`<qcthat_Object>`*`)`](https://gilead-biostats.github.io/qcthat/dev/reference/printing.md)
   [`format(`*`<qcthat_Object>`*`)`](https://gilead-biostats.github.io/qcthat/dev/reference/printing.md)
   : Printing qcthat objects

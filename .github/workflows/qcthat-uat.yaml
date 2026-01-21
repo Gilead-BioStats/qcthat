@@ -10,7 +10,7 @@ on:
         required: true
         type: string
 
-name: UAT Manager
+name: qcthat UAT Manager
 
 permissions:
   # to view status of other issues

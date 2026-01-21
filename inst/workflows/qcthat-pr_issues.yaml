@@ -16,7 +16,7 @@ on:
 name: qcthat PR-Associated Issues Report
 
 permissions:
-  # read required to generate report. write required to generate UAt issues.
+  # read required to generate report. write required to generate UAT issues.
   issues: write
   # Required to add report to pull requests as a comment.
   pull-requests: write

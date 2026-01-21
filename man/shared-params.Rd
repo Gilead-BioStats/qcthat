@@ -97,6 +97,9 @@ typically obtained by running something like \code{\link[testthat:test_package]{
 \code{stop_on_failure = FALSE} and a reporter that doesn't cause issues in
 parallel testing, like \code{reporter = "silent"}, and assigning it to a name.}
 
+\item{lPRActionRuns}{(\code{list}) A list of workflow run objects as returned by
+GitHub.}
+
 \item{lglReportFailure}{(\verb{length-1 logical}) Whether to ignore failures
 (default unless a "qcthat_UAT" environment variable is "true"), or fail
 (and show as a failure in testthat tests).}
@@ -138,6 +141,8 @@ connect to a parent issue.}
 \item{strCommentID}{(\verb{length-1 character}) A unique ID for a comment within a
 given context, which is usually a hash of the title of the comment.}
 
+\item{strCommitSHA}{(\verb{length-1 character}) The commit SHA to target.}
+
 \item{strConditionSubclass}{(\verb{length-1 character}) A subclass for a
 condition.}
 
@@ -165,6 +170,9 @@ read issues.}
 
 \item{strPkgRoot}{(\verb{length-1 character}) The path to a directory in the
 package. Will be expanded using \code{\link[gert:git_repo]{gert::git_find()}}.}
+
+\item{strPRHeadRef}{(\verb{length-1 character}) The branch name (head ref) of the
+PR.}
 
 \item{strRepo}{(\verb{length-1 character}) GitHub repository name.}
 

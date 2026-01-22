@@ -16,7 +16,7 @@ CommentReport <- function(
     strGHToken = strGHToken
   ),
   lglUpdate = TRUE,
-  strRunID = character(),
+  strRunID = Sys.getenv("GITHUB_RUN_ID"),
   strOwner = GetGHOwner(),
   strRepo = GetGHRepo(),
   strGHToken = gh::gh_token()

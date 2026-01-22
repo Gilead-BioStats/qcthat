@@ -179,18 +179,20 @@ FormatSessionInfo <- function() {
 #' @keywords internal
 GetRawSessionInfo <- function() {
   # nocov start
-  if (rlang::is_installed("sessioninfo")) {
-    if (packageVersion("sessioninfo") >= "1.2.1") {
-      sessioninfo::session_info(pkgs = "installed", include_base = TRUE)
+  if (rlang::is_installed("utils")) {
+    if (rlang::is_installed("sessioninfo")) {
+      if (utils::packageVersion("sessioninfo") >= "1.2.1") {
+        sessioninfo::session_info(pkgs = "installed", include_base = TRUE)
+      } else {
+        options(width = 200)
+        sessioninfo::session_info(
+          rownames(installed.packages()),
+          include_base = TRUE
+        )
+      }
     } else {
-      options(width = 200)
-      sessioninfo::session_info(
-        rownames(installed.packages()),
-        include_base = TRUE
-      )
+      utils::sessionInfo()
     }
-  } else {
-    sessionInfo()
   }
   # nocov end
 }

@@ -59,7 +59,7 @@ test_that("qcthat is installed as part of the GHA (#95, #141)", {
   )
 })
 
-test_that("Reports generated via GHA include information about the issues (#77)", {
+test_that("Reports generated via GHA include information about the issues (#77, #37)", {
   qcthat::ExpectUserAccepts(
     "qcthat reports show the expected issue information",
     intIssue = 77,

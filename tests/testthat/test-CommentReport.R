@@ -1,3 +1,5 @@
+withr::local_options(list(GITHUB_RUN_ID = ""))
+
 test_that("CommentReport generates the expected call (#99)", {
   local_mocked_bindings(
     CommentIssue = function(...) list(...),

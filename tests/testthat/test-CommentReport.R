@@ -1,5 +1,3 @@
-withr::local_options(list(GITHUB_RUN_ID = ""))
-
 test_that("CommentReport generates the expected call (#99)", {
   local_mocked_bindings(
     CommentIssue = function(...) list(...),
@@ -16,6 +14,7 @@ test_that("CommentReport generates the expected call (#99)", {
       dfITM,
       strReportType = "Testing",
       intPRNumber = 99,
+      strRunID = "",
       strOwner = "owner",
       strRepo = "repo",
       strGHToken = "token"
@@ -174,6 +173,7 @@ test_that("CommentReport includes session info (#150)", {
       dfITM,
       strReportType = "Testing",
       intPRNumber = 99,
+      strRunID = "",
       strOwner = "owner",
       strRepo = "repo",
       strGHToken = "token"

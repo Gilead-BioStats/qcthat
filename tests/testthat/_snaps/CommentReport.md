@@ -1,8 +1,8 @@
 # CommentReport generates the expected call (#99)
 
     Code
-      CommentReport(dfITM, strReportType = "Testing", intPRNumber = 99, strOwner = "owner",
-        strRepo = "repo", strGHToken = "token")
+      CommentReport(dfITM, strReportType = "Testing", intPRNumber = 99, strRunID = "",
+        strOwner = "owner", strRepo = "repo", strGHToken = "token")
     Output
       [[1]]
       [1] 99
@@ -287,8 +287,8 @@
 # CommentReport includes session info (#150)
 
     Code
-      CommentReport(dfITM, strReportType = "Testing", intPRNumber = 99, strOwner = "owner",
-        strRepo = "repo", strGHToken = "token")
+      CommentReport(dfITM, strReportType = "Testing", intPRNumber = 99, strRunID = "",
+        strOwner = "owner", strRepo = "repo", strGHToken = "token")
     Output
       [[1]]
       [1] 99

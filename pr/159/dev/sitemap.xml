@@ -100,6 +100,9 @@
 <url><loc>https://gilead-biostats.github.io/qcthat/dev/reference/FetchRepoIssueClosersRawBatch.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/qcthat/dev/reference/FetchRepoIssues.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/qcthat/dev/reference/FetchRepoPRs.html</loc></url>
+<url><loc>https://gilead-biostats.github.io/qcthat/dev/reference/FetchRunInfoRaw.html</loc></url>
+<url><loc>https://gilead-biostats.github.io/qcthat/dev/reference/FetchRunJobsRaw.html</loc></url>
+<url><loc>https://gilead-biostats.github.io/qcthat/dev/reference/FetchRunURL.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/qcthat/dev/reference/FetchUAIssue.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/qcthat/dev/reference/FetchVectorFromGQL.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/qcthat/dev/reference/FinalizeTree.html</loc></url>

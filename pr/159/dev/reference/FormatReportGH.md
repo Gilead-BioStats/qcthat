@@ -5,7 +5,7 @@ Format a QC report in GitHub markdown
 ## Usage
 
 ``` r
-FormatReportGH(dfITM)
+FormatReportGH(dfITM, strRunURL = character())
 ```
 
 ## Arguments

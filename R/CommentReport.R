@@ -162,7 +162,7 @@ FetchRunInfoRaw <- function(
 #' @keywords internal
 FormatSessionInfo <- function() {
   lSess <- GetRawSessionInfo()
-  oldCliWidth <- options(cli.width = 200)
+  oldCliWidth <- options(cli.width = 80)
   on.exit(options(oldCliWidth), add = TRUE)
   glue::glue(
     "<details>",

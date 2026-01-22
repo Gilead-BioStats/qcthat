@@ -10,7 +10,7 @@ CommentReport(
   intPRNumber = GuessPRNumber(strOwner = strOwner, strRepo = strRepo, strGHToken =
     strGHToken),
   lglUpdate = TRUE,
-  strRunID = character(),
+  strRunID = Sys.getenv("GITHUB_RUN_ID"),
   strOwner = GetGHOwner(),
   strRepo = GetGHRepo(),
   strGHToken = gh::gh_token()

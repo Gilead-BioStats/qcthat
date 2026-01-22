@@ -188,7 +188,7 @@ GetRawSessionInfo <- function() {
       } else {
         options(width = 200)
         sessioninfo::session_info(
-          rownames(installed.packages()),
+          rownames(utils::installed.packages()),
           include_base = TRUE
         )
       }

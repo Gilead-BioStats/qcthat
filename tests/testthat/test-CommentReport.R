@@ -1,6 +1,7 @@
 test_that("CommentReport generates the expected call (#99)", {
   local_mocked_bindings(
-    CommentIssue = function(...) list(...)
+    CommentIssue = function(...) list(...),
+    FormatSessionInfo = function() ""
   )
   dfRepoIssues <- GenerateSampleDFRepoIssues()
   dfTestResults <- GenerateSampleDFTestResults()
@@ -30,7 +31,8 @@ test_that("CommentReport includes run URL when available (#150)", {
         "with_job" = "https://link.to.run/job/id",
         NULL
       )
-    }
+    },
+    FormatSessionInfo = function() ""
   )
   dfRepoIssues <- GenerateSampleDFRepoIssues()
   dfTestResults <- GenerateSampleDFTestResults()
@@ -147,6 +149,29 @@ test_that("FetchRunInfoRaw makes the expected call (#150)", {
   expect_snapshot({
     FetchRunInfoRaw(
       "run_id",
+      strOwner = "owner",
+      strRepo = "repo",
+      strGHToken = "token"
+    )
+  })
+})
+
+test_that("CommentReport includes session info (#150)", {
+  local_mocked_bindings(
+    CommentIssue = function(...) list(...),
+    GetRawSessionInfo = function() "Raw session info"
+  )
+  dfRepoIssues <- GenerateSampleDFRepoIssues()
+  dfTestResults <- GenerateSampleDFTestResults()
+  dfITM <- CompileIssueTestMatrix(
+    dfRepoIssues = dfRepoIssues,
+    dfTestResults = dfTestResults
+  )
+  expect_snapshot({
+    CommentReport(
+      dfITM,
+      strReportType = "Testing",
+      intPRNumber = 99,
       strOwner = "owner",
       strRepo = "repo",
       strGHToken = "token"

@@ -79,6 +79,7 @@ FormatReportGH <- function(dfITM, strRunURL = character()) {
     "```",
     "</details>",
     paste(chrFooter, collapse = "\n\n"),
+    FormatSessionInfo(),
     .sep = "\n"
   )
 }
@@ -153,4 +154,43 @@ FetchRunInfoRaw <- function(
     strRepo = strRepo,
     strGHToken = strGHToken
   )
+}
+
+#' Format session info in GitHub markdown
+#'
+#' @returns A string containing the session info formatted in GitHub markdown.
+#' @keywords internal
+FormatSessionInfo <- function() {
+  lSess <- GetRawSessionInfo()
+  glue::glue(
+    "<details>",
+    "<summary>Session Info</summary>",
+    paste(format(lSess), collapse = "\n"),
+    "</details>",
+    .sep = "\n"
+  )
+}
+
+#' Get raw session info
+#'
+#' @returns The raw session info as returned by either
+#'   [sessioninfo::session_info()] (if the `sessioninfo` package is installed)
+#'   or [sessionInfo()].
+#' @keywords internal
+GetRawSessionInfo <- function() {
+  # nocov start
+  if (rlang::is_installed("sessioninfo")) {
+    if (packageVersion("sessioninfo") >= "1.2.1") {
+      sessioninfo::session_info(pkgs = "installed", include_base = TRUE)
+    } else {
+      options(width = 200)
+      sessioninfo::session_info(
+        rownames(installed.packages()),
+        include_base = TRUE
+      )
+    }
+  } else {
+    sessionInfo()
+  }
+  # nocov end
 }

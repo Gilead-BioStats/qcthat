@@ -8,5 +8,5 @@
       - [ ] [Description of 1](https://github.com/owner/repo/issues/4)
       - [ ] [Description of 3](https://github.com/owner/repo/issues/6)
       
-      **After all issues have been closed, you must manually re-run the `qcthat PR-Associated Issues Report` action (until #114 is implemented).**
+      The qcthat PR-associated issues report will re-run when all of these issues are accepted.
 

@@ -1,4 +1,4 @@
-# CommentReport generates the expected call (#99)
+# CommentReport generates the expected call (#99, #72)
 
     Code
       CommentReport(dfITM, strReportType = "Testing", intPRNumber = 99, strRunID = "",

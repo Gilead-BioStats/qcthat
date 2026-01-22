@@ -1,4 +1,4 @@
-test_that("QCPR errors informatively for bad intPRNumber", {
+test_that("QCPR errors informatively for bad intPRNumber (#84)", {
   expect_error(
     {
       QCPR(intPRNumber = NULL)

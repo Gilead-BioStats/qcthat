@@ -59,7 +59,7 @@ test_that("qcthat is installed as part of the GHA (#95, #141)", {
   )
 })
 
-test_that("Reports generated via GHA include information about the issues (#77)", {
+test_that("Reports generated via GHA include information about the issues (#77, #37)", {
   qcthat::ExpectUserAccepts(
     "qcthat reports show the expected issue information",
     intIssue = 77,
@@ -98,4 +98,13 @@ test_that("qcthat is namespaced in GHA (#143)", {
       "The code runs without error (other than non-qcthat issues in the tests themselves)."
     )
   )
+})
+
+test_that("Action_UAT targets the expected action (#157)", {
+  local_mocked_bindings(
+    InstallAction = function(strActionName, ...) {
+      strActionName
+    }
+  )
+  expect_identical(Action_UAT(), "uat")
 })

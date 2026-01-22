@@ -124,6 +124,8 @@
 #' @param strRepo (`length-1 character`) GitHub repository name.
 #' @param strReportType (`length-1 character`) The main title of the report,
 #'   such as `"Completed Issues"` or `"PR-Associated Issues"`.
+#' @param strRunID (`length-1 character`) ID (typically numeric but can be very
+#'   long) of a GitHub Actions workflow run.
 #' @param strSourceRef (`length-1 character`) Name of the git reference that
 #'   contains changes. Defaults to the active branch in this repository.
 #' @param strState (`length-1 character`) State of issues or pull requests to

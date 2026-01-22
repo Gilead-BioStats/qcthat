@@ -99,3 +99,26 @@ Action_QCMilestone <- function(lglOverwrite = FALSE, strPkgRoot = ".") {
     lglOverwrite = lglOverwrite
   )
 }
+
+#' Use a GitHub Action to manage UAT
+#'
+#' Install a GitHub Action into a package repository to manage the use
+#' acceptance testing process with [TriggerUAT()]. The workflow triggers when
+#' issues are closed, and, if they are labeled `"qcthat-uat"`, it triggers
+#' reruns of the [Action_QCPRIssues()] action for any open pull requests that
+#' reference the UAT issue.
+#'
+#' @inheritParams shared-params
+#' @returns The path to the created GitHub Action YAML file (invisibly).
+#' @export
+#'
+#' @examplesIf interactive()
+#'
+#'   Action_UAT()
+Action_UAT <- function(lglOverwrite = FALSE, strPkgRoot = ".") {
+  InstallAction(
+    "uat",
+    strPkgRoot = strPkgRoot,
+    lglOverwrite = lglOverwrite
+  )
+}

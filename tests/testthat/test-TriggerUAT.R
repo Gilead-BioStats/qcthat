@@ -174,43 +174,40 @@ test_that("RerunWorkflow calls API correctly (#114)", {
   RerunWorkflow(123)
 })
 
-# This can't actually test until the workflow has been merged, so I'm commenting
-# it out, but I'm leaving the code to uncomment in the next PR.
+test_that("The UAT workflow triggers properly when all UAT issues connected to a PR are closed (#157)", {
+  # Manually skip so we can do the `if` below. Consider adding helpers for this situation!
+  skip_if(OnCran())
+  skip_if_not(UsesGit())
+  skip_if_not(IsOnline())
 
-# test_that("The UAT workflow triggers properly when all UAT issues connected to a PR are closed (#157)", {
-#   # Manually skip so we can do the `if` below. Consider adding helpers for this situation!
-#   skip_if(OnCran())
-#   skip_if_not(UsesGit())
-#   skip_if_not(IsOnline())
-#
-#   strUAT1 <- list(
-#     description = "The qcthat-uat action triggers report re-run when a single UAT issue is closed",
-#     intIssue = 157,
-#     chrInstructions = "Close this issue after the initial PR report associated with this functionality runs."
-#   )
-#
-#   qcthat::ExpectUserAccepts(
-#     strUAT1$description,
-#     intIssue = strUAT1$intIssue,
-#     chrInstructions = strUAT1$chrInstructions
-#   )
-#
-#   # Only run this one if the first one is closed.
-#   lUAIssue <- with_mocked_bindings(
-#     {
-#       FetchUAIssue(
-#         strUAT1$description,
-#         intIssue = strUAT1$intIssue,
-#         chrInstructions = strUAT1$chrInstructions
-#       )
-#     },
-#     CreateUAIssue = function(...) list()
-#   )
-#   if (identical(lUAIssue[["State"]], "closed")) {
-#     qcthat::ExpectUserAccepts(
-#       "The qcthat-uat action triggers report re-run when all UAT issues are closed",
-#       intIssue = 157,
-#       chrInstructions = "Close this issue after the PR report for this functionality runs."
-#     )
-#   }
-# })
+  strUAT1 <- list(
+    description = "The qcthat-uat action triggers report re-run when a single UAT issue is closed",
+    intIssue = 157,
+    chrInstructions = "Close this issue after the initial PR report associated with this functionality runs."
+  )
+
+  qcthat::ExpectUserAccepts(
+    strUAT1$description,
+    intIssue = strUAT1$intIssue,
+    chrInstructions = strUAT1$chrInstructions
+  )
+
+  # Only run this one if the first one is closed.
+  lUAIssue <- with_mocked_bindings(
+    {
+      FetchUAIssue(
+        strUAT1$description,
+        intIssue = strUAT1$intIssue,
+        chrInstructions = strUAT1$chrInstructions
+      )
+    },
+    CreateUAIssue = function(...) list()
+  )
+  if (identical(lUAIssue[["State"]], "closed")) {
+    qcthat::ExpectUserAccepts(
+      "The qcthat-uat action triggers report re-run when all UAT issues are closed",
+      intIssue = 157,
+      chrInstructions = "Close this issue after the PR report for this functionality runs."
+    )
+  }
+})

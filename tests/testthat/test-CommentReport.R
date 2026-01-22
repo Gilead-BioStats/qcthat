@@ -1,4 +1,4 @@
-test_that("CommentReport generates the expected call (#99)", {
+test_that("CommentReport generates the expected call (#99, #72)", {
   local_mocked_bindings(
     CommentIssue = function(...) list(...),
     FormatSessionInfo = function() ""

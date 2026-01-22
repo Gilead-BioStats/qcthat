@@ -162,10 +162,12 @@ FetchRunInfoRaw <- function(
 #' @keywords internal
 FormatSessionInfo <- function() {
   lSess <- GetRawSessionInfo()
+  oldCliWidth <- options(cli.width = 200)
+  on.exit(options(oldCliWidth), add = TRUE)
   glue::glue(
     "<details>",
     "<summary>Session Info</summary>",
-    paste(format(lSess), collapse = "\n"),
+    paste(format(lSess), collapse = "\n\n"),
     "</details>",
     .sep = "\n"
   )

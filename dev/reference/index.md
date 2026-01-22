@@ -8,6 +8,8 @@
   : Use a GitHub Action to QC a milestone
 - [`Action_QCPRIssues()`](https://gilead-biostats.github.io/qcthat/dev/reference/Action_QCPRIssues.md)
   : Use a GitHub Action to QC pull-request-associated issues
+- [`Action_UAT()`](https://gilead-biostats.github.io/qcthat/dev/reference/Action_UAT.md)
+  : Use a GitHub Action to manage UAT
 - [`CommentIssue()`](https://gilead-biostats.github.io/qcthat/dev/reference/CommentIssue.md)
   : Comment on a GitHub Issue
 - [`CommentReport()`](https://gilead-biostats.github.io/qcthat/dev/reference/CommentReport.md)

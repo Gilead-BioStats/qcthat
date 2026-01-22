@@ -19,13 +19,13 @@ Source:
 
 Wildfire J, Harmon J, Andriychuk N, Roumaya M (2026). *qcthat:
 Lightweight quality control framework for R packages used in Clinical
-Trials*. R package version 1.0.0,
+Trials*. R package version 1.0.0.9000,
 <https://gilead-biostats.github.io/qcthat/>.
 
     @Manual{,
       title = {qcthat: Lightweight quality control framework for R packages used in Clinical Trials},
       author = {Jeremy Wildfire and Jon Harmon and Natalia Andriychuk and Matt Roumaya},
       year = {2026},
-      note = {R package version 1.0.0},
+      note = {R package version 1.0.0.9000},
       url = {https://gilead-biostats.github.io/qcthat/},
     }

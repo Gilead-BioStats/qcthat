@@ -293,6 +293,11 @@ Reused parameter definitions are gathered here for easier usage. Use
   (`length-1 character`) The main title of the report, such as
   `"Completed Issues"` or `"PR-Associated Issues"`.
 
+- strRunID:
+
+  (`length-1 character`) ID (typically numeric but can be very long) of
+  a GitHub Actions workflow run.
+
 - strSourceRef:
 
   (`length-1 character`) Name of the git reference that contains

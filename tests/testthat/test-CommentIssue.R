@@ -1,6 +1,7 @@
-test_that("CommentIssue compiles the body as expected (#83)", {
+test_that("CommentIssue compiles the body as expected (#83, #172)", {
   local_mocked_bindings(
-    CommentIssueRaw = function(strBodyCompiled, ...) strBodyCompiled
+    CommentIssueRaw = function(strBodyCompiled, ...) strBodyCompiled,
+    PrettyTimestamp = function() "TIMESTAMP"
   )
   test_result <- CommentIssue(
     intIssue = 1,
@@ -13,7 +14,7 @@ test_that("CommentIssue compiles the body as expected (#83)", {
   )
   expect_equal(
     test_result,
-    "## Test Title\n\nThis is a test comment.\n\n<!-- qcthat-comment-id: 0b0a574c2bcc14f97e3ee223d93f0032 -->"
+    "## Test Title\n\nThis is a test comment.\n\n*Last updated: TIMESTAMP*\n\n<!-- qcthat-comment-id: 0b0a574c2bcc14f97e3ee223d93f0032 -->"
   )
 })
 

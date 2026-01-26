@@ -199,3 +199,14 @@ test_that("Zero-length util works (#149)", {
   expect_equal(2L %|0|% 1L, 2L)
   expect_equal(integer() %|0|% 1L, 1L)
 })
+
+test_that("PrettyTimestamp works (#172)", {
+  local_mocked_bindings(
+    Sys.time = function() as.POSIXct(0, tz = "America/Chicago"),
+    .package = "base"
+  )
+  expect_equal(
+    PrettyTimestamp(),
+    "1970-01-01 00:00:00 UTC"
+  )
+})

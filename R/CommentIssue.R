@@ -24,16 +24,8 @@ CommentIssue <- function(
   strRepo = GetGHRepo(),
   strGHToken = gh::gh_token()
 ) {
-  strTime <- format(
-    Sys.time(),
-    tz = "UTC",
-    usetz = TRUE,
-    format = "%Y-%m-%d %H:%M:%S"
-  )
-  strBody <- paste(
-    c(strBody, "*Last updated: {strTime}*"),
-    collapse = "\n\n"
-  )
+  strTime <- PrettyTimestamp()
+  strBody <- paste(c(strBody, "*Last updated: {strTime}*"), collapse = "\n\n")
   strBodyCompiled <- glue::glue(
     "## {strTitle}",
     strBody,

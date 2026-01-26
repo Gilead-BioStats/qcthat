@@ -59,8 +59,8 @@ jobs:
         if: github.event_name == 'pull_request'
         run: |
           intPRNumber <- ${{ github.event.pull_request.number }}
-          strOwner <- tolower(GetGHOwner())
-          strRepo <- GetGHRepo()
+          strOwner <- tolower(qcthat::GetGHOwner())
+          strRepo <- qcthat::GetGHRepo()
           strURL <- glue::glue(
             "https://{strOwnerIO}.github.io/{strRepo}/pr/{intPRNumber}/dev"
           )

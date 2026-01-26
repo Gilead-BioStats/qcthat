@@ -25,6 +25,7 @@ Imports:
     gert,
     gh,
     glue,
+    jsonlite,
     pillar,
     pkgload,
     purrr,

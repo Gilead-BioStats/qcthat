@@ -13,7 +13,7 @@
 #'
 #' @export
 TriggerUAT <- function(
-  intClosedIssue,
+  intClosedIssue = GuessIssueNumber(),
   strOwner = GetGHOwner(),
   strRepo = GetGHRepo(),
   strGHToken = gh::gh_token()

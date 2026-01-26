@@ -5,7 +5,7 @@
 \title{Trigger the UAT cycle for closed issues}
 \usage{
 TriggerUAT(
-  intClosedIssue,
+  intClosedIssue = GuessIssueNumber(),
   strOwner = GetGHOwner(),
   strRepo = GetGHRepo(),
   strGHToken = gh::gh_token()

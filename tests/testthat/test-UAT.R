@@ -11,3 +11,16 @@ test_that("The required R version is within the normal support window (#146)", {
     )
   )
 })
+
+test_that("The pkgdown site has a slide deck (#167)", {
+  ExpectUserAccepts(
+    "The pkgdown site has a slide deck.",
+    intIssue = 167,
+    chrInstructions = "Load the website linked in this issue as 'PR pkgdown deployed'.",
+    chrChecks = c(
+      "The top bar has a 'Slides' menu.",
+      "The menu has at least one entry.",
+      "Clicking that entry loads a rendered slide deck."
+    )
+  )
+})

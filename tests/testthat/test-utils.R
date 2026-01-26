@@ -202,7 +202,9 @@ test_that("Zero-length util works (#149)", {
 
 test_that("PrettyTimestamp works (#172)", {
   local_mocked_bindings(
-    Sys.time = function() as.POSIXct(0, tz = "America/Chicago"),
+    Sys.time = function() {
+      as.POSIXct(0, tz = "America/Chicago", origin = "1970-01-01")
+    },
     .package = "base"
   )
   expect_equal(

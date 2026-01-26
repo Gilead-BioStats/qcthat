@@ -17,7 +17,7 @@ navbar:
     slides:
       text: Slides
       menu:
-      - text: Scalable R Package Qualification Using a CI/CD Approach
+      - text: Introduction
         href: slides-introduction.html
         target: _blank
 

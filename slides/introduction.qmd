@@ -7,10 +7,49 @@ execute:
 format:
   revealjs:
     theme: dark
-    footer: <a href="hhttps://gilead-biostats.github.io/qcthat/">gilead-biostats.github.io/qcthat</a>
+    footer: <a href="https://gilead-biostats.github.io/qcthat/">gilead-biostats.github.io/qcthat</a>
     link-external-newwindow: true
     transition: slide
     incremental: false
 ---
 
-## Coming soon
+# About this deck
+
+## Each slide title is an assertion
+
+- Slides will provide evidence to support the assertion
+- This deck currently only contains the assertions
+
+# Package qualification is necessary but challenging
+
+## Regulators require evidence that software performs as intended
+
+## Qualification is often a manual, retrospective burden
+
+## "Validation debt" delays releases and increases risk
+
+# The standard R package lifecycle generates evidence but lacks traceability
+
+## Modern R packages use `{testthat}` for robust automated testing
+
+## CI/CD pipelines ensure code integrity on every commit
+
+## Standard {testthat} scripts provide the evidence of implementation
+
+## *But:* A passing test suite doesn't prove which requirement was met
+
+# `{qcthat}` connects issues to tests for continuous qualification
+
+## Connecting tests to issues is straightforward
+
+## The "Issue-Test Matrix" shows the connections between issues and tests
+
+## User Acceptance Testing (UAT) is integrated directly into `{testthat}` tests
+
+# `{qcthat}` transforms qualification from a retrospective burden into a seamless byproduct of development
+
+## Automated bots bring qualification reports directly to the Pull Request
+
+## Immutable artifacts are automatically attached to GitHub Releases
+
+## Packages are qualified continuously with every change

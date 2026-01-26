@@ -11,6 +11,13 @@ template:
 navbar:
   bg: "primary"
   structure:
-    left: [intro, reference, news]
+    left: [intro, reference, slides, news]
     right: [search, github]
+  components:
+    slides:
+      text: Slides
+      menu:
+      - text: Scalable R Package Qualification Using a CI/CD Approach
+        href: slides-introduction.html
+        target: _blank
 

@@ -15,6 +15,7 @@ jobs:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
     permissions:
       contents: write
+      pull-requests: write
 
     steps:
       - uses: actions/checkout@v5
@@ -36,6 +37,9 @@ jobs:
           extra-packages: any::pkgdown, local::.
           needs: website
 
+      - name: Render slides
+        run: Rscript -e 'source("slides/render_slides.R")'
+
       - name: Build site
         run: pkgdown::build_site_github_pages(new_process = FALSE, install = FALSE)
         shell: Rscript {0}
@@ -51,11 +55,51 @@ jobs:
           # Deploy to a subdirectory named after the PR number
           target-folder: pr/${{ github.event.number }}
 
-      - name: Give PR site URL 🌐
+      - name: PR site URL 🌐
         if: github.event_name == 'pull_request'
         run: |
           echo "🌐 URL: https://gilead-biostats.github.io/${{ github.event.repository.name }}/pr/${{ github.event.number }}/dev"
 
+      - name: Comment with PR site URL 🌐
+        if: github.event_name == 'pull_request'
+        uses: actions/github-script@v6
+        with:
+          script: |
+            const prSiteURL = `https://${context.repo.owner}.github.io/${context.repo.repo}/pr/${context.issue.number}/dev`
+            const timestamp = new Date().toISOString();
+            const commentBody = `🌐 PR pkgdown deployed: [${prSiteURL}](${prSiteURL})\n\n_Last updated: ${timestamp}_`;
+            const commentMarker = '🌐 PR pkgdown deployed:';
+
+            // Get all comments on the PR
+            const comments = await github.rest.issues.listComments({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+            });
+
+            // Find existing comment from this bot
+            const existingComment = comments.data.find(comment =>
+              comment.user.login === 'github-actions[bot]' &&
+              comment.body.includes(commentMarker)
+            );
+
+            if (existingComment) {
+              // Update existing comment
+              await github.rest.issues.updateComment({
+                comment_id: existingComment.id,
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                body: commentBody,
+              });
+            } else {
+              // Create new comment
+              await github.rest.issues.createComment({
+                issue_number: context.issue.number,
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                body: commentBody,
+              });
+            }
       - name: Deploy pkgdown 📃
         if: github.event_name != 'pull_request'
         run: |

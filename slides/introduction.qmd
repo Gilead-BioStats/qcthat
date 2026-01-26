@@ -1,0 +1,16 @@
+---
+title: "Scalable R Package Qualification Using a CI/CD Approach"
+css: slides.css
+execute:
+  eval: false
+  echo: true
+format:
+  revealjs:
+    theme: dark
+    footer: <a href="hhttps://gilead-biostats.github.io/qcthat/">gilead-biostats.github.io/qcthat</a>
+    link-external-newwindow: true
+    transition: slide
+    incremental: false
+---
+
+## Coming soon

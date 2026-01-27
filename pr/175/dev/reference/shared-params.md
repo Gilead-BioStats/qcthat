@@ -74,7 +74,9 @@ Reused parameter definitions are gathered here for easier usage. Use
 
   (`qcthat_IssueTestMatrix`) A `qcthat_IssueTestMatrix` object as
   returned by
-  [`AsIssueTestMatrix()`](https://gilead-biostats.github.io/qcthat/dev/reference/AsIssueTestMatrix.md).
+  [`AsIssueTestMatrix()`](https://gilead-biostats.github.io/qcthat/dev/reference/AsIssueTestMatrix.md)
+  (often via
+  [`QCPackage()`](https://gilead-biostats.github.io/qcthat/dev/reference/QCPackage.md)).
 
 - dfRepoIssues:
 
@@ -152,6 +154,11 @@ Reused parameter definitions are gathered here for easier usage. Use
 
   (`list`) List of raw comment objects as returned by
   [`gh::gh()`](https://gh.r-lib.org/reference/gh.html).
+
+- lGHEventPayload:
+
+  (`list`) The GitHub event payload. Defaults to the result of
+  [`LoadGHEventPayload()`](https://gilead-biostats.github.io/qcthat/dev/reference/LoadGHEventPayload.md).
 
 - lIssuesNonPR:
 

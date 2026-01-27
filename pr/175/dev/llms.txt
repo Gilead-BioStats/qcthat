@@ -330,10 +330,14 @@ By contributing to this project, you agree to abide by its terms.
   : Find the name of the target repository
 - [`GuessIssueNumber()`](https://gilead-biostats.github.io/qcthat/dev/reference/GuessIssueNumber.md)
   : Guess the relevant issue number from the GitHub event
+- [`GuessMilestones()`](https://gilead-biostats.github.io/qcthat/dev/reference/GuessMilestones.md)
+  : Guess relevant milestone names from the GitHub event
 - [`GuessPRNumber()`](https://gilead-biostats.github.io/qcthat/dev/reference/GuessPRNumber.md)
   : Guess the most relevant pull request number
 - [`IsCheckingUAT()`](https://gilead-biostats.github.io/qcthat/dev/reference/IsCheckingUAT.md)
   : Detect whether the user is specifically checking UAT issues
+- [`LoadGHEventPayload()`](https://gilead-biostats.github.io/qcthat/dev/reference/LoadGHEventPayload.md)
+  : Load the GitHub event payload
 - [`LoadUATIssues()`](https://gilead-biostats.github.io/qcthat/dev/reference/LoadUATIssues.md)
   : Load UAT issues from disk
 - [`QCCompletedIssues()`](https://gilead-biostats.github.io/qcthat/dev/reference/QCCompletedIssues.md)

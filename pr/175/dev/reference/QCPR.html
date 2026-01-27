@@ -60,7 +60,9 @@ for details on how issues can become associated with a pull request.</p>
 <span>  strRepo <span class="op">=</span> <span class="fu"><a href="GetGHRepo.html">GetGHRepo</a></span><span class="op">(</span><span class="va">strPkgRoot</span><span class="op">)</span>,</span>
 <span>  strGHToken <span class="op">=</span> <span class="fu">gh</span><span class="fu">::</span><span class="fu"><a href="https://gh.r-lib.org/reference/gh_token.html" class="external-link">gh_token</a></span><span class="op">(</span><span class="op">)</span>,</span>
 <span>  lglWarn <span class="op">=</span> <span class="cn">TRUE</span>,</span>
-<span>  chrIgnoredLabels <span class="op">=</span> <span class="fu"><a href="DefaultIgnoreLabels.html">DefaultIgnoreLabels</a></span><span class="op">(</span><span class="op">)</span></span>
+<span>  chrIgnoredLabels <span class="op">=</span> <span class="fu"><a href="DefaultIgnoreLabels.html">DefaultIgnoreLabels</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  dfITM <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  envCall <span class="op">=</span> <span class="fu">rlang</span><span class="fu">::</span><span class="fu"><a href="https://rlang.r-lib.org/reference/stack.html" class="external-link">caller_env</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -108,6 +110,16 @@ included in the filter (but the report still returns results). Defaults to
 <dt id="arg-chrignoredlabels">chrIgnoredLabels<a class="anchor" aria-label="anchor" href="#arg-chrignoredlabels"></a></dt>
 <dd><p>(<code>character</code>) GitHub labels to ignore, such as
 <code>"qcthat-nocov"</code>.</p></dd>
+
+
+<dt id="arg-dfitm">dfITM<a class="anchor" aria-label="anchor" href="#arg-dfitm"></a></dt>
+<dd><p>(<code>qcthat_IssueTestMatrix</code>) A <code>qcthat_IssueTestMatrix</code> object as
+returned by <code><a href="AsIssueTestMatrix.html">AsIssueTestMatrix()</a></code> (often via <code><a href="QCPackage.html">QCPackage()</a></code>).</p></dd>
+
+
+<dt id="arg-envcall">envCall<a class="anchor" aria-label="anchor" href="#arg-envcall"></a></dt>
+<dd><p>(<code>environment</code>) The environment to use for error reporting.
+Typically set to <code><a href="https://rlang.r-lib.org/reference/stack.html" class="external-link">rlang::caller_env()</a></code>.</p></dd>
 
 </dl></div>
     <div class="section level2">

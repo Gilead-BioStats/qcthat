@@ -7,8 +7,6 @@ resembles a GitHub event payload.
 
 ``` r
 LoadGHEventPayload(strGHEventPath = Sys.getenv("GITHUB_EVENT_PATH"))
-
-LoadGHEventPayload(strGHEventPath = Sys.getenv("GITHUB_EVENT_PATH"))
 ```
 
 ## Arguments
@@ -19,9 +17,6 @@ LoadGHEventPayload(strGHEventPath = Sys.getenv("GITHUB_EVENT_PATH"))
   Defaults to the `GITHUB_EVENT_PATH` environment variable.
 
 ## Value
-
-A list containing the parsed JSON payload, or `NULL` if `strGHEventPath`
-is empty.
 
 A list containing the parsed JSON payload, or `NULL` if `strGHEventPath`
 is empty or does not point to a GitHub event payload.

@@ -11,7 +11,7 @@ test_that("GuessPRNumber delegates to its sub-functions (#84)", {
   expect_equal(GuessPRNumber(), 21L)
 })
 
-test_that("GetGHAPRNumber detects PR number for a GHA", {
+test_that("GetGHAPRNumber detects PR number for a GHA (#84)", {
   withr::local_envvar(list(
     GITHUB_EVENT_NAME = "",
     GITHUB_REF_NAME = ""

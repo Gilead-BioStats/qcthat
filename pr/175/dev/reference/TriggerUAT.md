@@ -1,0 +1,41 @@
+# Trigger the UAT cycle for closed issues
+
+Identify pull requests that mention a closed issue, and potentially
+re-trigger the UAT cycle. If all issues referenced in the UAT comment of
+a linked PR are closed (and it is not already running the QCPR
+workflow), rerun the QCPR workflow (`qcthat-pr_issues.yaml`) if
+available.
+
+## Usage
+
+``` r
+TriggerUAT(
+  intClosedIssue = GuessIssueNumber(),
+  strOwner = GetGHOwner(),
+  strRepo = GetGHRepo(),
+  strGHToken = gh::gh_token()
+)
+```
+
+## Arguments
+
+- intClosedIssue:
+
+  (`length-1 integer`) A closed UAT issue number.
+
+- strOwner:
+
+  (`length-1 character`) GitHub username or organization name.
+
+- strRepo:
+
+  (`length-1 character`) GitHub repository name.
+
+- strGHToken:
+
+  (`length-1 character`) GitHub token with permissions to read issues.
+
+## Value
+
+A `data.frame` of PRs that referenced the issue (invisibly). This
+function is called for its side effects.

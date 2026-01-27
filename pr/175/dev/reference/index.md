@@ -44,6 +44,8 @@
   : Guess the most relevant pull request number
 - [`IsCheckingUAT()`](https://gilead-biostats.github.io/qcthat/dev/reference/IsCheckingUAT.md)
   : Detect whether the user is specifically checking UAT issues
+- [`LoadUATIssues()`](https://gilead-biostats.github.io/qcthat/dev/reference/LoadUATIssues.md)
+  : Load UAT issues from disk
 - [`QCCompletedIssues()`](https://gilead-biostats.github.io/qcthat/dev/reference/QCCompletedIssues.md)
   : Generate a QC report of completed issues
 - [`QCIssues()`](https://gilead-biostats.github.io/qcthat/dev/reference/QCIssues.md)
@@ -59,6 +61,8 @@
   : Generate a QC report of issues associated with a GitHub pull request
 - [`QCPackage()`](https://gilead-biostats.github.io/qcthat/dev/reference/QCPackage.md)
   : Generate a QC report for a package
+- [`SaveUATIssues()`](https://gilead-biostats.github.io/qcthat/dev/reference/SaveUATIssues.md)
+  : Save UAT issues to disk
 - [`SetupGHLabels()`](https://gilead-biostats.github.io/qcthat/dev/reference/SetupGHLabels.md)
   : Setup qcthat labels in a GitHub repository
 - [`TriggerUAT()`](https://gilead-biostats.github.io/qcthat/dev/reference/TriggerUAT.md)

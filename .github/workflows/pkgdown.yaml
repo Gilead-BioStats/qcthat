@@ -15,6 +15,7 @@ jobs:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
     permissions:
       contents: write
+      pull-requests: write
 
     steps:
       - uses: actions/checkout@v5
@@ -36,6 +37,9 @@ jobs:
           extra-packages: any::pkgdown, local::.
           needs: website
 
+      - name: Render slides
+        run: Rscript -e 'source("slides/render_slides.R")'
+
       - name: Build site
         run: pkgdown::build_site_github_pages(new_process = FALSE, install = FALSE)
         shell: Rscript {0}
@@ -51,10 +55,22 @@ jobs:
           # Deploy to a subdirectory named after the PR number
           target-folder: pr/${{ github.event.number }}
 
-      - name: Give PR site URL 🌐
+      - name: Comment with PR site URL 🌐
         if: github.event_name == 'pull_request'
         run: |
-          echo "🌐 URL: https://gilead-biostats.github.io/${{ github.event.repository.name }}/pr/${{ github.event.number }}/dev"
+          intPRNumber <- ${{ github.event.pull_request.number }}
+          strOwner <- tolower(qcthat::GetGHOwner())
+          strRepo <- qcthat::GetGHRepo()
+          strURL <- glue::glue(
+            "https://{strOwner}.github.io/{strRepo}/pr/{intPRNumber}/dev"
+          )
+          print(paste("🌐 URL:", strURL))
+          qcthat::CommentIssue(
+            intPRNumber,
+            glue::glue("🌐 [PR pkgdown deployed]({strURL})"),
+            NULL
+          )
+        shell: Rscript {0}
 
       - name: Deploy pkgdown 📃
         if: github.event_name != 'pull_request'

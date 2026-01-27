@@ -24,8 +24,13 @@ CommentIssue <- function(
   strRepo = GetGHRepo(),
   strGHToken = gh::gh_token()
 ) {
+  strTime <- PrettyTimestamp()
+  strBody <- paste(c(strBody, "*Last updated: {strTime}*"), collapse = "\n\n")
   strBodyCompiled <- glue::glue(
-    "## {strTitle}\n\n{strBody}\n\n<!-- qcthat-comment-id: {strCommentID} -->"
+    "## {strTitle}",
+    strBody,
+    "<!-- qcthat-comment-id: {strCommentID} -->",
+    .sep = "\n\n"
   )
   if (lglUpdate) {
     return(

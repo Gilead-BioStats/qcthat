@@ -43,7 +43,7 @@ Suggests:
     usethis,
     utils,
     withr
-Config/Needs/website: rmarkdown
+Config/Needs/website: quarto, rmarkdown
 Config/testthat/edition: 3
 Config/testthat/parallel: true
 Encoding: UTF-8

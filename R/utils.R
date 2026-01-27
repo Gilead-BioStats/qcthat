@@ -103,3 +103,18 @@ HaveString <- function(lCharacters, strTarget) {
 `%|0|%` <- function(x, y) {
   if (!length(x)) y else x
 }
+
+#' Get the formatted time
+#'
+#' @param strTimezone (`length-1 character`) Timezone to use for formatting.
+#' @returns A length-1 character vector representing the current time in the
+#'   given timezone.
+#' @keywords internal
+PrettyTimestamp <- function(strTimezone = "UTC") {
+  format(
+    Sys.time(),
+    tz = strTimezone,
+    usetz = TRUE,
+    format = "%Y-%m-%d %H:%M:%S"
+  )
+}

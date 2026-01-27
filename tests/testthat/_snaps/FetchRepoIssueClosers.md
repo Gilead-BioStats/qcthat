@@ -1,4 +1,4 @@
-# FetchRepoIssueClosersRawBatch generates the expected calls
+# FetchRepoIssueClosersRawBatch generates the expected calls (#133)
 
     Code
       FetchRepoIssueClosersRawBatch(strOwner = "owner", strRepo = "repo", strGHToken = "token")

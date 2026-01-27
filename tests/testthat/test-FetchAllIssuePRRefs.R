@@ -124,7 +124,7 @@ test_that("FetchAllIssuePRRefsRaw generates the expected calls (#114)", {
   })
 })
 
-test_that("BuildIssuePRRefsQuery generates correct GQL", {
+test_that("BuildIssuePRRefsQuery generates correct GQL (#114)", {
   expect_snapshot({
     BuildIssuePRRefsQuery(123)
   })

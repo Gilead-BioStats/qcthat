@@ -1,4 +1,4 @@
-test_that("FetchRepoIssueClosers returns an empty df when no issues are found", {
+test_that("FetchRepoIssueClosers returns an empty df when no issues are found (#133)", {
   local_mocked_bindings(
     FetchRepoIssueClosersRaw = function(...) list()
   )
@@ -13,7 +13,7 @@ test_that("FetchRepoIssueClosers returns an empty df when no issues are found", 
   )
 })
 
-test_that("FetchRepoIssueClosers processes raw data correctly", {
+test_that("FetchRepoIssueClosers processes raw data correctly (#133)", {
   local_mocked_bindings(
     FetchRepoIssueClosersRaw = function(...) {
       list(
@@ -59,7 +59,7 @@ test_that("FetchRepoIssueClosers processes raw data correctly", {
   )
 })
 
-test_that("FetchRepoIssueClosersRaw processes pagination correctly", {
+test_that("FetchRepoIssueClosersRaw processes pagination correctly (#133)", {
   local_mocked_bindings(
     FetchRepoIssueClosersRawBatch = function(
       strOwner,
@@ -110,7 +110,7 @@ test_that("FetchRepoIssueClosersRaw processes pagination correctly", {
   expect_equal(result[[3]]$number, 3)
 })
 
-test_that("FetchRepoIssueClosersRawBatch generates the expected calls", {
+test_that("FetchRepoIssueClosersRawBatch generates the expected calls (#133)", {
   local_mocked_bindings(
     FetchGQL = function(...) list(...)
   )

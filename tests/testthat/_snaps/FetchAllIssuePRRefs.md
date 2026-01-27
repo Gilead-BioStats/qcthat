@@ -38,7 +38,7 @@
       [1] "token"
       
 
-# BuildIssuePRRefsQuery generates correct GQL
+# BuildIssuePRRefsQuery generates correct GQL (#114)
 
     Code
       BuildIssuePRRefsQuery(123)

@@ -10,6 +10,7 @@ CommentIssue(
   strBody,
   strCommentID = rlang::hash(strTitle),
   lglUpdate = TRUE,
+  strRunID = Sys.getenv("GITHUB_RUN_ID"),
   strOwner = GetGHOwner(),
   strRepo = GetGHRepo(),
   strGHToken = gh::gh_token()
@@ -29,6 +30,9 @@ given context, which is usually a hash of the title of the comment.}
 
 \item{lglUpdate}{(\verb{length-1 logical}) Whether to update an existing comment
 if it already exists (rather than creating a new comment).}
+
+\item{strRunID}{(\verb{length-1 character}) ID (typically numeric but can be very
+long) of a GitHub Actions workflow run.}
 
 \item{strOwner}{(\verb{length-1 character}) GitHub username or organization name.}
 

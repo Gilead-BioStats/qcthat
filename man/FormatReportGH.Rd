@@ -4,11 +4,11 @@
 \alias{FormatReportGH}
 \title{Format a QC report in GitHub markdown}
 \usage{
-FormatReportGH(dfITM, strRunURL = character())
+FormatReportGH(dfITM)
 }
 \arguments{
 \item{dfITM}{(\code{qcthat_IssueTestMatrix}) A \code{qcthat_IssueTestMatrix} object as
-returned by \code{\link[=AsIssueTestMatrix]{AsIssueTestMatrix()}}.}
+returned by \code{\link[=AsIssueTestMatrix]{AsIssueTestMatrix()}} (often via \code{\link[=QCPackage]{QCPackage()}}).}
 }
 \value{
 A string containing the report formatted in GitHub markdown.

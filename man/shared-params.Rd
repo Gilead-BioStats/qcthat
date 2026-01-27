@@ -42,7 +42,7 @@ separate piece of the vector).}
 \item{dttmTimestamp}{(\code{POSIXct}) A system timestamp.}
 
 \item{dfITM}{(\code{qcthat_IssueTestMatrix}) A \code{qcthat_IssueTestMatrix} object as
-returned by \code{\link[=AsIssueTestMatrix]{AsIssueTestMatrix()}}.}
+returned by \code{\link[=AsIssueTestMatrix]{AsIssueTestMatrix()}} (often via \code{\link[=QCPackage]{QCPackage()}}).}
 
 \item{dfRepoIssues}{(\code{qcthat_Issues} or data frame) Data frame of GitHub
 issues as returned by \code{\link[=FetchRepoIssues]{FetchRepoIssues()}}.}
@@ -88,6 +88,9 @@ user-acceptance testing.}
 
 \item{lCommentsRaw}{(\code{list}) List of raw comment objects as returned by
 \code{\link[gh:gh]{gh::gh()}}.}
+
+\item{lGHEventPayload}{(\code{list}) The GitHub event payload. Defaults to the
+result of \code{\link[=LoadGHEventPayload]{LoadGHEventPayload()}}.}
 
 \item{lIssuesNonPR}{(\code{list}) List of issue objects as returned by
 \code{\link[=RemovePRsFromIssues]{RemovePRsFromIssues()}}.}

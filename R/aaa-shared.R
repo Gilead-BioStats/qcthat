@@ -29,7 +29,7 @@
 #'   [CompileIssueTestMatrix()] matrix.
 #' @param dttmTimestamp (`POSIXct`) A system timestamp.
 #' @param dfITM (`qcthat_IssueTestMatrix`) A `qcthat_IssueTestMatrix` object as
-#'   returned by [AsIssueTestMatrix()].
+#'   returned by [AsIssueTestMatrix()] (often via [QCPackage()]).
 #' @param dfRepoIssues (`qcthat_Issues` or data frame) Data frame of GitHub
 #'   issues as returned by [FetchRepoIssues()].
 #' @param dfTestResults (`qcthat_TestResults` or data frame) Data frame of test
@@ -62,6 +62,8 @@
 #'   user-acceptance testing.
 #' @param lCommentsRaw (`list`) List of raw comment objects as returned by
 #'   [gh::gh()].
+#' @param lGHEventPayload (`list`) The GitHub event payload. Defaults to the
+#'   result of [LoadGHEventPayload()].
 #' @param lIssuesNonPR (`list`) List of issue objects as returned by
 #'   [RemovePRsFromIssues()].
 #' @param lTestResults (`testthat_results`) A testthat test results object,

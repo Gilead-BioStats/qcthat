@@ -18,7 +18,7 @@ CommentReport(
 }
 \arguments{
 \item{dfITM}{(\code{qcthat_IssueTestMatrix}) A \code{qcthat_IssueTestMatrix} object as
-returned by \code{\link[=AsIssueTestMatrix]{AsIssueTestMatrix()}}.}
+returned by \code{\link[=AsIssueTestMatrix]{AsIssueTestMatrix()}} (often via \code{\link[=QCPackage]{QCPackage()}}).}
 
 \item{strReportType}{(\verb{length-1 character}) The main title of the report,
 such as \code{"Completed Issues"} or \code{"PR-Associated Issues"}.}

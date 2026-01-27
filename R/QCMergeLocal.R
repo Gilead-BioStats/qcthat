@@ -44,7 +44,8 @@ QCMergeLocal <- function(
   strGHToken = gh::gh_token(),
   lglWarn = TRUE,
   chrIgnoredLabels = DefaultIgnoreLabels(),
-  intMaxCommits = 100000L
+  intMaxCommits = 100000L,
+  dfITM = NULL
 ) {
   intAssociatedIssues <- FindKeywordIssues(
     strSourceRef = strSourceRef,
@@ -62,7 +63,8 @@ QCMergeLocal <- function(
     strRepo = strRepo,
     strGHToken = strGHToken,
     lglWarn = lglWarn,
-    chrIgnoredLabels = chrIgnoredLabels
+    chrIgnoredLabels = chrIgnoredLabels,
+    dfITM = dfITM
   )
 }
 

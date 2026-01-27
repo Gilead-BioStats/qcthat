@@ -70,18 +70,22 @@ QCCompletedIssues <- function(
   strOwner = GetGHOwner(strPkgRoot),
   strRepo = GetGHRepo(strPkgRoot),
   strGHToken = gh::gh_token(),
-  chrIgnoredLabels = DefaultIgnoreLabels()
+  chrIgnoredLabels = DefaultIgnoreLabels(),
+  dfITM = NULL,
+  envCall = rlang::caller_env()
 ) {
-  dfIssueTestMatrix <- QCPackage(
-    strPkgRoot = strPkgRoot,
-    strOwner = strOwner,
-    strRepo = strRepo,
-    strGHToken = strGHToken,
-    chrIgnoredLabels = chrIgnoredLabels
-  )
+  dfITM <- dfITM %||%
+    QCPackage(
+      strPkgRoot = strPkgRoot,
+      strOwner = strOwner,
+      strRepo = strRepo,
+      strGHToken = strGHToken,
+      chrIgnoredLabels = chrIgnoredLabels,
+      envCall = envCall
+    )
   return(
     dplyr::filter(
-      dfIssueTestMatrix,
+      dfITM,
       !is.na(.data$StateReason) & .data$StateReason == "completed"
     )
   )
@@ -111,16 +115,18 @@ QCIssues <- function(
   strGHToken = gh::gh_token(),
   lglWarn = TRUE,
   chrIgnoredLabels = DefaultIgnoreLabels(),
+  dfITM = NULL,
   envCall = rlang::caller_env()
 ) {
-  dfITM <- QCPackage(
-    strPkgRoot = strPkgRoot,
-    strOwner = strOwner,
-    strRepo = strRepo,
-    strGHToken = strGHToken,
-    chrIgnoredLabels = chrIgnoredLabels,
-    envCall = envCall
-  )
+  dfITM <- dfITM %||%
+    QCPackage(
+      strPkgRoot = strPkgRoot,
+      strOwner = strOwner,
+      strRepo = strRepo,
+      strGHToken = strGHToken,
+      chrIgnoredLabels = chrIgnoredLabels,
+      envCall = envCall
+    )
   intMissingIssues <- intIssues[!intIssues %in% dfITM$Issue]
   if (length(intMissingIssues)) {
     lIgnoredIssues <- attr(dfITM, "IgnoredIssues")
@@ -176,16 +182,18 @@ QCMilestones <- function(
   strGHToken = gh::gh_token(),
   lglWarn = TRUE,
   chrIgnoredLabels = DefaultIgnoreLabels(),
+  dfITM = NULL,
   envCall = rlang::caller_env()
 ) {
-  dfITM <- QCPackage(
-    strPkgRoot = strPkgRoot,
-    strOwner = strOwner,
-    strRepo = strRepo,
-    strGHToken = strGHToken,
-    chrIgnoredLabels = chrIgnoredLabels,
-    envCall = envCall
-  )
+  dfITM <- dfITM %||%
+    QCPackage(
+      strPkgRoot = strPkgRoot,
+      strOwner = strOwner,
+      strRepo = strRepo,
+      strGHToken = strGHToken,
+      chrIgnoredLabels = chrIgnoredLabels,
+      envCall = envCall
+    )
   chrMissingMilestones <- chrMilestones[!chrMilestones %in% dfITM$Milestone]
   if (length(chrMissingMilestones)) {
     if (length(chrMissingMilestones) == length(chrMilestones)) {

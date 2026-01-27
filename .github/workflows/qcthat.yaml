@@ -77,7 +77,7 @@ jobs:
           print(IssueTestMatrix)
 
           # Save the matrix and UAT data for subsequent steps
-          saveRDS(IssueTestMatrix, "itm.rds")
+          saveRDS(IssueTestMatrix, "ITM.rds")
           qcthat::SaveUATIssues()
         shell: Rscript {0}
 
@@ -86,9 +86,9 @@ jobs:
           github.event_name == 'pull_request' ||
           (github.event_name == 'workflow_dispatch' && inputs.pr != '')
         run: |
-          issueTestMatrix <- readRDS("itm.rds")
+          issueTestMatrix <- readRDS("ITM.rds")
           qcthat::LoadUATIssues()
-          qcthat::CommentPRReports(dfIssueTestMatrix = issueTestMatrix)
+          qcthat:::CommentAllReports(dfITM = issueTestMatrix)
         shell: Rscript {0}
 
       - name: Update Release Reports
@@ -96,5 +96,5 @@ jobs:
         run: |
           issueTestMatrix <- readRDS("itm.rds")
           qcthat::LoadUATIssues()
-          qcthat::AttachReleaseReports(dfIssueTestMatrix = issueTestMatrix)
+          qcthat::AttachReleaseReports(dfITM = issueTestMatrix)
         shell: Rscript {0}

@@ -17,5 +17,6 @@ not an \code{"issues"} event or the issue number cannot be found.
 }
 \description{
 Determine the issue number associated with the current GitHub event, if the
-workflow was triggered by an \code{"issues"} event.
+workflow was triggered by an \code{"issues"} event, or by a \code{"workflow_dispatch"}
+event with \code{"issueNumber"} input
 }

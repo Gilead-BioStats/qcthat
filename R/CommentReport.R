@@ -59,13 +59,10 @@ FormatReportGH <- function(dfITM) {
 
   chrFooter <- FormatFooterMain(dfITM)
   chrFooter <- chrFooter[nzchar(chrFooter)]
-  strBody <- stringr::str_replace_all(
-    paste(chrBody, collapse = "\n"),
-    c("\\{" = "{{", "\\}" = "}}")
-  )
-  glue::glue(
+  strBody <- paste(chrBody, collapse = "\n")
+  GlueEscaped(
     "<details>",
-    "<summary>{chrHeader}</summary>",
+    "<summary>qcthatopen{chrHeader}qcthatclose</summary>",
     "",
     "```",
     strBody,

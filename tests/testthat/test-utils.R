@@ -212,3 +212,15 @@ test_that("PrettyTimestamp works (#172)", {
     "1970-01-01 00:00:00 UTC"
   )
 })
+
+test_that("GlueEscaped defaults to safer tags", {
+  name <- "World"
+  expect_equal(
+    GlueEscaped("Hello, {name}!"),
+    "Hello, {name}!"
+  )
+  expect_equal(
+    GlueEscaped("Hello, qcthatopen{name}qcthatclose!"),
+    "Hello, World!"
+  )
+})

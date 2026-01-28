@@ -118,3 +118,31 @@ PrettyTimestamp <- function(strTimezone = "UTC") {
     format = "%Y-%m-%d %H:%M:%S"
   )
 }
+
+#' Glue without collisions of curly braces
+#'
+#' @param ... Values to glue and/or additional arguments passed to
+#'   [glue::glue()].
+#' @param .sep (`length-1 character`) Separator to use between glued values.
+#' @param .open (`length-1 character`) Opening delimiter. Defaults value avoids
+#'   collisions.
+#' @param .close (`length-1 character`) Closing delimiter. Defaults value avoids
+#'   collisions.
+#' @param .envir (`environment`) Environment to evaluate expressions in.
+#' @returns The glued expression as a length-1 character vector.
+#' @keywords internal
+GlueEscaped <- function(
+  ...,
+  .sep = "\n\n",
+  .open = "qcthatopen{",
+  .close = "}qcthatclose",
+  .envir = rlang::caller_env()
+) {
+  glue::glue(
+    ...,
+    .sep = .sep,
+    .open = .open,
+    .close = .close,
+    .envir = .envir
+  )
+}

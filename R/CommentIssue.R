@@ -41,15 +41,11 @@ CommentIssue <- function(
     glue::glue("*Last updated: {strTime}*"),
     FormatSessionInfo()
   )
-  strBody <- stringr::str_replace_all(
-    paste(chrBody[nzchar(chrBody)], collapse = "\n\n"),
-    c("\\{" = "{{", "\\}" = "}}")
-  )
-  strBodyCompiled <- glue::glue(
-    "## {strTitle}",
+  strBody <- paste(chrBody[nzchar(chrBody)], collapse = "\n\n")
+  strBodyCompiled <- GlueEscaped(
+    "## qcthatopen{strTitle}qcthatclose",
     strBody,
-    "<!-- qcthat-comment-id: {strCommentID} -->",
-    .sep = "\n\n"
+    "<!-- qcthat-comment-id: qcthatopen{strCommentID}qcthatclose -->"
   )
   if (lglUpdate) {
     return(

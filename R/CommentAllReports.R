@@ -28,7 +28,7 @@ CommentAllReports <- function(
   chrIgnoredLabels = DefaultIgnoreLabels(),
   envCall = rlang::caller_env()
 ) {
-  if (any(lglCompleted, lglMilestone, lglPR)) {
+  if (any(lglCompleted, lglMilestone, lglPR, lglUAT)) {
     dfITM <- dfITM %||%
       QCPackage(
         strPkgRoot = strPkgRoot,

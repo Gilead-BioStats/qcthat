@@ -120,3 +120,24 @@ test_that("CommentAllReports generates the expected calls (#165)", {
     )
   })
 })
+
+test_that("All qcthat reports are combined in a single GHA (#129, #165, #152)", {
+  ExpectUserAccepts(
+    "PRs have a single comment for qcthat reports (other than UAT)",
+    intIssue = 165,
+    chrChecks = c(
+      "The PR associated with this issue has a comment with the title '{qcthat} Reports', containing both the 'PR-Associated Issues' and 'Completed Issues' reports.",
+      "The PR associated with this issue does not have a comment for just the '{qcthat} Report: Completed Issues'.",
+      "The PR associated with this issue does not have a comment for just the '{qcthat} Report: PR-Associated Issues'."
+    )
+  )
+  ExpectUserAccepts(
+    "PRs have a single qcthat action",
+    intIssue = 129,
+    chrInstructions = "At the bottom of the PR associated with this issue, look for the 'checks' folder (or 'All checks have passed', etc), and expand that folder.",
+    chrChecks = c(
+      "The PR associated with this issue has a 'qcthat Quality Control' check.",
+      "The PR associated with this issue does *not* have any other checks that begin with 'qcthat'."
+    )
+  )
+})

@@ -55,7 +55,7 @@ CommentAllReports <- function(
       chrBody,
       FormatReportType(
         fnReport = QCPR,
-        strReportType = "PR-Associated Issues",
+        strReportType = "🧪 PR-Associated Issues",
         strPkgRoot = strPkgRoot,
         strOwner = strOwner,
         strRepo = strRepo,
@@ -72,7 +72,7 @@ CommentAllReports <- function(
       chrBody,
       FormatReportType(
         fnReport = QCMilestones,
-        strReportType = "Milestone",
+        strReportType = "🪧 Milestone",
         strPkgRoot = strPkgRoot,
         strOwner = strOwner,
         strRepo = strRepo,
@@ -89,7 +89,7 @@ CommentAllReports <- function(
       chrBody,
       FormatReportType(
         fnReport = QCCompletedIssues,
-        strReportType = "Completed Issues",
+        strReportType = "📋 Completed Issues",
         strPkgRoot = strPkgRoot,
         strOwner = strOwner,
         strRepo = strRepo,
@@ -101,10 +101,6 @@ CommentAllReports <- function(
     )
   }
   if (lglUAT) {
-    # chrBody <- c(
-    #   chrBody,
-    #   FormatReportBody("User Acceptance", FormatUATGH())
-    # )
     CommentUAT(
       intPRNumber = intPRNumber,
       lglUpdate = lglUpdate,
@@ -117,7 +113,7 @@ CommentAllReports <- function(
   if (length(chrBody)) {
     CommentIssue(
       intIssue = intPRNumber,
-      strTitle = "[{qcthat}](https://gilead-biostats.github.io/qcthat/) Reports",
+      strTitle = "🔍 [{qcthat}](https://gilead-biostats.github.io/qcthat/) Reports",
       strBody = paste(chrBody, collapse = "\n\n\n"),
       lglUpdate = lglUpdate,
       strRunID = strRunID,
@@ -130,6 +126,14 @@ CommentAllReports <- function(
   return(invisible(dfITM))
 }
 
+#' Prepare the body of one report in set of reports
+#'
+#' @param fnReport (`function`) The function that generates the report data,
+#'   such as [QCPR()].
+#' @param lOtherArgs (`list`) Additional arguments to pass to `fnReport`.
+#' @inheritParams shared-params
+#' @returns A string containing the report formatted in GitHub markdown.
+#' @keywords internal
 FormatReportType <- function(
   fnReport,
   strReportType,
@@ -155,6 +159,12 @@ FormatReportType <- function(
   FormatReportBody(strReportType, FormatReportGH(dfITM))
 }
 
+#' Format the body of a report
+#'
+#' @param strBody (`length-1 character`) The body of the report.
+#' @inheritParams shared-params
+#' @returns A string containing the report formatted in GitHub markdown.
+#' @keywords internal
 FormatReportBody <- function(strReportType, strBody) {
   paste(
     paste("###", strReportType),

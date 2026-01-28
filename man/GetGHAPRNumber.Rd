@@ -4,7 +4,11 @@
 \alias{GetGHAPRNumber}
 \title{Get the PR number for a GitHub Action}
 \usage{
-GetGHAPRNumber()
+GetGHAPRNumber(lGHEventPayload = LoadGHEventPayload())
+}
+\arguments{
+\item{lGHEventPayload}{(\code{list}) The GitHub event payload. Defaults to the
+result of \code{\link[=LoadGHEventPayload]{LoadGHEventPayload()}}.}
 }
 \value{
 An integer pull request number, or \code{NULL} if not running in a

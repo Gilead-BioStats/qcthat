@@ -55,7 +55,7 @@ CommentAllReports <- function(
       chrBody,
       FormatReportType(
         fnReport = QCPR,
-        strReportType = "🧪 PR-Associated Issues",
+        strReportType = "PR-Associated Issues",
         strPkgRoot = strPkgRoot,
         strOwner = strOwner,
         strRepo = strRepo,
@@ -72,7 +72,7 @@ CommentAllReports <- function(
       chrBody,
       FormatReportType(
         fnReport = QCMilestones,
-        strReportType = "🪧 Milestone",
+        strReportType = "Milestone",
         strPkgRoot = strPkgRoot,
         strOwner = strOwner,
         strRepo = strRepo,
@@ -89,7 +89,7 @@ CommentAllReports <- function(
       chrBody,
       FormatReportType(
         fnReport = QCCompletedIssues,
-        strReportType = "📋 Completed Issues",
+        strReportType = "Completed Issues",
         strPkgRoot = strPkgRoot,
         strOwner = strOwner,
         strRepo = strRepo,
@@ -113,7 +113,7 @@ CommentAllReports <- function(
   if (length(chrBody)) {
     CommentIssue(
       intIssue = intPRNumber,
-      strTitle = "🔍 [{qcthat}](https://gilead-biostats.github.io/qcthat/) Reports",
+      strTitle = "[{qcthat}](https://gilead-biostats.github.io/qcthat/) Reports",
       strBody = paste(chrBody, collapse = "\n\n\n"),
       lglUpdate = lglUpdate,
       strRunID = strRunID,

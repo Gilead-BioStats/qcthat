@@ -47,14 +47,14 @@ test_that("CommentAllReports generates the expected calls (#165)", {
       expect_equal(intIssue, 42)
       expect_equal(
         strTitle,
-        "🔍 [{qcthat}](https://gilead-biostats.github.io/qcthat/) Reports"
+        "[{qcthat}](https://gilead-biostats.github.io/qcthat/) Reports"
       )
       expect_equal(
         strBody,
         paste(
-          "Formatted 🧪 PR-Associated Issues",
-          "Formatted 🪧 Milestone",
-          "Formatted 📋 Completed Issues",
+          "Formatted PR-Associated Issues",
+          "Formatted Milestone",
+          "Formatted Completed Issues",
           sep = "\n\n\n"
         )
       )
@@ -96,7 +96,7 @@ test_that("CommentAllReports generates the expected calls (#165)", {
       expect_equal(
         strBody,
         paste(
-          "Formatted 🧪 PR-Associated Issues",
+          "Formatted PR-Associated Issues",
           sep = "\n\n\n"
         )
       )

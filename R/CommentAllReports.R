@@ -1,5 +1,20 @@
-# Test & doc this
-
+#' Comment on a PR or issue with a QC report
+#'
+#' Add or update a comment on a GitHub pull request (or issue) with a QC report,
+#' formatted in GitHub markdown.
+#'
+#' @param lglCompleted (`length-1 logical`) Whether to include the
+#'   [QCCompletedIssues()] report.
+#' @param lglMilestone (`length-1 logical`) Whether to include the
+#'   [QCMilestones()] report.
+#' @param lglPR (`length-1 logical`) Whether to include the [QCMilestones()]
+#'   report.
+#' @param lglUAT (`length-1 logical`) Whether to include the [CommentUAT()]
+#'   report.
+#' @inheritParams shared-params
+#'
+#' @returns `dfITM`, invisibly.
+#' @export
 CommentAllReports <- function(
   intPRNumber = GuessPRNumber(
     strOwner = strOwner,
@@ -22,7 +37,7 @@ CommentAllReports <- function(
   chrIgnoredLabels = DefaultIgnoreLabels(),
   envCall = rlang::caller_env()
 ) {
-  if (any(lglCompleted, lglMilestone, lglPR)) {
+  if (any(lglCompleted, lglMilestone, lglPR, lglUAT)) {
     dfITM <- dfITM %||%
       QCPackage(
         strPkgRoot = strPkgRoot,
@@ -35,18 +50,19 @@ CommentAllReports <- function(
   }
 
   chrBody <- character()
-  if (lglCompleted) {
+  if (lglPR) {
     chrBody <- c(
       chrBody,
       FormatReportType(
-        fnReport = QCCompletedIssues,
-        strReportType = "Completed Issues",
+        fnReport = QCPR,
+        strReportType = "PR-Associated Issues",
         strPkgRoot = strPkgRoot,
         strOwner = strOwner,
         strRepo = strRepo,
         strGHToken = strGHToken,
         chrIgnoredLabels = chrIgnoredLabels,
         dfITM = dfITM,
+        lOtherArgs = list(intPRNumber = intPRNumber, lglWarn = lglWarn),
         envCall = envCall
       )
     )
@@ -68,27 +84,34 @@ CommentAllReports <- function(
       )
     )
   }
-  if (lglPR) {
+  if (lglCompleted) {
     chrBody <- c(
       chrBody,
       FormatReportType(
-        fnReport = QCPR,
-        strReportType = "PR-Associated Issues",
+        fnReport = QCCompletedIssues,
+        strReportType = "Completed Issues",
         strPkgRoot = strPkgRoot,
         strOwner = strOwner,
         strRepo = strRepo,
         strGHToken = strGHToken,
         chrIgnoredLabels = chrIgnoredLabels,
         dfITM = dfITM,
-        lOtherArgs = list(intPRNumber = intPRNumber, lglWarn = lglWarn),
         envCall = envCall
       )
     )
   }
   if (lglUAT) {
-    chrBody <- c(
-      chrBody,
-      FormatReportBody("User Acceptance", FormatUATGH())
+    # chrBody <- c(
+    #   chrBody,
+    #   FormatReportBody("User Acceptance", FormatUATGH())
+    # )
+    CommentUAT(
+      intPRNumber = intPRNumber,
+      lglUpdate = lglUpdate,
+      strRunID = strRunID,
+      strOwner = strOwner,
+      strRepo = strRepo,
+      strGHToken = strGHToken
     )
   }
   if (length(chrBody)) {
@@ -103,6 +126,8 @@ CommentAllReports <- function(
       strGHToken = strGHToken
     )
   }
+
+  return(invisible(dfITM))
 }
 
 FormatReportType <- function(

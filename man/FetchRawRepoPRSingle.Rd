@@ -14,7 +14,7 @@ FetchRawRepoPRSingle(
 }
 \arguments{
 \item{intPRNumber}{(\verb{length-1 integer}) The number of the pull request to
-fetch information about.}
+fetch information about and/or post results to.}
 
 \item{strOwner}{(\verb{length-1 character}) GitHub username or organization name.}
 

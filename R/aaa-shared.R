@@ -56,7 +56,7 @@
 #' @param intParentIssue (`length-1 integer`) The number of the parent issue in
 #'   a parent-child issue relationship.
 #' @param intPRNumber (`length-1 integer`) The number of the pull request to
-#'   fetch information about.
+#'   fetch information about and/or post results to.
 #' @param intPRNumbers (`integer`) A vector of pull request numbers.
 #' @param intUATIssue (`integer`) The number of an issue that tracks
 #'   user-acceptance testing.

@@ -79,7 +79,7 @@ large number of commits in a very large repository.}
 a parent-child issue relationship.}
 
 \item{intPRNumber}{(\verb{length-1 integer}) The number of the pull request to
-fetch information about.}
+fetch information about and/or post results to.}
 
 \item{intPRNumbers}{(\code{integer}) A vector of pull request numbers.}
 

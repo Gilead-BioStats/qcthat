@@ -18,6 +18,7 @@ CommentUAT <- function(
     strGHToken = strGHToken
   ),
   lglUpdate = TRUE,
+  strRunID = Sys.getenv("GITHUB_RUN_ID"),
   strOwner = GetGHOwner(),
   strRepo = GetGHRepo(),
   strGHToken = gh::gh_token()
@@ -27,6 +28,7 @@ CommentUAT <- function(
     strTitle = "[{qcthat}](https://gilead-biostats.github.io/qcthat/) Report: User Acceptance",
     strBody = FormatUATGH(),
     lglUpdate = lglUpdate,
+    strRunID = strRunID,
     strOwner = strOwner,
     strRepo = strRepo,
     strGHToken = strGHToken

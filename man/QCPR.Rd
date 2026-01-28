@@ -19,7 +19,7 @@ QCPR(
 }
 \arguments{
 \item{intPRNumber}{(\verb{length-1 integer}) The number of the pull request to
-fetch information about.}
+fetch information about and/or post results to.}
 
 \item{intPageMax}{(\verb{length-1 integer}) The maximum number of pages of commits
 to fetch from the GitHub API. Each page contains up to 100 commits.

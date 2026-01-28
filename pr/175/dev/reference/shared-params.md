@@ -139,7 +139,7 @@ Reused parameter definitions are gathered here for easier usage. Use
 - intPRNumber:
 
   (`length-1 integer`) The number of the pull request to fetch
-  information about.
+  information about and/or post results to.
 
 - intPRNumbers:
 

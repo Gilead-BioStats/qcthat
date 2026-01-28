@@ -10,6 +10,8 @@
   : Use a GitHub Action to QC pull-request-associated issues
 - [`Action_UAT()`](https://gilead-biostats.github.io/qcthat/dev/reference/Action_UAT.md)
   : Use a GitHub Action to manage UAT
+- [`CommentAllReports()`](https://gilead-biostats.github.io/qcthat/dev/reference/CommentAllReports.md)
+  : Comment on a PR or issue with a QC report
 - [`CommentIssue()`](https://gilead-biostats.github.io/qcthat/dev/reference/CommentIssue.md)
   : Comment on a GitHub Issue
 - [`CommentReport()`](https://gilead-biostats.github.io/qcthat/dev/reference/CommentReport.md)

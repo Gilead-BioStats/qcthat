@@ -14,6 +14,7 @@ CommentUAT(
   intPRNumber = GuessPRNumber(strOwner = strOwner, strRepo = strRepo, strGHToken =
     strGHToken),
   lglUpdate = TRUE,
+  strRunID = Sys.getenv("GITHUB_RUN_ID"),
   strOwner = GetGHOwner(),
   strRepo = GetGHRepo(),
   strGHToken = gh::gh_token()
@@ -25,12 +26,17 @@ CommentUAT(
 - intPRNumber:
 
   (`length-1 integer`) The number of the pull request to fetch
-  information about.
+  information about and/or post results to.
 
 - lglUpdate:
 
   (`length-1 logical`) Whether to update an existing comment if it
   already exists (rather than creating a new comment).
+
+- strRunID:
+
+  (`length-1 character`) ID (typically numeric but can be very long) of
+  a GitHub Actions workflow run.
 
 - strOwner:
 

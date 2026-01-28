@@ -5,8 +5,15 @@ Get the PR number for a GitHub Action
 ## Usage
 
 ``` r
-GetGHAPRNumber()
+GetGHAPRNumber(lGHEventPayload = LoadGHEventPayload())
 ```
+
+## Arguments
+
+- lGHEventPayload:
+
+  (`list`) The GitHub event payload. Defaults to the result of
+  [`LoadGHEventPayload()`](https://gilead-biostats.github.io/qcthat/dev/reference/LoadGHEventPayload.md).
 
 ## Value
 

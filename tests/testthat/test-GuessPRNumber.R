@@ -11,27 +11,25 @@ test_that("GuessPRNumber delegates to its sub-functions (#84)", {
   expect_equal(GuessPRNumber(), 21L)
 })
 
-test_that("GetGHAPRNumber detects PR number for a GHA (#84)", {
-  withr::local_envvar(list(
-    GITHUB_EVENT_NAME = "",
-    GITHUB_REF_NAME = ""
-  ))
-  expect_null(GetGHAPRNumber())
-  withr::local_envvar(list(
-    GITHUB_EVENT_NAME = "pull_request",
-    GITHUB_REF_NAME = ""
-  ))
-  expect_null(GetGHAPRNumber())
-  withr::local_envvar(list(
-    GITHUB_EVENT_NAME = "",
-    GITHUB_REF_NAME = "123/merge"
-  ))
-  expect_null(GetGHAPRNumber())
-  withr::local_envvar(list(
-    GITHUB_EVENT_NAME = "pull_request",
-    GITHUB_REF_NAME = "123/merge"
-  ))
-  expect_equal(GetGHAPRNumber(), 123L)
+test_that("GetGHAPRNumber returns NULL for bad arg (#84, #163)", {
+  expect_null(GetGHAPRNumber(NULL))
+  expect_null(GetGHAPRNumber(letters))
+  expect_null(GetGHAPRNumber(list()))
+})
+
+test_that("GetGHAPRNumber extracts PR number from lGHEventPayload when available (#84, #163)", {
+  expect_equal(
+    GetGHAPRNumber(list(pull_request = list(number = 42))),
+    42
+  )
+  expect_equal(
+    GetGHAPRNumber(list(inputs = list(pr = 42))),
+    42
+  )
+})
+
+test_that("GetGHAPRNumber returns NULL for bad extracted PR number (#84, #163)", {
+  expect_null(GetGHAPRNumber(list(pull_request = list(number = "a"))))
 })
 
 test_that("FetchRefPRNumber fetches PR number for a branch (#84, #132)", {

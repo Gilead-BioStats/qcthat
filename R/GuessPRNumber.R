@@ -30,15 +30,18 @@ GuessPRNumber <- function(
 
 #' Get the PR number for a GitHub Action
 #'
+#' @inheritParams shared-params
 #' @returns An integer pull request number, or `NULL` if not running in a
 #'   PR-triggered action (as indicated by the environment variables
 #'   `"GITHUB_EVENT_NAME"` and `"GITHUB_REF_NAME"`).
 #' @keywords internal
-GetGHAPRNumber <- function() {
-  if (identical(Sys.getenv("GITHUB_EVENT_NAME"), "pull_request")) {
-    strPREnv <- stringr::str_extract(Sys.getenv("GITHUB_REF_NAME"), "^\\d+")
-    if (!is.na(strPREnv) && nzchar(strPREnv)) {
-      return(as.integer(strPREnv))
+GetGHAPRNumber <- function(lGHEventPayload = LoadGHEventPayload()) {
+  if (is.list(lGHEventPayload)) {
+    intPRNumber <- lGHEventPayload$pull_request$number %||%
+      lGHEventPayload$inputs$pr
+    intPRNumber <- suppressWarnings(as.integer(intPRNumber))
+    if (length(intPRNumber) && !is.na(intPRNumber)) {
+      return(intPRNumber)
     }
   }
 }

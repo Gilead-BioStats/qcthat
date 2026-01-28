@@ -41,7 +41,10 @@ CommentIssue <- function(
     glue::glue("*Last updated: {strTime}*"),
     FormatSessionInfo()
   )
-  strBody <- paste(chrBody[nzchar(chrBody)], collapse = "\n\n")
+  strBody <- stringr::str_replace_all(
+    paste(chrBody[nzchar(chrBody)], collapse = "\n\n"),
+    c("\\{" = "{{", "\\}" = "}}")
+  )
   strBodyCompiled <- glue::glue(
     "## {strTitle}",
     strBody,

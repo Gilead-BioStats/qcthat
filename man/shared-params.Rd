@@ -103,12 +103,21 @@ parallel testing, like \code{reporter = "silent"}, and assigning it to a name.}
 \item{lPRActionRuns}{(\code{list}) A list of workflow run objects as returned by
 GitHub.}
 
-\item{lglReportFailure}{(\verb{length-1 logical}) Whether to ignore failures
-(default unless a "qcthat_UAT" environment variable is "true"), or fail
-(and show as a failure in testthat tests).}
+\item{lglCompleted}{(\verb{length-1 logical}) Whether to include the
+\code{\link[=QCCompletedIssues]{QCCompletedIssues()}} report.}
+
+\item{lglMilestone}{(\verb{length-1 logical}) Whether to include the
+\code{\link[=QCMilestones]{QCMilestones()}} report.}
 
 \item{lglOverwrite}{(\verb{length-1 logical}) Whether to overwrite files if they
 already exist.}
+
+\item{lglPR}{(\verb{length-1 logical}) Whether to include the \code{\link[=QCPR]{QCPR()}}
+report.}
+
+\item{lglReportFailure}{(\verb{length-1 logical}) Whether to ignore failures
+(default unless a "qcthat_UAT" environment variable is "true"), or fail
+(and show as a failure in testthat tests).}
 
 \item{lglShowMilestones}{(\verb{length-1 logical}) Whether to separate issues by
 milestones in reports.}
@@ -116,6 +125,9 @@ milestones in reports.}
 \item{lglShowIgnoredLabels}{(\verb{length-1 logical}) Whether to show information
 in reports about issue labels (such as \code{"qcthat-nocov"}) that have been
 ignored.}
+
+\item{lglUAT}{(\verb{length-1 logical}) Whether to include the \code{\link[=CommentUAT]{CommentUAT()}}
+report.}
 
 \item{lglUpdate}{(\verb{length-1 logical}) Whether to update an existing comment
 if it already exists (rather than creating a new comment).}
@@ -131,8 +143,8 @@ included in the filter (but the report still returns results). Defaults to
 
 \item{objShape}{(\verb{0-row data.frame}, etc) Object with the expected structure.}
 
-\item{strBody}{(\verb{length-1 character}) The body of an issue, PR, or comment,
-in GitHub markdown.}
+\item{strBody}{(\verb{length-1 character}) The body of an issue, PR, comment, or
+release, in GitHub markdown.}
 
 \item{strBodyCompiled}{(\verb{length-1 character}) The full body of an issue, PR,
 or comment, in GitHub markdown, including components such as a title and a
@@ -177,6 +189,9 @@ package. Will be expanded using \code{\link[gert:git_repo]{gert::git_find()}}.}
 \item{strPRHeadRef}{(\verb{length-1 character}) The branch name (head ref) of the
 PR.}
 
+\item{strReleaseID}{(\verb{length-1 character}) ID (typically numeric but can be
+very long) of a GitHub release.}
+
 \item{strRepo}{(\verb{length-1 character}) GitHub repository name.}
 
 \item{strReportType}{(\verb{length-1 character}) The main title of the report,
@@ -191,6 +206,8 @@ contains changes. Defaults to the active branch in this repository.}
 \item{strState}{(\verb{length-1 character}) State of issues or pull requests to
 fetch. Must be one of \code{"open"}, \code{"closed"}, or \code{"all"}. Defaults to
 \code{"open"} for pull requests and \code{"all"} for issues.}
+
+\item{strTagName}{(\verb{length-1 character}) Name of the GitHub tag.}
 
 \item{strTargetRef}{(\verb{length-1 character}) Name of the git reference that
 will be merged into. Defaults to the default branch of this repository.}

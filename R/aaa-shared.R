@@ -72,16 +72,24 @@
 #'   parallel testing, like `reporter = "silent"`, and assigning it to a name.
 #' @param lPRActionRuns (`list`) A list of workflow run objects as returned by
 #'   GitHub.
+#' @param lglCompleted (`length-1 logical`) Whether to include the
+#'   [QCCompletedIssues()] report.
+#' @param lglMilestone (`length-1 logical`) Whether to include the
+#'   [QCMilestones()] report.
+#' @param lglOverwrite (`length-1 logical`) Whether to overwrite files if they
+#'   already exist.
+#' @param lglPR (`length-1 logical`) Whether to include the [QCPR()]
+#'   report.
 #' @param lglReportFailure (`length-1 logical`) Whether to ignore failures
 #'   (default unless a "qcthat_UAT" environment variable is "true"), or fail
 #'   (and show as a failure in testthat tests).
-#' @param lglOverwrite (`length-1 logical`) Whether to overwrite files if they
-#'   already exist.
 #' @param lglShowMilestones (`length-1 logical`) Whether to separate issues by
 #'   milestones in reports.
 #' @param lglShowIgnoredLabels (`length-1 logical`) Whether to show information
 #'   in reports about issue labels (such as `"qcthat-nocov"`) that have been
 #'   ignored.
+#' @param lglUAT (`length-1 logical`) Whether to include the [CommentUAT()]
+#'   report.
 #' @param lglUpdate (`length-1 logical`) Whether to update an existing comment
 #'   if it already exists (rather than creating a new comment).
 #' @param lglUseEmoji (`length-1 logical`) Whether to use emojis (if `TRUE` and
@@ -92,8 +100,8 @@
 #'   included in the filter (but the report still returns results). Defaults to
 #'   `TRUE`.
 #' @param objShape (`0-row data.frame`, etc) Object with the expected structure.
-#' @param strBody (`length-1 character`) The body of an issue, PR, or comment,
-#'   in GitHub markdown.
+#' @param strBody (`length-1 character`) The body of an issue, PR, comment, or
+#'   release, in GitHub markdown.
 #' @param strBodyCompiled (`length-1 character`) The full body of an issue, PR,
 #'   or comment, in GitHub markdown, including components such as a title and a
 #'   hidden `qcthat-comment-id`.
@@ -123,6 +131,8 @@
 #'   package. Will be expanded using [gert::git_find()].
 #' @param strPRHeadRef (`length-1 character`) The branch name (head ref) of the
 #'   PR.
+#' @param strReleaseID (`length-1 character`) ID (typically numeric but can be
+#'   very long) of a GitHub release.
 #' @param strRepo (`length-1 character`) GitHub repository name.
 #' @param strReportType (`length-1 character`) The main title of the report,
 #'   such as `"Completed Issues"` or `"PR-Associated Issues"`.
@@ -133,6 +143,7 @@
 #' @param strState (`length-1 character`) State of issues or pull requests to
 #'   fetch. Must be one of `"open"`, `"closed"`, or `"all"`. Defaults to
 #'   `"open"` for pull requests and `"all"` for issues.
+#' @param strTagName (`length-1 character`) Name of the GitHub tag.
 #' @param strTargetRef (`length-1 character`) Name of the git reference that
 #'   will be merged into. Defaults to the default branch of this repository.
 #' @param strTitle (`length-1 character`) A title for an issue.

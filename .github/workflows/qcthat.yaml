@@ -94,7 +94,7 @@ jobs:
       - name: Update Release Reports
         if: github.event_name == 'release' || inputs.tag != ''
         run: |
-          issueTestMatrix <- readRDS("itm.rds")
+          issueTestMatrix <- readRDS("ITM.rds")
           qcthat::LoadUATIssues()
           qcthat::AttachReleaseReports(dfITM = issueTestMatrix)
         shell: Rscript {0}

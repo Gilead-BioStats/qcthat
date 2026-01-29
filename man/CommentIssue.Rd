@@ -22,8 +22,8 @@ associated.}
 
 \item{strTitle}{(\verb{length-1 character}) A title for an issue.}
 
-\item{strBody}{(\verb{length-1 character}) The body of an issue, PR, or comment,
-in GitHub markdown.}
+\item{strBody}{(\verb{length-1 character}) The body of an issue, PR, comment, or
+release, in GitHub markdown.}
 
 \item{strCommentID}{(\verb{length-1 character}) A unique ID for a comment within a
 given context, which is usually a hash of the title of the comment.}

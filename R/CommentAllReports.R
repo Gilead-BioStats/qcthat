@@ -1,16 +1,8 @@
-#' Comment on a PR or issue with a QC report
+#' Comment on a PR or issue with QC reports
 #'
-#' Add or update a comment on a GitHub pull request (or issue) with a QC report,
-#' formatted in GitHub markdown.
+#' Add or update a comment on a GitHub pull request (or issue) with one or more
+#' QC reports, formatted in GitHub markdown.
 #'
-#' @param lglCompleted (`length-1 logical`) Whether to include the
-#'   [QCCompletedIssues()] report.
-#' @param lglMilestone (`length-1 logical`) Whether to include the
-#'   [QCMilestones()] report.
-#' @param lglPR (`length-1 logical`) Whether to include the [QCMilestones()]
-#'   report.
-#' @param lglUAT (`length-1 logical`) Whether to include the [CommentUAT()]
-#'   report.
 #' @inheritParams shared-params
 #'
 #' @returns `dfITM`, invisibly.

@@ -10,8 +10,10 @@
   : Use a GitHub Action to QC pull-request-associated issues
 - [`Action_UAT()`](https://gilead-biostats.github.io/qcthat/dev/reference/Action_UAT.md)
   : Use a GitHub Action to manage UAT
+- [`AttachReleaseReports()`](https://gilead-biostats.github.io/qcthat/dev/reference/AttachReleaseReports.md)
+  : Attach QC reports to a GitHub release
 - [`CommentAllReports()`](https://gilead-biostats.github.io/qcthat/dev/reference/CommentAllReports.md)
-  : Comment on a PR or issue with a QC report
+  : Comment on a PR or issue with QC reports
 - [`CommentIssue()`](https://gilead-biostats.github.io/qcthat/dev/reference/CommentIssue.md)
   : Comment on a GitHub Issue
 - [`CommentReport()`](https://gilead-biostats.github.io/qcthat/dev/reference/CommentReport.md)
@@ -46,6 +48,8 @@
   : Guess relevant milestone names from the GitHub event
 - [`GuessPRNumber()`](https://gilead-biostats.github.io/qcthat/dev/reference/GuessPRNumber.md)
   : Guess the most relevant pull request number
+- [`GuessReleaseID()`](https://gilead-biostats.github.io/qcthat/dev/reference/GuessReleaseID.md)
+  : Guess the relevant release id from the GitHub event
 - [`IsCheckingUAT()`](https://gilead-biostats.github.io/qcthat/dev/reference/IsCheckingUAT.md)
   : Detect whether the user is specifically checking UAT issues
 - [`LoadGHEventPayload()`](https://gilead-biostats.github.io/qcthat/dev/reference/LoadGHEventPayload.md)

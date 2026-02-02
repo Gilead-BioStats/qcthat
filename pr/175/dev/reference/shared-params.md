@@ -178,15 +178,33 @@ Reused parameter definitions are gathered here for easier usage. Use
 
   (`list`) A list of workflow run objects as returned by GitHub.
 
+- lglCompleted:
+
+  (`length-1 logical`) Whether to include the
+  [`QCCompletedIssues()`](https://gilead-biostats.github.io/qcthat/dev/reference/QCCompletedIssues.md)
+  report.
+
+- lglMilestone:
+
+  (`length-1 logical`) Whether to include the
+  [`QCMilestones()`](https://gilead-biostats.github.io/qcthat/dev/reference/QCMilestones.md)
+  report.
+
+- lglOverwrite:
+
+  (`length-1 logical`) Whether to overwrite files if they already exist.
+
+- lglPR:
+
+  (`length-1 logical`) Whether to include the
+  [`QCPR()`](https://gilead-biostats.github.io/qcthat/dev/reference/QCPR.md)
+  report.
+
 - lglReportFailure:
 
   (`length-1 logical`) Whether to ignore failures (default unless a
   "qcthat_UAT" environment variable is "true"), or fail (and show as a
   failure in testthat tests).
-
-- lglOverwrite:
-
-  (`length-1 logical`) Whether to overwrite files if they already exist.
 
 - lglShowMilestones:
 
@@ -197,6 +215,12 @@ Reused parameter definitions are gathered here for easier usage. Use
 
   (`length-1 logical`) Whether to show information in reports about
   issue labels (such as `"qcthat-nocov"`) that have been ignored.
+
+- lglUAT:
+
+  (`length-1 logical`) Whether to include the
+  [`CommentUAT()`](https://gilead-biostats.github.io/qcthat/dev/reference/CommentUAT.md)
+  report.
 
 - lglUpdate:
 
@@ -222,8 +246,8 @@ Reused parameter definitions are gathered here for easier usage. Use
 
 - strBody:
 
-  (`length-1 character`) The body of an issue, PR, or comment, in GitHub
-  markdown.
+  (`length-1 character`) The body of an issue, PR, comment, or release,
+  in GitHub markdown.
 
 - strBodyCompiled:
 
@@ -291,6 +315,11 @@ Reused parameter definitions are gathered here for easier usage. Use
 
   (`length-1 character`) The branch name (head ref) of the PR.
 
+- strReleaseID:
+
+  (`length-1 character`) ID (typically numeric but can be very long) of
+  a GitHub release.
+
 - strRepo:
 
   (`length-1 character`) GitHub repository name.
@@ -315,6 +344,10 @@ Reused parameter definitions are gathered here for easier usage. Use
   (`length-1 character`) State of issues or pull requests to fetch. Must
   be one of `"open"`, `"closed"`, or `"all"`. Defaults to `"open"` for
   pull requests and `"all"` for issues.
+
+- strTagName:
+
+  (`length-1 character`) Name of the GitHub tag.
 
 - strTargetRef:
 

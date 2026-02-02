@@ -1,25 +1,22 @@
-# Comment on a PR or issue with QC reports
+# Attach QC reports to a GitHub release
 
-Add or update a comment on a GitHub pull request (or issue) with one or
-more QC reports, formatted in GitHub markdown.
+Update a GitHub release with one or more QC reports, formatted in GitHub
+markdown.
 
 ## Usage
 
 ``` r
-CommentAllReports(
-  intPRNumber = GuessPRNumber(strOwner = strOwner, strRepo = strRepo, strGHToken =
+AttachReleaseReports(
+  strReleaseID = GuessReleaseID(strOwner = strOwner, strRepo = strRepo, strGHToken =
     strGHToken),
   lglCompleted = TRUE,
   lglMilestone = length(chrMilestones),
-  lglPR = TRUE,
-  lglUAT = TRUE,
   chrMilestones = GuessMilestones(),
   dfITM = NULL,
-  lglUpdate = TRUE,
   strRunID = Sys.getenv("GITHUB_RUN_ID"),
   strPkgRoot = ".",
-  strOwner = GetGHOwner(strPkgRoot),
-  strRepo = GetGHRepo(strPkgRoot),
+  strOwner = GetGHOwner(),
+  strRepo = GetGHRepo(),
   strGHToken = gh::gh_token(),
   lglWarn = TRUE,
   chrIgnoredLabels = DefaultIgnoreLabels(),
@@ -29,10 +26,10 @@ CommentAllReports(
 
 ## Arguments
 
-- intPRNumber:
+- strReleaseID:
 
-  (`length-1 integer`) The number of the pull request to fetch
-  information about and/or post results to.
+  (`length-1 character`) ID (typically numeric but can be very long) of
+  a GitHub release.
 
 - lglCompleted:
 
@@ -46,18 +43,6 @@ CommentAllReports(
   [`QCMilestones()`](https://gilead-biostats.github.io/qcthat/dev/reference/QCMilestones.md)
   report.
 
-- lglPR:
-
-  (`length-1 logical`) Whether to include the
-  [`QCPR()`](https://gilead-biostats.github.io/qcthat/dev/reference/QCPR.md)
-  report.
-
-- lglUAT:
-
-  (`length-1 logical`) Whether to include the
-  [`CommentUAT()`](https://gilead-biostats.github.io/qcthat/dev/reference/CommentUAT.md)
-  report.
-
 - chrMilestones:
 
   (`character`) The name(s) of milestone(s) to filter issues by.
@@ -69,11 +54,6 @@ CommentAllReports(
   [`AsIssueTestMatrix()`](https://gilead-biostats.github.io/qcthat/dev/reference/AsIssueTestMatrix.md)
   (often via
   [`QCPackage()`](https://gilead-biostats.github.io/qcthat/dev/reference/QCPackage.md)).
-
-- lglUpdate:
-
-  (`length-1 logical`) Whether to update an existing comment if it
-  already exists (rather than creating a new comment).
 
 - strRunID:
 

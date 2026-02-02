@@ -1,15 +1,13 @@
-# Create an issue in a repository
+# Update the body of a GitHub release
 
-Create an issue in a repository
+Update the body of a GitHub release
 
 ## Usage
 
 ``` r
-CreateRepoIssueRaw(
-  strTitle,
+UpdateReleaseBody(
+  strReleaseID,
   strBody,
-  ...,
-  chrLabels = character(),
   strOwner = GetGHOwner(),
   strRepo = GetGHRepo(),
   strGHToken = gh::gh_token()
@@ -18,23 +16,15 @@ CreateRepoIssueRaw(
 
 ## Arguments
 
-- strTitle:
+- strReleaseID:
 
-  (`length-1 character`) A title for an issue.
+  (`length-1 character`) ID (typically numeric but can be very long) of
+  a GitHub release.
 
 - strBody:
 
   (`length-1 character`) The body of an issue, PR, comment, or release,
   in GitHub markdown.
-
-- ...:
-
-  Additional parameters passed to
-  [`CallGHAPI()`](https://gilead-biostats.github.io/qcthat/dev/reference/CallGHAPI.md).
-
-- chrLabels:
-
-  (`character`) The name(s) of labels(s) to use.
 
 - strOwner:
 
@@ -50,4 +40,5 @@ CreateRepoIssueRaw(
 
 ## Value
 
-A list representing the issue, as returned by GitHub.
+The updated release object as returned by
+[`gh::gh()`](https://gh.r-lib.org/reference/gh.html).

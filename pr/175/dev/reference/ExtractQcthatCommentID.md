@@ -12,8 +12,8 @@ ExtractQcthatCommentID(strBody)
 
 - strBody:
 
-  (`length-1 character`) The body of an issue, PR, or comment, in GitHub
-  markdown.
+  (`length-1 character`) The body of an issue, PR, comment, or release,
+  in GitHub markdown.
 
 ## Value
 

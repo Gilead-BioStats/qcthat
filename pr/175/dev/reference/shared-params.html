@@ -212,15 +212,30 @@ parallel testing, like <code>reporter = "silent"</code>, and assigning it to a n
 GitHub.</p></dd>
 
 
-<dt id="arg-lglreportfailure">lglReportFailure<a class="anchor" aria-label="anchor" href="#arg-lglreportfailure"></a></dt>
-<dd><p>(<code>length-1 logical</code>) Whether to ignore failures
-(default unless a "qcthat_UAT" environment variable is "true"), or fail
-(and show as a failure in testthat tests).</p></dd>
+<dt id="arg-lglcompleted">lglCompleted<a class="anchor" aria-label="anchor" href="#arg-lglcompleted"></a></dt>
+<dd><p>(<code>length-1 logical</code>) Whether to include the
+<code><a href="QCCompletedIssues.html">QCCompletedIssues()</a></code> report.</p></dd>
+
+
+<dt id="arg-lglmilestone">lglMilestone<a class="anchor" aria-label="anchor" href="#arg-lglmilestone"></a></dt>
+<dd><p>(<code>length-1 logical</code>) Whether to include the
+<code><a href="QCMilestones.html">QCMilestones()</a></code> report.</p></dd>
 
 
 <dt id="arg-lgloverwrite">lglOverwrite<a class="anchor" aria-label="anchor" href="#arg-lgloverwrite"></a></dt>
 <dd><p>(<code>length-1 logical</code>) Whether to overwrite files if they
 already exist.</p></dd>
+
+
+<dt id="arg-lglpr">lglPR<a class="anchor" aria-label="anchor" href="#arg-lglpr"></a></dt>
+<dd><p>(<code>length-1 logical</code>) Whether to include the <code><a href="QCPR.html">QCPR()</a></code>
+report.</p></dd>
+
+
+<dt id="arg-lglreportfailure">lglReportFailure<a class="anchor" aria-label="anchor" href="#arg-lglreportfailure"></a></dt>
+<dd><p>(<code>length-1 logical</code>) Whether to ignore failures
+(default unless a "qcthat_UAT" environment variable is "true"), or fail
+(and show as a failure in testthat tests).</p></dd>
 
 
 <dt id="arg-lglshowmilestones">lglShowMilestones<a class="anchor" aria-label="anchor" href="#arg-lglshowmilestones"></a></dt>
@@ -232,6 +247,11 @@ milestones in reports.</p></dd>
 <dd><p>(<code>length-1 logical</code>) Whether to show information
 in reports about issue labels (such as <code>"qcthat-nocov"</code>) that have been
 ignored.</p></dd>
+
+
+<dt id="arg-lgluat">lglUAT<a class="anchor" aria-label="anchor" href="#arg-lgluat"></a></dt>
+<dd><p>(<code>length-1 logical</code>) Whether to include the <code><a href="CommentUAT.html">CommentUAT()</a></code>
+report.</p></dd>
 
 
 <dt id="arg-lglupdate">lglUpdate<a class="anchor" aria-label="anchor" href="#arg-lglupdate"></a></dt>
@@ -257,8 +277,8 @@ included in the filter (but the report still returns results). Defaults to
 
 
 <dt id="arg-strbody">strBody<a class="anchor" aria-label="anchor" href="#arg-strbody"></a></dt>
-<dd><p>(<code>length-1 character</code>) The body of an issue, PR, or comment,
-in GitHub markdown.</p></dd>
+<dd><p>(<code>length-1 character</code>) The body of an issue, PR, comment, or
+release, in GitHub markdown.</p></dd>
 
 
 <dt id="arg-strbodycompiled">strBodyCompiled<a class="anchor" aria-label="anchor" href="#arg-strbodycompiled"></a></dt>
@@ -332,6 +352,11 @@ package. Will be expanded using <code><a href="https://docs.ropensci.org/gert/re
 PR.</p></dd>
 
 
+<dt id="arg-strreleaseid">strReleaseID<a class="anchor" aria-label="anchor" href="#arg-strreleaseid"></a></dt>
+<dd><p>(<code>length-1 character</code>) ID (typically numeric but can be
+very long) of a GitHub release.</p></dd>
+
+
 <dt id="arg-strrepo">strRepo<a class="anchor" aria-label="anchor" href="#arg-strrepo"></a></dt>
 <dd><p>(<code>length-1 character</code>) GitHub repository name.</p></dd>
 
@@ -355,6 +380,10 @@ contains changes. Defaults to the active branch in this repository.</p></dd>
 <dd><p>(<code>length-1 character</code>) State of issues or pull requests to
 fetch. Must be one of <code>"open"</code>, <code>"closed"</code>, or <code>"all"</code>. Defaults to
 <code>"open"</code> for pull requests and <code>"all"</code> for issues.</p></dd>
+
+
+<dt id="arg-strtagname">strTagName<a class="anchor" aria-label="anchor" href="#arg-strtagname"></a></dt>
+<dd><p>(<code>length-1 character</code>) Name of the GitHub tag.</p></dd>
 
 
 <dt id="arg-strtargetref">strTargetRef<a class="anchor" aria-label="anchor" href="#arg-strtargetref"></a></dt>

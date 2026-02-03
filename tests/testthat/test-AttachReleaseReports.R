@@ -19,7 +19,7 @@ test_that("UpdateReleaseBody makes the expected call (#152)", {
   )
 })
 
-test_that("UpdateReleaseBody uses existing body if available", {
+test_that("UpdateReleaseBody uses existing body if available (#152)", {
   local_mocked_bindings(
     CallGHAPI = function(strEndpoint, ...) {
       if (stringr::str_starts(strEndpoint, "GET")) {
@@ -110,7 +110,7 @@ test_that("AttachReleaseReports makes the expected calls (#152)", {
   expect_equal(returned_value, "testdf")
 })
 
-test_that("CompileReleaseReportsMarkdown stitches together parts for releases", {
+test_that("CompileReleaseReportsMarkdown stitches together parts for releases (#152)", {
   local_mocked_bindings(
     FetchRunURL = function(strRunID, ...) {
       expect_equal(strRunID, "runid")

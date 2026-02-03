@@ -85,14 +85,7 @@ test_that("AttachReleaseReports makes the expected calls (#152)", {
       expect_equal(strReleaseID, "releaseID")
       expect_equal(
         strBody,
-        paste(
-          "## [{qcthat}](https://gilead-biostats.github.io/qcthat/) Reports",
-          paste(
-            c("Formatted Completed Issues"),
-            collapse = "\n\n\n"
-          ),
-          sep = "\n\n"
-        )
+        "Formatted Completed Issues"
       )
       cli::cli_inform("UpdateReleaseBody called")
     }

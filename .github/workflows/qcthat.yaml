@@ -105,7 +105,7 @@ jobs:
           (github.event_name == 'workflow_dispatch' && inputs.pr != '')
         run: |
           issueTestMatrix <- readRDS("ITM.rds")
-          dfPR = QCPR(dfITM = issueTestMatrix)
+          dfPR = qcthat::QCPR(dfITM = issueTestMatrix)
           if (any(dfPR$Disposition == "fail", na.rm = TRUE)) {
             cli::cli_abort(
               "One or more tests failed or were skipped for PR-associated issues."
@@ -121,7 +121,7 @@ jobs:
           (github.event_name == 'workflow_dispatch' && inputs.issueNumber == '')
         run: |
           issueTestMatrix <- readRDS("ITM.rds")
-          dfCompleted = QCCompletedIssues(dfITM = issueTestMatrix)
+          dfCompleted = qcthat::QCCompletedIssues(dfITM = issueTestMatrix)
           if (any(dfCompleted$Disposition == "fail", na.rm = TRUE)) {
             cli::cli_abort(
               "One or more tests failed or were skipped for completed issues."

@@ -1,4 +1,4 @@
-test_that("AsExpected works with empty dfs (#39)", {
+test_that("AsExpected works with empty dfs (#noissue)", {
   dfShape <- data.frame(
     A = integer(),
     B = character(),
@@ -21,7 +21,7 @@ test_that("AsExpected works with empty dfs (#39)", {
   expect_equal(test_result, dfExpected)
 })
 
-test_that("AsExpected works with non-empty dfs (#39)", {
+test_that("AsExpected works with non-empty dfs (#noissue)", {
   dfShape <- data.frame(
     A = integer(),
     B = character(),
@@ -49,7 +49,7 @@ test_that("AsExpected works with non-empty dfs (#39)", {
   expect_equal(test_result, dfExpected)
 })
 
-test_that("AsExpectedFlat works with NULL (#39)", {
+test_that("AsExpectedFlat works with NULL (#noissue)", {
   lShape <- list(A = integer())
   lExpected <- structure(
     lShape,
@@ -64,7 +64,7 @@ test_that("AsExpectedFlat works with NULL (#39)", {
   expect_equal(test_result, lExpected)
 })
 
-test_that("AsExpectedFlat works with empty lists (#39)", {
+test_that("AsExpectedFlat works with empty lists (#noissue)", {
   lShape <- list(
     A = integer(),
     B = character(),
@@ -87,7 +87,7 @@ test_that("AsExpectedFlat works with empty lists (#39)", {
   expect_equal(test_result, lExpected)
 })
 
-test_that("AsExpectedFlat works with non-empty data.frames (#39)", {
+test_that("AsExpectedFlat works with non-empty data.frames (#noissue)", {
   dfGiven <- data.frame(
     A = 1,
     B = "a",
@@ -119,7 +119,7 @@ test_that("AsExpectedFlat works with non-empty data.frames (#39)", {
   expect_equal(test_result, lExpected)
 })
 
-test_that("AsRowDFList splits and transforms correctly (#39)", {
+test_that("AsRowDFList splits and transforms correctly (#noissue)", {
   dfInput <- data.frame(
     X = 1:3,
     Y = letters[1:3],
@@ -140,7 +140,7 @@ test_that("AsRowDFList splits and transforms correctly (#39)", {
   }
 })
 
-test_that("CountNonNA counts unique non-NA values correctly (#39)", {
+test_that("CountNonNA counts unique non-NA values correctly (#noissue)", {
   vecInput1 <- c(1, 2, 2, NA, 3, NA, 1)
   expect_equal(CountNonNA(vecInput1), 3)
 
@@ -154,13 +154,13 @@ test_that("CountNonNA counts unique non-NA values correctly (#39)", {
   expect_equal(CountNonNA(vecInput4), 0)
 })
 
-test_that("SimplePluralize returns correct singular/plural forms (#39)", {
+test_that("SimplePluralize returns correct singular/plural forms (#noissue)", {
   expect_equal(SimplePluralize("cat", 1), "cat")
   expect_equal(SimplePluralize("cat", 2), "cats")
   expect_equal(SimplePluralize("dog", 0), "dogs")
 })
 
-test_that("NullIfEmpty returns NULL for empty inputs (#34)", {
+test_that("NullIfEmpty returns NULL for empty inputs (#noissue)", {
   expect_null(NullIfEmpty(integer()))
   expect_null(NullIfEmpty(character()))
   expect_null(NullIfEmpty(list()))
@@ -170,12 +170,12 @@ test_that("NullIfEmpty returns NULL for empty inputs (#34)", {
   expect_equal(NullIfEmpty(list(a = 1)), list(a = 1))
 })
 
-test_that("CompletelyFlatten flattens, unnames, and uniquifies nested listed (#84)", {
+test_that("CompletelyFlatten flattens, unnames, and uniquifies nested listed (#noissue)", {
   nested_list <- list(a = 1, b = list(c = 2, d = list(e = 3)), f = 3)
   expect_equal(CompletelyFlatten(nested_list), 1:3)
 })
 
-test_that("HaveString finds strings in lists of characters (#67)", {
+test_that("HaveString finds strings in lists of characters (#noissue)", {
   list_with_strings <- list(
     c("apple", "banana"),
     c("cherry", "date"),
@@ -195,7 +195,7 @@ test_that("HaveString finds strings in lists of characters (#67)", {
   )
 })
 
-test_that("Zero-length util works (#149)", {
+test_that("Zero-length util works (#noissue)", {
   expect_equal(2L %|0|% 1L, 2L)
   expect_equal(integer() %|0|% 1L, 1L)
 })
@@ -213,7 +213,7 @@ test_that("PrettyTimestamp works (#172)", {
   )
 })
 
-test_that("GlueEscaped defaults to safer tags", {
+test_that("GlueEscaped defaults to safer tags (#noissue)", {
   name <- "World"
   expect_equal(
     GlueEscaped("Hello, {name}!"),

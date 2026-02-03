@@ -98,3 +98,33 @@ jobs:
           qcthat::LoadUATIssues()
           qcthat::AttachReleaseReports(dfITM = issueTestMatrix)
         shell: Rscript {0}
+
+      - name: Flag failure for PR
+        if: >-
+          github.event_name == 'pull_request' ||
+          (github.event_name == 'workflow_dispatch' && inputs.pr != '')
+        run: |
+          issueTestMatrix <- readRDS("ITM.rds")
+          dfPR = QCPR(dfITM = issueTestMatrix)
+          if (any(dfPR$Disposition == "fail", na.rm = TRUE)) {
+            cli::cli_abort(
+              "One or more tests failed or were skipped for PR-associated issues."
+            )
+          }
+        shell: Rscript {0}
+
+      - name: Flag failure for completed
+        if: >-
+          github.event_name == 'push' ||
+          github.event_name == 'pull_request' ||
+          github.event_name == 'release' ||
+          (github.event_name == 'workflow_dispatch' && inputs.issueNumber == '')
+        run: |
+          issueTestMatrix <- readRDS("ITM.rds")
+          dfCompleted = QCCompletedIssues(dfITM = issueTestMatrix)
+          if (any(dfCompleted$Disposition == "fail", na.rm = TRUE)) {
+            cli::cli_abort(
+              "One or more tests failed or were skipped for completed issues."
+            )
+          }
+        shell: Rscript {0}

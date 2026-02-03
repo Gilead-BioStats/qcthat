@@ -1,12 +1,13 @@
-# Fetch a release from GitHub
+# Compile release reports in GitHub markdown
 
-Fetch a release from GitHub
+Compile release reports in GitHub markdown
 
 ## Usage
 
 ``` r
-FetchRawReleaseByTagName(
-  strTagName,
+CompileReleaseReportsMarkdown(
+  chrBody,
+  strRunID = NULL,
   strOwner = GetGHOwner(),
   strRepo = GetGHRepo(),
   strGHToken = gh::gh_token()
@@ -15,9 +16,10 @@ FetchRawReleaseByTagName(
 
 ## Arguments
 
-- strTagName:
+- strRunID:
 
-  (`length-1 character`) Name of the GitHub tag.
+  (`length-1 character`) ID (typically numeric but can be very long) of
+  a GitHub Actions workflow run.
 
 - strOwner:
 
@@ -33,5 +35,4 @@ FetchRawReleaseByTagName(
 
 ## Value
 
-A raw release object as a list as returned by
-[`gh::gh()`](https://gh.r-lib.org/reference/gh.html).
+A single string containing the compiled markdown.

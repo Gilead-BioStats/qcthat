@@ -18,4 +18,4 @@ LoadUATIssues(strPath = "UATIssues.rds")
 
 ## Value
 
-The UAT issues data frame, invisibly.
+The UAT issues data frame.

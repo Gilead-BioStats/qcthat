@@ -36,6 +36,7 @@ GuessReleaseID(
 
 ## Value
 
-A string representing the release id (if the event payload contains
-`release$id`, `release$tag_name`, or `inputs$tag`), or `NULL` if the
-event is not a `"release"` event or the release id cannot be found.
+A string or number representing the release id (if the event payload
+contains `release$id`, `release$tag_name`, or `inputs$tag`), or `NULL`
+if the event is not a `"release"` event or the release id cannot be
+found.

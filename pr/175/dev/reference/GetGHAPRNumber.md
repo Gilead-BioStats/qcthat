@@ -17,6 +17,7 @@ GetGHAPRNumber(lGHEventPayload = LoadGHEventPayload())
 
 ## Value
 
-An integer pull request number, or `NULL` if not running in a
-PR-triggered action (as indicated by the environment variables
-`"GITHUB_EVENT_NAME"` and `"GITHUB_REF_NAME"`).
+An integer pull request number, or `NULL` if the GitHub Actions event
+payload does not include a pull request number (for example, when the
+workflow was not triggered by a pull_request event or no `inputs.pr`
+value was provided).

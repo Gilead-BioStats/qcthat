@@ -19,6 +19,28 @@ test_that("UpdateReleaseBody makes the expected call (#152)", {
   )
 })
 
+test_that("UpdateReleaseBody uses existing body if available", {
+  local_mocked_bindings(
+    CallGHAPI = function(strEndpoint, ...) {
+      if (stringr::str_starts(strEndpoint, "GET")) {
+        return(list(body = "Existing body content"))
+      }
+      return(list(...))
+    }
+  )
+  test_result <- UpdateReleaseBody(
+    strReleaseID = "releaseID",
+    strBody = "New body content",
+    strOwner = "owner",
+    strRepo = "repo",
+    strGHToken = "token"
+  )
+  expect_equal(
+    test_result$body,
+    "Existing body content\n\n\nNew body content"
+  )
+})
+
 test_that("AttachReleaseReports makes the expected calls (#152)", {
   local_mocked_bindings(
     FormatReportType = function(fnReport, strReportType, ...) {
@@ -29,9 +51,12 @@ test_that("AttachReleaseReports makes the expected calls (#152)", {
       expect_equal(
         strBody,
         paste(
-          "Formatted Milestone",
-          "Formatted Completed Issues",
-          sep = "\n\n\n"
+          "## [{qcthat}](https://gilead-biostats.github.io/qcthat/) Reports",
+          paste(
+            c("Formatted Milestone", "Formatted Completed Issues"),
+            collapse = "\n\n\n"
+          ),
+          sep = "\n\n"
         )
       )
       cli::cli_inform("UpdateReleaseBody called")
@@ -61,7 +86,14 @@ test_that("AttachReleaseReports makes the expected calls (#152)", {
       expect_equal(strReleaseID, "releaseID")
       expect_equal(
         strBody,
-        "Formatted Completed Issues"
+        paste(
+          "## [{qcthat}](https://gilead-biostats.github.io/qcthat/) Reports",
+          paste(
+            c("Formatted Completed Issues"),
+            collapse = "\n\n\n"
+          ),
+          sep = "\n\n"
+        )
       )
       cli::cli_inform("UpdateReleaseBody called")
     }

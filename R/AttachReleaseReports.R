@@ -76,8 +76,7 @@ AttachReleaseReports <- function(
         strReleaseID = strReleaseID,
         strBody = paste(
           "## [{qcthat}](https://gilead-biostats.github.io/qcthat/) Reports",
-          chrBody,
-          collapse = "\n\n\n",
+          paste(chrBody, collapse = "\n\n\n"),
           sep = "\n\n"
         ),
         strOwner = strOwner,

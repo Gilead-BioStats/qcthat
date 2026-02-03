@@ -74,7 +74,12 @@ AttachReleaseReports <- function(
     if (length(chrBody)) {
       UpdateReleaseBody(
         strReleaseID = strReleaseID,
-        strBody = paste(chrBody, collapse = "\n\n\n"),
+        strBody = paste(
+          "## [{qcthat}](https://gilead-biostats.github.io/qcthat/) Reports",
+          chrBody,
+          collapse = "\n\n\n",
+          sep = "\n\n"
+        ),
         strOwner = strOwner,
         strRepo = strRepo,
         strGHToken = strGHToken
@@ -96,6 +101,18 @@ UpdateReleaseBody <- function(
   strRepo = GetGHRepo(),
   strGHToken = gh::gh_token()
 ) {
+  strExistingBody <- CallGHAPI(
+    "GET /repos/{owner}/{repo}/releases/{release_id}",
+    release_id = strReleaseID,
+    strOwner = strOwner,
+    strRepo = strRepo,
+    strGHToken = strGHToken
+  )$body
+
+  if (length(strExistingBody)) {
+    strBody <- paste(strExistingBody, strBody, sep = "\n\n\n")
+  }
+
   CallGHAPI(
     "PATCH /repos/{owner}/{repo}/releases/{release_id}",
     release_id = strReleaseID,

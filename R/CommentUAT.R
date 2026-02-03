@@ -8,7 +8,6 @@
 #' should only be called *after* the test suite has ran.
 #'
 #' @inheritParams shared-params
-#'
 #' @returns Invisibly returns the result of [CommentIssue()].
 #' @export
 CommentUAT <- function(

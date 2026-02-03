@@ -4,7 +4,6 @@
 #' QC reports, formatted in GitHub markdown.
 #'
 #' @inheritParams shared-params
-#'
 #' @returns `dfITM`, invisibly.
 #' @export
 CommentAllReports <- function(

@@ -4,7 +4,6 @@
 #' formatted in GitHub markdown.
 #'
 #' @inheritParams shared-params
-#'
 #' @returns Invisibly returns the result of [CommentIssue()].
 #' @export
 CommentReport <- function(

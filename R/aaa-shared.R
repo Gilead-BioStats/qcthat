@@ -25,11 +25,16 @@
 #' @param chrTargetPath (`character`) Components of a path to a target file. The
 #'   file extension should be included in the filename or omitted (NOT sent as a
 #'   separate piece of the vector).
+#' @param chrTestLines (`character`) Vector of lines from a test file.
 #' @param chrTests (`character`) A vector of test descriptions from a
-#'   [CompileIssueTestMatrix()] matrix.
+#'   [CompileIssueTestMatrix()] matrix or extractd from test files.
 #' @param dttmTimestamp (`POSIXct`) A system timestamp.
+#' @param dfFileTests (`data.frame`) A [tibble::tibble()] with the structure
+#'   returned by [ExtractTestsFromFiles()].
 #' @param dfITM (`qcthat_IssueTestMatrix`) A `qcthat_IssueTestMatrix` object as
 #'   returned by [AsIssueTestMatrix()] (often via [QCPackage()]).
+#' @param dfPotentialIssues (`tibble`) A data frame as returned by
+#'   [MapTestFilesToPotentialIssues()].
 #' @param dfRepoIssues (`qcthat_Issues` or data frame) Data frame of GitHub
 #'   issues as returned by [FetchRepoIssues()].
 #' @param dfTestResults (`qcthat_TestResults` or data frame) Data frame of test
@@ -44,6 +49,8 @@
 #'   associated.
 #' @param intIssues (`integer`) A vector of issue numbers from a
 #'   [CompileIssueTestMatrix()] matrix or from GitHub.
+#' @param intLineEnd (`length-1 integer`) The ending line number.
+#' @param intLineStart (`length-1 integer`) The starting line number.
 #' @param intMaxCommits (`length-1 integer`) The maximum number of commits to
 #'   return from git logs. Leaving this at the default should almost always be
 #'   fine, but you can reduce the number if your repository has a long commit
@@ -58,6 +65,7 @@
 #' @param intPRNumber (`length-1 integer`) The number of the pull request to
 #'   fetch information about and/or post results to.
 #' @param intPRNumbers (`integer`) A vector of pull request numbers.
+#' @param intTestStart (`length-1 integer`) Line number where test_that starts.
 #' @param intUATIssue (`integer`) The number of an issue that tracks
 #'   user-acceptance testing.
 #' @param lCommentsRaw (`list`) List of raw comment objects as returned by
@@ -78,8 +86,7 @@
 #'   [QCMilestones()] report.
 #' @param lglOverwrite (`length-1 logical`) Whether to overwrite files if they
 #'   already exist.
-#' @param lglPR (`length-1 logical`) Whether to include the [QCPR()]
-#'   report.
+#' @param lglPR (`length-1 logical`) Whether to include the [QCPR()] report.
 #' @param lglReportFailure (`length-1 logical`) Whether to ignore failures
 #'   (default unless a "qcthat_UAT" environment variable is "true"), or fail
 #'   (and show as a failure in testthat tests).
@@ -116,6 +123,7 @@
 #'   "message".
 #' @param strDescription (`length-1 character`) A brief description of a user
 #'   expectation.
+#' @param strDirPath (`length-1 character`) The path to a directory.
 #' @param strDisposition (`length-1 character`) The result of a test, such as
 #'   "pass", "fail", or "skip", or "accepted" or "pending" for UAT.
 #' @param strErrorSubclass (`length-1 character`) A subclass for an error
@@ -124,6 +132,8 @@
 #'   target file. If the target path already includes an extension, it will be
 #'   replaced with this value. If the value is already correct, this won't have
 #'   any effect.
+#' @param strFile (`length-1 character`) A file name without the path.
+#' @param strFilePath (`length-1 character`) A file path.
 #' @param strGHToken (`length-1 character`) GitHub token with permissions to
 #'   read issues.
 #' @param strOwner (`length-1 character`) GitHub username or organization name.
@@ -146,6 +156,8 @@
 #' @param strTagName (`length-1 character`) Name of the GitHub tag.
 #' @param strTargetRef (`length-1 character`) Name of the git reference that
 #'   will be merged into. Defaults to the default branch of this repository.
+#' @param strTestDir (`length-1 character`) Path to the directory containing
+#'   test files. Defaults to `"tests/testthat"`.
 #' @param strTitle (`length-1 character`) A title for an issue.
 #'
 #' @name shared-params

@@ -4,7 +4,6 @@
 #' [tibble::tibble()].
 #'
 #' @inheritParams shared-params
-#'
 #' @returns A `qcthat_Issues` object, which is a [tibble::tibble()] with
 #'   columns:
 #'   - `Issue`: Issue number.
@@ -27,7 +26,6 @@
 #'   - `ClosedAt`: `POSIXct` timestamp of when the issue was closed, or `NA` if
 #'   the issue is still open.
 #' @export
-#'
 #' @examplesIf interactive()
 #'
 #'   FetchRepoIssues()
@@ -194,7 +192,6 @@ EmptyIssuesDFRaw <- function() {
 #'
 #' @param lLabels (`list`) List column of label objects as returned by GitHub
 #'   API.
-#'
 #' @returns A list column of character vectors of label names.
 #' @keywords internal
 ExtractLabels <- function(lLabels) {

@@ -41,7 +41,6 @@ CreateUAIssue <- function(
 #'
 #' @param ... Additional parameters passed to [CreateRepoIssueRaw()].
 #' @inheritParams shared-params
-#'
 #' @returns A tibble with one row representing the created child issue.
 #' @keywords internal
 CreateChildIssue <- function(
@@ -77,7 +76,6 @@ CreateChildIssue <- function(
 #'
 #' @param ... Additional parameters passed to [CallGHAPI()].
 #' @inheritParams shared-params
-#'
 #' @returns A list representing the issue, as returned by GitHub.
 #' @keywords internal
 CreateRepoIssueRaw <- function(
@@ -119,7 +117,6 @@ ClearGHCache <- function() {
 #' Connect an issue to a parent issue
 #'
 #' @inheritParams shared-params
-#'
 #' @returns The URL of the parent issue.
 #' @keywords internal
 ConnectChildIssueByID <- function(

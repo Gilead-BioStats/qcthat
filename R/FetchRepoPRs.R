@@ -4,7 +4,6 @@
 #' [tibble::tibble()].
 #'
 #' @inheritParams shared-params
-#'
 #' @returns A `qcthat_PRs` object, which is a [tibble::tibble()] with
 #'   columns:
 #'   - `PR`: Pull request number.
@@ -23,7 +22,6 @@
 #'   - `MergedAt`: `POSIXct` timestamp of when the pull request was merged, or
 #'   `NA` if the pull request has not been merged.
 #' @export
-#'
 #' @examplesIf interactive()
 #'
 #'   FetchRepoPRs()

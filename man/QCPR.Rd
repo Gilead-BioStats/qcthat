@@ -66,6 +66,7 @@ for details on how issues can become associated with a pull request.
   # You must have at least one pull request open in the GitHub repository
   # associated with the current git repository for this to return any
   # results.
+
   QCPR()
 \dontshow{\}) # examplesIf}
 }

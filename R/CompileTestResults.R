@@ -4,7 +4,6 @@
 #' [tibble::tibble()].
 #'
 #' @inheritParams shared-params
-#'
 #' @returns A `qcthat_TestResults` object, which is a [tibble::tibble()] with
 #'   columns:
 #'   - `Test`: The `desc` field of the test from [testthat::test_that()].
@@ -14,7 +13,6 @@
 #'   - `Issues`: List column containing integer vectors of associated GitHub
 #'   issue numbers.
 #' @export
-#'
 #' @examples
 #' # Generate a test results object.
 #'

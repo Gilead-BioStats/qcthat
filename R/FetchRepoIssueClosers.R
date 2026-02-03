@@ -4,7 +4,6 @@
 #' repository.
 #'
 #' @inheritParams shared-params
-#'
 #' @returns A [tibble::tibble()] with columns:
 #'   - `Issue`: Issue number.
 #'   - `CloserType`: Type of the closer, either `Commit` or `PullRequest`.
@@ -13,7 +12,6 @@
 #'   - `CloserPRNumber`: Number of the pull request that closed the issue, or
 #'   `NA` if the issue was closed by a commit.
 #' @export
-#'
 #' @examplesIf interactive()
 #'
 #'   FetchRepoIssueClosers()

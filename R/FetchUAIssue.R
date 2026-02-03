@@ -1,7 +1,6 @@
 #' Fetch or create a user-acceptance issue
 #'
 #' @inheritParams shared-params
-#'
 #' @returns A list representing the user-acceptance issue.
 #' @keywords internal
 FetchUAIssue <- function(
@@ -63,7 +62,6 @@ FetchIssueUAChildren <- function(
 #' Fetch all children of an issue
 #'
 #' @inheritParams shared-params
-#'
 #' @returns A tibble of issue children.
 #' @keywords internal
 FetchIssueChildren <- function(

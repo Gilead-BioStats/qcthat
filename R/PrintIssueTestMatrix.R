@@ -92,7 +92,6 @@ FormatKey <- function(lglUseEmoji = getOption("qcthat.emoji", TRUE)) {
 #' otherwise have a more specific name.
 #'
 #' @inheritParams FormatFooter
-#'
 #' @returns A character vector representing the formatted footer main body.
 #' @keywords internal
 FormatFooterMain <- function(

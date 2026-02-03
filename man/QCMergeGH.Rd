@@ -72,7 +72,9 @@ batches of 100.
 \dontshow{if (interactive()) withAutoprint(\{ # examplesIf}
 
   # This will only make sense if you are working in a git repository and have
-  # an active branch that is different from the default branch. QCMergeGH()
+  # an active branch that is different from the default branch.
+
+  QCMergeGH()
 \dontshow{\}) # examplesIf}
 }
 \seealso{

@@ -15,7 +15,7 @@ MakeITRCoverageFooter(
 \code{\link[=CompileIssueTestMatrix]{CompileIssueTestMatrix()}} matrix or from GitHub.}
 
 \item{chrTests}{(\code{character}) A vector of test descriptions from a
-\code{\link[=CompileIssueTestMatrix]{CompileIssueTestMatrix()}} matrix.}
+\code{\link[=CompileIssueTestMatrix]{CompileIssueTestMatrix()}} matrix or extractd from test files.}
 
 \item{lglUseEmoji}{(\verb{length-1 logical}) Whether to use emojis (if \code{TRUE} and
 the emoji package is installed) or ASCII indicators (if \code{FALSE}) in the

@@ -11,7 +11,7 @@ LoadUATIssues(strPath = "UATIssues.rds")
 \code{"UATIssues.rds"} in the working directory.}
 }
 \value{
-The UAT issues data frame, invisibly.
+The UAT issues data frame.
 }
 \description{
 Load a registry of user acceptance testing (UAT) issues from an RDS file into

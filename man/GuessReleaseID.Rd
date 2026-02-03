@@ -23,9 +23,9 @@ result of \code{\link[=LoadGHEventPayload]{LoadGHEventPayload()}}.}
 read issues.}
 }
 \value{
-A string representing the release id (if the event payload contains
-\code{release$id}, \code{release$tag_name}, or \code{inputs$tag}), or \code{NULL} if the event
-is not a \code{"release"} event or the release id cannot be found.
+A string or number representing the release id (if the event payload
+contains \code{release$id}, \code{release$tag_name}, or \code{inputs$tag}), or \code{NULL} if
+the event is not a \code{"release"} event or the release id cannot be found.
 }
 \description{
 Determine the release id associated with the current GitHub event, if the

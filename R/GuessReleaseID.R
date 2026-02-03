@@ -5,9 +5,9 @@
 #' event with `"tag"` input
 #'
 #' @inheritParams shared-params
-#' @returns A string representing the release id (if the event payload contains
-#'   `release$id`, `release$tag_name`, or `inputs$tag`), or `NULL` if the event
-#'   is not a `"release"` event or the release id cannot be found.
+#' @returns A string or number representing the release id (if the event payload
+#'   contains `release$id`, `release$tag_name`, or `inputs$tag`), or `NULL` if
+#'   the event is not a `"release"` event or the release id cannot be found.
 #' @export
 GuessReleaseID <- function(
   lGHEventPayload = LoadGHEventPayload(),
@@ -37,7 +37,7 @@ GuessReleaseID <- function(
 #' Fetch a release from GitHub
 #'
 #' @inheritParams shared-params
-#' @returns A raw pull request object as a list as returned by [gh::gh()].
+#' @returns A raw release object as a list as returned by [gh::gh()].
 #' @keywords internal
 FetchRawReleaseByTagName <- function(
   strTagName,

@@ -11,9 +11,10 @@ GetGHAPRNumber(lGHEventPayload = LoadGHEventPayload())
 result of \code{\link[=LoadGHEventPayload]{LoadGHEventPayload()}}.}
 }
 \value{
-An integer pull request number, or \code{NULL} if not running in a
-PR-triggered action (as indicated by the environment variables
-\code{"GITHUB_EVENT_NAME"} and \code{"GITHUB_REF_NAME"}).
+An integer pull request number, or \code{NULL} if the GitHub Actions
+event payload does not include a pull request number (for example, when
+the workflow was not triggered by a pull_request event or no \code{inputs.pr}
+value was provided).
 }
 \description{
 Get the PR number for a GitHub Action

@@ -18,7 +18,14 @@ LoadGHEventPayload <- function(
       fs::file_exists(strGHEventPath)
   ) {
     lPayload <- jsonlite::read_json(strGHEventPath)
-    if (is.list(lPayload) && length(lPayload) && length(lPayload$action)) {
+    if (
+      is.list(lPayload) &&
+        length(lPayload) &&
+        (length(lPayload$action) ||
+          length(lPayload$inputs) ||
+          length(lPayload$sender) ||
+          length(lPayload$repository))
+    ) {
       return(lPayload)
     }
   }

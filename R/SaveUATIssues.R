@@ -19,7 +19,7 @@ SaveUATIssues <- function(strPath = "UATIssues.rds") {
 #'
 #' @inheritParams SaveUATIssues
 #'
-#' @returns The UAT issues data frame, invisibly.
+#' @returns The UAT issues data frame.
 #' @export
 LoadUATIssues <- function(strPath = "UATIssues.rds") {
   envQcthat$UATIssues <- readRDS(strPath)

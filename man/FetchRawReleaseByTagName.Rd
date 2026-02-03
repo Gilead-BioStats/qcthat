@@ -22,7 +22,7 @@ FetchRawReleaseByTagName(
 read issues.}
 }
 \value{
-A raw pull request object as a list as returned by \code{\link[gh:gh]{gh::gh()}}.
+A raw release object as a list as returned by \code{\link[gh:gh]{gh::gh()}}.
 }
 \description{
 Fetch a release from GitHub

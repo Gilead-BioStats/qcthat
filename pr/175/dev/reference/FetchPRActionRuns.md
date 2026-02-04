@@ -29,7 +29,7 @@ FetchPRActionRuns(
 - strAction:
 
   (`length-1 character`) Optional string to filter workflow paths (e.g.,
-  "qcthat-pr_issues").
+  "qcthat").
 
 - strOwner:
 

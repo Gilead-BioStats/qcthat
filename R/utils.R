@@ -146,3 +146,23 @@ GlueEscaped <- function(
     .envir = .envir
   )
 }
+
+#' Choose between recode functions based on dplyr version
+#'
+#' @param x (`vector`) The vector to recode.
+#' @param ... Recode pairs in the form of `old ~ new`. See [dplyr::case_match()]
+#'   or [dplyr::recode_values()] for details.
+#' @param default (`scalar`) The default value to use for unmatched cases. See
+#'   [dplyr::case_match()] or [dplyr::recode_values()] for details.
+#' @returns A vector with the same size as `x` with values recoded according to
+#'   the specified pairs and default.
+#' @keywords internal
+RecodeValues <- function(x, ..., default = NULL) {
+  args <- list(x, .default = default, ...)
+  recode_fn <- dplyr::case_match
+  if (rlang::is_installed("dplyr", version = "1.2.0")) {
+    recode_fn <- dplyr::recode_values
+    names(args)[names(args) == ".default"] <- "default"
+  }
+  rlang::exec(recode_fn, !!!args)
+}

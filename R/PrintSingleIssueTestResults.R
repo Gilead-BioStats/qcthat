@@ -99,11 +99,11 @@ ChooseDispositionIndicator <- function(
   chrDisposition,
   lglUseEmoji = getOption("qcthat.emoji", TRUE)
 ) {
-  dplyr::case_match(
+  RecodeValues(
     chrDisposition,
     "pass" ~ ChooseEmoji("passed", lglUseEmoji = lglUseEmoji),
     "fail" ~ ChooseEmoji("failed", lglUseEmoji = lglUseEmoji),
     "skip" ~ ChooseEmoji("skipped", lglUseEmoji = lglUseEmoji),
-    .default = "[?]"
+    default = "[?]"
   )
 }

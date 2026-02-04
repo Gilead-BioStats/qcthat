@@ -21,7 +21,7 @@ fetch information about and/or post results to.}
 PR.}
 
 \item{strAction}{(\verb{length-1 character}) Optional string to filter workflow
-paths (e.g., "qcthat-pr_issues").}
+paths (e.g., "qcthat").}
 
 \item{strOwner}{(\verb{length-1 character}) GitHub username or organization name.}
 

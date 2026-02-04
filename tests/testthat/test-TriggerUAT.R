@@ -108,7 +108,7 @@ test_that("FetchPRActionRuns calls API and filters correctly (#114)", {
     CallGHAPI = function(...) {
       list(
         workflow_runs = list(
-          list(path = "workflows/qcthat-pr_issues.yaml", id = 1),
+          list(path = "workflows/qcthat.yaml", id = 1),
           list(path = "workflows/other.yaml", id = 2)
         )
       )
@@ -116,7 +116,7 @@ test_that("FetchPRActionRuns calls API and filters correctly (#114)", {
   )
 
   # Filtered
-  res <- FetchPRActionRuns(1, "ref", strAction = "qcthat-pr_issues")
+  res <- FetchPRActionRuns(1, "ref", strAction = "qcthat")
   expect_equal(length(res), 1)
   expect_equal(res[[1]]$id, 1)
 

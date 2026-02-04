@@ -29,5 +29,5 @@ function is called for its side effects.
 Identify pull requests that mention a closed issue, and potentially
 re-trigger the UAT cycle. If all issues referenced in the UAT comment of a
 linked PR are closed (and it is not already running the QCPR workflow), rerun
-the QCPR workflow (\code{qcthat-pr_issues.yaml}) if available.
+the QCPR workflow (\code{qcthat.yaml}) if available.
 }

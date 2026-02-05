@@ -144,7 +144,7 @@ test_that("CompileReleaseReportsMarkdown stitches together parts for releases (#
 test_that("AttachReleaseReports runs properly on release (#181)", {
   ExpectUserAccepts(
     "AttachReleaseReports attaches reports to published releases",
-    181,
+    intIssue = 181,
     chrInstructions = "Navigate to [this release](https://github.com/Gilead-BioStats/qcthat/releases/tag/ForTesting)",
     chrChecks = c(
       "The release has a section titled 'qcthat Reports'",

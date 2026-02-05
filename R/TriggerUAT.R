@@ -3,7 +3,7 @@
 #' Identify pull requests that mention a closed issue, and potentially
 #' re-trigger the UAT cycle. If all issues referenced in the UAT comment of a
 #' linked PR are closed (and it is not already running the QCPR workflow), rerun
-#' the QCPR workflow (`qcthat-pr_issues.yaml`) if available.
+#' the QCPR workflow (`qcthat.yaml`) if available.
 #'
 #' @param intClosedIssue (`length-1 integer`) A closed UAT issue number.
 #' @inheritParams shared-params
@@ -13,7 +13,7 @@
 #'
 #' @export
 TriggerUAT <- function(
-  intClosedIssue,
+  intClosedIssue = GuessIssueNumber(),
   strOwner = GetGHOwner(),
   strRepo = GetGHRepo(),
   strGHToken = gh::gh_token()
@@ -128,7 +128,7 @@ MaybeRerunQCPRWorkflow <- function(
   lPRQCPRReportRuns <- FetchPRActionRuns(
     intPRNumber = intPRNumber,
     strPRHeadRef = strPRHeadRef,
-    strAction = "qcthat-pr_issues",
+    strAction = "qcthat",
     strOwner = strOwner,
     strRepo = strRepo,
     strGHToken = strGHToken
@@ -147,7 +147,7 @@ MaybeRerunQCPRWorkflow <- function(
 #' Fetch workflow runs for a PR
 #'
 #' @param strAction (`length-1 character`) Optional string to filter workflow
-#'   paths (e.g., "qcthat-pr_issues").
+#'   paths (e.g., "qcthat").
 #' @inheritParams shared-params
 #' @returns A list of workflow run objects returned by [CallGHAPI()].
 #' @keywords internal

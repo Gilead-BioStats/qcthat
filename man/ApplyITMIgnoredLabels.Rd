@@ -8,7 +8,7 @@ ApplyITMIgnoredLabels(dfITM, chrIgnoredLabels)
 }
 \arguments{
 \item{dfITM}{(\code{qcthat_IssueTestMatrix}) A \code{qcthat_IssueTestMatrix} object as
-returned by \code{\link[=AsIssueTestMatrix]{AsIssueTestMatrix()}}.}
+returned by \code{\link[=AsIssueTestMatrix]{AsIssueTestMatrix()}} (often via \code{\link[=QCPackage]{QCPackage()}}).}
 
 \item{chrIgnoredLabels}{(\code{character}) GitHub labels to ignore, such as
 \code{"qcthat-nocov"}.}

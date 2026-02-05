@@ -118,3 +118,51 @@ PrettyTimestamp <- function(strTimezone = "UTC") {
     format = "%Y-%m-%d %H:%M:%S"
   )
 }
+
+#' Glue without collisions of curly braces
+#'
+#' @param ... Values to glue and/or additional arguments passed to
+#'   [glue::glue()].
+#' @param .sep (`length-1 character`) Separator to use between glued values.
+#' @param .open (`length-1 character`) Opening delimiter. Defaults value avoids
+#'   collisions.
+#' @param .close (`length-1 character`) Closing delimiter. Defaults value avoids
+#'   collisions.
+#' @param .envir (`environment`) Environment to evaluate expressions in.
+#' @returns The glued expression as a length-1 character vector.
+#' @keywords internal
+GlueEscaped <- function(
+  ...,
+  .sep = "\n\n",
+  .open = "qcthatopen{",
+  .close = "}qcthatclose",
+  .envir = rlang::caller_env()
+) {
+  glue::glue(
+    ...,
+    .sep = .sep,
+    .open = .open,
+    .close = .close,
+    .envir = .envir
+  )
+}
+
+#' Choose between recode functions based on dplyr version
+#'
+#' @param x (`vector`) The vector to recode.
+#' @param ... Recode pairs in the form of `old ~ new`. See [dplyr::case_match()]
+#'   or [dplyr::recode_values()] for details.
+#' @param default (`scalar`) The default value to use for unmatched cases. See
+#'   [dplyr::case_match()] or [dplyr::recode_values()] for details.
+#' @returns A vector with the same size as `x` with values recoded according to
+#'   the specified pairs and default.
+#' @keywords internal
+RecodeValues <- function(x, ..., default = NULL) {
+  args <- list(x, .default = default, ...)
+  recode_fn <- dplyr::case_match
+  if (rlang::is_installed("dplyr", version = "1.2.0")) {
+    recode_fn <- dplyr::recode_values
+    names(args)[names(args) == ".default"] <- "default"
+  }
+  rlang::exec(recode_fn, !!!args)
+}

@@ -1,4 +1,4 @@
-test_that("ExpectUserAccepts returns the input strDescription", {
+test_that("ExpectUserAccepts returns the input strDescription (#111)", {
   local_mocked_bindings(
     OnCran = function() TRUE
   )
@@ -12,7 +12,7 @@ test_that("ExpectUserAccepts returns the input strDescription", {
   expect_identical(result, strDescription)
 })
 
-test_that("ExpectUserAccepts passes when the issue is closed", {
+test_that("ExpectUserAccepts passes when the issue is closed (#111)", {
   local_mocked_bindings(
     OnCran = function() FALSE,
     UsesGit = function() TRUE,
@@ -33,7 +33,7 @@ test_that("ExpectUserAccepts passes when the issue is closed", {
   })
 })
 
-test_that("ExpectUserAccepts fails when the issue isn't closed and strFailureMode is 'fail'", {
+test_that("ExpectUserAccepts fails when the issue isn't closed and strFailureMode is 'fail' (#111)", {
   local_mocked_bindings(
     OnCran = function() FALSE,
     UsesGit = function() TRUE,
@@ -58,7 +58,7 @@ test_that("ExpectUserAccepts fails when the issue isn't closed and strFailureMod
   )
 })
 
-test_that("ExpectUserAccepts returns silently when the issue isn't closed and lglIgnore is TRUE", {
+test_that("ExpectUserAccepts returns silently when the issue isn't closed and lglIgnore is TRUE (#111)", {
   local_mocked_bindings(
     OnCran = function() FALSE,
     UsesGit = function() TRUE,
@@ -165,7 +165,7 @@ test_that("LogUAT logs UAT status (#115)", {
   )
 })
 
-test_that("IsCheckingUAT reports whether the qcthat_UAT envvar is true", {
+test_that("IsCheckingUAT reports whether the qcthat_UAT envvar is true (#111)", {
   withr::local_envvar(list(qcthat_UAT = "true"))
   expect_true(IsCheckingUAT())
   withr::local_envvar(list(qcthat_UAT = "false"))

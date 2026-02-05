@@ -16,7 +16,8 @@ QCMergeLocal(
   strGHToken = gh::gh_token(),
   lglWarn = TRUE,
   chrIgnoredLabels = DefaultIgnoreLabels(),
-  intMaxCommits = 100000L
+  intMaxCommits = 100000L,
+  dfITM = NULL
 )
 }
 \arguments{
@@ -50,6 +51,9 @@ included in the filter (but the report still returns results). Defaults to
 return from git logs. Leaving this at the default should almost always be
 fine, but you can reduce the number if your repository has a long commit
 history and this function is slow.}
+
+\item{dfITM}{(\code{qcthat_IssueTestMatrix}) A \code{qcthat_IssueTestMatrix} object as
+returned by \code{\link[=AsIssueTestMatrix]{AsIssueTestMatrix()}} (often via \code{\link[=QCPackage]{QCPackage()}}).}
 }
 \value{
 A \code{qcthat_IssueTestMatrix} object as returned by \code{\link[=QCPackage]{QCPackage()}},

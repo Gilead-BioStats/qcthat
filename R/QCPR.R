@@ -28,7 +28,9 @@ QCPR <- function(
   strRepo = GetGHRepo(strPkgRoot),
   strGHToken = gh::gh_token(),
   lglWarn = TRUE,
-  chrIgnoredLabels = DefaultIgnoreLabels()
+  chrIgnoredLabels = DefaultIgnoreLabels(),
+  dfITM = NULL,
+  envCall = rlang::caller_env()
 ) {
   if (!length(intPRNumber)) {
     qcthatAbort(
@@ -51,7 +53,9 @@ QCPR <- function(
     strRepo = strRepo,
     strGHToken = strGHToken,
     lglWarn = lglWarn,
-    chrIgnoredLabels = chrIgnoredLabels
+    chrIgnoredLabels = chrIgnoredLabels,
+    dfITM = dfITM,
+    envCall = envCall
   )
 }
 

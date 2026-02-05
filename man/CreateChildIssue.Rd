@@ -21,8 +21,8 @@ a parent-child issue relationship.}
 
 \item{strTitle}{(\verb{length-1 character}) A title for an issue.}
 
-\item{strBody}{(\verb{length-1 character}) The body of an issue, PR, or comment,
-in GitHub markdown.}
+\item{strBody}{(\verb{length-1 character}) The body of an issue, PR, comment, or
+release, in GitHub markdown.}
 
 \item{...}{Additional parameters passed to \code{\link[=CreateRepoIssueRaw]{CreateRepoIssueRaw()}}.}
 

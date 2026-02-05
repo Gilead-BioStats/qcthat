@@ -31,6 +31,7 @@ QCMergeGH <- function(
   strGHToken = gh::gh_token(),
   lglWarn = TRUE,
   chrIgnoredLabels = DefaultIgnoreLabels(),
+  dfITM = NULL,
   envCall = rlang::caller_env()
 ) {
   chrCommitSHAs <- FetchMergeCommitSHAs(
@@ -67,7 +68,8 @@ QCMergeGH <- function(
     strRepo = strRepo,
     strGHToken = strGHToken,
     lglWarn = lglWarn,
-    chrIgnoredLabels = chrIgnoredLabels
+    chrIgnoredLabels = chrIgnoredLabels,
+    dfITM = dfITM
   )
 }
 

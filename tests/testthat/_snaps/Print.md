@@ -1,18 +1,18 @@
-# Printing a generic qcthat_object returns input invisibly (#39)
+# Printing a generic qcthat_object returns input invisibly (#49)
 
     Code
       test_result <- withVisible(print(obj))
     Output
       Object printed successfully
 
-# MakeKeyItem works (#39)
+# MakeKeyItem works (#60)
 
     Code
       MakeKeyItem("open")
     Output
       [o] = open
 
-# FinalizeTree adds tree characters correctly (#39)
+# FinalizeTree adds tree characters correctly (#49)
 
     Code
       cat(test_result, sep = "\n")

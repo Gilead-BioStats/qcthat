@@ -12,6 +12,7 @@ QCMilestones(
   strGHToken = gh::gh_token(),
   lglWarn = TRUE,
   chrIgnoredLabels = DefaultIgnoreLabels(),
+  dfITM = NULL,
   envCall = rlang::caller_env()
 )
 }
@@ -35,6 +36,9 @@ included in the filter (but the report still returns results). Defaults to
 
 \item{chrIgnoredLabels}{(\code{character}) GitHub labels to ignore, such as
 \code{"qcthat-nocov"}.}
+
+\item{dfITM}{(\code{qcthat_IssueTestMatrix}) A \code{qcthat_IssueTestMatrix} object as
+returned by \code{\link[=AsIssueTestMatrix]{AsIssueTestMatrix()}} (often via \code{\link[=QCPackage]{QCPackage()}}).}
 
 \item{envCall}{(\code{environment}) The environment to use for error reporting.
 Typically set to \code{\link[rlang:stack]{rlang::caller_env()}}.}

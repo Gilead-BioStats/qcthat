@@ -7,8 +7,8 @@
 ExtractQcthatCommentID(strBody)
 }
 \arguments{
-\item{strBody}{(\verb{length-1 character}) The body of an issue, PR, or comment,
-in GitHub markdown.}
+\item{strBody}{(\verb{length-1 character}) The body of an issue, PR, comment, or
+release, in GitHub markdown.}
 }
 \value{
 A character vector with the extracted \code{qcthat-comment-id}, or \code{NA}.

@@ -12,12 +12,14 @@ QCPR(
   strRepo = GetGHRepo(strPkgRoot),
   strGHToken = gh::gh_token(),
   lglWarn = TRUE,
-  chrIgnoredLabels = DefaultIgnoreLabels()
+  chrIgnoredLabels = DefaultIgnoreLabels(),
+  dfITM = NULL,
+  envCall = rlang::caller_env()
 )
 }
 \arguments{
 \item{intPRNumber}{(\verb{length-1 integer}) The number of the pull request to
-fetch information about.}
+fetch information about and/or post results to.}
 
 \item{intPageMax}{(\verb{length-1 integer}) The maximum number of pages of commits
 to fetch from the GitHub API. Each page contains up to 100 commits.
@@ -41,6 +43,12 @@ included in the filter (but the report still returns results). Defaults to
 
 \item{chrIgnoredLabels}{(\code{character}) GitHub labels to ignore, such as
 \code{"qcthat-nocov"}.}
+
+\item{dfITM}{(\code{qcthat_IssueTestMatrix}) A \code{qcthat_IssueTestMatrix} object as
+returned by \code{\link[=AsIssueTestMatrix]{AsIssueTestMatrix()}} (often via \code{\link[=QCPackage]{QCPackage()}}).}
+
+\item{envCall}{(\code{environment}) The environment to use for error reporting.
+Typically set to \code{\link[rlang:stack]{rlang::caller_env()}}.}
 }
 \value{
 A \code{qcthat_IssueTestMatrix} object as returned by \code{\link[=QCPackage]{QCPackage()}},

@@ -11,6 +11,7 @@ CommentIssue(
   strBody,
   strCommentID = rlang::hash(strTitle),
   lglUpdate = TRUE,
+  strRunID = Sys.getenv("GITHUB_RUN_ID"),
   strOwner = GetGHOwner(),
   strRepo = GetGHRepo(),
   strGHToken = gh::gh_token()
@@ -29,8 +30,8 @@ CommentIssue(
 
 - strBody:
 
-  (`length-1 character`) The body of an issue, PR, or comment, in GitHub
-  markdown.
+  (`length-1 character`) The body of an issue, PR, comment, or release,
+  in GitHub markdown.
 
 - strCommentID:
 
@@ -41,6 +42,11 @@ CommentIssue(
 
   (`length-1 logical`) Whether to update an existing comment if it
   already exists (rather than creating a new comment).
+
+- strRunID:
+
+  (`length-1 character`) ID (typically numeric but can be very long) of
+  a GitHub Actions workflow run.
 
 - strOwner:
 

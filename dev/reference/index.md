@@ -10,6 +10,10 @@
   : Use a GitHub Action to QC pull-request-associated issues
 - [`Action_UAT()`](https://gilead-biostats.github.io/qcthat/dev/reference/Action_UAT.md)
   : Use a GitHub Action to manage UAT
+- [`AttachReleaseReports()`](https://gilead-biostats.github.io/qcthat/dev/reference/AttachReleaseReports.md)
+  : Attach QC reports to a GitHub release
+- [`CommentAllReports()`](https://gilead-biostats.github.io/qcthat/dev/reference/CommentAllReports.md)
+  : Comment on a PR or issue with QC reports
 - [`CommentIssue()`](https://gilead-biostats.github.io/qcthat/dev/reference/CommentIssue.md)
   : Comment on a GitHub Issue
 - [`CommentReport()`](https://gilead-biostats.github.io/qcthat/dev/reference/CommentReport.md)
@@ -38,10 +42,20 @@
   : Find the owner of the target repository
 - [`GetGHRepo()`](https://gilead-biostats.github.io/qcthat/dev/reference/GetGHRepo.md)
   : Find the name of the target repository
+- [`GuessIssueNumber()`](https://gilead-biostats.github.io/qcthat/dev/reference/GuessIssueNumber.md)
+  : Guess the relevant issue number from the GitHub event
+- [`GuessMilestones()`](https://gilead-biostats.github.io/qcthat/dev/reference/GuessMilestones.md)
+  : Guess relevant milestone names from the GitHub event
 - [`GuessPRNumber()`](https://gilead-biostats.github.io/qcthat/dev/reference/GuessPRNumber.md)
   : Guess the most relevant pull request number
+- [`GuessReleaseID()`](https://gilead-biostats.github.io/qcthat/dev/reference/GuessReleaseID.md)
+  : Guess the relevant release id from the GitHub event
 - [`IsCheckingUAT()`](https://gilead-biostats.github.io/qcthat/dev/reference/IsCheckingUAT.md)
   : Detect whether the user is specifically checking UAT issues
+- [`LoadGHEventPayload()`](https://gilead-biostats.github.io/qcthat/dev/reference/LoadGHEventPayload.md)
+  : Load the GitHub event payload
+- [`LoadUATIssues()`](https://gilead-biostats.github.io/qcthat/dev/reference/LoadUATIssues.md)
+  : Load UAT issues from disk
 - [`QCCompletedIssues()`](https://gilead-biostats.github.io/qcthat/dev/reference/QCCompletedIssues.md)
   : Generate a QC report of completed issues
 - [`QCIssues()`](https://gilead-biostats.github.io/qcthat/dev/reference/QCIssues.md)
@@ -57,6 +71,8 @@
   : Generate a QC report of issues associated with a GitHub pull request
 - [`QCPackage()`](https://gilead-biostats.github.io/qcthat/dev/reference/QCPackage.md)
   : Generate a QC report for a package
+- [`SaveUATIssues()`](https://gilead-biostats.github.io/qcthat/dev/reference/SaveUATIssues.md)
+  : Save UAT issues to disk
 - [`SetupGHLabels()`](https://gilead-biostats.github.io/qcthat/dev/reference/SetupGHLabels.md)
   : Setup qcthat labels in a GitHub repository
 - [`TriggerUAT()`](https://gilead-biostats.github.io/qcthat/dev/reference/TriggerUAT.md)

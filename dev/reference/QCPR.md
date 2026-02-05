@@ -17,7 +17,9 @@ QCPR(
   strRepo = GetGHRepo(strPkgRoot),
   strGHToken = gh::gh_token(),
   lglWarn = TRUE,
-  chrIgnoredLabels = DefaultIgnoreLabels()
+  chrIgnoredLabels = DefaultIgnoreLabels(),
+  dfITM = NULL,
+  envCall = rlang::caller_env()
 )
 ```
 
@@ -26,7 +28,7 @@ QCPR(
 - intPRNumber:
 
   (`length-1 integer`) The number of the pull request to fetch
-  information about.
+  information about and/or post results to.
 
 - intPageMax:
 
@@ -63,6 +65,20 @@ QCPR(
 - chrIgnoredLabels:
 
   (`character`) GitHub labels to ignore, such as `"qcthat-nocov"`.
+
+- dfITM:
+
+  (`qcthat_IssueTestMatrix`) A `qcthat_IssueTestMatrix` object as
+  returned by
+  [`AsIssueTestMatrix()`](https://gilead-biostats.github.io/qcthat/dev/reference/AsIssueTestMatrix.md)
+  (often via
+  [`QCPackage()`](https://gilead-biostats.github.io/qcthat/dev/reference/QCPackage.md)).
+
+- envCall:
+
+  (`environment`) The environment to use for error reporting. Typically
+  set to
+  [`rlang::caller_env()`](https://rlang.r-lib.org/reference/stack.html).
 
 ## Value
 

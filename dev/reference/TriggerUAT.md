@@ -3,14 +3,13 @@
 Identify pull requests that mention a closed issue, and potentially
 re-trigger the UAT cycle. If all issues referenced in the UAT comment of
 a linked PR are closed (and it is not already running the QCPR
-workflow), rerun the QCPR workflow (`qcthat-pr_issues.yaml`) if
-available.
+workflow), rerun the QCPR workflow (`qcthat.yaml`) if available.
 
 ## Usage
 
 ``` r
 TriggerUAT(
-  intClosedIssue,
+  intClosedIssue = GuessIssueNumber(),
   strOwner = GetGHOwner(),
   strRepo = GetGHRepo(),
   strGHToken = gh::gh_token()

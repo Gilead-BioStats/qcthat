@@ -20,7 +20,8 @@ QCMergeLocal(
   strGHToken = gh::gh_token(),
   lglWarn = TRUE,
   chrIgnoredLabels = DefaultIgnoreLabels(),
-  intMaxCommits = 100000L
+  intMaxCommits = 100000L,
+  dfITM = NULL
 )
 ```
 
@@ -76,6 +77,14 @@ QCMergeLocal(
   logs. Leaving this at the default should almost always be fine, but
   you can reduce the number if your repository has a long commit history
   and this function is slow.
+
+- dfITM:
+
+  (`qcthat_IssueTestMatrix`) A `qcthat_IssueTestMatrix` object as
+  returned by
+  [`AsIssueTestMatrix()`](https://gilead-biostats.github.io/qcthat/dev/reference/AsIssueTestMatrix.md)
+  (often via
+  [`QCPackage()`](https://gilead-biostats.github.io/qcthat/dev/reference/QCPackage.md)).
 
 ## Value
 

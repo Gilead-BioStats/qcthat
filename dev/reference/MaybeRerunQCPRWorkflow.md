@@ -20,7 +20,7 @@ MaybeRerunQCPRWorkflow(
 - intPRNumber:
 
   (`length-1 integer`) The number of the pull request to fetch
-  information about.
+  information about and/or post results to.
 
 - strPRHeadRef:
 

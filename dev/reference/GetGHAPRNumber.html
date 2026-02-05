@@ -43,14 +43,24 @@
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">GetGHAPRNumber</span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">GetGHAPRNumber</span><span class="op">(</span>lGHEventPayload <span class="op">=</span> <span class="fu"><a href="LoadGHEventPayload.html">LoadGHEventPayload</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
+    <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
+
+
+<dl><dt id="arg-lgheventpayload">lGHEventPayload<a class="anchor" aria-label="anchor" href="#arg-lgheventpayload"></a></dt>
+<dd><p>(<code>list</code>) The GitHub event payload. Defaults to the
+result of <code><a href="LoadGHEventPayload.html">LoadGHEventPayload()</a></code>.</p></dd>
+
+</dl></div>
+    <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
-    <p>An integer pull request number, or <code>NULL</code> if not running in a
-PR-triggered action (as indicated by the environment variables
-<code>"GITHUB_EVENT_NAME"</code> and <code>"GITHUB_REF_NAME"</code>).</p>
+    <p>An integer pull request number, or <code>NULL</code> if the GitHub Actions
+event payload does not include a pull request number (for example, when
+the workflow was not triggered by a pull_request event or no <code>inputs.pr</code>
+value was provided).</p>
     </div>
 
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>

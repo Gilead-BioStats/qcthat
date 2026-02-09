@@ -52,4 +52,10 @@ test_that("ParseTest handles corner cases (#noissue)", {
       intTestStart = 1
     )
   )
+  expect_null(
+    ParseTest(
+      chrTestLines = 'test_that("This will fail to parse because it is incomplete (#99)", {',
+      intTestStart = 1
+    )
+  )
 })

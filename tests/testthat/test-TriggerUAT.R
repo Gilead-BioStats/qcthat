@@ -116,12 +116,12 @@ test_that("FetchPRActionRuns calls API and filters correctly (#114)", {
   )
 
   # Filtered
-  res <- FetchPRActionRuns(1, "ref", strAction = "qcthat")
+  res <- FetchPRActionRuns("ref", strAction = "qcthat")
   expect_equal(length(res), 1)
   expect_equal(res[[1]]$id, 1)
 
   # Unfiltered
-  res_all <- FetchPRActionRuns(1, "ref")
+  res_all <- FetchPRActionRuns("ref")
   expect_equal(length(res_all), 2)
 })
 

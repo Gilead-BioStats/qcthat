@@ -5,7 +5,6 @@
 \title{Fetch workflow runs for a PR}
 \usage{
 FetchPRActionRuns(
-  intPRNumber,
   strPRHeadRef,
   strAction = character(),
   strOwner = GetGHOwner(),
@@ -14,9 +13,6 @@ FetchPRActionRuns(
 )
 }
 \arguments{
-\item{intPRNumber}{(\verb{length-1 integer}) The number of the pull request to
-fetch information about and/or post results to.}
-
 \item{strPRHeadRef}{(\verb{length-1 character}) The branch name (head ref) of the
 PR.}
 

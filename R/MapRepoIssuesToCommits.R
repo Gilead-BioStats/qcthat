@@ -70,8 +70,13 @@ MapIssueClosersToCommits <- function(
     ),
     \(strCloserType, strCloserSHA, intCloserPRNumber) {
       # Create a cache key for this combination
-      cache_key <- paste(strCloserType, strCloserSHA, intCloserPRNumber, sep = "|")
-      
+      cache_key <- paste(
+        strCloserType,
+        strCloserSHA,
+        intCloserPRNumber,
+        sep = "|"
+      )
+
       # Check if we've already fetched this
       if (exists(cache_key, envir = commit_cache)) {
         return(get(cache_key, envir = commit_cache))

@@ -21,17 +21,19 @@
 #'
 #'   PrepareTestIssueContext()
 PrepareTestIssueContext <- function(
+  dfPotentialIssues = NULL,
   strTestDir = "tests/testthat",
   strOwner = GetGHOwner(),
   strRepo = GetGHRepo(),
   strGHToken = gh::gh_token()
 ) {
-  dfPotentialIssues <- MapTestFilesToPotentialIssues(
-    strTestDir = strTestDir,
-    strOwner = strOwner,
-    strRepo = strRepo,
-    strGHToken = strGHToken
-  )
+  dfPotentialIssues <- dfPotentialIssues %||%
+    MapTestFilesToPotentialIssues(
+      strTestDir = strTestDir,
+      strOwner = strOwner,
+      strRepo = strRepo,
+      strGHToken = strGHToken
+    )
   if (!nrow(dfPotentialIssues)) {
     return(EmptyTestIssueContextDF())
   }

@@ -4,11 +4,14 @@
 \alias{ExtractLongTestCommits}
 \title{Extract test-commit pairs in long format}
 \usage{
-ExtractLongTestCommits(strTestDir = "tests/testthat")
+ExtractLongTestCommits(strTestDir = "tests/testthat", dfFileTests = NULL)
 }
 \arguments{
 \item{strTestDir}{(\verb{length-1 character}) Path to the directory containing
 test files. Defaults to \code{"tests/testthat"}.}
+
+\item{dfFileTests}{(\code{data.frame}) A \code{\link[tibble:tibble]{tibble::tibble()}} with the structure
+returned by \code{\link[=ExtractTestsFromFiles]{ExtractTestsFromFiles()}}.}
 }
 \value{
 A \code{\link[tibble:tibble]{tibble::tibble()}} with one row per test-commit pair, containing

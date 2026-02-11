@@ -5,6 +5,7 @@
 \title{Prepare test issue context for analysis}
 \usage{
 PrepareTestIssueContext(
+  dfPotentialIssues = NULL,
   strTestDir = "tests/testthat",
   strOwner = GetGHOwner(),
   strRepo = GetGHRepo(),
@@ -12,6 +13,9 @@ PrepareTestIssueContext(
 )
 }
 \arguments{
+\item{dfPotentialIssues}{(\code{tibble}) A data frame as returned by
+\code{\link[=MapTestFilesToPotentialIssues]{MapTestFilesToPotentialIssues()}}.}
+
 \item{strTestDir}{(\verb{length-1 character}) Path to the directory containing
 test files. Defaults to \code{"tests/testthat"}.}
 

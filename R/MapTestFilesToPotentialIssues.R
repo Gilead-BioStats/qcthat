@@ -18,20 +18,27 @@
 #'
 #'   MapTestFilesToPotentialIssues()
 MapTestFilesToPotentialIssues <- function(
+  dfFileTests = NULL,
   strTestDir = "tests/testthat",
   strOwner = GetGHOwner(),
   strRepo = GetGHRepo(),
   strGHToken = gh::gh_token()
 ) {
-  dfTestCommitsLong <- ExtractLongTestCommits(strTestDir)
+  dfTestCommitsLong <- ExtractLongTestCommits(strTestDir, dfFileTests)
   if (!nrow(dfTestCommitsLong)) {
     return(EmptyTestPotentialIssues())
   }
-  MapTestsToPotentialIssues(
-    dfTestCommitsLong,
+
+  # Fetch issue-to-commit mappings once to avoid redundant API calls
+  dfIssueCommitsLong <- MapLongIssueCommits(
     strOwner = strOwner,
     strRepo = strRepo,
     strGHToken = strGHToken
+  )
+
+  MapTestsToPotentialIssues(
+    dfTestCommitsLong,
+    dfIssueCommitsLong = dfIssueCommitsLong
   ) |>
     GatherPotentialIssues()
 }
@@ -42,9 +49,13 @@ MapTestFilesToPotentialIssues <- function(
 #' @returns A [tibble::tibble()] with one row per test-commit pair, containing
 #'   columns `Test`, `File`, `LineStart`, `LineEnd`, `Issues`, and `Commits`.
 #' @keywords internal
-ExtractLongTestCommits <- function(strTestDir = "tests/testthat") {
+ExtractLongTestCommits <- function(
+  strTestDir = "tests/testthat",
+  dfFileTests = NULL
+) {
   MapTestsToCommits(
-    dfFileTests = ExtractTestsFromFiles(strTestDir = strTestDir),
+    dfFileTests = dfFileTests %||%
+      ExtractTestsFromFiles(strTestDir = strTestDir),
     strTestDir = strTestDir
   ) |>
     dplyr::filter(!.data$TaggedNoIssue) |>
@@ -90,23 +101,29 @@ MapLongIssueCommits <- function(
 #'
 #' @param dfTestCommitsLong A [tibble::tibble()] with one row per test-commit
 #'   pair, typically from [ExtractLongTestCommits()].
+#' @param dfIssueCommitsLong A [tibble::tibble()] with one row per issue-commit
+#'   pair, typically from [MapLongIssueCommits()]. If `NULL`, will be fetched.
 #' @inheritParams shared-params
 #' @returns A [tibble::tibble()] in long format with columns `Test`, `File`,
 #'   `Issues`, and `Issue` (the potential issue number).
 #' @keywords internal
 MapTestsToPotentialIssues <- function(
   dfTestCommitsLong,
+  dfIssueCommitsLong = NULL,
   strOwner = GetGHOwner(),
   strRepo = GetGHRepo(),
   strGHToken = gh::gh_token()
 ) {
-  dplyr::left_join(
-    dfTestCommitsLong,
+  dfIssueCommitsLong <- dfIssueCommitsLong %||%
     MapLongIssueCommits(
       strOwner = strOwner,
       strRepo = strRepo,
       strGHToken = strGHToken
-    ),
+    )
+
+  dplyr::left_join(
+    dfTestCommitsLong,
+    dfIssueCommitsLong,
     by = "Commits",
     relationship = "many-to-many"
   ) |>

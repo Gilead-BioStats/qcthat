@@ -63,6 +63,9 @@ QCPR <- function(
 #' Fetch the source and target refs for a PR
 #'
 #' @inheritParams shared-params
+#' @param lPRs (`list` or `NULL`) Optional list of raw pull request objects as
+#'   returned by [FetchRawRepoPRs()]. If provided, the PR will be looked up
+#'   from this list instead of fetching individually from the API.
 #' @returns A named character vector with `strSourceRef` and `strTargetRef`.
 #' @keywords internal
 FetchPRRefs <- function(
@@ -70,15 +73,24 @@ FetchPRRefs <- function(
   strOwner = GetGHOwner(),
   strRepo = GetGHRepo(),
   strGHToken = gh::gh_token(),
+  lPRs = NULL,
   envCall = rlang::caller_env()
 ) {
-  lPR <- FetchRawRepoPRSingle(
-    intPRNumber = intPRNumber,
-    strOwner = strOwner,
-    strRepo = strRepo,
-    strGHToken = strGHToken
-  )
-  if (isTRUE(lPR$merged) && !is.null(lPR$merge_commit_sha)) {
+  lPR <- if (is.null(lPRs)) {
+    FetchRawRepoPRSingle(
+      intPRNumber = intPRNumber,
+      strOwner = strOwner,
+      strRepo = strRepo,
+      strGHToken = strGHToken
+    )
+  } else {
+    LookupPRFromList(lPRs, intPRNumber, envCall = envCall)
+  }
+
+  if (
+    (isTRUE(lPR[["merged"]]) || length(lPR[["merged_at"]])) &&
+      length(lPR[["merge_commit_sha"]])
+  ) {
     lCommit <- CallGHAPI(
       "GET /repos/{owner}/{repo}/commits/{ref}",
       strOwner = strOwner,

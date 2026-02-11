@@ -5,6 +5,7 @@
 \title{Map test files to potential issues}
 \usage{
 MapTestFilesToPotentialIssues(
+  dfFileTests = NULL,
   strTestDir = "tests/testthat",
   strOwner = GetGHOwner(),
   strRepo = GetGHRepo(),
@@ -12,6 +13,9 @@ MapTestFilesToPotentialIssues(
 )
 }
 \arguments{
+\item{dfFileTests}{(\code{data.frame}) A \code{\link[tibble:tibble]{tibble::tibble()}} with the structure
+returned by \code{\link[=ExtractTestsFromFiles]{ExtractTestsFromFiles()}}.}
+
 \item{strTestDir}{(\verb{length-1 character}) Path to the directory containing
 test files. Defaults to \code{"tests/testthat"}.}
 

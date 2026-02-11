@@ -10,7 +10,8 @@ FindAllIssueCommits(
   intCloserPRNumber,
   strOwner = GetGHOwner(),
   strRepo = GetGHRepo(),
-  strGHToken = gh::gh_token()
+  strGHToken = gh::gh_token(),
+  lPRs = NULL
 )
 }
 \arguments{
@@ -29,6 +30,10 @@ that closed the issue.}
 
 \item{strGHToken}{(\verb{length-1 character}) GitHub token with permissions to
 read issues.}
+
+\item{lPRs}{(\code{list} or \code{NULL}) Optional list of raw pull request objects as
+returned by \code{\link[=FetchRawRepoPRs]{FetchRawRepoPRs()}}. If provided, PRs will be looked up from
+this list instead of fetching individually from the API.}
 }
 \value{
 A character vector of commit SHAs associated with this issue.

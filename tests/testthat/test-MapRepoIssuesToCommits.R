@@ -128,6 +128,9 @@ test_that("MapRepoIssuesToCommits passes GitHub parameters to other internal fun
         CloserPRNumber = 10L
       )
     },
+    FetchRawRepoPRs = function(...) {
+      NULL
+    },
     FetchPRRefs = function(intPRNumber, strOwner, strRepo, strGHToken, ...) {
       expect_equal(strOwner, "testowner")
       expect_equal(strRepo, "testrepo")

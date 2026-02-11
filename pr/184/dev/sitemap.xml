@@ -165,6 +165,7 @@
 <url><loc>https://gilead-biostats.github.io/qcthat/dev/reference/HaveString.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/qcthat/dev/reference/InstallAction.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/qcthat/dev/reference/InstallFile.html</loc></url>
+<url><loc>https://gilead-biostats.github.io/qcthat/dev/reference/InstallSkill.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/qcthat/dev/reference/IsCheckingUAT.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/qcthat/dev/reference/IsOnline.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/qcthat/dev/reference/JoinLineCommits.html</loc></url>
@@ -214,6 +215,7 @@
 <url><loc>https://gilead-biostats.github.io/qcthat/dev/reference/SeparateParentColumn.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/qcthat/dev/reference/SetupGHLabels.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/qcthat/dev/reference/SimplePluralize.html</loc></url>
+<url><loc>https://gilead-biostats.github.io/qcthat/dev/reference/Skill_TagTestsWithIssues.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/qcthat/dev/reference/SubsetFileLines.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/qcthat/dev/reference/TibblifyIssueCloser.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/qcthat/dev/reference/TitleUAIssue.html</loc></url>

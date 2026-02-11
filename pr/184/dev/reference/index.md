@@ -85,6 +85,8 @@
   : Save UAT issues to disk
 - [`SetupGHLabels()`](https://gilead-biostats.github.io/qcthat/dev/reference/SetupGHLabels.md)
   : Setup qcthat labels in a GitHub repository
+- [`Skill_TagTestsWithIssues()`](https://gilead-biostats.github.io/qcthat/dev/reference/Skill_TagTestsWithIssues.md)
+  : Use an AI skill to tag tests with issues
 - [`TriggerUAT()`](https://gilead-biostats.github.io/qcthat/dev/reference/TriggerUAT.md)
   : Trigger the UAT cycle for closed issues
 - [`print(`*`<qcthat_Object>`*`)`](https://gilead-biostats.github.io/qcthat/dev/reference/printing.md)

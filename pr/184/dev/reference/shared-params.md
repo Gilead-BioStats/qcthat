@@ -389,6 +389,11 @@ Reused parameter definitions are gathered here for easier usage. Use
 
   (`length-1 character`) Name of the GitHub tag.
 
+- strTargetDir:
+
+  (`length-1 character`) Path to the directory where the file should be
+  added.
+
 - strTargetRef:
 
   (`length-1 character`) Name of the git reference that will be merged

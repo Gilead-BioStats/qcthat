@@ -9,6 +9,7 @@ and enrich with test code and enriched issue details from GitHub.
 
 ``` r
 PrepareTestIssueContext(
+  dfPotentialIssues = NULL,
   strTestDir = "tests/testthat",
   strOwner = GetGHOwner(),
   strRepo = GetGHRepo(),
@@ -17,6 +18,11 @@ PrepareTestIssueContext(
 ```
 
 ## Arguments
+
+- dfPotentialIssues:
+
+  (`tibble`) A data frame as returned by
+  [`MapTestFilesToPotentialIssues()`](https://gilead-biostats.github.io/qcthat/dev/reference/MapTestFilesToPotentialIssues.md).
 
 - strTestDir:
 

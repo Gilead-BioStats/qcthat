@@ -47,7 +47,8 @@
 <span>  <span class="va">dfIssueClosers</span>,</span>
 <span>  strOwner <span class="op">=</span> <span class="fu"><a href="GetGHOwner.html">GetGHOwner</a></span><span class="op">(</span><span class="op">)</span>,</span>
 <span>  strRepo <span class="op">=</span> <span class="fu"><a href="GetGHRepo.html">GetGHRepo</a></span><span class="op">(</span><span class="op">)</span>,</span>
-<span>  strGHToken <span class="op">=</span> <span class="fu">gh</span><span class="fu">::</span><span class="fu"><a href="https://gh.r-lib.org/reference/gh_token.html" class="external-link">gh_token</a></span><span class="op">(</span><span class="op">)</span></span>
+<span>  strGHToken <span class="op">=</span> <span class="fu">gh</span><span class="fu">::</span><span class="fu"><a href="https://gh.r-lib.org/reference/gh_token.html" class="external-link">gh_token</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  lPRs <span class="op">=</span> <span class="cn">NULL</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -71,6 +72,12 @@
 <dt id="arg-strghtoken">strGHToken<a class="anchor" aria-label="anchor" href="#arg-strghtoken"></a></dt>
 <dd><p>(<code>length-1 character</code>) GitHub token with permissions to
 read issues.</p></dd>
+
+
+<dt id="arg-lprs">lPRs<a class="anchor" aria-label="anchor" href="#arg-lprs"></a></dt>
+<dd><p>(<code>list</code> or <code>NULL</code>) Optional list of raw pull request objects as
+returned by <code><a href="FetchRawRepoPRs.html">FetchRawRepoPRs()</a></code>. If provided, PRs will be looked up from
+this list instead of fetching individually from the API.</p></dd>
 
 </dl></div>
     <div class="section level2">

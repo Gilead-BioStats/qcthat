@@ -5,7 +5,7 @@ Extract test-commit pairs in long format
 ## Usage
 
 ``` r
-ExtractLongTestCommits(strTestDir = "tests/testthat")
+ExtractLongTestCommits(strTestDir = "tests/testthat", dfFileTests = NULL)
 ```
 
 ## Arguments
@@ -14,6 +14,13 @@ ExtractLongTestCommits(strTestDir = "tests/testthat")
 
   (`length-1 character`) Path to the directory containing test files.
   Defaults to `"tests/testthat"`.
+
+- dfFileTests:
+
+  (`data.frame`) A
+  [`tibble::tibble()`](https://tibble.tidyverse.org/reference/tibble.html)
+  with the structure returned by
+  [`ExtractTestsFromFiles()`](https://gilead-biostats.github.io/qcthat/dev/reference/ExtractTestsFromFiles.md).
 
 ## Value
 

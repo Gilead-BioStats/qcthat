@@ -7,6 +7,7 @@ Map tests to potential issues via commit joins
 ``` r
 MapTestsToPotentialIssues(
   dfTestCommitsLong,
+  dfIssueCommitsLong = NULL,
   strOwner = GetGHOwner(),
   strRepo = GetGHRepo(),
   strGHToken = gh::gh_token()
@@ -21,6 +22,14 @@ MapTestsToPotentialIssues(
   [`tibble::tibble()`](https://tibble.tidyverse.org/reference/tibble.html)
   with one row per test-commit pair, typically from
   [`ExtractLongTestCommits()`](https://gilead-biostats.github.io/qcthat/dev/reference/ExtractLongTestCommits.md).
+
+- dfIssueCommitsLong:
+
+  A
+  [`tibble::tibble()`](https://tibble.tidyverse.org/reference/tibble.html)
+  with one row per issue-commit pair, typically from
+  [`MapLongIssueCommits()`](https://gilead-biostats.github.io/qcthat/dev/reference/MapLongIssueCommits.md).
+  If `NULL`, will be fetched.
 
 - strOwner:
 

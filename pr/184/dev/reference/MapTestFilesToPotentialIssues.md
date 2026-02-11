@@ -8,6 +8,7 @@ modified the test with commits that closed issues. Tests tagged with
 
 ``` r
 MapTestFilesToPotentialIssues(
+  dfFileTests = NULL,
   strTestDir = "tests/testthat",
   strOwner = GetGHOwner(),
   strRepo = GetGHRepo(),
@@ -16,6 +17,13 @@ MapTestFilesToPotentialIssues(
 ```
 
 ## Arguments
+
+- dfFileTests:
+
+  (`data.frame`) A
+  [`tibble::tibble()`](https://tibble.tidyverse.org/reference/tibble.html)
+  with the structure returned by
+  [`ExtractTestsFromFiles()`](https://gilead-biostats.github.io/qcthat/dev/reference/ExtractTestsFromFiles.md).
 
 - strTestDir:
 

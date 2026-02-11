@@ -172,6 +172,7 @@
 <url><loc>https://gilead-biostats.github.io/qcthat/dev/reference/LoadGHEventPayload.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/qcthat/dev/reference/LoadUATIssues.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/qcthat/dev/reference/LogUAT.html</loc></url>
+<url><loc>https://gilead-biostats.github.io/qcthat/dev/reference/LookupPRFromList.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/qcthat/dev/reference/MakeITRCoverageFooter.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/qcthat/dev/reference/MakeITRDispositionFooter.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/qcthat/dev/reference/MakeITRIgnoredLabelsFooter.html</loc></url>

@@ -50,6 +50,7 @@ excluded from the results.</p>
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">MapTestFilesToPotentialIssues</span><span class="op">(</span></span>
+<span>  dfFileTests <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  strTestDir <span class="op">=</span> <span class="st">"tests/testthat"</span>,</span>
 <span>  strOwner <span class="op">=</span> <span class="fu"><a href="GetGHOwner.html">GetGHOwner</a></span><span class="op">(</span><span class="op">)</span>,</span>
 <span>  strRepo <span class="op">=</span> <span class="fu"><a href="GetGHRepo.html">GetGHRepo</a></span><span class="op">(</span><span class="op">)</span>,</span>
@@ -61,7 +62,12 @@ excluded from the results.</p>
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
 
 
-<dl><dt id="arg-strtestdir">strTestDir<a class="anchor" aria-label="anchor" href="#arg-strtestdir"></a></dt>
+<dl><dt id="arg-dffiletests">dfFileTests<a class="anchor" aria-label="anchor" href="#arg-dffiletests"></a></dt>
+<dd><p>(<code>data.frame</code>) A <code><a href="https://tibble.tidyverse.org/reference/tibble.html" class="external-link">tibble::tibble()</a></code> with the structure
+returned by <code><a href="ExtractTestsFromFiles.html">ExtractTestsFromFiles()</a></code>.</p></dd>
+
+
+<dt id="arg-strtestdir">strTestDir<a class="anchor" aria-label="anchor" href="#arg-strtestdir"></a></dt>
 <dd><p>(<code>length-1 character</code>) Path to the directory containing
 test files. Defaults to <code>"tests/testthat"</code>.</p></dd>
 

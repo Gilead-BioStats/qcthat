@@ -9,7 +9,8 @@ MapIssueClosersToCommits(
   dfIssueClosers,
   strOwner = GetGHOwner(),
   strRepo = GetGHRepo(),
-  strGHToken = gh::gh_token()
+  strGHToken = gh::gh_token(),
+  lPRs = NULL
 )
 ```
 
@@ -33,6 +34,14 @@ MapIssueClosersToCommits(
 - strGHToken:
 
   (`length-1 character`) GitHub token with permissions to read issues.
+
+- lPRs:
+
+  (`list` or `NULL`) Optional list of raw pull request objects as
+  returned by
+  [`FetchRawRepoPRs()`](https://gilead-biostats.github.io/qcthat/dev/reference/FetchRawRepoPRs.md).
+  If provided, PRs will be looked up from this list instead of fetching
+  individually from the API.
 
 ## Value
 

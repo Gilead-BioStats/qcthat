@@ -56,7 +56,7 @@ test_that("FetchRepoPRs returns a formatted df for real PRs (#84)", {
   expect_equal(test_result, expected_result)
 })
 
-test_that("LookupPRFromList finds PR by number", {
+test_that("LookupPRFromList finds PR by number (#noissue)", {
   lPRs <- GenerateRawRepoPRs(5)
   result <- LookupPRFromList(lPRs, 3)
 
@@ -65,7 +65,7 @@ test_that("LookupPRFromList finds PR by number", {
   expect_equal(result$state, "closed")
 })
 
-test_that("LookupPRFromList errors when PR not found", {
+test_that("LookupPRFromList errors when PR not found (#noissue)", {
   expect_error(
     LookupPRFromList(GenerateRawRepoPRs(5), 99),
     class = "qcthat-error-pr_not_found"

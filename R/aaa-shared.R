@@ -154,6 +154,8 @@
 #'   fetch. Must be one of `"open"`, `"closed"`, or `"all"`. Defaults to
 #'   `"open"` for pull requests and `"all"` for issues.
 #' @param strTagName (`length-1 character`) Name of the GitHub tag.
+#' @param strTargetDir (`length-1 character`) Path to the directory where the
+#'   file should be added.
 #' @param strTargetRef (`length-1 character`) Name of the git reference that
 #'   will be merged into. Defaults to the default branch of this repository.
 #' @param strTestDir (`length-1 character`) Path to the directory containing

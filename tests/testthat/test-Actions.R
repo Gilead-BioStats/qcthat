@@ -1,21 +1,31 @@
 test_that("InstallAction calls InstallFile with expected parts (#73)", {
   local_mocked_bindings(
-    InstallFile = function(...) {
-      list(...)
+    InstallFile = function(
+      chrSourcePath,
+      chrTargetPath,
+      strExtension,
+      lglOverwrite,
+      strPkgRoot,
+      envCall
+    ) {
+      expect_identical(
+        chrSourcePath,
+        c("workflows", "qcthat-testAction")
+      )
+      expect_identical(
+        chrTargetPath,
+        c(".github", "workflows", "qcthat-testAction")
+      )
+      expect_identical(strExtension, "yaml")
+      expect_identical(lglOverwrite, FALSE)
+      expect_identical(strPkgRoot, ".")
+      expect_type(envCall, "environment")
+      "mocked_path"
     }
   )
-  test_result <- InstallAction(strActionName = "testAction")
-  expect_type(test_result$envCall, "environment")
-  test_result$envCall <- NULL
   expect_identical(
-    test_result,
-    list(
-      chrSourcePath = c("workflows", "qcthat-testAction"),
-      chrTargetPath = c(".github", "workflows", "qcthat-testAction"),
-      strExtension = "yaml",
-      lglOverwrite = FALSE,
-      strPkgRoot = "."
-    )
+    InstallAction(strActionName = "testAction"),
+    "mocked_path"
   )
 })
 

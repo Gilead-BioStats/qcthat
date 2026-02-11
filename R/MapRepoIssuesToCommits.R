@@ -22,7 +22,7 @@ MapRepoIssuesToCommits <- function(
   if (!nrow(dfIssueClosers)) {
     return(tibble::tibble(Issue = integer(), Commits = list()))
   }
-  
+
   # Fetch all PRs once to avoid repeated API calls
   lPRs <- FetchRawRepoPRs(
     strOwner = strOwner,
@@ -30,7 +30,7 @@ MapRepoIssuesToCommits <- function(
     strGHToken = strGHToken,
     strState = "all"
   )
-  
+
   MapIssueClosersToCommits(
     dfIssueClosers,
     strOwner = strOwner,
@@ -61,7 +61,7 @@ MapIssueClosersToCommits <- function(
 ) {
   # Cache for commit lookups to avoid duplicate API calls for the same PR
   commit_cache <- new.env(parent = emptyenv())
-  
+
   dfIssueClosers$Commits <- purrr::pmap(
     list(
       dfIssueClosers$CloserType,
@@ -81,7 +81,7 @@ MapIssueClosersToCommits <- function(
       if (exists(cache_key, envir = commit_cache)) {
         return(get(cache_key, envir = commit_cache))
       }
-      
+
       # Fetch and cache the result
       result <- FindAllIssueCommits(
         strCloserType = strCloserType,

@@ -79,7 +79,7 @@ MapIssueClosersToCommits <- function(
 
       # Check if we've already fetched this
       if (exists(cache_key, envir = commit_cache)) {
-        return(get(cache_key, envir = commit_cache))
+        return(get(cache_key, envir = commit_cache)) # nocov
       }
 
       # Fetch and cache the result

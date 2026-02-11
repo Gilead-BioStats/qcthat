@@ -7,7 +7,8 @@ test_that("MapRepoIssuesToCommits handles commit closers (#53)", {
         CloserSHA = c("abc123", "def456"),
         CloserPRNumber = c(NA_integer_, NA_integer_)
       )
-    }
+    },
+    FetchRawRepoPRs = function(...) NULL
   )
   dfResult <- MapRepoIssuesToCommits()
   dfExpected <- tibble::tibble(
@@ -40,7 +41,8 @@ test_that("MapRepoIssuesToCommits handles PR closers (#53)", {
       } else {
         c("commit4", "commit5")
       }
-    }
+    },
+    FetchRawRepoPRs = function(...) NULL
   )
   dfResult <- MapRepoIssuesToCommits()
   dfExpected <- tibble::tibble(
@@ -65,7 +67,8 @@ test_that("MapRepoIssuesToCommits handles mixed closers (#53)", {
     },
     FetchMergeCommitSHAs = function(strSourceRef, strTargetRef, ...) {
       c("commit1", "commit2")
-    }
+    },
+    FetchRawRepoPRs = function(...) NULL
   )
   dfResult <- MapRepoIssuesToCommits()
   dfExpected <- tibble::tibble(
@@ -105,7 +108,8 @@ test_that("MapRepoIssuesToCommits handles issues with no closer info (#noissue)"
         CloserSHA = NA_character_,
         CloserPRNumber = NA_integer_
       )
-    }
+    },
+    FetchRawRepoPRs = function(...) NULL
   )
   dfResult <- MapRepoIssuesToCommits()
   dfExpected <- tibble::tibble(

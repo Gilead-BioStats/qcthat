@@ -8,7 +8,7 @@ ExtractTestIssues(chrTests)
 }
 \arguments{
 \item{chrTests}{(\code{character}) A vector of test descriptions from a
-\code{\link[=CompileIssueTestMatrix]{CompileIssueTestMatrix()}} matrix or extractd from test files.}
+\code{\link[=CompileIssueTestMatrix]{CompileIssueTestMatrix()}} matrix or extracted from test files.}
 }
 \value{
 A list of integer vectors of sorted unique issue numbers.

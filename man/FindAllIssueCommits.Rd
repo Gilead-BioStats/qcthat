@@ -2,7 +2,7 @@
 % Please edit documentation in R/MapRepoIssuesToCommits.R
 \name{FindAllIssueCommits}
 \alias{FindAllIssueCommits}
-\title{Add Commits list column to dfIssueClosers}
+\title{Find all commits associated with an issue closer}
 \usage{
 FindAllIssueCommits(
   strCloserType,
@@ -39,5 +39,5 @@ this list instead of fetching individually from the API.}
 A character vector of commit SHAs associated with this issue.
 }
 \description{
-Add Commits list column to dfIssueClosers
+Find all commits associated with an issue closer
 }

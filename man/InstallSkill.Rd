@@ -26,7 +26,7 @@ package. Will be expanded using \code{\link[gert:git_repo]{gert::git_find()}}.}
 Typically set to \code{\link[rlang:stack]{rlang::caller_env()}}.}
 }
 \value{
-The path to the created GitHub Action YAML file (invisibly).
+The path to the created skill file (invisibly).
 }
 \description{
 Install a skill from qcthat into a package repo

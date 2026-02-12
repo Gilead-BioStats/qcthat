@@ -39,7 +39,7 @@ separate piece of the vector).}
 \item{chrTestLines}{(\code{character}) Vector of lines from a test file.}
 
 \item{chrTests}{(\code{character}) A vector of test descriptions from a
-\code{\link[=CompileIssueTestMatrix]{CompileIssueTestMatrix()}} matrix or extractd from test files.}
+\code{\link[=CompileIssueTestMatrix]{CompileIssueTestMatrix()}} matrix or extracted from test files.}
 
 \item{dttmTimestamp}{(\code{POSIXct}) A system timestamp.}
 

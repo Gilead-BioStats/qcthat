@@ -60,7 +60,7 @@ MapIssueClosersToCommits <- function(
   lPRs = NULL
 ) {
   # Cache for commit lookups to avoid duplicate API calls for the same PR
-  commit_cache <- new.env(parent = emptyenv())
+  envCommitCache <- new.env(parent = emptyenv())
 
   dfIssueClosers$Commits <- purrr::pmap(
     list(
@@ -70,7 +70,7 @@ MapIssueClosersToCommits <- function(
     ),
     \(strCloserType, strCloserSHA, intCloserPRNumber) {
       # Create a cache key for this combination
-      cache_key <- paste(
+      strCacheKey <- paste(
         strCloserType,
         strCloserSHA,
         intCloserPRNumber,
@@ -78,12 +78,12 @@ MapIssueClosersToCommits <- function(
       )
 
       # Check if we've already fetched this
-      if (exists(cache_key, envir = commit_cache)) {
-        return(get(cache_key, envir = commit_cache)) # nocov
+      if (exists(strCacheKey, envir = envCommitCache)) {
+        return(get(strCacheKey, envir = envCommitCache)) # nocov
       }
 
       # Fetch and cache the result
-      result <- FindAllIssueCommits(
+      chrCommits <- FindAllIssueCommits(
         strCloserType = strCloserType,
         strCloserSHA = strCloserSHA,
         intCloserPRNumber = intCloserPRNumber,
@@ -92,14 +92,14 @@ MapIssueClosersToCommits <- function(
         strGHToken = strGHToken,
         lPRs = lPRs
       )
-      assign(cache_key, result, envir = commit_cache)
-      result
+      assign(strCacheKey, chrCommits, envir = envCommitCache)
+      chrCommits
     }
   )
   dplyr::select(dfIssueClosers, "Issue", "Commits")
 }
 
-#' Add Commits list column to dfIssueClosers
+#' Find all commits associated with an issue closer
 #'
 #' @param strCloserType (`length-1 character`) Whether the issue was closed by a
 #'   `"PullRequest"` or a `"Commit"`.

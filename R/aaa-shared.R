@@ -27,7 +27,7 @@
 #'   separate piece of the vector).
 #' @param chrTestLines (`character`) Vector of lines from a test file.
 #' @param chrTests (`character`) A vector of test descriptions from a
-#'   [CompileIssueTestMatrix()] matrix or extractd from test files.
+#'   [CompileIssueTestMatrix()] matrix or extracted from test files.
 #' @param dttmTimestamp (`POSIXct`) A system timestamp.
 #' @param dfFileTests (`data.frame`) A [tibble::tibble()] with the structure
 #'   returned by [ExtractTestsFromFiles()].

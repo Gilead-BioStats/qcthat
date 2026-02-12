@@ -49,11 +49,11 @@ EmptyTestIssueContextDF <- function() {
   tibble::tibble(
     Test = character(),
     File = character(),
+    LineStart = integer(),
+    LineEnd = integer(),
     Issues = list(),
     PotentialIssueDetails = list(),
-    TestCode = list(),
-    LineStart = integer(),
-    LineEnd = integer()
+    TestCode = list()
   )
 }
 

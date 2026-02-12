@@ -1,7 +1,7 @@
 #' Install a skill from qcthat into a package repo
 #'
 #' @inheritParams shared-params
-#' @returns The path to the created GitHub Action YAML file (invisibly).
+#' @returns The path to the created skill file (invisibly).
 #' @keywords internal
 InstallSkill <- function(
   strSkillName,

@@ -1,6 +1,6 @@
-# Add Commits list column to dfIssueClosers
+# Find all commits associated with an issue closer
 
-Add Commits list column to dfIssueClosers
+Find all commits associated with an issue closer
 
 ## Usage
 

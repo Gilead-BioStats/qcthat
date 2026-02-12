@@ -41,7 +41,7 @@
 - [`FetchRepoPRs()`](https://gilead-biostats.github.io/qcthat/dev/reference/FetchRepoPRs.md)
   : Fetch repository pull requests
 - [`FindAllIssueCommits()`](https://gilead-biostats.github.io/qcthat/dev/reference/FindAllIssueCommits.md)
-  : Add Commits list column to dfIssueClosers
+  : Find all commits associated with an issue closer
 - [`GetGHOwner()`](https://gilead-biostats.github.io/qcthat/dev/reference/GetGHOwner.md)
   : Find the owner of the target repository
 - [`GetGHRepo()`](https://gilead-biostats.github.io/qcthat/dev/reference/GetGHRepo.md)

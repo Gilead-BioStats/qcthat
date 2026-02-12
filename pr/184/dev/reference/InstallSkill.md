@@ -39,4 +39,4 @@ InstallSkill(
 
 ## Value
 
-The path to the created GitHub Action YAML file (invisibly).
+The path to the created skill file (invisibly).

@@ -14,7 +14,7 @@ ExtractTestIssues(chrTests)
 
   (`character`) A vector of test descriptions from a
   [`CompileIssueTestMatrix()`](https://gilead-biostats.github.io/qcthat/dev/reference/CompileIssueTestMatrix.md)
-  matrix or extractd from test files.
+  matrix or extracted from test files.
 
 ## Value
 

@@ -5,21 +5,13 @@ description: Identify likely GitHub issues connected to test cases. Use when ask
 
 # Tag Tests with Issues
 
-Connect test cases to their related GitHub issues by adding issue references (e.g., `(#123)`) to test descriptions. This creates bidirectional traceability between tests and the features or bugs they address.
+Connect test cases to their related GitHub issues by adding issue references (e.g., `(#123)`) to test descriptions. This creates bidirectional traceability between tests and the features or bugs they address. Evidence of connections is provided by a series of R functions that extract the relevant details.
 
-## Overview
-
-The workflow involves:
-1. Extracting tests from all test files with `ExtractTestsFromFiles()`
-2. Splitting tests by file for processing
-3. Mapping each test file to potential issues with `MapTestFilesToPotentialIssues()`
-4. Preparing full context with `PrepareTestIssueContext()`
-5. Analyzing test descriptions and potential issues to find matches
-6. Updating test files to add issue tags to test descriptions
+This skill is intended to be executed with minimal interaction, so skip chat output that is intended only for user review.
 
 ## Step 1: Load Test and Issue Context
 
-Start by extracting all tests and processing them file-by-file:
+Extract all tests and process them file-by-file. `MapTestFilesToPotentialIssues()` can be very slow, so only process one file at a time, and be prepared to wait. Do not try to speed up the process by avoiding this function. Its output is required for `PrepareTestIssueContext()`, and the output of `PrepareTestIssueContext()` is your source of all context for the remaining steps.
 
 ```r
 library(qcthat)
@@ -30,65 +22,128 @@ dfFileTests <- ExtractTestsFromFiles()
 # Split into one data frame per test file
 lFileTestsSplit <- dplyr::group_split(dfFileTests, File)
 
-# Process a single file (demonstrating with the first file)
-# In practice, you should process all files unless told otherwise
+# Process one file at a time (shown here for the first file)
 dfPotentialIssues <- MapTestFilesToPotentialIssues(lFileTestsSplit[[1]])
 dfTestIssueContext <- PrepareTestIssueContext(dfPotentialIssues)
 ```
 
-**About `lFileTestsSplit`**: This is a list containing one data frame per test file. Each element contains all the tests from a single file. The example above shows processing the first file (`lFileTestsSplit[[1]]`), but you should typically iterate through all files in the list.
+**About `lFileTestsSplit`**: A list of data frames, one per test file. Process files one at a time (`lFileTestsSplit[[1]]`, then `lFileTestsSplit[[2]]` etc) unless told otherwise.
 
 `PrepareTestIssueContext()` returns a data frame with these columns:
-- **`Test`**: The test description (character)
-- **`File`**: Test file name (character) 
-- **`LineStart`** / **`LineEnd`**: Line numbers in the test file
-- **`Issues`**: Issues already tagged in the test description (list column of integer vectors)
-- **`PotentialIssueDetails`**: A tibble with columns `Issue`, `Title`, and `Body` for each potentially related issue (list column). These potential issues are identified by matching commits that modified the test with commits that closed issues.
-- **`TestCode`**: The actual test code (list column of character vectors)
+
+| Column | Type | Description |
+|--------|------|-------------|
+| `Test` | character | The test description |
+| `File` | character | Test file name |
+| `LineStart` / `LineEnd` | integer | Line numbers in the test file |
+| `Issues` | list of integer vectors | Issues already tagged in the description |
+| `PotentialIssueDetails` | list of tibbles | A tibble per test with columns `Issue`, `Title`, and `Body` for each potentially related issue. Identified by matching commits that modified the test with commits that closed issues. |
+| `TestCode` | list of character vectors | The actual test code |
 
 ## Step 2: Match Tests to Issues
 
-For each test, compare the test description (`Test` column) against the issue details in `PotentialIssueDetails`:
+For each test, compare the test code and description against the issue details in `PotentialIssueDetails`. You will not need `git blame` or other tools. Your matches should only come from the `Issue` column of the `PotentialIssueDetails` table for that test. Many tests will match exactly one issue. Some may match zero. A few may match more than one.
 
-### Primary Matching Strategy
+### Decision Process
 
-1. **Read the test description** - This often contains clear keywords about what's being tested
-2. **Compare with issue titles** - Look for semantic overlap between test names and issue titles
-3. **Check issue bodies** - Review the full issue description for context
-4. **Consider already-tagged issues** - The `Issues` column shows what's already tagged; avoid duplicates
+For every test with non-empty `PotentialIssueDetails`, follow these steps in order:
 
-### When Test Description Is Insufficient
+**1. Read the `TestCode` to understand what the test actually does.**
 
-If the relationship isn't clear from just the test description and issue titles/bodies, consult the **`TestCode`** column to understand what the test actually does. This helps when:
-- Test descriptions are generic or unclear
-- Multiple issues seem equally relevant
-- The test covers multiple scenarios
+Test descriptions can be vague or misleading. The code is the ground truth. Extract:
+- The primary function being called (e.g., `ProcessPayment(...)`) — this is your most important signal
+- What the `expect_*()` calls verify (the exact behavior being tested)
+- Edge cases, setup code, or mocked dependencies that reveal context
 
-### Common Matching Patterns
+**2. Read the ENTIRE `Body` of each potential issue.**
 
-- **Feature tests**: Match to feature request issues describing the behavior being tested
-- **Bug tests**: Match to bug report issues that the test prevents regressing
-- **Edge case tests**: Often match to specific bug reports about that scenario
+Titles are often vague, abbreviated, or misleading. The body contains the specific technical details needed for accurate matching. For each issue, note:
+- Whether it names the specific function being tested
+- Whether it describes the specific behavior or scenario being tested
+- The purpose of the issue: Is it about creating this feature? Fixing a bug in it? Refactoring something unrelated?
 
-### Example Analysis
+**3. Look for a function name match.**
+
+If an issue body mentions the function being tested AND the issue is *about* implementing, fixing, or extending that function, that is a strong match. Tag it.
+
+Note: the issue must be about the function, not merely mention it in passing. An issue body that says "this refactoring touched `ProcessPayment()`" is not a match for tests of `ProcessPayment()` unless the issue is specifically about changing `ProcessPayment()` behavior.
+
+**4. If no function name match, look for a specific behavioral match.**
+
+This step has a higher bar than step 3. The issue body must describe the *specific behavior* the test checks — not just the general feature area. Ask: "Does this issue body describe the particular thing this test verifies?" If the connection is only that they're in the same feature area, that is not enough.
+
+For example, if a test checks that `ValidateCardNumber()` rejects expired cards, an issue titled "Payment processing feature" whose body discusses order workflows and receipt generation is NOT a match, even though they're in the same domain. An issue whose body says "add validation for expired card numbers" IS a match, even without naming `ValidateCardNumber()` explicitly.
+
+**5. Decide.**
+
+- **Tag** if you found a strong match in step 3, or a specific behavioral match in step 4.
+- **Skip** if the potential issues are about unrelated functionality.
+- **When uncertain**, lean slightly toward skipping. An untagged test can be found later; an incorrect tag must be identified and removed during review. You don't have to be absolutely certain in order to tag, but you should don't be over-zealous, either.
+
+**6. Check for duplicates.**
+
+The `Issues` column shows what's already tagged. Do not re-add existing tags.
+
+### Common Errors to Avoid
+
+Do NOT match based on superficial keyword overlap or feature-area proximity. These are the most common failure patterns:
+
+- **Keyword overlap in title only**: Test mentions "payments" → matching any issue with "payments" in the title, when the issue body describes different work
+- **Feature-area match without behavioral match**: Test checks that `FormatReceipt()` handles refunds → matching an issue about "Payment processing feature" whose body discusses order validation, not receipt formatting. Same feature area, wrong behavior.
+- **Body contradicts title**: Issue title sounds relevant but the body describes unrelated work — always trust the body over the title
+- **Incidental file changes**: Issue is about infrastructure, refactoring, or cleanup that happened to touch the same file but isn't about the functionality the test checks
+- **Description vs. code mismatch**: Matching based on the test description when the `TestCode` shows the test is actually checking something different
+
+### Special Cases
+
+**Tests with `intIssue` in `ExpectUserAccepts()` calls**: Tag with the referenced issue number, UNLESS the value is obviously test data (e.g., 1, 12, 123, 12345).
+
+**Tests already tagged**: If the `Issues` column is non-empty and the tags look correct, skip. If you are adding new tags, preserve existing ones and keep issue numbers in ascending order.
+
+**Disambiguating similar issues**: When multiple issues seem related, read each body completely and pick the one that most specifically describes the functionality being tested. Reject issues that are about infrastructure, refactoring, or the broader feature area without describing the specific behavior the test checks. If multiple issues genuinely pass the bar from steps 3-4, tag with all of them — but this should be uncommon.
+
+### Example
 
 ```r
-# Look at a single test's context
-target_test_row <- 1
-target_test <- dplyr::slice(dfTestIssueContext, target_test_row)
+# After running PrepareTestIssueContext for a file:
+test <- dfTestIssueContext[5, ]
 
-# View potential issues
-target_test$PotentialIssueDetails[[1]]
+# Step 1: Read the test description AND extract function name from code
+test$Test
+# "ProcessPayment handles declined cards"
+test$TestCode[[1]]
+# test_that("ProcessPayment handles declined cards", {
+#   local_mocked_bindings(
+#     GetAPIResult = function(...) {
+#       list(result = "declined")
+#     }
+#   )
+#   expect_error(ProcessPayment(), class = "error-payment_declined")
+# })
 
-# If needed, examine the test code
-cat(target_test$TestCode[[1]], sep = "\n")
+# Step 2: Check potential issues - READ THE BODIES
+test$PotentialIssueDetails[[1]]
+#   Issue Title                                Body
+#   42    "Payment system overhaul"            "Refactor payment module architecture..."
+#   87    "Payment processing error handling"  "Implement ProcessPayment() function to handle
+#                                               declined cards, expired cards, and..."
+#   104   "Add logging to payment module"      "Add debug logging throughout payment..."
+
+# Step 3-4: Match by function name + behavior
+# - Issue 42: Body is about refactoring architecture, not implementing ProcessPayment → NO
+# - Issue 87: Body explicitly mentions ProcessPayment() and declined cards → YES
+# - Issue 104: Body is about logging, unrelated to payment handling → NO
+
+# Decision: Tag with #87
+# Issue 87's Body mentioned the exact function and behavior,
+# not just keyword overlap in the title.
 ```
 
-## Step 3: Tag Tests with Issues
+## Step 3: Edit Test Files
 
-Once you've identified which issue(s) match a test, update the test file:
+Once you've identified which issue(s) match a test, update the test file.
 
-### Format
+### Tag Format
 
 Add issue references in parentheses at the end of the test description:
 - Single issue: `test_that("does something (#123)", { ... })`
@@ -96,36 +151,30 @@ Add issue references in parentheses at the end of the test description:
 
 ### Editing Guidelines
 
-1. **Preserve existing tags**: If `Issues` column shows existing tags, keep them unless they're incorrect
-2. **Add new tags**: Append new issue numbers to the description
-3. **Sort issue numbers**: Keep issue numbers in ascending order
-4. **Use consistent format**: Always use `(#123)` format with parentheses and hash
-5. **Preserve existing test content**: Do not edit anything other than the parenthetical issues tags
+- **Only edit the parenthetical issue tags** in the `test_that()` description string. Do not change anything else.
+- Preserve existing tags. 
+- For multiple issue numbers, sort in ascending order.
+- Use the `File`, `LineStart`, and `LineEnd` columns to locate the test.
+- Batch edits to the same file to minimize file I/O.
+- Preserve existing code style and indentation. Handle multi-line test descriptions carefully.
 
-### Making the Edits
+### Editing Code
 
-Use the `File`, `LineStart`, and `LineEnd` columns to locate the exact test in the file, then update the `test_that()` description string.
-
-For programmatic editing:
 ```r
-# Read the test file
-lines <- readLines(file.path("tests/testthat", test_file))
+# Construct the new tag string
+IssuesToTag <- 87L # Be sure to include existing tags here, if any
+test$IssueTags <- glue::glue("#{IssuesToTag}") |>
+  glue::glue_collapse(sep = ", ")
 
-# Update the specific line(s) containing the test_that() call
-# The description is typically on LineStart
-
-# Write back
-writeLines(lines, file.path("tests/testthat", test_file))
+# Change: test_that("ProcessPayment handles declined cards", {
+# To:     test_that("ProcessPayment handles declined cards (#87)", {
+readLines(test$File) |>
+  stringr::str_replace(
+    stringr::str_fixed(test$Test),
+    glue::glue_data(test, "{Test} ({IssueTags})")
+  ) |>
+  writeLines(test$File)
 ```
-
-## Tips
-
-1. **Batch edits by file**: Group edits to the same file together to minimize file I/O
-2. **Preserve formatting**: Maintain existing code style and indentation when editing
-3. **Handle edge cases**: 
-   - Tests already fully tagged (skip)
-   - Tests with no good matches (skip)
-   - Multi-line test descriptions (preserve line breaks)
 
 ## Validation
 

@@ -42,7 +42,7 @@ dfTestIssueContext <- PrepareTestIssueContext(dfPotentialIssues)
 
 ## Step 2: Match Tests to Issues
 
-For each test, compare the test code and description against the issue details in `PotentialIssueDetails`. You will not need `git blame` or other tools. Your matches should only come from the `Issue` column of the `PotentialIssueDetails` table for that test. Many tests will match exactly one issue. Some may match zero. A few may match more than one.
+For each test, compare the test code and description against the issue details in `PotentialIssueDetails`. Do not use `git blame` or other tools, and do not look up issue details directly via `gh` or other means. `dfTestIssueContext` contains all of the information you will need to evaluate the tests and issues. Your matches should only come from the `Issue` column of the `PotentialIssueDetails` table for that test. Many tests will match exactly one issue. Some may match zero. A few may match more than one.
 
 ### Decision Process
 

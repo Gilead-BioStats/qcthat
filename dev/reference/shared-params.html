@@ -103,18 +103,32 @@ file extension should be included in the filename or omitted (NOT sent as a
 separate piece of the vector).</p></dd>
 
 
+<dt id="arg-chrtestlines">chrTestLines<a class="anchor" aria-label="anchor" href="#arg-chrtestlines"></a></dt>
+<dd><p>(<code>character</code>) Vector of lines from a test file.</p></dd>
+
+
 <dt id="arg-chrtests">chrTests<a class="anchor" aria-label="anchor" href="#arg-chrtests"></a></dt>
 <dd><p>(<code>character</code>) A vector of test descriptions from a
-<code><a href="CompileIssueTestMatrix.html">CompileIssueTestMatrix()</a></code> matrix.</p></dd>
+<code><a href="CompileIssueTestMatrix.html">CompileIssueTestMatrix()</a></code> matrix or extracted from test files.</p></dd>
 
 
 <dt id="arg-dttmtimestamp">dttmTimestamp<a class="anchor" aria-label="anchor" href="#arg-dttmtimestamp"></a></dt>
 <dd><p>(<code>POSIXct</code>) A system timestamp.</p></dd>
 
 
+<dt id="arg-dffiletests">dfFileTests<a class="anchor" aria-label="anchor" href="#arg-dffiletests"></a></dt>
+<dd><p>(<code>data.frame</code>) A <code><a href="https://tibble.tidyverse.org/reference/tibble.html" class="external-link">tibble::tibble()</a></code> with the structure
+returned by <code><a href="ExtractTestsFromFiles.html">ExtractTestsFromFiles()</a></code>.</p></dd>
+
+
 <dt id="arg-dfitm">dfITM<a class="anchor" aria-label="anchor" href="#arg-dfitm"></a></dt>
 <dd><p>(<code>qcthat_IssueTestMatrix</code>) A <code>qcthat_IssueTestMatrix</code> object as
 returned by <code><a href="AsIssueTestMatrix.html">AsIssueTestMatrix()</a></code> (often via <code><a href="QCPackage.html">QCPackage()</a></code>).</p></dd>
+
+
+<dt id="arg-dfpotentialissues">dfPotentialIssues<a class="anchor" aria-label="anchor" href="#arg-dfpotentialissues"></a></dt>
+<dd><p>(<code>tibble</code>) A data frame as returned by
+<code><a href="MapTestFilesToPotentialIssues.html">MapTestFilesToPotentialIssues()</a></code>.</p></dd>
 
 
 <dt id="arg-dfrepoissues">dfRepoIssues<a class="anchor" aria-label="anchor" href="#arg-dfrepoissues"></a></dt>
@@ -151,6 +165,14 @@ associated.</p></dd>
 <code><a href="CompileIssueTestMatrix.html">CompileIssueTestMatrix()</a></code> matrix or from GitHub.</p></dd>
 
 
+<dt id="arg-intlineend">intLineEnd<a class="anchor" aria-label="anchor" href="#arg-intlineend"></a></dt>
+<dd><p>(<code>length-1 integer</code>) The ending line number.</p></dd>
+
+
+<dt id="arg-intlinestart">intLineStart<a class="anchor" aria-label="anchor" href="#arg-intlinestart"></a></dt>
+<dd><p>(<code>length-1 integer</code>) The starting line number.</p></dd>
+
+
 <dt id="arg-intmaxcommits">intMaxCommits<a class="anchor" aria-label="anchor" href="#arg-intmaxcommits"></a></dt>
 <dd><p>(<code>length-1 integer</code>) The maximum number of commits to
 return from git logs. Leaving this at the default should almost always be
@@ -178,6 +200,10 @@ fetch information about and/or post results to.</p></dd>
 
 <dt id="arg-intprnumbers">intPRNumbers<a class="anchor" aria-label="anchor" href="#arg-intprnumbers"></a></dt>
 <dd><p>(<code>integer</code>) A vector of pull request numbers.</p></dd>
+
+
+<dt id="arg-intteststart">intTestStart<a class="anchor" aria-label="anchor" href="#arg-intteststart"></a></dt>
+<dd><p>(<code>length-1 integer</code>) Line number where test_that starts.</p></dd>
 
 
 <dt id="arg-intuatissue">intUATIssue<a class="anchor" aria-label="anchor" href="#arg-intuatissue"></a></dt>
@@ -228,8 +254,7 @@ already exist.</p></dd>
 
 
 <dt id="arg-lglpr">lglPR<a class="anchor" aria-label="anchor" href="#arg-lglpr"></a></dt>
-<dd><p>(<code>length-1 logical</code>) Whether to include the <code><a href="QCPR.html">QCPR()</a></code>
-report.</p></dd>
+<dd><p>(<code>length-1 logical</code>) Whether to include the <code><a href="QCPR.html">QCPR()</a></code> report.</p></dd>
 
 
 <dt id="arg-lglreportfailure">lglReportFailure<a class="anchor" aria-label="anchor" href="#arg-lglreportfailure"></a></dt>
@@ -316,6 +341,10 @@ condition.</p></dd>
 expectation.</p></dd>
 
 
+<dt id="arg-strdirpath">strDirPath<a class="anchor" aria-label="anchor" href="#arg-strdirpath"></a></dt>
+<dd><p>(<code>length-1 character</code>) The path to a directory.</p></dd>
+
+
 <dt id="arg-strdisposition">strDisposition<a class="anchor" aria-label="anchor" href="#arg-strdisposition"></a></dt>
 <dd><p>(<code>length-1 character</code>) The result of a test, such as
 "pass", "fail", or "skip", or "accepted" or "pending" for UAT.</p></dd>
@@ -331,6 +360,14 @@ condition.</p></dd>
 target file. If the target path already includes an extension, it will be
 replaced with this value. If the value is already correct, this won't have
 any effect.</p></dd>
+
+
+<dt id="arg-strfile">strFile<a class="anchor" aria-label="anchor" href="#arg-strfile"></a></dt>
+<dd><p>(<code>length-1 character</code>) A file name without the path.</p></dd>
+
+
+<dt id="arg-strfilepath">strFilePath<a class="anchor" aria-label="anchor" href="#arg-strfilepath"></a></dt>
+<dd><p>(<code>length-1 character</code>) A file path.</p></dd>
 
 
 <dt id="arg-strghtoken">strGHToken<a class="anchor" aria-label="anchor" href="#arg-strghtoken"></a></dt>
@@ -386,9 +423,19 @@ fetch. Must be one of <code>"open"</code>, <code>"closed"</code>, or <code>"all"
 <dd><p>(<code>length-1 character</code>) Name of the GitHub tag.</p></dd>
 
 
+<dt id="arg-strtargetdir">strTargetDir<a class="anchor" aria-label="anchor" href="#arg-strtargetdir"></a></dt>
+<dd><p>(<code>length-1 character</code>) Path to the directory where the
+file should be added.</p></dd>
+
+
 <dt id="arg-strtargetref">strTargetRef<a class="anchor" aria-label="anchor" href="#arg-strtargetref"></a></dt>
 <dd><p>(<code>length-1 character</code>) Name of the git reference that
 will be merged into. Defaults to the default branch of this repository.</p></dd>
+
+
+<dt id="arg-strtestdir">strTestDir<a class="anchor" aria-label="anchor" href="#arg-strtestdir"></a></dt>
+<dd><p>(<code>length-1 character</code>) Path to the directory containing
+test files. Defaults to <code>"tests/testthat"</code>.</p></dd>
 
 
 <dt id="arg-strtitle">strTitle<a class="anchor" aria-label="anchor" href="#arg-strtitle"></a></dt>

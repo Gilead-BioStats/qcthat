@@ -6,7 +6,6 @@ Fetch workflow runs for a PR
 
 ``` r
 FetchPRActionRuns(
-  intPRNumber,
   strPRHeadRef,
   strAction = character(),
   strOwner = GetGHOwner(),
@@ -16,11 +15,6 @@ FetchPRActionRuns(
 ```
 
 ## Arguments
-
-- intPRNumber:
-
-  (`length-1 integer`) The number of the pull request to fetch
-  information about and/or post results to.
 
 - strPRHeadRef:
 

@@ -60,15 +60,26 @@ Reused parameter definitions are gathered here for easier usage. Use
   extension should be included in the filename or omitted (NOT sent as a
   separate piece of the vector).
 
+- chrTestLines:
+
+  (`character`) Vector of lines from a test file.
+
 - chrTests:
 
   (`character`) A vector of test descriptions from a
   [`CompileIssueTestMatrix()`](https://gilead-biostats.github.io/qcthat/dev/reference/CompileIssueTestMatrix.md)
-  matrix.
+  matrix or extracted from test files.
 
 - dttmTimestamp:
 
   (`POSIXct`) A system timestamp.
+
+- dfFileTests:
+
+  (`data.frame`) A
+  [`tibble::tibble()`](https://tibble.tidyverse.org/reference/tibble.html)
+  with the structure returned by
+  [`ExtractTestsFromFiles()`](https://gilead-biostats.github.io/qcthat/dev/reference/ExtractTestsFromFiles.md).
 
 - dfITM:
 
@@ -77,6 +88,11 @@ Reused parameter definitions are gathered here for easier usage. Use
   [`AsIssueTestMatrix()`](https://gilead-biostats.github.io/qcthat/dev/reference/AsIssueTestMatrix.md)
   (often via
   [`QCPackage()`](https://gilead-biostats.github.io/qcthat/dev/reference/QCPackage.md)).
+
+- dfPotentialIssues:
+
+  (`tibble`) A data frame as returned by
+  [`MapTestFilesToPotentialIssues()`](https://gilead-biostats.github.io/qcthat/dev/reference/MapTestFilesToPotentialIssues.md).
 
 - dfRepoIssues:
 
@@ -116,6 +132,14 @@ Reused parameter definitions are gathered here for easier usage. Use
   [`CompileIssueTestMatrix()`](https://gilead-biostats.github.io/qcthat/dev/reference/CompileIssueTestMatrix.md)
   matrix or from GitHub.
 
+- intLineEnd:
+
+  (`length-1 integer`) The ending line number.
+
+- intLineStart:
+
+  (`length-1 integer`) The starting line number.
+
 - intMaxCommits:
 
   (`length-1 integer`) The maximum number of commits to return from git
@@ -144,6 +168,10 @@ Reused parameter definitions are gathered here for easier usage. Use
 - intPRNumbers:
 
   (`integer`) A vector of pull request numbers.
+
+- intTestStart:
+
+  (`length-1 integer`) Line number where test_that starts.
 
 - intUATIssue:
 
@@ -281,6 +309,10 @@ Reused parameter definitions are gathered here for easier usage. Use
 
   (`length-1 character`) A brief description of a user expectation.
 
+- strDirPath:
+
+  (`length-1 character`) The path to a directory.
+
 - strDisposition:
 
   (`length-1 character`) The result of a test, such as "pass", "fail",
@@ -296,6 +328,14 @@ Reused parameter definitions are gathered here for easier usage. Use
   If the target path already includes an extension, it will be replaced
   with this value. If the value is already correct, this won't have any
   effect.
+
+- strFile:
+
+  (`length-1 character`) A file name without the path.
+
+- strFilePath:
+
+  (`length-1 character`) A file path.
 
 - strGHToken:
 
@@ -349,10 +389,20 @@ Reused parameter definitions are gathered here for easier usage. Use
 
   (`length-1 character`) Name of the GitHub tag.
 
+- strTargetDir:
+
+  (`length-1 character`) Path to the directory where the file should be
+  added.
+
 - strTargetRef:
 
   (`length-1 character`) Name of the git reference that will be merged
   into. Defaults to the default branch of this repository.
+
+- strTestDir:
+
+  (`length-1 character`) Path to the directory containing test files.
+  Defaults to `"tests/testthat"`.
 
 - strTitle:
 

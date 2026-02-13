@@ -30,6 +30,8 @@
   : Default ignored labels as a tibble
 - [`ExpectUserAccepts()`](https://gilead-biostats.github.io/qcthat/dev/reference/ExpectUserAccepts.md)
   **\[experimental\]** : Does a user accept the feature?
+- [`ExtractTestsFromFiles()`](https://gilead-biostats.github.io/qcthat/dev/reference/ExtractTestsFromFiles.md)
+  : Extract test information from test files
 - [`FetchRefPRNumber()`](https://gilead-biostats.github.io/qcthat/dev/reference/FetchRefPRNumber.md)
   : Fetch the pull request number for a branch or other git ref
 - [`FetchRepoIssueClosers()`](https://gilead-biostats.github.io/qcthat/dev/reference/FetchRepoIssueClosers.md)
@@ -38,6 +40,8 @@
   : Fetch repository issues
 - [`FetchRepoPRs()`](https://gilead-biostats.github.io/qcthat/dev/reference/FetchRepoPRs.md)
   : Fetch repository pull requests
+- [`FindAllIssueCommits()`](https://gilead-biostats.github.io/qcthat/dev/reference/FindAllIssueCommits.md)
+  : Find all commits associated with an issue closer
 - [`GetGHOwner()`](https://gilead-biostats.github.io/qcthat/dev/reference/GetGHOwner.md)
   : Find the owner of the target repository
 - [`GetGHRepo()`](https://gilead-biostats.github.io/qcthat/dev/reference/GetGHRepo.md)
@@ -56,6 +60,12 @@
   : Load the GitHub event payload
 - [`LoadUATIssues()`](https://gilead-biostats.github.io/qcthat/dev/reference/LoadUATIssues.md)
   : Load UAT issues from disk
+- [`MapIssueClosersToCommits()`](https://gilead-biostats.github.io/qcthat/dev/reference/MapIssueClosersToCommits.md)
+  : Add Commits list column to dfIssueClosers
+- [`MapTestFilesToPotentialIssues()`](https://gilead-biostats.github.io/qcthat/dev/reference/MapTestFilesToPotentialIssues.md)
+  : Map test files to potential issues
+- [`PrepareTestIssueContext()`](https://gilead-biostats.github.io/qcthat/dev/reference/PrepareTestIssueContext.md)
+  : Prepare test issue context for analysis
 - [`QCCompletedIssues()`](https://gilead-biostats.github.io/qcthat/dev/reference/QCCompletedIssues.md)
   : Generate a QC report of completed issues
 - [`QCIssues()`](https://gilead-biostats.github.io/qcthat/dev/reference/QCIssues.md)
@@ -75,6 +85,8 @@
   : Save UAT issues to disk
 - [`SetupGHLabels()`](https://gilead-biostats.github.io/qcthat/dev/reference/SetupGHLabels.md)
   : Setup qcthat labels in a GitHub repository
+- [`Skill_TagTestsWithIssues()`](https://gilead-biostats.github.io/qcthat/dev/reference/Skill_TagTestsWithIssues.md)
+  : Use an AI skill to tag tests with issues
 - [`TriggerUAT()`](https://gilead-biostats.github.io/qcthat/dev/reference/TriggerUAT.md)
   : Trigger the UAT cycle for closed issues
 - [`print(`*`<qcthat_Object>`*`)`](https://gilead-biostats.github.io/qcthat/dev/reference/printing.md)

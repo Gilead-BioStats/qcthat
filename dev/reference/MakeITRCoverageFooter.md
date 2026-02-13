@@ -24,7 +24,7 @@ MakeITRCoverageFooter(
 
   (`character`) A vector of test descriptions from a
   [`CompileIssueTestMatrix()`](https://gilead-biostats.github.io/qcthat/dev/reference/CompileIssueTestMatrix.md)
-  matrix.
+  matrix or extracted from test files.
 
 - lglUseEmoji:
 

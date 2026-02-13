@@ -10,6 +10,7 @@ FetchPRRefs(
   strOwner = GetGHOwner(),
   strRepo = GetGHRepo(),
   strGHToken = gh::gh_token(),
+  lPRs = NULL,
   envCall = rlang::caller_env()
 )
 ```
@@ -32,6 +33,14 @@ FetchPRRefs(
 - strGHToken:
 
   (`length-1 character`) GitHub token with permissions to read issues.
+
+- lPRs:
+
+  (`list` or `NULL`) Optional list of raw pull request objects as
+  returned by
+  [`FetchRawRepoPRs()`](https://gilead-biostats.github.io/qcthat/dev/reference/FetchRawRepoPRs.md).
+  If provided, the PR will be looked up from this list instead of
+  fetching individually from the API.
 
 - envCall:
 

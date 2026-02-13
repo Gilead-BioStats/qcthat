@@ -99,6 +99,9 @@ test_that("ValidateDFLabels checks for required columns (#90)", {
 
 test_that("CreateGHLabel reports success conditional on lglVerbose (#90)", {
   local_mocked_bindings(
+    FetchGHLabels = function(...) {
+      list(Label = character())
+    },
     CallGHAPI = function(strEndpoint, name, ...) {
       return(list(name = name))
     }

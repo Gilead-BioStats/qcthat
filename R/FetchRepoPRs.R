@@ -4,7 +4,6 @@
 #' [tibble::tibble()].
 #'
 #' @inheritParams shared-params
-#'
 #' @returns A `qcthat_PRs` object, which is a [tibble::tibble()] with
 #'   columns:
 #'   - `PR`: Pull request number.
@@ -23,7 +22,6 @@
 #'   - `MergedAt`: `POSIXct` timestamp of when the pull request was merged, or
 #'   `NA` if the pull request has not been merged.
 #' @export
-#'
 #' @examplesIf interactive()
 #'
 #'   FetchRepoPRs()
@@ -77,6 +75,7 @@ FetchRawRepoPRSingle <- function(
   strGHToken = gh::gh_token(),
   envCall = rlang::caller_env()
 ) {
+  # nocov start
   tryCatch(
     CallGHAPI(
       "GET /repos/{owner}/{repo}/pulls/{pull_number}",
@@ -95,6 +94,30 @@ FetchRawRepoPRSingle <- function(
         envCall = envCall
       )
     }
+  )
+  # nocov end
+}
+
+#' Look up a PR from a list by number
+#'
+#' @param lPRs A list of raw pull request objects as returned by
+#'   [FetchRawRepoPRs()].
+#' @param intPRNumber (`length-1 integer`) The pull request number to look up.
+#' @param envCall (`environment`) The calling environment for error messages.
+#' @returns A list representing a raw pull request object.
+#' @keywords internal
+LookupPRFromList <- function(lPRs, intPRNumber, envCall = rlang::caller_env()) {
+  lPR <- purrr::keep(lPRs, \(x) isTRUE(x$number == intPRNumber))
+  if (length(lPR)) {
+    return(lPR[[1]])
+  }
+  qcthatAbort(
+    c(
+      "{.arg intPRNumber} must refer to a pull request in the provided list.",
+      i = "Pull request number {.val {intPRNumber}} not found."
+    ),
+    strErrorSubclass = "pr_not_found",
+    envCall = envCall
   )
 }
 

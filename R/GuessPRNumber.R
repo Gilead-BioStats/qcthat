@@ -3,11 +3,9 @@
 #' Tries to find a pull request associated with the active branch.
 #'
 #' @inheritParams shared-params
-#'
 #' @returns The associated pull request number as an integer, or `NULL` if no
 #'   pull requests are found.
 #' @export
-#'
 #' @examplesIf interactive()
 #'
 #'   GuessPRNumber()
@@ -50,13 +48,11 @@ GetGHAPRNumber <- function(lGHEventPayload = LoadGHEventPayload()) {
 #' Fetch the pull request number for a branch or other git ref
 #'
 #' @inheritParams shared-params
-#'
 #' @returns An integer pull request number, or `integer()` if no matching PR is
 #'   found. If multiple PRs are found, first, if there are any open PRs, we
 #'   filter to only include open PRs, then the PR that was most recently created
 #'   is returned.
 #' @export
-#'
 #' @examplesIf interactive()
 #'
 #'   FetchRefPRNumber()
@@ -95,7 +91,6 @@ FetchRefPRNumber <- function(
 #' @param dfPRs (`data.frame`) Data frame of pull requests as returned by
 #'   [FetchRepoPRs()].
 #' @inheritParams shared-params
-#'
 #' @returns A `length-1 integer` pull request number.
 #' @keywords internal
 ChooseRefPRNumber <- function(dfPRs, strSourceRef = GetActiveBranch()) {

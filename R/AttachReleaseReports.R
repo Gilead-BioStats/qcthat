@@ -4,7 +4,6 @@
 #' markdown.
 #'
 #' @inheritParams shared-params
-#'
 #' @returns `dfITM`, invisibly.
 #' @export
 AttachReleaseReports <- function(
@@ -128,7 +127,6 @@ UpdateReleaseBody <- function(
 #' Compile release reports in GitHub markdown
 #'
 #' @inheritParams shared-params
-#'
 #' @returns A single string containing the compiled markdown.
 #' @keywords internal
 CompileReleaseReportsMarkdown <- function(

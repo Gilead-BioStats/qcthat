@@ -9,6 +9,7 @@ FetchPRRefs(
   strOwner = GetGHOwner(),
   strRepo = GetGHRepo(),
   strGHToken = gh::gh_token(),
+  lPRs = NULL,
   envCall = rlang::caller_env()
 )
 }
@@ -22,6 +23,10 @@ fetch information about and/or post results to.}
 
 \item{strGHToken}{(\verb{length-1 character}) GitHub token with permissions to
 read issues.}
+
+\item{lPRs}{(\code{list} or \code{NULL}) Optional list of raw pull request objects as
+returned by \code{\link[=FetchRawRepoPRs]{FetchRawRepoPRs()}}. If provided, the PR will be looked up
+from this list instead of fetching individually from the API.}
 
 \item{envCall}{(\code{environment}) The environment to use for error reporting.
 Typically set to \code{\link[rlang:stack]{rlang::caller_env()}}.}

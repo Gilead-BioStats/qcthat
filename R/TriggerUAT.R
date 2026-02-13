@@ -126,7 +126,6 @@ MaybeRerunQCPRWorkflow <- function(
   strGHToken = gh::gh_token()
 ) {
   lPRQCPRReportRuns <- FetchPRActionRuns(
-    intPRNumber = intPRNumber,
     strPRHeadRef = strPRHeadRef,
     strAction = "qcthat",
     strOwner = strOwner,
@@ -152,7 +151,6 @@ MaybeRerunQCPRWorkflow <- function(
 #' @returns A list of workflow run objects returned by [CallGHAPI()].
 #' @keywords internal
 FetchPRActionRuns <- function(
-  intPRNumber,
   strPRHeadRef,
   strAction = character(),
   strOwner = GetGHOwner(),

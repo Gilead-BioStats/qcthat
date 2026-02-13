@@ -12,3 +12,5 @@
 ^[.]?air[.]toml$
 ^\.vscode$
 ^slides$
+^AGENTS\.md$
+^\.positai$

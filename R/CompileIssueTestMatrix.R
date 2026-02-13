@@ -5,7 +5,6 @@
 #' and associated tests.
 #'
 #' @inheritParams shared-params
-#'
 #' @returns A `qcthat_IssueTestMatrix` object, which is a tibble with columns:
 #'   - `Milestone`: The milestone title associated with the issues.
 #'   - `Issue`: Issue number.
@@ -31,7 +30,6 @@
 #'   - `Disposition`: Factor with levels `pass`, `fail`, and `skip` indicating
 #'   the overall outcome of the test.
 #' @export
-#'
 #' @examplesIf interactive()
 #' lTestResults <- testthat::test_local(
 #'   stop_on_failure = FALSE,

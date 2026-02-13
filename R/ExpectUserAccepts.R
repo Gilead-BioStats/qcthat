@@ -84,11 +84,9 @@ IsOnline <- function() {
 #'
 #' @param strUATEnvVar (`length-1 character`) The name of the environment
 #'   variable to check.
-#'
 #' @returns `TRUE` if the specified environment variable is set to `"TRUE"`
 #'   (case-insensitive), `FALSE` otherwise.
 #' @export
-#'
 #' @examples
 #' CurrentValue <- Sys.getenv("qcthat_UAT")
 #' Sys.setenv(qcthat_UAT = "")

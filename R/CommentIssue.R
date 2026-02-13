@@ -3,10 +3,8 @@
 #' Create or update a comment on a GitHub issue with a standardized format.
 #'
 #' @inheritParams shared-params
-#'
 #' @returns The comment object as returned by [gh::gh()], invisibly.
 #' @export
-#'
 #' @examplesIf interactive()
 #' # This only works if you have an issue #1 in your repository.
 #' CommentIssue(

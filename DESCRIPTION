@@ -37,6 +37,7 @@ Imports:
 Suggests: 
     emoji,
     fs,
+    git2r,
     httr2,
     lifecycle,
     sessioninfo,

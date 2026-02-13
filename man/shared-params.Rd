@@ -36,13 +36,21 @@ separate piece of the vector).}
 file extension should be included in the filename or omitted (NOT sent as a
 separate piece of the vector).}
 
+\item{chrTestLines}{(\code{character}) Vector of lines from a test file.}
+
 \item{chrTests}{(\code{character}) A vector of test descriptions from a
-\code{\link[=CompileIssueTestMatrix]{CompileIssueTestMatrix()}} matrix.}
+\code{\link[=CompileIssueTestMatrix]{CompileIssueTestMatrix()}} matrix or extracted from test files.}
 
 \item{dttmTimestamp}{(\code{POSIXct}) A system timestamp.}
 
+\item{dfFileTests}{(\code{data.frame}) A \code{\link[tibble:tibble]{tibble::tibble()}} with the structure
+returned by \code{\link[=ExtractTestsFromFiles]{ExtractTestsFromFiles()}}.}
+
 \item{dfITM}{(\code{qcthat_IssueTestMatrix}) A \code{qcthat_IssueTestMatrix} object as
 returned by \code{\link[=AsIssueTestMatrix]{AsIssueTestMatrix()}} (often via \code{\link[=QCPackage]{QCPackage()}}).}
+
+\item{dfPotentialIssues}{(\code{tibble}) A data frame as returned by
+\code{\link[=MapTestFilesToPotentialIssues]{MapTestFilesToPotentialIssues()}}.}
 
 \item{dfRepoIssues}{(\code{qcthat_Issues} or data frame) Data frame of GitHub
 issues as returned by \code{\link[=FetchRepoIssues]{FetchRepoIssues()}}.}
@@ -64,6 +72,10 @@ associated.}
 \item{intIssues}{(\code{integer}) A vector of issue numbers from a
 \code{\link[=CompileIssueTestMatrix]{CompileIssueTestMatrix()}} matrix or from GitHub.}
 
+\item{intLineEnd}{(\verb{length-1 integer}) The ending line number.}
+
+\item{intLineStart}{(\verb{length-1 integer}) The starting line number.}
+
 \item{intMaxCommits}{(\verb{length-1 integer}) The maximum number of commits to
 return from git logs. Leaving this at the default should almost always be
 fine, but you can reduce the number if your repository has a long commit
@@ -82,6 +94,8 @@ a parent-child issue relationship.}
 fetch information about and/or post results to.}
 
 \item{intPRNumbers}{(\code{integer}) A vector of pull request numbers.}
+
+\item{intTestStart}{(\verb{length-1 integer}) Line number where test_that starts.}
 
 \item{intUATIssue}{(\code{integer}) The number of an issue that tracks
 user-acceptance testing.}
@@ -112,8 +126,7 @@ GitHub.}
 \item{lglOverwrite}{(\verb{length-1 logical}) Whether to overwrite files if they
 already exist.}
 
-\item{lglPR}{(\verb{length-1 logical}) Whether to include the \code{\link[=QCPR]{QCPR()}}
-report.}
+\item{lglPR}{(\verb{length-1 logical}) Whether to include the \code{\link[=QCPR]{QCPR()}} report.}
 
 \item{lglReportFailure}{(\verb{length-1 logical}) Whether to ignore failures
 (default unless a "qcthat_UAT" environment variable is "true"), or fail
@@ -167,6 +180,8 @@ condition.}
 \item{strDescription}{(\verb{length-1 character}) A brief description of a user
 expectation.}
 
+\item{strDirPath}{(\verb{length-1 character}) The path to a directory.}
+
 \item{strDisposition}{(\verb{length-1 character}) The result of a test, such as
 "pass", "fail", or "skip", or "accepted" or "pending" for UAT.}
 
@@ -177,6 +192,10 @@ condition.}
 target file. If the target path already includes an extension, it will be
 replaced with this value. If the value is already correct, this won't have
 any effect.}
+
+\item{strFile}{(\verb{length-1 character}) A file name without the path.}
+
+\item{strFilePath}{(\verb{length-1 character}) A file path.}
 
 \item{strGHToken}{(\verb{length-1 character}) GitHub token with permissions to
 read issues.}
@@ -209,8 +228,14 @@ fetch. Must be one of \code{"open"}, \code{"closed"}, or \code{"all"}. Defaults 
 
 \item{strTagName}{(\verb{length-1 character}) Name of the GitHub tag.}
 
+\item{strTargetDir}{(\verb{length-1 character}) Path to the directory where the
+file should be added.}
+
 \item{strTargetRef}{(\verb{length-1 character}) Name of the git reference that
 will be merged into. Defaults to the default branch of this repository.}
+
+\item{strTestDir}{(\verb{length-1 character}) Path to the directory containing
+test files. Defaults to \code{"tests/testthat"}.}
 
 \item{strTitle}{(\verb{length-1 character}) A title for an issue.}
 }

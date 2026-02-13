@@ -34,8 +34,7 @@ fetch information about and/or post results to.}
 \item{lglMilestone}{(\verb{length-1 logical}) Whether to include the
 \code{\link[=QCMilestones]{QCMilestones()}} report.}
 
-\item{lglPR}{(\verb{length-1 logical}) Whether to include the \code{\link[=QCPR]{QCPR()}}
-report.}
+\item{lglPR}{(\verb{length-1 logical}) Whether to include the \code{\link[=QCPR]{QCPR()}} report.}
 
 \item{lglUAT}{(\verb{length-1 logical}) Whether to include the \code{\link[=CommentUAT]{CommentUAT()}}
 report.}

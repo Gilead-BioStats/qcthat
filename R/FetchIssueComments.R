@@ -1,7 +1,6 @@
 #' Fetch comments on an issue
 #'
 #' @inheritParams shared-params
-#'
 #' @returns A `qcthat_Comments` object, which is a [tibble::tibble()] with
 #'   columns:
 #'   - `Body`: Comment body (the full text of the comment).

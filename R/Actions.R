@@ -37,7 +37,6 @@ InstallAction <- function(
 #' @inheritParams shared-params
 #' @returns The path to the created GitHub Action YAML file (invisibly).
 #' @export
-#'
 #' @examplesIf interactive()
 #'
 #'   Action_QCCompletedIssues()
@@ -63,7 +62,6 @@ Action_QCCompletedIssues <- function(lglOverwrite = FALSE, strPkgRoot = ".") {
 #' @inheritParams shared-params
 #' @returns The path to the created GitHub Action YAML file (invisibly).
 #' @export
-#'
 #' @examplesIf interactive()
 #'
 #'   Action_QCPRIssues()
@@ -88,7 +86,6 @@ Action_QCPRIssues <- function(lglOverwrite = FALSE, strPkgRoot = ".") {
 #' @inheritParams shared-params
 #' @returns The path to the created GitHub Action YAML file (invisibly).
 #' @export
-#'
 #' @examplesIf interactive()
 #'
 #'   Action_QCPRIssues()
@@ -111,7 +108,6 @@ Action_QCMilestone <- function(lglOverwrite = FALSE, strPkgRoot = ".") {
 #' @inheritParams shared-params
 #' @returns The path to the created GitHub Action YAML file (invisibly).
 #' @export
-#'
 #' @examplesIf interactive()
 #'
 #'   Action_UAT()

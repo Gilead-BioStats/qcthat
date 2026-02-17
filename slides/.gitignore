@@ -1,4 +1,3 @@
-*
-!.gitignore
-!*.qmd
-!*.R
+*.html
+*.txt
+introduction_files

@@ -1,0 +1,66 @@
+# Generate a QC report for a package
+
+A QC report combines information about GitHub issues associated with a
+package (see
+[`FetchRepoIssues()`](https://gilead-biostats.github.io/qcthat/dev/reference/FetchRepoIssues.md))
+and testthat test results for the package (see
+[`CompileTestResults()`](https://gilead-biostats.github.io/qcthat/dev/reference/CompileTestResults.md))
+using
+[`CompileIssueTestMatrix()`](https://gilead-biostats.github.io/qcthat/dev/reference/CompileIssueTestMatrix.md).
+
+## Usage
+
+``` r
+QCPackage(
+  strPkgRoot = ".",
+  strOwner = GetGHOwner(strPkgRoot),
+  strRepo = GetGHRepo(strPkgRoot),
+  strGHToken = gh::gh_token(),
+  chrIgnoredLabels = DefaultIgnoreLabels(),
+  envCall = rlang::caller_env()
+)
+```
+
+## Arguments
+
+- strPkgRoot:
+
+  (`length-1 character`) The path to a directory in the package. Will be
+  expanded using
+  [`gert::git_find()`](https://docs.ropensci.org/gert/reference/git_repo.html).
+
+- strOwner:
+
+  (`length-1 character`) GitHub username or organization name.
+
+- strRepo:
+
+  (`length-1 character`) GitHub repository name.
+
+- strGHToken:
+
+  (`length-1 character`) GitHub token with permissions to read issues.
+
+- chrIgnoredLabels:
+
+  (`character`) GitHub labels to ignore, such as `"qcthat-nocov"`.
+
+- envCall:
+
+  (`environment`) The environment to use for error reporting. Typically
+  set to
+  [`rlang::caller_env()`](https://rlang.r-lib.org/reference/stack.html).
+
+## Value
+
+A `qcthat_IssueTestMatrix` object as returned by
+[`CompileIssueTestMatrix()`](https://gilead-biostats.github.io/qcthat/dev/reference/CompileIssueTestMatrix.md).
+
+## Examples
+
+``` r
+if (FALSE) { # interactive()
+
+  QCPackage()
+}
+```

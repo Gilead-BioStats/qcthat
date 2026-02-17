@@ -12,6 +12,7 @@ MapTestsToCommits <- function(dfFileTests, strTestDir = "tests/testthat") {
   if (!nrow(dfFileTests)) {
     return(dplyr::mutate(dfFileTests, Commits = list()))
   }
+  rlang::check_installed("git2r", "to load git blame information")
   chrUniquePaths <- fs::path(strTestDir, unique(dfFileTests$File))
   dfBlames <- purrr::map(chrUniquePaths, BlameFile) |>
     purrr::list_rbind()

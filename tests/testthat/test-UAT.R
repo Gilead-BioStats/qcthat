@@ -12,7 +12,7 @@ test_that("The required R version is within the normal support window (#146)", {
   )
 })
 
-test_that("The pkgdown site has an intro slide deck (#167, #168)", {
+test_that("The pkgdown site has an intro slide deck (#167, #168, #169)", {
   ExpectUserAccepts(
     "The pkgdown site has a slide deck.",
     intIssue = 167,
@@ -34,5 +34,17 @@ test_that("The pkgdown site has an intro slide deck (#167, #168)", {
       sep = "\n"
     ),
     chrChecks = c("The titles make sense for this introduction to qcthat.")
+  )
+  ExpectUserAccepts(
+    "The intro slide deck has appropriate slides.",
+    intIssue = 169,
+    chrInstructions = paste(
+      "1. Load the website linked in this issue as 'PR pkgdown deployed'.",
+      "2. Open the 'Slides' menu.",
+      "3. Click the deck titled 'Introduction'.",
+      "4. Move through the deck with arrow keys.",
+      sep = "\n"
+    ),
+    chrChecks = c("The slides make sense as an introduction to qcthat.")
   )
 })

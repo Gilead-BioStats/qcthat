@@ -98,7 +98,8 @@
 #' @param lglUAT (`length-1 logical`) Whether to include the [CommentUAT()]
 #'   report.
 #' @param lglUpdate (`length-1 logical`) Whether to update an existing comment
-#'   if it already exists (rather than creating a new comment).
+#'   or label if it already exists (rather than creating a new comment or
+#'   label).
 #' @param lglUseEmoji (`length-1 logical`) Whether to use emojis (if `TRUE` and
 #'   the emoji package is installed) or ASCII indicators (if `FALSE`) in the
 #'   output. By default, this is determined by the `qcthat.emoji` option, which
@@ -136,6 +137,11 @@
 #' @param strFilePath (`length-1 character`) A file path.
 #' @param strGHToken (`length-1 character`) GitHub token with permissions to
 #'   read issues.
+#' @param strLabel (`length-1 character`) The name of the label to create.
+#' @param strLabelColor (`length-1 character`) The hex color code for the
+#'   label (e.g., `"#444444"`).
+#' @param strLabelDescription (`length-1 character`) The description for the
+#'   label.
 #' @param strOwner (`length-1 character`) GitHub username or organization name.
 #' @param strPkgRoot (`length-1 character`) The path to a directory in the
 #'   package. Will be expanded using [gert::git_find()].

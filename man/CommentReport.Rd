@@ -27,7 +27,8 @@ such as \code{"Completed Issues"} or \code{"PR-Associated Issues"}.}
 fetch information about and/or post results to.}
 
 \item{lglUpdate}{(\verb{length-1 logical}) Whether to update an existing comment
-if it already exists (rather than creating a new comment).}
+or label if it already exists (rather than creating a new comment or
+label).}
 
 \item{strRunID}{(\verb{length-1 character}) ID (typically numeric but can be very
 long) of a GitHub Actions workflow run.}

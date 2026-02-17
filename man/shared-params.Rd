@@ -143,7 +143,8 @@ ignored.}
 report.}
 
 \item{lglUpdate}{(\verb{length-1 logical}) Whether to update an existing comment
-if it already exists (rather than creating a new comment).}
+or label if it already exists (rather than creating a new comment or
+label).}
 
 \item{lglUseEmoji}{(\verb{length-1 logical}) Whether to use emojis (if \code{TRUE} and
 the emoji package is installed) or ASCII indicators (if \code{FALSE}) in the
@@ -199,6 +200,14 @@ any effect.}
 
 \item{strGHToken}{(\verb{length-1 character}) GitHub token with permissions to
 read issues.}
+
+\item{strLabel}{(\verb{length-1 character}) The name of the label to create.}
+
+\item{strLabelColor}{(\verb{length-1 character}) The hex color code for the
+label (e.g., \code{"#444444"}).}
+
+\item{strLabelDescription}{(\verb{length-1 character}) The description for the
+label.}
 
 \item{strOwner}{(\verb{length-1 character}) GitHub username or organization name.}
 

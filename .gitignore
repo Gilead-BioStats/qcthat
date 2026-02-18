@@ -33,17 +33,16 @@ vignettes/*.pdf
 *_cache/
 /cache/
 
-# Temporary files created by R markdown/pkgdown
+# Temporary files created by R markdown/pkgdown/quarto
 *.utf8.md
 *.knit.md
 docs
 inst/doc
+/.quarto/
 
 # R Environment Variables
 .Renviron
 .Rproj.user
 
-
-/.quarto/
-AGENTS.md
+# User-specific AI files
 .positai

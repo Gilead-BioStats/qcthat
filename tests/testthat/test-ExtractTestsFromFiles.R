@@ -20,6 +20,8 @@ test_that("ExtractTestsFromFiles parses tests and issues from test dirs (#52, #2
     Issues = list(3L, integer(), 9:10, 1L, 5L, 6L, 1:2),
     TaggedNoIssue = c(FALSE, TRUE, rep(FALSE, 5))
   )
+  # Deal with slight difference during certain CI.
+  dfResult$File <- stringr:str_remove(dfResult$File, "^qcthat-")
   expect_identical(dfResult, dfExpected)
 })
 

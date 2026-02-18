@@ -9,6 +9,8 @@ Connect test cases to their related GitHub issues by adding issue references (e.
 
 This skill is intended to be executed with minimal interaction, so skip chat output that is intended only for user review.
 
+Note: Throughout this skill, if a full path is not provided, files are located in `tests/testthat` (you should not need to search the entire repo for them).
+
 ## Step 1: Load Test and Issue Context
 
 Extract all tests and process them file-by-file. `MapTestFilesToPotentialIssues()` can be very slow, so only process one file at a time, and be prepared to wait. Do not try to speed up the process by avoiding this function. Its output is required for `PrepareTestIssueContext()`, and the output of `PrepareTestIssueContext()` is your source of all context for the remaining steps.

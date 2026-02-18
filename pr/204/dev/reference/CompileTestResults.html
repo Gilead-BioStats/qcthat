@@ -64,7 +64,8 @@ parallel testing, like <code>reporter = "silent"</code>, and assigning it to a n
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
     <p>A <code>qcthat_TestResults</code> object, which is a <code><a href="https://tibble.tidyverse.org/reference/tibble.html" class="external-link">tibble::tibble()</a></code> with
 columns:</p><ul><li><p><code>Test</code>: The <code>desc</code> field of the test from <code><a href="https://testthat.r-lib.org/reference/test_that.html" class="external-link">testthat::test_that()</a></code>.</p></li>
-<li><p><code>File</code>: File where the test is defined.</p></li>
+<li><p><code>File</code>: Path to the file where the test is defined, relative to the
+package root.</p></li>
 <li><p><code>Disposition</code>: Factor with levels <code>pass</code>, <code>fail</code>, and <code>skip</code> indicating
 the overall outcome of the test.</p></li>
 <li><p><code>Issues</code>: List column containing integer vectors of associated GitHub

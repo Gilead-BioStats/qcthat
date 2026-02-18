@@ -97,7 +97,8 @@ otherwise <code>NA</code>.</p></li>
 <li><p><code>ClosedAt</code>: <code>POSIXct</code> timestamp of when the issue was closed, or <code>NA</code> if
 the issue is still open.</p></li>
 <li><p><code>Test</code>: The <code>desc</code> field of the test from <code><a href="https://testthat.r-lib.org/reference/test_that.html" class="external-link">testthat::test_that()</a></code>.</p></li>
-<li><p><code>File</code>: File where the test is defined.</p></li>
+<li><p><code>File</code>: Path to the file where the test is defined, relative to the
+package root.</p></li>
 <li><p><code>Disposition</code>: Factor with levels <code>pass</code>, <code>fail</code>, and <code>skip</code> indicating
 the overall outcome of the test.</p></li>
 </ul></div>

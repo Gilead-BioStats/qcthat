@@ -87,8 +87,9 @@ appropriate to the action being performed.</p></dd>
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
-    <p>A <code><a href="https://tibble.tidyverse.org/reference/tibble.html" class="external-link">tibble::tibble()</a></code> with columns:</p><ul><li><p><code>Test</code>: Test description (character).</p></li>
-<li><p><code>File</code>: Test file name (character).</p></li>
+    <p>A <code><a href="https://tibble.tidyverse.org/reference/tibble.html" class="external-link">tibble::tibble()</a></code> with columns:</p><ul><li><p><code>Test</code>: The <code>desc</code> field of the test from <code><a href="https://testthat.r-lib.org/reference/test_that.html" class="external-link">testthat::test_that()</a></code>.</p></li>
+<li><p><code>File</code>: Path to the file where the test is defined, relative to the
+package root.</p></li>
 <li><p><code>LineStart</code>: Starting line number of test.</p></li>
 <li><p><code>LineEnd</code>: Ending line number of test.</p></li>
 <li><p><code>Issues</code>: List column containing integer vectors of issue numbers already

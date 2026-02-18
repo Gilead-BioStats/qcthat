@@ -5,13 +5,7 @@ Read test code from a file
 ## Usage
 
 ``` r
-ReadTestCode(
-  strFile,
-  intLineStart,
-  intLineEnd,
-  strTestDir = "tests/testthat",
-  envCall = rlang::caller_env()
-)
+ReadTestCode(strFile, intLineStart, intLineEnd, envCall = rlang::caller_env())
 ```
 
 ## Arguments
@@ -27,11 +21,6 @@ ReadTestCode(
 - intLineEnd:
 
   (`length-1 integer`) The ending line number.
-
-- strTestDir:
-
-  (`length-1 character`) Path to the directory containing test files.
-  Defaults to `"tests/testthat"`.
 
 - envCall:
 

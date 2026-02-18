@@ -160,6 +160,7 @@
 <url><loc>https://gilead-biostats.github.io/qcthat/dev/reference/GetGitLog.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/qcthat/dev/reference/GetPkgRoot.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/qcthat/dev/reference/GetRawSessionInfo.html</loc></url>
+<url><loc>https://gilead-biostats.github.io/qcthat/dev/reference/GetRelativePackagePath.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/qcthat/dev/reference/GlueEscaped.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/qcthat/dev/reference/GuessIssueNumber.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/qcthat/dev/reference/GuessMilestones.html</loc></url>
@@ -230,7 +231,6 @@
 <url><loc>https://gilead-biostats.github.io/qcthat/dev/reference/UpdateReleaseBody.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/qcthat/dev/reference/UsesGit.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/qcthat/dev/reference/ValidateDFLabels.html</loc></url>
-<url><loc>https://gilead-biostats.github.io/qcthat/dev/reference/ValidateFilePath.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/qcthat/dev/reference/index.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/qcthat/dev/reference/printing.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/qcthat/dev/reference/qcthat-package.html</loc></url>

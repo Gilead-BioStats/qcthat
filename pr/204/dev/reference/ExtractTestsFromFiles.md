@@ -6,7 +6,10 @@ locations, line numbers, and associated GitHub issue numbers.
 ## Usage
 
 ``` r
-ExtractTestsFromFiles(strTestDir = "tests/testthat")
+ExtractTestsFromFiles(
+  strTestDir = "tests/testthat",
+  envCall = rlang::caller_env()
+)
 ```
 
 ## Arguments
@@ -15,6 +18,12 @@ ExtractTestsFromFiles(strTestDir = "tests/testthat")
 
   (`length-1 character`) Path to the directory containing test files.
   Defaults to `"tests/testthat"`.
+
+- envCall:
+
+  (`environment`) The environment to use for error reporting. Typically
+  set to
+  [`rlang::caller_env()`](https://rlang.r-lib.org/reference/stack.html).
 
 ## Value
 
@@ -25,7 +34,8 @@ with columns:
 - `Test`: The `desc` field of the test from
   [`testthat::test_that()`](https://testthat.r-lib.org/reference/test_that.html).
 
-- `File`: File where the test is defined.
+- `File`: Path to the file where the test is defined, relative to the
+  package root.
 
 - `LineStart`: First line of the test.
 

@@ -1,11 +1,11 @@
-# Git blame a file (raw)
+# Find the path to a file
 
-Git blame a file (raw)
+Find the path to a file
 
 ## Usage
 
 ``` r
-BlameFileRaw(strFilePath, envCall = rlang::caller_env())
+GetRelativePackagePath(strFilePath, envCall = rlang::caller_env())
 ```
 
 ## Arguments
@@ -22,6 +22,5 @@ BlameFileRaw(strFilePath, envCall = rlang::caller_env())
 
 ## Value
 
-The result of
-[`git2r::blame()`](https://docs.ropensci.org/git2r/reference/blame.html).
-This function exists to make mocking easier.
+The path to a file, relative to the root of the package that the file is
+within.

@@ -1,8 +1,6 @@
 # Workflow derived from
 # https://github.com/Gilead-BioStats/qcthat/tree/v1.1.0/inst/workflows/qcthat.yaml.
 on:
-  push:
-    branches: [main]
   pull_request:
     types: [opened, edited, reopened, synchronize, milestoned]
   release:

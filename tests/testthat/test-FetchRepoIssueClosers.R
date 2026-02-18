@@ -58,7 +58,9 @@ test_that("FetchRepoIssueClosers processes raw data correctly (#133)", {
                           `__typename` = "PullRequest",
                           number = 99,
                           merged = TRUE,
-                          repository = list(nameWithOwner = "other-owner/other-repo")
+                          repository = list(
+                            nameWithOwner = "other-owner/other-repo"
+                          )
                         )
                       )
                     )
@@ -169,7 +171,8 @@ test_that("IsIssueCloserFromRepo filters cross-repo PRs (#133)", {
   )
   expect_false(
     IsIssueCloserFromRepo(
-      make_issue("PullRequest", "other-owner/other-repo"), "owner/repo"
+      make_issue("PullRequest", "other-owner/other-repo"),
+      "owner/repo"
     )
   )
 })

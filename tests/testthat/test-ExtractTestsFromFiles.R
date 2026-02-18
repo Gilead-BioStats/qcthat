@@ -13,7 +13,7 @@ test_that("ExtractTestsFromFiles parses tests and issues from test dirs (#52, #2
       "No spaces (#1,#2)"
     ),
     File = fs::path(
-      "tests/testthat/fixtures/testFiles",
+      test_path("fixtures", "testFiles"),
       c(rep("test-example1.R", 4), rep("test-example2.R", 3))
     ),
     LineStart = c(3L, 7L, 11L, 16L, 3L, 7L, 11L),

@@ -59,13 +59,12 @@ ExtractTestsFromFile <- function(strFilePath, envCall = rlang::caller_env()) {
   if (!length(lTests)) {
     return(EmptyFileTestsDF())
   }
-  strPkgRoot <- GetPkgRoot(strFilePath, envCall = envCall)
   tidyr::unnest_wider(
     tibble::as_tibble_col(lTests),
     "value"
   ) |>
     dplyr::mutate(
-      File = fs::path_rel(strFilePath, strPkgRoot),
+      File = fs::path_rel(strFilePath),
       .before = "LineStart"
     ) |>
     dplyr::mutate(

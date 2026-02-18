@@ -87,7 +87,7 @@ BlameFile <- function(strFilePath, envCall = rlang::caller_env()) {
 #' @keywords internal
 EnframeHunk <- function(lHunk, strFilePath, envCall = rlang::caller_env()) {
   tibble::tibble(
-    File = GetRelativePackagePath(strFilePath, envCall = envCall),
+    File = strFilePath,
     Line = seq(
       from = lHunk$final_start_line_number,
       length.out = lHunk$lines_in_hunk
@@ -104,8 +104,8 @@ EnframeHunk <- function(lHunk, strFilePath, envCall = rlang::caller_env()) {
 #' @keywords internal
 BlameFileRaw <- function(strFilePath, envCall = rlang::caller_env()) {
   # nocov start
-  strFilePath <- GetRelativePackagePath(strFilePath, envCall = envCall)
   strPkgRoot <- GetPkgRoot(strFilePath, envCall = envCall)
+  strFilePath <- GetRelativePackagePath(strFilePath, envCall = envCall)
   git2r::blame(path = strFilePath, repo = strPkgRoot)
   # nocov end
 }

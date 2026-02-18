@@ -89,6 +89,16 @@ Reused parameter definitions are gathered here for easier usage. Use
   (often via
   [`QCPackage()`](https://gilead-biostats.github.io/qcthat/dev/reference/QCPackage.md)).
 
+- dfLabels:
+
+  (`data.frame`) A data frame with columns `Label`, `Description`, and
+  `Color`, specifying the labels to create. By default, this is the data
+  frame returned by
+  [`DefaultIgnoreLabelsDF()`](https://gilead-biostats.github.io/qcthat/dev/reference/DefaultIgnoreLabelsDF.md).
+  Descriptions of labels created via this function are prefixed with
+  `"{qcthat}: "` to make it easier to search for them in your list of
+  labels.
+
 - dfPotentialIssues:
 
   (`tibble`) A data frame as returned by
@@ -252,8 +262,8 @@ Reused parameter definitions are gathered here for easier usage. Use
 
 - lglUpdate:
 
-  (`length-1 logical`) Whether to update an existing comment if it
-  already exists (rather than creating a new comment).
+  (`length-1 logical`) Whether to update an existing comment or label if
+  it already exists (rather than creating a new comment or label).
 
 - lglUseEmoji:
 
@@ -340,6 +350,19 @@ Reused parameter definitions are gathered here for easier usage. Use
 - strGHToken:
 
   (`length-1 character`) GitHub token with permissions to read issues.
+
+- strLabel:
+
+  (`length-1 character`) The name of the label to create.
+
+- strLabelColor:
+
+  (`length-1 character`) The hex color code for the label (e.g.,
+  `"#444444"`).
+
+- strLabelDescription:
+
+  (`length-1 character`) The description for the label.
 
 - strOwner:
 

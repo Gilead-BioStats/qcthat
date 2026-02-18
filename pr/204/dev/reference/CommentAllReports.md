@@ -72,8 +72,8 @@ CommentAllReports(
 
 - lglUpdate:
 
-  (`length-1 logical`) Whether to update an existing comment if it
-  already exists (rather than creating a new comment).
+  (`length-1 logical`) Whether to update an existing comment or label if
+  it already exists (rather than creating a new comment or label).
 
 - strRunID:
 

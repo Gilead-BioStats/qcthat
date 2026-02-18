@@ -1,11 +1,11 @@
-# Fetch GitHub labels as a data frame
+# Fetch existing GitHub label names
 
-Fetch GitHub labels as a data frame
+Fetch existing GitHub label names
 
 ## Usage
 
 ``` r
-FetchGHLabels(
+FetchGHLabelNames(
   strOwner = GetGHOwner(),
   strRepo = GetGHRepo(),
   strGHToken = gh::gh_token()
@@ -28,12 +28,5 @@ FetchGHLabels(
 
 ## Value
 
-A
-[`tibble::tibble()`](https://tibble.tidyverse.org/reference/tibble.html)
-with columns:
-
-- `Label`: Label name.
-
-- `Description`: Label description.
-
-- `Color`: Label color as a hex code (e.g., `"#444444"`).
+A character vector of existing label names in the specified GitHub
+repository.

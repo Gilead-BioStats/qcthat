@@ -1,12 +1,13 @@
-# Create a GitHub label
+# Maybe update an existsing GitHub label
 
-Create a GitHub label
+Maybe update an existsing GitHub label
 
 ## Usage
 
 ``` r
-CreateGHLabel(
+MaybeUpdateGHLabel(
   strLabel,
+  strLabelNewName = strLabel,
   strLabelDescription = "{qcthat}: A new label",
   strLabelColor = "#444444",
   lglUpdate = TRUE,

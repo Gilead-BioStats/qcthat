@@ -1,15 +1,14 @@
-# Create a GitHub label
+# Create a GitHub label (implementation)
 
-Create a GitHub label
+Create a GitHub label (implementation)
 
 ## Usage
 
 ``` r
-CreateGHLabel(
+CreateGHLabelImpl(
   strLabel,
   strLabelDescription = "{qcthat}: A new label",
   strLabelColor = "#444444",
-  lglUpdate = TRUE,
   lglVerbose = getOption("qcthat-verbose", FALSE),
   strOwner = GetGHOwner(),
   strRepo = GetGHRepo(),
@@ -31,11 +30,6 @@ CreateGHLabel(
 
   (`length-1 character`) The hex color code for the label (e.g.,
   `"#444444"`).
-
-- lglUpdate:
-
-  (`length-1 logical`) Whether to update an existing comment or label if
-  it already exists (rather than creating a new comment or label).
 
 - strOwner:
 

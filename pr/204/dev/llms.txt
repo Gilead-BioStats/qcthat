@@ -292,14 +292,8 @@ By contributing to this project, you agree to abide by its terms.
 
 ## All functions
 
-- [`Action_QCCompletedIssues()`](https://gilead-biostats.github.io/qcthat/dev/reference/Action_QCCompletedIssues.md)
-  : Use a GitHub Action to QC completed issues
-- [`Action_QCMilestone()`](https://gilead-biostats.github.io/qcthat/dev/reference/Action_QCMilestone.md)
-  : Use a GitHub Action to QC a milestone
-- [`Action_QCPRIssues()`](https://gilead-biostats.github.io/qcthat/dev/reference/Action_QCPRIssues.md)
-  : Use a GitHub Action to QC pull-request-associated issues
-- [`Action_UAT()`](https://gilead-biostats.github.io/qcthat/dev/reference/Action_UAT.md)
-  : Use a GitHub Action to manage UAT
+- [`Action_qcthat()`](https://gilead-biostats.github.io/qcthat/dev/reference/Action_qcthat.md)
+  : Use a GitHub Action to manage qcthat
 - [`AttachReleaseReports()`](https://gilead-biostats.github.io/qcthat/dev/reference/AttachReleaseReports.md)
   : Attach QC reports to a GitHub release
 - [`CommentAllReports()`](https://gilead-biostats.github.io/qcthat/dev/reference/CommentAllReports.md)
@@ -382,4 +376,6 @@ By contributing to this project, you agree to abide by its terms.
 - [`print(`*`<qcthat_Object>`*`)`](https://gilead-biostats.github.io/qcthat/dev/reference/printing.md)
   [`format(`*`<qcthat_Object>`*`)`](https://gilead-biostats.github.io/qcthat/dev/reference/printing.md)
   : Printing qcthat objects
+- [`use_qcthat()`](https://gilead-biostats.github.io/qcthat/dev/reference/use_qcthat.md)
+  : Set up qcthat for a package
 

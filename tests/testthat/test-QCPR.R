@@ -67,3 +67,20 @@ test_that("FetchPRRefs returns source and target refs (#84, #133, #149)", {
     class = "qcthat-error-pr_not_found"
   )
 })
+
+test_that("FetchPRRefs calls LookupPRFromList when lPRs is provided (#noissue)", {
+  lPRsTest <- list("not empty")
+  intPRNumberTest <- 123L
+  local_mocked_bindings(
+    LookupPRFromList = function(lPRs, intPRNumber, envCall) {
+      cli::cli_inform("Called LookupPRFromList")
+      expect_identical(intPRNumber, intPRNumberTest)
+      expect_identical(lPRs, lPRsTest)
+      list()
+    }
+  )
+  expect_no_error(
+    FetchPRRefs(intPRNumber = intPRNumberTest, lPRs = lPRsTest)
+  ) |>
+    expect_message("Called LookupPRFromList")
+})

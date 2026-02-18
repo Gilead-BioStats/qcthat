@@ -20,8 +20,8 @@ fetch information about and/or post results to.}
 
 \item{strRepo}{(\verb{length-1 character}) GitHub repository name.}
 
-\item{strGHToken}{(\verb{length-1 character}) GitHub token with permissions to
-read issues.}
+\item{strGHToken}{(\verb{length-1 character}) GitHub token with permissions
+appropriate to the action being performed.}
 
 \item{envCall}{(\code{environment}) The environment to use for error reporting.
 Typically set to \code{\link[rlang:stack]{rlang::caller_env()}}.}

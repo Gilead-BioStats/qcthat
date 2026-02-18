@@ -21,8 +21,8 @@ hidden \code{qcthat-comment-id}.}
 
 \item{strRepo}{(\verb{length-1 character}) GitHub repository name.}
 
-\item{strGHToken}{(\verb{length-1 character}) GitHub token with permissions to
-read issues.}
+\item{strGHToken}{(\verb{length-1 character}) GitHub token with permissions
+appropriate to the action being performed.}
 }
 \value{
 The comment object as returned by \code{\link[gh:gh]{gh::gh()}}, invisibly.

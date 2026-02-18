@@ -204,15 +204,19 @@ any effect.}
 
 \item{strFilePath}{(\verb{length-1 character}) A file path.}
 
-\item{strGHToken}{(\verb{length-1 character}) GitHub token with permissions to
-read issues.}
+\item{strGHToken}{(\verb{length-1 character}) GitHub token with permissions
+appropriate to the action being performed.}
 
-\item{strLabel}{(\verb{length-1 character}) The name of the label to create.}
+\item{strLabel}{(\verb{length-1 character}) The name of the label to create or
+update.}
 
-\item{strLabelColor}{(\verb{length-1 character}) The hex color code for the
-label (e.g., \code{"#444444"}).}
+\item{strLabelColor}{(\verb{length-1 character}) The hex color code for the label
+(e.g., \code{"#444444"}).}
 
 \item{strLabelDescription}{(\verb{length-1 character}) The description for the
+label.}
+
+\item{strLabelNewName}{(\verb{length-1 character}) The new name for an updated
 label.}
 
 \item{strOwner}{(\verb{length-1 character}) GitHub username or organization name.}

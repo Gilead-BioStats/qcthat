@@ -2,7 +2,7 @@
 % Please edit documentation in R/CreateGHLabel.R
 \name{MaybeUpdateGHLabel}
 \alias{MaybeUpdateGHLabel}
-\title{Maybe update an existsing GitHub label}
+\title{Maybe update an existing GitHub label}
 \usage{
 MaybeUpdateGHLabel(
   strLabel,
@@ -17,13 +17,17 @@ MaybeUpdateGHLabel(
 )
 }
 \arguments{
-\item{strLabel}{(\verb{length-1 character}) The name of the label to create.}
+\item{strLabel}{(\verb{length-1 character}) The name of the label to create or
+update.}
+
+\item{strLabelNewName}{(\verb{length-1 character}) The new name for an updated
+label.}
 
 \item{strLabelDescription}{(\verb{length-1 character}) The description for the
 label.}
 
-\item{strLabelColor}{(\verb{length-1 character}) The hex color code for the
-label (e.g., \code{"#444444"}).}
+\item{strLabelColor}{(\verb{length-1 character}) The hex color code for the label
+(e.g., \code{"#444444"}).}
 
 \item{lglUpdate}{(\verb{length-1 logical}) Whether to update an existing comment
 or label if it already exists (rather than creating a new comment or
@@ -33,13 +37,13 @@ label).}
 
 \item{strRepo}{(\verb{length-1 character}) GitHub repository name.}
 
-\item{strGHToken}{(\verb{length-1 character}) GitHub token with permissions to
-read issues.}
+\item{strGHToken}{(\verb{length-1 character}) GitHub token with permissions
+appropriate to the action being performed.}
 }
 \value{
 The raw label object as returned by \code{\link[gh:gh]{gh::gh()}} (invisibly).
 }
 \description{
-Maybe update an existsing GitHub label
+Maybe update an existing GitHub label
 }
 \keyword{internal}

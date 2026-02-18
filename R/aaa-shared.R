@@ -140,12 +140,15 @@
 #'   any effect.
 #' @param strFile (`length-1 character`) A file name without the path.
 #' @param strFilePath (`length-1 character`) A file path.
-#' @param strGHToken (`length-1 character`) GitHub token with permissions to
-#'   read issues.
-#' @param strLabel (`length-1 character`) The name of the label to create.
-#' @param strLabelColor (`length-1 character`) The hex color code for the
-#'   label (e.g., `"#444444"`).
+#' @param strGHToken (`length-1 character`) GitHub token with permissions
+#'   appropriate to the action being performed.
+#' @param strLabel (`length-1 character`) The name of the label to create or
+#'   update.
+#' @param strLabelColor (`length-1 character`) The hex color code for the label
+#'   (e.g., `"#444444"`).
 #' @param strLabelDescription (`length-1 character`) The description for the
+#'   label.
+#' @param strLabelNewName (`length-1 character`) The new name for an updated
 #'   label.
 #' @param strOwner (`length-1 character`) GitHub username or organization name.
 #' @param strPkgRoot (`length-1 character`) The path to a directory in the

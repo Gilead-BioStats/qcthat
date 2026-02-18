@@ -21,8 +21,8 @@ fetch information about and/or post results to.}
 
 \item{strRepo}{(\verb{length-1 character}) GitHub repository name.}
 
-\item{strGHToken}{(\verb{length-1 character}) GitHub token with permissions to
-read issues.}
+\item{strGHToken}{(\verb{length-1 character}) GitHub token with permissions
+appropriate to the action being performed.}
 
 \item{lPRs}{(\code{list} or \code{NULL}) Optional list of raw pull request objects as
 returned by \code{\link[=FetchRawRepoPRs]{FetchRawRepoPRs()}}. If provided, the PR will be looked up

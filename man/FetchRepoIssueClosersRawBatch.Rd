@@ -16,8 +16,8 @@ FetchRepoIssueClosersRawBatch(
 
 \item{strRepo}{(\verb{length-1 character}) GitHub repository name.}
 
-\item{strGHToken}{(\verb{length-1 character}) GitHub token with permissions to
-read issues.}
+\item{strGHToken}{(\verb{length-1 character}) GitHub token with permissions
+appropriate to the action being performed.}
 
 \item{strCursor}{(\code{character(1)}|\code{NULL}) The cursor to start fetching from.}
 }

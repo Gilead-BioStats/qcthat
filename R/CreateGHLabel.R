@@ -43,7 +43,7 @@ CreateGHLabel <- function(
   )
 }
 
-#' Maybe update an existsing GitHub label
+#' Maybe update an existing GitHub label
 #'
 #' @inheritParams shared-params
 #' @returns The raw label object as returned by [gh::gh()] (invisibly).
@@ -104,7 +104,7 @@ UpdateGHLabel <- function(
     color = stringr::str_remove(strLabelColor, "#"),
     description = strLabelDescription
   )
-  if (identical(lGHAPIReturn[["name"]], strLabel)) {
+  if (identical(lGHAPIReturn[["name"]], strLabelNewName)) {
     if (lglVerbose) {
       cli::cli_inform(
         "Label {.val {strLabel}} was updated (if necessary).",

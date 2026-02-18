@@ -37,8 +37,8 @@ numbers in commit messages. Defaults to the \href{https://docs.github.com/en/iss
 
 \item{strRepo}{(\verb{length-1 character}) GitHub repository name.}
 
-\item{strGHToken}{(\verb{length-1 character}) GitHub token with permissions to
-read issues.}
+\item{strGHToken}{(\verb{length-1 character}) GitHub token with permissions
+appropriate to the action being performed.}
 
 \item{lglWarn}{(\verb{length-1 logical}) Whether to warn when an extra value is
 included in the filter (but the report still returns results). Defaults to

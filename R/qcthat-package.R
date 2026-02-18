@@ -5,6 +5,7 @@
 #' @importFrom cli qty
 #' @importFrom rlang %||%
 #' @importFrom rlang .data
+#' @importFrom rlang :=
 ## usethis namespace: end
 NULL
 

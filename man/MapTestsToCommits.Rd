@@ -4,14 +4,14 @@
 \alias{MapTestsToCommits}
 \title{Map tests to commits}
 \usage{
-MapTestsToCommits(dfFileTests, strTestDir = "tests/testthat")
+MapTestsToCommits(dfFileTests, envCall = rlang::caller_env())
 }
 \arguments{
 \item{dfFileTests}{(\code{data.frame}) A \code{\link[tibble:tibble]{tibble::tibble()}} with the structure
 returned by \code{\link[=ExtractTestsFromFiles]{ExtractTestsFromFiles()}}.}
 
-\item{strTestDir}{(\verb{length-1 character}) Path to the directory containing
-test files. Defaults to \code{"tests/testthat"}.}
+\item{envCall}{(\code{environment}) The environment to use for error reporting.
+Typically set to \code{\link[rlang:stack]{rlang::caller_env()}}.}
 }
 \value{
 A \code{\link[tibble:tibble]{tibble::tibble()}} with the same structure as \code{dfFileTests} plus a

@@ -43,7 +43,8 @@ otherwise \code{NA}.
 \item \code{ClosedAt}: \code{POSIXct} timestamp of when the issue was closed, or \code{NA} if
 the issue is still open.
 \item \code{Test}: The \code{desc} field of the test from \code{\link[testthat:test_that]{testthat::test_that()}}.
-\item \code{File}: File where the test is defined.
+\item \code{File}: Path to the file where the test is defined, relative to the
+package root.
 \item \code{Disposition}: Factor with levels \code{pass}, \code{fail}, and \code{skip} indicating
 the overall outcome of the test.
 }

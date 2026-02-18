@@ -1,4 +1,4 @@
-test_that("ExtractTestsFromFiles parses tests and issues from test dirs (#52)", {
+test_that("ExtractTestsFromFiles parses tests and issues from test dirs (#52, #201)", {
   strTestDir <- test_path("fixtures", "testFiles")
   dfResult <- ExtractTestsFromFiles(strTestDir)
   dfExpected <- tibble::tibble(
@@ -11,7 +11,10 @@ test_that("ExtractTestsFromFiles parses tests and issues from test dirs (#52)", 
       "Test with (parentheses) and [brackets] (#6)",
       "No spaces (#1,#2)"
     ),
-    File = c(rep("test-example1.R", 4), rep("test-example2.R", 3)),
+    File = fs::path(
+      "tests/testthat/fixtures/testFiles",
+      c(rep("test-example1.R", 4), rep("test-example2.R", 3))
+    ),
     LineStart = c(3L, 7L, 11L, 16L, 3L, 7L, 11L),
     LineEnd = c(5L, 9L, 14L, 23L, 5L, 9L, 13L),
     Issues = list(3L, integer(), 9:10, 1L, 5L, 6L, 1:2),

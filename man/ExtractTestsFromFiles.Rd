@@ -4,17 +4,24 @@
 \alias{ExtractTestsFromFiles}
 \title{Extract test information from test files}
 \usage{
-ExtractTestsFromFiles(strTestDir = "tests/testthat")
+ExtractTestsFromFiles(
+  strTestDir = "tests/testthat",
+  envCall = rlang::caller_env()
+)
 }
 \arguments{
 \item{strTestDir}{(\verb{length-1 character}) Path to the directory containing
 test files. Defaults to \code{"tests/testthat"}.}
+
+\item{envCall}{(\code{environment}) The environment to use for error reporting.
+Typically set to \code{\link[rlang:stack]{rlang::caller_env()}}.}
 }
 \value{
 A \code{\link[tibble:tibble]{tibble::tibble()}} with columns:
 \itemize{
 \item \code{Test}: The \code{desc} field of the test from \code{\link[testthat:test_that]{testthat::test_that()}}.
-\item \code{File}: File where the test is defined.
+\item \code{File}: Path to the file where the test is defined, relative to the
+package root.
 \item \code{LineStart}: First line of the test.
 \item \code{LineEnd}: Last line of the test.
 \item \code{Issues}: List column containing integer vectors of associated GitHub

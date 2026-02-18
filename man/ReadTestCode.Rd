@@ -4,13 +4,7 @@
 \alias{ReadTestCode}
 \title{Read test code from a file}
 \usage{
-ReadTestCode(
-  strFile,
-  intLineStart,
-  intLineEnd,
-  strTestDir = "tests/testthat",
-  envCall = rlang::caller_env()
-)
+ReadTestCode(strFile, intLineStart, intLineEnd, envCall = rlang::caller_env())
 }
 \arguments{
 \item{strFile}{(\verb{length-1 character}) A file name without the path.}
@@ -18,9 +12,6 @@ ReadTestCode(
 \item{intLineStart}{(\verb{length-1 integer}) The starting line number.}
 
 \item{intLineEnd}{(\verb{length-1 integer}) The ending line number.}
-
-\item{strTestDir}{(\verb{length-1 character}) Path to the directory containing
-test files. Defaults to \code{"tests/testthat"}.}
 
 \item{envCall}{(\code{environment}) The environment to use for error reporting.
 Typically set to \code{\link[rlang:stack]{rlang::caller_env()}}.}

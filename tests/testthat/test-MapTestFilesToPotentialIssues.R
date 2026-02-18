@@ -1,4 +1,4 @@
-test_that("MapTestFilesToPotentialIssues finds potential issues via commits (#53)", {
+test_that("MapTestFilesToPotentialIssues finds potential issues via commits (#53, #201)", {
   local_mocked_bindings(
     ExtractTestsFromFiles = function(strTestDir) {
       expect_equal(strTestDir, "tests/testthat")
@@ -11,8 +11,7 @@ test_that("MapTestFilesToPotentialIssues finds potential issues via commits (#53
         TaggedNoIssue = c(FALSE, FALSE)
       )
     },
-    MapTestsToCommits = function(dfFileTests, strTestDir) {
-      expect_equal(strTestDir, "tests/testthat")
+    MapTestsToCommits = function(dfFileTests) {
       dplyr::mutate(
         dfFileTests,
         Commits = list(c("commit1", "commit2"), c("commit2", "commit3"))
@@ -49,7 +48,7 @@ test_that("MapTestFilesToPotentialIssues filters out tests tagged with #noissue 
         TaggedNoIssue = c(FALSE, TRUE)
       )
     },
-    MapTestsToCommits = function(dfFileTests, strTestDir) {
+    MapTestsToCommits = function(dfFileTests) {
       dplyr::mutate(
         dfFileTests,
         Commits = list("commit1", "commit1")
@@ -86,7 +85,7 @@ test_that("MapTestFilesToPotentialIssues handles tests with no matching commits 
         TaggedNoIssue = FALSE
       )
     },
-    MapTestsToCommits = function(dfFileTests, strTestDir) {
+    MapTestsToCommits = function(dfFileTests) {
       dplyr::mutate(
         dfFileTests,
         Commits = list("commit1")
@@ -123,7 +122,7 @@ test_that("MapTestFilesToPotentialIssues handles tests with tagged issues (#53)"
         TaggedNoIssue = FALSE
       )
     },
-    MapTestsToCommits = function(dfFileTests, strTestDir) {
+    MapTestsToCommits = function(dfFileTests) {
       dplyr::mutate(
         dfFileTests,
         Commits = list(c("commit1", "commit2"))
@@ -160,7 +159,7 @@ test_that("MapTestFilesToPotentialIssues handles empty test directory (#noissue)
         TaggedNoIssue = logical()
       )
     },
-    MapTestsToCommits = function(dfFileTests, strTestDir) {
+    MapTestsToCommits = function(dfFileTests) {
       dplyr::mutate(dfFileTests, Commits = list())
     },
     MapRepoIssuesToCommits = function(...) {
@@ -194,7 +193,7 @@ test_that("MapTestFilesToPotentialIssues handles all tests tagged with #noissue 
         TaggedNoIssue = c(TRUE, TRUE)
       )
     },
-    MapTestsToCommits = function(dfFileTests, strTestDir) {
+    MapTestsToCommits = function(dfFileTests) {
       dplyr::mutate(
         dfFileTests,
         Commits = list("commit1", "commit2")
@@ -232,8 +231,7 @@ test_that("MapTestFilesToPotentialIssues passes strTestDir parameter (#noissue)"
         TaggedNoIssue = logical()
       )
     },
-    MapTestsToCommits = function(dfFileTests, strTestDir) {
-      expect_equal(strTestDir, "custom/test/dir")
+    MapTestsToCommits = function(dfFileTests) {
       dplyr::mutate(dfFileTests, Commits = list())
     },
     MapRepoIssuesToCommits = function(...) {
@@ -256,7 +254,7 @@ test_that("MapTestFilesToPotentialIssues passes GitHub parameters (#noissue)", {
         TaggedNoIssue = logical()
       )
     },
-    MapTestsToCommits = function(dfFileTests, strTestDir) {
+    MapTestsToCommits = function(dfFileTests) {
       dplyr::mutate(dfFileTests, Commits = list())
     }
   )

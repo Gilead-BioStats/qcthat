@@ -26,7 +26,8 @@
 #'   - `ClosedAt`: `POSIXct` timestamp of when the issue was closed, or `NA` if
 #'   the issue is still open.
 #'   - `Test`: The `desc` field of the test from [testthat::test_that()].
-#'   - `File`: File where the test is defined.
+#'   - `File`: Path to the file where the test is defined, relative to the
+#'   package root.
 #'   - `Disposition`: Factor with levels `pass`, `fail`, and `skip` indicating
 #'   the overall outcome of the test.
 #' @export

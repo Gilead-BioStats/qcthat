@@ -23,7 +23,7 @@ test_that("PrepareTestIssueContext enriches test data (#53)", {
         Body = paste("Body", intIssues)
       )
     },
-    ReadTestCode = function(strFile, intLineStart, intLineEnd, strTestDir) {
+    ReadTestCode = function(strFile, intLineStart, intLineEnd) {
       if (intLineStart == 1L) {
         c("test_that(\"Test 1\", {", "  expect_true(TRUE)", "})")
       } else {
@@ -91,7 +91,7 @@ test_that("PrepareTestIssueContext handles empty input (#53)", {
   expect_identical(dfResult, dfExpected)
 })
 
-test_that("PrepareTestIssueContext passes parameters (#53)", {
+test_that("PrepareTestIssueContext passes parameters (#53, #201)", {
   local_mocked_bindings(
     MapTestFilesToPotentialIssues = function(
       strTestDir,
@@ -118,8 +118,7 @@ test_that("PrepareTestIssueContext passes parameters (#53)", {
       expect_equal(strGHToken, "testtoken")
       tibble::tibble(Issue = intIssues, Title = "Title", Body = "Body")
     },
-    ReadTestCode = function(strFile, intLineStart, intLineEnd, strTestDir) {
-      expect_equal(strTestDir, "custom/test/dir")
+    ReadTestCode = function(strFile, intLineStart, intLineEnd) {
       "test code"
     }
   )

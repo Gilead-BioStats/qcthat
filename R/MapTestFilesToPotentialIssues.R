@@ -6,8 +6,9 @@
 #'
 #' @inheritParams shared-params
 #' @returns A [tibble::tibble()] with columns:
-#'   - `Test`: Test description (character).
-#'   - `File`: Test file name (character).
+#'   - `Test`: The `desc` field of the test from [testthat::test_that()].
+#'   - `File`: Path to the file where the test is defined, relative to the
+#'   package root.
 #'   - `Issues`: List column containing integer vectors of issue numbers already
 #'   tagged in the test description.
 #'   - `PotentialIssues`: List column containing integer vectors of issue
@@ -55,8 +56,7 @@ ExtractLongTestCommits <- function(
 ) {
   MapTestsToCommits(
     dfFileTests = dfFileTests %||%
-      ExtractTestsFromFiles(strTestDir = strTestDir),
-    strTestDir = strTestDir
+      ExtractTestsFromFiles(strTestDir = strTestDir)
   ) |>
     dplyr::filter(!.data$TaggedNoIssue) |>
     dplyr::select(-"TaggedNoIssue") |>

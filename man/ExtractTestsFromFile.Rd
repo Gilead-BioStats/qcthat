@@ -4,10 +4,13 @@
 \alias{ExtractTestsFromFile}
 \title{Extract test information from a single file}
 \usage{
-ExtractTestsFromFile(strFilePath)
+ExtractTestsFromFile(strFilePath, envCall = rlang::caller_env())
 }
 \arguments{
 \item{strFilePath}{(\verb{length-1 character}) A file path.}
+
+\item{envCall}{(\code{environment}) The environment to use for error reporting.
+Typically set to \code{\link[rlang:stack]{rlang::caller_env()}}.}
 }
 \value{
 A \code{\link[tibble:tibble]{tibble::tibble()}} with the same structure as

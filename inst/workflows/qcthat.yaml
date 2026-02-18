@@ -105,10 +105,10 @@ jobs:
           qcthat::LoadUATIssues()
           qcthat::CommentAllReports(
             dfITM = issueTestMatrix,
-            lglPR = ${{ env.qcthat_PR_REPORT }},
-            lglMilestone = ${{ env.qcthat_MILESTONE_REPORT }},
-            lglCompleted = ${{ env.qcthat_COMPLETED_REPORT }},
-            lglUAT = ${{ env.qcthat_UAT }}
+            lglPR = as.logical("${{ env.qcthat_PR_REPORT }}"),
+            lglMilestone = as.logical("${{ env.qcthat_MILESTONE_REPORT }}"),
+            lglCompleted = as.logical("${{ env.qcthat_COMPLETED_REPORT }}"),
+            lglUAT = as.logical("${{ env.qcthat_UAT }}")
           )
         shell: Rscript {0}
 
@@ -122,8 +122,8 @@ jobs:
           qcthat::LoadUATIssues()
           qcthat::AttachReleaseReports(
             dfITM = issueTestMatrix,
-            lglCompleted = ${{ env.qcthat_COMPLETED_REPORT }},
-            lglMilestone = ${{ env.qcthat_MILESTONE_REPORT }}
+            lglCompleted = as.logical("${{ env.qcthat_COMPLETED_REPORT }}"),
+            lglMilestone = as.logical("${{ env.qcthat_MILESTONE_REPORT }}")
           )
         shell: Rscript {0}
 

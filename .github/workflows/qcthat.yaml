@@ -38,12 +38,12 @@ permissions:
 
 # Configuration variables for controlling workflow behavior
 env:
-  qcthat_UAT: true
-  qcthat_PR_REPORT: true
-  qcthat_COMPLETED_REPORT: true
-  qcthat_MILESTONE_REPORT: true
-  qcthat_RELEASE_REPORT: true
-  qcthat_FAIL_FOR_TEST_FAILURES: true
+  qcthat_UAT: "true"
+  qcthat_PR_REPORT: "true"
+  qcthat_COMPLETED_REPORT: "true"
+  qcthat_MILESTONE_REPORT: "true"
+  qcthat_RELEASE_REPORT: "true"
+  qcthat_FAIL_FOR_TEST_FAILURES: "true"
 
 jobs:
   qcthat:

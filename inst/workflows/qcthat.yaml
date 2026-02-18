@@ -38,6 +38,15 @@ permissions:
   # write: Required for updating UAT status.
   actions: write
 
+# Configuration variables for controlling workflow behavior
+env:
+  qcthat_UAT: true
+  qcthat_PR_REPORT: true
+  qcthat_COMPLETED_REPORT: true
+  qcthat_MILESTONE_REPORT: true
+  qcthat_RELEASE_REPORT: true
+  qcthat_FAIL_FOR_TEST_FAILURES: true
+
 jobs:
   qcthat:
     runs-on: ubuntu-latest
@@ -60,19 +69,21 @@ jobs:
 
       - name: Manage User Acceptance Testing
         if: >-
-          (github.event_name == 'issues' && contains(github.event.issue.labels.*.name, 'qcthat-uat')) ||
-          (github.event_name == 'workflow_dispatch' && inputs.issueNumber != '')
+          env.qcthat_UAT == 'true' && (
+            (github.event_name == 'issues' && contains(github.event.issue.labels.*.name, 'qcthat-uat')) ||
+            (github.event_name == 'workflow_dispatch' && inputs.issueNumber != '')
+          )
         run: |
           Rscript -e "qcthat::TriggerUAT()"
 
       - name: Generate Issue-Test Matrix
         if: >-
-          github.event_name == 'push' ||
-          github.event_name == 'pull_request' ||
-          github.event_name == 'release' ||
-          (github.event_name == 'workflow_dispatch' && inputs.issueNumber == '')
-        env:
-          qcthat_UAT: true
+          (env.qcthat_PR_REPORT == 'true' || env.qcthat_RELEASE_REPORT == 'true' || env.qcthat_FAIL_FOR_TEST_FAILURES == 'true') && (
+            github.event_name == 'push' ||
+            github.event_name == 'pull_request' ||
+            github.event_name == 'release' ||
+            (github.event_name == 'workflow_dispatch' && inputs.issueNumber == '')
+          )
         run: |
           # Generate the full matrix for the package
           IssueTestMatrix <- qcthat::QCPackage()
@@ -85,29 +96,46 @@ jobs:
 
       - name: Update PR Reports
         if: >-
-          github.event_name == 'pull_request' ||
-          (github.event_name == 'workflow_dispatch' && inputs.pr != '')
+          env.qcthat_PR_REPORT == 'true' && (
+            github.event_name == 'pull_request' ||
+            (github.event_name == 'workflow_dispatch' && inputs.pr != '')
+          )
         run: |
           issueTestMatrix <- readRDS("ITM.rds")
           qcthat::LoadUATIssues()
-          qcthat::CommentAllReports(dfITM = issueTestMatrix)
+          qcthat::CommentAllReports(
+            dfITM = issueTestMatrix,
+            lglPR = ${{ env.qcthat_PR_REPORT }},
+            lglMilestone = ${{ env.qcthat_MILESTONE_REPORT }},
+            lglCompleted = ${{ env.qcthat_COMPLETED_REPORT }},
+            lglUAT = ${{ env.qcthat_UAT }}
+          )
         shell: Rscript {0}
 
       - name: Update Release Reports
-        if: github.event_name == 'release' || inputs.tag != ''
+        if: >-
+          env.qcthat_RELEASE_REPORT == 'true' && (
+            github.event_name == 'release' || inputs.tag != ''
+          )
         run: |
           issueTestMatrix <- readRDS("ITM.rds")
           qcthat::LoadUATIssues()
-          qcthat::AttachReleaseReports(dfITM = issueTestMatrix)
+          qcthat::AttachReleaseReports(
+            dfITM = issueTestMatrix,
+            lglCompleted = ${{ env.qcthat_COMPLETED_REPORT }},
+            lglMilestone = ${{ env.qcthat_MILESTONE_REPORT }}
+          )
         shell: Rscript {0}
 
       - name: Flag failure for PR
         if: >-
-          github.event_name == 'pull_request' ||
-          (github.event_name == 'workflow_dispatch' && inputs.pr != '')
+          env.qcthat_FAIL_FOR_TEST_FAILURES == 'true' && (
+            github.event_name == 'pull_request' ||
+            (github.event_name == 'workflow_dispatch' && inputs.pr != '')
+          )
         run: |
           issueTestMatrix <- readRDS("ITM.rds")
-          dfPR = qcthat::QCPR(dfITM = issueTestMatrix)
+          dfPR <- qcthat::QCPR(dfITM = issueTestMatrix)
           if (any(dfPR$Disposition == "fail", na.rm = TRUE)) {
             cli::cli_abort(
               "One or more tests failed or were skipped for PR-associated issues."
@@ -117,10 +145,12 @@ jobs:
 
       - name: Flag failure for completed
         if: >-
-          github.event_name == 'push' ||
-          github.event_name == 'pull_request' ||
-          github.event_name == 'release' ||
-          (github.event_name == 'workflow_dispatch' && inputs.issueNumber == '')
+          env.qcthat_FAIL_FOR_TEST_FAILURES == 'true' && (
+            github.event_name == 'push' ||
+            github.event_name == 'pull_request' ||
+            github.event_name == 'release' ||
+            (github.event_name == 'workflow_dispatch' && inputs.issueNumber == '')
+          )
         run: |
           issueTestMatrix <- readRDS("ITM.rds")
           dfCompleted = qcthat::QCCompletedIssues(dfITM = issueTestMatrix)

@@ -1,4 +1,4 @@
-test_that("InstallAction calls InstallFile with expected parts (#55, #68, #69, #73, #88, #141, #157)", {
+test_that("InstallAction calls InstallFile with expected parts (#73)", {
   local_mocked_bindings(
     InstallFile = function(
       chrSourcePath,
@@ -29,7 +29,7 @@ test_that("InstallAction calls InstallFile with expected parts (#55, #68, #69, #
   )
 })
 
-test_that("Action_qcthat targets the expected action (#55, #68, #69, #73, #88, #141, #157)", {
+test_that("Action_qcthat targets the expected action (#55, #68, #69, #73, #88, #141, #157, #198)", {
   local_mocked_bindings(
     InstallAction = function(strActionName, ...) {
       strActionName

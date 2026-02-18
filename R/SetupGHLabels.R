@@ -50,11 +50,6 @@ DefaultIgnoreLabelsDF <- function() {
 #' Create the qcthat labels in a GitHub repository if those labels do not
 #' already exist.
 #'
-#' @param dfLabels (`data.frame`) A data frame with columns `Label`,
-#'   `Description`, and `Color`, specifying the labels to create. By default,
-#'   this is the data frame returned by [DefaultIgnoreLabelsDF()]. Descriptions
-#'   of labels created via this function are prefixed with `"{qcthat}: "` to
-#'   make it easier to search for them in your list of labels.
 #' @inheritParams shared-params
 #' @returns `NULL` (invisibly).
 #' @export

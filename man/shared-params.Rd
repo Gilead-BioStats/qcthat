@@ -49,6 +49,12 @@ returned by \code{\link[=ExtractTestsFromFiles]{ExtractTestsFromFiles()}}.}
 \item{dfITM}{(\code{qcthat_IssueTestMatrix}) A \code{qcthat_IssueTestMatrix} object as
 returned by \code{\link[=AsIssueTestMatrix]{AsIssueTestMatrix()}} (often via \code{\link[=QCPackage]{QCPackage()}}).}
 
+\item{dfLabels}{(\code{data.frame}) A data frame with columns \code{Label},
+\code{Description}, and \code{Color}, specifying the labels to create. By default,
+this is the data frame returned by \code{\link[=DefaultIgnoreLabelsDF]{DefaultIgnoreLabelsDF()}}. Descriptions
+of labels created via this function are prefixed with \code{"{qcthat}: "} to
+make it easier to search for them in your list of labels.}
+
 \item{dfPotentialIssues}{(\code{tibble}) A data frame as returned by
 \code{\link[=MapTestFilesToPotentialIssues]{MapTestFilesToPotentialIssues()}}.}
 

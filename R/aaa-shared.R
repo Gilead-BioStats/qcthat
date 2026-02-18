@@ -33,6 +33,11 @@
 #'   returned by [ExtractTestsFromFiles()].
 #' @param dfITM (`qcthat_IssueTestMatrix`) A `qcthat_IssueTestMatrix` object as
 #'   returned by [AsIssueTestMatrix()] (often via [QCPackage()]).
+#' @param dfLabels (`data.frame`) A data frame with columns `Label`,
+#'   `Description`, and `Color`, specifying the labels to create. By default,
+#'   this is the data frame returned by [DefaultIgnoreLabelsDF()]. Descriptions
+#'   of labels created via this function are prefixed with `"{qcthat}: "` to
+#'   make it easier to search for them in your list of labels.
 #' @param dfPotentialIssues (`tibble`) A data frame as returned by
 #'   [MapTestFilesToPotentialIssues()].
 #' @param dfRepoIssues (`qcthat_Issues` or data frame) Data frame of GitHub

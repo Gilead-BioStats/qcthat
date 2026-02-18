@@ -21,6 +21,10 @@
                   }
                   ... on PullRequest {
                     number
+                    merged
+                    repository {
+                      nameWithOwner
+                    }
                   }
                 }
               }
@@ -63,6 +67,10 @@
                   }
                   ... on PullRequest {
                     number
+                    merged
+                    repository {
+                      nameWithOwner
+                    }
                   }
                 }
               }

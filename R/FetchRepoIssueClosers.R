@@ -49,6 +49,7 @@ FetchRepoIssueClosersRaw <- function(
   strRepo = GetGHRepo(),
   strGHToken = gh::gh_token()
 ) {
+  strNameWithOwner <- paste0(strOwner, "/", strRepo)
   lIssueClosers <- list()
   strCursor <- NULL
   repeat {
@@ -58,10 +59,9 @@ FetchRepoIssueClosersRaw <- function(
       strGHToken = strGHToken,
       strCursor = strCursor
     )
-    lIssueClosers <- unique(c(
-      lIssueClosers,
-      lBatch$data$repository$issues$nodes
-    ))
+    lNodes <- lBatch$data$repository$issues$nodes
+    lNodes <- purrr::keep(lNodes, IsIssueCloserFromRepo, strNameWithOwner)
+    lIssueClosers <- unique(c(lIssueClosers, lNodes))
     if (!isTRUE(lBatch$data$repository$issues$pageInfo$hasNextPage)) {
       break
     }
@@ -101,6 +101,10 @@ FetchRepoIssueClosersRawBatch <- function(
     "            }",
     "            ... on PullRequest {",
     "              number",
+    "              merged",
+    "              repository {",
+    "                nameWithOwner",
+    "              }",
     "            }",
     "          }",
     "        }",
@@ -118,6 +122,20 @@ FetchRepoIssueClosersRawBatch <- function(
   )
 }
 
+#' Check whether an issue closer originates from the target repository
+#'
+#' @param lIssueCloser (`list`) A single raw issue node.
+#' @param strNameWithOwner (`character(1)`) `"owner/repo"` of the target repo.
+#' @returns A length-1 `logical`.
+#' @keywords internal
+IsIssueCloserFromRepo <- function(lIssueCloser, strNameWithOwner) {
+  lCloser <- lIssueCloser$timelineItems$nodes[[1]]$closer
+  if (!identical(lCloser$`__typename`, "PullRequest")) {
+    return(TRUE)
+  }
+  identical(lCloser$repository$nameWithOwner, strNameWithOwner)
+}
+
 #' Tibblify a single issue closer
 #'
 #' @param lIssueCloser (`list`) A single element of a raw issue closer object as
@@ -127,6 +145,11 @@ FetchRepoIssueClosersRawBatch <- function(
 TibblifyIssueCloser <- function(lIssueCloser) {
   lCloser <- lIssueCloser$timelineItems$nodes[[1]]$closer
   if (is.null(lCloser)) {
+    return(NULL)
+  }
+  if (
+    identical(lCloser$`__typename`, "PullRequest") && !isTRUE(lCloser$merged)
+  ) {
     return(NULL)
   }
   tibble::tibble(

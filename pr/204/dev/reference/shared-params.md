@@ -349,11 +349,12 @@ Reused parameter definitions are gathered here for easier usage. Use
 
 - strGHToken:
 
-  (`length-1 character`) GitHub token with permissions to read issues.
+  (`length-1 character`) GitHub token with permissions appropriate to
+  the action being performed.
 
 - strLabel:
 
-  (`length-1 character`) The name of the label to create.
+  (`length-1 character`) The name of the label to create or update.
 
 - strLabelColor:
 
@@ -363,6 +364,10 @@ Reused parameter definitions are gathered here for easier usage. Use
 - strLabelDescription:
 
   (`length-1 character`) The description for the label.
+
+- strLabelNewName:
+
+  (`length-1 character`) The new name for an updated label.
 
 - strOwner:
 

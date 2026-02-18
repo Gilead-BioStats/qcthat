@@ -1,6 +1,6 @@
-# Maybe update an existsing GitHub label
+# Maybe update an existing GitHub label
 
-Maybe update an existsing GitHub label
+Maybe update an existing GitHub label
 
 ## Usage
 
@@ -22,7 +22,11 @@ MaybeUpdateGHLabel(
 
 - strLabel:
 
-  (`length-1 character`) The name of the label to create.
+  (`length-1 character`) The name of the label to create or update.
+
+- strLabelNewName:
+
+  (`length-1 character`) The new name for an updated label.
 
 - strLabelDescription:
 
@@ -48,7 +52,8 @@ MaybeUpdateGHLabel(
 
 - strGHToken:
 
-  (`length-1 character`) GitHub token with permissions to read issues.
+  (`length-1 character`) GitHub token with permissions appropriate to
+  the action being performed.
 
 ## Value
 

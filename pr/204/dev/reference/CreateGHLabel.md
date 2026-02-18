@@ -21,7 +21,7 @@ CreateGHLabel(
 
 - strLabel:
 
-  (`length-1 character`) The name of the label to create.
+  (`length-1 character`) The name of the label to create or update.
 
 - strLabelDescription:
 
@@ -47,7 +47,8 @@ CreateGHLabel(
 
 - strGHToken:
 
-  (`length-1 character`) GitHub token with permissions to read issues.
+  (`length-1 character`) GitHub token with permissions appropriate to
+  the action being performed.
 
 ## Value
 

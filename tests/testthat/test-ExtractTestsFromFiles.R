@@ -1,4 +1,5 @@
 test_that("ExtractTestsFromFiles parses tests and issues from test dirs (#52, #201)", {
+  skip_if(is_checking(), "Catch this one in the qcthat checks.")
   strTestDir <- test_path("fixtures", "testFiles")
   dfResult <- ExtractTestsFromFiles(strTestDir)
   dfExpected <- tibble::tibble(
@@ -21,7 +22,9 @@ test_that("ExtractTestsFromFiles parses tests and issues from test dirs (#52, #2
     TaggedNoIssue = c(FALSE, TRUE, rep(FALSE, 5))
   )
   # Deal with slight difference during certain CI.
-  dfResult$File <- stringr:str_remove(dfResult$File, "^qcthat-")
+  dfResult$File <- stringr::str_remove(dfResult$File, "^qcthat-") |>
+    stringr::str_remove("^check/qcthat\\.Rcheck/") |>
+    fs::path()
   expect_identical(dfResult, dfExpected)
 })
 

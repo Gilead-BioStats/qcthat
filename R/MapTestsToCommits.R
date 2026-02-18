@@ -105,6 +105,7 @@ EnframeHunk <- function(lHunk, strFilePath, envCall = rlang::caller_env()) {
 BlameFileRaw <- function(strFilePath, envCall = rlang::caller_env()) {
   # nocov start
   strFilePath <- GetRelativePackagePath(strFilePath, envCall = envCall)
+  strPkgRoot <- GetPkgRoot(strFilePath, envCall = envCall)
   git2r::blame(path = strFilePath, repo = strPkgRoot)
   # nocov end
 }

@@ -191,10 +191,11 @@ test_that("BlameFile works with no blame data (#noissue)", {
 })
 
 test_that("GetRelativePackagePath finds the relative path (#201)", {
-  skip_on_ci()
-  skip_on_cran()
+  skip_if(is_checking(), "Catch this one in the qcthat checks.")
   expect_equal(
-    GetRelativePackagePath(test_path("test-MapTestsToCommits.R")),
+    GetRelativePackagePath(test_path("test-MapTestsToCommits.R")) |>
+      stringr::str_remove("^qcthat-") |>
+      fs::path(),
     fs::path("tests/testthat/test-MapTestsToCommits.R")
   )
 })

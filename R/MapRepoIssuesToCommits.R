@@ -62,31 +62,21 @@ MapIssueClosersToCommits <- function(
   strGHToken = gh::gh_token(),
   lPRs = NULL
 ) {
-  # Cache for commit lookups to avoid duplicate API calls for the same PR
-  envCommitCache <- new.env(parent = emptyenv())
+  dfClosers <- dplyr::distinct(
+    dfIssueClosers,
+    .data$CloserType,
+    .data$CloserSHA,
+    .data$CloserPRNumber
+  )
 
-  dfIssueClosers$Commits <- purrr::pmap(
+  dfClosers$Commits <- purrr::pmap(
     list(
-      dfIssueClosers$CloserType,
-      dfIssueClosers$CloserSHA,
-      dfIssueClosers$CloserPRNumber
+      dfClosers$CloserType,
+      dfClosers$CloserSHA,
+      dfClosers$CloserPRNumber
     ),
     \(strCloserType, strCloserSHA, intCloserPRNumber) {
-      # Create a cache key for this combination
-      strCacheKey <- paste(
-        strCloserType,
-        strCloserSHA,
-        intCloserPRNumber,
-        sep = "|"
-      )
-
-      # Check if we've already fetched this
-      if (exists(strCacheKey, envir = envCommitCache)) {
-        return(get(strCacheKey, envir = envCommitCache)) # nocov
-      }
-
-      # Fetch and cache the result
-      chrCommits <- FindAllIssueCommits(
+      FindAllIssueCommits(
         strCloserType = strCloserType,
         strCloserSHA = strCloserSHA,
         intCloserPRNumber = intCloserPRNumber,
@@ -95,11 +85,14 @@ MapIssueClosersToCommits <- function(
         strGHToken = strGHToken,
         lPRs = lPRs
       )
-      assign(strCacheKey, chrCommits, envir = envCommitCache)
-      chrCommits
     }
   )
-  dplyr::select(dfIssueClosers, "Issue", "Commits")
+  dfIssueClosers |>
+    dplyr::left_join(
+      dfClosers,
+      by = c("CloserType", "CloserSHA", "CloserPRNumber")
+    ) |>
+    dplyr::select("Issue", "Commits")
 }
 
 #' Find all commits associated with an issue closer

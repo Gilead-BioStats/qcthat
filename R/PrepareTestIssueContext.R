@@ -24,8 +24,8 @@
 PrepareTestIssueContext <- function(
   dfPotentialIssues = NULL,
   strTestDir = "tests/testthat",
-  strOwner = GetGHOwner(),
-  strRepo = GetGHRepo(),
+  strOwner = GetGHOwner(strTestDir),
+  strRepo = GetGHRepo(strTestDir),
   strGHToken = gh::gh_token()
 ) {
   dfPotentialIssues <- dfPotentialIssues %||%

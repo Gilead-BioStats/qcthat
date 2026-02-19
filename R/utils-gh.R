@@ -43,12 +43,34 @@ GetGHRepo <- function(strPkgRoot = ".") {
 #' @returns A list representing the GitHub repository at `strPkgRoot`.
 #' @keywords internal
 GetGHRemote <- function(strPkgRoot = ".") {
-  # nocov start
   if (UsesGit(strPkgRoot)) {
-    repo <- gert::git_find(strPkgRoot)
-    return(gh::gh_tree_remote(repo))
+    lRemotes <- GetGHRemoteList(strPkgRoot)
+    strURL <- lRemotes$url[lRemotes$name == "upstream"] %|0|%
+      lRemotes$url[lRemotes$name == "origin"]
+    return(
+      list(
+        username = stringr::str_extract(
+          strURL,
+          "(https://github.com/)([^/]+)",
+          group = 2
+        ),
+        repo = stringr::str_extract(
+          strURL,
+          "(https://github.com/)([^/]+)/([^.]+)",
+          group = 3
+        )
+      )
+    )
   }
-  # nocov end
+}
+
+#' Wrapper around gert::git_remote_list() for mocking
+#'
+#' @inheritParams shared-params
+#' @returns The result of the [gert::git_remote_list()] call.
+#' @keywords internal
+GetGHRemoteList <- function(strPkgRoot) {
+  gert::git_remote_list(strPkgRoot) # nocov
 }
 
 #' Check whether a package uses git

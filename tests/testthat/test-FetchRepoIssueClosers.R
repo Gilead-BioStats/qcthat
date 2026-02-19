@@ -107,6 +107,7 @@ test_that("FetchRepoIssueClosers processes raw data correctly (#133)", {
 
 test_that("FetchRepoIssueClosersRaw processes pagination correctly (#133)", {
   local_mocked_bindings(
+    IsIssueCloserFromRepo = function(...) TRUE,
     FetchRepoIssueClosersRawBatch = function(
       strOwner,
       strRepo,
@@ -118,10 +119,7 @@ test_that("FetchRepoIssueClosersRaw processes pagination correctly (#133)", {
           data = list(
             repository = list(
               issues = list(
-                nodes = list(
-                  list(number = 1),
-                  list(number = 2)
-                ),
+                nodes = list(list(number = 1), list(number = 2)),
                 pageInfo = list(
                   hasNextPage = TRUE,
                   endCursor = "cursor1"
@@ -135,9 +133,7 @@ test_that("FetchRepoIssueClosersRaw processes pagination correctly (#133)", {
           data = list(
             repository = list(
               issues = list(
-                nodes = list(
-                  list(number = 3)
-                ),
+                nodes = list(list(number = 3)),
                 pageInfo = list(
                   hasNextPage = FALSE,
                   endCursor = NULL

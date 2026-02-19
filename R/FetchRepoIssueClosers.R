@@ -129,11 +129,14 @@ FetchRepoIssueClosersRawBatch <- function(
 #' @returns A length-1 `logical`.
 #' @keywords internal
 IsIssueCloserFromRepo <- function(lIssueCloser, strNameWithOwner) {
-  lCloser <- lIssueCloser$timelineItems$nodes[[1]]$closer
-  if (!identical(lCloser$`__typename`, "PullRequest")) {
-    return(TRUE)
+  if (length(lIssueCloser$timelineItems$nodes)) {
+    lCloser <- lIssueCloser$timelineItems$nodes[[1]]$closer
+    if (!identical(lCloser$`__typename`, "PullRequest")) {
+      return(TRUE)
+    }
+    return(identical(lCloser$repository$nameWithOwner, strNameWithOwner))
   }
-  identical(lCloser$repository$nameWithOwner, strNameWithOwner)
+  return(FALSE)
 }
 
 #' Tibblify a single issue closer
@@ -145,7 +148,9 @@ IsIssueCloserFromRepo <- function(lIssueCloser, strNameWithOwner) {
 TibblifyIssueCloser <- function(lIssueCloser) {
   lCloser <- lIssueCloser$timelineItems$nodes[[1]]$closer
   if (is.null(lCloser)) {
-    return(NULL)
+    # Not really possible if they use the full workflow, but this is here to
+    # avoid weird cases.
+    return(NULL) # nocov
   }
   if (
     identical(lCloser$`__typename`, "PullRequest") && !isTRUE(lCloser$merged)

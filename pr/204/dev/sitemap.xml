@@ -156,6 +156,7 @@
 <url><loc>https://gilead-biostats.github.io/qcthat/dev/reference/GetGHAPRNumber.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/qcthat/dev/reference/GetGHOwner.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/qcthat/dev/reference/GetGHRemote.html</loc></url>
+<url><loc>https://gilead-biostats.github.io/qcthat/dev/reference/GetGHRemoteList.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/qcthat/dev/reference/GetGHRepo.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/qcthat/dev/reference/GetGitLog.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/qcthat/dev/reference/GetPkgRoot.html</loc></url>

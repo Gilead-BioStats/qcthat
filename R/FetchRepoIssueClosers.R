@@ -84,7 +84,7 @@ FetchRepoIssueClosersRawBatch <- function(
 ) {
   strAfter <- glue::glue('after: "{strCursor}", ') %|0|% ""
   strQuery <- PrepareGQLQuery(
-    "issues(first: 100, states: CLOSED, <after> orderBy: {field: UPDATED_AT, direction: DESC}) {",
+    "issues(first: 100, states: CLOSED, <after> orderBy: {field: CREATED_AT, direction: ASC}) {",
     "  pageInfo {",
     "    hasNextPage",
     "    endCursor",

@@ -4,7 +4,7 @@
       FetchRepoIssueClosersRawBatch(strOwner = "owner", strRepo = "repo", strGHToken = "token")
     Output
       [[1]]
-      issues(first: 100, states: CLOSED,  orderBy: {field: UPDATED_AT, direction: DESC}) {
+      issues(first: 100, states: CLOSED,  orderBy: {field: CREATED_AT, direction: ASC}) {
         pageInfo {
           hasNextPage
           endCursor
@@ -50,7 +50,7 @@
         strCursor = "not-null")
     Output
       [[1]]
-      issues(first: 100, states: CLOSED, after: "not-null",  orderBy: {field: UPDATED_AT, direction: DESC}) {
+      issues(first: 100, states: CLOSED, after: "not-null",  orderBy: {field: CREATED_AT, direction: ASC}) {
         pageInfo {
           hasNextPage
           endCursor

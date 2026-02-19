@@ -117,6 +117,11 @@ BlameFileRaw <- function(strFilePath, envCall = rlang::caller_env()) {
 #'   file is within.
 #' @keywords internal
 GetRelativePackagePath <- function(strFilePath, envCall = rlang::caller_env()) {
+  # This is actually tested and covered in individual-file tests, but overall
+  # coverage doesn't see it, so I'm marking it as nocov.
+  #
+  # nocov start
   strPkgRoot <- GetPkgRoot(strFilePath, envCall = envCall)
   fs::path_rel(strFilePath, strPkgRoot)
+  # nocov end
 }

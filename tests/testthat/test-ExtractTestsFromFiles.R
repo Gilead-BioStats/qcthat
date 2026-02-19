@@ -1,5 +1,4 @@
 test_that("ExtractTestsFromFiles parses tests and issues from test dirs (#52, #201)", {
-  skip_if(is_checking(), "Catch this one in the qcthat checks.")
   strTestDir <- test_path("fixtures", "testFiles")
   dfResult <- ExtractTestsFromFiles(strTestDir)
   dfExpected <- tibble::tibble(
@@ -12,19 +11,16 @@ test_that("ExtractTestsFromFiles parses tests and issues from test dirs (#52, #2
       "Test with (parentheses) and [brackets] (#6)",
       "No spaces (#1,#2)"
     ),
-    File = fs::path(
-      test_path("fixtures", "testFiles"),
-      c(rep("test-example1.R", 4), rep("test-example2.R", 3))
-    ),
     LineStart = c(3L, 7L, 11L, 16L, 3L, 7L, 11L),
     LineEnd = c(5L, 9L, 14L, 23L, 5L, 9L, 13L),
     Issues = list(3L, integer(), 9:10, 1L, 5L, 6L, 1:2),
     TaggedNoIssue = c(FALSE, TRUE, rep(FALSE, 5))
   )
-  # Deal with slight difference during certain CI.
-  dfResult$File <- stringr::str_remove(dfResult$File, "^qcthat-") |>
-    stringr::str_remove("^check/qcthat\\.Rcheck/") |>
-    fs::path()
+  expect_identical(
+    fs::path_file(dfResult$File),
+    c(rep("test-example1.R", 4), rep("test-example2.R", 3))
+  )
+  dfResult$File <- NULL
   expect_identical(dfResult, dfExpected)
 })
 

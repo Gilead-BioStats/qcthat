@@ -45,22 +45,28 @@ GetGHRepo <- function(strPkgRoot = ".") {
 GetGHRemote <- function(strPkgRoot = ".") {
   if (UsesGit(strPkgRoot)) {
     lRemotes <- GetGHRemoteList(strPkgRoot)
-    strURL <- lRemotes$url[lRemotes$name == "upstream"] %|0|%
-      lRemotes$url[lRemotes$name == "origin"]
-    return(
-      list(
-        username = stringr::str_extract(
-          strURL,
-          "(https://github.com/)([^/]+)",
-          group = 2
-        ),
-        repo = stringr::str_extract(
-          strURL,
-          "(https://github.com/)([^/]+)/([^.]+)",
-          group = 3
+    if (length(lRemotes)) {
+      strURL <- lRemotes$url[lRemotes$name == "upstream"] %|0|%
+        lRemotes$url[lRemotes$name == "origin"]
+      return(
+        list(
+          username = stringr::str_extract(
+            strURL,
+            "(https://github.com/)([^/]+)",
+            group = 2
+          ),
+          repo = stringr::str_extract(
+            strURL,
+            "(https://github.com/)([^/]+)/([^.]+)",
+            group = 3
+          )
         )
       )
-    )
+    }
+    # nocov start
+    strRepo <- gert::git_find(strPkgRoot)
+    return(gh::gh_tree_remote(strRepo))
+    # nocov end
   }
 }
 

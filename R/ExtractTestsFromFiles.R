@@ -81,7 +81,7 @@ ExtractTestsFromFile <- function(strFilePath, envCall = rlang::caller_env()) {
 FindTests <- function(chrTestLines) {
   intTestStarts <- stringr::str_which(chrTestLines, "^\\s*test_that\\(")
   if (!length(intTestStarts)) {
-    return(list())
+    return(vctrs::list_of(.ptype = integer()))
   }
   purrr::map(intTestStarts, \(intTestStart) {
     ParseTest(chrTestLines, intTestStart)
@@ -143,7 +143,7 @@ EmptyFileTestsDF <- function() {
     File = character(),
     LineStart = integer(),
     LineEnd = integer(),
-    Issues = list(),
+    Issues = vctrs::list_of(.ptype = integer()),
     TaggedNoIssue = logical()
   )
 }

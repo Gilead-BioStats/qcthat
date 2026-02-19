@@ -78,7 +78,7 @@ test_that("MapRepoIssuesToCommits handles mixed closers (#53)", {
   expect_identical(dfResult, dfExpected)
 })
 
-test_that("MapRepoIssuesToCommits handles empty input (#noissue)", {
+test_that("MapRepoIssuesToCommits handles empty input (#200)", {
   local_mocked_bindings(
     FetchRepoIssueClosers = function(...) {
       tibble::tibble(
@@ -92,7 +92,7 @@ test_that("MapRepoIssuesToCommits handles empty input (#noissue)", {
   dfResult <- MapRepoIssuesToCommits()
   dfExpected <- tibble::tibble(
     Issue = integer(),
-    Commits = list()
+    Commits = vctrs::list_of(.ptype = character())
   )
   expect_identical(dfResult, dfExpected)
 })

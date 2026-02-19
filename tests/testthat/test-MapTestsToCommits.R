@@ -84,7 +84,7 @@ test_that("MapTestsToCommits handles empty input (#noissue)", {
     File = character(),
     LineStart = integer(),
     LineEnd = integer(),
-    Issues = list(),
+    Issues = vctrs::list_of(.ptype = integer()),
     TaggedNoIssue = logical()
   )
   dfResult <- MapTestsToCommits(dfFileTests)
@@ -93,9 +93,9 @@ test_that("MapTestsToCommits handles empty input (#noissue)", {
     File = character(),
     LineStart = integer(),
     LineEnd = integer(),
-    Issues = list(),
+    Issues = vctrs::list_of(.ptype = integer()),
     TaggedNoIssue = logical(),
-    Commits = list()
+    Commits = vctrs::list_of(.ptype = character())
   )
   expect_identical(dfResult, dfExpected)
 })
@@ -185,7 +185,7 @@ test_that("BlameFile works with no blame data (#noissue)", {
   dfExpected <- tibble::tibble(
     File = character(),
     Line = integer(),
-    Commits = list()
+    Commits = vctrs::list_of(.ptype = character())
   )
   expect_identical(dfResult, dfExpected)
 })

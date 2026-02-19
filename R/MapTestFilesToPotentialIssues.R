@@ -73,8 +73,8 @@ EmptyTestPotentialIssues <- function() {
     File = character(),
     LineStart = integer(),
     LineEnd = integer(),
-    Issues = list(),
-    PotentialIssues = list()
+    Issues = vctrs::list_of(.ptype = integer()),
+    PotentialIssues = vctrs::list_of(.ptype = integer())
   )
 }
 

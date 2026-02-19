@@ -37,7 +37,7 @@ test_that("ExtractTestsFromFiles returns an empty tibble with the expected shape
     File = character(),
     LineStart = integer(),
     LineEnd = integer(),
-    Issues = list(),
+    Issues = vctrs::list_of(.ptype = integer()),
     TaggedNoIssue = logical()
   )
   expect_identical(dfResult, dfExpected)

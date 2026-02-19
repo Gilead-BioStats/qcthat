@@ -10,7 +10,10 @@
 #' @keywords internal
 MapTestsToCommits <- function(dfFileTests, envCall = rlang::caller_env()) {
   if (!nrow(dfFileTests)) {
-    return(dplyr::mutate(dfFileTests, Commits = list()))
+    return(dplyr::mutate(
+      dfFileTests,
+      Commits = vctrs::list_of(.ptype = character())
+    ))
   }
   rlang::check_installed("git2r", "to load git blame information")
   chrUniquePaths <- unique(dfFileTests$File)
@@ -65,7 +68,11 @@ BlameFile <- function(strFilePath, envCall = rlang::caller_env()) {
   lBlameRaw <- BlameFileRaw(strFilePath, envCall = envCall)
   if (!length(lBlameRaw$hunks)) {
     return(
-      tibble::tibble(File = character(), Line = integer(), Commits = list())
+      tibble::tibble(
+        File = character(),
+        Line = integer(),
+        Commits = vctrs::list_of(.ptype = character())
+      )
     )
   }
   purrr::map(lBlameRaw$hunks, \(lHunk) {

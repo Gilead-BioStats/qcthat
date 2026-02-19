@@ -93,7 +93,7 @@ EmptyTestResultsDF <- function() {
     Test = character(),
     File = character(),
     Disposition = factor(levels = c("fail", "skip", "pass")),
-    Issues = list()
+    Issues = vctrs::list_of(.ptype = integer())
   )
 }
 

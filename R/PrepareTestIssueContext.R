@@ -52,9 +52,9 @@ EmptyTestIssueContextDF <- function() {
     File = character(),
     LineStart = integer(),
     LineEnd = integer(),
-    Issues = list(),
+    Issues = vctrs::list_of(.ptype = integer()),
     PotentialIssueDetails = list(),
-    TestCode = list()
+    TestCode = vctrs::list_of(.ptype = character())
   )
 }
 

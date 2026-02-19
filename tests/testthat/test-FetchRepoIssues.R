@@ -12,7 +12,7 @@ test_that("FetchRepoIssues returns an empty df when no issues found (#34)", {
       Issue = integer(),
       Title = character(),
       Body = character(),
-      Labels = list(),
+      Labels = vctrs::list_of(.ptype = character()),
       State = character(),
       StateReason = character(),
       Milestone = character(),

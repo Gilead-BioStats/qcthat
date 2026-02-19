@@ -155,17 +155,17 @@ test_that("MapTestFilesToPotentialIssues handles empty test directory (#noissue)
         File = character(),
         LineStart = integer(),
         LineEnd = integer(),
-        Issues = list(),
+        Issues = vctrs::list_of(.ptype = integer()),
         TaggedNoIssue = logical()
       )
     },
     MapTestsToCommits = function(dfFileTests) {
-      dplyr::mutate(dfFileTests, Commits = list())
+      dplyr::mutate(dfFileTests, Commits = vctrs::list_of(.ptype = character()))
     },
     MapRepoIssuesToCommits = function(...) {
       tibble::tibble(
         Issue = integer(),
-        Commits = list()
+        Commits = vctrs::list_of(.ptype = character())
       )
     }
   )
@@ -175,8 +175,8 @@ test_that("MapTestFilesToPotentialIssues handles empty test directory (#noissue)
     File = character(),
     LineStart = integer(),
     LineEnd = integer(),
-    Issues = list(),
-    PotentialIssues = list()
+    Issues = vctrs::list_of(.ptype = integer()),
+    PotentialIssues = vctrs::list_of(.ptype = integer())
   )
   expect_identical(dfResult, dfExpected)
 })
@@ -212,8 +212,8 @@ test_that("MapTestFilesToPotentialIssues handles all tests tagged with #noissue 
     File = character(),
     LineStart = integer(),
     LineEnd = integer(),
-    Issues = list(),
-    PotentialIssues = list()
+    Issues = vctrs::list_of(.ptype = integer()),
+    PotentialIssues = vctrs::list_of(.ptype = integer())
   )
   expect_identical(dfResult, dfExpected)
 })

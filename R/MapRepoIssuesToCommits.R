@@ -20,7 +20,10 @@ MapRepoIssuesToCommits <- function(
     strGHToken = strGHToken
   )
   if (!nrow(dfIssueClosers)) {
-    return(tibble::tibble(Issue = integer(), Commits = list()))
+    return(tibble::tibble(
+      Issue = integer(),
+      Commits = vctrs::list_of(.ptype = character())
+    ))
   }
 
   # Fetch all PRs once to avoid repeated API calls

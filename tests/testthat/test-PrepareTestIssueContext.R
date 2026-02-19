@@ -84,9 +84,9 @@ test_that("PrepareTestIssueContext handles empty input (#53)", {
     File = character(),
     LineStart = integer(),
     LineEnd = integer(),
-    Issues = list(),
+    Issues = vctrs::list_of(.ptype = integer()),
     PotentialIssueDetails = list(),
-    TestCode = list()
+    TestCode = vctrs::list_of(.ptype = character())
   )
   expect_identical(dfResult, dfExpected)
 })

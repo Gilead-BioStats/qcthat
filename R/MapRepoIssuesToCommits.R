@@ -10,8 +10,9 @@
 #'   associated with each issue.
 #' @keywords internal
 MapRepoIssuesToCommits <- function(
-  strOwner = GetGHOwner(),
-  strRepo = GetGHRepo(),
+  strPkgRoot = ".",
+  strOwner = GetGHOwner(strPkgRoot),
+  strRepo = GetGHRepo(strPkgRoot),
   strGHToken = gh::gh_token()
 ) {
   dfIssueClosers <- FetchRepoIssueClosers(
@@ -39,7 +40,8 @@ MapRepoIssuesToCommits <- function(
     strOwner = strOwner,
     strRepo = strRepo,
     strGHToken = strGHToken,
-    lPRs = lPRs
+    lPRs = lPRs,
+    strPkgRoot = strPkgRoot
   )
 }
 
@@ -57,8 +59,9 @@ MapRepoIssuesToCommits <- function(
 #'   associated with each issue.
 MapIssueClosersToCommits <- function(
   dfIssueClosers,
-  strOwner = GetGHOwner(),
-  strRepo = GetGHRepo(),
+  strPkgRoot = ".",
+  strOwner = GetGHOwner(strPkgRoot),
+  strRepo = GetGHRepo(strPkgRoot),
   strGHToken = gh::gh_token(),
   lPRs = NULL
 ) {
@@ -68,70 +71,28 @@ MapIssueClosersToCommits <- function(
     .data$CloserSHA,
     .data$CloserPRNumber
   )
+  # Prep lPRs for speed.
+  if (length(lPRs)) {
+    names(lPRs) <- purrr::map_int(lPRs, "number")
+  }
+  dfClosers$Commits <- as.list(dfClosers$CloserSHA)
 
-  dfClosers$Commits <- purrr::pmap(
-    list(
-      dfClosers$CloserType,
-      dfClosers$CloserSHA,
-      dfClosers$CloserPRNumber
-    ),
-    \(strCloserType, strCloserSHA, intCloserPRNumber) {
-      FindAllIssueCommits(
-        strCloserType = strCloserType,
-        strCloserSHA = strCloserSHA,
-        intCloserPRNumber = intCloserPRNumber,
-        strOwner = strOwner,
-        strRepo = strRepo,
-        strGHToken = strGHToken,
-        lPRs = lPRs
-      )
-    }
-  )
+  lglIsPR <- dfClosers$CloserType == "PullRequest"
+  if (any(lglIsPR)) {
+    chrPRMergeSHAs <- purrr::map_chr(
+      dfClosers$CloserPRNumber[lglIsPR],
+      \(intCloserPRNumber) {
+        LookupPRFromList(lPRs, intCloserPRNumber)$merge_commit_sha
+      }
+    )
+    lPRCommits <- FetchAllMergeCommitSHAsLocal(chrPRMergeSHAs, strPkgRoot)
+    dfClosers$Commits[lglIsPR] <- lPRCommits
+  }
+
   dfIssueClosers |>
     dplyr::left_join(
       dfClosers,
       by = c("CloserType", "CloserSHA", "CloserPRNumber")
     ) |>
     dplyr::select("Issue", "Commits")
-}
-
-#' Find all commits associated with an issue closer
-#'
-#' @param strCloserType (`length-1 character`) Whether the issue was closed by a
-#'   `"PullRequest"` or a `"Commit"`.
-#' @param strCloserSHA (`length-1 character`) The commit SHA for an issue closed
-#'   by a `"Commit"`.
-#' @param intCloserPRNumber (`length-1 integer`) The number of the pull request
-#'   that closed the issue.
-#' @param lPRs (`list` or `NULL`) Optional list of raw pull request objects as
-#'   returned by [FetchRawRepoPRs()]. If provided, PRs will be looked up from
-#'   this list instead of fetching individually from the API.
-#' @inheritParams shared-params
-#' @returns A character vector of commit SHAs associated with this issue.
-FindAllIssueCommits <- function(
-  strCloserType,
-  strCloserSHA,
-  intCloserPRNumber,
-  strOwner = GetGHOwner(),
-  strRepo = GetGHRepo(),
-  strGHToken = gh::gh_token(),
-  lPRs = NULL
-) {
-  if (!isTRUE(strCloserType == "PullRequest")) {
-    return(strCloserSHA)
-  }
-  chrPRRefs <- FetchPRRefs(
-    intPRNumber = intCloserPRNumber,
-    strOwner = strOwner,
-    strRepo = strRepo,
-    strGHToken = strGHToken,
-    lPRs = lPRs
-  )
-  FetchMergeCommitSHAs(
-    strSourceRef = chrPRRefs[["strSourceRef"]],
-    strTargetRef = chrPRRefs[["strTargetRef"]],
-    strOwner = strOwner,
-    strRepo = strRepo,
-    strGHToken = strGHToken
-  )
 }

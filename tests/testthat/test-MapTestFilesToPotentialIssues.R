@@ -22,7 +22,8 @@ test_that("MapTestFilesToPotentialIssues finds potential issues via commits (#53
         Issue = 1:2,
         Commits = list(c("commit1", "commit2"), c("commit3"))
       )
-    }
+    },
+    GetPkgRoot = function(strPkgRoot) strPkgRoot
   )
   dfResult <- MapTestFilesToPotentialIssues()
   dfExpected <- tibble::tibble(
@@ -59,7 +60,8 @@ test_that("MapTestFilesToPotentialIssues filters out tests tagged with #noissue 
         Issue = 1L,
         Commits = list("commit1")
       )
-    }
+    },
+    GetPkgRoot = function(strPkgRoot) strPkgRoot
   )
   dfResult <- MapTestFilesToPotentialIssues()
   dfExpected <- tibble::tibble(
@@ -96,7 +98,8 @@ test_that("MapTestFilesToPotentialIssues handles tests with no matching commits 
         Issue = 1L,
         Commits = list("commit2")
       )
-    }
+    },
+    GetPkgRoot = function(strPkgRoot) strPkgRoot
   )
   dfResult <- MapTestFilesToPotentialIssues()
   dfExpected <- tibble::tibble(
@@ -133,7 +136,8 @@ test_that("MapTestFilesToPotentialIssues handles tests with tagged issues (#53)"
         Issue = c(1L, 2L),
         Commits = list("commit1", "commit2")
       )
-    }
+    },
+    GetPkgRoot = function(strPkgRoot) strPkgRoot
   )
   dfResult <- MapTestFilesToPotentialIssues()
   dfExpected <- tibble::tibble(

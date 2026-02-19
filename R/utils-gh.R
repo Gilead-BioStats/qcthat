@@ -39,7 +39,6 @@ GetGHRepo <- function(strPkgRoot = ".") {
 #' A wrapper to safely call [gh::gh_tree_remote()] if the project uses git.
 #'
 #' @inheritParams shared-params
-#'
 #' @returns A list representing the GitHub repository at `strPkgRoot`.
 #' @keywords internal
 GetGHRemote <- function(strPkgRoot = ".") {

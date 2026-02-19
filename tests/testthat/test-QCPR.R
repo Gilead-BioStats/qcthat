@@ -24,31 +24,19 @@ test_that("QCPR filters to PR-related issues (#68, #84)", {
 
 test_that("FetchPRRefs returns source and target refs (#84, #133, #149)", {
   local_mocked_bindings(
-    CallGHAPI = function(..., pull_number = 0, ref = "") {
+    CallGHAPI = function(..., pull_number = 0) {
       if (pull_number == 123) {
         return(
           list(head = list(ref = "feature-branch"), base = list(ref = "dev"))
         )
       }
       if (pull_number == 456) {
-        return(
-          list(
-            merged = TRUE,
-            merge_commit_sha = "merge-sha-456"
-          )
-        )
-      }
-      if (ref == "merge-sha-456") {
-        return(
-          list(
-            parents = list(
-              list(sha = "parent-sha-1"),
-              list(sha = "parent-sha-2")
-            )
-          )
-        )
+        return(list(merged = TRUE, merge_commit_sha = "merge-sha-456"))
       }
       stop()
+    },
+    GetGitCommitInfo = function(strRef, strPkgRoot) {
+      list(parents = c("parent-sha-1", "parent-sha-2"))
     }
   )
   expect_equal(
@@ -60,9 +48,7 @@ test_that("FetchPRRefs returns source and target refs (#84, #133, #149)", {
     c(strSourceRef = "merge-sha-456", strTargetRef = "parent-sha-1")
   )
   expect_error(
-    FetchPRRefs(
-      intPRNumber = 999
-    ),
+    FetchPRRefs(intPRNumber = 999),
     "must refer to a pull request in the specified repository",
     class = "qcthat-error-pr_not_found"
   )
@@ -83,4 +69,14 @@ test_that("FetchPRRefs calls LookupPRFromList when lPRs is provided (#noissue)",
     FetchPRRefs(intPRNumber = intPRNumberTest, lPRs = lPRsTest)
   ) |>
     expect_message("Called LookupPRFromList")
+})
+
+test_that("FetchPRRefs errors when local git lookup fails for merged PR (#noissue)", {
+  local_mocked_bindings(
+    FetchRawRepoPRSingle = function(...) {
+      list(merged = TRUE, merge_commit_sha = "merge-sha")
+    },
+    GetGitCommitInfo = function(...) stop("not available locally")
+  )
+  expect_error(FetchPRRefs(intPRNumber = 1L), "not available locally")
 })

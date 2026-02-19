@@ -27,7 +27,6 @@
 QCMergeLocal <- function(
   strSourceRef = GetActiveBranch(strPkgRoot),
   strTargetRef = GetDefaultBranch(strPkgRoot),
-  strPkgRoot = ".",
   chrKeywords = c(
     "close",
     "closes",
@@ -39,6 +38,7 @@ QCMergeLocal <- function(
     "resolves",
     "resolved"
   ),
+  strPkgRoot = ".",
   strOwner = GetGHOwner(strPkgRoot),
   strRepo = GetGHRepo(strPkgRoot),
   strGHToken = gh::gh_token(),
@@ -79,7 +79,6 @@ QCMergeLocal <- function(
 FindKeywordIssues <- function(
   strSourceRef = GetActiveBranch(strPkgRoot),
   strTargetRef = GetDefaultBranch(strPkgRoot),
-  strPkgRoot = ".",
   chrKeywords = c(
     "close",
     "closes",
@@ -91,6 +90,7 @@ FindKeywordIssues <- function(
     "resolves",
     "resolved"
   ),
+  strPkgRoot = ".",
   strOwner = GetGHOwner(strPkgRoot),
   strRepo = GetGHRepo(strPkgRoot),
   intMaxCommits = 100000L

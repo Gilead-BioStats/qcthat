@@ -22,7 +22,7 @@ FetchAllIssuePRRefs <- function(
   lPRCrossRefNodes <- purrr::keep(
     lPRCrossRefs$data$repository$issue$timelineItems$nodes,
     \(lPRCrossRef) {
-      isTRUE(lPRCrossRef$source$state %in% toupper(strPRState))
+      isTRUE(any(lPRCrossRef$source$state == toupper(strPRState)))
     }
   )
 

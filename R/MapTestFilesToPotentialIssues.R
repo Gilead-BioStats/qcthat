@@ -34,7 +34,8 @@ MapTestFilesToPotentialIssues <- function(
   dfIssueCommitsLong <- MapLongIssueCommits(
     strOwner = strOwner,
     strRepo = strRepo,
-    strGHToken = strGHToken
+    strGHToken = strGHToken,
+    strPkgRoot = strTestDir
   )
 
   MapTestsToPotentialIssues(
@@ -85,14 +86,17 @@ EmptyTestPotentialIssues <- function() {
 #'   columns `Issue` and `Commits`.
 #' @keywords internal
 MapLongIssueCommits <- function(
-  strOwner = GetGHOwner(),
-  strRepo = GetGHRepo(),
+  strPkgRoot = ".",
+  strOwner = GetGHOwner(strPkgRoot),
+  strRepo = GetGHRepo(strPkgRoot),
   strGHToken = gh::gh_token()
 ) {
+  strPkgRoot <- GetPkgRoot(strPkgRoot)
   MapRepoIssuesToCommits(
     strOwner = strOwner,
     strRepo = strRepo,
-    strGHToken = strGHToken
+    strGHToken = strGHToken,
+    strPkgRoot = strPkgRoot
   ) |>
     tidyr::unnest_longer("Commits")
 }
@@ -110,15 +114,17 @@ MapLongIssueCommits <- function(
 MapTestsToPotentialIssues <- function(
   dfTestCommitsLong,
   dfIssueCommitsLong = NULL,
-  strOwner = GetGHOwner(),
-  strRepo = GetGHRepo(),
+  strPkgRoot = ".",
+  strOwner = GetGHOwner(strPkgRoot),
+  strRepo = GetGHRepo(strPkgRoot),
   strGHToken = gh::gh_token()
 ) {
   dfIssueCommitsLong <- dfIssueCommitsLong %||%
     MapLongIssueCommits(
       strOwner = strOwner,
       strRepo = strRepo,
-      strGHToken = strGHToken
+      strGHToken = strGHToken,
+      strPkgRoot = strPkgRoot
     )
 
   dplyr::left_join(

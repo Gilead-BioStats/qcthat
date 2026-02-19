@@ -5,12 +5,16 @@
 \title{Map issues to commits in long format}
 \usage{
 MapLongIssueCommits(
-  strOwner = GetGHOwner(),
-  strRepo = GetGHRepo(),
+  strPkgRoot = ".",
+  strOwner = GetGHOwner(strPkgRoot),
+  strRepo = GetGHRepo(strPkgRoot),
   strGHToken = gh::gh_token()
 )
 }
 \arguments{
+\item{strPkgRoot}{(\verb{length-1 character}) The path to a directory in the
+package. Will be expanded using \code{\link[gert:git_repo]{gert::git_find()}}.}
+
 \item{strOwner}{(\verb{length-1 character}) GitHub username or organization name.}
 
 \item{strRepo}{(\verb{length-1 character}) GitHub repository name.}

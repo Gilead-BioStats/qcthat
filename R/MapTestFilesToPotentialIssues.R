@@ -49,12 +49,13 @@ MapTestFilesToPotentialIssues <- function(
     return(EmptyTestPotentialIssues())
   }
 
-  dfIssueCommitsLong <- dfIssueCommitsLong %||% MapLongIssueCommits(
-    strOwner = strOwner,
-    strRepo = strRepo,
-    strGHToken = strGHToken,
-    strPkgRoot = strTestDir
-  )
+  dfIssueCommitsLong <- dfIssueCommitsLong %||%
+    MapLongIssueCommits(
+      strOwner = strOwner,
+      strRepo = strRepo,
+      strGHToken = strGHToken,
+      strPkgRoot = strTestDir
+    )
 
   MapTestsToPotentialIssues(
     dfTestCommitsLong,

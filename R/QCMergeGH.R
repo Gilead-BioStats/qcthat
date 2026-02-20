@@ -281,6 +281,7 @@ GetGitCommitInfo <- function(strRef, strPkgRoot = ".") {
 #' @keywords internal
 BatchLookupCommitParents <- function(chrSHAs, strPkgRoot = ".") {
   # nocov start
+  rlang::check_installed("git2r", "to load git commit histories")
   repo <- git2r::repository(strPkgRoot)
   lapply(chrSHAs, function(strSHA) {
     tryCatch(

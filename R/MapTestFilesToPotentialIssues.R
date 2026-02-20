@@ -1,27 +1,9 @@
 #' Map test files to potential issues
 #'
-#' Identify potential issues for each test by matching commits that last modified
-#' the test with commits that closed issues. Tests tagged with `#noissue` are
-#' excluded from the results.
+#' Identify potential issues for each test by matching commits that last
+#' modified the test with commits that closed issues. Tests tagged with
+#' `#noissue` are excluded from the results.
 #'
-#' When processing multiple test files, pre-compute `dfIssueCommitsLong` once
-#' with [MapLongIssueCommits()] and pass it to each call to avoid redundant
-#' GitHub API requests:
-#'
-#' ```r
-#' dfIssueCommitsLong <- MapLongIssueCommits()
-#' results <- purrr::map(
-#'   lFileTestsSplit,
-#'   MapTestFilesToPotentialIssues,
-#'   dfIssueCommitsLong = dfIssueCommitsLong
-#' )
-#' ```
-#'
-#' @param dfIssueCommitsLong (`data.frame` or `NULL`) Pre-computed issue-commit
-#'   mappings from [MapLongIssueCommits()]. If `NULL` (the default), fetched
-#'   automatically from the GitHub API. Provide this when calling
-#'   [MapTestFilesToPotentialIssues()] multiple times to avoid redundant API
-#'   requests.
 #' @inheritParams shared-params
 #' @returns A [tibble::tibble()] with columns:
 #'   - `Test`: The `desc` field of the test from [testthat::test_that()].
@@ -100,10 +82,20 @@ EmptyTestPotentialIssues <- function() {
 
 #' Map issues to commits in long format
 #'
+#' Fetches all closed issues for a repository and maps each to the commits that
+#' closed it, returning one row per issue-commit pair. This is an optional input
+#' to [MapTestFilesToPotentialIssues()]. Pre-computing it once and passing the
+#' result via `dfIssueCommitsLong` avoids redundant API calls when processing
+#' multiple test files.
+#'
 #' @inheritParams shared-params
 #' @returns A [tibble::tibble()] with one row per issue-commit pair, containing
 #'   columns `Issue` and `Commits`.
-#' @keywords internal
+#' @export
+#'
+#' @examplesIf interactive()
+#'
+#'   dfIssueCommitsLong <- MapLongIssueCommits()
 MapLongIssueCommits <- function(
   strPkgRoot = ".",
   strOwner = GetGHOwner(strPkgRoot),
@@ -124,8 +116,6 @@ MapLongIssueCommits <- function(
 #'
 #' @param dfTestCommitsLong A [tibble::tibble()] with one row per test-commit
 #'   pair, typically from [ExtractLongTestCommits()].
-#' @param dfIssueCommitsLong A [tibble::tibble()] with one row per issue-commit
-#'   pair, typically from [MapLongIssueCommits()]. If `NULL`, will be fetched.
 #' @inheritParams shared-params
 #' @returns A [tibble::tibble()] in long format with columns `Test`, `File`,
 #'   `Issues`, and `Issue` (the potential issue number).

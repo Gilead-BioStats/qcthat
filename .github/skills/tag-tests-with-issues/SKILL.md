@@ -3,7 +3,7 @@ name: tag-tests-with-issues
 description: Identify likely GitHub issues connected to test cases. Use when asked to tag tests with issues or get started with qcthat.
 ---
 
-# Tag Tests with Issues
+# Tag tests with issues
 
 Connect test cases to their related GitHub issues by adding issue references (e.g., `(#123)`) to test descriptions. This creates bidirectional traceability between tests and the features or bugs they address. Evidence of connections is provided by a series of R functions that extract the relevant details.
 
@@ -11,9 +11,9 @@ This skill is intended to be executed with minimal interaction, so skip chat out
 
 Note: Throughout this skill, if a full path is not provided, files are located in `tests/testthat` (you should not need to search the entire repo for them).
 
-## Step 1: Load Test and Issue Context
+## Step 1: Load test and issue context
 
-Extract all tests and process them file-by-file. `MapTestFilesToPotentialIssues()` can be very slow, so only process one file at a time, and be prepared to wait. Do not try to speed up the process by avoiding this function. Its output is required for `PrepareTestIssueContext()`, and the output of `PrepareTestIssueContext()` is your source of all context for the remaining steps.
+Extract all tests and process them file-by-file. `MapTestFilesToPotentialIssues()` can be slow, so pre-compute the issue-commit mappings once with `MapLongIssueCommits()` and pass the result to each call. Do not try to speed up the process by avoiding this function. Its output is required for `PrepareTestIssueContext()`, and the output of `PrepareTestIssueContext()` is your source of all context for the remaining steps.
 
 ```r
 library(qcthat)
@@ -24,8 +24,14 @@ dfFileTests <- ExtractTestsFromFiles()
 # Split into one data frame per test file
 lFileTestsSplit <- dplyr::group_split(dfFileTests, File)
 
+# Pre-compute issue-commit mappings once (avoids redundant API calls per file)
+dfIssueCommitsLong <- MapLongIssueCommits()
+
 # Process one file at a time (shown here for the first file)
-dfPotentialIssues <- MapTestFilesToPotentialIssues(lFileTestsSplit[[1]])
+dfPotentialIssues <- MapTestFilesToPotentialIssues(
+  lFileTestsSplit[[1]],
+  dfIssueCommitsLong = dfIssueCommitsLong
+)
 dfTestIssueContext <- PrepareTestIssueContext(dfPotentialIssues)
 ```
 
@@ -42,11 +48,11 @@ dfTestIssueContext <- PrepareTestIssueContext(dfPotentialIssues)
 | `PotentialIssueDetails` | list of tibbles | A tibble per test with columns `Issue`, `Title`, and `Body` for each potentially related issue. Identified by matching commits that modified the test with commits that closed issues. |
 | `TestCode` | list of character vectors | The actual test code |
 
-## Step 2: Match Tests to Issues
+## Step 2: Match tests to issues
 
 For each test, compare the test code and description against the issue details in `PotentialIssueDetails`. Do not use `git blame` or other tools, and do not look up issue details directly via `gh` or other means. `dfTestIssueContext` contains all of the information you will need to evaluate the tests and issues. Your matches should only come from the `Issue` column of the `PotentialIssueDetails` table for that test. Many tests will match exactly one issue. Some may match zero. A few may match more than one.
 
-### Decision Process
+### Decision process
 
 For every test with non-empty `PotentialIssueDetails`, follow these steps in order:
 
@@ -86,7 +92,7 @@ For example, if a test checks that `ValidateCardNumber()` rejects expired cards,
 
 The `Issues` column shows what's already tagged. Do not re-add existing tags.
 
-### Common Errors to Avoid
+### Common errors to avoid
 
 Do NOT match based on superficial keyword overlap or feature-area proximity. These are the most common failure patterns:
 
@@ -96,7 +102,7 @@ Do NOT match based on superficial keyword overlap or feature-area proximity. The
 - **Incidental file changes**: Issue is about infrastructure, refactoring, or cleanup that happened to touch the same file but isn't about the functionality the test checks
 - **Description vs. code mismatch**: Matching based on the test description when the `TestCode` shows the test is actually checking something different
 
-### Special Cases
+### Special cases
 
 **Tests with `intIssue` in `ExpectUserAccepts()` calls**: Tag with the referenced issue number, UNLESS the value is obviously test data (e.g., 1, 12, 123, 12345).
 
@@ -141,17 +147,17 @@ test$PotentialIssueDetails[[1]]
 # not just keyword overlap in the title.
 ```
 
-## Step 3: Edit Test Files
+## Step 3: Edit test files
 
 Once you've identified which issue(s) match a test, update the test file.
 
-### Tag Format
+### Tag format
 
 Add issue references in parentheses at the end of the test description:
 - Single issue: `test_that("does something (#123)", { ... })`
 - Multiple issues: `test_that("does something (#123, #456)", { ... })`
 
-### Editing Guidelines
+### Editing guidelines
 
 - **Only edit the parenthetical issue tags** in the `test_that()` description string. Do not change anything else.
 - Preserve existing tags. 
@@ -160,7 +166,7 @@ Add issue references in parentheses at the end of the test description:
 - Batch edits to the same file to minimize file I/O.
 - Preserve existing code style and indentation. Handle multi-line test descriptions carefully.
 
-### Editing Code
+### Editing code
 
 ```r
 # Construct the new tag string
@@ -181,6 +187,7 @@ readLines(test$File) |>
 ## Validation
 
 After tagging:
-- Ensure tests still run: `devtools::test()`
-- Re-run the extraction and context preparation workflow to verify tags were parsed correctly
+- Ensure tests still run: `devtools::test(reporter = "check")`
+  - Snapshots may change since the description of the test has changed, but *only* the description should change.
+- Re-run `dfFileTests <- ExtractTestsFromFiles()` to verify tags were parsed correctly
   - Confirm that the `Issues` column now contains the tagged issue numbers

@@ -46,6 +46,12 @@ separate piece of the vector).}
 \item{dfFileTests}{(\code{data.frame}) A \code{\link[tibble:tibble]{tibble::tibble()}} with the structure
 returned by \code{\link[=ExtractTestsFromFiles]{ExtractTestsFromFiles()}}.}
 
+\item{dfIssueCommitsLong}{(\code{data.frame} or \code{NULL}) Pre-computed issue-commit
+mappings from \code{\link[=MapLongIssueCommits]{MapLongIssueCommits()}}. If \code{NULL} (the default), fetched
+automatically from the GitHub API. Provide this when calling
+\code{\link[=MapTestFilesToPotentialIssues]{MapTestFilesToPotentialIssues()}} multiple times to avoid redundant API
+requests.}
+
 \item{dfITM}{(\code{qcthat_IssueTestMatrix}) A \code{qcthat_IssueTestMatrix} object as
 returned by \code{\link[=AsIssueTestMatrix]{AsIssueTestMatrix()}} (often via \code{\link[=QCPackage]{QCPackage()}}).}
 

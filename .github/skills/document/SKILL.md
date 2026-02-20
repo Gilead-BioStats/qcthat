@@ -7,7 +7,10 @@ description: Document package functions. Use when asked to document functions.
 
 *All* functions should be documented in {roxygen2} `#'` style, including internal/unexported functions.
 
-## Shared Parameters
+- Run `devtools::document()` after changing any roxygen2 docs.
+- Use sentence case for all headings
+
+## Shared parameters
 
 **Parameters used in more than one function should be documented in `R/aaa-shared.R`** under the `@name shared-params` section. Functions then use `@inheritParams shared-params` to inherit these parameter definitions.
 
@@ -17,7 +20,7 @@ The `aaa-shared.R` file:
 - Includes `@keywords internal` to mark it as internal
 - Ends with `NULL` (required for roxygen2 processing)
 
-## Parameter Documentation Format
+## Parameter documentation format
 
 Parameters follow this format:
 ```r
@@ -35,7 +38,7 @@ Parameters follow this format:
 - "(`list`)" - List object
 - "(`environment`)" - Environment object
 
-## Parameter Naming Conventions
+## Parameter naming conventions
 
 **Hungarian-style prefixes** indicate parameter type:
 - `str*` - Single string (length-1 character): `strTitle`, `strBody`, `strOwner`
@@ -49,7 +52,7 @@ Parameters follow this format:
 - `fct*` - Factor: `fctDisposition`
 - `obj*` - Object: `objShape`
 
-## Return Value Documentation
+## Return value documentation
 
 Use `@returns` (not `@return`) with specific details:
 
@@ -75,7 +78,7 @@ Use `@returns` (not `@return`) with specific details:
 #' @returns `NULL` (invisibly).
 ```
 
-## Cross-References
+## Cross-references
 
 Use square brackets for function cross-references:
 - External packages: `[tibble::tibble()]`, `[glue::glue()]`
@@ -83,7 +86,7 @@ Use square brackets for function cross-references:
 
 These auto-generate hyperlinks in help documentation.
 
-## Examples Sections
+## Examples sections
 
 **For interactive/network-dependent functions:**
 ```r
@@ -100,7 +103,7 @@ These auto-generate hyperlinks in help documentation.
 
 The `@examplesIf interactive()` pattern skips examples during `R CMD check`.
 
-## Grouping Related Documentation
+## Grouping related documentation
 
 Use `@rdname` to group related functions (especially S3 methods) under one help page:
 
@@ -118,7 +121,7 @@ print.qcthat_Object <- function(x, ...) { ... }
 format.qcthat_Object <- function(...) { ... }
 ```
 
-## S3 Method Exports
+## S3 method exports
 
 For S3 methods of functions from other packages:
 ```r
@@ -126,7 +129,7 @@ For S3 methods of functions from other packages:
 filter.qcthat_IssueTestMatrix <- function(.data, ...) { ... }
 ```
 
-## Internal Functions
+## Internal functions
 
 Internal (unexporeted) functions use abbreviated documentation:
 

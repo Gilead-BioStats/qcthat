@@ -27,6 +27,15 @@ A \code{\link[tibble:tibble]{tibble::tibble()}} with one row per issue-commit pa
 columns \code{Issue} and \code{Commits}.
 }
 \description{
-Map issues to commits in long format
+Fetches all closed issues for a repository and maps each to the commits that
+closed it, returning one row per issue-commit pair. This is an optional input
+to \code{\link[=MapTestFilesToPotentialIssues]{MapTestFilesToPotentialIssues()}}. Pre-computing it once and passing the
+result via \code{dfIssueCommitsLong} avoids redundant API calls when processing
+multiple test files.
 }
-\keyword{internal}
+\examples{
+\dontshow{if (interactive()) withAutoprint(\{ # examplesIf}
+
+  dfIssueCommitsLong <- MapLongIssueCommits()
+\dontshow{\}) # examplesIf}
+}

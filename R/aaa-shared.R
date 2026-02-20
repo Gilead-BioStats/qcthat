@@ -31,6 +31,11 @@
 #' @param dttmTimestamp (`POSIXct`) A system timestamp.
 #' @param dfFileTests (`data.frame`) A [tibble::tibble()] with the structure
 #'   returned by [ExtractTestsFromFiles()].
+#' @param dfIssueCommitsLong (`data.frame` or `NULL`) Pre-computed issue-commit
+#'   mappings from [MapLongIssueCommits()]. If `NULL` (the default), fetched
+#'   automatically from the GitHub API. Provide this when calling
+#'   [MapTestFilesToPotentialIssues()] multiple times to avoid redundant API
+#'   requests.
 #' @param dfITM (`qcthat_IssueTestMatrix`) A `qcthat_IssueTestMatrix` object as
 #'   returned by [AsIssueTestMatrix()] (often via [QCPackage()]).
 #' @param dfLabels (`data.frame`) A data frame with columns `Label`,

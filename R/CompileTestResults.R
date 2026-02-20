@@ -7,7 +7,8 @@
 #' @returns A `qcthat_TestResults` object, which is a [tibble::tibble()] with
 #'   columns:
 #'   - `Test`: The `desc` field of the test from [testthat::test_that()].
-#'   - `File`: File where the test is defined.
+#'   - `File`: Path to the file where the test is defined, relative to the
+#'   package root.
 #'   - `Disposition`: Factor with levels `pass`, `fail`, and `skip` indicating
 #'   the overall outcome of the test.
 #'   - `Issues`: List column containing integer vectors of associated GitHub
@@ -92,7 +93,7 @@ EmptyTestResultsDF <- function() {
     Test = character(),
     File = character(),
     Disposition = factor(levels = c("fail", "skip", "pass")),
-    Issues = list()
+    Issues = vctrs::list_of(.ptype = integer())
   )
 }
 

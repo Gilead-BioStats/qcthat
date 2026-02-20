@@ -7,8 +7,9 @@
 #' @returns A [tibble::tibble()] with columns:
 #'   - `Issue`: Issue number.
 #'   - `CloserType`: Type of the closer, either `Commit` or `PullRequest`.
-#'   - `CloserSHA`: SHA of the commit that closed the issue, or `NA` if the
-#'   issue was closed by a pull request.
+#'   - `CloserSHA`: SHA of the commit that closed the issue. For `Commit`
+#'   closers, this is the commit OID directly. For `PullRequest` closers, this
+#'   is the merge commit SHA.
 #'   - `CloserPRNumber`: Number of the pull request that closed the issue, or
 #'   `NA` if the issue was closed by a commit.
 #' @export
@@ -49,6 +50,7 @@ FetchRepoIssueClosersRaw <- function(
   strRepo = GetGHRepo(),
   strGHToken = gh::gh_token()
 ) {
+  strNameWithOwner <- paste0(strOwner, "/", strRepo)
   lIssueClosers <- list()
   strCursor <- NULL
   repeat {
@@ -58,10 +60,9 @@ FetchRepoIssueClosersRaw <- function(
       strGHToken = strGHToken,
       strCursor = strCursor
     )
-    lIssueClosers <- unique(c(
-      lIssueClosers,
-      lBatch$data$repository$issues$nodes
-    ))
+    lNodes <- lBatch$data$repository$issues$nodes
+    lNodes <- purrr::keep(lNodes, IsIssueCloserFromRepo, strNameWithOwner)
+    lIssueClosers <- unique(c(lIssueClosers, lNodes))
     if (!isTRUE(lBatch$data$repository$issues$pageInfo$hasNextPage)) {
       break
     }
@@ -84,7 +85,7 @@ FetchRepoIssueClosersRawBatch <- function(
 ) {
   strAfter <- glue::glue('after: "{strCursor}", ') %|0|% ""
   strQuery <- PrepareGQLQuery(
-    "issues(first: 100, states: CLOSED, <after> orderBy: {field: UPDATED_AT, direction: DESC}) {",
+    "issues(first: 100, states: CLOSED, <after> orderBy: {field: CREATED_AT, direction: ASC}) {",
     "  pageInfo {",
     "    hasNextPage",
     "    endCursor",
@@ -101,6 +102,11 @@ FetchRepoIssueClosersRawBatch <- function(
     "            }",
     "            ... on PullRequest {",
     "              number",
+    "              merged",
+    "              mergeCommit { oid }",
+    "              repository {",
+    "                nameWithOwner",
+    "              }",
     "            }",
     "          }",
     "        }",
@@ -118,6 +124,23 @@ FetchRepoIssueClosersRawBatch <- function(
   )
 }
 
+#' Check whether an issue closer originates from the target repository
+#'
+#' @param lIssueCloser (`list`) A single raw issue node.
+#' @param strNameWithOwner (`character(1)`) `"owner/repo"` of the target repo.
+#' @returns A length-1 `logical`.
+#' @keywords internal
+IsIssueCloserFromRepo <- function(lIssueCloser, strNameWithOwner) {
+  if (length(lIssueCloser$timelineItems$nodes)) {
+    lCloser <- lIssueCloser$timelineItems$nodes[[1]]$closer
+    if (!identical(lCloser$`__typename`, "PullRequest")) {
+      return(TRUE)
+    }
+    return(identical(lCloser$repository$nameWithOwner, strNameWithOwner))
+  }
+  return(FALSE)
+}
+
 #' Tibblify a single issue closer
 #'
 #' @param lIssueCloser (`list`) A single element of a raw issue closer object as
@@ -127,12 +150,19 @@ FetchRepoIssueClosersRawBatch <- function(
 TibblifyIssueCloser <- function(lIssueCloser) {
   lCloser <- lIssueCloser$timelineItems$nodes[[1]]$closer
   if (is.null(lCloser)) {
+    # Not really possible if they use the full workflow, but this is here to
+    # avoid weird cases.
+    return(NULL) # nocov
+  }
+  if (
+    identical(lCloser$`__typename`, "PullRequest") && !isTRUE(lCloser$merged)
+  ) {
     return(NULL)
   }
   tibble::tibble(
     Issue = lIssueCloser$number,
     CloserType = lCloser$`__typename`,
-    CloserSHA = lCloser$oid %|0|% NA_character_,
+    CloserSHA = lCloser$oid %|0|% lCloser$mergeCommit$oid %|0|% NA_character_,
     CloserPRNumber = lCloser$number %|0|% NA_integer_
   )
 }

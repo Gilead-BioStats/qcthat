@@ -50,11 +50,6 @@ DefaultIgnoreLabelsDF <- function() {
 #' Create the qcthat labels in a GitHub repository if those labels do not
 #' already exist.
 #'
-#' @param dfLabels (`data.frame`) A data frame with columns `Label`,
-#'   `Description`, and `Color`, specifying the labels to create. By default,
-#'   this is the data frame returned by [DefaultIgnoreLabelsDF()]. Descriptions
-#'   of labels created via this function are prefixed with `"{qcthat}: "` to
-#'   make it easier to search for them in your list of labels.
 #' @inheritParams shared-params
 #' @returns `NULL` (invisibly).
 #' @export
@@ -81,26 +76,6 @@ SetupGHLabels <- function(
   return(invisible(lLabelInfo))
 }
 
-#' Fetch existing GitHub labels
-#'
-#' @inheritParams shared-params
-#' @returns A character vector of existing label names in the specified GitHub
-#'   repository.
-#' @keywords internal
-FetchGHLabels <- function(
-  strOwner = GetGHOwner(),
-  strRepo = GetGHRepo(),
-  strGHToken = gh::gh_token()
-) {
-  lExistingLabels <- CallGHAPI(
-    "GET /repos/{owner}/{repo}/labels",
-    strOwner = strOwner,
-    strRepo = strRepo,
-    strGHToken = strGHToken
-  )
-  purrr::map_chr(lExistingLabels, "name")
-}
-
 #' Prepare the data frame of labels to create
 #'
 #' @inheritParams SetupGHLabels
@@ -113,11 +88,7 @@ PrepareDFLabels <- function(
   strGHToken = gh::gh_token()
 ) {
   ValidateDFLabels(dfLabels)
-  chrGHLabels <- FetchGHLabels(strOwner, strRepo, strGHToken)
   dfLabels <- dfLabels |>
-    dplyr::filter(
-      !NormalizeLabelPrefix(.data$Label) %in% NormalizeLabelPrefix(chrGHLabels)
-    ) |>
     dplyr::mutate(
       Label = NormalizeLabelPrefix(.data$Label),
       Description = NormalizeDescriptionPrefix(.data$Description)
@@ -161,48 +132,5 @@ NormalizeDescriptionPrefix <- function(strLabelDescription) {
   paste(
     "{qcthat}:",
     stringr::str_remove(strLabelDescription, "^\\{qcthat\\}: ")
-  )
-}
-
-#' Create a GitHub label
-#'
-#' @inheritParams shared-params
-#' @param strLabel (`length-1 character`) The name of the label to create.
-#' @param strLabelColor (`length-1 character`) The hex color code for the
-#'   label (e.g., `"#444444"`).
-#' @param strLabelDescription (`length-1 character`) The description for the
-#'   label.
-#' @returns The raw label object as returned by [gh::gh()] (invisibly).
-#' @keywords internal
-CreateGHLabel <- function(
-  strLabel,
-  strLabelDescription = "{qcthat}: A new label",
-  strLabelColor = "#444444",
-  lglVerbose = getOption("qcthat-verbose", FALSE),
-  strOwner = GetGHOwner(),
-  strRepo = GetGHRepo(),
-  strGHToken = gh::gh_token()
-) {
-  lGHAPIReturn <- CallGHAPI(
-    "POST /repos/{owner}/{repo}/labels",
-    strOwner = strOwner,
-    strRepo = strRepo,
-    strGHToken = strGHToken,
-    name = strLabel,
-    color = stringr::str_remove(strLabelColor, "#"),
-    description = strLabelDescription
-  )
-  if (identical(lGHAPIReturn[["name"]], strLabel)) {
-    if (lglVerbose) {
-      cli::cli_inform(
-        "Created label {.val {strLabel}}.",
-        class = CompileConditionClasses("create_label", "message")
-      )
-    }
-    return(invisible(lGHAPIReturn))
-  }
-  qcthatAbort(
-    "Failed to create label {.val {strLabel}}.",
-    strErrorSubclass = "create_label"
   )
 }

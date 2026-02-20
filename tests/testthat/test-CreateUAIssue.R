@@ -23,7 +23,8 @@ test_that("CreateUAIssue constructs the expected call (#111)", {
       strRepo = "test-repo",
       strGHToken = "test-token"
     )
-  )
+  ) |>
+    expect_message("UAT issue created for #123")
 })
 
 test_that("CreateChildIssue uses the expected process (#111)", {

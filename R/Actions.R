@@ -16,7 +16,9 @@ InstallAction <- function(
   # associated with a specific release, to avoid weird bugs. That DOES mean we
   # need to update the package in order to update the action, but I think I
   # prefer that. (@jonthegeek, 2025-11-07)
-  strActionName <- paste("qcthat", strActionName, sep = "-")
+  if (strActionName != "qcthat") {
+    strActionName <- NormalizeLabelPrefix(strActionName)
+  }
   InstallFile(
     chrSourcePath = c("workflows", strActionName),
     chrTargetPath = c(".github", "workflows", strActionName),
@@ -27,93 +29,22 @@ InstallAction <- function(
   )
 }
 
-#' Use a GitHub Action to QC completed issues
+#' Use a GitHub Action to manage qcthat
 #'
-#' Install a GitHub Action into a package repository to generate a QC report of
-#' completed issues with [QCCompletedIssues()]. We recommend reviewing the
-#' generated action to determine whether you would like to turn any features
-#' off.
-#'
-#' @inheritParams shared-params
-#' @returns The path to the created GitHub Action YAML file (invisibly).
-#' @export
-#' @examplesIf interactive()
-#'
-#'   Action_QCCompletedIssues()
-Action_QCCompletedIssues <- function(lglOverwrite = FALSE, strPkgRoot = ".") {
-  InstallAction(
-    "completed_issues",
-    strPkgRoot = strPkgRoot,
-    lglOverwrite = lglOverwrite
-  )
-}
-
-#' Use a GitHub Action to QC pull-request-associated issues
-#'
-#' Install a GitHub Action into a package repository to generate a QC report
-#' with [QCPR()] of issues that will be closed by the triggering pull request.
-#' We recommend reviewing the generated action to determine whether you would
-#' like to turn any features off. Note: This workflow cannot be triggered when
-#' an issue is connected to (or disconnected from) the pull request via the
-#' "Development" UI of the PR or issue. In that situation, either trigger the
-#' workflow manually, or edit the PR body to mention the issue (such as "Closes
-#' #55").
+#' Install a GitHub Action into a package repository to manage qcthat Quality
+#' Control with [TriggerUAT()], [CommentAllReports()], and
+#' [AttachReleaseReports()]. We recommend reviewing the generated action to
+#' determine whether you would like to turn any features off.
 #'
 #' @inheritParams shared-params
 #' @returns The path to the created GitHub Action YAML file (invisibly).
 #' @export
 #' @examplesIf interactive()
 #'
-#'   Action_QCPRIssues()
-Action_QCPRIssues <- function(lglOverwrite = FALSE, strPkgRoot = ".") {
+#'   Action_qcthat()
+Action_qcthat <- function(lglOverwrite = FALSE, strPkgRoot = ".") {
   InstallAction(
-    "pr_issues",
-    strPkgRoot = strPkgRoot,
-    lglOverwrite = lglOverwrite
-  )
-}
-
-#' Use a GitHub Action to QC a milestone
-#'
-#' Install a GitHub Action into a package repository to generate a QC report
-#' with [QCMilestones()] of issues associated with a particular milestone. We
-#' recommend reviewing the generated action to determine whether you would like
-#' to turn any features off. Note: When triggered by a release, the workflow
-#' looks for milestones that match the title of the release or the name of the
-#' tag attached to the release. If the names do not match, the workflow will
-#' fail.
-#'
-#' @inheritParams shared-params
-#' @returns The path to the created GitHub Action YAML file (invisibly).
-#' @export
-#' @examplesIf interactive()
-#'
-#'   Action_QCPRIssues()
-Action_QCMilestone <- function(lglOverwrite = FALSE, strPkgRoot = ".") {
-  InstallAction(
-    "milestone",
-    strPkgRoot = strPkgRoot,
-    lglOverwrite = lglOverwrite
-  )
-}
-
-#' Use a GitHub Action to manage UAT
-#'
-#' Install a GitHub Action into a package repository to manage the use
-#' acceptance testing process with [TriggerUAT()]. The workflow triggers when
-#' issues are closed, and, if they are labeled `"qcthat-uat"`, it triggers
-#' reruns of the [Action_QCPRIssues()] action for any open pull requests that
-#' reference the UAT issue.
-#'
-#' @inheritParams shared-params
-#' @returns The path to the created GitHub Action YAML file (invisibly).
-#' @export
-#' @examplesIf interactive()
-#'
-#'   Action_UAT()
-Action_UAT <- function(lglOverwrite = FALSE, strPkgRoot = ".") {
-  InstallAction(
-    "uat",
+    "qcthat",
     strPkgRoot = strPkgRoot,
     lglOverwrite = lglOverwrite
   )

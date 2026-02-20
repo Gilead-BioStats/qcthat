@@ -7,12 +7,10 @@ ReadTestCode <- function(
   strFile,
   intLineStart,
   intLineEnd,
-  strTestDir = "tests/testthat",
   envCall = rlang::caller_env()
 ) {
   ReadFileLines(
     strFile,
-    strDirPath = strTestDir,
     intLineStart = intLineStart,
     intLineEnd = intLineEnd,
     envCall = envCall
@@ -31,37 +29,12 @@ ReadFileLines <- function(
   intLineEnd,
   envCall = rlang::caller_env()
 ) {
-  strFilePath <- ValidateFilePath(strFile, strDirPath, envCall = envCall)
   ReadExistingFileLines(
-    strFilePath,
+    strFile,
     intLineStart,
     intLineEnd,
     envCall = envCall
   )
-}
-
-#' Validate and construct a file path
-#'
-#' @inheritParams shared-params
-#' @returns A `character` path to the validated file.
-#' @keywords internal
-ValidateFilePath <- function(
-  strFile,
-  strDirPath,
-  envCall = rlang::caller_env()
-) {
-  strFilePath <- fs::path(strDirPath, strFile)
-  if (!fs::file_exists(strFilePath)) {
-    qcthatAbort(
-      c(
-        "{.arg strFile} must exist in {.arg strDirPath}.",
-        x = "No file found at {.file {strFilePath}}."
-      ),
-      strErrorSubclass = "invalid_file_path",
-      envCall = envCall
-    )
-  }
-  return(strFilePath)
 }
 
 #' Read lines from an existing file

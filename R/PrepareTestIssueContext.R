@@ -6,8 +6,9 @@
 #'
 #' @inheritParams shared-params
 #' @returns A [tibble::tibble()] with columns:
-#'   - `Test`: Test description (character).
-#'   - `File`: Test file name (character).
+#'   - `Test`: The `desc` field of the test from [testthat::test_that()].
+#'   - `File`: Path to the file where the test is defined, relative to the
+#'   package root.
 #'   - `LineStart`: Starting line number of test.
 #'   - `LineEnd`: Ending line number of test.
 #'   - `Issues`: List column containing integer vectors of issue numbers already
@@ -23,8 +24,8 @@
 PrepareTestIssueContext <- function(
   dfPotentialIssues = NULL,
   strTestDir = "tests/testthat",
-  strOwner = GetGHOwner(),
-  strRepo = GetGHRepo(),
+  strOwner = GetGHOwner(strTestDir),
+  strRepo = GetGHRepo(strTestDir),
   strGHToken = gh::gh_token()
 ) {
   dfPotentialIssues <- dfPotentialIssues %||%
@@ -38,7 +39,7 @@ PrepareTestIssueContext <- function(
     return(EmptyTestIssueContextDF())
   }
   EnrichWithIssueDetails(dfPotentialIssues, strOwner, strRepo, strGHToken) |>
-    EnrichWithTestCode(strTestDir)
+    EnrichWithTestCode()
 }
 
 #' Create empty test issue context data frame
@@ -51,9 +52,9 @@ EmptyTestIssueContextDF <- function() {
     File = character(),
     LineStart = integer(),
     LineEnd = integer(),
-    Issues = list(),
+    Issues = vctrs::list_of(.ptype = integer()),
     PotentialIssueDetails = list(),
-    TestCode = list()
+    TestCode = vctrs::list_of(.ptype = character())
   )
 }
 
@@ -82,17 +83,14 @@ EnrichWithIssueDetails <- function(
 #'
 #' @param dfTestPotentialIssueDetails (`tibble`) A data frame as returned by
 #'   [EnrichWithIssueDetails()].
-#' @inheritParams shared-params
 #' @returns The input data frame with a `TestCode` list column added.
 #' @keywords internal
-EnrichWithTestCode <- function(dfTestPotentialIssueDetails, strTestDir) {
+EnrichWithTestCode <- function(dfTestPotentialIssueDetails) {
   dplyr::mutate(
     dfTestPotentialIssueDetails,
     TestCode = purrr::pmap(
       list(.data$File, .data$LineStart, .data$LineEnd),
-      \(strFile, intLineStart, intLineEnd) {
-        ReadTestCode(strFile, intLineStart, intLineEnd, strTestDir)
-      }
+      ReadTestCode
     )
   )
 }

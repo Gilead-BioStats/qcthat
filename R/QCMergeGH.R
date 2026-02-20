@@ -144,6 +144,35 @@ FetchMergeCommitBatchRaw <- function(
   )
 }
 
+#' Wrapper around gert::git_commit_info() for mocking
+#'
+#' @param strRef (`length-1 character`) A branch, tag, or commit SHA.
+#' @inheritParams shared-params
+#' @returns The result of [gert::git_commit_info()].
+#' @keywords internal
+GetGitCommitInfo <- function(strRef, strPkgRoot = ".") {
+  # nocov start
+  gert::git_commit_info(ref = strRef, repo = strPkgRoot)
+  # nocov end
+}
+
+#' Wrapper around gert::git_ahead_behind() for mocking
+#'
+#' @param strUpstream (`length-1 character`) The upstream branch or commit SHA.
+#' @param strRef (`length-1 character`) The local branch or commit SHA.
+#' @inheritParams shared-params
+#' @returns The result of [gert::git_ahead_behind()].
+#' @keywords internal
+GetGitAheadBehind <- function(strUpstream, strRef, strPkgRoot = ".") {
+  # nocov start
+  gert::git_ahead_behind(
+    upstream = strUpstream,
+    ref = strRef,
+    repo = strPkgRoot
+  )
+  # nocov end
+}
+
 #' Fetch a vector of values from GitHub GraphQL API using a builder function
 #'
 #' @param x (`vector`) A vector of inputs to process.

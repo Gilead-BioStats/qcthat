@@ -13,8 +13,9 @@ row per test-issue pair, typically from \code{\link[=MapTestsToPotentialIssues]{
 \value{
 A \code{\link[tibble:tibble]{tibble::tibble()}} with columns:
 \itemize{
-\item \code{Test}: Test description (character).
-\item \code{File}: Test file name (character).
+\item \code{Test}: The \code{desc} field of the test from \code{\link[testthat:test_that]{testthat::test_that()}}.
+\item \code{File}: Path to the file where the test is defined, relative to the
+package root.
 \item \code{Issues}: List column containing integer vectors of issue numbers already
 tagged in the test description.
 \item \code{PotentialIssues}: List column containing integer vectors of issue

@@ -46,8 +46,20 @@ separate piece of the vector).}
 \item{dfFileTests}{(\code{data.frame}) A \code{\link[tibble:tibble]{tibble::tibble()}} with the structure
 returned by \code{\link[=ExtractTestsFromFiles]{ExtractTestsFromFiles()}}.}
 
+\item{dfIssueCommitsLong}{(\code{data.frame} or \code{NULL}) Pre-computed issue-commit
+mappings from \code{\link[=MapLongIssueCommits]{MapLongIssueCommits()}}. If \code{NULL} (the default), fetched
+automatically from the GitHub API. Provide this when calling
+\code{\link[=MapTestFilesToPotentialIssues]{MapTestFilesToPotentialIssues()}} multiple times to avoid redundant API
+requests.}
+
 \item{dfITM}{(\code{qcthat_IssueTestMatrix}) A \code{qcthat_IssueTestMatrix} object as
 returned by \code{\link[=AsIssueTestMatrix]{AsIssueTestMatrix()}} (often via \code{\link[=QCPackage]{QCPackage()}}).}
+
+\item{dfLabels}{(\code{data.frame}) A data frame with columns \code{Label},
+\code{Description}, and \code{Color}, specifying the labels to create. By default,
+this is the data frame returned by \code{\link[=DefaultIgnoreLabelsDF]{DefaultIgnoreLabelsDF()}}. Descriptions
+of labels created via this function are prefixed with \code{"{qcthat}: "} to
+make it easier to search for them in your list of labels.}
 
 \item{dfPotentialIssues}{(\code{tibble}) A data frame as returned by
 \code{\link[=MapTestFilesToPotentialIssues]{MapTestFilesToPotentialIssues()}}.}
@@ -143,7 +155,8 @@ ignored.}
 report.}
 
 \item{lglUpdate}{(\verb{length-1 logical}) Whether to update an existing comment
-if it already exists (rather than creating a new comment).}
+or label if it already exists (rather than creating a new comment or
+label).}
 
 \item{lglUseEmoji}{(\verb{length-1 logical}) Whether to use emojis (if \code{TRUE} and
 the emoji package is installed) or ASCII indicators (if \code{FALSE}) in the
@@ -197,8 +210,20 @@ any effect.}
 
 \item{strFilePath}{(\verb{length-1 character}) A file path.}
 
-\item{strGHToken}{(\verb{length-1 character}) GitHub token with permissions to
-read issues.}
+\item{strGHToken}{(\verb{length-1 character}) GitHub token with permissions
+appropriate to the action being performed.}
+
+\item{strLabel}{(\verb{length-1 character}) The name of the label to create or
+update.}
+
+\item{strLabelColor}{(\verb{length-1 character}) The hex color code for the label
+(e.g., \code{"#444444"}).}
+
+\item{strLabelDescription}{(\verb{length-1 character}) The description for the
+label.}
+
+\item{strLabelNewName}{(\verb{length-1 character}) The new name for an updated
+label.}
 
 \item{strOwner}{(\verb{length-1 character}) GitHub username or organization name.}
 

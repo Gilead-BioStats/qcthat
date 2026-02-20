@@ -19,8 +19,8 @@ result of \code{\link[=LoadGHEventPayload]{LoadGHEventPayload()}}.}
 
 \item{strRepo}{(\verb{length-1 character}) GitHub repository name.}
 
-\item{strGHToken}{(\verb{length-1 character}) GitHub token with permissions to
-read issues.}
+\item{strGHToken}{(\verb{length-1 character}) GitHub token with permissions
+appropriate to the action being performed.}
 }
 \value{
 A string or number representing the release id (if the event payload

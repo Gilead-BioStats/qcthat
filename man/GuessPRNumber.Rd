@@ -19,8 +19,8 @@ package. Will be expanded using \code{\link[gert:git_repo]{gert::git_find()}}.}
 
 \item{strRepo}{(\verb{length-1 character}) GitHub repository name.}
 
-\item{strGHToken}{(\verb{length-1 character}) GitHub token with permissions to
-read issues.}
+\item{strGHToken}{(\verb{length-1 character}) GitHub token with permissions
+appropriate to the action being performed.}
 }
 \value{
 The associated pull request number as an integer, or \code{NULL} if no

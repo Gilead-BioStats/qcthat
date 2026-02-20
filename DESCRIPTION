@@ -33,7 +33,8 @@ Imports:
     stringr,
     testthat,
     tibble,
-    tidyr
+    tidyr,
+    vctrs
 Suggests: 
     emoji,
     fs,

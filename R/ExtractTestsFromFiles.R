@@ -6,7 +6,8 @@
 #' @inheritParams shared-params
 #' @returns A [tibble::tibble()] with columns:
 #'   - `Test`: The `desc` field of the test from [testthat::test_that()].
-#'   - `File`: File where the test is defined.
+#'   - `File`: Path to the file where the test is defined, relative to the
+#'   package root.
 #'   - `LineStart`: First line of the test.
 #'   - `LineEnd`: Last line of the test.
 #'   - `Issues`: List column containing integer vectors of associated GitHub
@@ -22,12 +23,17 @@
 #'   # Find tests with no linked issues
 #'   ExtractTestsFromFiles() |>
 #'     dplyr::filter(!lengths(Issues), !TaggedNoIssue)
-ExtractTestsFromFiles <- function(strTestDir = "tests/testthat") {
+ExtractTestsFromFiles <- function(
+  strTestDir = "tests/testthat",
+  envCall = rlang::caller_env()
+) {
   chrFilePaths <- ListTestFiles(strTestDir)
   if (!length(chrFilePaths)) {
     return(EmptyFileTestsDF())
   }
-  purrr::map(chrFilePaths, ExtractTestsFromFile) |>
+  purrr::map(chrFilePaths, \(strFilePath) {
+    ExtractTestsFromFile(strFilePath, envCall)
+  }) |>
     purrr::list_rbind()
 }
 
@@ -47,18 +53,18 @@ ListTestFiles <- function(strTestDir) {
 #' @returns A [tibble::tibble()] with the same structure as
 #'   [ExtractTestsFromFiles()].
 #' @keywords internal
-ExtractTestsFromFile <- function(strFilePath) {
+ExtractTestsFromFile <- function(strFilePath, envCall = rlang::caller_env()) {
   chrTestLines <- readLines(strFilePath, warn = FALSE)
   lTests <- FindTests(chrTestLines)
   if (!length(lTests)) {
     return(EmptyFileTestsDF())
   }
-  dfFileTests <- tidyr::unnest_wider(
+  tidyr::unnest_wider(
     tibble::as_tibble_col(lTests),
     "value"
   ) |>
     dplyr::mutate(
-      File = fs::path_file(strFilePath),
+      File = fs::path_rel(strFilePath),
       .before = "LineStart"
     ) |>
     dplyr::mutate(
@@ -75,7 +81,7 @@ ExtractTestsFromFile <- function(strFilePath) {
 FindTests <- function(chrTestLines) {
   intTestStarts <- stringr::str_which(chrTestLines, "^\\s*test_that\\(")
   if (!length(intTestStarts)) {
-    return(list())
+    return(vctrs::list_of(.ptype = integer()))
   }
   purrr::map(intTestStarts, \(intTestStart) {
     ParseTest(chrTestLines, intTestStart)
@@ -137,7 +143,7 @@ EmptyFileTestsDF <- function() {
     File = character(),
     LineStart = integer(),
     LineEnd = integer(),
-    Issues = list(),
+    Issues = vctrs::list_of(.ptype = integer()),
     TaggedNoIssue = logical()
   )
 }

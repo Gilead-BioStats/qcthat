@@ -1,4 +1,4 @@
-test_that("MapTestsToCommits adds commit SHAs for each test (#53)", {
+test_that("MapTestsToCommits adds commit SHAs for each test (#53, #201)", {
   dfFileTests <- tibble::tibble(
     Test = c("First test", "Second test", "Third test"),
     File = c("test-example.R", "test-example.R", "test-other.R"),
@@ -8,7 +8,7 @@ test_that("MapTestsToCommits adds commit SHAs for each test (#53)", {
     TaggedNoIssue = c(FALSE, FALSE, FALSE)
   )
   local_mocked_bindings(
-    BlameFileRaw = function(strFilePath) {
+    BlameFileRaw = function(strFilePath, envCall = rlang::caller_env()) {
       if (grepl("test-example.R$", strFilePath)) {
         list(
           hunks = list(
@@ -35,9 +35,10 @@ test_that("MapTestsToCommits adds commit SHAs for each test (#53)", {
           )
         )
       }
-    }
+    },
+    GetRelativePackagePath = function(strFilePath, envCall) strFilePath
   )
-  dfResult <- MapTestsToCommits(dfFileTests, strTestDir = "tests/testthat")
+  dfResult <- MapTestsToCommits(dfFileTests)
   dfExpected <- tibble::tibble(
     Test = c("First test", "Second test", "Third test"),
     File = c("test-example.R", "test-example.R", "test-other.R"),
@@ -60,9 +61,11 @@ test_that("MapTestsToCommits handles tests with no commits (#noissue)", {
     TaggedNoIssue = FALSE
   )
   local_mocked_bindings(
-    BlameFileRaw = function(strFilePath) list(hunks = list())
+    BlameFileRaw = function(strFilePath, envCall = rlang::caller_env()) {
+      list(hunks = list())
+    }
   )
-  dfResult <- MapTestsToCommits(dfFileTests, strTestDir = "tests/testthat")
+  dfResult <- MapTestsToCommits(dfFileTests)
   dfExpected <- tibble::tibble(
     Test = "Test",
     File = "test-example.R",
@@ -81,18 +84,18 @@ test_that("MapTestsToCommits handles empty input (#noissue)", {
     File = character(),
     LineStart = integer(),
     LineEnd = integer(),
-    Issues = list(),
+    Issues = vctrs::list_of(.ptype = integer()),
     TaggedNoIssue = logical()
   )
-  dfResult <- MapTestsToCommits(dfFileTests, strTestDir = "tests/testthat")
+  dfResult <- MapTestsToCommits(dfFileTests)
   dfExpected <- tibble::tibble(
     Test = character(),
     File = character(),
     LineStart = integer(),
     LineEnd = integer(),
-    Issues = list(),
+    Issues = vctrs::list_of(.ptype = integer()),
     TaggedNoIssue = logical(),
-    Commits = list()
+    Commits = vctrs::list_of(.ptype = character())
   )
   expect_identical(dfResult, dfExpected)
 })
@@ -107,7 +110,7 @@ test_that("MapTestsToCommits deduplicates commits within a test (#noissue)", {
     TaggedNoIssue = FALSE
   )
   local_mocked_bindings(
-    BlameFileRaw = function(strFilePath) {
+    BlameFileRaw = function(strFilePath, envCall = rlang::caller_env()) {
       list(
         hunks = list(
           list(
@@ -127,9 +130,10 @@ test_that("MapTestsToCommits deduplicates commits within a test (#noissue)", {
           )
         )
       )
-    }
+    },
+    GetRelativePackagePath = function(strFilePath, envCall) strFilePath
   )
-  dfResult <- MapTestsToCommits(dfFileTests, strTestDir = "tests/testthat")
+  dfResult <- MapTestsToCommits(dfFileTests)
   dfExpected <- tibble::tibble(
     Test = "Test spanning multiple hunks from same commit",
     File = "test-example.R",
@@ -144,7 +148,7 @@ test_that("MapTestsToCommits deduplicates commits within a test (#noissue)", {
 
 test_that("BlameFile returns structured blame data (#noissue)", {
   local_mocked_bindings(
-    BlameFileRaw = function(strFilePath) {
+    BlameFileRaw = function(strFilePath, envCall = rlang::caller_env()) {
       list(
         hunks = list(
           list(
@@ -159,7 +163,8 @@ test_that("BlameFile returns structured blame data (#noissue)", {
           )
         )
       )
-    }
+    },
+    GetRelativePackagePath = function(strFilePath, envCall) strFilePath
   )
   dfResult <- BlameFile("test-fake.R")
   dfExpected <- tibble::tibble(
@@ -172,13 +177,25 @@ test_that("BlameFile returns structured blame data (#noissue)", {
 
 test_that("BlameFile works with no blame data (#noissue)", {
   local_mocked_bindings(
-    BlameFileRaw = function(strFilePath) list(hunks = list())
+    BlameFileRaw = function(strFilePath, envCall = rlang::caller_env()) {
+      list(hunks = list())
+    }
   )
   dfResult <- BlameFile("test-fake.R")
   dfExpected <- tibble::tibble(
     File = character(),
     Line = integer(),
-    Commits = list()
+    Commits = vctrs::list_of(.ptype = character())
   )
   expect_identical(dfResult, dfExpected)
+})
+
+test_that("GetRelativePackagePath finds the relative path (#201)", {
+  skip_if(is_checking(), "Catch this one in the qcthat checks.")
+  expect_equal(
+    GetRelativePackagePath(test_path("test-MapTestsToCommits.R")) |>
+      stringr::str_remove("^qcthat-") |>
+      fs::path(),
+    fs::path("tests/testthat/test-MapTestsToCommits.R")
+  )
 })

@@ -7,7 +7,8 @@
 NormalizeLabelPrefix(strLabel)
 }
 \arguments{
-\item{strLabel}{(\verb{length-1 character}) The name of the label to create.}
+\item{strLabel}{(\verb{length-1 character}) The name of the label to create or
+update.}
 }
 \value{
 The label with the prefix \code{"qcthat-"}.

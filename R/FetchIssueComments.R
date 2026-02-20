@@ -100,7 +100,7 @@ EmptyCommentsDFRaw <- function() {
     Body = character(),
     Url = character(),
     CommentGHID = double(),
-    Author = list(),
+    Author = vctrs::list_of(.ptype = character()),
     CreatedAt = character(),
     UpdatedAt = character()
   )

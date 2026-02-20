@@ -1,3 +1,31 @@
+test_that("GetGHRemote uses upstream when available (#199)", {
+  local_mocked_bindings(
+    GetGHRemoteList = function(strPkgRoot) {
+      tibble::tibble(
+        name = c("origin", "upstream"),
+        url = glue::glue("https://github.com/{.data$name}/repo.git")
+      )
+    },
+    UsesGit = function(strPkgRoot) TRUE
+  )
+  expect_identical(
+    GetGHRemote("path"),
+    list(username = "upstream", repo = "repo")
+  )
+  local_mocked_bindings(
+    GetGHRemoteList = function(strPkgRoot) {
+      tibble::tibble(
+        name = "origin",
+        url = glue::glue("https://github.com/{.data$name}/repo.git")
+      )
+    }
+  )
+  expect_identical(
+    GetGHRemote("path"),
+    list(username = "origin", repo = "repo")
+  )
+})
+
 test_that("GetGHOwner and GetGHRepo work (#110)", {
   local_mocked_bindings(
     GetGHRemote = function(...) {

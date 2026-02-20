@@ -20,8 +20,8 @@ CallGHAPI(
 
 \item{strRepo}{(\verb{length-1 character}) GitHub repository name.}
 
-\item{strGHToken}{(\verb{length-1 character}) GitHub token with permissions to
-read issues.}
+\item{strGHToken}{(\verb{length-1 character}) GitHub token with permissions
+appropriate to the action being performed.}
 
 \item{numLimit}{(\verb{length-1 numeric}) Maximum number of results to return.
 Default is \code{Inf} (no limit).}

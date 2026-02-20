@@ -7,8 +7,9 @@
 MapTestFilesToPotentialIssues(
   dfFileTests = NULL,
   strTestDir = "tests/testthat",
-  strOwner = GetGHOwner(),
-  strRepo = GetGHRepo(),
+  dfIssueCommitsLong = NULL,
+  strOwner = GetGHOwner(strTestDir),
+  strRepo = GetGHRepo(strTestDir),
   strGHToken = gh::gh_token()
 )
 }
@@ -19,18 +20,25 @@ returned by \code{\link[=ExtractTestsFromFiles]{ExtractTestsFromFiles()}}.}
 \item{strTestDir}{(\verb{length-1 character}) Path to the directory containing
 test files. Defaults to \code{"tests/testthat"}.}
 
+\item{dfIssueCommitsLong}{(\code{data.frame} or \code{NULL}) Pre-computed issue-commit
+mappings from \code{\link[=MapLongIssueCommits]{MapLongIssueCommits()}}. If \code{NULL} (the default), fetched
+automatically from the GitHub API. Provide this when calling
+\code{\link[=MapTestFilesToPotentialIssues]{MapTestFilesToPotentialIssues()}} multiple times to avoid redundant API
+requests.}
+
 \item{strOwner}{(\verb{length-1 character}) GitHub username or organization name.}
 
 \item{strRepo}{(\verb{length-1 character}) GitHub repository name.}
 
-\item{strGHToken}{(\verb{length-1 character}) GitHub token with permissions to
-read issues.}
+\item{strGHToken}{(\verb{length-1 character}) GitHub token with permissions
+appropriate to the action being performed.}
 }
 \value{
 A \code{\link[tibble:tibble]{tibble::tibble()}} with columns:
 \itemize{
-\item \code{Test}: Test description (character).
-\item \code{File}: Test file name (character).
+\item \code{Test}: The \code{desc} field of the test from \code{\link[testthat:test_that]{testthat::test_that()}}.
+\item \code{File}: Path to the file where the test is defined, relative to the
+package root.
 \item \code{Issues}: List column containing integer vectors of issue numbers already
 tagged in the test description.
 \item \code{PotentialIssues}: List column containing integer vectors of issue
@@ -38,9 +46,9 @@ numbers that might be related to each test based on commit history.
 }
 }
 \description{
-Identify potential issues for each test by matching commits that last modified
-the test with commits that closed issues. Tests tagged with \verb{#noissue} are
-excluded from the results.
+Identify potential issues for each test by matching commits that last
+modified the test with commits that closed issues. Tests tagged with
+\verb{#noissue} are excluded from the results.
 }
 \examples{
 \dontshow{if (interactive()) withAutoprint(\{ # examplesIf}

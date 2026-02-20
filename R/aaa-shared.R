@@ -31,8 +31,18 @@
 #' @param dttmTimestamp (`POSIXct`) A system timestamp.
 #' @param dfFileTests (`data.frame`) A [tibble::tibble()] with the structure
 #'   returned by [ExtractTestsFromFiles()].
+#' @param dfIssueCommitsLong (`data.frame` or `NULL`) Pre-computed issue-commit
+#'   mappings from [MapLongIssueCommits()]. If `NULL` (the default), fetched
+#'   automatically from the GitHub API. Provide this when calling
+#'   [MapTestFilesToPotentialIssues()] multiple times to avoid redundant API
+#'   requests.
 #' @param dfITM (`qcthat_IssueTestMatrix`) A `qcthat_IssueTestMatrix` object as
 #'   returned by [AsIssueTestMatrix()] (often via [QCPackage()]).
+#' @param dfLabels (`data.frame`) A data frame with columns `Label`,
+#'   `Description`, and `Color`, specifying the labels to create. By default,
+#'   this is the data frame returned by [DefaultIgnoreLabelsDF()]. Descriptions
+#'   of labels created via this function are prefixed with `"{qcthat}: "` to
+#'   make it easier to search for them in your list of labels.
 #' @param dfPotentialIssues (`tibble`) A data frame as returned by
 #'   [MapTestFilesToPotentialIssues()].
 #' @param dfRepoIssues (`qcthat_Issues` or data frame) Data frame of GitHub
@@ -98,7 +108,8 @@
 #' @param lglUAT (`length-1 logical`) Whether to include the [CommentUAT()]
 #'   report.
 #' @param lglUpdate (`length-1 logical`) Whether to update an existing comment
-#'   if it already exists (rather than creating a new comment).
+#'   or label if it already exists (rather than creating a new comment or
+#'   label).
 #' @param lglUseEmoji (`length-1 logical`) Whether to use emojis (if `TRUE` and
 #'   the emoji package is installed) or ASCII indicators (if `FALSE`) in the
 #'   output. By default, this is determined by the `qcthat.emoji` option, which
@@ -134,8 +145,16 @@
 #'   any effect.
 #' @param strFile (`length-1 character`) A file name without the path.
 #' @param strFilePath (`length-1 character`) A file path.
-#' @param strGHToken (`length-1 character`) GitHub token with permissions to
-#'   read issues.
+#' @param strGHToken (`length-1 character`) GitHub token with permissions
+#'   appropriate to the action being performed.
+#' @param strLabel (`length-1 character`) The name of the label to create or
+#'   update.
+#' @param strLabelColor (`length-1 character`) The hex color code for the label
+#'   (e.g., `"#444444"`).
+#' @param strLabelDescription (`length-1 character`) The description for the
+#'   label.
+#' @param strLabelNewName (`length-1 character`) The new name for an updated
+#'   label.
 #' @param strOwner (`length-1 character`) GitHub username or organization name.
 #' @param strPkgRoot (`length-1 character`) The path to a directory in the
 #'   package. Will be expanded using [gert::git_find()].

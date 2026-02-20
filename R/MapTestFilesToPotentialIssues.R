@@ -1,13 +1,14 @@
 #' Map test files to potential issues
 #'
-#' Identify potential issues for each test by matching commits that last modified
-#' the test with commits that closed issues. Tests tagged with `#noissue` are
-#' excluded from the results.
+#' Identify potential issues for each test by matching commits that last
+#' modified the test with commits that closed issues. Tests tagged with
+#' `#noissue` are excluded from the results.
 #'
 #' @inheritParams shared-params
 #' @returns A [tibble::tibble()] with columns:
-#'   - `Test`: Test description (character).
-#'   - `File`: Test file name (character).
+#'   - `Test`: The `desc` field of the test from [testthat::test_that()].
+#'   - `File`: Path to the file where the test is defined, relative to the
+#'   package root.
 #'   - `Issues`: List column containing integer vectors of issue numbers already
 #'   tagged in the test description.
 #'   - `PotentialIssues`: List column containing integer vectors of issue
@@ -20,8 +21,9 @@
 MapTestFilesToPotentialIssues <- function(
   dfFileTests = NULL,
   strTestDir = "tests/testthat",
-  strOwner = GetGHOwner(),
-  strRepo = GetGHRepo(),
+  dfIssueCommitsLong = NULL,
+  strOwner = GetGHOwner(strTestDir),
+  strRepo = GetGHRepo(strTestDir),
   strGHToken = gh::gh_token()
 ) {
   dfTestCommitsLong <- ExtractLongTestCommits(strTestDir, dfFileTests)
@@ -29,12 +31,13 @@ MapTestFilesToPotentialIssues <- function(
     return(EmptyTestPotentialIssues())
   }
 
-  # Fetch issue-to-commit mappings once to avoid redundant API calls
-  dfIssueCommitsLong <- MapLongIssueCommits(
-    strOwner = strOwner,
-    strRepo = strRepo,
-    strGHToken = strGHToken
-  )
+  dfIssueCommitsLong <- dfIssueCommitsLong %||%
+    MapLongIssueCommits(
+      strOwner = strOwner,
+      strRepo = strRepo,
+      strGHToken = strGHToken,
+      strPkgRoot = strTestDir
+    )
 
   MapTestsToPotentialIssues(
     dfTestCommitsLong,
@@ -55,8 +58,7 @@ ExtractLongTestCommits <- function(
 ) {
   MapTestsToCommits(
     dfFileTests = dfFileTests %||%
-      ExtractTestsFromFiles(strTestDir = strTestDir),
-    strTestDir = strTestDir
+      ExtractTestsFromFiles(strTestDir = strTestDir)
   ) |>
     dplyr::filter(!.data$TaggedNoIssue) |>
     dplyr::select(-"TaggedNoIssue") |>
@@ -73,26 +75,39 @@ EmptyTestPotentialIssues <- function() {
     File = character(),
     LineStart = integer(),
     LineEnd = integer(),
-    Issues = list(),
-    PotentialIssues = list()
+    Issues = vctrs::list_of(.ptype = integer()),
+    PotentialIssues = vctrs::list_of(.ptype = integer())
   )
 }
 
 #' Map issues to commits in long format
 #'
+#' Fetches all closed issues for a repository and maps each to the commits that
+#' closed it, returning one row per issue-commit pair. This is an optional input
+#' to [MapTestFilesToPotentialIssues()]. Pre-computing it once and passing the
+#' result via `dfIssueCommitsLong` avoids redundant API calls when processing
+#' multiple test files.
+#'
 #' @inheritParams shared-params
 #' @returns A [tibble::tibble()] with one row per issue-commit pair, containing
 #'   columns `Issue` and `Commits`.
-#' @keywords internal
+#' @export
+#'
+#' @examplesIf interactive()
+#'
+#'   dfIssueCommitsLong <- MapLongIssueCommits()
 MapLongIssueCommits <- function(
-  strOwner = GetGHOwner(),
-  strRepo = GetGHRepo(),
+  strPkgRoot = ".",
+  strOwner = GetGHOwner(strPkgRoot),
+  strRepo = GetGHRepo(strPkgRoot),
   strGHToken = gh::gh_token()
 ) {
+  strPkgRoot <- GetPkgRoot(strPkgRoot)
   MapRepoIssuesToCommits(
     strOwner = strOwner,
     strRepo = strRepo,
-    strGHToken = strGHToken
+    strGHToken = strGHToken,
+    strPkgRoot = strPkgRoot
   ) |>
     tidyr::unnest_longer("Commits")
 }
@@ -101,8 +116,6 @@ MapLongIssueCommits <- function(
 #'
 #' @param dfTestCommitsLong A [tibble::tibble()] with one row per test-commit
 #'   pair, typically from [ExtractLongTestCommits()].
-#' @param dfIssueCommitsLong A [tibble::tibble()] with one row per issue-commit
-#'   pair, typically from [MapLongIssueCommits()]. If `NULL`, will be fetched.
 #' @inheritParams shared-params
 #' @returns A [tibble::tibble()] in long format with columns `Test`, `File`,
 #'   `Issues`, and `Issue` (the potential issue number).
@@ -110,15 +123,17 @@ MapLongIssueCommits <- function(
 MapTestsToPotentialIssues <- function(
   dfTestCommitsLong,
   dfIssueCommitsLong = NULL,
-  strOwner = GetGHOwner(),
-  strRepo = GetGHRepo(),
+  strPkgRoot = ".",
+  strOwner = GetGHOwner(strPkgRoot),
+  strRepo = GetGHRepo(strPkgRoot),
   strGHToken = gh::gh_token()
 ) {
   dfIssueCommitsLong <- dfIssueCommitsLong %||%
     MapLongIssueCommits(
       strOwner = strOwner,
       strRepo = strRepo,
-      strGHToken = strGHToken
+      strGHToken = strGHToken,
+      strPkgRoot = strPkgRoot
     )
 
   dplyr::left_join(

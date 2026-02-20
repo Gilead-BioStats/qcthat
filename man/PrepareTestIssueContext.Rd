@@ -7,8 +7,8 @@
 PrepareTestIssueContext(
   dfPotentialIssues = NULL,
   strTestDir = "tests/testthat",
-  strOwner = GetGHOwner(),
-  strRepo = GetGHRepo(),
+  strOwner = GetGHOwner(strTestDir),
+  strRepo = GetGHRepo(strTestDir),
   strGHToken = gh::gh_token()
 )
 }
@@ -23,14 +23,15 @@ test files. Defaults to \code{"tests/testthat"}.}
 
 \item{strRepo}{(\verb{length-1 character}) GitHub repository name.}
 
-\item{strGHToken}{(\verb{length-1 character}) GitHub token with permissions to
-read issues.}
+\item{strGHToken}{(\verb{length-1 character}) GitHub token with permissions
+appropriate to the action being performed.}
 }
 \value{
 A \code{\link[tibble:tibble]{tibble::tibble()}} with columns:
 \itemize{
-\item \code{Test}: Test description (character).
-\item \code{File}: Test file name (character).
+\item \code{Test}: The \code{desc} field of the test from \code{\link[testthat:test_that]{testthat::test_that()}}.
+\item \code{File}: Path to the file where the test is defined, relative to the
+package root.
 \item \code{LineStart}: Starting line number of test.
 \item \code{LineEnd}: Ending line number of test.
 \item \code{Issues}: List column containing integer vectors of issue numbers already

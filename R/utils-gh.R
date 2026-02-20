@@ -39,16 +39,49 @@ GetGHRepo <- function(strPkgRoot = ".") {
 #' A wrapper to safely call [gh::gh_tree_remote()] if the project uses git.
 #'
 #' @inheritParams shared-params
-#'
 #' @returns A list representing the GitHub repository at `strPkgRoot`.
 #' @keywords internal
 GetGHRemote <- function(strPkgRoot = ".") {
-  # nocov start
   if (UsesGit(strPkgRoot)) {
-    repo <- gert::git_find(strPkgRoot)
-    return(gh::gh_tree_remote(repo))
+    lRemotes <- GetGHRemoteList(strPkgRoot)
+    if (length(lRemotes)) {
+      strURL <- lRemotes$url[lRemotes$name == "upstream"] %|0|%
+        lRemotes$url[lRemotes$name == "origin"]
+      lGHRemote <- list(
+        username = stringr::str_extract(
+          strURL,
+          "(https://github.com/)([^/]+)",
+          group = 2
+        ),
+        repo = stringr::str_extract(
+          strURL,
+          "(https://github.com/)([^/]+)/([^.]+)",
+          group = 3
+        )
+      )
+      if (
+        length(lGHRemote$username) &&
+          !is.na(lGHRemote$username) &&
+          length(lGHRemote$repo) &&
+          !is.na(lGHRemote$repo)
+      ) {
+        return(lGHRemote)
+      }
+    }
+    # nocov start
+    strRepo <- gert::git_find(strPkgRoot)
+    return(gh::gh_tree_remote(strRepo))
+    # nocov end
   }
-  # nocov end
+}
+
+#' Wrapper around gert::git_remote_list() for mocking
+#'
+#' @inheritParams shared-params
+#' @returns The result of the [gert::git_remote_list()] call.
+#' @keywords internal
+GetGHRemoteList <- function(strPkgRoot) {
+  gert::git_remote_list(strPkgRoot) # nocov
 }
 
 #' Check whether a package uses git

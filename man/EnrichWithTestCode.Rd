@@ -4,14 +4,11 @@
 \alias{EnrichWithTestCode}
 \title{Enrich data frame with test code}
 \usage{
-EnrichWithTestCode(dfTestPotentialIssueDetails, strTestDir)
+EnrichWithTestCode(dfTestPotentialIssueDetails)
 }
 \arguments{
 \item{dfTestPotentialIssueDetails}{(\code{tibble}) A data frame as returned by
 \code{\link[=EnrichWithIssueDetails]{EnrichWithIssueDetails()}}.}
-
-\item{strTestDir}{(\verb{length-1 character}) Path to the directory containing
-test files. Defaults to \code{"tests/testthat"}.}
 }
 \value{
 The input data frame with a \code{TestCode} list column added.

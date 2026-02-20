@@ -29,34 +29,16 @@ test_that("InstallAction calls InstallFile with expected parts (#73)", {
   )
 })
 
-test_that("Action_QCCompletedIssues targets the expected action (#73, #69)", {
+test_that("Action_qcthat targets the expected action (#55, #68, #69, #73, #88, #141, #157, #198)", {
   local_mocked_bindings(
     InstallAction = function(strActionName, ...) {
       strActionName
     }
   )
-  expect_identical(Action_QCCompletedIssues(), "completed_issues")
+  expect_identical(Action_qcthat(), "qcthat")
 })
 
-test_that("Action_QCPRIssues targets the expected action (#55, #68)", {
-  local_mocked_bindings(
-    InstallAction = function(strActionName, ...) {
-      strActionName
-    }
-  )
-  expect_identical(Action_QCPRIssues(), "pr_issues")
-})
-
-test_that("Action_QCMilestone targets the expected action (#88, #68)", {
-  local_mocked_bindings(
-    InstallAction = function(strActionName, ...) {
-      strActionName
-    }
-  )
-  expect_identical(Action_QCMilestone(), "milestone")
-})
-
-test_that("qcthat is installed as part of the GHA (#95, #141)", {
+test_that("qcthat is installed as part of the GHA (#95)", {
   qcthat::ExpectUserAccepts(
     "The qcthat GHAs install qcthat",
     intIssue = 95,
@@ -108,13 +90,4 @@ test_that("qcthat is namespaced in GHA (#143)", {
       "The code runs without error (other than non-qcthat issues in the tests themselves)."
     )
   )
-})
-
-test_that("Action_UAT targets the expected action (#157)", {
-  local_mocked_bindings(
-    InstallAction = function(strActionName, ...) {
-      strActionName
-    }
-  )
-  expect_identical(Action_UAT(), "uat")
 })

@@ -46,7 +46,8 @@ issues by.}
 returned by \code{\link[=AsIssueTestMatrix]{AsIssueTestMatrix()}} (often via \code{\link[=QCPackage]{QCPackage()}}).}
 
 \item{lglUpdate}{(\verb{length-1 logical}) Whether to update an existing comment
-if it already exists (rather than creating a new comment).}
+or label if it already exists (rather than creating a new comment or
+label).}
 
 \item{strRunID}{(\verb{length-1 character}) ID (typically numeric but can be very
 long) of a GitHub Actions workflow run.}
@@ -58,8 +59,8 @@ package. Will be expanded using \code{\link[gert:git_repo]{gert::git_find()}}.}
 
 \item{strRepo}{(\verb{length-1 character}) GitHub repository name.}
 
-\item{strGHToken}{(\verb{length-1 character}) GitHub token with permissions to
-read issues.}
+\item{strGHToken}{(\verb{length-1 character}) GitHub token with permissions
+appropriate to the action being performed.}
 
 \item{lglWarn}{(\verb{length-1 logical}) Whether to warn when an extra value is
 included in the filter (but the report still returns results). Defaults to

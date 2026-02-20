@@ -7,8 +7,9 @@
 MapTestsToPotentialIssues(
   dfTestCommitsLong,
   dfIssueCommitsLong = NULL,
-  strOwner = GetGHOwner(),
-  strRepo = GetGHRepo(),
+  strPkgRoot = ".",
+  strOwner = GetGHOwner(strPkgRoot),
+  strRepo = GetGHRepo(strPkgRoot),
   strGHToken = gh::gh_token()
 )
 }
@@ -16,15 +17,21 @@ MapTestsToPotentialIssues(
 \item{dfTestCommitsLong}{A \code{\link[tibble:tibble]{tibble::tibble()}} with one row per test-commit
 pair, typically from \code{\link[=ExtractLongTestCommits]{ExtractLongTestCommits()}}.}
 
-\item{dfIssueCommitsLong}{A \code{\link[tibble:tibble]{tibble::tibble()}} with one row per issue-commit
-pair, typically from \code{\link[=MapLongIssueCommits]{MapLongIssueCommits()}}. If \code{NULL}, will be fetched.}
+\item{dfIssueCommitsLong}{(\code{data.frame} or \code{NULL}) Pre-computed issue-commit
+mappings from \code{\link[=MapLongIssueCommits]{MapLongIssueCommits()}}. If \code{NULL} (the default), fetched
+automatically from the GitHub API. Provide this when calling
+\code{\link[=MapTestFilesToPotentialIssues]{MapTestFilesToPotentialIssues()}} multiple times to avoid redundant API
+requests.}
+
+\item{strPkgRoot}{(\verb{length-1 character}) The path to a directory in the
+package. Will be expanded using \code{\link[gert:git_repo]{gert::git_find()}}.}
 
 \item{strOwner}{(\verb{length-1 character}) GitHub username or organization name.}
 
 \item{strRepo}{(\verb{length-1 character}) GitHub repository name.}
 
-\item{strGHToken}{(\verb{length-1 character}) GitHub token with permissions to
-read issues.}
+\item{strGHToken}{(\verb{length-1 character}) GitHub token with permissions
+appropriate to the action being performed.}
 }
 \value{
 A \code{\link[tibble:tibble]{tibble::tibble()}} in long format with columns \code{Test}, \code{File},

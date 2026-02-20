@@ -6,26 +6,25 @@
 \usage{
 MapIssueClosersToCommits(
   dfIssueClosers,
-  strOwner = GetGHOwner(),
-  strRepo = GetGHRepo(),
-  strGHToken = gh::gh_token(),
-  lPRs = NULL
+  strPkgRoot = ".",
+  strOwner = GetGHOwner(strPkgRoot),
+  strRepo = GetGHRepo(strPkgRoot),
+  strGHToken = gh::gh_token()
 )
 }
 \arguments{
 \item{dfIssueClosers}{(\code{data.frame}) The \code{\link[tibble:tibble]{tibble::tibble()}} returned by
 \code{\link[=FetchRepoIssueClosers]{FetchRepoIssueClosers()}}.}
 
+\item{strPkgRoot}{(\verb{length-1 character}) The path to a directory in the
+package. Will be expanded using \code{\link[gert:git_repo]{gert::git_find()}}.}
+
 \item{strOwner}{(\verb{length-1 character}) GitHub username or organization name.}
 
 \item{strRepo}{(\verb{length-1 character}) GitHub repository name.}
 
-\item{strGHToken}{(\verb{length-1 character}) GitHub token with permissions to
-read issues.}
-
-\item{lPRs}{(\code{list} or \code{NULL}) Optional list of raw pull request objects as
-returned by \code{\link[=FetchRawRepoPRs]{FetchRawRepoPRs()}}. If provided, PRs will be looked up from
-this list instead of fetching individually from the API.}
+\item{strGHToken}{(\verb{length-1 character}) GitHub token with permissions
+appropriate to the action being performed.}
 }
 \value{
 A \code{\link[tibble:tibble]{tibble::tibble()}} with columns:

@@ -7,8 +7,7 @@ test_that("MapRepoIssuesToCommits handles commit closers (#53)", {
         CloserSHA = c("abc123", "def456"),
         CloserPRNumber = c(NA_integer_, NA_integer_)
       )
-    },
-    FetchRawRepoPRs = function(...) NULL
+    }
   )
   dfResult <- MapRepoIssuesToCommits()
   dfExpected <- tibble::tibble(
@@ -24,25 +23,16 @@ test_that("MapRepoIssuesToCommits handles PR closers (#53)", {
       tibble::tibble(
         Issue = c(1L, 2L),
         CloserType = c("PullRequest", "PullRequest"),
-        CloserSHA = c(NA_character_, NA_character_),
+        CloserSHA = c("merge-sha-10", "merge-sha-20"),
         CloserPRNumber = c(10L, 20L)
       )
     },
-    FetchPRRefs = function(intPRNumber, ...) {
-      if (intPRNumber == 10L) {
-        c(strSourceRef = "pr-10-head", strTargetRef = "main")
-      } else {
-        c(strSourceRef = "pr-20-head", strTargetRef = "main")
-      }
-    },
-    FetchMergeCommitSHAs = function(strSourceRef, strTargetRef, ...) {
-      if (strSourceRef == "pr-10-head") {
-        c("commit1", "commit2", "commit3")
-      } else {
+    FetchAllMergeCommitSHAsLocal = function(chrMergeSHAs, strPkgRoot) {
+      list(
+        c("commit1", "commit2", "commit3"),
         c("commit4", "commit5")
-      }
-    },
-    FetchRawRepoPRs = function(...) NULL
+      )
+    }
   )
   dfResult <- MapRepoIssuesToCommits()
   dfExpected <- tibble::tibble(
@@ -58,17 +48,11 @@ test_that("MapRepoIssuesToCommits handles mixed closers (#53)", {
       tibble::tibble(
         Issue = c(1L, 2L, 3L),
         CloserType = c("Commit", "PullRequest", "Commit"),
-        CloserSHA = c("abc123", NA_character_, "ghi789"),
+        CloserSHA = c("abc123", "merge-sha-15", "ghi789"),
         CloserPRNumber = c(NA_integer_, 15L, NA_integer_)
       )
     },
-    FetchPRRefs = function(intPRNumber, ...) {
-      c(strSourceRef = "pr-15-head", strTargetRef = "main")
-    },
-    FetchMergeCommitSHAs = function(strSourceRef, strTargetRef, ...) {
-      c("commit1", "commit2")
-    },
-    FetchRawRepoPRs = function(...) NULL
+    FetchAllMergeCommitSHAsLocal = function(...) list(c("commit1", "commit2"))
   )
   dfResult <- MapRepoIssuesToCommits()
   dfExpected <- tibble::tibble(
@@ -78,7 +62,7 @@ test_that("MapRepoIssuesToCommits handles mixed closers (#53)", {
   expect_identical(dfResult, dfExpected)
 })
 
-test_that("MapRepoIssuesToCommits handles empty input (#noissue)", {
+test_that("MapRepoIssuesToCommits handles empty input (#200)", {
   local_mocked_bindings(
     FetchRepoIssueClosers = function(...) {
       tibble::tibble(
@@ -92,29 +76,7 @@ test_that("MapRepoIssuesToCommits handles empty input (#noissue)", {
   dfResult <- MapRepoIssuesToCommits()
   dfExpected <- tibble::tibble(
     Issue = integer(),
-    Commits = list()
-  )
-  expect_identical(dfResult, dfExpected)
-})
-
-test_that("MapRepoIssuesToCommits handles issues with no closer info (#noissue)", {
-  # This shouldn't happen in practice since FetchRepoIssueClosers filters these
-  # out, but we should handle it gracefully
-  local_mocked_bindings(
-    FetchRepoIssueClosers = function(...) {
-      tibble::tibble(
-        Issue = 1L,
-        CloserType = NA_character_,
-        CloserSHA = NA_character_,
-        CloserPRNumber = NA_integer_
-      )
-    },
-    FetchRawRepoPRs = function(...) NULL
-  )
-  dfResult <- MapRepoIssuesToCommits()
-  dfExpected <- tibble::tibble(
-    Issue = 1L,
-    Commits = list(NA_character_)
+    Commits = vctrs::list_of(.ptype = character())
   )
   expect_identical(dfResult, dfExpected)
 })
@@ -128,31 +90,12 @@ test_that("MapRepoIssuesToCommits passes GitHub parameters to other internal fun
       tibble::tibble(
         Issue = 1L,
         CloserType = "PullRequest",
-        CloserSHA = NA_character_,
+        CloserSHA = "merge-sha-10",
         CloserPRNumber = 10L
       )
     },
-    FetchRawRepoPRs = function(...) {
-      NULL
-    },
-    FetchPRRefs = function(intPRNumber, strOwner, strRepo, strGHToken, ...) {
-      expect_equal(strOwner, "testowner")
-      expect_equal(strRepo, "testrepo")
-      expect_equal(strGHToken, "testtoken")
-      c(strSourceRef = "head", strTargetRef = "base")
-    },
-    FetchMergeCommitSHAs = function(
-      strSourceRef,
-      strTargetRef,
-      strOwner,
-      strRepo,
-      strGHToken,
-      ...
-    ) {
-      expect_equal(strOwner, "testowner")
-      expect_equal(strRepo, "testrepo")
-      expect_equal(strGHToken, "testtoken")
-      "commit1"
+    FetchAllMergeCommitSHAsLocal = function(chrMergeSHAs, strPkgRoot) {
+      list("commit1")
     }
   )
   dfResult <- MapRepoIssuesToCommits(

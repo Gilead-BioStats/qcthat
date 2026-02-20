@@ -5,24 +5,37 @@
 \title{Map issues to commits in long format}
 \usage{
 MapLongIssueCommits(
-  strOwner = GetGHOwner(),
-  strRepo = GetGHRepo(),
+  strPkgRoot = ".",
+  strOwner = GetGHOwner(strPkgRoot),
+  strRepo = GetGHRepo(strPkgRoot),
   strGHToken = gh::gh_token()
 )
 }
 \arguments{
+\item{strPkgRoot}{(\verb{length-1 character}) The path to a directory in the
+package. Will be expanded using \code{\link[gert:git_repo]{gert::git_find()}}.}
+
 \item{strOwner}{(\verb{length-1 character}) GitHub username or organization name.}
 
 \item{strRepo}{(\verb{length-1 character}) GitHub repository name.}
 
-\item{strGHToken}{(\verb{length-1 character}) GitHub token with permissions to
-read issues.}
+\item{strGHToken}{(\verb{length-1 character}) GitHub token with permissions
+appropriate to the action being performed.}
 }
 \value{
 A \code{\link[tibble:tibble]{tibble::tibble()}} with one row per issue-commit pair, containing
 columns \code{Issue} and \code{Commits}.
 }
 \description{
-Map issues to commits in long format
+Fetches all closed issues for a repository and maps each to the commits that
+closed it, returning one row per issue-commit pair. This is an optional input
+to \code{\link[=MapTestFilesToPotentialIssues]{MapTestFilesToPotentialIssues()}}. Pre-computing it once and passing the
+result via \code{dfIssueCommitsLong} avoids redundant API calls when processing
+multiple test files.
 }
-\keyword{internal}
+\examples{
+\dontshow{if (interactive()) withAutoprint(\{ # examplesIf}
+
+  dfIssueCommitsLong <- MapLongIssueCommits()
+\dontshow{\}) # examplesIf}
+}

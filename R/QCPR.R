@@ -43,7 +43,8 @@ QCPR <- function(
     intPRNumber = intPRNumber,
     strOwner = strOwner,
     strRepo = strRepo,
-    strGHToken = strGHToken
+    strGHToken = strGHToken,
+    strPkgRoot = strPkgRoot
   )
   QCMergeGH(
     strSourceRef = chrPRRefs[["strSourceRef"]],
@@ -70,8 +71,9 @@ QCPR <- function(
 #' @keywords internal
 FetchPRRefs <- function(
   intPRNumber = GuessPRNumber(".", strOwner, strRepo, strGHToken),
-  strOwner = GetGHOwner(),
-  strRepo = GetGHRepo(),
+  strPkgRoot = ".",
+  strOwner = GetGHOwner(strPkgRoot),
+  strRepo = GetGHRepo(strPkgRoot),
   strGHToken = gh::gh_token(),
   lPRs = NULL,
   envCall = rlang::caller_env()
@@ -91,16 +93,11 @@ FetchPRRefs <- function(
     (isTRUE(lPR[["merged"]]) || length(lPR[["merged_at"]])) &&
       length(lPR[["merge_commit_sha"]])
   ) {
-    lCommit <- CallGHAPI(
-      "GET /repos/{owner}/{repo}/commits/{ref}",
-      strOwner = strOwner,
-      strRepo = strRepo,
-      ref = lPR$merge_commit_sha,
-      strGHToken = strGHToken
-    )
+    strMergeSHA <- lPR$merge_commit_sha
+    lInfo <- GetGitCommitInfo(strMergeSHA, strPkgRoot)
     return(c(
-      strSourceRef = lPR$merge_commit_sha,
-      strTargetRef = lCommit$parents[[1]]$sha
+      strSourceRef = strMergeSHA,
+      strTargetRef = lInfo$parents[[1]]
     ))
   }
   return(c(

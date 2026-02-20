@@ -9,8 +9,7 @@ MapIssueClosersToCommits(
   strPkgRoot = ".",
   strOwner = GetGHOwner(strPkgRoot),
   strRepo = GetGHRepo(strPkgRoot),
-  strGHToken = gh::gh_token(),
-  lPRs = NULL
+  strGHToken = gh::gh_token()
 )
 }
 \arguments{
@@ -26,10 +25,6 @@ package. Will be expanded using \code{\link[gert:git_repo]{gert::git_find()}}.}
 
 \item{strGHToken}{(\verb{length-1 character}) GitHub token with permissions
 appropriate to the action being performed.}
-
-\item{lPRs}{(\code{list} or \code{NULL}) Optional list of raw pull request objects as
-returned by \code{\link[=FetchRawRepoPRs]{FetchRawRepoPRs()}}. If provided, PRs will be looked up from
-this list instead of fetching individually from the API.}
 }
 \value{
 A \code{\link[tibble:tibble]{tibble::tibble()}} with columns:

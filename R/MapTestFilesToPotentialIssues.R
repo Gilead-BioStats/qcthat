@@ -4,6 +4,24 @@
 #' the test with commits that closed issues. Tests tagged with `#noissue` are
 #' excluded from the results.
 #'
+#' When processing multiple test files, pre-compute `dfIssueCommitsLong` once
+#' with [MapLongIssueCommits()] and pass it to each call to avoid redundant
+#' GitHub API requests:
+#'
+#' ```r
+#' dfIssueCommitsLong <- MapLongIssueCommits()
+#' results <- purrr::map(
+#'   lFileTestsSplit,
+#'   MapTestFilesToPotentialIssues,
+#'   dfIssueCommitsLong = dfIssueCommitsLong
+#' )
+#' ```
+#'
+#' @param dfIssueCommitsLong (`data.frame` or `NULL`) Pre-computed issue-commit
+#'   mappings from [MapLongIssueCommits()]. If `NULL` (the default), fetched
+#'   automatically from the GitHub API. Provide this when calling
+#'   [MapTestFilesToPotentialIssues()] multiple times to avoid redundant API
+#'   requests.
 #' @inheritParams shared-params
 #' @returns A [tibble::tibble()] with columns:
 #'   - `Test`: The `desc` field of the test from [testthat::test_that()].
@@ -21,6 +39,7 @@
 MapTestFilesToPotentialIssues <- function(
   dfFileTests = NULL,
   strTestDir = "tests/testthat",
+  dfIssueCommitsLong = NULL,
   strOwner = GetGHOwner(strTestDir),
   strRepo = GetGHRepo(strTestDir),
   strGHToken = gh::gh_token()
@@ -30,8 +49,7 @@ MapTestFilesToPotentialIssues <- function(
     return(EmptyTestPotentialIssues())
   }
 
-  # Fetch issue-to-commit mappings once to avoid redundant API calls
-  dfIssueCommitsLong <- MapLongIssueCommits(
+  dfIssueCommitsLong <- dfIssueCommitsLong %||% MapLongIssueCommits(
     strOwner = strOwner,
     strRepo = strRepo,
     strGHToken = strGHToken,

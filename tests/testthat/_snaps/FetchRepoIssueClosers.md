@@ -22,6 +22,7 @@
                   ... on PullRequest {
                     number
                     merged
+                    mergeCommit { oid }
                     repository {
                       nameWithOwner
                     }
@@ -68,6 +69,7 @@
                   ... on PullRequest {
                     number
                     merged
+                    mergeCommit { oid }
                     repository {
                       nameWithOwner
                     }

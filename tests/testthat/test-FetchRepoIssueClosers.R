@@ -43,6 +43,7 @@ test_that("FetchRepoIssueClosers processes raw data correctly (#133)", {
                           `__typename` = "PullRequest",
                           number = 42,
                           merged = TRUE,
+                          mergeCommit = list(oid = "merge42sha"),
                           repository = list(nameWithOwner = "owner/repo")
                         )
                       )
@@ -96,8 +97,8 @@ test_that("FetchRepoIssueClosers processes raw data correctly (#133)", {
   expected_df <- tibble::tibble(
     Issue = c(1, 2),
     CloserType = c("Commit", "PullRequest"),
-    CloserSHA = c("abc123", NA_character_),
-    CloserPRNumber = c(NA_integer_, 42)
+    CloserSHA = c("abc123", "merge42sha"),
+    CloserPRNumber = c(NA_integer_, 42L)
   )
   expect_equal(
     FetchRepoIssueClosers("owner", "repo", "token"),

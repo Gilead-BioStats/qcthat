@@ -15,8 +15,9 @@ A \code{\link[tibble:tibble]{tibble::tibble()}} with columns:
 \itemize{
 \item \code{Issue}: Issue number.
 \item \code{CloserType}: Type of the closer, either \code{Commit} or \code{PullRequest}.
-\item \code{CloserSHA}: SHA of the commit that closed the issue, or \code{NA} if the
-issue was closed by a pull request.
+\item \code{CloserSHA}: SHA of the commit that closed the issue. For \code{Commit}
+closers, this is the commit OID directly. For \code{PullRequest} closers, this
+is the merge commit SHA.
 \item \code{CloserPRNumber}: Number of the pull request that closed the issue, or
 \code{NA} if the issue was closed by a commit.
 }

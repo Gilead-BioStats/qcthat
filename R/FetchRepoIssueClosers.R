@@ -7,8 +7,9 @@
 #' @returns A [tibble::tibble()] with columns:
 #'   - `Issue`: Issue number.
 #'   - `CloserType`: Type of the closer, either `Commit` or `PullRequest`.
-#'   - `CloserSHA`: SHA of the commit that closed the issue, or `NA` if the
-#'   issue was closed by a pull request.
+#'   - `CloserSHA`: SHA of the commit that closed the issue. For `Commit`
+#'   closers, this is the commit OID directly. For `PullRequest` closers, this
+#'   is the merge commit SHA.
 #'   - `CloserPRNumber`: Number of the pull request that closed the issue, or
 #'   `NA` if the issue was closed by a commit.
 #' @export
@@ -102,6 +103,7 @@ FetchRepoIssueClosersRawBatch <- function(
     "            ... on PullRequest {",
     "              number",
     "              merged",
+    "              mergeCommit { oid }",
     "              repository {",
     "                nameWithOwner",
     "              }",
@@ -160,7 +162,7 @@ TibblifyIssueCloser <- function(lIssueCloser) {
   tibble::tibble(
     Issue = lIssueCloser$number,
     CloserType = lCloser$`__typename`,
-    CloserSHA = lCloser$oid %|0|% NA_character_,
+    CloserSHA = lCloser$oid %|0|% lCloser$mergeCommit$oid %|0|% NA_character_,
     CloserPRNumber = lCloser$number %|0|% NA_integer_
   )
 }

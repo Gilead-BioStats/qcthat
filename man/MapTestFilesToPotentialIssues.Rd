@@ -7,6 +7,7 @@
 MapTestFilesToPotentialIssues(
   dfFileTests = NULL,
   strTestDir = "tests/testthat",
+  dfIssueCommitsLong = NULL,
   strOwner = GetGHOwner(strTestDir),
   strRepo = GetGHRepo(strTestDir),
   strGHToken = gh::gh_token()
@@ -18,6 +19,12 @@ returned by \code{\link[=ExtractTestsFromFiles]{ExtractTestsFromFiles()}}.}
 
 \item{strTestDir}{(\verb{length-1 character}) Path to the directory containing
 test files. Defaults to \code{"tests/testthat"}.}
+
+\item{dfIssueCommitsLong}{(\code{data.frame} or \code{NULL}) Pre-computed issue-commit
+mappings from \code{\link[=MapLongIssueCommits]{MapLongIssueCommits()}}. If \code{NULL} (the default), fetched
+automatically from the GitHub API. Provide this when calling
+\code{\link[=MapTestFilesToPotentialIssues]{MapTestFilesToPotentialIssues()}} multiple times to avoid redundant API
+requests.}
 
 \item{strOwner}{(\verb{length-1 character}) GitHub username or organization name.}
 
@@ -42,6 +49,19 @@ numbers that might be related to each test based on commit history.
 Identify potential issues for each test by matching commits that last modified
 the test with commits that closed issues. Tests tagged with \verb{#noissue} are
 excluded from the results.
+}
+\details{
+When processing multiple test files, pre-compute \code{dfIssueCommitsLong} once
+with \code{\link[=MapLongIssueCommits]{MapLongIssueCommits()}} and pass it to each call to avoid redundant
+GitHub API requests:
+
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{dfIssueCommitsLong <- MapLongIssueCommits()
+results <- purrr::map(
+  lFileTestsSplit,
+  MapTestFilesToPotentialIssues,
+  dfIssueCommitsLong = dfIssueCommitsLong
+)
+}\if{html}{\out{</div>}}
 }
 \examples{
 \dontshow{if (interactive()) withAutoprint(\{ # examplesIf}

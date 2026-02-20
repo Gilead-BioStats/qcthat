@@ -27,20 +27,11 @@ MapRepoIssuesToCommits <- function(
     ))
   }
 
-  # Fetch all PRs once to avoid repeated API calls
-  lPRs <- FetchRawRepoPRs(
-    strOwner = strOwner,
-    strRepo = strRepo,
-    strGHToken = strGHToken,
-    strState = "all"
-  )
-
   MapIssueClosersToCommits(
     dfIssueClosers,
     strOwner = strOwner,
     strRepo = strRepo,
     strGHToken = strGHToken,
-    lPRs = lPRs,
     strPkgRoot = strPkgRoot
   )
 }
@@ -49,9 +40,6 @@ MapRepoIssuesToCommits <- function(
 #'
 #' @param dfIssueClosers (`data.frame`) The [tibble::tibble()] returned by
 #'   [FetchRepoIssueClosers()].
-#' @param lPRs (`list` or `NULL`) Optional list of raw pull request objects as
-#'   returned by [FetchRawRepoPRs()]. If provided, PRs will be looked up from
-#'   this list instead of fetching individually from the API.
 #' @inheritParams shared-params
 #' @returns A [tibble::tibble()] with columns:
 #'   - `Issue`: Issue number (integer).
@@ -62,8 +50,7 @@ MapIssueClosersToCommits <- function(
   strPkgRoot = ".",
   strOwner = GetGHOwner(strPkgRoot),
   strRepo = GetGHRepo(strPkgRoot),
-  strGHToken = gh::gh_token(),
-  lPRs = NULL
+  strGHToken = gh::gh_token()
 ) {
   dfClosers <- dplyr::distinct(
     dfIssueClosers,
@@ -71,21 +58,14 @@ MapIssueClosersToCommits <- function(
     .data$CloserSHA,
     .data$CloserPRNumber
   )
-  # Prep lPRs for speed.
-  if (length(lPRs)) {
-    names(lPRs) <- purrr::map_int(lPRs, "number")
-  }
   dfClosers$Commits <- as.list(dfClosers$CloserSHA)
 
   lglIsPR <- dfClosers$CloserType == "PullRequest"
   if (any(lglIsPR)) {
-    chrPRMergeSHAs <- purrr::map_chr(
-      dfClosers$CloserPRNumber[lglIsPR],
-      \(intCloserPRNumber) {
-        LookupPRFromList(lPRs, intCloserPRNumber)$merge_commit_sha
-      }
+    lPRCommits <- FetchAllMergeCommitSHAsLocal(
+      dfClosers$CloserSHA[lglIsPR],
+      strPkgRoot
     )
-    lPRCommits <- FetchAllMergeCommitSHAsLocal(chrPRMergeSHAs, strPkgRoot)
     dfClosers$Commits[lglIsPR] <- lPRCommits
   }
 

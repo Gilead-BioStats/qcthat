@@ -52,6 +52,7 @@ excluded from the results.</p>
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">MapTestFilesToPotentialIssues</span><span class="op">(</span></span>
 <span>  dfFileTests <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  strTestDir <span class="op">=</span> <span class="st">"tests/testthat"</span>,</span>
+<span>  dfIssueCommitsLong <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  strOwner <span class="op">=</span> <span class="fu"><a href="GetGHOwner.html">GetGHOwner</a></span><span class="op">(</span><span class="va">strTestDir</span><span class="op">)</span>,</span>
 <span>  strRepo <span class="op">=</span> <span class="fu"><a href="GetGHRepo.html">GetGHRepo</a></span><span class="op">(</span><span class="va">strTestDir</span><span class="op">)</span>,</span>
 <span>  strGHToken <span class="op">=</span> <span class="fu">gh</span><span class="fu">::</span><span class="fu"><a href="https://gh.r-lib.org/reference/gh_token.html" class="external-link">gh_token</a></span><span class="op">(</span><span class="op">)</span></span>
@@ -70,6 +71,14 @@ returned by <code><a href="ExtractTestsFromFiles.html">ExtractTestsFromFiles()</
 <dt id="arg-strtestdir">strTestDir<a class="anchor" aria-label="anchor" href="#arg-strtestdir"></a></dt>
 <dd><p>(<code>length-1 character</code>) Path to the directory containing
 test files. Defaults to <code>"tests/testthat"</code>.</p></dd>
+
+
+<dt id="arg-dfissuecommitslong">dfIssueCommitsLong<a class="anchor" aria-label="anchor" href="#arg-dfissuecommitslong"></a></dt>
+<dd><p>(<code>data.frame</code> or <code>NULL</code>) Pre-computed issue-commit
+mappings from <code><a href="MapLongIssueCommits.html">MapLongIssueCommits()</a></code>. If <code>NULL</code> (the default), fetched
+automatically from the GitHub API. Provide this when calling
+<code>MapTestFilesToPotentialIssues()</code> multiple times to avoid redundant API
+requests.</p></dd>
 
 
 <dt id="arg-strowner">strOwner<a class="anchor" aria-label="anchor" href="#arg-strowner"></a></dt>
@@ -95,6 +104,18 @@ tagged in the test description.</p></li>
 <li><p><code>PotentialIssues</code>: List column containing integer vectors of issue
 numbers that might be related to each test based on commit history.</p></li>
 </ul></div>
+    <div class="section level2">
+    <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
+    <p>When processing multiple test files, pre-compute <code>dfIssueCommitsLong</code> once
+with <code><a href="MapLongIssueCommits.html">MapLongIssueCommits()</a></code> and pass it to each call to avoid redundant
+GitHub API requests:</p>
+<p></p><div class="sourceCode r"><pre><code><span><span class="va">dfIssueCommitsLong</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/MapLongIssueCommits.html">MapLongIssueCommits</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="va">results</span> <span class="op">&lt;-</span> <span class="fu">purrr</span><span class="fu">::</span><span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html" class="external-link">map</a></span><span class="op">(</span></span>
+<span>  <span class="va">lFileTestsSplit</span>,</span>
+<span>  <span class="va">MapTestFilesToPotentialIssues</span>,</span>
+<span>  dfIssueCommitsLong <span class="op">=</span> <span class="va">dfIssueCommitsLong</span></span>
+<span><span class="op">)</span></span></code></pre><p></p></div>
+    </div>
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>

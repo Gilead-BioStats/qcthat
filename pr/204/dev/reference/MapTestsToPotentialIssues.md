@@ -8,8 +8,9 @@ Map tests to potential issues via commit joins
 MapTestsToPotentialIssues(
   dfTestCommitsLong,
   dfIssueCommitsLong = NULL,
-  strOwner = GetGHOwner(),
-  strRepo = GetGHRepo(),
+  strPkgRoot = ".",
+  strOwner = GetGHOwner(strPkgRoot),
+  strRepo = GetGHRepo(strPkgRoot),
   strGHToken = gh::gh_token()
 )
 ```
@@ -30,6 +31,12 @@ MapTestsToPotentialIssues(
   with one row per issue-commit pair, typically from
   [`MapLongIssueCommits()`](https://gilead-biostats.github.io/qcthat/dev/reference/MapLongIssueCommits.md).
   If `NULL`, will be fetched.
+
+- strPkgRoot:
+
+  (`length-1 character`) The path to a directory in the package. Will be
+  expanded using
+  [`gert::git_find()`](https://docs.ropensci.org/gert/reference/git_repo.html).
 
 - strOwner:
 

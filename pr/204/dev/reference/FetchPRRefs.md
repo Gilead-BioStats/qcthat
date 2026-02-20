@@ -7,8 +7,9 @@ Fetch the source and target refs for a PR
 ``` r
 FetchPRRefs(
   intPRNumber = GuessPRNumber(".", strOwner, strRepo, strGHToken),
-  strOwner = GetGHOwner(),
-  strRepo = GetGHRepo(),
+  strPkgRoot = ".",
+  strOwner = GetGHOwner(strPkgRoot),
+  strRepo = GetGHRepo(strPkgRoot),
   strGHToken = gh::gh_token(),
   lPRs = NULL,
   envCall = rlang::caller_env()
@@ -21,6 +22,12 @@ FetchPRRefs(
 
   (`length-1 integer`) The number of the pull request to fetch
   information about and/or post results to.
+
+- strPkgRoot:
+
+  (`length-1 character`) The path to a directory in the package. Will be
+  expanded using
+  [`gert::git_find()`](https://docs.ropensci.org/gert/reference/git_repo.html).
 
 - strOwner:
 

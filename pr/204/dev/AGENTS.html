@@ -48,9 +48,21 @@
 </tr><tr class="even"><td>document functions</td>
 <td>@.github/skills/document/SKILL.md</td>
 </tr></tbody></table></div>
+<div class="section level2">
+<h2 id="test-coverage">Test Coverage<a class="anchor" aria-label="anchor" href="#test-coverage"></a></h2>
+<p>The goal is 100% file-level test coverage across all R source files. After editing a file, ensure that it still has 100% test coverage.</p>
+<p>To check coverage for a single file:</p>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">covr_res</span> <span class="op">&lt;-</span> <span class="fu">devtools</span><span class="fu">:::</span><span class="fu">test_coverage_active_file</span><span class="op">(</span><span class="st">"R/FileName.R"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/which.html" class="external-link">which</a></span><span class="op">(</span><span class="fu">purrr</span><span class="fu">::</span><span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html" class="external-link">map_int</a></span><span class="op">(</span><span class="va">covr_res</span>, <span class="st">"value"</span><span class="op">)</span> <span class="op">==</span> <span class="fl">0</span><span class="op">)</span></span></code></pre></div>
+<p>The following files are intentionally excluded from coverage requirements (no associated tests):</p>
+<ul><li><code>R/aaa-shared.R</code></li>
+<li><code>R/qcthat-package.R</code></li>
+</ul></div>
 </div>
 
-  </main></div>
+  </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
+    </nav></aside></div>
 
 
     <footer><div class="pkgdown-footer-left">

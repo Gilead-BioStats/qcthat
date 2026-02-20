@@ -21,8 +21,10 @@
 <url><loc>https://gilead-biostats.github.io/qcthat/dev/reference/AsSingleIssueTestResults.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/qcthat/dev/reference/AsTestResultsDF.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/qcthat/dev/reference/AttachReleaseReports.html</loc></url>
+<url><loc>https://gilead-biostats.github.io/qcthat/dev/reference/BatchLookupCommitParents.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/qcthat/dev/reference/BlameFile.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/qcthat/dev/reference/BlameFileRaw.html</loc></url>
+<url><loc>https://gilead-biostats.github.io/qcthat/dev/reference/BuildCommitIndexEnv.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/qcthat/dev/reference/BuildCommitPRQuery.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/qcthat/dev/reference/BuildIssuePRRefsQuery.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/qcthat/dev/reference/BuildPRIssuesQuery.html</loc></url>
@@ -97,6 +99,7 @@
 <url><loc>https://gilead-biostats.github.io/qcthat/dev/reference/ExtractTestsFromFiles.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/qcthat/dev/reference/FetchAllIssuePRRefs.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/qcthat/dev/reference/FetchAllIssuePRRefsRaw.html</loc></url>
+<url><loc>https://gilead-biostats.github.io/qcthat/dev/reference/FetchAllMergeCommitSHAsLocal.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/qcthat/dev/reference/FetchAllMergeIssueNumbers.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/qcthat/dev/reference/FetchAllMergePRNumbers.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/qcthat/dev/reference/FetchAllPRIssueNumbers.html</loc></url>
@@ -133,7 +136,6 @@
 <url><loc>https://gilead-biostats.github.io/qcthat/dev/reference/FetchUniqueIssueDetails.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/qcthat/dev/reference/FetchVectorFromGQL.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/qcthat/dev/reference/FinalizeTree.html</loc></url>
-<url><loc>https://gilead-biostats.github.io/qcthat/dev/reference/FindAllIssueCommits.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/qcthat/dev/reference/FindKeywordIssues.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/qcthat/dev/reference/FindTests.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/qcthat/dev/reference/FormatBody.html</loc></url>
@@ -158,6 +160,8 @@
 <url><loc>https://gilead-biostats.github.io/qcthat/dev/reference/GetGHRemote.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/qcthat/dev/reference/GetGHRemoteList.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/qcthat/dev/reference/GetGHRepo.html</loc></url>
+<url><loc>https://gilead-biostats.github.io/qcthat/dev/reference/GetGitAheadBehind.html</loc></url>
+<url><loc>https://gilead-biostats.github.io/qcthat/dev/reference/GetGitCommitInfo.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/qcthat/dev/reference/GetGitLog.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/qcthat/dev/reference/GetPkgRoot.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/qcthat/dev/reference/GetRawSessionInfo.html</loc></url>
@@ -218,6 +222,7 @@
 <url><loc>https://gilead-biostats.github.io/qcthat/dev/reference/RerunWorkflow.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/qcthat/dev/reference/RerunWorkflowAtSHA.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/qcthat/dev/reference/RerunWorkflowIfFinished.html</loc></url>
+<url><loc>https://gilead-biostats.github.io/qcthat/dev/reference/ResolvePRCommits.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/qcthat/dev/reference/SaveUATIssues.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/qcthat/dev/reference/SeparateParentColumn.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/qcthat/dev/reference/SetupGHLabels.html</loc></url>

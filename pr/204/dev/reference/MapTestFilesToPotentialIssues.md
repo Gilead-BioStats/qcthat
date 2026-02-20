@@ -10,6 +10,7 @@ modified the test with commits that closed issues. Tests tagged with
 MapTestFilesToPotentialIssues(
   dfFileTests = NULL,
   strTestDir = "tests/testthat",
+  dfIssueCommitsLong = NULL,
   strOwner = GetGHOwner(strTestDir),
   strRepo = GetGHRepo(strTestDir),
   strGHToken = gh::gh_token()
@@ -29,6 +30,14 @@ MapTestFilesToPotentialIssues(
 
   (`length-1 character`) Path to the directory containing test files.
   Defaults to `"tests/testthat"`.
+
+- dfIssueCommitsLong:
+
+  (`data.frame` or `NULL`) Pre-computed issue-commit mappings from
+  [`MapLongIssueCommits()`](https://gilead-biostats.github.io/qcthat/dev/reference/MapLongIssueCommits.md).
+  If `NULL` (the default), fetched automatically from the GitHub API.
+  Provide this when calling `MapTestFilesToPotentialIssues()` multiple
+  times to avoid redundant API requests.
 
 - strOwner:
 
@@ -60,6 +69,20 @@ with columns:
 
 - `PotentialIssues`: List column containing integer vectors of issue
   numbers that might be related to each test based on commit history.
+
+## Details
+
+When processing multiple test files, pre-compute `dfIssueCommitsLong`
+once with
+[`MapLongIssueCommits()`](https://gilead-biostats.github.io/qcthat/dev/reference/MapLongIssueCommits.md)
+and pass it to each call to avoid redundant GitHub API requests:
+
+    dfIssueCommitsLong <- MapLongIssueCommits()
+    results <- purrr::map(
+      lFileTestsSplit,
+      MapTestFilesToPotentialIssues,
+      dfIssueCommitsLong = dfIssueCommitsLong
+    )
 
 ## Examples
 

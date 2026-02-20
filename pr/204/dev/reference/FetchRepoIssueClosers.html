@@ -74,8 +74,9 @@ appropriate to the action being performed.</p></dd>
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
     <p>A <code><a href="https://tibble.tidyverse.org/reference/tibble.html" class="external-link">tibble::tibble()</a></code> with columns:</p><ul><li><p><code>Issue</code>: Issue number.</p></li>
 <li><p><code>CloserType</code>: Type of the closer, either <code>Commit</code> or <code>PullRequest</code>.</p></li>
-<li><p><code>CloserSHA</code>: SHA of the commit that closed the issue, or <code>NA</code> if the
-issue was closed by a pull request.</p></li>
+<li><p><code>CloserSHA</code>: SHA of the commit that closed the issue. For <code>Commit</code>
+closers, this is the commit OID directly. For <code>PullRequest</code> closers, this
+is the merge commit SHA.</p></li>
 <li><p><code>CloserPRNumber</code>: Number of the pull request that closed the issue, or
 <code>NA</code> if the issue was closed by a commit.</p></li>
 </ul></div>

@@ -8,9 +8,9 @@ Find issues that will be closed by merging one branch into another
 FindKeywordIssues(
   strSourceRef = GetActiveBranch(strPkgRoot),
   strTargetRef = GetDefaultBranch(strPkgRoot),
-  strPkgRoot = ".",
   chrKeywords = c("close", "closes", "closed", "fix", "fixes", "fixed", "resolve",
     "resolves", "resolved"),
+  strPkgRoot = ".",
   strOwner = GetGHOwner(strPkgRoot),
   strRepo = GetGHRepo(strPkgRoot),
   intMaxCommits = 100000L
@@ -29,17 +29,17 @@ FindKeywordIssues(
   (`length-1 character`) Name of the git reference that will be merged
   into. Defaults to the default branch of this repository.
 
-- strPkgRoot:
-
-  (`length-1 character`) The path to a directory in the package. Will be
-  expanded using
-  [`gert::git_find()`](https://docs.ropensci.org/gert/reference/git_repo.html).
-
 - chrKeywords:
 
   (`character`) Keywords to search for just before issue numbers in
   commit messages. Defaults to the [GitHub issue-linking
   keywords](https://docs.github.com/en/issues/tracking-your-work-with-issues/using-issues/linking-a-pull-request-to-an-issue#linking-a-pull-request-to-an-issue-using-a-keyword)
+
+- strPkgRoot:
+
+  (`length-1 character`) The path to a directory in the package. Will be
+  expanded using
+  [`gert::git_find()`](https://docs.ropensci.org/gert/reference/git_repo.html).
 
 - strOwner:
 

@@ -81,6 +81,15 @@ Reused parameter definitions are gathered here for easier usage. Use
   with the structure returned by
   [`ExtractTestsFromFiles()`](https://gilead-biostats.github.io/qcthat/dev/reference/ExtractTestsFromFiles.md).
 
+- dfIssueCommitsLong:
+
+  (`data.frame` or `NULL`) Pre-computed issue-commit mappings from
+  [`MapLongIssueCommits()`](https://gilead-biostats.github.io/qcthat/dev/reference/MapLongIssueCommits.md).
+  If `NULL` (the default), fetched automatically from the GitHub API.
+  Provide this when calling
+  [`MapTestFilesToPotentialIssues()`](https://gilead-biostats.github.io/qcthat/dev/reference/MapTestFilesToPotentialIssues.md)
+  multiple times to avoid redundant API requests.
+
 - dfITM:
 
   (`qcthat_IssueTestMatrix`) A `qcthat_IssueTestMatrix` object as

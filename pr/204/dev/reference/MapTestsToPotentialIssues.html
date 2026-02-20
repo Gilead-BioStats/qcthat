@@ -63,8 +63,11 @@ pair, typically from <code><a href="ExtractLongTestCommits.html">ExtractLongTest
 
 
 <dt id="arg-dfissuecommitslong">dfIssueCommitsLong<a class="anchor" aria-label="anchor" href="#arg-dfissuecommitslong"></a></dt>
-<dd><p>A <code><a href="https://tibble.tidyverse.org/reference/tibble.html" class="external-link">tibble::tibble()</a></code> with one row per issue-commit
-pair, typically from <code><a href="MapLongIssueCommits.html">MapLongIssueCommits()</a></code>. If <code>NULL</code>, will be fetched.</p></dd>
+<dd><p>(<code>data.frame</code> or <code>NULL</code>) Pre-computed issue-commit
+mappings from <code><a href="MapLongIssueCommits.html">MapLongIssueCommits()</a></code>. If <code>NULL</code> (the default), fetched
+automatically from the GitHub API. Provide this when calling
+<code><a href="MapTestFilesToPotentialIssues.html">MapTestFilesToPotentialIssues()</a></code> multiple times to avoid redundant API
+requests.</p></dd>
 
 
 <dt id="arg-strpkgroot">strPkgRoot<a class="anchor" aria-label="anchor" href="#arg-strpkgroot"></a></dt>

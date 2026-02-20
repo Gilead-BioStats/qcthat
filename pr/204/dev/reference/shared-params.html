@@ -121,6 +121,14 @@ separate piece of the vector).</p></dd>
 returned by <code><a href="ExtractTestsFromFiles.html">ExtractTestsFromFiles()</a></code>.</p></dd>
 
 
+<dt id="arg-dfissuecommitslong">dfIssueCommitsLong<a class="anchor" aria-label="anchor" href="#arg-dfissuecommitslong"></a></dt>
+<dd><p>(<code>data.frame</code> or <code>NULL</code>) Pre-computed issue-commit
+mappings from <code><a href="MapLongIssueCommits.html">MapLongIssueCommits()</a></code>. If <code>NULL</code> (the default), fetched
+automatically from the GitHub API. Provide this when calling
+<code><a href="MapTestFilesToPotentialIssues.html">MapTestFilesToPotentialIssues()</a></code> multiple times to avoid redundant API
+requests.</p></dd>
+
+
 <dt id="arg-dfitm">dfITM<a class="anchor" aria-label="anchor" href="#arg-dfitm"></a></dt>
 <dd><p>(<code>qcthat_IssueTestMatrix</code>) A <code>qcthat_IssueTestMatrix</code> object as
 returned by <code><a href="AsIssueTestMatrix.html">AsIssueTestMatrix()</a></code> (often via <code><a href="QCPackage.html">QCPackage()</a></code>).</p></dd>

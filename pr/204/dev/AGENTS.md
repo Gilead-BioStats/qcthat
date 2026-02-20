@@ -1,5 +1,10 @@
 # AGENTS.md
 
+## Key development commands
+
+General advice: \* When running R from the console, always run it with
+`--quiet --vanilla` \* Always run `air format .` after generating code
+
 ## Skills
 
 Skills in @.github/skills should be loaded when the user triggers them.
@@ -11,7 +16,18 @@ use your core skill capabilities.
 | tag tests with issues | @.github/skills/tag-tests-with-issues/SKILL.md |
 | document functions    | @.github/skills/document/SKILL.md              |
 
-## Test Coverage
+## Testing
+
+- Tests for `R/{name}.R` go in `tests/testthat/test-{name}.R`.
+- Use `devtools::test(reporter = "check")` to run all tests
+- Use `devtools::test(filter = "name", reporter = "check")` to run tests
+  for `R/{name}.R`
+- All testing functions automatically load code; you don’t need to.
+- All new code should have an accompanying test.
+- If there are existing tests, place new tests next to similar existing
+  tests.
+
+### Test coverage
 
 The goal is 100% file-level test coverage across all R source files.
 After editing a file, ensure that it still has 100% test coverage.
@@ -28,3 +44,9 @@ requirements (no associated tests):
 
 - `R/aaa-shared.R`
 - `R/qcthat-package.R`
+
+## Documentation
+
+After adding or changes functions, create or update their documentation.
+See @.github/skills/document/SKILL.md for details on documentation for
+this project.

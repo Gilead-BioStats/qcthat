@@ -70,20 +70,6 @@ with columns:
 - `PotentialIssues`: List column containing integer vectors of issue
   numbers that might be related to each test based on commit history.
 
-## Details
-
-When processing multiple test files, pre-compute `dfIssueCommitsLong`
-once with
-[`MapLongIssueCommits()`](https://gilead-biostats.github.io/qcthat/dev/reference/MapLongIssueCommits.md)
-and pass it to each call to avoid redundant GitHub API requests:
-
-    dfIssueCommitsLong <- MapLongIssueCommits()
-    results <- purrr::map(
-      lFileTestsSplit,
-      MapTestFilesToPotentialIssues,
-      dfIssueCommitsLong = dfIssueCommitsLong
-    )
-
 ## Examples
 
 ``` r

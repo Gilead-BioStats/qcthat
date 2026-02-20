@@ -344,6 +344,8 @@ By contributing to this project, you agree to abide by its terms.
   : Load UAT issues from disk
 - [`MapIssueClosersToCommits()`](https://gilead-biostats.github.io/qcthat/dev/reference/MapIssueClosersToCommits.md)
   : Add Commits list column to dfIssueClosers
+- [`MapLongIssueCommits()`](https://gilead-biostats.github.io/qcthat/dev/reference/MapLongIssueCommits.md)
+  : Map issues to commits in long format
 - [`MapTestFilesToPotentialIssues()`](https://gilead-biostats.github.io/qcthat/dev/reference/MapTestFilesToPotentialIssues.md)
   : Map test files to potential issues
 - [`PrepareTestIssueContext()`](https://gilead-biostats.github.io/qcthat/dev/reference/PrepareTestIssueContext.md)

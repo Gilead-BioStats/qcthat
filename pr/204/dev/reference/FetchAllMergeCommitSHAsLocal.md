@@ -35,8 +35,10 @@ FetchAllMergeCommitSHAsLocal(
 
 - intMaxCommits:
 
-  (`length-1 integer`) Maximum number of commits to fetch from the log.
-  Increase if the repository history exceeds this number.
+  (`length-1 integer`) The maximum number of commits to return from git
+  logs. Leaving this at the default should almost always be fine, but
+  you can reduce the number if your repository has a long commit history
+  and this function is slow.
 
 ## Value
 

@@ -41,7 +41,7 @@ repositories."><meta name="robots" content="noindex"></head><body>
   <main id="main" class="col-md-9"><div class="page-header">
 
       <h1>Fetch commit SHAs for multiple merged PRs using a single local git log</h1>
-      <small class="dont-index">Source: <a href="https://github.com/Gilead-BioStats/qcthat/blob/fix-161-198-use_qcthat/R/QCMergeGH.R" class="external-link"><code>R/QCMergeGH.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/Gilead-BioStats/qcthat/blob/fix-161-198-use_qcthat/R/FetchAllMergeCommitSHAsLocal.R" class="external-link"><code>R/FetchAllMergeCommitSHAsLocal.R</code></a></small>
       <div class="d-none name"><code>FetchAllMergeCommitSHAsLocal.Rd</code></div>
     </div>
 
@@ -76,8 +76,10 @@ package. Will be expanded using <code><a href="https://docs.ropensci.org/gert/re
 
 
 <dt id="arg-intmaxcommits">intMaxCommits<a class="anchor" aria-label="anchor" href="#arg-intmaxcommits"></a></dt>
-<dd><p>(<code>length-1 integer</code>) Maximum number of commits to fetch
-from the log. Increase if the repository history exceeds this number.</p></dd>
+<dd><p>(<code>length-1 integer</code>) The maximum number of commits to
+return from git logs. Leaving this at the default should almost always be
+fine, but you can reduce the number if your repository has a long commit
+history and this function is slow.</p></dd>
 
 </dl></div>
     <div class="section level2">

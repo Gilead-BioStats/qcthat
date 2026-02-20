@@ -25,7 +25,8 @@ FetchRepoIssueClosers(
 
 - strGHToken:
 
-  (`length-1 character`) GitHub token with permissions to read issues.
+  (`length-1 character`) GitHub token with permissions appropriate to
+  the action being performed.
 
 ## Value
 
@@ -37,8 +38,9 @@ with columns:
 
 - `CloserType`: Type of the closer, either `Commit` or `PullRequest`.
 
-- `CloserSHA`: SHA of the commit that closed the issue, or `NA` if the
-  issue was closed by a pull request.
+- `CloserSHA`: SHA of the commit that closed the issue. For `Commit`
+  closers, this is the commit OID directly. For `PullRequest` closers,
+  this is the merge commit SHA.
 
 - `CloserPRNumber`: Number of the pull request that closed the issue, or
   `NA` if the issue was closed by a commit.

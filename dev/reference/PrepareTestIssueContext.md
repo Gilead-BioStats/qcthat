@@ -11,8 +11,8 @@ and enrich with test code and enriched issue details from GitHub.
 PrepareTestIssueContext(
   dfPotentialIssues = NULL,
   strTestDir = "tests/testthat",
-  strOwner = GetGHOwner(),
-  strRepo = GetGHRepo(),
+  strOwner = GetGHOwner(strTestDir),
+  strRepo = GetGHRepo(strTestDir),
   strGHToken = gh::gh_token()
 )
 ```
@@ -39,7 +39,8 @@ PrepareTestIssueContext(
 
 - strGHToken:
 
-  (`length-1 character`) GitHub token with permissions to read issues.
+  (`length-1 character`) GitHub token with permissions appropriate to
+  the action being performed.
 
 ## Value
 
@@ -47,9 +48,11 @@ A
 [`tibble::tibble()`](https://tibble.tidyverse.org/reference/tibble.html)
 with columns:
 
-- `Test`: Test description (character).
+- `Test`: The `desc` field of the test from
+  [`testthat::test_that()`](https://testthat.r-lib.org/reference/test_that.html).
 
-- `File`: Test file name (character).
+- `File`: Path to the file where the test is defined, relative to the
+  package root.
 
 - `LineStart`: Starting line number of test.
 

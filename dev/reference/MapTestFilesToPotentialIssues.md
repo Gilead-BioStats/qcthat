@@ -10,8 +10,9 @@ modified the test with commits that closed issues. Tests tagged with
 MapTestFilesToPotentialIssues(
   dfFileTests = NULL,
   strTestDir = "tests/testthat",
-  strOwner = GetGHOwner(),
-  strRepo = GetGHRepo(),
+  dfIssueCommitsLong = NULL,
+  strOwner = GetGHOwner(strTestDir),
+  strRepo = GetGHRepo(strTestDir),
   strGHToken = gh::gh_token()
 )
 ```
@@ -30,6 +31,14 @@ MapTestFilesToPotentialIssues(
   (`length-1 character`) Path to the directory containing test files.
   Defaults to `"tests/testthat"`.
 
+- dfIssueCommitsLong:
+
+  (`data.frame` or `NULL`) Pre-computed issue-commit mappings from
+  [`MapLongIssueCommits()`](https://gilead-biostats.github.io/qcthat/dev/reference/MapLongIssueCommits.md).
+  If `NULL` (the default), fetched automatically from the GitHub API.
+  Provide this when calling `MapTestFilesToPotentialIssues()` multiple
+  times to avoid redundant API requests.
+
 - strOwner:
 
   (`length-1 character`) GitHub username or organization name.
@@ -40,7 +49,8 @@ MapTestFilesToPotentialIssues(
 
 - strGHToken:
 
-  (`length-1 character`) GitHub token with permissions to read issues.
+  (`length-1 character`) GitHub token with permissions appropriate to
+  the action being performed.
 
 ## Value
 
@@ -48,9 +58,11 @@ A
 [`tibble::tibble()`](https://tibble.tidyverse.org/reference/tibble.html)
 with columns:
 
-- `Test`: Test description (character).
+- `Test`: The `desc` field of the test from
+  [`testthat::test_that()`](https://testthat.r-lib.org/reference/test_that.html).
 
-- `File`: Test file name (character).
+- `File`: Path to the file where the test is defined, relative to the
+  package root.
 
 - `Issues`: List column containing integer vectors of issue numbers
   already tagged in the test description.

@@ -39,19 +39,16 @@ of issues:
 A series of `Action_*()` functions to set up GitHub actions for QC
 reports:
 
-- [`Action_QCCompletedIssues()`](https://gilead-biostats.github.io/qcthat/dev/reference/Action_QCCompletedIssues.md)
-  to run
+- `Action_QCCompletedIssues()` to run
   [`QCCompletedIssues()`](https://gilead-biostats.github.io/qcthat/dev/reference/QCCompletedIssues.md)
   ([\#69](https://github.com/Gilead-BioStats/qcthat/issues/69),
   [\#73](https://github.com/Gilead-BioStats/qcthat/issues/73)).
-- [`Action_QCPRIssues()`](https://gilead-biostats.github.io/qcthat/dev/reference/Action_QCPRIssues.md)
-  to run
+- `Action_QCPRIssues()` to run
   [`QCPR()`](https://gilead-biostats.github.io/qcthat/dev/reference/QCPR.md)
   for specific pull requests
   ([\#55](https://github.com/Gilead-BioStats/qcthat/issues/55),
   [\#68](https://github.com/Gilead-BioStats/qcthat/issues/68)).
-- [`Action_QCMilestone()`](https://gilead-biostats.github.io/qcthat/dev/reference/Action_QCMilestone.md)
-  to run
+- `Action_QCMilestone()` to run
   [`QCMilestones()`](https://gilead-biostats.github.io/qcthat/dev/reference/QCMilestones.md)
   for pull requests associated with milestones, and for releases with
   names that match milestones

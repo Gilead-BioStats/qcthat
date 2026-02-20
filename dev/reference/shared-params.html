@@ -121,9 +121,25 @@ separate piece of the vector).</p></dd>
 returned by <code><a href="ExtractTestsFromFiles.html">ExtractTestsFromFiles()</a></code>.</p></dd>
 
 
+<dt id="arg-dfissuecommitslong">dfIssueCommitsLong<a class="anchor" aria-label="anchor" href="#arg-dfissuecommitslong"></a></dt>
+<dd><p>(<code>data.frame</code> or <code>NULL</code>) Pre-computed issue-commit
+mappings from <code><a href="MapLongIssueCommits.html">MapLongIssueCommits()</a></code>. If <code>NULL</code> (the default), fetched
+automatically from the GitHub API. Provide this when calling
+<code><a href="MapTestFilesToPotentialIssues.html">MapTestFilesToPotentialIssues()</a></code> multiple times to avoid redundant API
+requests.</p></dd>
+
+
 <dt id="arg-dfitm">dfITM<a class="anchor" aria-label="anchor" href="#arg-dfitm"></a></dt>
 <dd><p>(<code>qcthat_IssueTestMatrix</code>) A <code>qcthat_IssueTestMatrix</code> object as
 returned by <code><a href="AsIssueTestMatrix.html">AsIssueTestMatrix()</a></code> (often via <code><a href="QCPackage.html">QCPackage()</a></code>).</p></dd>
+
+
+<dt id="arg-dflabels">dfLabels<a class="anchor" aria-label="anchor" href="#arg-dflabels"></a></dt>
+<dd><p>(<code>data.frame</code>) A data frame with columns <code>Label</code>,
+<code>Description</code>, and <code>Color</code>, specifying the labels to create. By default,
+this is the data frame returned by <code><a href="DefaultIgnoreLabelsDF.html">DefaultIgnoreLabelsDF()</a></code>. Descriptions
+of labels created via this function are prefixed with <code>"{qcthat}: "</code> to
+make it easier to search for them in your list of labels.</p></dd>
 
 
 <dt id="arg-dfpotentialissues">dfPotentialIssues<a class="anchor" aria-label="anchor" href="#arg-dfpotentialissues"></a></dt>
@@ -281,7 +297,8 @@ report.</p></dd>
 
 <dt id="arg-lglupdate">lglUpdate<a class="anchor" aria-label="anchor" href="#arg-lglupdate"></a></dt>
 <dd><p>(<code>length-1 logical</code>) Whether to update an existing comment
-if it already exists (rather than creating a new comment).</p></dd>
+or label if it already exists (rather than creating a new comment or
+label).</p></dd>
 
 
 <dt id="arg-lgluseemoji">lglUseEmoji<a class="anchor" aria-label="anchor" href="#arg-lgluseemoji"></a></dt>
@@ -371,8 +388,28 @@ any effect.</p></dd>
 
 
 <dt id="arg-strghtoken">strGHToken<a class="anchor" aria-label="anchor" href="#arg-strghtoken"></a></dt>
-<dd><p>(<code>length-1 character</code>) GitHub token with permissions to
-read issues.</p></dd>
+<dd><p>(<code>length-1 character</code>) GitHub token with permissions
+appropriate to the action being performed.</p></dd>
+
+
+<dt id="arg-strlabel">strLabel<a class="anchor" aria-label="anchor" href="#arg-strlabel"></a></dt>
+<dd><p>(<code>length-1 character</code>) The name of the label to create or
+update.</p></dd>
+
+
+<dt id="arg-strlabelcolor">strLabelColor<a class="anchor" aria-label="anchor" href="#arg-strlabelcolor"></a></dt>
+<dd><p>(<code>length-1 character</code>) The hex color code for the label
+(e.g., <code>"#444444"</code>).</p></dd>
+
+
+<dt id="arg-strlabeldescription">strLabelDescription<a class="anchor" aria-label="anchor" href="#arg-strlabeldescription"></a></dt>
+<dd><p>(<code>length-1 character</code>) The description for the
+label.</p></dd>
+
+
+<dt id="arg-strlabelnewname">strLabelNewName<a class="anchor" aria-label="anchor" href="#arg-strlabelnewname"></a></dt>
+<dd><p>(<code>length-1 character</code>) The new name for an updated
+label.</p></dd>
 
 
 <dt id="arg-strowner">strOwner<a class="anchor" aria-label="anchor" href="#arg-strowner"></a></dt>

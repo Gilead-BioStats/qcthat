@@ -33,7 +33,7 @@
   <main id="main" class="col-md-9"><div class="page-header">
 
       <h1>Create a GitHub label</h1>
-      <small class="dont-index">Source: <a href="https://github.com/Gilead-BioStats/qcthat/blob/dev/R/SetupGHLabels.R" class="external-link"><code>R/SetupGHLabels.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/Gilead-BioStats/qcthat/blob/dev/R/CreateGHLabel.R" class="external-link"><code>R/CreateGHLabel.R</code></a></small>
       <div class="d-none name"><code>CreateGHLabel.Rd</code></div>
     </div>
 
@@ -47,6 +47,7 @@
 <span>  <span class="va">strLabel</span>,</span>
 <span>  strLabelDescription <span class="op">=</span> <span class="st">"{qcthat}: A new label"</span>,</span>
 <span>  strLabelColor <span class="op">=</span> <span class="st">"#444444"</span>,</span>
+<span>  lglUpdate <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  lglVerbose <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">getOption</a></span><span class="op">(</span><span class="st">"qcthat-verbose"</span>, <span class="cn">FALSE</span><span class="op">)</span>,</span>
 <span>  strOwner <span class="op">=</span> <span class="fu"><a href="GetGHOwner.html">GetGHOwner</a></span><span class="op">(</span><span class="op">)</span>,</span>
 <span>  strRepo <span class="op">=</span> <span class="fu"><a href="GetGHRepo.html">GetGHRepo</a></span><span class="op">(</span><span class="op">)</span>,</span>
@@ -59,7 +60,8 @@
 
 
 <dl><dt id="arg-strlabel">strLabel<a class="anchor" aria-label="anchor" href="#arg-strlabel"></a></dt>
-<dd><p>(<code>length-1 character</code>) The name of the label to create.</p></dd>
+<dd><p>(<code>length-1 character</code>) The name of the label to create or
+update.</p></dd>
 
 
 <dt id="arg-strlabeldescription">strLabelDescription<a class="anchor" aria-label="anchor" href="#arg-strlabeldescription"></a></dt>
@@ -68,8 +70,14 @@ label.</p></dd>
 
 
 <dt id="arg-strlabelcolor">strLabelColor<a class="anchor" aria-label="anchor" href="#arg-strlabelcolor"></a></dt>
-<dd><p>(<code>length-1 character</code>) The hex color code for the
-label (e.g., <code>"#444444"</code>).</p></dd>
+<dd><p>(<code>length-1 character</code>) The hex color code for the label
+(e.g., <code>"#444444"</code>).</p></dd>
+
+
+<dt id="arg-lglupdate">lglUpdate<a class="anchor" aria-label="anchor" href="#arg-lglupdate"></a></dt>
+<dd><p>(<code>length-1 logical</code>) Whether to update an existing comment
+or label if it already exists (rather than creating a new comment or
+label).</p></dd>
 
 
 <dt id="arg-strowner">strOwner<a class="anchor" aria-label="anchor" href="#arg-strowner"></a></dt>
@@ -81,8 +89,8 @@ label (e.g., <code>"#444444"</code>).</p></dd>
 
 
 <dt id="arg-strghtoken">strGHToken<a class="anchor" aria-label="anchor" href="#arg-strghtoken"></a></dt>
-<dd><p>(<code>length-1 character</code>) GitHub token with permissions to
-read issues.</p></dd>
+<dd><p>(<code>length-1 character</code>) GitHub token with permissions
+appropriate to the action being performed.</p></dd>
 
 </dl></div>
     <div class="section level2">

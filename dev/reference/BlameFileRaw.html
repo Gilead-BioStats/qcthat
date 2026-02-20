@@ -43,7 +43,7 @@
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">BlameFileRaw</span><span class="op">(</span><span class="va">strFilePath</span><span class="op">)</span></span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">BlameFileRaw</span><span class="op">(</span><span class="va">strFilePath</span>, envCall <span class="op">=</span> <span class="fu">rlang</span><span class="fu">::</span><span class="fu"><a href="https://rlang.r-lib.org/reference/stack.html" class="external-link">caller_env</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -52,6 +52,11 @@
 
 <dl><dt id="arg-strfilepath">strFilePath<a class="anchor" aria-label="anchor" href="#arg-strfilepath"></a></dt>
 <dd><p>(<code>length-1 character</code>) A file path.</p></dd>
+
+
+<dt id="arg-envcall">envCall<a class="anchor" aria-label="anchor" href="#arg-envcall"></a></dt>
+<dd><p>(<code>environment</code>) The environment to use for error reporting.
+Typically set to <code><a href="https://rlang.r-lib.org/reference/stack.html" class="external-link">rlang::caller_env()</a></code>.</p></dd>
 
 </dl></div>
     <div class="section level2">

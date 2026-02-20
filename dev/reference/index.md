@@ -2,14 +2,8 @@
 
 ## All functions
 
-- [`Action_QCCompletedIssues()`](https://gilead-biostats.github.io/qcthat/dev/reference/Action_QCCompletedIssues.md)
-  : Use a GitHub Action to QC completed issues
-- [`Action_QCMilestone()`](https://gilead-biostats.github.io/qcthat/dev/reference/Action_QCMilestone.md)
-  : Use a GitHub Action to QC a milestone
-- [`Action_QCPRIssues()`](https://gilead-biostats.github.io/qcthat/dev/reference/Action_QCPRIssues.md)
-  : Use a GitHub Action to QC pull-request-associated issues
-- [`Action_UAT()`](https://gilead-biostats.github.io/qcthat/dev/reference/Action_UAT.md)
-  : Use a GitHub Action to manage UAT
+- [`Action_qcthat()`](https://gilead-biostats.github.io/qcthat/dev/reference/Action_qcthat.md)
+  : Use a GitHub Action to manage qcthat
 - [`AttachReleaseReports()`](https://gilead-biostats.github.io/qcthat/dev/reference/AttachReleaseReports.md)
   : Attach QC reports to a GitHub release
 - [`CommentAllReports()`](https://gilead-biostats.github.io/qcthat/dev/reference/CommentAllReports.md)
@@ -40,8 +34,6 @@
   : Fetch repository issues
 - [`FetchRepoPRs()`](https://gilead-biostats.github.io/qcthat/dev/reference/FetchRepoPRs.md)
   : Fetch repository pull requests
-- [`FindAllIssueCommits()`](https://gilead-biostats.github.io/qcthat/dev/reference/FindAllIssueCommits.md)
-  : Find all commits associated with an issue closer
 - [`GetGHOwner()`](https://gilead-biostats.github.io/qcthat/dev/reference/GetGHOwner.md)
   : Find the owner of the target repository
 - [`GetGHRepo()`](https://gilead-biostats.github.io/qcthat/dev/reference/GetGHRepo.md)
@@ -62,6 +54,8 @@
   : Load UAT issues from disk
 - [`MapIssueClosersToCommits()`](https://gilead-biostats.github.io/qcthat/dev/reference/MapIssueClosersToCommits.md)
   : Add Commits list column to dfIssueClosers
+- [`MapLongIssueCommits()`](https://gilead-biostats.github.io/qcthat/dev/reference/MapLongIssueCommits.md)
+  : Map issues to commits in long format
 - [`MapTestFilesToPotentialIssues()`](https://gilead-biostats.github.io/qcthat/dev/reference/MapTestFilesToPotentialIssues.md)
   : Map test files to potential issues
 - [`PrepareTestIssueContext()`](https://gilead-biostats.github.io/qcthat/dev/reference/PrepareTestIssueContext.md)
@@ -92,3 +86,5 @@
 - [`print(`*`<qcthat_Object>`*`)`](https://gilead-biostats.github.io/qcthat/dev/reference/printing.md)
   [`format(`*`<qcthat_Object>`*`)`](https://gilead-biostats.github.io/qcthat/dev/reference/printing.md)
   : Printing qcthat objects
+- [`use_qcthat()`](https://gilead-biostats.github.io/qcthat/dev/reference/use_qcthat.md)
+  : Set up qcthat for a package

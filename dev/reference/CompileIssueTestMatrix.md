@@ -75,7 +75,8 @@ A `qcthat_IssueTestMatrix` object, which is a tibble with columns:
 - `Test`: The `desc` field of the test from
   [`testthat::test_that()`](https://testthat.r-lib.org/reference/test_that.html).
 
-- `File`: File where the test is defined.
+- `File`: Path to the file where the test is defined, relative to the
+  package root.
 
 - `Disposition`: Factor with levels `pass`, `fail`, and `skip`
   indicating the overall outcome of the test.

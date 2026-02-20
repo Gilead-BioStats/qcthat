@@ -41,8 +41,8 @@ CommentReport(
 
 - lglUpdate:
 
-  (`length-1 logical`) Whether to update an existing comment if it
-  already exists (rather than creating a new comment).
+  (`length-1 logical`) Whether to update an existing comment or label if
+  it already exists (rather than creating a new comment or label).
 
 - strRunID:
 
@@ -59,7 +59,8 @@ CommentReport(
 
 - strGHToken:
 
-  (`length-1 character`) GitHub token with permissions to read issues.
+  (`length-1 character`) GitHub token with permissions appropriate to
+  the action being performed.
 
 ## Value
 

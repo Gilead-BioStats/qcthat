@@ -5,7 +5,7 @@ Git blame a file (raw)
 ## Usage
 
 ``` r
-BlameFileRaw(strFilePath)
+BlameFileRaw(strFilePath, envCall = rlang::caller_env())
 ```
 
 ## Arguments
@@ -13,6 +13,12 @@ BlameFileRaw(strFilePath)
 - strFilePath:
 
   (`length-1 character`) A file path.
+
+- envCall:
+
+  (`environment`) The environment to use for error reporting. Typically
+  set to
+  [`rlang::caller_env()`](https://rlang.r-lib.org/reference/stack.html).
 
 ## Value
 

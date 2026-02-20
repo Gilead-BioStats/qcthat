@@ -8,8 +8,9 @@ Map tests to potential issues via commit joins
 MapTestsToPotentialIssues(
   dfTestCommitsLong,
   dfIssueCommitsLong = NULL,
-  strOwner = GetGHOwner(),
-  strRepo = GetGHRepo(),
+  strPkgRoot = ".",
+  strOwner = GetGHOwner(strPkgRoot),
+  strRepo = GetGHRepo(strPkgRoot),
   strGHToken = gh::gh_token()
 )
 ```
@@ -25,11 +26,18 @@ MapTestsToPotentialIssues(
 
 - dfIssueCommitsLong:
 
-  A
-  [`tibble::tibble()`](https://tibble.tidyverse.org/reference/tibble.html)
-  with one row per issue-commit pair, typically from
+  (`data.frame` or `NULL`) Pre-computed issue-commit mappings from
   [`MapLongIssueCommits()`](https://gilead-biostats.github.io/qcthat/dev/reference/MapLongIssueCommits.md).
-  If `NULL`, will be fetched.
+  If `NULL` (the default), fetched automatically from the GitHub API.
+  Provide this when calling
+  [`MapTestFilesToPotentialIssues()`](https://gilead-biostats.github.io/qcthat/dev/reference/MapTestFilesToPotentialIssues.md)
+  multiple times to avoid redundant API requests.
+
+- strPkgRoot:
+
+  (`length-1 character`) The path to a directory in the package. Will be
+  expanded using
+  [`gert::git_find()`](https://docs.ropensci.org/gert/reference/git_repo.html).
 
 - strOwner:
 
@@ -41,7 +49,8 @@ MapTestsToPotentialIssues(
 
 - strGHToken:
 
-  (`length-1 character`) GitHub token with permissions to read issues.
+  (`length-1 character`) GitHub token with permissions appropriate to
+  the action being performed.
 
 ## Value
 

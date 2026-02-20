@@ -52,8 +52,8 @@ enriched issue details from GitHub.</p>
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">PrepareTestIssueContext</span><span class="op">(</span></span>
 <span>  dfPotentialIssues <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  strTestDir <span class="op">=</span> <span class="st">"tests/testthat"</span>,</span>
-<span>  strOwner <span class="op">=</span> <span class="fu"><a href="GetGHOwner.html">GetGHOwner</a></span><span class="op">(</span><span class="op">)</span>,</span>
-<span>  strRepo <span class="op">=</span> <span class="fu"><a href="GetGHRepo.html">GetGHRepo</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  strOwner <span class="op">=</span> <span class="fu"><a href="GetGHOwner.html">GetGHOwner</a></span><span class="op">(</span><span class="va">strTestDir</span><span class="op">)</span>,</span>
+<span>  strRepo <span class="op">=</span> <span class="fu"><a href="GetGHRepo.html">GetGHRepo</a></span><span class="op">(</span><span class="va">strTestDir</span><span class="op">)</span>,</span>
 <span>  strGHToken <span class="op">=</span> <span class="fu">gh</span><span class="fu">::</span><span class="fu"><a href="https://gh.r-lib.org/reference/gh_token.html" class="external-link">gh_token</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
@@ -81,14 +81,15 @@ test files. Defaults to <code>"tests/testthat"</code>.</p></dd>
 
 
 <dt id="arg-strghtoken">strGHToken<a class="anchor" aria-label="anchor" href="#arg-strghtoken"></a></dt>
-<dd><p>(<code>length-1 character</code>) GitHub token with permissions to
-read issues.</p></dd>
+<dd><p>(<code>length-1 character</code>) GitHub token with permissions
+appropriate to the action being performed.</p></dd>
 
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
-    <p>A <code><a href="https://tibble.tidyverse.org/reference/tibble.html" class="external-link">tibble::tibble()</a></code> with columns:</p><ul><li><p><code>Test</code>: Test description (character).</p></li>
-<li><p><code>File</code>: Test file name (character).</p></li>
+    <p>A <code><a href="https://tibble.tidyverse.org/reference/tibble.html" class="external-link">tibble::tibble()</a></code> with columns:</p><ul><li><p><code>Test</code>: The <code>desc</code> field of the test from <code><a href="https://testthat.r-lib.org/reference/test_that.html" class="external-link">testthat::test_that()</a></code>.</p></li>
+<li><p><code>File</code>: Path to the file where the test is defined, relative to the
+package root.</p></li>
 <li><p><code>LineStart</code>: Starting line number of test.</p></li>
 <li><p><code>LineEnd</code>: Ending line number of test.</p></li>
 <li><p><code>Issues</code>: List column containing integer vectors of issue numbers already

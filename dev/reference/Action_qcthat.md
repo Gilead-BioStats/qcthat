@@ -1,15 +1,18 @@
-# Use a GitHub Action to QC completed issues
+# Use a GitHub Action to manage qcthat
 
-Install a GitHub Action into a package repository to generate a QC
-report of completed issues with
-[`QCCompletedIssues()`](https://gilead-biostats.github.io/qcthat/dev/reference/QCCompletedIssues.md).
+Install a GitHub Action into a package repository to manage qcthat
+Quality Control with
+[`TriggerUAT()`](https://gilead-biostats.github.io/qcthat/dev/reference/TriggerUAT.md),
+[`CommentAllReports()`](https://gilead-biostats.github.io/qcthat/dev/reference/CommentAllReports.md),
+and
+[`AttachReleaseReports()`](https://gilead-biostats.github.io/qcthat/dev/reference/AttachReleaseReports.md).
 We recommend reviewing the generated action to determine whether you
 would like to turn any features off.
 
 ## Usage
 
 ``` r
-Action_QCCompletedIssues(lglOverwrite = FALSE, strPkgRoot = ".")
+Action_qcthat(lglOverwrite = FALSE, strPkgRoot = ".")
 ```
 
 ## Arguments
@@ -33,6 +36,6 @@ The path to the created GitHub Action YAML file (invisibly).
 ``` r
 if (FALSE) { # interactive()
 
-  Action_QCCompletedIssues()
+  Action_qcthat()
 }
 ```

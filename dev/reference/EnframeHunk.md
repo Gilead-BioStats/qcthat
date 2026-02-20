@@ -5,7 +5,7 @@ Turn a hunk list into a tibble
 ## Usage
 
 ``` r
-EnframeHunk(lHunk, strFilePath)
+EnframeHunk(lHunk, strFilePath, envCall = rlang::caller_env())
 ```
 
 ## Arguments
@@ -19,13 +19,19 @@ EnframeHunk(lHunk, strFilePath)
 
   (`length-1 character`) A file path.
 
+- envCall:
+
+  (`environment`) The environment to use for error reporting. Typically
+  set to
+  [`rlang::caller_env()`](https://rlang.r-lib.org/reference/stack.html).
+
 ## Value
 
 A one-row
 [`tibble::tibble()`](https://tibble.tidyverse.org/reference/tibble.html)
 with columns:
 
-- `File`: The file name (character).
+- `File`: Path to the file, relative to the package root.
 
 - `Line`: Line number (integer).
 

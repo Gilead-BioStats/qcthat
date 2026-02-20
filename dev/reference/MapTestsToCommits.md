@@ -6,7 +6,7 @@ to identify which commits last modified each line of each test.
 ## Usage
 
 ``` r
-MapTestsToCommits(dfFileTests, strTestDir = "tests/testthat")
+MapTestsToCommits(dfFileTests, envCall = rlang::caller_env())
 ```
 
 ## Arguments
@@ -18,10 +18,11 @@ MapTestsToCommits(dfFileTests, strTestDir = "tests/testthat")
   with the structure returned by
   [`ExtractTestsFromFiles()`](https://gilead-biostats.github.io/qcthat/dev/reference/ExtractTestsFromFiles.md).
 
-- strTestDir:
+- envCall:
 
-  (`length-1 character`) Path to the directory containing test files.
-  Defaults to `"tests/testthat"`.
+  (`environment`) The environment to use for error reporting. Typically
+  set to
+  [`rlang::caller_env()`](https://rlang.r-lib.org/reference/stack.html).
 
 ## Value
 

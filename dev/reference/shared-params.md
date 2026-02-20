@@ -81,6 +81,15 @@ Reused parameter definitions are gathered here for easier usage. Use
   with the structure returned by
   [`ExtractTestsFromFiles()`](https://gilead-biostats.github.io/qcthat/dev/reference/ExtractTestsFromFiles.md).
 
+- dfIssueCommitsLong:
+
+  (`data.frame` or `NULL`) Pre-computed issue-commit mappings from
+  [`MapLongIssueCommits()`](https://gilead-biostats.github.io/qcthat/dev/reference/MapLongIssueCommits.md).
+  If `NULL` (the default), fetched automatically from the GitHub API.
+  Provide this when calling
+  [`MapTestFilesToPotentialIssues()`](https://gilead-biostats.github.io/qcthat/dev/reference/MapTestFilesToPotentialIssues.md)
+  multiple times to avoid redundant API requests.
+
 - dfITM:
 
   (`qcthat_IssueTestMatrix`) A `qcthat_IssueTestMatrix` object as
@@ -88,6 +97,16 @@ Reused parameter definitions are gathered here for easier usage. Use
   [`AsIssueTestMatrix()`](https://gilead-biostats.github.io/qcthat/dev/reference/AsIssueTestMatrix.md)
   (often via
   [`QCPackage()`](https://gilead-biostats.github.io/qcthat/dev/reference/QCPackage.md)).
+
+- dfLabels:
+
+  (`data.frame`) A data frame with columns `Label`, `Description`, and
+  `Color`, specifying the labels to create. By default, this is the data
+  frame returned by
+  [`DefaultIgnoreLabelsDF()`](https://gilead-biostats.github.io/qcthat/dev/reference/DefaultIgnoreLabelsDF.md).
+  Descriptions of labels created via this function are prefixed with
+  `"{qcthat}: "` to make it easier to search for them in your list of
+  labels.
 
 - dfPotentialIssues:
 
@@ -252,8 +271,8 @@ Reused parameter definitions are gathered here for easier usage. Use
 
 - lglUpdate:
 
-  (`length-1 logical`) Whether to update an existing comment if it
-  already exists (rather than creating a new comment).
+  (`length-1 logical`) Whether to update an existing comment or label if
+  it already exists (rather than creating a new comment or label).
 
 - lglUseEmoji:
 
@@ -339,7 +358,25 @@ Reused parameter definitions are gathered here for easier usage. Use
 
 - strGHToken:
 
-  (`length-1 character`) GitHub token with permissions to read issues.
+  (`length-1 character`) GitHub token with permissions appropriate to
+  the action being performed.
+
+- strLabel:
+
+  (`length-1 character`) The name of the label to create or update.
+
+- strLabelColor:
+
+  (`length-1 character`) The hex color code for the label (e.g.,
+  `"#444444"`).
+
+- strLabelDescription:
+
+  (`length-1 character`) The description for the label.
+
+- strLabelNewName:
+
+  (`length-1 character`) The new name for an updated label.
 
 - strOwner:
 

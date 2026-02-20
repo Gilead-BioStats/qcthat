@@ -178,7 +178,7 @@ test$IssueTags <- glue::glue("#{IssuesToTag}") |>
 # To:     test_that("ProcessPayment handles declined cards (#87)", {
 readLines(test$File) |>
   stringr::str_replace(
-    stringr::str_fixed(test$Test),
+    stringr::fixed(test$Test),
     glue::glue_data(test, "{Test} ({IssueTags})")
   ) |>
   writeLines(test$File)

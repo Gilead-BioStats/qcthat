@@ -122,7 +122,7 @@ test_that("CommentAllReports generates the expected calls (#165)", {
 })
 
 test_that("All qcthat reports are combined in a single GHA (#129, #165, #152)", {
-  ExpectUserAccepts(
+  qcthat::ExpectUserAccepts(
     "PRs have a single comment for qcthat reports (other than UAT)",
     intIssue = 165,
     chrChecks = c(
@@ -131,7 +131,7 @@ test_that("All qcthat reports are combined in a single GHA (#129, #165, #152)", 
       "The PR associated with this issue does not have a comment for just the '{qcthat} Report: PR-Associated Issues'."
     )
   )
-  ExpectUserAccepts(
+  qcthat::ExpectUserAccepts(
     "PRs have a single qcthat action",
     intIssue = 129,
     chrInstructions = "At the bottom of the PR associated with this issue, look for the 'checks' folder (or 'All checks have passed', etc), and expand that folder.",

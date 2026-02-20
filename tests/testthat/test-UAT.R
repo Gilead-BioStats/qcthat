@@ -2,7 +2,7 @@
 # functions in the package.
 
 test_that("The required R version is within the normal support window (#146)", {
-  ExpectUserAccepts(
+  qcthat::ExpectUserAccepts(
     "`R-CMD-check.yaml` runs successfully for old R versions.",
     intIssue = 146,
     chrChecks = c(
@@ -13,7 +13,7 @@ test_that("The required R version is within the normal support window (#146)", {
 })
 
 test_that("The pkgdown site has an intro slide deck (#167, #168, #169)", {
-  ExpectUserAccepts(
+  qcthat::ExpectUserAccepts(
     "The pkgdown site has a slide deck.",
     intIssue = 167,
     chrInstructions = "Load the website linked in this issue as 'PR pkgdown deployed'.",
@@ -23,7 +23,7 @@ test_that("The pkgdown site has an intro slide deck (#167, #168, #169)", {
       "Clicking that entry loads a rendered slide deck."
     )
   )
-  ExpectUserAccepts(
+  qcthat::ExpectUserAccepts(
     "The intro slide deck has appropriate titles.",
     intIssue = 168,
     chrInstructions = paste(
@@ -35,7 +35,7 @@ test_that("The pkgdown site has an intro slide deck (#167, #168, #169)", {
     ),
     chrChecks = c("The titles make sense for this introduction to qcthat.")
   )
-  ExpectUserAccepts(
+  qcthat::ExpectUserAccepts(
     "The intro slide deck has appropriate slides.",
     intIssue = 169,
     chrInstructions = paste(

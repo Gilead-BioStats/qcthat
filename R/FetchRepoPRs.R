@@ -107,11 +107,7 @@ FetchRawRepoPRSingle <- function(
 #' @returns A list representing a raw pull request object.
 #' @keywords internal
 LookupPRFromList <- function(lPRs, intPRNumber, envCall = rlang::caller_env()) {
-  if (rlang::is_named(lPRs)) {
-    lPR <- list(lPRs[[as.character(intPRNumber)]])
-  } else {
-    lPR <- purrr::keep(lPRs, \(x) isTRUE(x$number == intPRNumber))
-  }
+  lPR <- purrr::keep(lPRs, \(x) isTRUE(x$number == intPRNumber))
   if (length(lPR)) {
     return(lPR[[1]])
   }

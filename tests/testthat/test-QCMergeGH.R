@@ -243,6 +243,32 @@ test_that("ResolvePRCommits falls back to merge SHA when PR parent not in log (#
   expect_equal(result, "merge-sha")
 })
 
+test_that("ResolvePRCommits falls back to merge SHA when target parent not in log (#noissue)", {
+  # PR parent is in the log but target parent is not (e.g. a shallow clone).
+  chrAllCommits <- c("merge-sha", "pr-commit-a", "older-sha")
+  envIdx <- BuildCommitIndexEnv(chrAllCommits)
+  result <- ResolvePRCommits(
+    "merge-sha",
+    chrAllCommits,
+    envIdx,
+    c("unknown-target", "pr-commit-a")
+  )
+  expect_equal(result, "merge-sha")
+})
+
+test_that("ResolvePRCommits falls back to merge SHA when PR parent is not ahead of target (#noissue)", {
+  # intPRPos >= intTargetPos: target is at pos 2, PR tip also at pos 2 or later.
+  chrAllCommits <- c("merge-sha", "shared-sha", "older-sha")
+  envIdx <- BuildCommitIndexEnv(chrAllCommits)
+  result <- ResolvePRCommits(
+    "merge-sha",
+    chrAllCommits,
+    envIdx,
+    c("shared-sha", "shared-sha")
+  )
+  expect_equal(result, "merge-sha")
+})
+
 test_that("FetchAllMergeCommitSHAsLocal returns empty list for empty input (#noissue)", {
   result <- FetchAllMergeCommitSHAsLocal(character())
   expect_equal(result, list())

@@ -158,11 +158,8 @@ GlueEscaped <- function(
 #'   the specified pairs and default.
 #' @keywords internal
 RecodeValues <- function(x, ..., default = NULL) {
-  args <- list(x, .default = default, ...)
-  recode_fn <- dplyr::case_match
   if (rlang::is_installed("dplyr", version = "1.2.0")) {
-    recode_fn <- dplyr::recode_values
-    names(args)[names(args) == ".default"] <- "default"
+    return(rlang::exec(dplyr::recode_values, x, ..., default = default))
   }
-  rlang::exec(recode_fn, !!!args)
+  rlang::exec(dplyr::case_match, x, .default = default, ...) # nocov
 }

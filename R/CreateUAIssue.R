@@ -23,7 +23,7 @@ CreateUAIssue <- function(
   )
   tryCatch(
     {
-      CreateChildIssue(
+      lRes <- CreateChildIssue(
         intIssue,
         strTitle,
         strBody,
@@ -32,6 +32,10 @@ CreateUAIssue <- function(
         strRepo = strRepo,
         strGHToken = strGHToken
       )
+      cli::cli_inform(
+        "UAT issue created for #{intIssue}: {.str {strDescription}}"
+      )
+      lRes
     },
     error = function(e) NULL
   )

@@ -20,5 +20,5 @@ FormatKey(lglUseEmoji = getOption("qcthat.emoji", TRUE))
 
 ## Value
 
-A character vectore styled with
+A character vector styled with
 [`pillar::style_subtle()`](https://pillar.r-lib.org/reference/style_subtle.html).

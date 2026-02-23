@@ -1,5 +1,7 @@
 # Trigger the UAT cycle for closed issues
 
+**\[experimental\]**
+
 Identify pull requests that mention a closed issue, and potentially
 re-trigger the UAT cycle. If all issues referenced in the UAT comment of
 a linked PR are closed (and it is not already running the QCPR

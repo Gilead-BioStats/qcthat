@@ -1,5 +1,7 @@
 # Map issues to commits in long format
 
+**\[experimental\]**
+
 Fetches all closed issues for a repository and maps each to the commits
 that closed it, returning one row per issue-commit pair. This is an
 optional input to

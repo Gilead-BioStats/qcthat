@@ -1,5 +1,7 @@
 # Use an AI skill to tag tests with issues
 
+**\[experimental\]**
+
 Install an AI skill into a package repository to help identify and tag
 tests with their related GitHub issues. The skill guides the process of
 connecting test cases to the features or bugs they address by adding

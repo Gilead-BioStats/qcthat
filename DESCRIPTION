@@ -44,7 +44,6 @@ Suggests:
     lifecycle,
     sessioninfo,
     usethis,
-    utils,
     withr
 Config/Needs/website: quarto, rmarkdown
 Config/testthat/edition: 3

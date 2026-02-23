@@ -120,7 +120,7 @@ EmptyIssueTestMatrix <- function() {
 #' @inheritParams shared-params
 #' @returns A filtered `qcthat_IssueTestMatrix` object with issues that are
 #'   tagged to any of the specified ignored labels removed. The returned object
-#'   has an attribute `IgnoredLabels` which is a named list of of the issues
+#'   has an attribute `IgnoredLabels` which is a named list of the issues
 #'   that were removed for each ignored label (as a `qcthat_IssueTestMatrix`),
 #'   or an empty named list if `chrIgnoredLabels` is empty.
 #' @keywords internal

@@ -12,7 +12,7 @@ test_that("ExpectUserAccepts returns the input strDescription (#111)", {
   expect_identical(result, strDescription)
 })
 
-test_that("ExpectUserAccepts passes when the issue is closed (#111)", {
+test_that("ExpectUserAccepts passes when the issue is closed (#65, #111)", {
   local_mocked_bindings(
     OnCran = function() FALSE,
     UsesGit = function() TRUE,
@@ -33,7 +33,7 @@ test_that("ExpectUserAccepts passes when the issue is closed (#111)", {
   })
 })
 
-test_that("ExpectUserAccepts fails when the issue isn't closed and strFailureMode is 'fail' (#111)", {
+test_that("ExpectUserAccepts fails when the issue isn't closed and strFailureMode is 'fail' (#65, #111)", {
   local_mocked_bindings(
     OnCran = function() FALSE,
     UsesGit = function() TRUE,

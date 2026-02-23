@@ -1,5 +1,8 @@
 #' Map test files to potential issues
 #'
+#' @description
+#' `r lifecycle::badge("experimental")`
+#'
 #' Identify potential issues for each test by matching commits that last
 #' modified the test with commits that closed issues. Tests tagged with
 #' `#noissue` are excluded from the results.
@@ -81,6 +84,9 @@ EmptyTestPotentialIssues <- function() {
 }
 
 #' Map issues to commits in long format
+#'
+#' @description
+#' `r lifecycle::badge("experimental")`
 #'
 #' Fetches all closed issues for a repository and maps each to the commits that
 #' closed it, returning one row per issue-commit pair. This is an optional input

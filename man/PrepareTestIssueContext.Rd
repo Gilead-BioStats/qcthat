@@ -42,6 +42,8 @@ details.
 }
 }
 \description{
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
+
 Collect comprehensive information about tests and their potential related
 issues using \code{\link[=MapTestFilesToPotentialIssues]{MapTestFilesToPotentialIssues()}}, and enrich with test code and
 enriched issue details from GitHub.

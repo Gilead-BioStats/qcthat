@@ -1,5 +1,8 @@
 #' Prepare test issue context for analysis
 #'
+#' @description
+#' `r lifecycle::badge("experimental")`
+#'
 #' Collect comprehensive information about tests and their potential related
 #' issues using [MapTestFilesToPotentialIssues()], and enrich with test code and
 #' enriched issue details from GitHub.

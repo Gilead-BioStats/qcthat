@@ -1,6 +1,6 @@
-# development version
+# qcthat 1.1.0
 
-Track user acceptance testing, and get started with the help of AI agents.
+New features and tools to help you track user acceptance testing, and to help you use AI agents to get started with `qcthat`.
 
 ## New features
 

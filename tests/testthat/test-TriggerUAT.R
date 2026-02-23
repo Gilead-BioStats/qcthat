@@ -174,7 +174,7 @@ test_that("RerunWorkflow calls API correctly (#114)", {
   RerunWorkflow(123)
 })
 
-test_that("The UAT workflow triggers properly when all UAT issues connected to a PR are closed (#157)", {
+test_that("The UAT workflow triggers properly when all UAT issues connected to a PR are closed (#65, #157)", {
   # Manually skip so we can do the `if` below. Consider adding helpers for this situation!
   skip_if(OnCran())
   skip_if_not(UsesGit())

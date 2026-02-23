@@ -24,6 +24,8 @@ package. Will be expanded using \code{\link[gert:git_repo]{gert::git_find()}}.}
 The path to the created skill file (invisibly).
 }
 \description{
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
+
 Install an AI skill into a package repository to help identify and tag tests
 with their related GitHub issues. The skill guides the process of connecting
 test cases to the features or bugs they address by adding issue references

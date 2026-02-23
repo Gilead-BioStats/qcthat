@@ -41,7 +41,7 @@ test_that("UpdateReleaseBody uses existing body if available (#152)", {
   )
 })
 
-test_that("AttachReleaseReports makes the expected calls (#152)", {
+test_that("AttachReleaseReports makes the expected calls (#152, #160)", {
   local_mocked_bindings(
     FormatReportType = function(fnReport, strReportType, ...) {
       paste("Formatted", strReportType)

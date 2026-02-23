@@ -1,5 +1,8 @@
 #' Extract test information from test files
 #'
+#' @description
+#' `r lifecycle::badge("experimental")`
+#'
 #' Parse test files in a directory to extract test descriptions, file locations,
 #' line numbers, and associated GitHub issue numbers.
 #'

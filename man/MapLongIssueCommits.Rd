@@ -27,6 +27,8 @@ A \code{\link[tibble:tibble]{tibble::tibble()}} with one row per issue-commit pa
 columns \code{Issue} and \code{Commits}.
 }
 \description{
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
+
 Fetches all closed issues for a repository and maps each to the commits that
 closed it, returning one row per issue-commit pair. This is an optional input
 to \code{\link[=MapTestFilesToPotentialIssues]{MapTestFilesToPotentialIssues()}}. Pre-computing it once and passing the

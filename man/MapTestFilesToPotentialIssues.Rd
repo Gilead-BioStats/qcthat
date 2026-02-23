@@ -46,6 +46,8 @@ numbers that might be related to each test based on commit history.
 }
 }
 \description{
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
+
 Identify potential issues for each test by matching commits that last
 modified the test with commits that closed issues. Tests tagged with
 \verb{#noissue} are excluded from the results.

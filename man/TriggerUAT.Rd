@@ -26,6 +26,8 @@ A \code{data.frame} of PRs that referenced the issue (invisibly). This
 function is called for its side effects.
 }
 \description{
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
+
 Identify pull requests that mention a closed issue, and potentially
 re-trigger the UAT cycle. If all issues referenced in the UAT comment of a
 linked PR are closed (and it is not already running the QCPR workflow), rerun

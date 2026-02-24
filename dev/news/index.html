@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">qcthat</a>
 
-    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">1.0.0.9000</small>
+    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">1.1.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -36,6 +36,34 @@
       <small>Source: <a href="https://github.com/Gilead-BioStats/qcthat/blob/dev/NEWS.md" class="external-link"><code>NEWS.md</code></a></small>
     </div>
 
+    <div class="section level2">
+<h2 class="pkg-version" data-toc-text="1.1.0" id="qcthat-110">qcthat 1.1.0<a class="anchor" aria-label="anchor" href="#qcthat-110"></a></h2>
+<p>New features and tools to help you track user acceptance testing, and to help you use AI agents to get started with <code>qcthat</code>.</p>
+<div class="section level3">
+<h3 id="new-features-1-1-0">New features<a class="anchor" aria-label="anchor" href="#new-features-1-1-0"></a></h3>
+<p>Experimental functions for tracking user-acceptance testing (UAT):</p>
+<ul><li>
+<code><a href="../reference/ExpectUserAccepts.html">ExpectUserAccepts()</a></code> enables tracking of user acceptance by connecting <code>testthat</code> tests to GitHub issues. Once the UAT issue is closed, the test will pass (<a href="https://github.com/Gilead-BioStats/qcthat/issues/65" class="external-link">#65</a>, <a href="https://github.com/Gilead-BioStats/qcthat/issues/111" class="external-link">#111</a>, <a href="https://github.com/Gilead-BioStats/qcthat/issues/113" class="external-link">#113</a>, <a href="https://github.com/Gilead-BioStats/qcthat/issues/115" class="external-link">#115</a>, <a href="https://github.com/Gilead-BioStats/qcthat/issues/120" class="external-link">#120</a>).</li>
+<li>
+<code><a href="../reference/TriggerUAT.html">TriggerUAT()</a></code> triggers the UAT test cycle for a closed issue. This function is used by the improved GitHub Actions framework, installable via <code><a href="../reference/Action_qcthat.html">Action_qcthat()</a></code> (<a href="https://github.com/Gilead-BioStats/qcthat/issues/65" class="external-link">#65</a>, <a href="https://github.com/Gilead-BioStats/qcthat/issues/111" class="external-link">#111</a>, <a href="https://github.com/Gilead-BioStats/qcthat/issues/114" class="external-link">#114</a>, <a href="https://github.com/Gilead-BioStats/qcthat/issues/115" class="external-link">#115</a>, <a href="https://github.com/Gilead-BioStats/qcthat/issues/116" class="external-link">#116</a>, <a href="https://github.com/Gilead-BioStats/qcthat/issues/157" class="external-link">#157</a>).</li>
+</ul><p>Improved onboarding:</p>
+<ul><li>
+<code><a href="../reference/use_qcthat.html">use_qcthat()</a></code> calls <code><a href="../reference/SetupGHLabels.html">SetupGHLabels()</a></code> and <code><a href="../reference/Action_qcthat.html">Action_qcthat()</a></code>, to set up your repository with GitHub Actions workflows and labels used for QC tracking (<a href="https://github.com/Gilead-BioStats/qcthat/issues/129" class="external-link">#129</a>, <a href="https://github.com/Gilead-BioStats/qcthat/issues/141" class="external-link">#141</a>, <a href="https://github.com/Gilead-BioStats/qcthat/issues/143" class="external-link">#143</a>, <a href="https://github.com/Gilead-BioStats/qcthat/issues/161" class="external-link">#161</a>, <a href="https://github.com/Gilead-BioStats/qcthat/issues/165" class="external-link">#165</a>, <a href="https://github.com/Gilead-BioStats/qcthat/issues/181" class="external-link">#181</a>, <a href="https://github.com/Gilead-BioStats/qcthat/issues/198" class="external-link">#198</a>).</li>
+<li>Experimental AI agent features: <code><a href="../reference/Skill_TagTestsWithIssues.html">Skill_TagTestsWithIssues()</a></code> installs an AI agent skill to tag tests with issues, using new functions <code><a href="../reference/ExtractTestsFromFiles.html">ExtractTestsFromFiles()</a></code>, <code><a href="../reference/MapTestFilesToPotentialIssues.html">MapTestFilesToPotentialIssues()</a></code>, and <code><a href="../reference/PrepareTestIssueContext.html">PrepareTestIssueContext()</a></code> (<a href="https://github.com/Gilead-BioStats/qcthat/issues/52" class="external-link">#52</a>, <a href="https://github.com/Gilead-BioStats/qcthat/issues/53" class="external-link">#53</a>, <a href="https://github.com/Gilead-BioStats/qcthat/issues/200" class="external-link">#200</a>, <a href="https://github.com/Gilead-BioStats/qcthat/issues/201" class="external-link">#201</a>, <a href="https://github.com/Gilead-BioStats/qcthat/issues/233" class="external-link">#233</a>).</li>
+</ul></div>
+<div class="section level3">
+<h3 id="other-changes-1-1-0">Other changes<a class="anchor" aria-label="anchor" href="#other-changes-1-1-0"></a></h3>
+<ul><li>Additional improvements to QC reports, such as links to the GitHub Actions run (<a href="https://github.com/Gilead-BioStats/qcthat/issues/150" class="external-link">#150</a>), timestamps (<a href="https://github.com/Gilead-BioStats/qcthat/issues/172" class="external-link">#172</a>), and attaching QC Reports to releases within the release description (<a href="https://github.com/Gilead-BioStats/qcthat/issues/152" class="external-link">#152</a>). Additional changes are tracked in the parent issues (<a href="https://github.com/Gilead-BioStats/qcthat/issues/123" class="external-link">#123</a>, <a href="https://github.com/Gilead-BioStats/qcthat/issues/160" class="external-link">#160</a>).</li>
+<li>The <code>pkgdown</code> site for <code>qcthat</code> now includes a slide deck to introduce the package and the associated system (<a href="https://github.com/Gilead-BioStats/qcthat/issues/166" class="external-link">#166</a>, <a href="https://github.com/Gilead-BioStats/qcthat/issues/167" class="external-link">#167</a>, <a href="https://github.com/Gilead-BioStats/qcthat/issues/168" class="external-link">#168</a>, <a href="https://github.com/Gilead-BioStats/qcthat/issues/169" class="external-link">#169</a>).</li>
+</ul></div>
+<div class="section level3">
+<h3 id="bug-fixes-1-1-0">Bug fixes<a class="anchor" aria-label="anchor" href="#bug-fixes-1-1-0"></a></h3>
+<ul><li>Ignored issues are filtered out of reports (<a href="https://github.com/Gilead-BioStats/qcthat/issues/118" class="external-link">#118</a>).</li>
+<li>Reports work properly when the active branch is associated with multiple PRs (<a href="https://github.com/Gilead-BioStats/qcthat/issues/132" class="external-link">#132</a>), when the PRs contain a lot of commits (<a href="https://github.com/Gilead-BioStats/qcthat/issues/133" class="external-link">#133</a>), and after PRs are merged (<a href="https://github.com/Gilead-BioStats/qcthat/issues/149" class="external-link">#149</a>).</li>
+<li>
+<code><a href="../reference/GetGHOwner.html">GetGHOwner()</a></code> and <code><a href="../reference/GetGHRepo.html">GetGHRepo()</a></code> should now work for forks, even if the local repo name does not match the upstream repo name (<a href="https://github.com/Gilead-BioStats/qcthat/issues/199" class="external-link">#199</a>).</li>
+</ul></div>
+</div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="1.0.0" id="qcthat-100">qcthat 1.0.0<a class="anchor" aria-label="anchor" href="#qcthat-100"></a></h2>
 <p>You can now use this package to implement a QC framework for any R package associated with a GitHub repository.</p>

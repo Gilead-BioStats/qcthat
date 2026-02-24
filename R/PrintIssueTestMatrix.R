@@ -59,7 +59,7 @@ FormatFooter.qcthat_IssueTestMatrix <- function(
 #'
 #' @inheritParams FormatFooter
 #'
-#' @returns A character vectore styled with [pillar::style_subtle()].
+#' @returns A character vector styled with [pillar::style_subtle()].
 #' @keywords internal
 FormatKey <- function(lglUseEmoji = getOption("qcthat.emoji", TRUE)) {
   pillar::style_subtle(c(

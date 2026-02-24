@@ -1,7 +1,6 @@
 Package: qcthat
-Title: Lightweight quality control framework for R packages used in
-    Clinical Trials
-Version: 1.0.0.9000
+Title: Lightweight R Package Quality Control
+Version: 1.1.0
 Authors@R: c(
     person("Jeremy", "Wildfire", , "jwildfire@gmail.com", role = c("aut", "cre")),
     person("Jon", "Harmon", , "jon.harmon@atorusresearch.com", role = "aut",
@@ -11,8 +10,10 @@ Authors@R: c(
            comment = c(ORCID = "0000-0002-8009-2771")),
     person("Gilead Sciences", role = "cph")
   )
-Description: Lightweight quality control framework for R packages used in
-    Clinical Trials. Minimal dependencies, flexible, and customizable.
+Description: A lightweight quality control framework for R packages,
+    particularly those used in regulated environments such as clinical
+    trials.  Integrates formal quality control reports into package
+    development workflows using 'testthat' and 'GitHub'.
 License: Apache License (>= 2)
 URL: https://gilead-biostats.github.io/qcthat/,
     https://github.com/Gilead-BioStats/qcthat
@@ -43,7 +44,6 @@ Suggests:
     lifecycle,
     sessioninfo,
     usethis,
-    utils,
     withr
 Config/Needs/website: quarto, rmarkdown
 Config/testthat/edition: 3

@@ -13,7 +13,7 @@ output. By default, this is determined by the \code{qcthat.emoji} option, which
 defaults to \code{TRUE}.}
 }
 \value{
-A character vectore styled with \code{\link[pillar:style_subtle]{pillar::style_subtle()}}.
+A character vector styled with \code{\link[pillar:style_subtle]{pillar::style_subtle()}}.
 }
 \description{
 This is a placeholder. Eventually we should use dfITM to determine which

@@ -72,19 +72,31 @@ FetchRawRepoIssues <- function(
 #' @returns A list of issue objects without PRs.
 #' @keywords internal
 RemovePRsFromIssues <- function(lIssuesRaw) {
-  purrr::keep(
-    lIssuesRaw,
-    function(lIssue) is.null(lIssue[["pull_request"]])
-  )
+  if (!is.null(lIssuesRaw)) {
+    structure(
+      purrr::keep(
+        lIssuesRaw,
+        function(lIssue) is.null(lIssue[["pull_request"]])
+      ),
+      class = class(lIssuesRaw)
+    )
+  }
 }
 
 #' Compile issues data frame
 #'
 #' @inherit FetchRepoIssues return
 #' @keywords internal
-CompileIssuesDF <- function(lIssuesNonPR) {
+CompileIssuesDF <- function(lIssuesNonPR, envCall = rlang::caller_env()) {
   if (!length(lIssuesNonPR)) {
-    return(AsIssuesDF(EmptyIssuesDF()))
+    if (inherits(lIssuesNonPR, "gh_response")) {
+      return(AsIssuesDF(EmptyIssuesDF()))
+    }
+    qcthatAbort(
+      "Failed to fetch issues from GitHub. Please check your connection and try again.",
+      "bad_gh_response",
+      envCall = envCall
+    )
   }
   EnframeIssues(lIssuesNonPR) |>
     dplyr::mutate(

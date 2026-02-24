@@ -26,10 +26,9 @@ A named list, one element per element of \code{chrMergeSHAs}, each a
 character vector of commit SHAs introduced by that PR.
 }
 \description{
-Fetches the full repository log once and resolves all PR commit sets in R,
-replacing the per-PR calls to \code{\link[=GetGitAheadBehind]{GetGitAheadBehind()}} and \code{\link[=GetGitLog]{GetGitLog()}}. Parent
-SHAs are retrieved in batch via \code{\link[=BatchLookupCommitParents]{BatchLookupCommitParents()}} (using \code{git2r}),
-which is much faster than per-commit \code{\link[gert:git_commit]{gert::git_commit_info()}} calls in large
-repositories.
+Fetches the full repository log once and resolves all PR commit sets in R.
+Parent SHAs are retrieved in batch via \code{\link[=BatchLookupCommitParents]{BatchLookupCommitParents()}} (using
+\code{git2r}), which is much faster than per-commit \code{\link[gert:git_commit]{gert::git_commit_info()}}
+calls in large repositories.
 }
 \keyword{internal}

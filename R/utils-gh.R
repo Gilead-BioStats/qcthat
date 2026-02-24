@@ -127,6 +127,14 @@ CallGHAPI <- function(
   # nocov end
 }
 
+#' A classed GitHub response for testing
+#'
+#' @returns An empty list with class "gh_response".
+#' @keywords internal
+EmptyGHResponse <- function() {
+  structure(list(), class = c("gh_response", "list"))
+}
+
 #' Wrapper for GitHub GraphQL API calls
 #'
 #' @inheritParams shared-params
@@ -188,4 +196,40 @@ GQLWrapper <- function(strQuery, strOwner, strRepo) {
     strOwner = strOwner,
     strRepo = strRepo
   )
+}
+
+#' Fetch a vector of values from GitHub GraphQL API using a builder function
+#'
+#' @param x (`vector`) A vector of inputs to process.
+#' @param fnBuildQuery (`function`) A function that takes a single element of
+#'   `x` and returns a character string representing a GraphQL sub-query for
+#'   that element.
+#' @param vecProto (`vector`) A prototype vector to return if `x` is empty.
+#' @inheritParams shared-params
+#' @returns A sorted, unique vector of values fetched from GitHub, or
+#'   `vecProto`.
+#' @keywords internal
+FetchVectorFromGQL <- function(
+  x,
+  fnBuildQuery,
+  vecProto = integer(),
+  intBatchSize = 50,
+  strOwner = GetGHOwner(),
+  strRepo = GetGHRepo(),
+  strGHToken = gh::gh_token()
+) {
+  if (!length(x)) {
+    return(vecProto)
+  }
+  lBatches <- unname(split(x, ceiling(seq_along(x) / intBatchSize)))
+  lAllResults <- purrr::map(lBatches, function(vecBatch) {
+    FetchGQL(
+      paste(purrr::map_chr(vecBatch, fnBuildQuery), collapse = "\n"),
+      strOwner = strOwner,
+      strRepo = strRepo,
+      strGHToken = strGHToken
+    )
+  })
+  vecPrepared <- CompletelyFlatten(lAllResults) %||% vecProto
+  return(vecPrepared)
 }

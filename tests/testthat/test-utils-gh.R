@@ -43,6 +43,12 @@ test_that("UsesGit works in any situation (#110)", {
   expect_false(UsesGit("fake_dir"))
 })
 
+test_that("EmptyGHResponse builds an empty GitHub response (#230)", {
+  expect_s3_class(EmptyGHResponse(), "gh_response")
+  expect_type(EmptyGHResponse(), "list")
+  expect_length(EmptyGHResponse(), 0)
+})
+
 test_that("PrepareGQLQuery constructs a query (#84)", {
   expect_snapshot({
     PrepareGQLQuery(
@@ -70,4 +76,31 @@ test_that("GQLWrapper wraps a query correctly (#84)", {
       strRepo = "repo"
     )
   })
+})
+
+test_that("FetchVectorFromGQL batches GHGQL calls (#noissue)", {
+  local_mocked_bindings(
+    FetchGQL = function(strQuery, ...) {
+      list(
+        batch = stringr::str_replace_all(strQuery, "\\n", "|")
+      )
+    }
+  )
+  queryBuilder <- function(vecBatch) {
+    expect_lte(length(vecBatch), 3)
+    paste0("q", vecBatch)
+  }
+  test_result <- FetchVectorFromGQL(
+    1:10,
+    fnBuildQuery = queryBuilder,
+    intBatchSize = 3
+  )
+  expect_equal(
+    test_result,
+    sort(c("q1|q2|q3", "q4|q5|q6", "q7|q8|q9", "q10"))
+  )
+  expect_equal(
+    FetchVectorFromGQL(character(), queryBuilder),
+    integer()
+  )
 })

@@ -5,12 +5,13 @@
 \title{Comment on a PR or issue with a UAT report}
 \usage{
 CommentUAT(
-  intPRNumber = GuessPRNumber(strOwner = strOwner, strRepo = strRepo, strGHToken =
-    strGHToken),
+  intPRNumber = GuessPRNumber(strPkgRoot = strPkgRoot, strOwner = strOwner, strRepo =
+    strRepo, strGHToken = strGHToken),
   lglUpdate = TRUE,
   strRunID = Sys.getenv("GITHUB_RUN_ID"),
-  strOwner = GetGHOwner(),
-  strRepo = GetGHRepo(),
+  strPkgRoot = ".",
+  strOwner = GetGHOwner(strPkgRoot),
+  strRepo = GetGHRepo(strPkgRoot),
   strGHToken = gh::gh_token()
 )
 }
@@ -24,6 +25,9 @@ label).}
 
 \item{strRunID}{(\verb{length-1 character}) ID (typically numeric but can be very
 long) of a GitHub Actions workflow run.}
+
+\item{strPkgRoot}{(\verb{length-1 character}) The path to a directory in the
+package. Will be expanded using \code{\link[gert:git_repo]{gert::git_find()}}.}
 
 \item{strOwner}{(\verb{length-1 character}) GitHub username or organization name.}
 

@@ -37,7 +37,9 @@ CreateUAIssue <- function(
       )
       lRes
     },
-    error = function(e) NULL
+    error = function(e) {
+      list(State = "failed_to_create")
+    }
   )
 }
 

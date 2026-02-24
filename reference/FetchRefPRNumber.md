@@ -7,8 +7,8 @@ Fetch the pull request number for a branch or other git ref
 ``` r
 FetchRefPRNumber(
   strSourceRef = GetActiveBranch(),
-  strOwner = gh::gh_tree_remote()[["username"]],
-  strRepo = gh::gh_tree_remote()[["repo"]],
+  strOwner = GetGHOwner(),
+  strRepo = GetGHRepo(),
   strGHToken = gh::gh_token()
 )
 ```
@@ -30,12 +30,16 @@ FetchRefPRNumber(
 
 - strGHToken:
 
-  (`length-1 character`) GitHub token with permissions to read issues.
+  (`length-1 character`) GitHub token with permissions appropriate to
+  the action being performed.
 
 ## Value
 
-An integer pull request number, or `integer(0)` if no matching PR (or
-more than one matching PR) is found.
+An integer pull request number, or
+[`integer()`](https://rdrr.io/r/base/integer.html) if no matching PR is
+found. If multiple PRs are found, first, if there are any open PRs, we
+filter to only include open PRs, then the PR that was most recently
+created is returned.
 
 ## Examples
 

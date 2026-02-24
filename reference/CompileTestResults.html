@@ -9,7 +9,7 @@ tibble::tibble()."></head><body>
 
     <a class="navbar-brand me-2" href="../index.html">qcthat</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.1.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -18,6 +18,10 @@ tibble::tibble()."></head><body>
 
     <div id="navbar" class="collapse navbar-collapse ms-3">
       <ul class="navbar-nav me-auto"><li class="active nav-item"><a class="nav-link" href="../reference/index.html">Reference</a></li>
+<li class="nav-item dropdown">
+  <button class="nav-link dropdown-toggle" type="button" id="dropdown-slides" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Slides</button>
+  <ul class="dropdown-menu" aria-labelledby="dropdown-slides"><li><a class="dropdown-item" href="../slides-introduction.html" target="_blank">Introduction</a></li>
+  </ul></li>
 <li class="nav-item"><a class="nav-link" href="../news/index.html">Changelog</a></li>
       </ul><ul class="navbar-nav"><li class="nav-item"><form class="form-inline" role="search">
  <input class="form-control" type="search" name="search-input" id="search-input" autocomplete="off" aria-label="Search site" placeholder="Search for" data-search-index="../search.json"></form></li>
@@ -60,7 +64,8 @@ parallel testing, like <code>reporter = "silent"</code>, and assigning it to a n
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
     <p>A <code>qcthat_TestResults</code> object, which is a <code><a href="https://tibble.tidyverse.org/reference/tibble.html" class="external-link">tibble::tibble()</a></code> with
 columns:</p><ul><li><p><code>Test</code>: The <code>desc</code> field of the test from <code><a href="https://testthat.r-lib.org/reference/test_that.html" class="external-link">testthat::test_that()</a></code>.</p></li>
-<li><p><code>File</code>: File where the test is defined.</p></li>
+<li><p><code>File</code>: Path to the file where the test is defined, relative to the
+package root.</p></li>
 <li><p><code>Disposition</code>: Factor with levels <code>pass</code>, <code>fail</code>, and <code>skip</code> indicating
 the overall outcome of the test.</p></li>
 <li><p><code>Issues</code>: List column containing integer vectors of associated GitHub

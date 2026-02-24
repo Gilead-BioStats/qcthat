@@ -7,8 +7,8 @@ Fetch all PR numbers associated with a vector of commit SHAs
 ``` r
 FetchAllMergePRNumbers(
   chrCommitSHAs,
-  strOwner = gh::gh_tree_remote()[["username"]],
-  strRepo = gh::gh_tree_remote()[["repo"]],
+  strOwner = GetGHOwner(),
+  strRepo = GetGHRepo(),
   strGHToken = gh::gh_token()
 )
 ```
@@ -29,8 +29,9 @@ FetchAllMergePRNumbers(
 
 - strGHToken:
 
-  (`length-1 character`) GitHub token with permissions to read issues.
+  (`length-1 character`) GitHub token with permissions appropriate to
+  the action being performed.
 
 ## Value
 
-A sorted, unique integer vector of associated PR numbers.
+A sorted, unique integer vector of merged PR numbers.

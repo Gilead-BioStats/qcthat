@@ -11,12 +11,15 @@ for details on how issues can become associated with a pull request.
 ``` r
 QCPR(
   intPRNumber = GuessPRNumber(strPkgRoot, strOwner, strRepo, strGHToken),
+  intPageMax = 100L,
   strPkgRoot = ".",
-  strOwner = gh::gh_tree_remote(strPkgRoot)[["username"]],
-  strRepo = gh::gh_tree_remote(strPkgRoot)[["repo"]],
+  strOwner = GetGHOwner(strPkgRoot),
+  strRepo = GetGHRepo(strPkgRoot),
   strGHToken = gh::gh_token(),
   lglWarn = TRUE,
-  chrIgnoredLabels = DefaultIgnoreLabels()
+  chrIgnoredLabels = DefaultIgnoreLabels(),
+  dfITM = NULL,
+  envCall = rlang::caller_env()
 )
 ```
 
@@ -25,13 +28,21 @@ QCPR(
 - intPRNumber:
 
   (`length-1 integer`) The number of the pull request to fetch
-  information about.
+  information about and/or post results to.
+
+- intPageMax:
+
+  (`length-1 integer`) The maximum number of pages of commits to fetch
+  from the GitHub API. Each page contains up to 100 commits. Defaults to
+  100, which fetches up to 10,000 commits. You likely never need to
+  increase this number, but try a larger number if a merge involves a
+  very large number of commits in a very large repository.
 
 - strPkgRoot:
 
-  (`length-1 character`) The path to the root directory of the package.
-  Will be expanded using
-  [`pkgload::pkg_path()`](https://pkgload.r-lib.org/reference/packages.html).
+  (`length-1 character`) The path to a directory in the package. Will be
+  expanded using
+  [`gert::git_find()`](https://docs.ropensci.org/gert/reference/git_repo.html).
 
 - strOwner:
 
@@ -43,7 +54,8 @@ QCPR(
 
 - strGHToken:
 
-  (`length-1 character`) GitHub token with permissions to read issues.
+  (`length-1 character`) GitHub token with permissions appropriate to
+  the action being performed.
 
 - lglWarn:
 
@@ -54,6 +66,20 @@ QCPR(
 - chrIgnoredLabels:
 
   (`character`) GitHub labels to ignore, such as `"qcthat-nocov"`.
+
+- dfITM:
+
+  (`qcthat_IssueTestMatrix`) A `qcthat_IssueTestMatrix` object as
+  returned by
+  [`AsIssueTestMatrix()`](https://gilead-biostats.github.io/qcthat/reference/AsIssueTestMatrix.md)
+  (often via
+  [`QCPackage()`](https://gilead-biostats.github.io/qcthat/reference/QCPackage.md)).
+
+- envCall:
+
+  (`environment`) The environment to use for error reporting. Typically
+  set to
+  [`rlang::caller_env()`](https://rlang.r-lib.org/reference/stack.html).
 
 ## Value
 
@@ -75,6 +101,7 @@ if (FALSE) { # interactive()
   # You must have at least one pull request open in the GitHub repository
   # associated with the current git repository for this to return any
   # results.
+
   QCPR()
 }
 ```

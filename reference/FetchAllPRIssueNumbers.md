@@ -7,8 +7,8 @@ Fetch all issue numbers associated with a vector of PRs
 ``` r
 FetchAllPRIssueNumbers(
   intPRNumbers,
-  strOwner = gh::gh_tree_remote()[["username"]],
-  strRepo = gh::gh_tree_remote()[["repo"]],
+  strOwner = GetGHOwner(),
+  strRepo = GetGHRepo(),
   strGHToken = gh::gh_token()
 )
 ```
@@ -29,7 +29,8 @@ FetchAllPRIssueNumbers(
 
 - strGHToken:
 
-  (`length-1 character`) GitHub token with permissions to read issues.
+  (`length-1 character`) GitHub token with permissions appropriate to
+  the action being performed.
 
 ## Value
 

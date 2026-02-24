@@ -17,15 +17,14 @@
 Source:
 [`DESCRIPTION`](https://github.com/Gilead-BioStats/qcthat/blob/main/DESCRIPTION)
 
-Wildfire J, Harmon J, Andriychuk N, Roumaya M (2025). *qcthat:
-Lightweight quality control framework for R packages used in Clinical
-Trials*. R package version 1.0.0,
+Wildfire J, Harmon J, Andriychuk N, Roumaya M (2026). *qcthat:
+Lightweight R Package Quality Control*. R package version 1.1.0,
 <https://gilead-biostats.github.io/qcthat/>.
 
     @Manual{,
-      title = {qcthat: Lightweight quality control framework for R packages used in Clinical Trials},
+      title = {qcthat: Lightweight R Package Quality Control},
       author = {Jeremy Wildfire and Jon Harmon and Natalia Andriychuk and Matt Roumaya},
-      year = {2025},
-      note = {R package version 1.0.0},
+      year = {2026},
+      note = {R package version 1.1.0},
       url = {https://gilead-biostats.github.io/qcthat/},
     }

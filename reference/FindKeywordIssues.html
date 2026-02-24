@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">qcthat</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.1.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -16,6 +16,10 @@
 
     <div id="navbar" class="collapse navbar-collapse ms-3">
       <ul class="navbar-nav me-auto"><li class="active nav-item"><a class="nav-link" href="../reference/index.html">Reference</a></li>
+<li class="nav-item dropdown">
+  <button class="nav-link dropdown-toggle" type="button" id="dropdown-slides" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Slides</button>
+  <ul class="dropdown-menu" aria-labelledby="dropdown-slides"><li><a class="dropdown-item" href="../slides-introduction.html" target="_blank">Introduction</a></li>
+  </ul></li>
 <li class="nav-item"><a class="nav-link" href="../news/index.html">Changelog</a></li>
       </ul><ul class="navbar-nav"><li class="nav-item"><form class="form-inline" role="search">
  <input class="form-control" type="search" name="search-input" id="search-input" autocomplete="off" aria-label="Search site" placeholder="Search for" data-search-index="../search.json"></form></li>
@@ -42,11 +46,11 @@
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">FindKeywordIssues</span><span class="op">(</span></span>
 <span>  strSourceRef <span class="op">=</span> <span class="fu"><a href="GetActiveBranch.html">GetActiveBranch</a></span><span class="op">(</span><span class="va">strPkgRoot</span><span class="op">)</span>,</span>
 <span>  strTargetRef <span class="op">=</span> <span class="fu"><a href="GetDefaultBranch.html">GetDefaultBranch</a></span><span class="op">(</span><span class="va">strPkgRoot</span><span class="op">)</span>,</span>
-<span>  strPkgRoot <span class="op">=</span> <span class="st">"."</span>,</span>
 <span>  chrKeywords <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"close"</span>, <span class="st">"closes"</span>, <span class="st">"closed"</span>, <span class="st">"fix"</span>, <span class="st">"fixes"</span>, <span class="st">"fixed"</span>, <span class="st">"resolve"</span>,</span>
 <span>    <span class="st">"resolves"</span>, <span class="st">"resolved"</span><span class="op">)</span>,</span>
-<span>  strOwner <span class="op">=</span> <span class="fu">gh</span><span class="fu">::</span><span class="fu"><a href="https://gh.r-lib.org/reference/gh_tree_remote.html" class="external-link">gh_tree_remote</a></span><span class="op">(</span><span class="va">strPkgRoot</span><span class="op">)</span><span class="op">[[</span><span class="st">"username"</span><span class="op">]</span><span class="op">]</span>,</span>
-<span>  strRepo <span class="op">=</span> <span class="fu">gh</span><span class="fu">::</span><span class="fu"><a href="https://gh.r-lib.org/reference/gh_tree_remote.html" class="external-link">gh_tree_remote</a></span><span class="op">(</span><span class="va">strPkgRoot</span><span class="op">)</span><span class="op">[[</span><span class="st">"repo"</span><span class="op">]</span><span class="op">]</span>,</span>
+<span>  strPkgRoot <span class="op">=</span> <span class="st">"."</span>,</span>
+<span>  strOwner <span class="op">=</span> <span class="fu"><a href="GetGHOwner.html">GetGHOwner</a></span><span class="op">(</span><span class="va">strPkgRoot</span><span class="op">)</span>,</span>
+<span>  strRepo <span class="op">=</span> <span class="fu"><a href="GetGHRepo.html">GetGHRepo</a></span><span class="op">(</span><span class="va">strPkgRoot</span><span class="op">)</span>,</span>
 <span>  intMaxCommits <span class="op">=</span> <span class="fl">100000L</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
@@ -65,14 +69,14 @@ contains changes. Defaults to the active branch in this repository.</p></dd>
 will be merged into. Defaults to the default branch of this repository.</p></dd>
 
 
-<dt id="arg-strpkgroot">strPkgRoot<a class="anchor" aria-label="anchor" href="#arg-strpkgroot"></a></dt>
-<dd><p>(<code>length-1 character</code>) The path to the root directory of
-the package. Will be expanded using <code><a href="https://pkgload.r-lib.org/reference/packages.html" class="external-link">pkgload::pkg_path()</a></code>.</p></dd>
-
-
 <dt id="arg-chrkeywords">chrKeywords<a class="anchor" aria-label="anchor" href="#arg-chrkeywords"></a></dt>
 <dd><p>(<code>character</code>) Keywords to search for just before issue
 numbers in commit messages. Defaults to the <a href="https://docs.github.com/en/issues/tracking-your-work-with-issues/using-issues/linking-a-pull-request-to-an-issue#linking-a-pull-request-to-an-issue-using-a-keyword" class="external-link">GitHub issue-linking keywords</a></p></dd>
+
+
+<dt id="arg-strpkgroot">strPkgRoot<a class="anchor" aria-label="anchor" href="#arg-strpkgroot"></a></dt>
+<dd><p>(<code>length-1 character</code>) The path to a directory in the
+package. Will be expanded using <code><a href="https://docs.ropensci.org/gert/reference/git_repo.html" class="external-link">gert::git_find()</a></code>.</p></dd>
 
 
 <dt id="arg-strowner">strOwner<a class="anchor" aria-label="anchor" href="#arg-strowner"></a></dt>

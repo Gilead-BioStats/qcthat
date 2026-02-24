@@ -5,18 +5,14 @@ Build a GraphQL sub-query for a single commit's PRs
 ## Usage
 
 ``` r
-BuildCommitPRQuery(chrSHA, intIndex)
+BuildCommitPRQuery(strCommitSHA)
 ```
 
 ## Arguments
 
-- chrSHA:
+- strCommitSHA:
 
-  (`length-1 character`) The commit SHA.
-
-- intIndex:
-
-  (`length-1 integer`) A unique index for the query alias.
+  (`length-1 character`) The commit SHA to target.
 
 ## Value
 

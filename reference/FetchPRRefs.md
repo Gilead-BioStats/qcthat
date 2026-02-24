@@ -7,9 +7,11 @@ Fetch the source and target refs for a PR
 ``` r
 FetchPRRefs(
   intPRNumber = GuessPRNumber(".", strOwner, strRepo, strGHToken),
-  strOwner = gh::gh_tree_remote()[["username"]],
-  strRepo = gh::gh_tree_remote()[["repo"]],
+  strPkgRoot = ".",
+  strOwner = GetGHOwner(strPkgRoot),
+  strRepo = GetGHRepo(strPkgRoot),
   strGHToken = gh::gh_token(),
+  lPRs = NULL,
   envCall = rlang::caller_env()
 )
 ```
@@ -19,7 +21,13 @@ FetchPRRefs(
 - intPRNumber:
 
   (`length-1 integer`) The number of the pull request to fetch
-  information about.
+  information about and/or post results to.
+
+- strPkgRoot:
+
+  (`length-1 character`) The path to a directory in the package. Will be
+  expanded using
+  [`gert::git_find()`](https://docs.ropensci.org/gert/reference/git_repo.html).
 
 - strOwner:
 
@@ -31,7 +39,16 @@ FetchPRRefs(
 
 - strGHToken:
 
-  (`length-1 character`) GitHub token with permissions to read issues.
+  (`length-1 character`) GitHub token with permissions appropriate to
+  the action being performed.
+
+- lPRs:
+
+  (`list` or `NULL`) Optional list of raw pull request objects as
+  returned by
+  [`FetchRawRepoPRs()`](https://gilead-biostats.github.io/qcthat/reference/FetchRawRepoPRs.md).
+  If provided, the PR will be looked up from this list instead of
+  fetching individually from the API.
 
 - envCall:
 

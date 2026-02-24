@@ -8,8 +8,8 @@ Wrapper for GitHub GraphQL API calls
 FetchGQL(
   strQuery,
   ...,
-  strOwner = gh::gh_tree_remote()[["username"]],
-  strRepo = gh::gh_tree_remote()[["repo"]],
+  strOwner = GetGHOwner(),
+  strRepo = GetGHRepo(),
   strGHToken = gh::gh_token()
 )
 ```
@@ -35,7 +35,8 @@ FetchGQL(
 
 - strGHToken:
 
-  (`length-1 character`) GitHub token with permissions to read issues.
+  (`length-1 character`) GitHub token with permissions appropriate to
+  the action being performed.
 
 ## Value
 

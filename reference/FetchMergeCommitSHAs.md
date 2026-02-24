@@ -8,8 +8,9 @@ Fetch commit SHAs from a comparison
 FetchMergeCommitSHAs(
   strSourceRef,
   strTargetRef,
-  strOwner = gh::gh_tree_remote()[["username"]],
-  strRepo = gh::gh_tree_remote()[["repo"]],
+  intPageMax = 100L,
+  strOwner = GetGHOwner(),
+  strRepo = GetGHRepo(),
   strGHToken = gh::gh_token()
 )
 ```
@@ -26,6 +27,14 @@ FetchMergeCommitSHAs(
   (`length-1 character`) Name of the git reference that will be merged
   into. Defaults to the default branch of this repository.
 
+- intPageMax:
+
+  (`length-1 integer`) The maximum number of pages of commits to fetch
+  from the GitHub API. Each page contains up to 100 commits. Defaults to
+  100, which fetches up to 10,000 commits. You likely never need to
+  increase this number, but try a larger number if a merge involves a
+  very large number of commits in a very large repository.
+
 - strOwner:
 
   (`length-1 character`) GitHub username or organization name.
@@ -36,7 +45,8 @@ FetchMergeCommitSHAs(
 
 - strGHToken:
 
-  (`length-1 character`) GitHub token with permissions to read issues.
+  (`length-1 character`) GitHub token with permissions appropriate to
+  the action being performed.
 
 ## Value
 

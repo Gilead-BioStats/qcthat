@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">qcthat</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.1.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -16,6 +16,10 @@
 
     <div id="navbar" class="collapse navbar-collapse ms-3">
       <ul class="navbar-nav me-auto"><li class="active nav-item"><a class="nav-link" href="../reference/index.html">Reference</a></li>
+<li class="nav-item dropdown">
+  <button class="nav-link dropdown-toggle" type="button" id="dropdown-slides" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Slides</button>
+  <ul class="dropdown-menu" aria-labelledby="dropdown-slides"><li><a class="dropdown-item" href="../slides-introduction.html" target="_blank">Introduction</a></li>
+  </ul></li>
 <li class="nav-item"><a class="nav-link" href="../news/index.html">Changelog</a></li>
       </ul><ul class="navbar-nav"><li class="nav-item"><form class="form-inline" role="search">
  <input class="form-control" type="search" name="search-input" id="search-input" autocomplete="off" aria-label="Search site" placeholder="Search for" data-search-index="../search.json"></form></li>
@@ -43,24 +47,45 @@
 
       <dl><dt>
 
-          <code><a href="Action_QCCompletedIssues.html">Action_QCCompletedIssues()</a></code>
+          <code><a href="Action_qcthat.html">Action_qcthat()</a></code>
 
         </dt>
-        <dd>Use a GitHub Action to QC completed issues</dd>
+        <dd>Use a GitHub Action to manage qcthat</dd>
 
         <dt>
 
-          <code><a href="Action_QCMilestone.html">Action_QCMilestone()</a></code>
+          <code><a href="AttachReleaseReports.html">AttachReleaseReports()</a></code>
 
         </dt>
-        <dd>Use a GitHub Action to QC a milestone</dd>
+        <dd>Attach QC reports to a GitHub release</dd>
 
         <dt>
 
-          <code><a href="Action_QCPRIssues.html">Action_QCPRIssues()</a></code>
+          <code><a href="CommentAllReports.html">CommentAllReports()</a></code>
 
         </dt>
-        <dd>Use a GitHub Action to QC pull-request-associated issues</dd>
+        <dd>Comment on a PR or issue with QC reports</dd>
+
+        <dt>
+
+          <code><a href="CommentIssue.html">CommentIssue()</a></code>
+
+        </dt>
+        <dd>Comment on a GitHub Issue</dd>
+
+        <dt>
+
+          <code><a href="CommentReport.html">CommentReport()</a></code>
+
+        </dt>
+        <dd>Comment on a PR or issue with a QC report</dd>
+
+        <dt>
+
+          <code><a href="CommentUAT.html">CommentUAT()</a></code>
+          <span class="badge lifecycle lifecycle-experimental">experimental</span>
+        </dt>
+        <dd>Comment on a PR or issue with a UAT report</dd>
 
         <dt>
 
@@ -92,10 +117,17 @@
 
         <dt>
 
-          <code><a href="FetchLatestRepoPRNumber.html">FetchLatestRepoPRNumber()</a></code>
-
+          <code><a href="ExpectUserAccepts.html">ExpectUserAccepts()</a></code>
+          <span class="badge lifecycle lifecycle-experimental">experimental</span>
         </dt>
-        <dd>Fetch the latest pull request number for a GitHub repository</dd>
+        <dd>Does a user accept the feature?</dd>
+
+        <dt>
+
+          <code><a href="ExtractTestsFromFiles.html">ExtractTestsFromFiles()</a></code>
+          <span class="badge lifecycle lifecycle-experimental">experimental</span>
+        </dt>
+        <dd>Extract test information from test files</dd>
 
         <dt>
 
@@ -103,6 +135,13 @@
 
         </dt>
         <dd>Fetch the pull request number for a branch or other git ref</dd>
+
+        <dt>
+
+          <code><a href="FetchRepoIssueClosers.html">FetchRepoIssueClosers()</a></code>
+
+        </dt>
+        <dd>Fetch repository issue closers</dd>
 
         <dt>
 
@@ -120,10 +159,94 @@
 
         <dt>
 
+          <code><a href="GetGHOwner.html">GetGHOwner()</a></code>
+
+        </dt>
+        <dd>Find the owner of the target repository</dd>
+
+        <dt>
+
+          <code><a href="GetGHRepo.html">GetGHRepo()</a></code>
+
+        </dt>
+        <dd>Find the name of the target repository</dd>
+
+        <dt>
+
+          <code><a href="GuessIssueNumber.html">GuessIssueNumber()</a></code>
+
+        </dt>
+        <dd>Guess the relevant issue number from the GitHub event</dd>
+
+        <dt>
+
+          <code><a href="GuessMilestones.html">GuessMilestones()</a></code>
+
+        </dt>
+        <dd>Guess relevant milestone names from the GitHub event</dd>
+
+        <dt>
+
           <code><a href="GuessPRNumber.html">GuessPRNumber()</a></code>
 
         </dt>
         <dd>Guess the most relevant pull request number</dd>
+
+        <dt>
+
+          <code><a href="GuessReleaseID.html">GuessReleaseID()</a></code>
+
+        </dt>
+        <dd>Guess the relevant release id from the GitHub event</dd>
+
+        <dt>
+
+          <code><a href="IsCheckingUAT.html">IsCheckingUAT()</a></code>
+
+        </dt>
+        <dd>Detect whether the user is specifically checking UAT issues</dd>
+
+        <dt>
+
+          <code><a href="LoadGHEventPayload.html">LoadGHEventPayload()</a></code>
+
+        </dt>
+        <dd>Load the GitHub event payload</dd>
+
+        <dt>
+
+          <code><a href="LoadUATIssues.html">LoadUATIssues()</a></code>
+
+        </dt>
+        <dd>Load UAT issues from disk</dd>
+
+        <dt>
+
+          <code><a href="MapIssueClosersToCommits.html">MapIssueClosersToCommits()</a></code>
+
+        </dt>
+        <dd>Add Commits list column to dfIssueClosers</dd>
+
+        <dt>
+
+          <code><a href="MapLongIssueCommits.html">MapLongIssueCommits()</a></code>
+          <span class="badge lifecycle lifecycle-experimental">experimental</span>
+        </dt>
+        <dd>Map issues to commits in long format</dd>
+
+        <dt>
+
+          <code><a href="MapTestFilesToPotentialIssues.html">MapTestFilesToPotentialIssues()</a></code>
+          <span class="badge lifecycle lifecycle-experimental">experimental</span>
+        </dt>
+        <dd>Map test files to potential issues</dd>
+
+        <dt>
+
+          <code><a href="PrepareTestIssueContext.html">PrepareTestIssueContext()</a></code>
+          <span class="badge lifecycle lifecycle-experimental">experimental</span>
+        </dt>
+        <dd>Prepare test issue context for analysis</dd>
 
         <dt>
 
@@ -176,6 +299,13 @@
 
         <dt>
 
+          <code><a href="SaveUATIssues.html">SaveUATIssues()</a></code>
+
+        </dt>
+        <dd>Save UAT issues to disk</dd>
+
+        <dt>
+
           <code><a href="SetupGHLabels.html">SetupGHLabels()</a></code>
 
         </dt>
@@ -183,10 +313,31 @@
 
         <dt>
 
+          <code><a href="Skill_TagTestsWithIssues.html">Skill_TagTestsWithIssues()</a></code>
+          <span class="badge lifecycle lifecycle-experimental">experimental</span>
+        </dt>
+        <dd>Use an AI skill to tag tests with issues</dd>
+
+        <dt>
+
+          <code><a href="TriggerUAT.html">TriggerUAT()</a></code>
+          <span class="badge lifecycle lifecycle-experimental">experimental</span>
+        </dt>
+        <dd>Trigger the UAT cycle for closed issues</dd>
+
+        <dt>
+
           <code><a href="printing.html">print(<i>&lt;qcthat_Object&gt;</i>)</a></code> <code><a href="printing.html">format(<i>&lt;qcthat_Object&gt;</i>)</a></code>
 
         </dt>
         <dd>Printing qcthat objects</dd>
+
+        <dt>
+
+          <code><a href="use_qcthat.html">use_qcthat()</a></code>
+
+        </dt>
+        <dd>Set up qcthat for a package</dd>
       </dl></div>
   </main></div>
 

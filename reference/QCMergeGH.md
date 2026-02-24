@@ -6,6 +6,8 @@ associated with those pull requests (according to GitHub's graph of
 connections between issues and commits), and generates a QC report for
 those issues. This is a more robust check than
 [`QCMergeLocal()`](https://gilead-biostats.github.io/qcthat/reference/QCMergeLocal.md).
+Note: If the comparison involves more than 5000 commits, increase
+`intPageMax` to fetch additional commits in batches of 100.
 
 ## Usage
 
@@ -13,12 +15,14 @@ those issues. This is a more robust check than
 QCMergeGH(
   strSourceRef = GetActiveBranch(strPkgRoot),
   strTargetRef = GetDefaultBranch(strPkgRoot),
+  intPageMax = 100L,
   strPkgRoot = ".",
-  strOwner = gh::gh_tree_remote(strPkgRoot)[["username"]],
-  strRepo = gh::gh_tree_remote(strPkgRoot)[["repo"]],
+  strOwner = GetGHOwner(strPkgRoot),
+  strRepo = GetGHRepo(strPkgRoot),
   strGHToken = gh::gh_token(),
   lglWarn = TRUE,
   chrIgnoredLabels = DefaultIgnoreLabels(),
+  dfITM = NULL,
   envCall = rlang::caller_env()
 )
 ```
@@ -35,11 +39,19 @@ QCMergeGH(
   (`length-1 character`) Name of the git reference that will be merged
   into. Defaults to the default branch of this repository.
 
+- intPageMax:
+
+  (`length-1 integer`) The maximum number of pages of commits to fetch
+  from the GitHub API. Each page contains up to 100 commits. Defaults to
+  100, which fetches up to 10,000 commits. You likely never need to
+  increase this number, but try a larger number if a merge involves a
+  very large number of commits in a very large repository.
+
 - strPkgRoot:
 
-  (`length-1 character`) The path to the root directory of the package.
-  Will be expanded using
-  [`pkgload::pkg_path()`](https://pkgload.r-lib.org/reference/packages.html).
+  (`length-1 character`) The path to a directory in the package. Will be
+  expanded using
+  [`gert::git_find()`](https://docs.ropensci.org/gert/reference/git_repo.html).
 
 - strOwner:
 
@@ -51,7 +63,8 @@ QCMergeGH(
 
 - strGHToken:
 
-  (`length-1 character`) GitHub token with permissions to read issues.
+  (`length-1 character`) GitHub token with permissions appropriate to
+  the action being performed.
 
 - lglWarn:
 
@@ -62,6 +75,14 @@ QCMergeGH(
 - chrIgnoredLabels:
 
   (`character`) GitHub labels to ignore, such as `"qcthat-nocov"`.
+
+- dfITM:
+
+  (`qcthat_IssueTestMatrix`) A `qcthat_IssueTestMatrix` object as
+  returned by
+  [`AsIssueTestMatrix()`](https://gilead-biostats.github.io/qcthat/reference/AsIssueTestMatrix.md)
+  (often via
+  [`QCPackage()`](https://gilead-biostats.github.io/qcthat/reference/QCPackage.md)).
 
 - envCall:
 
@@ -89,6 +110,7 @@ if (FALSE) { # interactive()
 
   # This will only make sense if you are working in a git repository and have
   # an active branch that is different from the default branch.
+
   QCMergeGH()
 }
 ```

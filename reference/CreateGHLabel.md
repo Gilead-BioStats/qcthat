@@ -9,9 +9,10 @@ CreateGHLabel(
   strLabel,
   strLabelDescription = "{qcthat}: A new label",
   strLabelColor = "#444444",
+  lglUpdate = TRUE,
   lglVerbose = getOption("qcthat-verbose", FALSE),
-  strOwner = gh::gh_tree_remote()[["username"]],
-  strRepo = gh::gh_tree_remote()[["repo"]],
+  strOwner = GetGHOwner(),
+  strRepo = GetGHRepo(),
   strGHToken = gh::gh_token()
 )
 ```
@@ -20,7 +21,7 @@ CreateGHLabel(
 
 - strLabel:
 
-  (`length-1 character`) The name of the label to create.
+  (`length-1 character`) The name of the label to create or update.
 
 - strLabelDescription:
 
@@ -30,6 +31,11 @@ CreateGHLabel(
 
   (`length-1 character`) The hex color code for the label (e.g.,
   `"#444444"`).
+
+- lglUpdate:
+
+  (`length-1 logical`) Whether to update an existing comment or label if
+  it already exists (rather than creating a new comment or label).
 
 - strOwner:
 
@@ -41,7 +47,8 @@ CreateGHLabel(
 
 - strGHToken:
 
-  (`length-1 character`) GitHub token with permissions to read issues.
+  (`length-1 character`) GitHub token with permissions appropriate to
+  the action being performed.
 
 ## Value
 

@@ -1,5 +1,100 @@
 # Changelog
 
+## qcthat 1.1.0
+
+New features and tools to help you track user acceptance testing, and to
+help you use AI agents to get started with `qcthat`.
+
+### New features
+
+Experimental functions for tracking user-acceptance testing (UAT):
+
+- [`ExpectUserAccepts()`](https://gilead-biostats.github.io/qcthat/reference/ExpectUserAccepts.md)
+  enables tracking of user acceptance by connecting `testthat` tests to
+  GitHub issues. Once the UAT issue is closed, the test will pass
+  ([\#65](https://github.com/Gilead-BioStats/qcthat/issues/65),
+  [\#111](https://github.com/Gilead-BioStats/qcthat/issues/111),
+  [\#113](https://github.com/Gilead-BioStats/qcthat/issues/113),
+  [\#115](https://github.com/Gilead-BioStats/qcthat/issues/115),
+  [\#120](https://github.com/Gilead-BioStats/qcthat/issues/120)).
+- [`TriggerUAT()`](https://gilead-biostats.github.io/qcthat/reference/TriggerUAT.md)
+  triggers the UAT test cycle for a closed issue. This function is used
+  by the improved GitHub Actions framework, installable via
+  [`Action_qcthat()`](https://gilead-biostats.github.io/qcthat/reference/Action_qcthat.md)
+  ([\#65](https://github.com/Gilead-BioStats/qcthat/issues/65),
+  [\#111](https://github.com/Gilead-BioStats/qcthat/issues/111),
+  [\#114](https://github.com/Gilead-BioStats/qcthat/issues/114),
+  [\#115](https://github.com/Gilead-BioStats/qcthat/issues/115),
+  [\#116](https://github.com/Gilead-BioStats/qcthat/issues/116),
+  [\#157](https://github.com/Gilead-BioStats/qcthat/issues/157)).
+
+Improved onboarding:
+
+- [`use_qcthat()`](https://gilead-biostats.github.io/qcthat/reference/use_qcthat.md)
+  calls
+  [`SetupGHLabels()`](https://gilead-biostats.github.io/qcthat/reference/SetupGHLabels.md)
+  and
+  [`Action_qcthat()`](https://gilead-biostats.github.io/qcthat/reference/Action_qcthat.md),
+  to set up your repository with GitHub Actions workflows and labels
+  used for QC tracking
+  ([\#129](https://github.com/Gilead-BioStats/qcthat/issues/129),
+  [\#141](https://github.com/Gilead-BioStats/qcthat/issues/141),
+  [\#143](https://github.com/Gilead-BioStats/qcthat/issues/143),
+  [\#161](https://github.com/Gilead-BioStats/qcthat/issues/161),
+  [\#165](https://github.com/Gilead-BioStats/qcthat/issues/165),
+  [\#181](https://github.com/Gilead-BioStats/qcthat/issues/181),
+  [\#198](https://github.com/Gilead-BioStats/qcthat/issues/198)).
+- Experimental AI agent features:
+  [`Skill_TagTestsWithIssues()`](https://gilead-biostats.github.io/qcthat/reference/Skill_TagTestsWithIssues.md)
+  installs an AI agent skill to tag tests with issues, using new
+  functions
+  [`ExtractTestsFromFiles()`](https://gilead-biostats.github.io/qcthat/reference/ExtractTestsFromFiles.md),
+  [`MapTestFilesToPotentialIssues()`](https://gilead-biostats.github.io/qcthat/reference/MapTestFilesToPotentialIssues.md),
+  and
+  [`PrepareTestIssueContext()`](https://gilead-biostats.github.io/qcthat/reference/PrepareTestIssueContext.md)
+  ([\#52](https://github.com/Gilead-BioStats/qcthat/issues/52),
+  [\#53](https://github.com/Gilead-BioStats/qcthat/issues/53),
+  [\#200](https://github.com/Gilead-BioStats/qcthat/issues/200),
+  [\#201](https://github.com/Gilead-BioStats/qcthat/issues/201),
+  [\#233](https://github.com/Gilead-BioStats/qcthat/issues/233)).
+
+### Other changes
+
+- Additional improvements to QC reports, such as links to the GitHub
+  Actions run
+  ([\#150](https://github.com/Gilead-BioStats/qcthat/issues/150)),
+  timestamps
+  ([\#172](https://github.com/Gilead-BioStats/qcthat/issues/172)), and
+  attaching QC Reports to releases within the release description
+  ([\#152](https://github.com/Gilead-BioStats/qcthat/issues/152)).
+  Additional changes are tracked in the parent issues
+  ([\#123](https://github.com/Gilead-BioStats/qcthat/issues/123),
+  [\#160](https://github.com/Gilead-BioStats/qcthat/issues/160)).
+- The `pkgdown` site for `qcthat` now includes a slide deck to introduce
+  the package and the associated system
+  ([\#166](https://github.com/Gilead-BioStats/qcthat/issues/166),
+  [\#167](https://github.com/Gilead-BioStats/qcthat/issues/167),
+  [\#168](https://github.com/Gilead-BioStats/qcthat/issues/168),
+  [\#169](https://github.com/Gilead-BioStats/qcthat/issues/169)).
+
+### Bug fixes
+
+- Ignored issues are filtered out of reports
+  ([\#118](https://github.com/Gilead-BioStats/qcthat/issues/118)).
+- Reports work properly when the active branch is associated with
+  multiple PRs
+  ([\#132](https://github.com/Gilead-BioStats/qcthat/issues/132)), when
+  the PRs contain a lot of commits
+  ([\#133](https://github.com/Gilead-BioStats/qcthat/issues/133)), and
+  after PRs are merged
+  ([\#149](https://github.com/Gilead-BioStats/qcthat/issues/149)).
+- [`GetGHOwner()`](https://gilead-biostats.github.io/qcthat/reference/GetGHOwner.md)
+  and
+  [`GetGHRepo()`](https://gilead-biostats.github.io/qcthat/reference/GetGHRepo.md)
+  should now work for forks, even if the local repo name does not match
+  the upstream repo name
+  ([\#199](https://github.com/Gilead-BioStats/qcthat/issues/199)).
+
 ## qcthat 1.0.0
 
 You can now use this package to implement a QC framework for any R
@@ -39,19 +134,16 @@ of issues:
 A series of `Action_*()` functions to set up GitHub actions for QC
 reports:
 
-- [`Action_QCCompletedIssues()`](https://gilead-biostats.github.io/qcthat/reference/Action_QCCompletedIssues.md)
-  to run
+- `Action_QCCompletedIssues()` to run
   [`QCCompletedIssues()`](https://gilead-biostats.github.io/qcthat/reference/QCCompletedIssues.md)
   ([\#69](https://github.com/Gilead-BioStats/qcthat/issues/69),
   [\#73](https://github.com/Gilead-BioStats/qcthat/issues/73)).
-- [`Action_QCPRIssues()`](https://gilead-biostats.github.io/qcthat/reference/Action_QCPRIssues.md)
-  to run
+- `Action_QCPRIssues()` to run
   [`QCPR()`](https://gilead-biostats.github.io/qcthat/reference/QCPR.md)
   for specific pull requests
   ([\#55](https://github.com/Gilead-BioStats/qcthat/issues/55),
   [\#68](https://github.com/Gilead-BioStats/qcthat/issues/68)).
-- [`Action_QCMilestone()`](https://gilead-biostats.github.io/qcthat/reference/Action_QCMilestone.md)
-  to run
+- `Action_QCMilestone()` to run
   [`QCMilestones()`](https://gilead-biostats.github.io/qcthat/reference/QCMilestones.md)
   for pull requests associated with milestones, and for releases with
   names that match milestones

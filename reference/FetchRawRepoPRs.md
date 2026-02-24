@@ -6,8 +6,8 @@ Fetch repo PRs from GitHub
 
 ``` r
 FetchRawRepoPRs(
-  strOwner = gh::gh_tree_remote()[["username"]],
-  strRepo = gh::gh_tree_remote()[["repo"]],
+  strOwner = GetGHOwner(),
+  strRepo = GetGHRepo(),
   strGHToken = gh::gh_token(),
   strState = c("open", "closed", "all")
 )
@@ -25,7 +25,8 @@ FetchRawRepoPRs(
 
 - strGHToken:
 
-  (`length-1 character`) GitHub token with permissions to read issues.
+  (`length-1 character`) GitHub token with permissions appropriate to
+  the action being performed.
 
 - strState:
 

@@ -9,7 +9,7 @@ already exist."></head><body>
 
     <a class="navbar-brand me-2" href="../index.html">qcthat</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.1.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -18,6 +18,10 @@ already exist."></head><body>
 
     <div id="navbar" class="collapse navbar-collapse ms-3">
       <ul class="navbar-nav me-auto"><li class="active nav-item"><a class="nav-link" href="../reference/index.html">Reference</a></li>
+<li class="nav-item dropdown">
+  <button class="nav-link dropdown-toggle" type="button" id="dropdown-slides" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Slides</button>
+  <ul class="dropdown-menu" aria-labelledby="dropdown-slides"><li><a class="dropdown-item" href="../slides-introduction.html" target="_blank">Introduction</a></li>
+  </ul></li>
 <li class="nav-item"><a class="nav-link" href="../news/index.html">Changelog</a></li>
       </ul><ul class="navbar-nav"><li class="nav-item"><form class="form-inline" role="search">
  <input class="form-control" type="search" name="search-input" id="search-input" autocomplete="off" aria-label="Search site" placeholder="Search for" data-search-index="../search.json"></form></li>
@@ -44,8 +48,8 @@ already exist.</p>
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">SetupGHLabels</span><span class="op">(</span></span>
 <span>  dfLabels <span class="op">=</span> <span class="fu"><a href="DefaultIgnoreLabelsDF.html">DefaultIgnoreLabelsDF</a></span><span class="op">(</span><span class="op">)</span>,</span>
-<span>  strOwner <span class="op">=</span> <span class="fu">gh</span><span class="fu">::</span><span class="fu"><a href="https://gh.r-lib.org/reference/gh_tree_remote.html" class="external-link">gh_tree_remote</a></span><span class="op">(</span><span class="op">)</span><span class="op">[[</span><span class="st">"username"</span><span class="op">]</span><span class="op">]</span>,</span>
-<span>  strRepo <span class="op">=</span> <span class="fu">gh</span><span class="fu">::</span><span class="fu"><a href="https://gh.r-lib.org/reference/gh_tree_remote.html" class="external-link">gh_tree_remote</a></span><span class="op">(</span><span class="op">)</span><span class="op">[[</span><span class="st">"repo"</span><span class="op">]</span><span class="op">]</span>,</span>
+<span>  strOwner <span class="op">=</span> <span class="fu"><a href="GetGHOwner.html">GetGHOwner</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  strRepo <span class="op">=</span> <span class="fu"><a href="GetGHRepo.html">GetGHRepo</a></span><span class="op">(</span><span class="op">)</span>,</span>
 <span>  strGHToken <span class="op">=</span> <span class="fu">gh</span><span class="fu">::</span><span class="fu"><a href="https://gh.r-lib.org/reference/gh_token.html" class="external-link">gh_token</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
@@ -71,8 +75,8 @@ make it easier to search for them in your list of labels.</p></dd>
 
 
 <dt id="arg-strghtoken">strGHToken<a class="anchor" aria-label="anchor" href="#arg-strghtoken"></a></dt>
-<dd><p>(<code>length-1 character</code>) GitHub token with permissions to
-read issues.</p></dd>
+<dd><p>(<code>length-1 character</code>) GitHub token with permissions
+appropriate to the action being performed.</p></dd>
 
 </dl></div>
     <div class="section level2">

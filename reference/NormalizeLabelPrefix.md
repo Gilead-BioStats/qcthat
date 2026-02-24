@@ -12,7 +12,7 @@ NormalizeLabelPrefix(strLabel)
 
 - strLabel:
 
-  (`length-1 character`) The name of the label to create.
+  (`length-1 character`) The name of the label to create or update.
 
 ## Value
 

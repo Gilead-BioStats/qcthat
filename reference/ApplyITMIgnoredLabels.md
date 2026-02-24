@@ -14,7 +14,9 @@ ApplyITMIgnoredLabels(dfITM, chrIgnoredLabels)
 
   (`qcthat_IssueTestMatrix`) A `qcthat_IssueTestMatrix` object as
   returned by
-  [`AsIssueTestMatrix()`](https://gilead-biostats.github.io/qcthat/reference/AsIssueTestMatrix.md).
+  [`AsIssueTestMatrix()`](https://gilead-biostats.github.io/qcthat/reference/AsIssueTestMatrix.md)
+  (often via
+  [`QCPackage()`](https://gilead-biostats.github.io/qcthat/reference/QCPackage.md)).
 
 - chrIgnoredLabels:
 
@@ -24,6 +26,6 @@ ApplyITMIgnoredLabels(dfITM, chrIgnoredLabels)
 
 A filtered `qcthat_IssueTestMatrix` object with issues that are tagged
 to any of the specified ignored labels removed. The returned object has
-an attribute `IgnoredLabels` which is a named list of integer vectors of
-the issues that were removed for each ignored label (or an empty named
-list if `chrIgnoredLabels` is empty).
+an attribute `IgnoredLabels` which is a named list of the issues that
+were removed for each ignored label (as a `qcthat_IssueTestMatrix`), or
+an empty named list if `chrIgnoredLabels` is empty.

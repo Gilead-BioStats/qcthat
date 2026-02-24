@@ -20,8 +20,9 @@ with columns `Label`, `Description`, and `Color`.
 
 ``` r
 DefaultIgnoreLabelsDF()
-#> # A tibble: 1 × 3
+#> # A tibble: 2 × 3
 #>   Label        Description                                   Color  
 #>   <chr>        <chr>                                         <chr>  
 #> 1 qcthat-nocov Do not include in issue-test coverage reports #444444
+#> 2 qcthat-uat   Special issues for user acceptance testing    #444444
 ```

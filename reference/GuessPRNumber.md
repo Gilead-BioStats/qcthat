@@ -1,16 +1,14 @@
 # Guess the most relevant pull request number
 
-Tries to find a pull request associated with the active branch. If it
-fails, it falls back to finding the latest pull request number,
-optionally filtered by state.
+Tries to find a pull request associated with the active branch.
 
 ## Usage
 
 ``` r
 GuessPRNumber(
   strPkgRoot = ".",
-  strOwner = gh::gh_tree_remote(strPkgRoot)[["username"]],
-  strRepo = gh::gh_tree_remote(strPkgRoot)[["repo"]],
+  strOwner = GetGHOwner(strPkgRoot),
+  strRepo = GetGHRepo(strPkgRoot),
   strGHToken = gh::gh_token()
 )
 ```
@@ -19,9 +17,9 @@ GuessPRNumber(
 
 - strPkgRoot:
 
-  (`length-1 character`) The path to the root directory of the package.
-  Will be expanded using
-  [`pkgload::pkg_path()`](https://pkgload.r-lib.org/reference/packages.html).
+  (`length-1 character`) The path to a directory in the package. Will be
+  expanded using
+  [`gert::git_find()`](https://docs.ropensci.org/gert/reference/git_repo.html).
 
 - strOwner:
 
@@ -33,11 +31,12 @@ GuessPRNumber(
 
 - strGHToken:
 
-  (`length-1 character`) GitHub token with permissions to read issues.
+  (`length-1 character`) GitHub token with permissions appropriate to
+  the action being performed.
 
 ## Value
 
-The latest pull request number as an integer, or `integer(0)` if no pull
+The associated pull request number as an integer, or `NULL` if no pull
 requests are found.
 
 ## Examples

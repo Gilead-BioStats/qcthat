@@ -8,11 +8,12 @@ Generate a report about the test status of specific issues.
 QCIssues(
   intIssues,
   strPkgRoot = ".",
-  strOwner = gh::gh_tree_remote(strPkgRoot)[["username"]],
-  strRepo = gh::gh_tree_remote(strPkgRoot)[["repo"]],
+  strOwner = GetGHOwner(strPkgRoot),
+  strRepo = GetGHRepo(strPkgRoot),
   strGHToken = gh::gh_token(),
   lglWarn = TRUE,
   chrIgnoredLabels = DefaultIgnoreLabels(),
+  dfITM = NULL,
   envCall = rlang::caller_env()
 )
 ```
@@ -27,9 +28,9 @@ QCIssues(
 
 - strPkgRoot:
 
-  (`length-1 character`) The path to the root directory of the package.
-  Will be expanded using
-  [`pkgload::pkg_path()`](https://pkgload.r-lib.org/reference/packages.html).
+  (`length-1 character`) The path to a directory in the package. Will be
+  expanded using
+  [`gert::git_find()`](https://docs.ropensci.org/gert/reference/git_repo.html).
 
 - strOwner:
 
@@ -41,7 +42,8 @@ QCIssues(
 
 - strGHToken:
 
-  (`length-1 character`) GitHub token with permissions to read issues.
+  (`length-1 character`) GitHub token with permissions appropriate to
+  the action being performed.
 
 - lglWarn:
 
@@ -52,6 +54,14 @@ QCIssues(
 - chrIgnoredLabels:
 
   (`character`) GitHub labels to ignore, such as `"qcthat-nocov"`.
+
+- dfITM:
+
+  (`qcthat_IssueTestMatrix`) A `qcthat_IssueTestMatrix` object as
+  returned by
+  [`AsIssueTestMatrix()`](https://gilead-biostats.github.io/qcthat/reference/AsIssueTestMatrix.md)
+  (often via
+  [`QCPackage()`](https://gilead-biostats.github.io/qcthat/reference/QCPackage.md)).
 
 - envCall:
 

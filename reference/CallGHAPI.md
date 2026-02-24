@@ -7,8 +7,8 @@ Wrapper around gh::gh() for mocking
 ``` r
 CallGHAPI(
   strEndpoint,
-  strOwner = gh::gh_tree_remote()[["username"]],
-  strRepo = gh::gh_tree_remote()[["repo"]],
+  strOwner = GetGHOwner(),
+  strRepo = GetGHRepo(),
   strGHToken = gh::gh_token(),
   numLimit = Inf,
   ...
@@ -32,7 +32,8 @@ CallGHAPI(
 
 - strGHToken:
 
-  (`length-1 character`) GitHub token with permissions to read issues.
+  (`length-1 character`) GitHub token with permissions appropriate to
+  the action being performed.
 
 - numLimit:
 

@@ -1,7 +1,9 @@
-# qcthat: Lightweight quality control framework for R packages used in Clinical Trials
+# qcthat: Lightweight R Package Quality Control
 
-Lightweight quality control framework for R packages used in Clinical
-Trials. Minimal dependencies, flexible, and customizable.
+A lightweight quality control framework for R packages, particularly
+those used in regulated environments such as clinical trials. Integrates
+formal quality control reports into package development workflows using
+'testthat' and 'GitHub'.
 
 ## See also
 

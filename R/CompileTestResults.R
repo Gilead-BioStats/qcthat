@@ -4,17 +4,16 @@
 #' [tibble::tibble()].
 #'
 #' @inheritParams shared-params
-#'
 #' @returns A `qcthat_TestResults` object, which is a [tibble::tibble()] with
 #'   columns:
 #'   - `Test`: The `desc` field of the test from [testthat::test_that()].
-#'   - `File`: File where the test is defined.
+#'   - `File`: Path to the file where the test is defined, relative to the
+#'   package root.
 #'   - `Disposition`: Factor with levels `pass`, `fail`, and `skip` indicating
 #'   the overall outcome of the test.
 #'   - `Issues`: List column containing integer vectors of associated GitHub
 #'   issue numbers.
 #' @export
-#'
 #' @examples
 #' # Generate a test results object.
 #'
@@ -51,12 +50,12 @@
 #' CompileTestResults(lTestResults)
 CompileTestResults <- function(lTestResults) {
   if (!inherits(lTestResults, "testthat_results")) {
-    cli::cli_abort(
+    qcthatAbort(
       c(
         "Input must be a {.cls testthat_results} object.",
         i = "{.arg lTestResults} is {.obj_type_friendly {lTestResults}}."
       ),
-      class = "qcthat-error-bad_input"
+      strErrorSubclass = "bad_input"
     )
   }
   AsTestResultsDF(
@@ -94,7 +93,7 @@ EmptyTestResultsDF <- function() {
     Test = character(),
     File = character(),
     Disposition = factor(levels = c("fail", "skip", "pass")),
-    Issues = list()
+    Issues = vctrs::list_of(.ptype = integer())
   )
 }
 
@@ -133,17 +132,17 @@ ExtractDisposition <- function(lTestResult) {
     } else if ("expectation_warning" %in% classes) {
       return("fail")
     }
-    cli::cli_abort(
+    qcthatAbort(
       "Unexpected result classes: {.val {classes}}",
-      class = "qcthat-error-unexpected_result_class"
+      strErrorSubclass = "unexpected_result_class"
     )
   }
-  cli::cli_abort(
+  qcthatAbort(
     c(
       "No test results found.",
       i = "You may need to rerun tests with a different {.arg reporter}.",
       i = "We recommend the {.str silent} reporter."
     ),
-    class = "qcthat-error-missing_results"
+    strErrorSubclass = "missing_results"
   )
 }

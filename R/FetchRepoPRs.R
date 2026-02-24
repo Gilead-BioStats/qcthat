@@ -4,7 +4,6 @@
 #' [tibble::tibble()].
 #'
 #' @inheritParams shared-params
-#'
 #' @returns A `qcthat_PRs` object, which is a [tibble::tibble()] with
 #'   columns:
 #'   - `PR`: Pull request number.
@@ -23,13 +22,12 @@
 #'   - `MergedAt`: `POSIXct` timestamp of when the pull request was merged, or
 #'   `NA` if the pull request has not been merged.
 #' @export
-#'
 #' @examplesIf interactive()
 #'
 #'   FetchRepoPRs()
 FetchRepoPRs <- function(
-  strOwner = gh::gh_tree_remote()[["username"]],
-  strRepo = gh::gh_tree_remote()[["repo"]],
+  strOwner = GetGHOwner(),
+  strRepo = GetGHRepo(),
   strGHToken = gh::gh_token(),
   strState = c("open", "closed", "all")
 ) {
@@ -49,8 +47,8 @@ FetchRepoPRs <- function(
 #' @returns A list of raw pull request objects as returned by [gh::gh()].
 #' @keywords internal
 FetchRawRepoPRs <- function(
-  strOwner = gh::gh_tree_remote()[["username"]],
-  strRepo = gh::gh_tree_remote()[["repo"]],
+  strOwner = GetGHOwner(),
+  strRepo = GetGHRepo(),
   strGHToken = gh::gh_token(),
   strState = c("open", "closed", "all")
 ) {
@@ -61,6 +59,65 @@ FetchRawRepoPRs <- function(
     strOwner = strOwner,
     strRepo = strRepo,
     strGHToken = strGHToken
+  )
+}
+
+#' Fetch a single repo PR from GitHub
+#'
+#' @inheritParams shared-params
+#' @returns A list representing a raw pull request object as returned by
+#'   [gh::gh()].
+#' @keywords internal
+FetchRawRepoPRSingle <- function(
+  intPRNumber = GuessPRNumber(".", strOwner, strRepo, strGHToken),
+  strOwner = GetGHOwner(),
+  strRepo = GetGHRepo(),
+  strGHToken = gh::gh_token(),
+  envCall = rlang::caller_env()
+) {
+  # nocov start
+  tryCatch(
+    CallGHAPI(
+      "GET /repos/{owner}/{repo}/pulls/{pull_number}",
+      strOwner = strOwner,
+      strRepo = strRepo,
+      pull_number = intPRNumber,
+      strGHToken = strGHToken
+    ),
+    error = function(e) {
+      qcthatAbort(
+        c(
+          "{.arg intPRNumber} must refer to a pull request in the specified repository.",
+          i = "Pull request number {.val {intPRNumber}} not found in repository {.val {strOwner}/{strRepo}}."
+        ),
+        strErrorSubclass = "pr_not_found",
+        envCall = envCall
+      )
+    }
+  )
+  # nocov end
+}
+
+#' Look up a PR from a list by number
+#'
+#' @param lPRs A list of raw pull request objects as returned by
+#'   [FetchRawRepoPRs()].
+#' @param intPRNumber (`length-1 integer`) The pull request number to look up.
+#' @param envCall (`environment`) The calling environment for error messages.
+#' @returns A list representing a raw pull request object.
+#' @keywords internal
+LookupPRFromList <- function(lPRs, intPRNumber, envCall = rlang::caller_env()) {
+  lPR <- purrr::keep(lPRs, \(x) isTRUE(x$number == intPRNumber))
+  if (length(lPR)) {
+    return(lPR[[1]])
+  }
+  qcthatAbort(
+    c(
+      "{.arg intPRNumber} must refer to a pull request in the provided list.",
+      i = "Pull request number {.val {intPRNumber}} not found."
+    ),
+    strErrorSubclass = "pr_not_found",
+    envCall = envCall
   )
 }
 
@@ -121,18 +178,18 @@ EnframePRs <- function(lPRs) {
 #' @keywords internal
 EmptyPRsDF <- function() {
   tibble::tibble(
-    PR = integer(0),
-    Title = character(0),
-    State = character(0),
-    HeadRef = character(0),
-    BaseRef = character(0),
-    Body = character(0),
-    MergeCommitSHA = character(0),
-    IsDraft = logical(0),
-    Url = character(0),
-    CreatedAt = as.POSIXct(character(0)),
-    ClosedAt = as.POSIXct(character(0)),
-    MergedAt = as.POSIXct(character(0))
+    PR = integer(),
+    Title = character(),
+    State = character(),
+    HeadRef = character(),
+    BaseRef = character(),
+    Body = character(),
+    MergeCommitSHA = character(),
+    IsDraft = logical(),
+    Url = character(),
+    CreatedAt = as.POSIXct(character()),
+    ClosedAt = as.POSIXct(character()),
+    MergedAt = as.POSIXct(character())
   )
 }
 
@@ -143,18 +200,18 @@ EmptyPRsDF <- function() {
 #' @keywords internal
 EmptyPRsDFRaw <- function() {
   tibble::tibble(
-    PR = integer(0),
-    Title = character(0),
-    State = character(0),
-    HeadRef = list(),
-    BaseRef = list(),
-    Body = character(0),
-    MergeCommitSHA = character(0),
-    IsDraft = logical(0),
-    Url = character(0),
-    CreatedAt = character(0),
-    ClosedAt = character(0),
-    MergedAt = character(0)
+    PR = integer(),
+    Title = character(),
+    State = character(),
+    HeadRef = vctrs::list_of(.ptype = character()),
+    BaseRef = vctrs::list_of(.ptype = character()),
+    Body = character(),
+    MergeCommitSHA = character(),
+    IsDraft = logical(),
+    Url = character(),
+    CreatedAt = character(),
+    ClosedAt = character(),
+    MergedAt = character()
   )
 }
 

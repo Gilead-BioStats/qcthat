@@ -4,15 +4,26 @@
 \alias{shared-params}
 \title{Parameters used in multiple functions}
 \arguments{
+\item{chrChecks}{(\code{character}) Items for the user to check. These will be
+preceded by checkboxes in the associated issue.}
+
 \item{chrClass}{(\code{character}) Class name(s) to assign to the object.}
 
 \item{chrCommitSHAs}{(\code{character}) SHAs of git commits.}
 
+\item{chrErrorMessage}{(\code{character}) A message to include in an error report.
+Can include \code{\link[glue:glue]{glue::glue()}} syntax. Formatted via \code{\link[cli:cli_bullets]{cli::cli_bullets()}}.}
+
 \item{chrIgnoredLabels}{(\code{character}) GitHub labels to ignore, such as
 \code{"qcthat-nocov"}.}
 
+\item{chrInstructions}{(\code{character}) Instructions for how to review an issue.
+Included in the associated issue before the checklist.}
+
 \item{chrKeywords}{(\code{character}) Keywords to search for just before issue
 numbers in commit messages. Defaults to the \href{https://docs.github.com/en/issues/tracking-your-work-with-issues/using-issues/linking-a-pull-request-to-an-issue#linking-a-pull-request-to-an-issue-using-a-keyword}{GitHub issue-linking keywords}}
+
+\item{chrLabels}{(\code{character}) The name(s) of labels(s) to use.}
 
 \item{chrMilestones}{(\code{character}) The name(s) of milestone(s) to filter
 issues by.}
@@ -25,11 +36,33 @@ separate piece of the vector).}
 file extension should be included in the filename or omitted (NOT sent as a
 separate piece of the vector).}
 
+\item{chrTestLines}{(\code{character}) Vector of lines from a test file.}
+
 \item{chrTests}{(\code{character}) A vector of test descriptions from a
-\code{\link[=CompileIssueTestMatrix]{CompileIssueTestMatrix()}} matrix.}
+\code{\link[=CompileIssueTestMatrix]{CompileIssueTestMatrix()}} matrix or extracted from test files.}
+
+\item{dttmTimestamp}{(\code{POSIXct}) A system timestamp.}
+
+\item{dfFileTests}{(\code{data.frame}) A \code{\link[tibble:tibble]{tibble::tibble()}} with the structure
+returned by \code{\link[=ExtractTestsFromFiles]{ExtractTestsFromFiles()}}.}
+
+\item{dfIssueCommitsLong}{(\code{data.frame} or \code{NULL}) Pre-computed issue-commit
+mappings from \code{\link[=MapLongIssueCommits]{MapLongIssueCommits()}}. If \code{NULL} (the default), fetched
+automatically from the GitHub API. Provide this when calling
+\code{\link[=MapTestFilesToPotentialIssues]{MapTestFilesToPotentialIssues()}} multiple times to avoid redundant API
+requests.}
 
 \item{dfITM}{(\code{qcthat_IssueTestMatrix}) A \code{qcthat_IssueTestMatrix} object as
-returned by \code{\link[=AsIssueTestMatrix]{AsIssueTestMatrix()}}.}
+returned by \code{\link[=AsIssueTestMatrix]{AsIssueTestMatrix()}} (often via \code{\link[=QCPackage]{QCPackage()}}).}
+
+\item{dfLabels}{(\code{data.frame}) A data frame with columns \code{Label},
+\code{Description}, and \code{Color}, specifying the labels to create. By default,
+this is the data frame returned by \code{\link[=DefaultIgnoreLabelsDF]{DefaultIgnoreLabelsDF()}}. Descriptions
+of labels created via this function are prefixed with \code{"{qcthat}: "} to
+make it easier to search for them in your list of labels.}
+
+\item{dfPotentialIssues}{(\code{tibble}) A data frame as returned by
+\code{\link[=MapTestFilesToPotentialIssues]{MapTestFilesToPotentialIssues()}}.}
 
 \item{dfRepoIssues}{(\code{qcthat_Issues} or data frame) Data frame of GitHub
 issues as returned by \code{\link[=FetchRepoIssues]{FetchRepoIssues()}}.}
@@ -40,20 +73,50 @@ results as returned by \code{\link[=CompileTestResults]{CompileTestResults()}}.}
 \item{envCall}{(\code{environment}) The environment to use for error reporting.
 Typically set to \code{\link[rlang:stack]{rlang::caller_env()}}.}
 
+\item{envErrorMessage}{(\code{environment}) The environment to pass to
+\code{\link[glue:glue]{glue::glue()}} to resolve variables.}
+
 \item{fctDisposition}{(\code{factor}) Disposition factor with levels \code{c("fail", "skip", "pass")}.}
+
+\item{intIssue}{(\verb{length-1 integer}) The issue with which a check is
+associated.}
 
 \item{intIssues}{(\code{integer}) A vector of issue numbers from a
 \code{\link[=CompileIssueTestMatrix]{CompileIssueTestMatrix()}} matrix or from GitHub.}
+
+\item{intLineEnd}{(\verb{length-1 integer}) The ending line number.}
+
+\item{intLineStart}{(\verb{length-1 integer}) The starting line number.}
 
 \item{intMaxCommits}{(\verb{length-1 integer}) The maximum number of commits to
 return from git logs. Leaving this at the default should almost always be
 fine, but you can reduce the number if your repository has a long commit
 history and this function is slow.}
 
+\item{intPageMax}{(\verb{length-1 integer}) The maximum number of pages of commits
+to fetch from the GitHub API. Each page contains up to 100 commits.
+Defaults to 100, which fetches up to 10,000 commits. You likely never need
+to increase this number, but try a larger number if a merge involves a very
+large number of commits in a very large repository.}
+
+\item{intParentIssue}{(\verb{length-1 integer}) The number of the parent issue in
+a parent-child issue relationship.}
+
 \item{intPRNumber}{(\verb{length-1 integer}) The number of the pull request to
-fetch information about.}
+fetch information about and/or post results to.}
 
 \item{intPRNumbers}{(\code{integer}) A vector of pull request numbers.}
+
+\item{intTestStart}{(\verb{length-1 integer}) Line number where test_that starts.}
+
+\item{intUATIssue}{(\code{integer}) The number of an issue that tracks
+user-acceptance testing.}
+
+\item{lCommentsRaw}{(\code{list}) List of raw comment objects as returned by
+\code{\link[gh:gh]{gh::gh()}}.}
+
+\item{lGHEventPayload}{(\code{list}) The GitHub event payload. Defaults to the
+result of \code{\link[=LoadGHEventPayload]{LoadGHEventPayload()}}.}
 
 \item{lIssuesNonPR}{(\code{list}) List of issue objects as returned by
 \code{\link[=RemovePRsFromIssues]{RemovePRsFromIssues()}}.}
@@ -63,8 +126,23 @@ typically obtained by running something like \code{\link[testthat:test_package]{
 \code{stop_on_failure = FALSE} and a reporter that doesn't cause issues in
 parallel testing, like \code{reporter = "silent"}, and assigning it to a name.}
 
+\item{lPRActionRuns}{(\code{list}) A list of workflow run objects as returned by
+GitHub.}
+
+\item{lglCompleted}{(\verb{length-1 logical}) Whether to include the
+\code{\link[=QCCompletedIssues]{QCCompletedIssues()}} report.}
+
+\item{lglMilestone}{(\verb{length-1 logical}) Whether to include the
+\code{\link[=QCMilestones]{QCMilestones()}} report.}
+
 \item{lglOverwrite}{(\verb{length-1 logical}) Whether to overwrite files if they
 already exist.}
+
+\item{lglPR}{(\verb{length-1 logical}) Whether to include the \code{\link[=QCPR]{QCPR()}} report.}
+
+\item{lglReportFailure}{(\verb{length-1 logical}) Whether to ignore failures
+(default unless a "qcthat_UAT" environment variable is "true"), or fail
+(and show as a failure in testthat tests).}
 
 \item{lglShowMilestones}{(\verb{length-1 logical}) Whether to separate issues by
 milestones in reports.}
@@ -72,6 +150,13 @@ milestones in reports.}
 \item{lglShowIgnoredLabels}{(\verb{length-1 logical}) Whether to show information
 in reports about issue labels (such as \code{"qcthat-nocov"}) that have been
 ignored.}
+
+\item{lglUAT}{(\verb{length-1 logical}) Whether to include the \code{\link[=CommentUAT]{CommentUAT()}}
+report.}
+
+\item{lglUpdate}{(\verb{length-1 logical}) Whether to update an existing comment
+or label if it already exists (rather than creating a new comment or
+label).}
 
 \item{lglUseEmoji}{(\verb{length-1 logical}) Whether to use emojis (if \code{TRUE} and
 the emoji package is installed) or ASCII indicators (if \code{FALSE}) in the
@@ -84,20 +169,80 @@ included in the filter (but the report still returns results). Defaults to
 
 \item{objShape}{(\verb{0-row data.frame}, etc) Object with the expected structure.}
 
+\item{strBody}{(\verb{length-1 character}) The body of an issue, PR, comment, or
+release, in GitHub markdown.}
+
+\item{strBodyCompiled}{(\verb{length-1 character}) The full body of an issue, PR,
+or comment, in GitHub markdown, including components such as a title and a
+hidden \code{qcthat-comment-id}.}
+
+\item{strChildIssueID}{(\verb{length-1 character}) The \code{id} field of an issue to
+connect to a parent issue.}
+
+\item{strCommentID}{(\verb{length-1 character}) A unique ID for a comment within a
+given context, which is usually a hash of the title of the comment.}
+
+\item{strCommitSHA}{(\verb{length-1 character}) The commit SHA to target.}
+
+\item{strConditionSubclass}{(\verb{length-1 character}) A subclass for a
+condition.}
+
+\item{strConditionClass}{(\verb{length-1 character}) One of "error", "warning", or
+"message".}
+
+\item{strDescription}{(\verb{length-1 character}) A brief description of a user
+expectation.}
+
+\item{strDirPath}{(\verb{length-1 character}) The path to a directory.}
+
+\item{strDisposition}{(\verb{length-1 character}) The result of a test, such as
+"pass", "fail", or "skip", or "accepted" or "pending" for UAT.}
+
+\item{strErrorSubclass}{(\verb{length-1 character}) A subclass for an error
+condition.}
+
 \item{strExtension}{(\verb{length-1 character}) The file extension to use for the
 target file. If the target path already includes an extension, it will be
 replaced with this value. If the value is already correct, this won't have
 any effect.}
 
-\item{strGHToken}{(\verb{length-1 character}) GitHub token with permissions to
-read issues.}
+\item{strFile}{(\verb{length-1 character}) A file name without the path.}
+
+\item{strFilePath}{(\verb{length-1 character}) A file path.}
+
+\item{strGHToken}{(\verb{length-1 character}) GitHub token with permissions
+appropriate to the action being performed.}
+
+\item{strLabel}{(\verb{length-1 character}) The name of the label to create or
+update.}
+
+\item{strLabelColor}{(\verb{length-1 character}) The hex color code for the label
+(e.g., \code{"#444444"}).}
+
+\item{strLabelDescription}{(\verb{length-1 character}) The description for the
+label.}
+
+\item{strLabelNewName}{(\verb{length-1 character}) The new name for an updated
+label.}
 
 \item{strOwner}{(\verb{length-1 character}) GitHub username or organization name.}
 
-\item{strPkgRoot}{(\verb{length-1 character}) The path to the root directory of
-the package. Will be expanded using \code{\link[pkgload:packages]{pkgload::pkg_path()}}.}
+\item{strPkgRoot}{(\verb{length-1 character}) The path to a directory in the
+package. Will be expanded using \code{\link[gert:git_repo]{gert::git_find()}}.}
+
+\item{strPRHeadRef}{(\verb{length-1 character}) The branch name (head ref) of the
+PR.}
+
+\item{strReleaseID}{(\verb{length-1 character}) ID (typically numeric but can be
+very long) of a GitHub release.}
 
 \item{strRepo}{(\verb{length-1 character}) GitHub repository name.}
+
+\item{strReportType}{(\verb{length-1 character}) The main title of the report,
+such as \code{"Completed Issues"} or \code{"PR-Associated Issues"}.}
+
+\item{strRunID}{(\verb{length-1 character}) ID (typically numeric but can be very
+long) of a GitHub Actions workflow run.}
 
 \item{strSourceRef}{(\verb{length-1 character}) Name of the git reference that
 contains changes. Defaults to the active branch in this repository.}
@@ -106,8 +251,18 @@ contains changes. Defaults to the active branch in this repository.}
 fetch. Must be one of \code{"open"}, \code{"closed"}, or \code{"all"}. Defaults to
 \code{"open"} for pull requests and \code{"all"} for issues.}
 
+\item{strTagName}{(\verb{length-1 character}) Name of the GitHub tag.}
+
+\item{strTargetDir}{(\verb{length-1 character}) Path to the directory where the
+file should be added.}
+
 \item{strTargetRef}{(\verb{length-1 character}) Name of the git reference that
 will be merged into. Defaults to the default branch of this repository.}
+
+\item{strTestDir}{(\verb{length-1 character}) Path to the directory containing
+test files. Defaults to \code{"tests/testthat"}.}
+
+\item{strTitle}{(\verb{length-1 character}) A title for an issue.}
 }
 \description{
 Reused parameter definitions are gathered here for easier usage. Use

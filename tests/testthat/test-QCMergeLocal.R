@@ -15,7 +15,6 @@ test_that("QCMergeLocal filters to ref-specific issues (#68, #84)", {
 })
 
 test_that("FindKeywordIssues extracts issues that will be closed by commits (#84)", {
-  skip_if_not_installed("gert")
   local_mocked_bindings(
     GetGitLog = function(strGitRef, ...) {
       dfBase <- tibble::tibble(

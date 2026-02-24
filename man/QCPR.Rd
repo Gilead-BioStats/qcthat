@@ -6,27 +6,36 @@
 \usage{
 QCPR(
   intPRNumber = GuessPRNumber(strPkgRoot, strOwner, strRepo, strGHToken),
+  intPageMax = 100L,
   strPkgRoot = ".",
-  strOwner = gh::gh_tree_remote(strPkgRoot)[["username"]],
-  strRepo = gh::gh_tree_remote(strPkgRoot)[["repo"]],
+  strOwner = GetGHOwner(strPkgRoot),
+  strRepo = GetGHRepo(strPkgRoot),
   strGHToken = gh::gh_token(),
   lglWarn = TRUE,
-  chrIgnoredLabels = DefaultIgnoreLabels()
+  chrIgnoredLabels = DefaultIgnoreLabels(),
+  dfITM = NULL,
+  envCall = rlang::caller_env()
 )
 }
 \arguments{
 \item{intPRNumber}{(\verb{length-1 integer}) The number of the pull request to
-fetch information about.}
+fetch information about and/or post results to.}
 
-\item{strPkgRoot}{(\verb{length-1 character}) The path to the root directory of
-the package. Will be expanded using \code{\link[pkgload:packages]{pkgload::pkg_path()}}.}
+\item{intPageMax}{(\verb{length-1 integer}) The maximum number of pages of commits
+to fetch from the GitHub API. Each page contains up to 100 commits.
+Defaults to 100, which fetches up to 10,000 commits. You likely never need
+to increase this number, but try a larger number if a merge involves a very
+large number of commits in a very large repository.}
+
+\item{strPkgRoot}{(\verb{length-1 character}) The path to a directory in the
+package. Will be expanded using \code{\link[gert:git_repo]{gert::git_find()}}.}
 
 \item{strOwner}{(\verb{length-1 character}) GitHub username or organization name.}
 
 \item{strRepo}{(\verb{length-1 character}) GitHub repository name.}
 
-\item{strGHToken}{(\verb{length-1 character}) GitHub token with permissions to
-read issues.}
+\item{strGHToken}{(\verb{length-1 character}) GitHub token with permissions
+appropriate to the action being performed.}
 
 \item{lglWarn}{(\verb{length-1 logical}) Whether to warn when an extra value is
 included in the filter (but the report still returns results). Defaults to
@@ -34,6 +43,12 @@ included in the filter (but the report still returns results). Defaults to
 
 \item{chrIgnoredLabels}{(\code{character}) GitHub labels to ignore, such as
 \code{"qcthat-nocov"}.}
+
+\item{dfITM}{(\code{qcthat_IssueTestMatrix}) A \code{qcthat_IssueTestMatrix} object as
+returned by \code{\link[=AsIssueTestMatrix]{AsIssueTestMatrix()}} (often via \code{\link[=QCPackage]{QCPackage()}}).}
+
+\item{envCall}{(\code{environment}) The environment to use for error reporting.
+Typically set to \code{\link[rlang:stack]{rlang::caller_env()}}.}
 }
 \value{
 A \code{qcthat_IssueTestMatrix} object as returned by \code{\link[=QCPackage]{QCPackage()}},
@@ -51,6 +66,7 @@ for details on how issues can become associated with a pull request.
   # You must have at least one pull request open in the GitHub repository
   # associated with the current git repository for this to return any
   # results.
+
   QCPR()
 \dontshow{\}) # examplesIf}
 }

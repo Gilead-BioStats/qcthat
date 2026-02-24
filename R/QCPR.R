@@ -19,65 +19,89 @@
 #'   # You must have at least one pull request open in the GitHub repository
 #'   # associated with the current git repository for this to return any
 #'   # results.
+#'
 #'   QCPR()
 QCPR <- function(
   intPRNumber = GuessPRNumber(strPkgRoot, strOwner, strRepo, strGHToken),
+  intPageMax = 100L,
   strPkgRoot = ".",
-  strOwner = gh::gh_tree_remote(strPkgRoot)[["username"]],
-  strRepo = gh::gh_tree_remote(strPkgRoot)[["repo"]],
+  strOwner = GetGHOwner(strPkgRoot),
+  strRepo = GetGHRepo(strPkgRoot),
   strGHToken = gh::gh_token(),
   lglWarn = TRUE,
-  chrIgnoredLabels = DefaultIgnoreLabels()
+  chrIgnoredLabels = DefaultIgnoreLabels(),
+  dfITM = NULL,
+  envCall = rlang::caller_env()
 ) {
+  if (!length(intPRNumber)) {
+    qcthatAbort(
+      "Could not guess pull request number. Please provide `intPRNumber`.",
+      strErrorSubclass = "pr_number_not_found"
+    )
+  }
   chrPRRefs <- FetchPRRefs(
     intPRNumber = intPRNumber,
     strOwner = strOwner,
     strRepo = strRepo,
-    strGHToken = strGHToken
+    strGHToken = strGHToken,
+    strPkgRoot = strPkgRoot
   )
   QCMergeGH(
     strSourceRef = chrPRRefs[["strSourceRef"]],
     strTargetRef = chrPRRefs[["strTargetRef"]],
+    intPageMax = intPageMax,
     strPkgRoot = strPkgRoot,
     strOwner = strOwner,
     strRepo = strRepo,
     strGHToken = strGHToken,
     lglWarn = lglWarn,
-    chrIgnoredLabels = chrIgnoredLabels
+    chrIgnoredLabels = chrIgnoredLabels,
+    dfITM = dfITM,
+    envCall = envCall
   )
 }
 
 #' Fetch the source and target refs for a PR
 #'
 #' @inheritParams shared-params
+#' @param lPRs (`list` or `NULL`) Optional list of raw pull request objects as
+#'   returned by [FetchRawRepoPRs()]. If provided, the PR will be looked up
+#'   from this list instead of fetching individually from the API.
 #' @returns A named character vector with `strSourceRef` and `strTargetRef`.
 #' @keywords internal
 FetchPRRefs <- function(
   intPRNumber = GuessPRNumber(".", strOwner, strRepo, strGHToken),
-  strOwner = gh::gh_tree_remote()[["username"]],
-  strRepo = gh::gh_tree_remote()[["repo"]],
+  strPkgRoot = ".",
+  strOwner = GetGHOwner(strPkgRoot),
+  strRepo = GetGHRepo(strPkgRoot),
   strGHToken = gh::gh_token(),
+  lPRs = NULL,
   envCall = rlang::caller_env()
 ) {
-  dfPR <- FetchRepoPRs(
-    strOwner = strOwner,
-    strRepo = strRepo,
-    strGHToken = strGHToken,
-    strState = "all"
-  ) |>
-    dplyr::filter(.data$PR == intPRNumber)
-  if (!NROW(dfPR)) {
-    cli::cli_abort(
-      c(
-        "{.arg intPRNumber} must refer to a pull request in the specified repository.",
-        i = "Pull request number {.val {intPRNumber}} not found in repository {.val {strOwner}/{strRepo}}."
-      ),
-      class = "qcthat-error-pr_not_found",
-      call = envCall
+  lPR <- if (is.null(lPRs)) {
+    FetchRawRepoPRSingle(
+      intPRNumber = intPRNumber,
+      strOwner = strOwner,
+      strRepo = strRepo,
+      strGHToken = strGHToken
     )
+  } else {
+    LookupPRFromList(lPRs, intPRNumber, envCall = envCall)
+  }
+
+  if (
+    (isTRUE(lPR[["merged"]]) || length(lPR[["merged_at"]])) &&
+      length(lPR[["merge_commit_sha"]])
+  ) {
+    strMergeSHA <- lPR$merge_commit_sha
+    lInfo <- GetGitCommitInfo(strMergeSHA, strPkgRoot)
+    return(c(
+      strSourceRef = strMergeSHA,
+      strTargetRef = lInfo$parents[[1]]
+    ))
   }
   return(c(
-    strSourceRef = dfPR$HeadRef,
-    strTargetRef = dfPR$BaseRef
+    strSourceRef = lPR$head$ref,
+    strTargetRef = lPR$base$ref
   ))
 }

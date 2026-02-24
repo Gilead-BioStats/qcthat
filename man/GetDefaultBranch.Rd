@@ -7,8 +7,8 @@
 GetDefaultBranch(strPkgRoot = ".")
 }
 \arguments{
-\item{strPkgRoot}{(\verb{length-1 character}) The path to the root directory of
-the package. Will be expanded using \code{\link[pkgload:packages]{pkgload::pkg_path()}}.}
+\item{strPkgRoot}{(\verb{length-1 character}) The path to a directory in the
+package. Will be expanded using \code{\link[gert:git_repo]{gert::git_find()}}.}
 }
 \value{
 A length-1 character vector representing the default branch name.

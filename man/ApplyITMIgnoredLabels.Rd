@@ -8,7 +8,7 @@ ApplyITMIgnoredLabels(dfITM, chrIgnoredLabels)
 }
 \arguments{
 \item{dfITM}{(\code{qcthat_IssueTestMatrix}) A \code{qcthat_IssueTestMatrix} object as
-returned by \code{\link[=AsIssueTestMatrix]{AsIssueTestMatrix()}}.}
+returned by \code{\link[=AsIssueTestMatrix]{AsIssueTestMatrix()}} (often via \code{\link[=QCPackage]{QCPackage()}}).}
 
 \item{chrIgnoredLabels}{(\code{character}) GitHub labels to ignore, such as
 \code{"qcthat-nocov"}.}
@@ -16,9 +16,9 @@ returned by \code{\link[=AsIssueTestMatrix]{AsIssueTestMatrix()}}.}
 \value{
 A filtered \code{qcthat_IssueTestMatrix} object with issues that are
 tagged to any of the specified ignored labels removed. The returned object
-has an attribute \code{IgnoredLabels} which is a named list of integer vectors
-of the issues that were removed for each ignored label (or an empty named
-list if \code{chrIgnoredLabels} is empty).
+has an attribute \code{IgnoredLabels} which is a named list of the issues
+that were removed for each ignored label (as a \code{qcthat_IssueTestMatrix}),
+or an empty named list if \code{chrIgnoredLabels} is empty.
 }
 \description{
 Apply ignored labels to an Issue Test Matrix

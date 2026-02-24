@@ -23,7 +23,7 @@ test_that("CompileTestResults works for empty testthat_results (#32)", {
       Test = character(),
       File = character(),
       Disposition = factor(levels = c("fail", "skip", "pass")),
-      Issues = list()
+      Issues = vctrs::list_of(.ptype = integer())
     )
   )
 })

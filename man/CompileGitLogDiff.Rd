@@ -18,8 +18,8 @@ contains changes. Defaults to the active branch in this repository.}
 \item{strTargetRef}{(\verb{length-1 character}) Name of the git reference that
 will be merged into. Defaults to the default branch of this repository.}
 
-\item{strPkgRoot}{(\verb{length-1 character}) The path to the root directory of
-the package. Will be expanded using \code{\link[pkgload:packages]{pkgload::pkg_path()}}.}
+\item{strPkgRoot}{(\verb{length-1 character}) The path to a directory in the
+package. Will be expanded using \code{\link[gert:git_repo]{gert::git_find()}}.}
 
 \item{intMaxCommits}{(\verb{length-1 integer}) The maximum number of commits to
 return from git logs. Leaving this at the default should almost always be

@@ -4,9 +4,9 @@
 \name{qcthat-package}
 \alias{qcthat}
 \alias{qcthat-package}
-\title{qcthat: Lightweight quality control framework for R packages used in Clinical Trials}
+\title{qcthat: Lightweight R Package Quality Control}
 \description{
-Lightweight quality control framework for R packages used in Clinical Trials. Minimal dependencies, flexible, and customizable.
+A lightweight quality control framework for R packages, particularly those used in regulated environments such as clinical trials. Integrates formal quality control reports into package development workflows using 'testthat' and 'GitHub'.
 }
 \seealso{
 Useful links:

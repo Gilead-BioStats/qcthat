@@ -9,18 +9,18 @@ test_that("FetchRepoPRs returns an empty df when no issues found (#84)", {
   expect_equal(
     test_result,
     tibble::tibble(
-      PR = integer(0),
-      Title = character(0),
-      State = character(0),
-      HeadRef = character(0),
-      BaseRef = character(0),
-      Body = character(0),
-      MergeCommitSHA = character(0),
-      IsDraft = logical(0),
-      Url = character(0),
-      CreatedAt = as.POSIXct(character(0)),
-      ClosedAt = as.POSIXct(character(0)),
-      MergedAt = as.POSIXct(character(0))
+      PR = integer(),
+      Title = character(),
+      State = character(),
+      HeadRef = character(),
+      BaseRef = character(),
+      Body = character(),
+      MergeCommitSHA = character(),
+      IsDraft = logical(),
+      Url = character(),
+      CreatedAt = as.POSIXct(character()),
+      ClosedAt = as.POSIXct(character()),
+      MergedAt = as.POSIXct(character())
     )
   )
 })
@@ -54,4 +54,25 @@ test_that("FetchRepoPRs returns a formatted df for real PRs (#84)", {
     )
   )
   expect_equal(test_result, expected_result)
+})
+
+test_that("LookupPRFromList finds PR by number (#noissue)", {
+  lPRs <- GenerateRawRepoPRs(5)
+  result <- LookupPRFromList(lPRs, 3)
+
+  expect_equal(result$number, 3)
+  expect_equal(result$title, "PR number 3")
+  expect_equal(result$state, "closed")
+})
+
+test_that("LookupPRFromList errors when PR not found (#noissue)", {
+  expect_error(
+    LookupPRFromList(GenerateRawRepoPRs(5), 99),
+    class = "qcthat-error-pr_not_found"
+  )
+
+  expect_error(
+    LookupPRFromList(list(), 1),
+    class = "qcthat-error-pr_not_found"
+  )
 })

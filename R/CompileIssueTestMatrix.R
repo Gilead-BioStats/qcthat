@@ -5,7 +5,6 @@
 #' and associated tests.
 #'
 #' @inheritParams shared-params
-#'
 #' @returns A `qcthat_IssueTestMatrix` object, which is a tibble with columns:
 #'   - `Milestone`: The milestone title associated with the issues.
 #'   - `Issue`: Issue number.
@@ -27,11 +26,11 @@
 #'   - `ClosedAt`: `POSIXct` timestamp of when the issue was closed, or `NA` if
 #'   the issue is still open.
 #'   - `Test`: The `desc` field of the test from [testthat::test_that()].
-#'   - `File`: File where the test is defined.
+#'   - `File`: Path to the file where the test is defined, relative to the
+#'   package root.
 #'   - `Disposition`: Factor with levels `pass`, `fail`, and `skip` indicating
 #'   the overall outcome of the test.
 #' @export
-#'
 #' @examplesIf interactive()
 #' lTestResults <- testthat::test_local(
 #'   stop_on_failure = FALSE,
@@ -121,9 +120,9 @@ EmptyIssueTestMatrix <- function() {
 #' @inheritParams shared-params
 #' @returns A filtered `qcthat_IssueTestMatrix` object with issues that are
 #'   tagged to any of the specified ignored labels removed. The returned object
-#'   has an attribute `IgnoredLabels` which is a named list of integer vectors
-#'   of the issues that were removed for each ignored label (or an empty named
-#'   list if `chrIgnoredLabels` is empty).
+#'   has an attribute `IgnoredLabels` which is a named list of the issues
+#'   that were removed for each ignored label (as a `qcthat_IssueTestMatrix`),
+#'   or an empty named list if `chrIgnoredLabels` is empty.
 #' @keywords internal
 ApplyITMIgnoredLabels <- function(dfITM, chrIgnoredLabels) {
   lIgnoredIssues <- purrr::map(
@@ -136,6 +135,15 @@ ApplyITMIgnoredLabels <- function(dfITM, chrIgnoredLabels) {
     dfITM,
     !(.data$Issue %in% unlist(lIgnoredIssues))
   )
+  lIgnoredIssues <- purrr::map(
+    lIgnoredIssues,
+    function(intIssueNumbers) {
+      dplyr::filter(
+        dfITM,
+        .data$Issue %in% intIssueNumbers
+      )
+    }
+  )
   return(
     # Attach information about labels that have been filtered out.
     structure(
@@ -143,4 +151,22 @@ ApplyITMIgnoredLabels <- function(dfITM, chrIgnoredLabels) {
       IgnoredIssues = lIgnoredIssues
     )
   )
+}
+
+#' @exportS3Method dplyr::filter
+filter.qcthat_IssueTestMatrix <- function(.data, ...) {
+  .data <- NextMethod()
+  lIgnoredIssues <- attr(.data, "IgnoredIssues")
+  if (length(lIgnoredIssues)) {
+    lFilteredIgnoredIssues <- purrr::map(
+      lIgnoredIssues,
+      function(dfIgnoredIssues) {
+        if (!is.null(dfIgnoredIssues)) {
+          dplyr::filter(dfIgnoredIssues, ...)
+        }
+      }
+    )
+    attr(.data, "IgnoredIssues") <- lFilteredIgnoredIssues
+  }
+  return(.data)
 }

@@ -1,3 +1,30 @@
+# qcthat 1.1.0
+
+New features and tools to help you track user acceptance testing, and to help you use AI agents to get started with `qcthat`.
+
+## New features
+
+Experimental functions for tracking user-acceptance testing (UAT):
+
+* `ExpectUserAccepts()` enables tracking of user acceptance by connecting `testthat` tests to GitHub issues. Once the UAT issue is closed, the test will pass (#65, #111, #113, #115, #120).
+* `TriggerUAT()` triggers the UAT test cycle for a closed issue. This function is used by the improved GitHub Actions framework, installable via `Action_qcthat()` (#65, #111, #114, #115, #116, #157).
+
+Improved onboarding:
+
+* `use_qcthat()` calls `SetupGHLabels()` and `Action_qcthat()`, to set up your repository with GitHub Actions workflows and labels used for QC tracking (#129, #141, #143, #161, #165, #181, #198).
+* Experimental AI agent features: `Skill_TagTestsWithIssues()` installs an AI agent skill to tag tests with issues, using new functions `ExtractTestsFromFiles()`, `MapTestFilesToPotentialIssues()`, and `PrepareTestIssueContext()` (#52, #53, #200, #201, #233).
+
+## Other changes
+
+* Additional improvements to QC reports, such as links to the GitHub Actions run (#150), timestamps (#172), and attaching QC Reports to releases within the release description (#152). Additional changes are tracked in the parent issues (#123, #160).
+* The `pkgdown` site for `qcthat` now includes a slide deck to introduce the package and the associated system (#166, #167, #168, #169).
+
+## Bug fixes
+
+* Ignored issues are filtered out of reports (#118).
+* Reports work properly when the active branch is associated with multiple PRs (#132), when the PRs contain a lot of commits (#133), and after PRs are merged (#149).
+* `GetGHOwner()` and `GetGHRepo()` should now work for forks, even if the local repo name does not match the upstream repo name (#199).
+
 # qcthat 1.0.0
 
 You can now use this package to implement a QC framework for any R package associated with a GitHub repository.

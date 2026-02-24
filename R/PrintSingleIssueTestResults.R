@@ -64,7 +64,7 @@ FormatBody.qcthat_SingleIssueTestResults <- function(
   lglUseEmoji = getOption("qcthat.emoji", TRUE)
 ) {
   if (!length(x) || !any(lengths(x))) {
-    return(character(0))
+    return(character())
   }
   TestResults <- x$TestResults
   if (
@@ -99,11 +99,11 @@ ChooseDispositionIndicator <- function(
   chrDisposition,
   lglUseEmoji = getOption("qcthat.emoji", TRUE)
 ) {
-  dplyr::case_match(
+  RecodeValues(
     chrDisposition,
     "pass" ~ ChooseEmoji("passed", lglUseEmoji = lglUseEmoji),
     "fail" ~ ChooseEmoji("failed", lglUseEmoji = lglUseEmoji),
     "skip" ~ ChooseEmoji("skipped", lglUseEmoji = lglUseEmoji),
-    .default = "[?]"
+    default = "[?]"
   )
 }

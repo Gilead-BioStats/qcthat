@@ -6,8 +6,8 @@
 \usage{
 FetchAllPRIssueNumbers(
   intPRNumbers,
-  strOwner = gh::gh_tree_remote()[["username"]],
-  strRepo = gh::gh_tree_remote()[["repo"]],
+  strOwner = GetGHOwner(),
+  strRepo = GetGHRepo(),
   strGHToken = gh::gh_token()
 )
 }
@@ -18,8 +18,8 @@ FetchAllPRIssueNumbers(
 
 \item{strRepo}{(\verb{length-1 character}) GitHub repository name.}
 
-\item{strGHToken}{(\verb{length-1 character}) GitHub token with permissions to
-read issues.}
+\item{strGHToken}{(\verb{length-1 character}) GitHub token with permissions
+appropriate to the action being performed.}
 }
 \value{
 A sorted, unique integer vector of associated issue numbers.

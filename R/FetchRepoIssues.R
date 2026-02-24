@@ -4,7 +4,6 @@
 #' [tibble::tibble()].
 #'
 #' @inheritParams shared-params
-#'
 #' @returns A `qcthat_Issues` object, which is a [tibble::tibble()] with
 #'   columns:
 #'   - `Issue`: Issue number.
@@ -27,13 +26,12 @@
 #'   - `ClosedAt`: `POSIXct` timestamp of when the issue was closed, or `NA` if
 #'   the issue is still open.
 #' @export
-#'
 #' @examplesIf interactive()
 #'
 #'   FetchRepoIssues()
 FetchRepoIssues <- function(
-  strOwner = gh::gh_tree_remote()[["username"]],
-  strRepo = gh::gh_tree_remote()[["repo"]],
+  strOwner = GetGHOwner(),
+  strRepo = GetGHRepo(),
   strGHToken = gh::gh_token(),
   strState = c("all", "open", "closed")
 ) {
@@ -53,8 +51,8 @@ FetchRepoIssues <- function(
 #' @returns A list of raw issue objects as returned by [gh::gh()].
 #' @keywords internal
 FetchRawRepoIssues <- function(
-  strOwner = gh::gh_tree_remote()[["username"]],
-  strRepo = gh::gh_tree_remote()[["repo"]],
+  strOwner = GetGHOwner(),
+  strRepo = GetGHRepo(),
   strGHToken = gh::gh_token(),
   strState = c("all", "open", "closed")
 ) {
@@ -119,20 +117,20 @@ AsIssuesDF <- function(x) {
 #' @keywords internal
 EmptyIssuesDF <- function() {
   tibble::tibble(
-    Issue = integer(0),
-    Title = character(0),
-    Body = character(0),
-    Labels = list(),
-    State = character(0),
-    StateReason = character(0),
-    Milestone = character(0),
-    Type = character(0),
-    Url = character(0),
-    ParentOwner = character(0),
-    ParentRepo = character(0),
-    ParentNumber = integer(0),
-    CreatedAt = as.POSIXct(character(0)),
-    ClosedAt = as.POSIXct(character(0))
+    Issue = integer(),
+    Title = character(),
+    Body = character(),
+    Labels = vctrs::list_of(.ptype = character()),
+    State = character(),
+    StateReason = character(),
+    Milestone = character(),
+    Type = character(),
+    Url = character(),
+    ParentOwner = character(),
+    ParentRepo = character(),
+    ParentNumber = integer(),
+    CreatedAt = as.POSIXct(character()),
+    ClosedAt = as.POSIXct(character())
   )
 }
 
@@ -175,18 +173,18 @@ EnframeIssues <- function(lIssuesNonPR) {
 #' @keywords internal
 EmptyIssuesDFRaw <- function() {
   tibble::tibble(
-    Issue = integer(0),
-    Title = character(0),
-    Body = character(0),
-    Labels = list(),
-    State = character(0),
-    StateReason = character(0),
-    Milestone = list(),
-    Type = list(),
-    Url = character(0),
-    ParentUrl = character(0),
-    CreatedAt = character(0),
-    ClosedAt = character(0)
+    Issue = integer(),
+    Title = character(),
+    Body = character(),
+    Labels = vctrs::list_of(.ptype = character()),
+    State = character(),
+    StateReason = character(),
+    Milestone = vctrs::list_of(.ptype = character()),
+    Type = vctrs::list_of(.ptype = character()),
+    Url = character(),
+    ParentUrl = character(),
+    CreatedAt = character(),
+    ClosedAt = character()
   )
 }
 
@@ -194,7 +192,6 @@ EmptyIssuesDFRaw <- function() {
 #'
 #' @param lLabels (`list`) List column of label objects as returned by GitHub
 #'   API.
-#'
 #' @returns A list column of character vectors of label names.
 #' @keywords internal
 ExtractLabels <- function(lLabels) {

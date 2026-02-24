@@ -94,7 +94,7 @@ GenerateSampleDFTestResults <- function() {
       c("pass", "fail", "pass", "pass", "pass", "pass", "pass", "pass"),
       levels = c("fail", "skip", "pass")
     ),
-    Issues = list(c(35L, 31L), 35L, 32L, 32L, 32L, integer(0), 34L, 34L)
+    Issues = list(c(35L, 31L), 35L, 32L, 32L, 32L, integer(), 34L, 34L)
   ) |>
     AsTestResultsDF()
 }

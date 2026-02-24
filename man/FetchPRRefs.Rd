@@ -6,22 +6,31 @@
 \usage{
 FetchPRRefs(
   intPRNumber = GuessPRNumber(".", strOwner, strRepo, strGHToken),
-  strOwner = gh::gh_tree_remote()[["username"]],
-  strRepo = gh::gh_tree_remote()[["repo"]],
+  strPkgRoot = ".",
+  strOwner = GetGHOwner(strPkgRoot),
+  strRepo = GetGHRepo(strPkgRoot),
   strGHToken = gh::gh_token(),
+  lPRs = NULL,
   envCall = rlang::caller_env()
 )
 }
 \arguments{
 \item{intPRNumber}{(\verb{length-1 integer}) The number of the pull request to
-fetch information about.}
+fetch information about and/or post results to.}
+
+\item{strPkgRoot}{(\verb{length-1 character}) The path to a directory in the
+package. Will be expanded using \code{\link[gert:git_repo]{gert::git_find()}}.}
 
 \item{strOwner}{(\verb{length-1 character}) GitHub username or organization name.}
 
 \item{strRepo}{(\verb{length-1 character}) GitHub repository name.}
 
-\item{strGHToken}{(\verb{length-1 character}) GitHub token with permissions to
-read issues.}
+\item{strGHToken}{(\verb{length-1 character}) GitHub token with permissions
+appropriate to the action being performed.}
+
+\item{lPRs}{(\code{list} or \code{NULL}) Optional list of raw pull request objects as
+returned by \code{\link[=FetchRawRepoPRs]{FetchRawRepoPRs()}}. If provided, the PR will be looked up
+from this list instead of fetching individually from the API.}
 
 \item{envCall}{(\code{environment}) The environment to use for error reporting.
 Typically set to \code{\link[rlang:stack]{rlang::caller_env()}}.}

@@ -1,60 +1,89 @@
 test_that("GuessPRNumber delegates to its sub-functions (#84)", {
   local_mocked_bindings(
-    FetchRefPRNumber = function(...) integer(0),
-    FetchLatestRepoPRNumber = function(...) 42L
+    GetGHAPRNumber = function(...) 42L,
+    FetchRefPRNumber = function(...) 21L
   )
   expect_equal(GuessPRNumber(), 42L)
   local_mocked_bindings(
-    FetchRefPRNumber = function(...) 21L,
-    FetchLatestRepoPRNumber = function(...) 42L
+    GetGHAPRNumber = function(...) NULL,
+    FetchRefPRNumber = function(...) 21L
   )
   expect_equal(GuessPRNumber(), 21L)
 })
 
-test_that("FetchLatestRepoPRNumber fetches the most recently created PR (#84)", {
-  local_mocked_bindings(
-    CallGHAPI = function(...) {
-      list(
-        list(number = 10L, created_at = "2025-10-10T12:00:00Z"),
-        list(number = 15L, created_at = "2025-10-15T12:00:00Z"),
-        list(number = 12L, created_at = "2025-10-12T12:00:00Z")
-      )
-    }
-  )
-  latest_pr_number <- FetchLatestRepoPRNumber("someowner", "myrepo", "mytoken")
-  expect_equal(latest_pr_number, 15L)
+test_that("GetGHAPRNumber returns NULL for bad arg (#84, #163)", {
+  expect_null(GetGHAPRNumber(NULL))
+  expect_null(GetGHAPRNumber(letters))
+  expect_null(GetGHAPRNumber(list()))
 })
 
-test_that("FetchLatestRepoPRNumber returns NA if no PRs (#84)", {
-  local_mocked_bindings(
-    CallGHAPI = function(...) {
-      list()
-    }
+test_that("GetGHAPRNumber extracts PR number from lGHEventPayload when available (#84, #163)", {
+  expect_equal(
+    GetGHAPRNumber(list(pull_request = list(number = 42))),
+    42
   )
-  latest_pr_number <- FetchLatestRepoPRNumber("someowner", "myrepo", "mytoken")
-  expect_true(is.na(latest_pr_number))
+  expect_equal(
+    GetGHAPRNumber(list(inputs = list(pr = 42))),
+    42
+  )
 })
 
-test_that("FetchRefPRNumber fetches PR number for a branch (#84)", {
+test_that("GetGHAPRNumber returns NULL for bad extracted PR number (#84, #163)", {
+  expect_null(GetGHAPRNumber(list(pull_request = list(number = "a"))))
+})
+
+test_that("FetchRefPRNumber fetches PR number for a branch (#84, #132)", {
   local_mocked_bindings(
     FetchRepoPRs = function(...) {
       tibble::tibble(
-        PR = c(20L, 25L, 30L, 35L),
+        PR = c(20L, 25L, 30L, 35L, 40L, 41L),
         HeadRef = c(
           "other-branch",
           "feature-branch",
           "another-branch",
-          "other-branch"
-        )
+          "other-branch",
+          "double-pr",
+          "double-pr"
+        ),
+        State = c("open", "open", "open", "open", "closed", "open"),
+        CreatedAt = as.Date(1:6, origin = "2026-01-01", tz = "UTC")
       )
     }
   )
   expect_equal(FetchRefPRNumber("feature-branch"), 25L)
-  expect_equal(FetchRefPRNumber("no-branch"), integer(0))
+  expect_equal(FetchRefPRNumber("no-branch"), integer())
   expect_warning(
     {
-      expect_equal(FetchRefPRNumber("other-branch"), integer(0))
+      expect_equal(FetchRefPRNumber("other-branch"), 35L)
     },
-    "Multiple PRs found"
+    class = "qcthat-warning-multiple_prs"
+  )
+  expect_warning(
+    {
+      expect_equal(FetchRefPRNumber("double-pr"), 41L)
+    },
+    class = "qcthat-warning-multiple_prs"
+  )
+})
+
+test_that("ChooseRefPRNumber() deals with corner cases (#132)", {
+  expected_error_class <- "qcthat-error-invalid_pr_dataframe"
+  expect_error(
+    {
+      ChooseRefPRNumber(NULL, "ref")
+    },
+    class = expected_error_class
+  )
+  expect_error(
+    {
+      ChooseRefPRNumber(data.frame(), "ref")
+    },
+    class = expected_error_class
+  )
+  expect_error(
+    {
+      ChooseRefPRNumber(mtcars, "ref")
+    },
+    class = expected_error_class
   )
 })

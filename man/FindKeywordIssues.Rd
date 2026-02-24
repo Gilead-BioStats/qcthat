@@ -7,11 +7,11 @@
 FindKeywordIssues(
   strSourceRef = GetActiveBranch(strPkgRoot),
   strTargetRef = GetDefaultBranch(strPkgRoot),
-  strPkgRoot = ".",
   chrKeywords = c("close", "closes", "closed", "fix", "fixes", "fixed", "resolve",
     "resolves", "resolved"),
-  strOwner = gh::gh_tree_remote(strPkgRoot)[["username"]],
-  strRepo = gh::gh_tree_remote(strPkgRoot)[["repo"]],
+  strPkgRoot = ".",
+  strOwner = GetGHOwner(strPkgRoot),
+  strRepo = GetGHRepo(strPkgRoot),
   intMaxCommits = 100000L
 )
 }
@@ -22,11 +22,11 @@ contains changes. Defaults to the active branch in this repository.}
 \item{strTargetRef}{(\verb{length-1 character}) Name of the git reference that
 will be merged into. Defaults to the default branch of this repository.}
 
-\item{strPkgRoot}{(\verb{length-1 character}) The path to the root directory of
-the package. Will be expanded using \code{\link[pkgload:packages]{pkgload::pkg_path()}}.}
-
 \item{chrKeywords}{(\code{character}) Keywords to search for just before issue
 numbers in commit messages. Defaults to the \href{https://docs.github.com/en/issues/tracking-your-work-with-issues/using-issues/linking-a-pull-request-to-an-issue#linking-a-pull-request-to-an-issue-using-a-keyword}{GitHub issue-linking keywords}}
+
+\item{strPkgRoot}{(\verb{length-1 character}) The path to a directory in the
+package. Will be expanded using \code{\link[gert:git_repo]{gert::git_find()}}.}
 
 \item{strOwner}{(\verb{length-1 character}) GitHub username or organization name.}
 

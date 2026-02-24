@@ -5,8 +5,8 @@
 \title{Fetch repo PRs from GitHub}
 \usage{
 FetchRawRepoPRs(
-  strOwner = gh::gh_tree_remote()[["username"]],
-  strRepo = gh::gh_tree_remote()[["repo"]],
+  strOwner = GetGHOwner(),
+  strRepo = GetGHRepo(),
   strGHToken = gh::gh_token(),
   strState = c("open", "closed", "all")
 )
@@ -16,8 +16,8 @@ FetchRawRepoPRs(
 
 \item{strRepo}{(\verb{length-1 character}) GitHub repository name.}
 
-\item{strGHToken}{(\verb{length-1 character}) GitHub token with permissions to
-read issues.}
+\item{strGHToken}{(\verb{length-1 character}) GitHub token with permissions
+appropriate to the action being performed.}
 
 \item{strState}{(\verb{length-1 character}) State of issues or pull requests to
 fetch. Must be one of \code{"open"}, \code{"closed"}, or \code{"all"}. Defaults to

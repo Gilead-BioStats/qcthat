@@ -7,11 +7,12 @@
 QCMilestones(
   chrMilestones,
   strPkgRoot = ".",
-  strOwner = gh::gh_tree_remote(strPkgRoot)[["username"]],
-  strRepo = gh::gh_tree_remote(strPkgRoot)[["repo"]],
+  strOwner = GetGHOwner(strPkgRoot),
+  strRepo = GetGHRepo(strPkgRoot),
   strGHToken = gh::gh_token(),
   lglWarn = TRUE,
   chrIgnoredLabels = DefaultIgnoreLabels(),
+  dfITM = NULL,
   envCall = rlang::caller_env()
 )
 }
@@ -19,15 +20,15 @@ QCMilestones(
 \item{chrMilestones}{(\code{character}) The name(s) of milestone(s) to filter
 issues by.}
 
-\item{strPkgRoot}{(\verb{length-1 character}) The path to the root directory of
-the package. Will be expanded using \code{\link[pkgload:packages]{pkgload::pkg_path()}}.}
+\item{strPkgRoot}{(\verb{length-1 character}) The path to a directory in the
+package. Will be expanded using \code{\link[gert:git_repo]{gert::git_find()}}.}
 
 \item{strOwner}{(\verb{length-1 character}) GitHub username or organization name.}
 
 \item{strRepo}{(\verb{length-1 character}) GitHub repository name.}
 
-\item{strGHToken}{(\verb{length-1 character}) GitHub token with permissions to
-read issues.}
+\item{strGHToken}{(\verb{length-1 character}) GitHub token with permissions
+appropriate to the action being performed.}
 
 \item{lglWarn}{(\verb{length-1 logical}) Whether to warn when an extra value is
 included in the filter (but the report still returns results). Defaults to
@@ -35,6 +36,9 @@ included in the filter (but the report still returns results). Defaults to
 
 \item{chrIgnoredLabels}{(\code{character}) GitHub labels to ignore, such as
 \code{"qcthat-nocov"}.}
+
+\item{dfITM}{(\code{qcthat_IssueTestMatrix}) A \code{qcthat_IssueTestMatrix} object as
+returned by \code{\link[=AsIssueTestMatrix]{AsIssueTestMatrix()}} (often via \code{\link[=QCPackage]{QCPackage()}}).}
 
 \item{envCall}{(\code{environment}) The environment to use for error reporting.
 Typically set to \code{\link[rlang:stack]{rlang::caller_env()}}.}

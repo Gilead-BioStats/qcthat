@@ -96,7 +96,7 @@ ConstructUATBody <- function(dfRelevantUAT) {
       "The qcthat PR-associated issues report will re-run when all of these issues are accepted."
     )
   )
-  return(paste(chrBody, collapse = "\n\n\n"))
+  return(paste(chrBody, collapse = "\n\n<hr>\n\n"))
 }
 
 #' Construct the body of the UAT report comment

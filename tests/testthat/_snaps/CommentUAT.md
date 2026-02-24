@@ -7,6 +7,7 @@
       
       - [x] [Description of 2](https://github.com/owner/repo/issues/6)
       
+      <hr>
       
       Click through to these issues and follow the instructions to accept them as complete (or to log additional details about changes that are needed before they can be accepted):
       
@@ -26,6 +27,7 @@
       
       You may want to re-run the qcthat action, or possibly edit these tests.
       
+      <hr>
       
       These issues should have UAT issues, but the child issues were not created:
       
@@ -33,11 +35,13 @@
       
       You may want to re-run the qcthat action, or debug why the issue could not be created.
       
+      <hr>
       
       These UAT issues have been accepted:
       
       - [x] [Description of 2](https://github.com/owner/repo/issues/6)
       
+      <hr>
       
       Click through to these issues and follow the instructions to accept them as complete (or to log additional details about changes that are needed before they can be accepted):
       

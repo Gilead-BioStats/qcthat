@@ -1,7 +1,11 @@
 #' Fetch repository issue closers
 #'
 #' Fetch the closers (commits or pull requests) for all closed issues in a
-#' repository.
+#' repository. In addition to formal `ClosedEvent`s (where a commit or merged
+#' PR directly closed the issue), this also includes `ConnectedEvent`s (where a
+#' merged PR was manually linked to the issue) that have not been subsequently
+#' cancelled by a `DisconnectedEvent`. An issue may appear more than once if it
+#' has multiple valid closers.
 #'
 #' @inheritParams shared-params
 #' @returns A [tibble::tibble()] with columns:
@@ -12,6 +16,7 @@
 #'   is the merge commit SHA.
 #'   - `CloserPRNumber`: Number of the pull request that closed the issue, or
 #'   `NA` if the issue was closed by a commit.
+#'   - `CloserDate`: Timestamp of the closing event as a character string.
 #' @export
 #' @examplesIf interactive()
 #'
@@ -31,13 +36,18 @@ FetchRepoIssueClosers <- function(
       Issue = integer(),
       CloserType = character(),
       CloserSHA = character(),
-      CloserPRNumber = integer()
+      CloserPRNumber = integer(),
+      CloserDate = character()
     )),
     purrr::map(lIssueClosers, TibblifyIssueCloser)
   ) |>
     purrr::list_rbind() |>
-    dplyr::arrange(.data$Issue) |>
-    dplyr::distinct()
+    dplyr::arrange(dplyr::desc(.data$CloserDate)) |>
+    dplyr::distinct(
+      .data$Issue, .data$CloserType, .data$CloserSHA, .data$CloserPRNumber,
+      .keep_all = TRUE
+    ) |>
+    dplyr::arrange(.data$Issue)
 }
 
 #' Fetch raw repository issue closers
@@ -92,9 +102,11 @@ FetchRepoIssueClosersRawBatch <- function(
     "  }",
     "  nodes {",
     "    number",
-    "    timelineItems(last: 1, itemTypes: [CLOSED_EVENT]) {",
+    "    timelineItems(last: 10, itemTypes: [CLOSED_EVENT, CONNECTED_EVENT, DISCONNECTED_EVENT]) {",
     "      nodes {",
+    "        __typename",
     "        ... on ClosedEvent {",
+    "          createdAt",
     "          closer {",
     "            __typename",
     "            ... on Commit {",
@@ -107,6 +119,29 @@ FetchRepoIssueClosersRawBatch <- function(
     "              repository {",
     "                nameWithOwner",
     "              }",
+    "            }",
+    "          }",
+    "        }",
+    "        ... on ConnectedEvent {",
+    "          createdAt",
+    "          subject {",
+    "            __typename",
+    "            ... on PullRequest {",
+    "              number",
+    "              merged",
+    "              mergeCommit { oid }",
+    "              repository {",
+    "                nameWithOwner",
+    "              }",
+    "            }",
+    "          }",
+    "        }",
+    "        ... on DisconnectedEvent {",
+    "          subject {",
+    "            __typename",
+    "            ... on PullRequest {",
+    "              number",
+    "              repository { nameWithOwner }",
     "            }",
     "          }",
     "        }",
@@ -131,14 +166,22 @@ FetchRepoIssueClosersRawBatch <- function(
 #' @returns A length-1 `logical`.
 #' @keywords internal
 IsIssueCloserFromRepo <- function(lIssueCloser, strNameWithOwner) {
-  if (length(lIssueCloser$timelineItems$nodes)) {
-    lCloser <- lIssueCloser$timelineItems$nodes[[1]]$closer
-    if (!identical(lCloser$`__typename`, "PullRequest")) {
-      return(TRUE)
+  nodes <- lIssueCloser$timelineItems$nodes
+  if (!length(nodes)) return(FALSE)
+  purrr::some(nodes, function(lNode) {
+    strTypename <- lNode$`__typename`
+    if (identical(strTypename, "ConnectedEvent")) {
+      if (!identical(lNode$subject$`__typename`, "PullRequest")) return(FALSE)
+      return(identical(lNode$subject$repository$nameWithOwner, strNameWithOwner))
     }
-    return(identical(lCloser$repository$nameWithOwner, strNameWithOwner))
-  }
-  return(FALSE)
+    if (identical(strTypename, "DisconnectedEvent")) {
+      return(FALSE)
+    }
+    # ClosedEvent (or legacy untyped node with $closer)
+    lCloser <- lNode$closer
+    if (!identical(lCloser$`__typename`, "PullRequest")) return(TRUE)
+    identical(lCloser$repository$nameWithOwner, strNameWithOwner)
+  })
 }
 
 #' Tibblify a single issue closer
@@ -148,21 +191,75 @@ IsIssueCloserFromRepo <- function(lIssueCloser, strNameWithOwner) {
 #' @inherit FetchRepoIssueClosers return
 #' @keywords internal
 TibblifyIssueCloser <- function(lIssueCloser) {
-  lCloser <- lIssueCloser$timelineItems$nodes[[1]]$closer
-  if (is.null(lCloser)) {
-    # Not really possible if they use the full workflow, but this is here to
-    # avoid weird cases.
-    return(NULL) # nocov
-  }
-  if (
-    identical(lCloser$`__typename`, "PullRequest") && !isTRUE(lCloser$merged)
-  ) {
-    return(NULL)
-  }
-  tibble::tibble(
-    Issue = lIssueCloser$number,
-    CloserType = lCloser$`__typename`,
-    CloserSHA = lCloser$oid %|0|% lCloser$mergeCommit$oid %|0|% NA_character_,
-    CloserPRNumber = lCloser$number %|0|% NA_integer_
-  )
+  intIssue <- lIssueCloser$number
+  nodes <- lIssueCloser$timelineItems$nodes
+
+  # Resolve ConnectedEvent/DisconnectedEvent pairs. Each ConnectedEvent
+  # increments a per-PR counter (and records the most recent node); each
+  # DisconnectedEvent decrements it. Only PRs with a net count > 0 survive.
+  lConnected <- purrr::reduce(nodes, function(acc, lNode) {
+    strTypename <- lNode$`__typename`
+    if (
+      identical(strTypename, "ConnectedEvent") &&
+        identical(lNode$subject$`__typename`, "PullRequest")
+    ) {
+      strPR <- as.character(lNode$subject$number)
+      if (is.null(acc[[strPR]])) acc[[strPR]] <- list(count = 0L, node = NULL)
+      acc[[strPR]]$count <- acc[[strPR]]$count + 1L
+      acc[[strPR]]$node <- lNode
+    } else if (
+      identical(strTypename, "DisconnectedEvent") &&
+        identical(lNode$subject$`__typename`, "PullRequest")
+    ) {
+      strPR <- as.character(lNode$subject$number)
+      if (!is.null(acc[[strPR]])) {
+        acc[[strPR]]$count <- max(0L, acc[[strPR]]$count - 1L)
+      }
+    }
+    acc
+  }, .init = list())
+
+  # Rows from ClosedEvent nodes (detected by presence of $closer)
+  lClosedRows <- purrr::keep(nodes, \(n) !is.null(n$closer)) |>
+    purrr::map(function(lNode) {
+      lCloser <- lNode$closer
+      if (
+        !identical(lCloser$`__typename`, "Commit") &&
+          !identical(lCloser$`__typename`, "PullRequest")
+      ) {
+        return(NULL)
+      }
+      if (
+        identical(lCloser$`__typename`, "PullRequest") &&
+          !isTRUE(lCloser$merged)
+      ) {
+        return(NULL)
+      }
+      tibble::tibble(
+        Issue = intIssue,
+        CloserType = lCloser$`__typename`,
+        CloserSHA = lCloser$oid %|0|% lCloser$mergeCommit$oid %|0|% NA_character_,
+        CloserPRNumber = lCloser$number %|0|% NA_integer_,
+        CloserDate = lNode$createdAt %|0|% NA_character_
+      )
+    })
+
+  # Rows from surviving ConnectedEvent nodes
+  lConnectedRows <- purrr::keep(lConnected, \(x) x$count > 0L) |>
+    purrr::map(function(lEntry) {
+      lNode <- lEntry$node
+      lSubject <- lNode$subject
+      if (!isTRUE(lSubject$merged)) return(NULL) # nocov
+      tibble::tibble(
+        Issue = intIssue,
+        CloserType = lSubject$`__typename`,
+        CloserSHA = lSubject$mergeCommit$oid %|0|% NA_character_,
+        CloserPRNumber = lSubject$number %|0|% NA_integer_,
+        CloserDate = lNode$createdAt %|0|% NA_character_
+      )
+    })
+
+  result <- c(lClosedRows, lConnectedRows) |> purrr::list_rbind()
+  if (!nrow(result)) return(NULL)
+  result
 }

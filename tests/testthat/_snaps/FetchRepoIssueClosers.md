@@ -11,9 +11,11 @@
         }
         nodes {
           number
-          timelineItems(last: 1, itemTypes: [CLOSED_EVENT]) {
+          timelineItems(last: 10, itemTypes: [CLOSED_EVENT, CONNECTED_EVENT, DISCONNECTED_EVENT]) {
             nodes {
+              __typename
               ... on ClosedEvent {
+                createdAt
                 closer {
                   __typename
                   ... on Commit {
@@ -26,6 +28,29 @@
                     repository {
                       nameWithOwner
                     }
+                  }
+                }
+              }
+              ... on ConnectedEvent {
+                createdAt
+                subject {
+                  __typename
+                  ... on PullRequest {
+                    number
+                    merged
+                    mergeCommit { oid }
+                    repository {
+                      nameWithOwner
+                    }
+                  }
+                }
+              }
+              ... on DisconnectedEvent {
+                subject {
+                  __typename
+                  ... on PullRequest {
+                    number
+                    repository { nameWithOwner }
                   }
                 }
               }
@@ -58,9 +83,11 @@
         }
         nodes {
           number
-          timelineItems(last: 1, itemTypes: [CLOSED_EVENT]) {
+          timelineItems(last: 10, itemTypes: [CLOSED_EVENT, CONNECTED_EVENT, DISCONNECTED_EVENT]) {
             nodes {
+              __typename
               ... on ClosedEvent {
+                createdAt
                 closer {
                   __typename
                   ... on Commit {
@@ -73,6 +100,29 @@
                     repository {
                       nameWithOwner
                     }
+                  }
+                }
+              }
+              ... on ConnectedEvent {
+                createdAt
+                subject {
+                  __typename
+                  ... on PullRequest {
+                    number
+                    merged
+                    mergeCommit { oid }
+                    repository {
+                      nameWithOwner
+                    }
+                  }
+                }
+              }
+              ... on DisconnectedEvent {
+                subject {
+                  __typename
+                  ... on PullRequest {
+                    number
+                    repository { nameWithOwner }
                   }
                 }
               }

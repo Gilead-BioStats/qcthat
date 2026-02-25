@@ -8,7 +8,8 @@ test_that("FetchRepoIssueClosers returns an empty df when no issues are found (#
       Issue = integer(),
       CloserType = character(),
       CloserSHA = character(),
-      CloserPRNumber = integer()
+      CloserPRNumber = integer(),
+      CloserDate = character()
     )
   )
 })
@@ -98,7 +99,8 @@ test_that("FetchRepoIssueClosers processes raw data correctly (#133)", {
     Issue = c(1, 2),
     CloserType = c("Commit", "PullRequest"),
     CloserSHA = c("abc123", "merge42sha"),
-    CloserPRNumber = c(NA_integer_, 42L)
+    CloserPRNumber = c(NA_integer_, 42L),
+    CloserDate = c(NA_character_, NA_character_)
   )
   expect_equal(
     FetchRepoIssueClosers("owner", "repo", "token"),
@@ -170,6 +172,280 @@ test_that("IsIssueCloserFromRepo filters cross-repo PRs (#133)", {
     IsIssueCloserFromRepo(
       make_issue("PullRequest", "other-owner/other-repo"),
       "owner/repo"
+    )
+  )
+})
+
+test_that("IsIssueCloserFromRepo filters ConnectedEvent and DisconnectedEvent by repo (#243)", {
+  make_connected_issue <- function(typename, nameWithOwner = NULL) {
+    subject <- list(`__typename` = "PullRequest", number = 1L)
+    if (!is.null(nameWithOwner)) {
+      subject$repository <- list(nameWithOwner = nameWithOwner)
+    }
+    list(timelineItems = list(nodes = list(list(
+      `__typename` = typename,
+      subject = subject
+    ))))
+  }
+
+  make_connected_non_pr_issue <- function() {
+    list(timelineItems = list(nodes = list(list(
+      `__typename` = "ConnectedEvent",
+      subject = list(`__typename` = "Issue", number = 1L)
+    ))))
+  }
+
+  expect_true(
+    IsIssueCloserFromRepo(
+      make_connected_issue("ConnectedEvent", "owner/repo"),
+      "owner/repo"
+    )
+  )
+  expect_false(
+    IsIssueCloserFromRepo(make_connected_non_pr_issue(), "owner/repo")
+  )
+  expect_false(
+    IsIssueCloserFromRepo(
+      make_connected_issue("ConnectedEvent", "other-owner/other-repo"),
+      "owner/repo"
+    )
+  )
+  expect_false(
+    IsIssueCloserFromRepo(
+      make_connected_issue("DisconnectedEvent", "owner/repo"),
+      "owner/repo"
+    )
+  )
+})
+
+test_that("TibblifyIssueCloser returns NULL for non-Commit/PR closers like ProjectV2 (#243)", {
+  lIssueCloser <- list(
+    number = 30L,
+    timelineItems = list(
+      nodes = list(
+        list(
+          createdAt = "2024-02-01T00:00:00Z",
+          closer = list(`__typename` = "ProjectV2")
+        )
+      )
+    )
+  )
+  expect_null(TibblifyIssueCloser(lIssueCloser))
+})
+
+test_that("TibblifyIssueCloser treats ConnectedEvent with merged PR as a closer (#243)", {
+  lIssueCloser <- list(
+    number = 30L,
+    timelineItems = list(
+      nodes = list(
+        list(
+          `__typename` = "ConnectedEvent",
+          createdAt = "2025-05-30T00:00:00Z",
+          subject = list(
+            `__typename` = "PullRequest",
+            number = 34L,
+            merged = TRUE,
+            mergeCommit = list(oid = "pr34sha"),
+            repository = list(nameWithOwner = "owner/repo")
+          )
+        )
+      )
+    )
+  )
+  expect_equal(
+    TibblifyIssueCloser(lIssueCloser),
+    tibble::tibble(
+      Issue = 30L,
+      CloserType = "PullRequest",
+      CloserSHA = "pr34sha",
+      CloserPRNumber = 34L,
+      CloserDate = "2025-05-30T00:00:00Z"
+    )
+  )
+})
+
+test_that("TibblifyIssueCloser annihilates ConnectedEvent with subsequent DisconnectedEvent (#243)", {
+  lIssueCloser <- list(
+    number = 30L,
+    timelineItems = list(
+      nodes = list(
+        list(
+          `__typename` = "ConnectedEvent",
+          createdAt = "2025-05-30T00:00:00Z",
+          subject = list(
+            `__typename` = "PullRequest",
+            number = 34L,
+            merged = TRUE,
+            mergeCommit = list(oid = "pr34sha"),
+            repository = list(nameWithOwner = "owner/repo")
+          )
+        ),
+        list(
+          `__typename` = "DisconnectedEvent",
+          createdAt = "2025-06-01T00:00:00Z",
+          subject = list(`__typename` = "PullRequest", number = 34L)
+        )
+      )
+    )
+  )
+  expect_null(TibblifyIssueCloser(lIssueCloser))
+})
+
+test_that("TibblifyIssueCloser handles partial annihilation with multiple ConnectedEvents (#243)", {
+  lIssueCloser <- list(
+    number = 30L,
+    timelineItems = list(
+      nodes = list(
+        list(
+          `__typename` = "ConnectedEvent",
+          createdAt = "2025-05-28T00:00:00Z",
+          subject = list(
+            `__typename` = "PullRequest",
+            number = 34L,
+            merged = TRUE,
+            mergeCommit = list(oid = "pr34sha"),
+            repository = list(nameWithOwner = "owner/repo")
+          )
+        ),
+        list(
+          `__typename` = "DisconnectedEvent",
+          createdAt = "2025-05-29T00:00:00Z",
+          subject = list(`__typename` = "PullRequest", number = 34L)
+        ),
+        list(
+          `__typename` = "ConnectedEvent",
+          createdAt = "2025-05-30T00:00:00Z",
+          subject = list(
+            `__typename` = "PullRequest",
+            number = 34L,
+            merged = TRUE,
+            mergeCommit = list(oid = "pr34sha"),
+            repository = list(nameWithOwner = "owner/repo")
+          )
+        )
+      )
+    )
+  )
+  # One disconnect cancels one connect; the second connect still survives.
+  # CloserDate reflects the most recent ConnectedEvent for that PR.
+  expect_equal(
+    TibblifyIssueCloser(lIssueCloser),
+    tibble::tibble(
+      Issue = 30L,
+      CloserType = "PullRequest",
+      CloserSHA = "pr34sha",
+      CloserPRNumber = 34L,
+      CloserDate = "2025-05-30T00:00:00Z"
+    )
+  )
+})
+
+test_that(
+  "FetchRepoIssueClosers skips non-tibblifiable closers and returns all valid closers (#243)",
+  {
+    local_mocked_bindings(
+      FetchRepoIssueClosersRawBatch = function(...) {
+        list(
+          data = list(
+            repository = list(
+              issues = list(
+                nodes = list(
+                  list(
+                    number = 30L,
+                    timelineItems = list(
+                      nodes = list(
+                        # Most recent: ProjectV2 ClosedEvent — not a valid closer
+                        list(
+                          createdAt = "2024-02-01T00:00:00Z",
+                          closer = list(`__typename` = "ProjectV2")
+                        ),
+                        # Older: ConnectedEvent with a merged PR
+                        list(
+                          `__typename` = "ConnectedEvent",
+                          createdAt = "2024-01-01T00:00:00Z",
+                          subject = list(
+                            `__typename` = "PullRequest",
+                            number = 34L,
+                            merged = TRUE,
+                            mergeCommit = list(oid = "pr34sha"),
+                            repository = list(nameWithOwner = "owner/repo")
+                          )
+                        )
+                      )
+                    )
+                  )
+                ),
+                pageInfo = list(hasNextPage = FALSE, endCursor = NULL)
+              )
+            )
+          )
+        )
+      }
+    )
+    expect_equal(
+      FetchRepoIssueClosers("owner", "repo", "token"),
+      tibble::tibble(
+        Issue = 30L,
+        CloserType = "PullRequest",
+        CloserSHA = "pr34sha",
+        CloserPRNumber = 34L,
+        CloserDate = "2024-01-01T00:00:00Z"
+      )
+    )
+  }
+)
+
+test_that("FetchRepoIssueClosers returns all valid closers when an issue has multiple (#243)", {
+  local_mocked_bindings(
+    FetchRepoIssueClosersRawBatch = function(...) {
+      list(
+        data = list(
+          repository = list(
+            issues = list(
+              nodes = list(
+                list(
+                  number = 30L,
+                  timelineItems = list(
+                    nodes = list(
+                      # ClosedEvent with a commit (e.g. first close)
+                      list(
+                        createdAt = "2024-01-01T00:00:00Z",
+                        closer = list(
+                          `__typename` = "Commit",
+                          oid = "abc123"
+                        )
+                      ),
+                      # ConnectedEvent with a merged PR (e.g. later reconnect)
+                      list(
+                        `__typename` = "ConnectedEvent",
+                        createdAt = "2024-02-01T00:00:00Z",
+                        subject = list(
+                          `__typename` = "PullRequest",
+                          number = 34L,
+                          merged = TRUE,
+                          mergeCommit = list(oid = "pr34sha"),
+                          repository = list(nameWithOwner = "owner/repo")
+                        )
+                      )
+                    )
+                  )
+                )
+              ),
+              pageInfo = list(hasNextPage = FALSE, endCursor = NULL)
+            )
+          )
+        )
+      )
+    }
+  )
+  expect_equal(
+    FetchRepoIssueClosers("owner", "repo", "token"),
+    tibble::tibble(
+      Issue = c(30L, 30L),
+      CloserType = c("PullRequest", "Commit"),
+      CloserSHA = c("pr34sha", "abc123"),
+      CloserPRNumber = c(34L, NA_integer_),
+      CloserDate = c("2024-02-01T00:00:00Z", "2024-01-01T00:00:00Z")
     )
   )
 })

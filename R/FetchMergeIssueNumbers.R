@@ -203,5 +203,6 @@ FetchMergeIssueClosers <- function(
       (.data$CloserSHA %in% chrCommitSHAs) |
         (.data$CloserPRNumber %in% intPRNumbers)
     ) |>
-    dplyr::pull("Issue")
+    dplyr::pull("Issue") |>
+    unique()
 }

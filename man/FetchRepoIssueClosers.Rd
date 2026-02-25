@@ -28,11 +28,16 @@ closers, this is the commit OID directly. For \code{PullRequest} closers, this
 is the merge commit SHA.
 \item \code{CloserPRNumber}: Number of the pull request that closed the issue, or
 \code{NA} if the issue was closed by a commit.
+\item \code{CloserDate}: Timestamp of the closing event as a character string.
 }
 }
 \description{
 Fetch the closers (commits or pull requests) for all closed issues in a
-repository.
+repository. In addition to formal \code{ClosedEvent}s (where a commit or merged
+PR directly closed the issue), this also includes \code{ConnectedEvent}s (where a
+merged PR was manually linked to the issue) that have not been subsequently
+cancelled by a \code{DisconnectedEvent}. An issue may appear more than once if it
+has multiple valid closers.
 }
 \examples{
 \dontshow{if (interactive()) withAutoprint(\{ # examplesIf}

@@ -3,7 +3,7 @@
 ## Key development commands
 
 General advice: \* When running R from the console, always run it with
-`--quiet --vanilla` \* Always run `air format .` after generating code
+`--quiet --vanilla`
 
 ## Skills
 
@@ -18,6 +18,8 @@ use your core skill capabilities.
 
 ## Testing
 
+- Always run `air format .` before running tests, after every R file
+  edit.
 - Tests for `R/{name}.R` go in `tests/testthat/test-{name}.R`.
 - Use `devtools::test(reporter = "check")` to run all tests
 - Use `devtools::test(filter = "name", reporter = "check")` to run tests

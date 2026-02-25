@@ -40,7 +40,7 @@
 
 <div class="section level2">
 <h2 id="key-development-commands">Key development commands<a class="anchor" aria-label="anchor" href="#key-development-commands"></a></h2>
-<p>General advice: * When running R from the console, always run it with <code>--quiet --vanilla</code> * Always run <code>air format .</code> after generating code</p>
+<p>General advice: * When running R from the console, always run it with <code>--quiet --vanilla</code></p>
 </div>
 <div class="section level2">
 <h2 id="skills">Skills<a class="anchor" aria-label="anchor" href="#skills"></a></h2>
@@ -54,7 +54,8 @@
 </tr></tbody></table></div>
 <div class="section level2">
 <h2 id="testing">Testing<a class="anchor" aria-label="anchor" href="#testing"></a></h2>
-<ul><li>Tests for <code>R/{name}.R</code> go in <code>tests/testthat/test-{name}.R</code>.</li>
+<ul><li>Always run <code>air format .</code> before running tests, after every R file edit.</li>
+<li>Tests for <code>R/{name}.R</code> go in <code>tests/testthat/test-{name}.R</code>.</li>
 <li>Use <code>devtools::test(reporter = "check")</code> to run all tests</li>
 <li>Use <code>devtools::test(filter = "name", reporter = "check")</code> to run tests for <code>R/{name}.R</code>
 </li>

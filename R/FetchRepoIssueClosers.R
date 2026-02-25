@@ -74,7 +74,15 @@ FetchRepoIssueClosersRaw <- function(
       strCursor = strCursor
     )
     lNodes <- lBatch$data$repository$issues$nodes
-    lNodes <- purrr::keep(lNodes, IsIssueCloserFromRepo, strNameWithOwner)
+    lNodes <- purrr::map(lNodes, function(lIssue) {
+      lIssue$timelineItems$nodes <- purrr::keep(
+        lIssue$timelineItems$nodes,
+        IsTimelineNodeFromRepo,
+        strNameWithOwner
+      )
+      lIssue
+    })
+    lNodes <- purrr::keep(lNodes, \(n) length(n$timelineItems$nodes) > 0)
     lIssueClosers <- unique(c(lIssueClosers, lNodes))
     if (!isTRUE(lBatch$data$repository$issues$pageInfo$hasNextPage)) {
       break
@@ -162,38 +170,32 @@ FetchRepoIssueClosersRawBatch <- function(
   )
 }
 
-#' Check whether an issue closer originates from the target repository
+#' Check whether a single timeline node originates from the target repository
 #'
-#' @param lIssueCloser (`list`) A single raw issue node.
+#' @param lNode (`list`) A single timeline item node.
 #' @param strNameWithOwner (`character(1)`) `"owner/repo"` of the target repo.
 #' @returns A length-1 `logical`.
 #' @keywords internal
-IsIssueCloserFromRepo <- function(lIssueCloser, strNameWithOwner) {
-  nodes <- lIssueCloser$timelineItems$nodes
-  if (!length(nodes)) {
-    return(FALSE)
-  }
-  purrr::some(nodes, function(lNode) {
-    strTypename <- lNode$`__typename`
-    if (identical(strTypename, "ConnectedEvent")) {
-      if (!identical(lNode$subject$`__typename`, "PullRequest")) {
-        return(FALSE)
-      }
-      return(identical(
-        lNode$subject$repository$nameWithOwner,
-        strNameWithOwner
-      ))
-    }
-    if (identical(strTypename, "DisconnectedEvent")) {
+IsTimelineNodeFromRepo <- function(lNode, strNameWithOwner) {
+  strTypename <- lNode$`__typename`
+  if (
+    identical(strTypename, "ConnectedEvent") ||
+      identical(strTypename, "DisconnectedEvent")
+  ) {
+    if (!identical(lNode$subject$`__typename`, "PullRequest")) {
       return(FALSE)
     }
-    # ClosedEvent (or legacy untyped node with $closer)
-    lCloser <- lNode$closer
-    if (!identical(lCloser$`__typename`, "PullRequest")) {
-      return(TRUE)
-    }
-    identical(lCloser$repository$nameWithOwner, strNameWithOwner)
-  })
+    return(identical(
+      lNode$subject$repository$nameWithOwner,
+      strNameWithOwner
+    ))
+  }
+  # ClosedEvent (or legacy untyped node with $closer)
+  lCloser <- lNode$closer
+  if (!identical(lCloser$`__typename`, "PullRequest")) {
+    return(TRUE)
+  }
+  identical(lCloser$repository$nameWithOwner, strNameWithOwner)
 }
 
 #' Tibblify a single issue closer
@@ -270,8 +272,8 @@ TibblifyIssueCloser <- function(lIssueCloser) {
       lNode <- lEntry$node
       lSubject <- lNode$subject
       if (!isTRUE(lSubject$merged)) {
-        return(NULL)
-      } # nocov
+        return(NULL) # nocov
+      }
       tibble::tibble(
         Issue = intIssue,
         CloserType = lSubject$`__typename`,

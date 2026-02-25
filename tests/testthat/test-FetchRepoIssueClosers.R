@@ -108,9 +108,70 @@ test_that("FetchRepoIssueClosers processes raw data correctly (#133)", {
   )
 })
 
-test_that("FetchRepoIssueClosersRaw processes pagination correctly (#133)", {
+test_that("FetchRepoIssueClosers filters cross-repo events within a mixed-repo issue (#243)", {
   local_mocked_bindings(
-    IsIssueCloserFromRepo = function(...) TRUE,
+    FetchRepoIssueClosersRawBatch = function(...) {
+      list(
+        data = list(
+          repository = list(
+            issues = list(
+              nodes = list(
+                list(
+                  number = 30L,
+                  timelineItems = list(
+                    nodes = list(
+                      # Same-repo commit — should be kept
+                      list(
+                        closer = list(
+                          `__typename` = "Commit",
+                          oid = "abc123"
+                        )
+                      ),
+                      # Cross-repo PR — should be filtered out
+                      list(
+                        closer = list(
+                          `__typename` = "PullRequest",
+                          number = 99L,
+                          merged = TRUE,
+                          mergeCommit = list(oid = "crosssha"),
+                          repository = list(
+                            nameWithOwner = "other-owner/other-repo"
+                          )
+                        )
+                      )
+                    )
+                  )
+                )
+              ),
+              pageInfo = list(hasNextPage = FALSE, endCursor = NULL)
+            )
+          )
+        )
+      )
+    }
+  )
+  expect_equal(
+    FetchRepoIssueClosers("owner", "repo", "token"),
+    tibble::tibble(
+      Issue = 30L,
+      CloserType = "Commit",
+      CloserSHA = "abc123",
+      CloserPRNumber = NA_integer_,
+      CloserDate = NA_character_
+    )
+  )
+})
+
+test_that("FetchRepoIssueClosersRaw processes pagination correctly (#133)", {
+  make_commit_issue <- function(number) {
+    list(
+      number = number,
+      timelineItems = list(nodes = list(
+        list(closer = list(`__typename` = "Commit", oid = "abc"))
+      ))
+    )
+  }
+  local_mocked_bindings(
     FetchRepoIssueClosersRawBatch = function(
       strOwner,
       strRepo,
@@ -122,7 +183,7 @@ test_that("FetchRepoIssueClosersRaw processes pagination correctly (#133)", {
           data = list(
             repository = list(
               issues = list(
-                nodes = list(list(number = 1), list(number = 2)),
+                nodes = list(make_commit_issue(1), make_commit_issue(2)),
                 pageInfo = list(
                   hasNextPage = TRUE,
                   endCursor = "cursor1"
@@ -136,7 +197,7 @@ test_that("FetchRepoIssueClosersRaw processes pagination correctly (#133)", {
           data = list(
             repository = list(
               issues = list(
-                nodes = list(list(number = 3)),
+                nodes = list(make_commit_issue(3)),
                 pageInfo = list(
                   hasNextPage = FALSE,
                   endCursor = NULL
@@ -155,72 +216,67 @@ test_that("FetchRepoIssueClosersRaw processes pagination correctly (#133)", {
   expect_equal(result[[3]]$number, 3)
 })
 
-test_that("IsIssueCloserFromRepo filters cross-repo PRs (#133)", {
-  make_issue <- function(typename, nameWithOwner = NULL) {
+test_that("IsTimelineNodeFromRepo filters cross-repo ClosedEvent PRs (#133)", {
+  make_node <- function(typename, nameWithOwner = NULL) {
     closer <- list(`__typename` = typename)
     if (!is.null(nameWithOwner)) {
       closer$repository <- list(nameWithOwner = nameWithOwner)
     }
-    list(timelineItems = list(nodes = list(list(closer = closer))))
+    list(closer = closer)
   }
 
-  expect_true(IsIssueCloserFromRepo(make_issue("Commit"), "owner/repo"))
+  expect_true(IsTimelineNodeFromRepo(make_node("Commit"), "owner/repo"))
   expect_true(
-    IsIssueCloserFromRepo(make_issue("PullRequest", "owner/repo"), "owner/repo")
+    IsTimelineNodeFromRepo(make_node("PullRequest", "owner/repo"), "owner/repo")
   )
   expect_false(
-    IsIssueCloserFromRepo(
-      make_issue("PullRequest", "other-owner/other-repo"),
+    IsTimelineNodeFromRepo(
+      make_node("PullRequest", "other-owner/other-repo"),
       "owner/repo"
     )
   )
 })
 
-test_that("IsIssueCloserFromRepo filters ConnectedEvent and DisconnectedEvent by repo (#243)", {
-  make_connected_issue <- function(typename, nameWithOwner = NULL) {
+test_that("IsTimelineNodeFromRepo filters ConnectedEvent and DisconnectedEvent by repo (#243)", {
+  make_connected_node <- function(typename, nameWithOwner = NULL) {
     subject <- list(`__typename` = "PullRequest", number = 1L)
     if (!is.null(nameWithOwner)) {
       subject$repository <- list(nameWithOwner = nameWithOwner)
     }
-    list(
-      timelineItems = list(
-        nodes = list(list(
-          `__typename` = typename,
-          subject = subject
-        ))
-      )
-    )
+    list(`__typename` = typename, subject = subject)
   }
 
-  make_connected_non_pr_issue <- function() {
+  make_connected_non_pr_node <- function() {
     list(
-      timelineItems = list(
-        nodes = list(list(
-          `__typename` = "ConnectedEvent",
-          subject = list(`__typename` = "Issue", number = 1L)
-        ))
-      )
+      `__typename` = "ConnectedEvent",
+      subject = list(`__typename` = "Issue", number = 1L)
     )
   }
 
   expect_true(
-    IsIssueCloserFromRepo(
-      make_connected_issue("ConnectedEvent", "owner/repo"),
+    IsTimelineNodeFromRepo(
+      make_connected_node("ConnectedEvent", "owner/repo"),
       "owner/repo"
     )
   )
   expect_false(
-    IsIssueCloserFromRepo(make_connected_non_pr_issue(), "owner/repo")
+    IsTimelineNodeFromRepo(make_connected_non_pr_node(), "owner/repo")
   )
   expect_false(
-    IsIssueCloserFromRepo(
-      make_connected_issue("ConnectedEvent", "other-owner/other-repo"),
+    IsTimelineNodeFromRepo(
+      make_connected_node("ConnectedEvent", "other-owner/other-repo"),
+      "owner/repo"
+    )
+  )
+  expect_true(
+    IsTimelineNodeFromRepo(
+      make_connected_node("DisconnectedEvent", "owner/repo"),
       "owner/repo"
     )
   )
   expect_false(
-    IsIssueCloserFromRepo(
-      make_connected_issue("DisconnectedEvent", "owner/repo"),
+    IsTimelineNodeFromRepo(
+      make_connected_node("DisconnectedEvent", "other-owner/other-repo"),
       "owner/repo"
     )
   )

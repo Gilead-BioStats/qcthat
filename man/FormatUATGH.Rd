@@ -4,7 +4,11 @@
 \alias{FormatUATGH}
 \title{Format UAT issues in GitHub markdown}
 \usage{
-FormatUATGH()
+FormatUATGH(intIssues = integer())
+}
+\arguments{
+\item{intIssues}{(\code{integer}) A vector of issue numbers from a
+\code{\link[=CompileIssueTestMatrix]{CompileIssueTestMatrix()}} matrix or from GitHub.}
 }
 \value{
 A string containing the UAT issues formatted in GitHub markdown.

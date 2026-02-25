@@ -22,7 +22,7 @@ library(qcthat)
 dfFileTests <- ExtractTestsFromFiles()
 
 # Split into one data frame per test file
-lFileTestsSplit <- dplyr::group_split(dfFileTests, File)
+lFileTestsSplit <- split(dfFileTests, dfFileTests$File)
 
 # Pre-compute issue-commit mappings once (avoids redundant API calls per file)
 dfIssueCommitsLong <- MapLongIssueCommits()

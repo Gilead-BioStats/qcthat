@@ -33,7 +33,7 @@ test_that("ExpectUserAccepts passes when the issue is closed (#65, #111)", {
   })
 })
 
-test_that("ExpectUserAccepts fails when the issue isn't closed and strFailureMode is 'fail' (#65, #111)", {
+test_that("ExpectUserAccepts fails when the issue is open (#65, #111)", {
   local_mocked_bindings(
     OnCran = function() FALSE,
     UsesGit = function() TRUE,
@@ -55,6 +55,54 @@ test_that("ExpectUserAccepts fails when the issue isn't closed and strFailureMod
       )
     },
     "http://example.com/issue/123"
+  )
+})
+
+test_that("ExpectUserAccepts fails when the child issue can't be created (#137)", {
+  local_mocked_bindings(
+    OnCran = function() FALSE,
+    UsesGit = function() TRUE,
+    FetchUAIssue = function(...) {
+      list(State = "failed_to_create")
+    },
+    IsOnline = function() TRUE
+  )
+  local_dfUATIssues()
+  expect_failure(
+    {
+      ExpectUserAccepts(
+        strDescription = "The thing renders",
+        intIssue = 12L,
+        chrChecks = c("check1", "check2"),
+        lglReportFailure = TRUE,
+        strOwner = "owner",
+        strRepo = "repo"
+      )
+    },
+    "Failed to create"
+  )
+})
+
+test_that("ExpectUserAccepts fails when weird things happen (#137)", {
+  local_mocked_bindings(
+    OnCran = function() FALSE,
+    UsesGit = function() TRUE,
+    FetchUAIssue = function(...) NULL,
+    IsOnline = function() TRUE
+  )
+  local_dfUATIssues()
+  expect_failure(
+    {
+      ExpectUserAccepts(
+        strDescription = "The thing renders",
+        intIssue = 12L,
+        chrChecks = c("check1", "check2"),
+        lglReportFailure = TRUE,
+        strOwner = "owner",
+        strRepo = "repo"
+      )
+    },
+    "Unexpected state"
   )
 })
 
@@ -172,4 +220,25 @@ test_that("IsCheckingUAT reports whether the qcthat_UAT envvar is true (#111)", 
   expect_false(IsCheckingUAT())
   withr::local_envvar(list(qcthat_UAT = ""))
   expect_false(IsCheckingUAT())
+})
+
+test_that("ExpectUserAccepts errors when online but GitHub fetch fails (#230)", {
+  local_mocked_bindings(
+    OnCran = function() FALSE,
+    UsesGit = function() TRUE,
+    CallGHAPI = function(...) NULL,
+    IsOnline = function() TRUE
+  )
+  local_dfUATIssues()
+  expect_error(
+    ExpectUserAccepts(
+      strDescription = "The thing renders",
+      intIssue = 12L,
+      strOwner = "owner",
+      strRepo = "repo",
+      strGHToken = "token"
+    ),
+    "Failed to fetch issues from GitHub",
+    class = "qcthat-error-bad_gh_response"
+  )
 })

@@ -1,10 +1,9 @@
 #' Fetch commit SHAs for multiple merged PRs using a single local git log
 #'
-#' Fetches the full repository log once and resolves all PR commit sets in R,
-#' replacing the per-PR calls to [GetGitAheadBehind()] and [GetGitLog()]. Parent
-#' SHAs are retrieved in batch via [BatchLookupCommitParents()] (using `git2r`),
-#' which is much faster than per-commit [gert::git_commit_info()] calls in large
-#' repositories.
+#' Fetches the full repository log once and resolves all PR commit sets in R.
+#' Parent SHAs are retrieved in batch via [BatchLookupCommitParents()] (using
+#' `git2r`), which is much faster than per-commit [gert::git_commit_info()]
+#' calls in large repositories.
 #'
 #' @param chrMergeSHAs (`character`) A vector of merge commit SHAs.
 #' @inheritParams shared-params

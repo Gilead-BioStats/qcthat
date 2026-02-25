@@ -224,3 +224,22 @@ test_that("GlueEscaped defaults to safer tags (#noissue)", {
     "Hello, World!"
   )
 })
+
+test_that("RecodeValues wraps recode_values properly for dplyr 1.2 (#noissue)", {
+  skip_if_not_installed("dplyr", minimum_version = "1.2.0")
+  expect_equal(
+    RecodeValues(c("a", "b", "c"), "a" ~ "x", "b" ~ "y", default = "z"),
+    c("x", "y", "z")
+  )
+})
+
+test_that("CollapseGluedData collapses glued data frames into a single string (#noissue)", {
+  df <- data.frame(
+    A = c("Hello", "Goodbye"),
+    B = c("World", "Everyone")
+  )
+  expect_equal(
+    CollapseGluedData(df, "{A}, {B}!"),
+    "Hello, World!\nGoodbye, Everyone!"
+  )
+})

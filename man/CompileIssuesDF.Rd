@@ -4,7 +4,7 @@
 \alias{CompileIssuesDF}
 \title{Compile issues data frame}
 \usage{
-CompileIssuesDF(lIssuesNonPR)
+CompileIssuesDF(lIssuesNonPR, envCall = rlang::caller_env())
 }
 \value{
 A \code{qcthat_Issues} object, which is a \code{\link[tibble:tibble]{tibble::tibble()}} with

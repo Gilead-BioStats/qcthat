@@ -35,9 +35,9 @@ AsExpectedFlat <- function(x, lShape, chrClass) {
 #' @keywords internal
 AsRowDFList <- function(df, fnAsDF) {
   df |>
-    dplyr::rowwise() |>
-    dplyr::group_split() |>
-    purrr::map(fnAsDF)
+    split(rownames(df)) |>
+    purrr::map(fnAsDF) |>
+    unname()
 }
 
 #' Convenience function to count non-NA unique values
@@ -162,4 +162,25 @@ RecodeValues <- function(x, ..., default = NULL) {
     return(rlang::exec(dplyr::recode_values, x, ..., default = default))
   }
   rlang::exec(dplyr::case_match, x, .default = default, ...) # nocov
+}
+
+#' Convenience function to glue data and collapse with a separator
+#'
+#' @param dfData (`data.frame` or `list`) Data frame or list to use as the data
+#'   source for [glue::glue_data()].
+#' @param ... Expressions to evaluate within the context of `dfData`, passed to
+#'   [glue::glue_data()].
+#' @param strSep (`length-1 character`) Separator to use between glued values.
+#'   Defaults to a newline, which is common for formatting multiple lines of
+#'   text in GitHub comments.
+#' @returns A string containing the glued and collapsed result.
+#' @keywords internal
+CollapseGluedData <- function(dfData, ..., strSep = "\n") {
+  glue::glue_collapse(
+    glue::glue_data(
+      dfData,
+      ...
+    ),
+    sep = strSep
+  )
 }

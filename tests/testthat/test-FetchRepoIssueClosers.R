@@ -182,17 +182,25 @@ test_that("IsIssueCloserFromRepo filters ConnectedEvent and DisconnectedEvent by
     if (!is.null(nameWithOwner)) {
       subject$repository <- list(nameWithOwner = nameWithOwner)
     }
-    list(timelineItems = list(nodes = list(list(
-      `__typename` = typename,
-      subject = subject
-    ))))
+    list(
+      timelineItems = list(
+        nodes = list(list(
+          `__typename` = typename,
+          subject = subject
+        ))
+      )
+    )
   }
 
   make_connected_non_pr_issue <- function() {
-    list(timelineItems = list(nodes = list(list(
-      `__typename` = "ConnectedEvent",
-      subject = list(`__typename` = "Issue", number = 1L)
-    ))))
+    list(
+      timelineItems = list(
+        nodes = list(list(
+          `__typename` = "ConnectedEvent",
+          subject = list(`__typename` = "Issue", number = 1L)
+        ))
+      )
+    )
   }
 
   expect_true(
@@ -340,60 +348,57 @@ test_that("TibblifyIssueCloser handles partial annihilation with multiple Connec
   )
 })
 
-test_that(
-  "FetchRepoIssueClosers skips non-tibblifiable closers and returns all valid closers (#243)",
-  {
-    local_mocked_bindings(
-      FetchRepoIssueClosersRawBatch = function(...) {
-        list(
-          data = list(
-            repository = list(
-              issues = list(
-                nodes = list(
-                  list(
-                    number = 30L,
-                    timelineItems = list(
-                      nodes = list(
-                        # Most recent: ProjectV2 ClosedEvent — not a valid closer
-                        list(
-                          createdAt = "2024-02-01T00:00:00Z",
-                          closer = list(`__typename` = "ProjectV2")
-                        ),
-                        # Older: ConnectedEvent with a merged PR
-                        list(
-                          `__typename` = "ConnectedEvent",
-                          createdAt = "2024-01-01T00:00:00Z",
-                          subject = list(
-                            `__typename` = "PullRequest",
-                            number = 34L,
-                            merged = TRUE,
-                            mergeCommit = list(oid = "pr34sha"),
-                            repository = list(nameWithOwner = "owner/repo")
-                          )
+test_that("FetchRepoIssueClosers skips non-tibblifiable closers and returns all valid closers (#243)", {
+  local_mocked_bindings(
+    FetchRepoIssueClosersRawBatch = function(...) {
+      list(
+        data = list(
+          repository = list(
+            issues = list(
+              nodes = list(
+                list(
+                  number = 30L,
+                  timelineItems = list(
+                    nodes = list(
+                      # Most recent: ProjectV2 ClosedEvent — not a valid closer
+                      list(
+                        createdAt = "2024-02-01T00:00:00Z",
+                        closer = list(`__typename` = "ProjectV2")
+                      ),
+                      # Older: ConnectedEvent with a merged PR
+                      list(
+                        `__typename` = "ConnectedEvent",
+                        createdAt = "2024-01-01T00:00:00Z",
+                        subject = list(
+                          `__typename` = "PullRequest",
+                          number = 34L,
+                          merged = TRUE,
+                          mergeCommit = list(oid = "pr34sha"),
+                          repository = list(nameWithOwner = "owner/repo")
                         )
                       )
                     )
                   )
-                ),
-                pageInfo = list(hasNextPage = FALSE, endCursor = NULL)
-              )
+                )
+              ),
+              pageInfo = list(hasNextPage = FALSE, endCursor = NULL)
             )
           )
         )
-      }
-    )
-    expect_equal(
-      FetchRepoIssueClosers("owner", "repo", "token"),
-      tibble::tibble(
-        Issue = 30L,
-        CloserType = "PullRequest",
-        CloserSHA = "pr34sha",
-        CloserPRNumber = 34L,
-        CloserDate = "2024-01-01T00:00:00Z"
       )
+    }
+  )
+  expect_equal(
+    FetchRepoIssueClosers("owner", "repo", "token"),
+    tibble::tibble(
+      Issue = 30L,
+      CloserType = "PullRequest",
+      CloserSHA = "pr34sha",
+      CloserPRNumber = 34L,
+      CloserDate = "2024-01-01T00:00:00Z"
     )
-  }
-)
+  )
+})
 
 test_that("FetchRepoIssueClosers returns all valid closers when an issue has multiple (#243)", {
   local_mocked_bindings(

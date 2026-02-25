@@ -6,12 +6,11 @@ Fetch the source and target refs for a PR
 
 ``` r
 FetchPRRefs(
-  intPRNumber = GuessPRNumber(".", strOwner, strRepo, strGHToken),
+  intPRNumber = GuessPRNumber(strPkgRoot, strOwner, strRepo, strGHToken),
   strPkgRoot = ".",
   strOwner = GetGHOwner(strPkgRoot),
   strRepo = GetGHRepo(strPkgRoot),
   strGHToken = gh::gh_token(),
-  lPRs = NULL,
   envCall = rlang::caller_env()
 )
 ```
@@ -41,14 +40,6 @@ FetchPRRefs(
 
   (`length-1 character`) GitHub token with permissions appropriate to
   the action being performed.
-
-- lPRs:
-
-  (`list` or `NULL`) Optional list of raw pull request objects as
-  returned by
-  [`FetchRawRepoPRs()`](https://gilead-biostats.github.io/qcthat/dev/reference/FetchRawRepoPRs.md).
-  If provided, the PR will be looked up from this list instead of
-  fetching individually from the API.
 
 - envCall:
 

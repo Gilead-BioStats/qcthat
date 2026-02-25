@@ -11,12 +11,13 @@ ran.
 
 ``` r
 CommentUAT(
-  intPRNumber = GuessPRNumber(strOwner = strOwner, strRepo = strRepo, strGHToken =
-    strGHToken),
+  intPRNumber = GuessPRNumber(strPkgRoot = strPkgRoot, strOwner = strOwner, strRepo =
+    strRepo, strGHToken = strGHToken),
   lglUpdate = TRUE,
   strRunID = Sys.getenv("GITHUB_RUN_ID"),
-  strOwner = GetGHOwner(),
-  strRepo = GetGHRepo(),
+  strPkgRoot = ".",
+  strOwner = GetGHOwner(strPkgRoot),
+  strRepo = GetGHRepo(strPkgRoot),
   strGHToken = gh::gh_token()
 )
 ```
@@ -37,6 +38,12 @@ CommentUAT(
 
   (`length-1 character`) ID (typically numeric but can be very long) of
   a GitHub Actions workflow run.
+
+- strPkgRoot:
+
+  (`length-1 character`) The path to a directory in the package. Will be
+  expanded using
+  [`gert::git_find()`](https://docs.ropensci.org/gert/reference/git_repo.html).
 
 - strOwner:
 

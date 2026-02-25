@@ -1,11 +1,11 @@
-# Fetch all issue numbers associated with a merge
+# Fetch issue closers associated with a merge
 
-Fetch all issue numbers associated with a merge
+Fetch issue closers associated with a merge
 
 ## Usage
 
 ``` r
-FetchAllMergeIssueNumbers(
+FetchMergeIssueClosers(
   intPRNumbers,
   chrCommitSHAs,
   strOwner = GetGHOwner(),

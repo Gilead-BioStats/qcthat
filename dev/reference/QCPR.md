@@ -1,8 +1,8 @@
 # Generate a QC report of issues associated with a GitHub pull request
 
-Find issues associated with a GitHub pull request, whether they were
-added via keywords, using the pull request sidebar, or using the issue
-sidebar. See [GitHub Docs: Link a pull request to an
+Create a QC report of issues associated with a GitHub pull request,
+whether they were added via keywords, using the pull request sidebar, or
+using the issue sidebar. See [GitHub Docs: Link a pull request to an
 issue](https://docs.github.com/en/issues/tracking-your-work-with-issues/using-issues/linking-a-pull-request-to-an-issue)
 for details on how issues can become associated with a pull request.
 
@@ -98,9 +98,9 @@ commits that closed them.
 ``` r
 if (FALSE) { # interactive()
 
-  # You must have at least one pull request open in the GitHub repository
-  # associated with the current git repository for this to return any
-  # results.
+  #You must have at least one pull request open in the GitHub repository
+  #associated with the current git repository for this to return any
+  #results.
 
   QCPR()
 }

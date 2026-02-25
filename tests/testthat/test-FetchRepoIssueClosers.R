@@ -166,9 +166,11 @@ test_that("FetchRepoIssueClosersRaw processes pagination correctly (#133)", {
   make_commit_issue <- function(number) {
     list(
       number = number,
-      timelineItems = list(nodes = list(
-        list(closer = list(`__typename` = "Commit", oid = "abc"))
-      ))
+      timelineItems = list(
+        nodes = list(
+          list(closer = list(`__typename` = "Commit", oid = "abc"))
+        )
+      )
     )
   }
   local_mocked_bindings(

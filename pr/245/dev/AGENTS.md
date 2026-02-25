@@ -1,10 +1,5 @@
 # AGENTS.md
 
-## Key development commands
-
-General advice: \* When running R from the console, always run it with
-`--quiet --vanilla`
-
 ## Skills
 
 Skills in @.github/skills should be loaded when the user triggers them.
@@ -18,6 +13,8 @@ use your core skill capabilities.
 
 ## Testing
 
+- Before starting any coding task, run the relevant tests and check
+  coverage so you know the baseline state.
 - Always run `air format .` before running tests, after every R file
   edit.
 - Tests for `R/{name}.R` go in `tests/testthat/test-{name}.R`.

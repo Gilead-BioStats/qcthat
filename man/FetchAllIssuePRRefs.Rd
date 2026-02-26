@@ -17,7 +17,8 @@ FetchAllIssuePRRefs(
 associated.}
 
 \item{strPRState}{(\code{character}) States to include in the fetch. Valid values
-are \code{"open"}, \code{"closed"}, and \code{"merged"}. By default all states are allowed.}
+are \code{"open"}, \code{"closed"}, and \code{"merged"}. By default all states are
+allowed.}
 
 \item{strOwner}{(\verb{length-1 character}) GitHub username or organization name.}
 

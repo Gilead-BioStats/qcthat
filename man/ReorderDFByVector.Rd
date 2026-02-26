@@ -9,12 +9,14 @@ ReorderDFByVector(vecOrder, strName, dfUnique)
 \arguments{
 \item{vecOrder}{A vector defining the desired order and repetitions.}
 
-\item{strName}{(\verb{length-1 character}) Name of the column in \code{dfUnique} to join on.}
+\item{strName}{(\verb{length-1 character}) Name of the column in \code{dfUnique} to
+join on.}
 
 \item{dfUnique}{(\code{data.frame}) Data frame with unique rows to be reordered.}
 }
 \value{
-A data frame with rows reordered to match \code{vecOrder}, including duplicates.
+A data frame with rows reordered to match \code{vecOrder}, including
+duplicates.
 }
 \description{
 Reorder data frame rows by vector

@@ -85,7 +85,7 @@ test_that("MapRepoIssuesToCommits handles empty input (#200)", {
   expect_identical(dfResult, dfExpected)
 })
 
-test_that("MapRepoIssuesToCommits passes GitHub parameters to FetchAllPRCommitSHAs (#noissue)", {
+test_that("MapRepoIssuesToCommits passes GitHub parameters to FetchAllPRCommitSHAs (#251)", {
   local_mocked_bindings(
     FetchRepoIssueClosers = function(strOwner, strRepo, strGHToken) {
       expect_equal(strOwner, "testowner")

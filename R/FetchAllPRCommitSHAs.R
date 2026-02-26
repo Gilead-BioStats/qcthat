@@ -58,6 +58,9 @@ FetchPRCommitSHAsBatch <- function(
   lRepo <- lResult$data$repository
   purrr::map(intPRNumbers, function(intPR) {
     lPRData <- lRepo[[paste0("pr", intPR)]]
+    if (!length(lPRData)) {
+      return(character())
+    }
     ExtractPRCommitSHAs(
       lPRData,
       intPR,

@@ -61,12 +61,12 @@ test_that("ExtractPRCommitSHAs paginates when hasNextPage is TRUE (#noissue)", {
   expect_equal(result, c("page1-sha-1", "page1-sha-2", "page2-sha-1"))
 })
 
-test_that("FetchAllPRCommitSHAs returns empty list for empty input", {
+test_that("FetchAllPRCommitSHAs returns empty list for empty input (#251)", {
   result <- FetchAllPRCommitSHAs(integer())
   expect_equal(result, list())
 })
 
-test_that("FetchAllPRCommitSHAs batches PRs and returns one element per PR (#noissue)", {
+test_that("FetchAllPRCommitSHAs batches PRs and returns one element per PR (#251)", {
   intCallCount <- 0L
   local_mocked_bindings(
     FetchPRCommitSHAsBatch = function(intPRNumbers, ...) {
@@ -80,6 +80,29 @@ test_that("FetchAllPRCommitSHAs batches PRs and returns one element per PR (#noi
   expect_length(result, 30L)
   expect_equal(result[[1]], "commit-for-pr-1")
   expect_equal(result[[30]], "commit-for-pr-30")
+})
+
+test_that("FetchPRCommitSHAsBatch returns empty character for missing PR in response (#noissue)", {
+  local_mocked_bindings(
+    FetchGQL = function(strQuery, ...) {
+      # PR 10 is present; PR 20 is absent from the response
+      list(
+        data = list(
+          repository = list(
+            pr10 = list(
+              commits = list(
+                nodes = list(list(commit = list(oid = "sha-10a"))),
+                pageInfo = list(hasNextPage = FALSE)
+              )
+            )
+          )
+        )
+      )
+    }
+  )
+  result <- FetchPRCommitSHAsBatch(c(10L, 20L))
+  expect_equal(result[[1]], "sha-10a")
+  expect_equal(result[[2]], character())
 })
 
 test_that("FetchPRCommitSHAsBatch builds batched query and extracts commits per PR (#noissue)", {

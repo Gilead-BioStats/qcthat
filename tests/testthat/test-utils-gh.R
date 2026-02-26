@@ -27,6 +27,36 @@ test_that("GetGHRemote handles dots in repo names (#248)", {
     GetGHRemote("path"),
     list(username = "Org", repo = "gsm.reporting")
   )
+
+  # URLs without the `.git` suffix should be handled identically
+  local_mocked_bindings(
+    GetGHRemoteList = function(strPkgRoot) {
+      tibble::tibble(
+        name = c("origin", "upstream"),
+        url = c(
+          "https://github.com/Org/gsm.reporting",
+          "https://github.com/OrgUpstream/gsm.reporting"
+        )
+      )
+    },
+    UsesGit = function(strPkgRoot) TRUE
+  )
+  expect_identical(
+    GetGHRemote("path"),
+    list(username = "OrgUpstream", repo = "gsm.reporting")
+  )
+  local_mocked_bindings(
+    GetGHRemoteList = function(strPkgRoot) {
+      tibble::tibble(
+        name = "origin",
+        url = "https://github.com/Org/gsm.reporting"
+      )
+    }
+  )
+  expect_identical(
+    GetGHRemote("path"),
+    list(username = "Org", repo = "gsm.reporting")
+  )
 })
 
 test_that("GetGHRemote uses upstream when available (#199)", {

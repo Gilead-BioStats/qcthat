@@ -57,7 +57,7 @@ ExpectUserAccepts <- function(
         }
       },
       {
-        strDisposition = "error"
+        strDisposition <- "error"
         if (isTRUE(lglReportFailure)) {
           testthat::fail(c(
             "Unexpected state for user-acceptance issue: {.str {lUAIssue[['State']]}}."

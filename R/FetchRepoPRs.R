@@ -4,16 +4,15 @@
 #' [tibble::tibble()].
 #'
 #' @inheritParams shared-params
-#' @returns A `qcthat_PRs` object, which is a [tibble::tibble()] with
-#'   columns:
+#' @returns A `qcthat_PRs` object, which is a [tibble::tibble()] with columns:
 #'   - `PR`: Pull request number.
 #'   - `Title`: Pull request title.
 #'   - `State`: Pull request state (`"open"` or `"closed"`).
 #'   - `HeadRef`: The head reference (branch) of the pull request (the changes).
 #'   - `BaseRef`: The base reference (branch) of the pull request (the target).
 #'   - `Body`: The full text of the pull request.
-#'   - `MergeCommitSHA`: The SHA of the merge commit, if the pull request has been
-#'   merged.
+#'   - `MergeCommitSHA`: The SHA of the merge commit, if the pull request has
+#'   been merged.
 #'   - `IsDraft`: Logical indicating whether the pull request is a draft.
 #'   - `Url`: URL of the pull request on GitHub.
 #'   - `CreatedAt`: `POSIXct` timestamp of when the pull request was created.

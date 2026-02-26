@@ -32,7 +32,8 @@ FetchUAIssue <- function(
 
   if (!NROW(dfMatchingIssue)) {
     # FetchIssueUAChildren fails if GitHub is down or the parent doesn't exist,
-    # so this should only happen when the parent exists but doesn't have children.
+    # so this should only happen when the parent exists but doesn't have
+    # children.
     dfMatchingIssue <- CreateUAIssue(
       strDescription = strDescription,
       intIssue = intIssue,

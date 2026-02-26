@@ -97,9 +97,11 @@ FetchIssueDetailsRaw <- function(
 #' Reorder data frame rows by vector
 #'
 #' @param vecOrder A vector defining the desired order and repetitions.
-#' @param strName (`length-1 character`) Name of the column in `dfUnique` to join on.
+#' @param strName (`length-1 character`) Name of the column in `dfUnique` to
+#'   join on.
 #' @param dfUnique (`data.frame`) Data frame with unique rows to be reordered.
-#' @returns A data frame with rows reordered to match `vecOrder`, including duplicates.
+#' @returns A data frame with rows reordered to match `vecOrder`, including
+#'   duplicates.
 #' @keywords internal
 ReorderDFByVector <- function(vecOrder, strName, dfUnique) {
   dplyr::left_join(

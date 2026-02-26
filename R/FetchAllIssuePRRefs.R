@@ -1,7 +1,8 @@
 #' Fetch all PRs that reference a specific issue
 #'
 #' @param strPRState (`character`) States to include in the fetch. Valid values
-#'   are `"open"`, `"closed"`, and `"merged"`. By default all states are allowed.
+#'   are `"open"`, `"closed"`, and `"merged"`. By default all states are
+#'   allowed.
 #' @inheritParams shared-params
 #' @returns A tibble containing PR details (PR number, State, HeadRef, SHA).
 #' @keywords internal

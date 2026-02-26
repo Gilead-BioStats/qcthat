@@ -55,7 +55,7 @@ GetGHRemote <- function(strPkgRoot = ".") {
         ),
         repo = stringr::str_extract(
           strURL,
-          "(https://github.com/)([^/]+)/([^.]+)",
+          "(https://github.com/)([^/]+)/([^/]+?)(\\.git)?$",
           group = 3
         )
       )

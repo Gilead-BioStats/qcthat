@@ -62,11 +62,19 @@ MapIssueClosersToCommits <- function(
 
   lglIsPR <- dfClosers$CloserType == "PullRequest"
   if (any(lglIsPR)) {
-    lPRCommits <- FetchAllMergeCommitSHAsLocal(
-      dfClosers$CloserSHA[lglIsPR],
-      strPkgRoot
+    lPRCommits <- FetchAllPRCommitSHAs(
+      dfClosers$CloserPRNumber[lglIsPR],
+      strOwner = strOwner,
+      strRepo = strRepo,
+      strGHToken = strGHToken
     )
-    dfClosers$Commits[lglIsPR] <- lPRCommits
+    # Include the merge SHA (matches git blame for squash-merged PRs) alongside
+    # individual branch commits (matches git blame for regular merges).
+    dfClosers$Commits[lglIsPR] <- purrr::map2(
+      dfClosers$CloserSHA[lglIsPR],
+      lPRCommits,
+      \(x, y) unique(c(x, y))
+    )
   }
 
   dfIssueClosers |>

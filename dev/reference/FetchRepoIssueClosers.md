@@ -1,7 +1,11 @@
 # Fetch repository issue closers
 
 Fetch the closers (commits or pull requests) for all closed issues in a
-repository.
+repository. In addition to formal `ClosedEvent`s (where a commit or
+merged PR directly closed the issue), this also includes
+`ConnectedEvent`s (where a merged PR was manually linked to the issue)
+that have not been subsequently cancelled by a `DisconnectedEvent`. An
+issue may appear more than once if it has multiple valid closers.
 
 ## Usage
 
@@ -44,6 +48,8 @@ with columns:
 
 - `CloserPRNumber`: Number of the pull request that closed the issue, or
   `NA` if the issue was closed by a commit.
+
+- `CloserDate`: Timestamp of the closing event as a character string.
 
 ## Examples
 

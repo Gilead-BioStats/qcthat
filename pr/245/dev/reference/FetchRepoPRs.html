@@ -79,15 +79,14 @@ fetch. Must be one of <code>"open"</code>, <code>"closed"</code>, or <code>"all"
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
-    <p>A <code>qcthat_PRs</code> object, which is a <code><a href="https://tibble.tidyverse.org/reference/tibble.html" class="external-link">tibble::tibble()</a></code> with
-columns:</p><ul><li><p><code>PR</code>: Pull request number.</p></li>
+    <p>A <code>qcthat_PRs</code> object, which is a <code><a href="https://tibble.tidyverse.org/reference/tibble.html" class="external-link">tibble::tibble()</a></code> with columns:</p><ul><li><p><code>PR</code>: Pull request number.</p></li>
 <li><p><code>Title</code>: Pull request title.</p></li>
 <li><p><code>State</code>: Pull request state (<code>"open"</code> or <code>"closed"</code>).</p></li>
 <li><p><code>HeadRef</code>: The head reference (branch) of the pull request (the changes).</p></li>
 <li><p><code>BaseRef</code>: The base reference (branch) of the pull request (the target).</p></li>
 <li><p><code>Body</code>: The full text of the pull request.</p></li>
-<li><p><code>MergeCommitSHA</code>: The SHA of the merge commit, if the pull request has been
-merged.</p></li>
+<li><p><code>MergeCommitSHA</code>: The SHA of the merge commit, if the pull request has
+been merged.</p></li>
 <li><p><code>IsDraft</code>: Logical indicating whether the pull request is a draft.</p></li>
 <li><p><code>Url</code>: URL of the pull request on GitHub.</p></li>
 <li><p><code>CreatedAt</code>: <code>POSIXct</code> timestamp of when the pull request was created.</p></li>

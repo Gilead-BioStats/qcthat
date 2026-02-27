@@ -10,7 +10,8 @@ FindTests(chrTestLines)
 \item{chrTestLines}{(\code{character}) Vector of lines from a test file.}
 }
 \value{
-A list of lists, each containing \code{desc}, \code{start}, and \code{end}.
+A list of lists, each containing \code{Test}, \code{LineStart}, and
+\code{LineEnd}.
 }
 \description{
 Find test_that calls in a file

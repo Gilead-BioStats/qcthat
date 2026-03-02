@@ -41,6 +41,13 @@ jobs:
           http-user-agent: ${{ matrix.config.http-user-agent }}
           use-public-rspm: true
 
+      - name: Remove astgrepr from DESCRIPTION (not available for R < 4.2)
+        if: matrix.config.r == 'oldrel-4'
+        shell: Rscript {0}
+        run: |
+          desc <- readLines("DESCRIPTION")
+          writeLines(desc[!grepl("astgrepr", desc)], "DESCRIPTION")
+
       - uses: r-lib/actions/setup-r-dependencies@v2
         with:
           extra-packages: any::rcmdcheck

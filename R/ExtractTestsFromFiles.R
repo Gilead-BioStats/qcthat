@@ -82,7 +82,10 @@ ExtractTestsFromFile <- function(strFilePath, envCall = rlang::caller_env()) {
 #' @returns A list of lists, each containing `desc`, `start`, and `end`.
 #' @keywords internal
 FindTests <- function(chrTestLines) {
-  intTestStarts <- stringr::str_which(chrTestLines, "^\\s*test_that\\(")
+  intTestStarts <- stringr::str_which(
+    chrTestLines,
+    "^\\s*(testthat::)?test_that\\("
+  )
   if (!length(intTestStarts)) {
     return(vctrs::list_of(.ptype = integer()))
   }
@@ -110,7 +113,9 @@ ParseTest <- function(chrTestLines, intTestStart) {
     return(NULL)
   }
   exprCall <- exprParsed[[1]]
-  if (!rlang::is_call(exprCall, "test_that")) {
+  is_test_that <- rlang::is_call(exprCall, "test_that") ||
+    identical(deparse(exprCall[[1]]), "testthat::test_that")
+  if (!is_test_that) {
     return(NULL)
   }
   strDesc <- tryCatch(

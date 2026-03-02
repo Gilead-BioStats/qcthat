@@ -43,6 +43,20 @@ test_that("ExtractTestsFromFiles returns an empty tibble with the expected shape
   expect_identical(dfResult, dfExpected)
 })
 
+test_that("FindTests finds tests using testthat:: namespace prefix (#247)", {
+  chrLines <- c(
+    "# comment",
+    'testthat::test_that("Test with namespace prefix (#247)", {',
+    "  expect_true(TRUE)",
+    "})"
+  )
+  lResult <- FindTests(chrLines)
+  expect_length(lResult, 1L)
+  expect_equal(lResult[[1]]$Test, "Test with namespace prefix (#247)")
+  expect_equal(lResult[[1]]$LineStart, 2L)
+  expect_equal(lResult[[1]]$LineEnd, 4L)
+})
+
 test_that("ParseTest handles corner cases (#noissue)", {
   expect_null(
     ParseTest(

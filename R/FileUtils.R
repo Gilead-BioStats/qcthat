@@ -49,7 +49,6 @@ InstallFile <- function(
   strPkgRoot = ".",
   envCall = rlang::caller_env()
 ) {
-  rlang::check_installed("fs", "to manipulate package files.")
   strPkgRoot <- GetPkgRoot(strPkgRoot, envCall = envCall)
   strTargetPath <- rlang::inject(
     fs::path(strPkgRoot, !!!chrTargetPath)

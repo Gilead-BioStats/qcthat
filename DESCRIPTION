@@ -23,6 +23,7 @@ Depends:
 Imports: 
     cli,
     dplyr,
+    fs,
     gert,
     gh,
     glue,
@@ -37,8 +38,8 @@ Imports:
     tidyr,
     vctrs
 Suggests: 
+    astgrepr,
     emoji,
-    fs,
     git2r,
     httr2,
     lifecycle,

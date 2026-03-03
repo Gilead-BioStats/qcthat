@@ -3,13 +3,12 @@
 ## Skills
 
 Skills in @.github/skills should be loaded when the user triggers them.
-If you understand how to use them without these special instructions,
-use your core skill capabilities.
 
-| Trigger               | Path                                           |
+| Triggers              | Path                                           |
 |-----------------------|------------------------------------------------|
 | tag tests with issues | @.github/skills/tag-tests-with-issues/SKILL.md |
 | document functions    | @.github/skills/document/SKILL.md              |
+| search / rewrite code | @.github/skills/search-code/SKILL.md           |
 
 ## Testing
 

@@ -1,5 +1,5 @@
 # Workflow derived from
-# https://github.com/Gilead-BioStats/qcthat/tree/v1.1.0/inst/workflows/qcthat.yaml.
+# https://github.com/Gilead-BioStats/qcthat/tree/v1.1.1/inst/workflows/qcthat.yaml.
 on:
   pull_request:
     types: [opened, edited, reopened, synchronize, milestoned]
@@ -77,7 +77,6 @@ jobs:
       - name: Generate Issue-Test Matrix
         if: >-
           (env.qcthat_PR_REPORT == 'true' || env.qcthat_RELEASE_REPORT == 'true' || env.qcthat_FAIL_FOR_TEST_FAILURES == 'true') && (
-            github.event_name == 'push' ||
             github.event_name == 'pull_request' ||
             github.event_name == 'release' ||
             (github.event_name == 'workflow_dispatch' && inputs.issueNumber == '')
@@ -144,7 +143,6 @@ jobs:
       - name: Flag failure for completed
         if: >-
           env.qcthat_FAIL_FOR_TEST_FAILURES == 'true' && (
-            github.event_name == 'push' ||
             github.event_name == 'pull_request' ||
             github.event_name == 'release' ||
             (github.event_name == 'workflow_dispatch' && inputs.issueNumber == '')

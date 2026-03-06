@@ -9,7 +9,7 @@ Add issue references (e.g., `(#123)`) to test descriptions to connect tests to f
 
 ## Step 1: Load context
 
-Pre-compute issue-commit mappings once with `MapLongIssueCommits()` and pass to `MapTestFilesToPotentialIssues()`. Do not skip this—its output is required for `PrepareTestIssueContext()`, your sole source of context for remaining steps.
+Pre-compute issue-commit mappings once with `MapLongIssueCommits()` and pass to `MapTestFilesToPotentialIssues()`. Do not skip this—its output is used in `PrepareTestIssueContext()`, your sole source of context for remaining steps.
 
 ```r
 library(qcthat)
@@ -68,15 +68,29 @@ test$PotentialIssueDetails[[1]]
 
 Format: `test_that("does something (#123)", { ... })` or `(#123, #456)` for multiple.
 
-Rules: Only edit the parenthetical issue tags in `test_that()` descriptions. Preserve existing tags; sort ascending. Use `File`/`LineStart`/`LineEnd` to locate. Batch edits per file; preserve style.
+Rules: Only edit the parenthetical issue tags in `test_that()` descriptions. Preserve existing tags; sort ascending. Batch edits per file; preserve style.
+
+Use `astgrepr` find-and-replace to rewrite test descriptions. Process one file at a time: find all `test_that()` calls, match against your tagging decisions, and replace descriptions with tagged versions.
 
 ```r
-IssuesToTag <- 87L  # include existing tags if any
-test$IssueTags <- glue::glue("#{IssuesToTag}") |> glue::glue_collapse(sep = ", ")
-readLines(test$File) |>
-  stringr::str_replace(stringr::fixed(test$Test), glue::glue_data(test, "{Test} ({IssueTags})")) |>
-  writeLines(test$File)
+library(astgrepr)
+
+# For each file with tests to tag:
+root <- tree_root(tree_new(file = test$File))
+
+# Find test_that() calls by their exact description string
+fixes <- root |>
+  node_find_all(
+    ast_rule(id = "t1", pattern = 'test_that("ProcessPayment handles declined cards", µBODY)')
+  ) |>
+  node_replace_all(t1 = 'test_that("ProcessPayment handles declined cards (#87)", ~~BODY~~)')
+
+# Preview, then write
+tree_rewrite(root, fixes)
+writeLines(tree_rewrite(root, fixes), con = test$File)
 ```
+
+When tagging multiple tests in the same file, add multiple `ast_rule()`s to a single `node_find_all()` call and corresponding replacements to `node_replace_all()`.
 
 ## Log reasoning
 

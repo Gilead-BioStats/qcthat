@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">qcthat</a>
 
-    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">1.1.0.9000</small>
+    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">1.1.1</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -37,14 +37,14 @@
     </div>
 
     <div class="section level2">
-<h2 class="pkg-version" data-toc-text="development version" id="qcthat-development-version">qcthat (development version)<a class="anchor" aria-label="anchor" href="#qcthat-development-version"></a></h2>
+<h2 class="pkg-version" data-toc-text="1.1.1" id="qcthat-111">qcthat 1.1.1<a class="anchor" aria-label="anchor" href="#qcthat-111"></a></h2>
 <p>This patch release contains improvements and bug fixes discovered while applying the experimental AI agent features released in qcthat v1.1.0. These changes are tracked in <a href="https://github.com/Gilead-BioStats/qcthat/issues/241" class="external-link">#241</a>.</p>
 <div class="section level3">
-<h3 id="new-features-development-version">New features<a class="anchor" aria-label="anchor" href="#new-features-development-version"></a></h3>
+<h3 id="new-features-1-1-1">New features<a class="anchor" aria-label="anchor" href="#new-features-1-1-1"></a></h3>
 <ul><li>The experimental <code>tag-tests-with-issues</code> skill now generates a report in <code>pkgdown/assets</code> describing the reasons that tests were tagged with each issue. If the pkgdown uses pkgdown, this report will be available at <code>{pkgdown_root}/test_tag_reasons.html</code>. We recommend using this report locally to verify results, and then deleting the report without merging it into your pkgdown site (<a href="https://github.com/Gilead-BioStats/qcthat/issues/242" class="external-link">#242</a>).</li>
 </ul></div>
 <div class="section level3">
-<h3 id="bug-fixes-development-version">Bug fixes<a class="anchor" aria-label="anchor" href="#bug-fixes-development-version"></a></h3>
+<h3 id="bug-fixes-1-1-1">Bug fixes<a class="anchor" aria-label="anchor" href="#bug-fixes-1-1-1"></a></h3>
 <ul><li>
 <code><a href="../reference/FetchRepoIssueClosers.html">FetchRepoIssueClosers()</a></code> is now better at determining which pull request or merge caused each issue to be closed. Other portions of the issue-test relationship mechanism are properly fetched from GitHub (in case the local repo does not have all changes), but the fetches are now much more optimized (<a href="https://github.com/Gilead-BioStats/qcthat/issues/243" class="external-link">#243</a>, <a href="https://github.com/Gilead-BioStats/qcthat/issues/251" class="external-link">#251</a>).</li>
 <li>

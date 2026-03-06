@@ -79,51 +79,44 @@ ExtractTestsFromFile <- function(strFilePath, envCall = rlang::caller_env()) {
 #' Find test_that calls in a file
 #'
 #' @inheritParams shared-params
-#' @returns A list of lists, each containing `desc`, `start`, and `end`.
+#' @returns A list of lists, each containing `Test`, `LineStart`, and
+#'   `LineEnd`.
 #' @keywords internal
 FindTests <- function(chrTestLines) {
-  intTestStarts <- stringr::str_which(chrTestLines, "^\\s*test_that\\(")
-  if (!length(intTestStarts)) {
+  rlang::check_installed("astgrepr", "to find tests.")
+  src <- paste(chrTestLines, collapse = "\n")
+  root <- astgrepr::tree_new(src) |> astgrepr::tree_root()
+
+  matches <- astgrepr::node_find_all(
+    root,
+    astgrepr::ast_rule(id = "plain", pattern = "test_that($DESC, $$$)"),
+    astgrepr::ast_rule(id = "ns", pattern = "testthat::test_that($DESC, $$$)")
+  )
+
+  nodes <- c(matches$plain, matches$ns)
+
+  if (!length(nodes)) {
     return(vctrs::list_of(.ptype = integer()))
   }
-  purrr::map(intTestStarts, \(intTestStart) {
-    ParseTest(chrTestLines, intTestStart)
+
+  # Sort by start line to preserve file order
+  starts <- vapply(
+    nodes,
+    \(n) astgrepr::node_range(n)[[1]]$start[[1]],
+    numeric(1)
+  )
+  nodes <- nodes[order(starts)]
+
+  purrr::map(nodes, \(node) {
+    rng <- astgrepr::node_range(node)[[1]]
+    line_start <- as.integer(rng$start[[1]]) + 1L
+    line_end <- as.integer(rng$end[[1]]) + 1L
+
+    desc <- astgrepr::node_text(astgrepr::node_get_match(node, "DESC"))[[1]]
+
+    list(Test = desc, LineStart = line_start, LineEnd = line_end)
   }) |>
     purrr::compact()
-}
-
-#' Parse a single test_that call
-#'
-#' @inheritParams shared-params
-#' @returns A list with `desc`, `start`, and `end`, or NULL if parsing fails.
-#' @keywords internal
-ParseTest <- function(chrTestLines, intTestStart) {
-  strCode <- paste(
-    chrTestLines[intTestStart:length(chrTestLines)],
-    collapse = "\n"
-  )
-  exprParsed <- tryCatch(
-    parse(text = strCode, n = 1, keep.source = TRUE),
-    error = function(e) return(NULL)
-  )
-  if (!length(exprParsed)) {
-    return(NULL)
-  }
-  exprCall <- exprParsed[[1]]
-  if (!rlang::is_call(exprCall, "test_that")) {
-    return(NULL)
-  }
-  strDesc <- tryCatch(
-    as.character(eval(exprCall[[2]])),
-    error = function(e) return(NULL)
-  )
-  if (!length(strDesc)) {
-    return(NULL)
-  }
-  intEnd <- intTestStart +
-    length(as.character(attr(exprParsed, "srcref")[[1]])) -
-    1L
-  list(Test = strDesc, LineStart = intTestStart, LineEnd = intEnd)
 }
 
 #' Extract issue numbers from test descriptions

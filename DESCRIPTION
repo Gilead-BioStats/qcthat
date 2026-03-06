@@ -1,6 +1,6 @@
 Package: qcthat
 Title: Lightweight R Package Quality Control
-Version: 1.1.0
+Version: 1.1.1
 Authors@R: c(
     person("Jeremy", "Wildfire", , "jwildfire@gmail.com", role = c("aut", "cre")),
     person("Jon", "Harmon", , "jon.harmon@atorusresearch.com", role = "aut",
@@ -23,13 +23,14 @@ Depends:
 Imports: 
     cli,
     dplyr,
+    fs,
     gert,
     gh,
     glue,
     jsonlite,
     pillar,
     pkgload,
-    purrr,
+    purrr (>= 1.0.0),
     rlang,
     stringr,
     testthat,
@@ -37,8 +38,8 @@ Imports:
     tidyr,
     vctrs
 Suggests: 
+    astgrepr,
     emoji,
-    fs,
     git2r,
     httr2,
     lifecycle,

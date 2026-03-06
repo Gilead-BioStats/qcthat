@@ -55,17 +55,17 @@ A \code{qcthat_IssueTestMatrix} object as returned by \code{\link[=QCPackage]{QC
 filtered to issues that will be closed by merging the pull request.
 }
 \description{
-Find issues associated with a GitHub pull request, whether they were added
-via keywords, using the pull request sidebar, or using the issue sidebar. See
-\href{https://docs.github.com/en/issues/tracking-your-work-with-issues/using-issues/linking-a-pull-request-to-an-issue}{GitHub Docs: Link a pull request to an issue}
+Create a QC report of issues associated with a GitHub pull request, whether
+they were added via keywords, using the pull request sidebar, or using the
+issue sidebar. See \href{https://docs.github.com/en/issues/tracking-your-work-with-issues/using-issues/linking-a-pull-request-to-an-issue}{GitHub Docs: Link a pull request to an issue}
 for details on how issues can become associated with a pull request.
 }
 \examples{
 \dontshow{if (interactive()) withAutoprint(\{ # examplesIf}
 
-  # You must have at least one pull request open in the GitHub repository
-  # associated with the current git repository for this to return any
-  # results.
+  #You must have at least one pull request open in the GitHub repository
+  #associated with the current git repository for this to return any
+  #results.
 
   QCPR()
 \dontshow{\}) # examplesIf}

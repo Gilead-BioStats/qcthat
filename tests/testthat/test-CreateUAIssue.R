@@ -122,12 +122,12 @@ test_that("ConnectChildIssueByID returns the URL to the parent (#111)", {
   )
 })
 
-test_that("CreateUAIssue returns NULL when it can't create an issue (#120)", {
+test_that("CreateUAIssue returns special list when it can't create an issue (#120)", {
   local_mocked_bindings(
     CreateChildIssue = function(...) stop("Can't create issue")
   )
-  expect_null({
-    CreateUAIssue(
+  expect_no_error({
+    test_result <- CreateUAIssue(
       intIssue = 123L,
       strDescription = "The thing renders",
       chrChecks = c("Check 1", "Check 2"),
@@ -137,4 +137,7 @@ test_that("CreateUAIssue returns NULL when it can't create an issue (#120)", {
       strGHToken = "test-token"
     )
   })
+  expect_type(test_result, "list")
+  expect_named(test_result, "State")
+  expect_equal(test_result$State, "failed_to_create")
 })

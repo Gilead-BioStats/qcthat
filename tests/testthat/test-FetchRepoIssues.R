@@ -1,8 +1,10 @@
 test_that("FetchRepoIssues returns an empty df when no issues found (#34)", {
   local_mocked_bindings(
-    FetchRawRepoIssues = function(...) list()
+    FetchRawRepoIssues = function(...) {
+      EmptyGHResponse()
+    }
   )
-  test_result <- FetchRepoIssues("someowner", "myrepo", "mytoken")
+  test_result <- FetchRepoIssues("owner", "repo", "token")
   expect_s3_class(test_result, "qcthat_Issues")
   expect_s3_class(test_result, "tbl_df")
   class(test_result) <- class(tibble::tibble())
@@ -78,7 +80,16 @@ test_that("FetchRepoIssues fetches all repo issues (#47)", {
       stopifnot(
         numLimit == Inf
       )
+      EmptyGHResponse()
     }
   )
-  expect_no_error(FetchRepoIssues("someowner", "myrepo", "mytoken"))
+  expect_no_error(FetchRepoIssues("owner", "repo", "token"))
+})
+
+test_that("CompileIssuesDF errors for bad gh response (#230)", {
+  expect_error(
+    CompileIssuesDF(list()),
+    "Failed to fetch issues from GitHub",
+    class = "qcthat-error-bad_gh_response"
+  )
 })

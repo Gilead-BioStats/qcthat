@@ -20,6 +20,7 @@ closers, this is the commit OID directly. For \code{PullRequest} closers, this
 is the merge commit SHA.
 \item \code{CloserPRNumber}: Number of the pull request that closed the issue, or
 \code{NA} if the issue was closed by a commit.
+\item \code{CloserDate}: Timestamp of the closing event as a character string.
 }
 }
 \description{

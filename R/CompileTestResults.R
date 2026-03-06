@@ -40,7 +40,12 @@
 #'       results = list(
 #'         structure(
 #'           list(),
-#'           class = c("expectation_failure", "expectation", "error", "condition")
+#'           class = c(
+#'             "expectation_failure",
+#'             "expectation",
+#'             "error",
+#'             "condition"
+#'           )
 #'         )
 #'       )
 #'     )

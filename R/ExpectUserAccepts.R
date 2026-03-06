@@ -29,20 +29,42 @@ ExpectUserAccepts <- function(
       strRepo = strRepo,
       strGHToken = strGHToken
     )
-    if (identical(lUAIssue[["State"]], "closed")) {
-      strDisposition <- "accepted"
-      testthat::pass()
-    } else {
-      strDisposition <- "pending"
-      if (isTRUE(lglReportFailure)) {
-        testthat::fail(c(
-          "User must accept the checks and close the issue.",
-          cli::format_inline(
-            "User-acceptance issue: {.url {lUAIssue[['Url']]}}"
-          )
-        ))
+    strState <- lUAIssue[["State"]] %||% "NULL"
+    switch(
+      strState,
+      closed = {
+        strDisposition <- "accepted"
+        testthat::pass()
+      },
+      open = {
+        strDisposition <- "pending"
+        if (isTRUE(lglReportFailure)) {
+          testthat::fail(c(
+            "User must accept the checks and close the issue.",
+            cli::format_inline(
+              "User-acceptance issue: {.url {lUAIssue[['Url']]}}"
+            )
+          ))
+        }
+      },
+      failed_to_create = {
+        strDisposition <- "failed_to_create"
+        if (isTRUE(lglReportFailure)) {
+          testthat::fail(c(
+            "Failed to create user-acceptance issue.",
+            "This may be due to GitHub being down or an issue with authentication or permissions."
+          ))
+        }
+      },
+      {
+        strDisposition <- "error"
+        if (isTRUE(lglReportFailure)) {
+          testthat::fail(c(
+            "Unexpected state for user-acceptance issue: {.str {lUAIssue[['State']]}}."
+          ))
+        }
       }
-    }
+    )
     LogUAT(
       intParentIssue = intIssue,
       intUATIssue = lUAIssue[["Issue"]],

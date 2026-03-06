@@ -20,10 +20,20 @@ FetchUAIssue <- function(
   ) |>
     dplyr::filter(
       .data$Title == TitleUAIssue(strDescription, intIssue)
-    ) |>
-    # If somehow multiple issues match, only use the first one.
-    dplyr::slice_head(n = 1)
+    )
+  if (NROW(dfMatchingIssue) > 1) {
+    # If somehow multiple issues match, use a closed one if available, otherwise
+    # use the first one.
+    dfMatchingIssue <- dfMatchingIssue |>
+      # FALSE is before TRUE, so this will put any "closed" issue at the top.
+      dplyr::arrange(.data$State != "closed") |>
+      dplyr::slice_head(n = 1)
+  }
+
   if (!NROW(dfMatchingIssue)) {
+    # FetchIssueUAChildren fails if GitHub is down or the parent doesn't exist,
+    # so this should only happen when the parent exists but doesn't have
+    # children.
     dfMatchingIssue <- CreateUAIssue(
       strDescription = strDescription,
       intIssue = intIssue,

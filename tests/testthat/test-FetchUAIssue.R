@@ -135,3 +135,34 @@ test_that("TitleUAIssue gives the expected title (#111)", {
     glue::glue("qcthat Acceptance for #{intIssue}: {strDescription}")
   )
 })
+
+test_that("FetchUAIssue returns closed child if multiple children (#230)", {
+  local_mocked_bindings(
+    FetchIssueUAChildren = function(...) {
+      data.frame(
+        Number = 123:125,
+        Title = c(
+          TitleUAIssue("The thing renders", 12L),
+          TitleUAIssue("The thing renders", 12L),
+          "Wrong item"
+        ),
+        State = c("open", "closed", "closed"),
+        Url = paste0("http://example.com/issue/", 123:125)
+      )
+    }
+  )
+  result <- FetchUAIssue(
+    strDescription = "The thing renders",
+    intIssue = 12L,
+    chrChecks = c("check1", "check2")
+  )
+  expect_identical(
+    result,
+    list(
+      Number = 124L,
+      Title = TitleUAIssue("The thing renders", 12L),
+      State = "closed",
+      Url = "http://example.com/issue/124"
+    )
+  )
+})

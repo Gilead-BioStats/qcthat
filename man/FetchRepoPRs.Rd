@@ -24,8 +24,7 @@ fetch. Must be one of \code{"open"}, \code{"closed"}, or \code{"all"}. Defaults 
 \code{"open"} for pull requests and \code{"all"} for issues.}
 }
 \value{
-A \code{qcthat_PRs} object, which is a \code{\link[tibble:tibble]{tibble::tibble()}} with
-columns:
+A \code{qcthat_PRs} object, which is a \code{\link[tibble:tibble]{tibble::tibble()}} with columns:
 \itemize{
 \item \code{PR}: Pull request number.
 \item \code{Title}: Pull request title.
@@ -33,8 +32,8 @@ columns:
 \item \code{HeadRef}: The head reference (branch) of the pull request (the changes).
 \item \code{BaseRef}: The base reference (branch) of the pull request (the target).
 \item \code{Body}: The full text of the pull request.
-\item \code{MergeCommitSHA}: The SHA of the merge commit, if the pull request has been
-merged.
+\item \code{MergeCommitSHA}: The SHA of the merge commit, if the pull request has
+been merged.
 \item \code{IsDraft}: Logical indicating whether the pull request is a draft.
 \item \code{Url}: URL of the pull request on GitHub.
 \item \code{CreatedAt}: \code{POSIXct} timestamp of when the pull request was created.

@@ -26,7 +26,7 @@ test_that("InstallSkill calls InstallFile with expected parts (#53)", {
   )
 })
 
-test_that("Skill_TagTestsWithIssues targets the expected skill (#53, #233)", {
+test_that("Skill_TagTestsWithIssues targets the expected skill (#53, #233, #241)", {
   local_mocked_bindings(
     InstallSkill = function(strSkillName, ...) strSkillName
   )

@@ -1,5 +1,18 @@
 # qcthat (development version)
 
+This patch release contains improvements and bug fixes discovered while applying the experimental AI agent features released in qcthat v1.1.0. These changes are tracked in #241.
+
+## New features
+
+* The experimental `tag-tests-with-issues` skill now generates a report in `pkgdown/assets` describing the reasons that tests were tagged with each issue. If the pkgdown uses pkgdown, this report will be available at `{pkgdown_root}/test_tag_reasons.html`. We recommend using this report locally to verify results, and then deleting the report without merging it into your pkgdown site (#242).
+
+## Bug fixes
+
+* `FetchRepoIssueClosers()` is now better at determining which pull request or merge caused each issue to be closed. Other portions of the issue-test relationship mechanism are properly fetched from GitHub (in case the local repo does not have all changes), but the fetches are now much more optimized (#243, #251).
+* `ExtractTestsFromFiles()` now uses a much more robust mechanism to quickly parse tests, built with the {astgrepr} R package (#247, #257).
+* `GetGHRemote()` no longer truncates the repo name for repositories with a `.` in the name (such as "gsm.reporting") (#248).
+* The `qcthat.yaml` workflow no longer erroneously mentions "push" triggers (#259).
+
 # qcthat 1.1.0
 
 New features and tools to help you track user acceptance testing, and to help you use AI agents to get started with `qcthat`.

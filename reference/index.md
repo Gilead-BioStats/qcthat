@@ -26,6 +26,8 @@
   **\[experimental\]** : Does a user accept the feature?
 - [`ExtractTestsFromFiles()`](https://gilead-biostats.github.io/qcthat/reference/ExtractTestsFromFiles.md)
   **\[experimental\]** : Extract test information from test files
+- [`FetchPRIssueNumbers()`](https://gilead-biostats.github.io/qcthat/reference/FetchPRIssueNumbers.md)
+  : Fetch all issues associated with a GitHub pull request
 - [`FetchRefPRNumber()`](https://gilead-biostats.github.io/qcthat/reference/FetchRefPRNumber.md)
   : Fetch the pull request number for a branch or other git ref
 - [`FetchRepoIssueClosers()`](https://gilead-biostats.github.io/qcthat/reference/FetchRepoIssueClosers.md)

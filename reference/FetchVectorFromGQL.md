@@ -10,6 +10,7 @@ FetchVectorFromGQL(
   x,
   fnBuildQuery,
   vecProto = integer(),
+  intBatchSize = 50,
   strOwner = GetGHOwner(),
   strRepo = GetGHRepo(),
   strGHToken = gh::gh_token()

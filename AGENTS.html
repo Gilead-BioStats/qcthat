@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="index.html">qcthat</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.1.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.1.1</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -39,22 +39,22 @@
 <div id="agentsmd" class="section level1">
 
 <div class="section level2">
-<h2 id="key-development-commands">Key development commands<a class="anchor" aria-label="anchor" href="#key-development-commands"></a></h2>
-<p>General advice: * When running R from the console, always run it with <code>--quiet --vanilla</code> * Always run <code>air format .</code> after generating code</p>
-</div>
-<div class="section level2">
 <h2 id="skills">Skills<a class="anchor" aria-label="anchor" href="#skills"></a></h2>
-<p>Skills in @.github/skills should be loaded when the user triggers them. If you understand how to use them without these special instructions, use your core skill capabilities.</p>
-<table class="table"><colgroup><col width="33%"><col width="66%"></colgroup><thead><tr class="header"><th>Trigger</th>
+<p>Skills in @.github/skills should be loaded when the user triggers them.</p>
+<table class="table"><colgroup><col width="33%"><col width="66%"></colgroup><thead><tr class="header"><th>Triggers</th>
 <th>Path</th>
 </tr></thead><tbody><tr class="odd"><td>tag tests with issues</td>
 <td>@.github/skills/tag-tests-with-issues/SKILL.md</td>
 </tr><tr class="even"><td>document functions</td>
 <td>@.github/skills/document/SKILL.md</td>
+</tr><tr class="odd"><td>search / rewrite code</td>
+<td>@.github/skills/search-code/SKILL.md</td>
 </tr></tbody></table></div>
 <div class="section level2">
 <h2 id="testing">Testing<a class="anchor" aria-label="anchor" href="#testing"></a></h2>
-<ul><li>Tests for <code>R/{name}.R</code> go in <code>tests/testthat/test-{name}.R</code>.</li>
+<ul><li>Before starting any coding task, run the relevant tests and check coverage so you know the baseline state.</li>
+<li>Always run <code>air format .</code> before running tests, after every R file edit.</li>
+<li>Tests for <code>R/{name}.R</code> go in <code>tests/testthat/test-{name}.R</code>.</li>
 <li>Use <code>devtools::test(reporter = "check")</code> to run all tests</li>
 <li>Use <code>devtools::test(filter = "name", reporter = "check")</code> to run tests for <code>R/{name}.R</code>
 </li>

@@ -5,8 +5,16 @@ Format UAT issues in GitHub markdown
 ## Usage
 
 ``` r
-FormatUATGH()
+FormatUATGH(intIssues = integer())
 ```
+
+## Arguments
+
+- intIssues:
+
+  (`integer`) A vector of issue numbers from a
+  [`CompileIssueTestMatrix()`](https://gilead-biostats.github.io/qcthat/reference/CompileIssueTestMatrix.md)
+  matrix or from GitHub.
 
 ## Value
 

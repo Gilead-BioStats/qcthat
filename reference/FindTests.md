@@ -16,4 +16,4 @@ FindTests(chrTestLines)
 
 ## Value
 
-A list of lists, each containing `desc`, `start`, and `end`.
+A list of lists, each containing `Test`, `LineStart`, and `LineEnd`.

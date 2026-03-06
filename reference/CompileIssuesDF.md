@@ -5,7 +5,7 @@ Compile issues data frame
 ## Usage
 
 ``` r
-CompileIssuesDF(lIssuesNonPR)
+CompileIssuesDF(lIssuesNonPR, envCall = rlang::caller_env())
 ```
 
 ## Value

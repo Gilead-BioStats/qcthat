@@ -31,3 +31,5 @@ with columns:
 
 - `CloserPRNumber`: Number of the pull request that closed the issue, or
   `NA` if the issue was closed by a commit.
+
+- `CloserDate`: Timestamp of the closing event as a character string.

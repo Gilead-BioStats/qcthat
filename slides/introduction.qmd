@@ -179,6 +179,7 @@ format:
 - `qcthat::use_qcthat()`
 - Tag your tests: `test_that("Thing works (#123)", ...)`
 - Experimental: `qcthat::Skill_TagTestsWithIssues()`
+  - Tell an agent "tag tests with issues"
 
 ## Contact us with questions and comments
 

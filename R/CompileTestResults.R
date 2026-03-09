@@ -9,8 +9,8 @@
 #'   - `Test`: The `desc` field of the test from [testthat::test_that()].
 #'   - `File`: Path to the file where the test is defined, relative to the
 #'   package root.
-#'   - `Disposition`: Factor with levels `pass`, `fail`, and `skip` indicating
-#'   the overall outcome of the test.
+#'   - `Disposition`: Factor with levels `"fail"`, `"warn"`, `"skip"`, and
+#'   `"pass"` indicating the overall outcome of the test.
 #'   - `Issues`: List column containing integer vectors of associated GitHub
 #'   issue numbers.
 #' @export
@@ -97,7 +97,7 @@ EmptyTestResultsDF <- function() {
   tibble::tibble(
     Test = character(),
     File = character(),
-    Disposition = factor(levels = c("fail", "skip", "pass")),
+    Disposition = factor(levels = c("fail", "warn", "skip", "pass")),
     Issues = vctrs::list_of(.ptype = integer())
   )
 }
@@ -105,7 +105,7 @@ EmptyTestResultsDF <- function() {
 #' Extract disposition information from testthat results
 #'
 #' @inheritParams shared-params
-#' @returns A factor with levels `pass`, `fail`, and `skip`.
+#' @returns A factor with levels `"fail"`, `"warn"`, `"skip"`, and `"pass"`.
 #' @keywords internal
 CompileDispositions <- function(lTestResults) {
   factor(
@@ -113,14 +113,14 @@ CompileDispositions <- function(lTestResults) {
       lTestResults,
       ExtractDisposition
     ),
-    levels = c("fail", "skip", "pass")
+    levels = c("fail", "warn", "skip", "pass")
   )
 }
 
 #' Extract disposition information from a single testthat result
 #'
 #' @param lTestResult A single element from a `testthat_results` object.
-#' @returns The string `"pass"`, `"fail"`, or `"skip"`.
+#' @returns The string `"fail"`, `"warn"`, `"skip"`, or `"pass"`.
 #' @keywords internal
 ExtractDisposition <- function(lTestResult) {
   if (length(lTestResult$results)) {
@@ -128,14 +128,14 @@ ExtractDisposition <- function(lTestResult) {
     classes <- setdiff(classes, c("expectation", "condition", "error"))
     if (identical(classes, "expectation_success")) {
       return("pass")
+    } else if ("expectation_skip" %in% classes) {
+      return("skip")
     } else if ("expectation_error" %in% classes) {
       return("fail")
     } else if ("expectation_failure" %in% classes) {
       return("fail")
-    } else if ("expectation_skip" %in% classes) {
-      return("skip")
     } else if ("expectation_warning" %in% classes) {
-      return("fail")
+      return("warn")
     }
     qcthatAbort(
       "Unexpected result classes: {.val {classes}}",

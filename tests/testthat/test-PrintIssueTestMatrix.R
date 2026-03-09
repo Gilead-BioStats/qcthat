@@ -35,6 +35,10 @@ test_that("Disposition indicators deal with all cases (#60)", {
     "1 test was skipped"
   )
   expect_identical(
+    ChooseOverallDispositionMessage("warn"),
+    "1 test generated warnings"
+  )
+  expect_identical(
     ChooseOverallDispositionMessage("weird status"),
     "Tests have unknown disposition"
   )

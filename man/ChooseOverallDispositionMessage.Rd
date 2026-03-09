@@ -7,7 +7,8 @@
 ChooseOverallDispositionMessage(fctDisposition)
 }
 \arguments{
-\item{fctDisposition}{(\code{factor}) Disposition factor with levels \code{c("fail", "skip", "pass")}.}
+\item{fctDisposition}{(\code{factor}) Disposition factor with levels \code{"fail"},
+\code{"warn"}, \code{"skip"}, and \code{"pass"}.}
 }
 \value{
 A string summary message or \code{NULL} if no disposition is available.

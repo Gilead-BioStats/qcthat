@@ -11,7 +11,7 @@ ChooseDispositionIndicator(
 }
 \arguments{
 \item{chrDisposition}{(\code{character}) Test disposition. Generally one of
-\code{"pass"}, \code{"fail"}, or \code{"skip"}.}
+\code{"fail"}, \code{"warn"}, \code{"skip"}, or \code{"pass"}.}
 
 \item{lglUseEmoji}{(\verb{length-1 logical}) Whether to use emojis (if \code{TRUE} and
 the emoji package is installed) or ASCII indicators (if \code{FALSE}) in the

@@ -10,7 +10,8 @@ MakeITRDispositionFooter(
 )
 }
 \arguments{
-\item{fctDisposition}{(\code{factor}) Disposition factor with levels \code{c("fail", "skip", "pass")}.}
+\item{fctDisposition}{(\code{factor}) Disposition factor with levels \code{"fail"},
+\code{"warn"}, \code{"skip"}, and \code{"pass"}.}
 
 \item{lglUseEmoji}{(\verb{length-1 logical}) Whether to use emojis (if \code{TRUE} and
 the emoji package is installed) or ASCII indicators (if \code{FALSE}) in the

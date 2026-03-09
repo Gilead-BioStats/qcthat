@@ -45,8 +45,8 @@ the issue is still open.
 \item \code{Test}: The \code{desc} field of the test from \code{\link[testthat:test_that]{testthat::test_that()}}.
 \item \code{File}: Path to the file where the test is defined, relative to the
 package root.
-\item \code{Disposition}: Factor with levels \code{pass}, \code{fail}, and \code{skip} indicating
-the overall outcome of the test.
+\item \code{Disposition}: Factor with levels \code{"fail"}, \code{"warn"}, \code{"skip"}, and
+\code{"pass"} indicating the overall outcome of the test.
 }
 }
 \description{

@@ -53,8 +53,8 @@
 #'   Typically set to [rlang::caller_env()].
 #' @param envErrorMessage (`environment`) The environment to pass to
 #'   [glue::glue()] to resolve variables.
-#' @param fctDisposition (`factor`) Disposition factor with levels `c("fail",
-#'   "skip", "pass")`.
+#' @param fctDisposition (`factor`) Disposition factor with levels `"fail"`,
+#'   `"warn"`, `"skip"`, and `"pass"`.
 #' @param intIssue (`length-1 integer`) The issue with which a check is
 #'   associated.
 #' @param intIssues (`integer`) A vector of issue numbers from a
@@ -136,7 +136,7 @@
 #'   expectation.
 #' @param strDirPath (`length-1 character`) The path to a directory.
 #' @param strDisposition (`length-1 character`) The result of a test, such as
-#'   "pass", "fail", or "skip", or "accepted" or "pending" for UAT.
+#'   "pass", "fail", "warn", or "skip", or "accepted" or "pending" for UAT.
 #' @param strErrorSubclass (`length-1 character`) A subclass for an error
 #'   condition.
 #' @param strExtension (`length-1 character`) The file extension to use for the

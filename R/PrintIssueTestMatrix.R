@@ -145,11 +145,13 @@ ChooseOverallDispositionMessage <- function(fctDisposition) {
   fctDisposition <- as.character(sort(fctDisposition))
   intNPass <- sum(fctDisposition == "pass")
   intNFail <- sum(fctDisposition == "fail")
+  intNWarn <- sum(fctDisposition == "warn")
   intNSkip <- sum(fctDisposition == "skip")
   switch(
     fctDisposition[[1]],
     "pass" = "All tests passed",
     "fail" = cli::format_inline("{intNFail} test{?s} failed"),
+    "warn" = cli::format_inline("{intNWarn} test{?s} generated warnings"),
     "skip" = cli::format_inline(
       "{intNSkip} test{?s} {qty(intNSkip)}{?was/were} skipped"
     ),

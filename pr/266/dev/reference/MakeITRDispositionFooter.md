@@ -5,18 +5,14 @@ Add a summary message to ITR footer
 ## Usage
 
 ``` r
-MakeITRDispositionFooter(
-  fctDisposition,
-  lglUseEmoji = getOption("qcthat.emoji", TRUE)
-)
+MakeITRDispositionFooter(x, lglUseEmoji = getOption("qcthat.emoji", TRUE))
 ```
 
 ## Arguments
 
-- fctDisposition:
+- x:
 
-  (`factor`) Disposition factor with levels `"fail"`, `"warn"`,
-  `"skip"`, and `"pass"`.
+  (`qcthat_Object`) The qcthat object to format.
 
 - lglUseEmoji:
 

@@ -66,8 +66,8 @@ parallel testing, like <code>reporter = "silent"</code>, and assigning it to a n
 columns:</p><ul><li><p><code>Test</code>: The <code>desc</code> field of the test from <code><a href="https://testthat.r-lib.org/reference/test_that.html" class="external-link">testthat::test_that()</a></code>.</p></li>
 <li><p><code>File</code>: Path to the file where the test is defined, relative to the
 package root.</p></li>
-<li><p><code>Disposition</code>: Factor with levels <code>pass</code>, <code>fail</code>, and <code>skip</code> indicating
-the overall outcome of the test.</p></li>
+<li><p><code>Disposition</code>: Factor with levels <code>"fail"</code>, <code>"warn"</code>, <code>"skip"</code>, and
+<code>"pass"</code> indicating the overall outcome of the test.</p></li>
 <li><p><code>Issues</code>: List column containing integer vectors of associated GitHub
 issue numbers.</p></li>
 </ul></div>

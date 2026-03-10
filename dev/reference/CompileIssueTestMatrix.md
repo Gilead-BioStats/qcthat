@@ -78,8 +78,8 @@ A `qcthat_IssueTestMatrix` object, which is a tibble with columns:
 - `File`: Path to the file where the test is defined, relative to the
   package root.
 
-- `Disposition`: Factor with levels `pass`, `fail`, and `skip`
-  indicating the overall outcome of the test.
+- `Disposition`: Factor with levels `"fail"`, `"warn"`, `"skip"`, and
+  `"pass"` indicating the overall outcome of the test.
 
 ## Examples
 

@@ -139,7 +139,8 @@ Reused parameter definitions are gathered here for easier usage. Use
 
 - fctDisposition:
 
-  (`factor`) Disposition factor with levels `c("fail", "skip", "pass")`.
+  (`factor`) Disposition factor with levels `"fail"`, `"warn"`,
+  `"skip"`, and `"pass"`.
 
 - intIssue:
 
@@ -335,7 +336,7 @@ Reused parameter definitions are gathered here for easier usage. Use
 - strDisposition:
 
   (`length-1 character`) The result of a test, such as "pass", "fail",
-  or "skip", or "accepted" or "pending" for UAT.
+  "warn", or "skip", or "accepted" or "pending" for UAT.
 
 - strErrorSubclass:
 

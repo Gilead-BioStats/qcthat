@@ -101,7 +101,7 @@ FormatFooterMain <- function(
   lglShowIgnoredLabels = TRUE
 ) {
   c(
-    MakeITRDispositionFooter(x$Disposition, lglUseEmoji = lglUseEmoji),
+    MakeITRDispositionFooter(x, lglUseEmoji = lglUseEmoji),
     MakeITRCoverageFooter(x$Issue, x$Test, lglUseEmoji = lglUseEmoji),
     MakeITRIgnoredLabelsFooter(
       lIgnoredIssues = attr(x, "IgnoredIssues"),
@@ -113,13 +113,19 @@ FormatFooterMain <- function(
 
 #' Add a summary message to ITR footer
 #'
-#' @inheritParams shared-params
+#' @inheritParams FormatFooter
 #' @returns A string summary message or `NULL` if no disposition is available.
 #' @keywords internal
 MakeITRDispositionFooter <- function(
-  fctDisposition,
+  x,
   lglUseEmoji = getOption("qcthat.emoji", TRUE)
 ) {
+  fctDisposition <- dplyr::distinct(
+    x,
+    .data$Test,
+    .data$File,
+    .data$Disposition
+  )$Disposition
   if (!length(fctDisposition) || all(is.na(fctDisposition))) {
     return(NULL)
   }
@@ -145,11 +151,13 @@ ChooseOverallDispositionMessage <- function(fctDisposition) {
   fctDisposition <- as.character(sort(fctDisposition))
   intNPass <- sum(fctDisposition == "pass")
   intNFail <- sum(fctDisposition == "fail")
+  intNWarn <- sum(fctDisposition == "warn")
   intNSkip <- sum(fctDisposition == "skip")
   switch(
     fctDisposition[[1]],
     "pass" = "All tests passed",
     "fail" = cli::format_inline("{intNFail} test{?s} failed"),
+    "warn" = cli::format_inline("{intNWarn} test{?s} generated warnings"),
     "skip" = cli::format_inline(
       "{intNSkip} test{?s} {qty(intNSkip)}{?was/were} skipped"
     ),

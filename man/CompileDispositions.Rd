@@ -13,7 +13,7 @@ typically obtained by running something like \code{\link[testthat:test_package]{
 parallel testing, like \code{reporter = "silent"}, and assigning it to a name.}
 }
 \value{
-A factor with levels \code{pass}, \code{fail}, and \code{skip}.
+A factor with levels \code{"fail"}, \code{"warn"}, \code{"skip"}, and \code{"pass"}.
 }
 \description{
 Extract disposition information from testthat results

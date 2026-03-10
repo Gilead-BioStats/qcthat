@@ -11,13 +11,18 @@ Add issue references (e.g., `(#123)`) to test descriptions to connect tests to f
 
 Pre-compute issue-commit mappings once with `MapLongIssueCommits()` and pass to `MapTestFilesToPotentialIssues()`. Do not skip this—its output is used in `PrepareTestIssueContext()`, your sole source of context for remaining steps.
 
+Load the package environment with `pkgload::load_all()` and pass it via `envPkg` to augment test-file blame with source-line coverage from `covr`. This discovers additional potential issues from commits that touched source code exercised by each test, not just the test files themselves.
+
 ```r
 library(qcthat)
+env <- pkgload::load_all(quiet = TRUE, export_all = TRUE)$env
 dfFileTests <- ExtractTestsFromFiles()
 dfIssueCommitsLong <- MapLongIssueCommits()
 # If timeout, split: split(dfFileTests, dfFileTests$File) and process per file
 dfPotentialIssues <- MapTestFilesToPotentialIssues(dfFileTests, dfIssueCommitsLong = dfIssueCommitsLong)
-dfTestIssueContext <- PrepareTestIssueContext(dfPotentialIssues)
+dfTestIssueContext <- PrepareTestIssueContext(
+  dfPotentialIssues, envPkg = env, dfIssueCommitsLong = dfIssueCommitsLong
+)
 ```
 
 `PrepareTestIssueContext()` returns tibble with `Test` (chr), `File` (chr), `LineStart`/`LineEnd` (int), `Issues` (list of int vecs, already-tagged), `PotentialIssueDetails` (list of tibbles with `Issue`, `Title`, `Body`), `TestCode` (list of chr vecs).

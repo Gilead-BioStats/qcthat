@@ -15,12 +15,7 @@ MapTestsToCommits <- function(dfFileTests, envCall = rlang::caller_env()) {
       Commits = vctrs::list_of(.ptype = character())
     ))
   }
-  rlang::check_installed("git2r", "to load git blame information")
-  chrUniquePaths <- unique(dfFileTests$File)
-  dfBlames <- purrr::map(chrUniquePaths, \(strFilePath) {
-    BlameFile(strFilePath, envCall = envCall)
-  }) |>
-    purrr::list_rbind()
+  dfBlames <- BlameFiles(unique(dfFileTests$File), envCall = envCall)
   ExpandLines(dfFileTests) |>
     JoinLineCommits(dfBlames)
 }
@@ -53,6 +48,34 @@ JoinLineCommits <- function(dfFileTestsExpanded, dfBlames) {
       .by = c("LineStart", "LineEnd")
     ) |>
     dplyr::distinct()
+}
+
+#' Git blame multiple files
+#'
+#' @param chrFilePaths (`character`) Paths to files to blame.
+#' @inheritParams shared-params
+#' @returns A [tibble::tibble()] with the same structure as [BlameFile()],
+#'   row-bound across all files.
+#' @keywords internal
+BlameFiles <- function(chrFilePaths, envCall = rlang::caller_env()) {
+  if (!length(chrFilePaths)) {
+    return(
+      tibble::tibble(
+        File = character(),
+        Line = integer(),
+        Commits = vctrs::list_of(.ptype = character())
+      )
+    )
+  }
+  rlang::check_installed(
+    "git2r",
+    "to load git blame information",
+    call = envCall
+  )
+  purrr::map(chrFilePaths, \(strFilePath) {
+    BlameFile(strFilePath, envCall = envCall)
+  }) |>
+    purrr::list_rbind()
 }
 
 #' Git blame a file
@@ -113,6 +136,16 @@ BlameFileRaw <- function(strFilePath, envCall = rlang::caller_env()) {
   # nocov start
   strPkgRoot <- GetPkgRoot(strFilePath, envCall = envCall)
   strFilePath <- GetRelativePackagePath(strFilePath, envCall = envCall)
+  # Files not yet committed appear as untracked; git blame would error on them.
+  chrUntracked <- CompletelyFlatten(git2r::status(
+    repo = strPkgRoot,
+    staged = FALSE,
+    unstaged = FALSE,
+    untracked = TRUE
+  ))
+  if (strFilePath %in% chrUntracked) {
+    return(NULL)
+  }
   git2r::blame(path = strFilePath, repo = strPkgRoot)
   # nocov end
 }

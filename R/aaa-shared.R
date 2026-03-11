@@ -56,7 +56,8 @@
 #' @param envPkg (`environment` or `NULL`) A loaded package environment,
 #'   typically from `pkgload::load_all(export_all = TRUE)$env`. When provided,
 #'   source-line coverage via [covr::environment_coverage()] is used to discover
-#'   additional potential issues. See [MapTestsToCoveredLines()].
+#'   additional potential issues from commits that touched source code exercised
+#'   by each test. See [MapTestsToCoveredLines()].
 #' @param fctDisposition (`factor`) Disposition factor with levels `"fail"`,
 #'   `"warn"`, `"skip"`, and `"pass"`.
 #' @param intIssue (`length-1 integer`) The issue with which a check is

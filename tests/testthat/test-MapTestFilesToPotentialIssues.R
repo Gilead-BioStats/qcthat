@@ -269,3 +269,68 @@ test_that("MapTestFilesToPotentialIssues passes GitHub parameters (#noissue)", {
   )
   expect_s3_class(dfResult, "tbl_df")
 })
+
+test_that("MapTestFilesToPotentialIssues merges source coverage issues when envPkg provided (#265)", {
+  local_mocked_bindings(
+    ExtractTestsFromFiles = function(strTestDir) {
+      tibble::tibble(
+        Test = c("Test 1", "Test 2"),
+        File = c("test-example.R", "test-example.R"),
+        LineStart = c(1L, 5L),
+        LineEnd = c(3L, 7L),
+        Issues = list(integer(), integer()),
+        TaggedNoIssue = c(FALSE, FALSE)
+      )
+    },
+    MapTestsToCommits = function(dfFileTests) {
+      dplyr::mutate(
+        dfFileTests,
+        Commits = list("commit1", "commit2")
+      )
+    },
+    MapRepoIssuesToCommits = function(...) {
+      tibble::tibble(
+        Issue = 1:2,
+        Commits = list("commit1", "commit2")
+      )
+    },
+    GetPkgRoot = function(strPkgRoot, ...) strPkgRoot,
+    MapTestsToCoveredLines = function(
+      envPkg,
+      dfFileTests,
+      strTestDir,
+      envCall
+    ) {
+      tibble::tibble(
+        Test = c("Test 1", "Test 2"),
+        File = c("test-example.R", "test-example.R"),
+        LineStart = c(1L, 5L),
+        LineEnd = c(3L, 7L),
+        Issues = list(integer(), integer()),
+        SourceFile = c("R/foo.R", "R/bar.R"),
+        Line = c(10L, 5L)
+      )
+    },
+    MapCoveredLinesToPotentialIssues = function(
+      dfTestCoveredLines,
+      dfIssueCommitsLong
+    ) {
+      tibble::tibble(
+        Test = c("Test 1", "Test 2"),
+        File = c("test-example.R", "test-example.R"),
+        LineStart = c(1L, 5L),
+        LineEnd = c(3L, 7L),
+        Issues = list(integer(), integer()),
+        PotentialIssues = list(c(1L, 3L), 4L)
+      )
+    }
+  )
+  mock_env <- new.env()
+  dfResult <- MapTestFilesToPotentialIssues(envPkg = mock_env)
+  # Test 1: git-blame had issue 1, source coverage added 1 and 3 → merged = 1, 3
+  dfTest1 <- dfResult[dfResult$Test == "Test 1", ]
+  expect_identical(dfTest1$PotentialIssues[[1]], c(1L, 3L))
+  # Test 2: git-blame had issue 2, source coverage added 4 → merged = 2, 4
+  dfTest2 <- dfResult[dfResult$Test == "Test 2", ]
+  expect_identical(dfTest2$PotentialIssues[[1]], c(2L, 4L))
+})

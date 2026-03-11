@@ -72,21 +72,3 @@ EnframeGHLabels <- function(lGHLabels) {
   }
 }
 
-#' Fetch existing GitHub label names
-#'
-#' @inheritParams shared-params
-#' @returns A character vector of existing label names in the specified GitHub
-#'   repository.
-#' @keywords internal
-FetchGHLabelNames <- function(
-  strOwner = GetGHOwner(),
-  strRepo = GetGHRepo(),
-  strGHToken = gh::gh_token()
-) {
-  lExistingLabels <- FetchGHLabelsRaw(
-    strOwner = strOwner,
-    strRepo = strRepo,
-    strGHToken = strGHToken
-  )
-  purrr::map_chr(lExistingLabels, "name")
-}

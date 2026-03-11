@@ -15,3 +15,5 @@
 ^AGENTS\.md$
 ^\.positai$
 ^\.claude$
+^TODO\.md$
+^conversation-export\.json$

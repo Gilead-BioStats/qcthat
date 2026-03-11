@@ -4,8 +4,8 @@
 #' `r lifecycle::badge("experimental")`
 #'
 #' Collect comprehensive information about tests and their potential related
-#' issues using [MapTestFilesToPotentialIssues()], and enrich with test code and
-#' enriched issue details from GitHub.
+#' issues using [MapTestFilesToPotentialIssues()], and enrich with test code
+#' and enriched issue details from GitHub.
 #'
 #' @inheritParams shared-params
 #' @returns A [tibble::tibble()] with columns:
@@ -38,6 +38,7 @@ PrepareTestIssueContext <- function(
       strRepo = strRepo,
       strGHToken = strGHToken
     )
+
   if (!nrow(dfPotentialIssues)) {
     return(EmptyTestIssueContextDF())
   }

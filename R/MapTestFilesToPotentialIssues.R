@@ -7,6 +7,11 @@
 #' modified the test with commits that closed issues. Tests tagged with
 #' `#noissue` are excluded from the results.
 #'
+#' When `envPkg` is supplied, source-line coverage via
+#' [covr::environment_coverage()] is used to discover additional potential
+#' issues from commits that touched source code exercised by each test, not
+#' just the test files themselves.
+#'
 #' @inheritParams shared-params
 #' @returns A [tibble::tibble()] with columns:
 #'   - `Test`: The `desc` field of the test from [testthat::test_that()].
@@ -21,9 +26,14 @@
 #' @examplesIf interactive()
 #'
 #'   MapTestFilesToPotentialIssues()
+#'
+#'   # With source-line coverage augmentation
+#'   env <- pkgload::load_all(quiet = TRUE, export_all = TRUE)$env
+#'   MapTestFilesToPotentialIssues(envPkg = env)
 MapTestFilesToPotentialIssues <- function(
   dfFileTests = NULL,
   strTestDir = "tests/testthat",
+  envPkg = NULL,
   dfIssueCommitsLong = NULL,
   strOwner = GetGHOwner(strTestDir),
   strRepo = GetGHRepo(strTestDir),
@@ -42,11 +52,27 @@ MapTestFilesToPotentialIssues <- function(
       strPkgRoot = strTestDir
     )
 
-  MapTestsToPotentialIssues(
+  dfTestBlame <- MapTestsToPotentialIssues(
     dfTestCommitsLong,
     dfIssueCommitsLong = dfIssueCommitsLong
   ) |>
     GatherPotentialIssues()
+
+  if (!is.null(envPkg) && nrow(dfTestBlame)) {
+    dfTestCoveredLines <- MapTestsToCoveredLines(
+      envPkg,
+      dfFileTests = dfFileTests,
+      strTestDir = strTestDir,
+      envCall = rlang::caller_env()
+    )
+    dfSourceIssues <- MapCoveredLinesToPotentialIssues(
+      dfTestCoveredLines,
+      dfIssueCommitsLong
+    )
+    dfTestBlame <- MergePotentialIssues(dfTestBlame, dfSourceIssues)
+  }
+
+  dfTestBlame
 }
 
 #' Extract test-commit pairs in long format

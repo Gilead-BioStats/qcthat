@@ -20,8 +20,8 @@ pair, typically from \code{\link[=ExtractLongTestCommits]{ExtractLongTestCommits
 \item{dfIssueCommitsLong}{(\code{data.frame} or \code{NULL}) Pre-computed issue-commit
 mappings from \code{\link[=MapLongIssueCommits]{MapLongIssueCommits()}}. If \code{NULL} (the default), fetched
 automatically from the GitHub API. Provide this when calling
-\code{\link[=MapTestFilesToPotentialIssues]{MapTestFilesToPotentialIssues()}} multiple times to avoid redundant API
-requests.}
+\code{\link[=MapTestFilesToPotentialIssues]{MapTestFilesToPotentialIssues()}} or \code{\link[=MapCoveredLinesToPotentialIssues]{MapCoveredLinesToPotentialIssues()}}
+multiple times to avoid redundant API requests.}
 
 \item{strPkgRoot}{(\verb{length-1 character}) The path to a directory in the
 package. Will be expanded using \code{\link[gert:git_repo]{gert::git_find()}}.}

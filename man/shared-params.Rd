@@ -49,8 +49,8 @@ returned by \code{\link[=ExtractTestsFromFiles]{ExtractTestsFromFiles()}}.}
 \item{dfIssueCommitsLong}{(\code{data.frame} or \code{NULL}) Pre-computed issue-commit
 mappings from \code{\link[=MapLongIssueCommits]{MapLongIssueCommits()}}. If \code{NULL} (the default), fetched
 automatically from the GitHub API. Provide this when calling
-\code{\link[=MapTestFilesToPotentialIssues]{MapTestFilesToPotentialIssues()}} multiple times to avoid redundant API
-requests.}
+\code{\link[=MapTestFilesToPotentialIssues]{MapTestFilesToPotentialIssues()}} or \code{\link[=MapCoveredLinesToPotentialIssues]{MapCoveredLinesToPotentialIssues()}}
+multiple times to avoid redundant API requests.}
 
 \item{dfITM}{(\code{qcthat_IssueTestMatrix}) A \code{qcthat_IssueTestMatrix} object as
 returned by \code{\link[=AsIssueTestMatrix]{AsIssueTestMatrix()}} (often via \code{\link[=QCPackage]{QCPackage()}}).}
@@ -75,6 +75,12 @@ Typically set to \code{\link[rlang:stack]{rlang::caller_env()}}.}
 
 \item{envErrorMessage}{(\code{environment}) The environment to pass to
 \code{\link[glue:glue]{glue::glue()}} to resolve variables.}
+
+\item{envPkg}{(\code{environment} or \code{NULL}) A loaded package environment,
+typically from \code{pkgload::load_all(export_all = TRUE)$env}. When provided,
+source-line coverage via \code{\link[covr:environment_coverage]{covr::environment_coverage()}} is used to discover
+additional potential issues from commits that touched source code exercised
+by each test. See \code{\link[=MapTestsToCoveredLines]{MapTestsToCoveredLines()}}.}
 
 \item{fctDisposition}{(\code{factor}) Disposition factor with levels \code{"fail"},
 \code{"warn"}, \code{"skip"}, and \code{"pass"}.}

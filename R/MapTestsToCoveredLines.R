@@ -1,11 +1,5 @@
 #' Map tests to covered source lines
 #'
-#' @description
-#' `r lifecycle::badge("experimental")`
-#'
-#' Run per-test coverage analysis using [covr::environment_coverage()] to
-#' determine which source lines each test exercises.
-#'
 #' @inheritParams shared-params
 #' @returns A [tibble::tibble()] with one row per (test, source line) pair:
 #'   - `Test`: The `desc` field of the test from [testthat::test_that()].
@@ -15,12 +9,7 @@
 #'   - `Issues`: List column of integer vectors of already-tagged issue numbers.
 #'   - `SourceFile`: Path to the R source file, relative to the package root.
 #'   - `Line`: Line number in `SourceFile` exercised by this test.
-#' @export
-#'
-#' @examplesIf interactive()
-#'
-#'   env <- pkgload::load_all(quiet = TRUE, export_all = TRUE)$env
-#'   MapTestsToCoveredLines(env)
+#' @keywords internal
 MapTestsToCoveredLines <- function(
   envPkg,
   dfFileTests = NULL,
@@ -105,21 +94,7 @@ ReadTestFileContents <- function(dfFileTests, strTestDir) {
   )
 }
 
-#' Find the line number of the first test_that call
-#'
-#' @param chrFileLines (`character`) Lines of a test file.
-#' @returns The line number of the first `test_that(` call, or
-#'   `length(chrFileLines) + 1L` if no tests are found.
-#' @keywords internal
-FindFirstTestLine <- function(chrFileLines) {
-  intMatch <- grep("^test_that\\(", chrFileLines)[1]
-  if (is.na(intMatch)) length(chrFileLines) + 1L else intMatch
-}
-
 #' Extract test code with file preamble
-#'
-#' Returns the test block from `intLineStart` to `intLineEnd`, prepended with
-#' any lines before the first `test_that()` call in the file (the "preamble").
 #'
 #' @param chrFileLines (`character`) All lines of the test file.
 #' @param intLineStart (`length-1 integer`) Start line of the test block.
@@ -146,19 +121,21 @@ ExtractTestWithPreamble <- function(
 
 #' Extract test code blocks for all tests
 #'
-#' Pre-computes the test code (including preamble) for every row in
-#' `dfFileTests`, using the already-read file contents.
-#'
 #' @inheritParams shared-params
 #' @param chrFileContents (`list`) Named list of file contents from
 #'   [ReadTestFileContents()].
 #' @returns A list of character vectors, one per test.
 #' @keywords internal
 ExtractAllTestCode <- function(dfFileTests, chrFileContents) {
-  purrr::pmap(dfFileTests, \(File, LineStart, LineEnd, ...) {
+  dfFirstLines <- dplyr::summarise(
+    dfFileTests,
+    FirstTestLine = min(.data$LineStart),
+    .by = "File"
+  )
+  dfWithFirst <- dplyr::left_join(dfFileTests, dfFirstLines, by = "File")
+  purrr::pmap(dfWithFirst, \(File, LineStart, LineEnd, FirstTestLine, ...) {
     chrFileLines <- chrFileContents[[File]]
-    intFirstTestLine <- FindFirstTestLine(chrFileLines)
-    ExtractTestWithPreamble(chrFileLines, LineStart, LineEnd, intFirstTestLine)
+    ExtractTestWithPreamble(chrFileLines, LineStart, LineEnd, FirstTestLine)
   })
 }
 
@@ -174,10 +151,6 @@ WriteAllTempTestFiles <- function(lstTestCode) {
 }
 
 #' Run coverage for a single test block
-#'
-#' Runs [covr::environment_coverage()] on a pre-written temporary test file,
-#' using [testthat::local_test_directory()] to ensure that [testthat::test_path()]
-#' resolves correctly during the coverage run.
 #'
 #' @param envPkg (`environment`) Loaded package environment.
 #' @param strTempFile (`length-1 character`) Path to the already-written
@@ -231,11 +204,6 @@ CoverSingleTest <- function(
 }
 
 #' Create a temp snapshot directory with a copy of the relevant snapshot file
-#'
-#' Copies the snapshot file for `strTestFile` (if it exists) into a fresh temp
-#' directory so that [testthat::local_snapshotter()] operates on an isolated
-#' copy. This prevents `end_file()` from deleting "unused" snapshots in the
-#' real `_snaps` directory when we only run a single test from the file.
 #'
 #' @param strTestFile (`length-1 character`) Original test file path.
 #' @param strSnapDir (`length-1 character`) Path to the real `_snaps` directory.

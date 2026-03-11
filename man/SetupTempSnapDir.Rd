@@ -15,9 +15,6 @@ SetupTempSnapDir(strTestFile, strSnapDir)
 Path to the temp snapshot directory.
 }
 \description{
-Copies the snapshot file for \code{strTestFile} (if it exists) into a fresh temp
-directory so that \code{\link[testthat:local_snapshotter]{testthat::local_snapshotter()}} operates on an isolated
-copy. This prevents \code{end_file()} from deleting "unused" snapshots in the
-real \verb{_snaps} directory when we only run a single test from the file.
+Create a temp snapshot directory with a copy of the relevant snapshot file
 }
 \keyword{internal}

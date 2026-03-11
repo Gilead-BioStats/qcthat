@@ -1,4 +1,4 @@
-test_that("ReadTestFileContents reads unique files into named list (#noissue)", {
+test_that("ReadTestFileContents reads unique files into named list (#265)", {
   dfFileTests <- tibble::tibble(
     File = c(
       test_path("fixtures", "testFiles", "test-example1.R"),
@@ -14,7 +14,7 @@ test_that("ReadTestFileContents reads unique files into named list (#noissue)", 
   expect_true(length(result[[1]]) > 0)
 })
 
-test_that("ExtractTestWithPreamble includes preamble before first test (#noissue)", {
+test_that("ExtractTestWithPreamble includes preamble before first test (#265)", {
   chrFileLines <- c(
     "library(testthat)",
     "my_var <- 42",
@@ -39,7 +39,7 @@ test_that("ExtractTestWithPreamble includes preamble before first test (#noissue
   expect_identical(result, expected)
 })
 
-test_that("ExtractTestWithPreamble works when test starts at line 1 (#noissue)", {
+test_that("ExtractTestWithPreamble works when test starts at line 1 (#265)", {
   chrFileLines <- c(
     'test_that("only test", {',
     "  expect_true(TRUE)",
@@ -49,7 +49,7 @@ test_that("ExtractTestWithPreamble works when test starts at line 1 (#noissue)",
   expect_identical(result, chrFileLines)
 })
 
-test_that("NormalizeTallyPaths converts absolute paths to relative (#noissue)", {
+test_that("NormalizeTallyPaths converts absolute paths to relative (#265)", {
   dfTally <- data.frame(
     filename = c(
       "C:/pkg/R/foo.R",
@@ -69,7 +69,7 @@ test_that("NormalizeTallyPaths converts absolute paths to relative (#noissue)", 
   expect_false("filename" %in% names(dfResult))
 })
 
-test_that("CoverSingleTest returns covered lines from tally (#noissue)", {
+test_that("CoverSingleTest returns covered lines from tally (#265)", {
   local_mocked_bindings(
     CoverSingleTestRaw = function(envPkg, strTempFile) {
       structure(list(), class = "coverage")
@@ -103,7 +103,7 @@ test_that("CoverSingleTest returns covered lines from tally (#noissue)", {
   expect_identical(dfResult$Line, c(1L, 10L))
 })
 
-test_that("CoverSingleTest returns NULL when no lines are covered (#noissue)", {
+test_that("CoverSingleTest returns NULL when no lines are covered (#265)", {
   local_mocked_bindings(
     CoverSingleTestRaw = function(envPkg, strTempFile) {
       structure(list(), class = "coverage")
@@ -136,12 +136,7 @@ test_that("CoverSingleTest returns NULL when no lines are covered (#noissue)", {
   expect_null(result)
 })
 
-test_that("FindFirstTestLine returns past-end when no test_that found (#noissue)", {
-  chrFileLines <- c("library(testthat)", "x <- 1")
-  expect_identical(FindFirstTestLine(chrFileLines), 3L)
-})
-
-test_that("CoverSingleTest returns NULL on error (#noissue)", {
+test_that("CoverSingleTest returns NULL on error (#265)", {
   local_mocked_bindings(
     CoverSingleTestRaw = function(envPkg, strTempFile) {
       stop("test failure")
@@ -239,6 +234,52 @@ test_that("ExtractAllTestCode extracts code for all tests (#265)", {
       'test_that("test B", {',
       "  expect_equal(my_var, 1)",
       "})"
+    )
+  )
+})
+
+test_that("ExtractAllTestCode handles namespaced and indented test_that (#265)", {
+  dfFileTests <- tibble::tibble(
+    File = c("a.R", "a.R"),
+    LineStart = c(4L, 8L),
+    LineEnd = c(6L, 10L)
+  )
+  chrFileContents <- list(
+    "a.R" = c(
+      "library(testthat)",
+      "my_var <- 1",
+      "",
+      '  testthat::test_that("test A", {',
+      "    expect_true(TRUE)",
+      "  })",
+      "",
+      '  testthat::test_that("test B", {',
+      "    expect_equal(my_var, 1)",
+      "  })"
+    )
+  )
+  result <- ExtractAllTestCode(dfFileTests, chrFileContents)
+  expect_length(result, 2L)
+  expect_identical(
+    result[[1]],
+    c(
+      "library(testthat)",
+      "my_var <- 1",
+      "",
+      '  testthat::test_that("test A", {',
+      "    expect_true(TRUE)",
+      "  })"
+    )
+  )
+  expect_identical(
+    result[[2]],
+    c(
+      "library(testthat)",
+      "my_var <- 1",
+      "",
+      '  testthat::test_that("test B", {',
+      "    expect_equal(my_var, 1)",
+      "  })"
     )
   )
 })

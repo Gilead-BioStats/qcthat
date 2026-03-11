@@ -71,4 +71,3 @@ EnframeGHLabels <- function(lGHLabels) {
       dplyr::mutate(Color = paste0("#", .data$Color))
   }
 }
-

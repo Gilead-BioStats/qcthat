@@ -1,24 +1,10 @@
 #' Map covered source lines to potential issues
 #'
-#' @description
-#' `r lifecycle::badge("experimental")`
-#'
-#' Take the output of [MapTestsToCoveredLines()], blame each source file, and
-#' map through issue-closing commits to produce additional potential issues per
-#' test.
-#'
 #' @param dfTestCoveredLines (`tibble`) Output of [MapTestsToCoveredLines()].
 #' @inheritParams shared-params
 #' @returns A [tibble::tibble()] with the same structure as
 #'   [MapTestFilesToPotentialIssues()].
-#' @export
-#'
-#' @examplesIf interactive()
-#'
-#'   env <- pkgload::load_all(quiet = TRUE, export_all = TRUE)$env
-#'   dfTestCoveredLines <- MapTestsToCoveredLines(env)
-#'   dfIssueCommitsLong <- MapLongIssueCommits()
-#'   MapCoveredLinesToPotentialIssues(dfTestCoveredLines, dfIssueCommitsLong)
+#' @keywords internal
 MapCoveredLinesToPotentialIssues <- function(
   dfTestCoveredLines,
   dfIssueCommitsLong

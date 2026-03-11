@@ -12,26 +12,14 @@ MapCoveredLinesToPotentialIssues(dfTestCoveredLines, dfIssueCommitsLong)
 \item{dfIssueCommitsLong}{(\code{data.frame} or \code{NULL}) Pre-computed issue-commit
 mappings from \code{\link[=MapLongIssueCommits]{MapLongIssueCommits()}}. If \code{NULL} (the default), fetched
 automatically from the GitHub API. Provide this when calling
-\code{\link[=MapTestFilesToPotentialIssues]{MapTestFilesToPotentialIssues()}} or \code{\link[=MapCoveredLinesToPotentialIssues]{MapCoveredLinesToPotentialIssues()}}
-multiple times to avoid redundant API requests.}
+\code{\link[=MapTestFilesToPotentialIssues]{MapTestFilesToPotentialIssues()}} multiple times to avoid redundant API
+requests.}
 }
 \value{
 A \code{\link[tibble:tibble]{tibble::tibble()}} with the same structure as
 \code{\link[=MapTestFilesToPotentialIssues]{MapTestFilesToPotentialIssues()}}.
 }
 \description{
-\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
-
-Take the output of \code{\link[=MapTestsToCoveredLines]{MapTestsToCoveredLines()}}, blame each source file, and
-map through issue-closing commits to produce additional potential issues per
-test.
+Map covered source lines to potential issues
 }
-\examples{
-\dontshow{if (interactive()) withAutoprint(\{ # examplesIf}
-
-  env <- pkgload::load_all(quiet = TRUE, export_all = TRUE)$env
-  dfTestCoveredLines <- MapTestsToCoveredLines(env)
-  dfIssueCommitsLong <- MapLongIssueCommits()
-  MapCoveredLinesToPotentialIssues(dfTestCoveredLines, dfIssueCommitsLong)
-\dontshow{\}) # examplesIf}
-}
+\keyword{internal}

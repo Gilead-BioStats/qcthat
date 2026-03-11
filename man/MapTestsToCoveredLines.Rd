@@ -12,11 +12,8 @@ MapTestsToCoveredLines(
 )
 }
 \arguments{
-\item{envPkg}{(\code{environment} or \code{NULL}) A loaded package environment,
-typically from \code{pkgload::load_all(export_all = TRUE)$env}. When provided,
-source-line coverage via \code{\link[covr:environment_coverage]{covr::environment_coverage()}} is used to discover
-additional potential issues from commits that touched source code exercised
-by each test. See \code{\link[=MapTestsToCoveredLines]{MapTestsToCoveredLines()}}.}
+\item{envPkg}{(\code{environment}) A loaded package environment, as returned by
+\code{\link[=LoadPkgEnv]{LoadPkgEnv()}}.}
 
 \item{dfFileTests}{(\code{data.frame}) A \code{\link[tibble:tibble]{tibble::tibble()}} with the structure
 returned by \code{\link[=ExtractTestsFromFiles]{ExtractTestsFromFiles()}}.}
@@ -40,15 +37,6 @@ A \code{\link[tibble:tibble]{tibble::tibble()}} with one row per (test, source l
 }
 }
 \description{
-\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
-
-Run per-test coverage analysis using \code{\link[covr:environment_coverage]{covr::environment_coverage()}} to
-determine which source lines each test exercises.
+Map tests to covered source lines
 }
-\examples{
-\dontshow{if (interactive()) withAutoprint(\{ # examplesIf}
-
-  env <- pkgload::load_all(quiet = TRUE, export_all = TRUE)$env
-  MapTestsToCoveredLines(env)
-\dontshow{\}) # examplesIf}
-}
+\keyword{internal}

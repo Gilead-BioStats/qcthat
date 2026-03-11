@@ -101,5 +101,3 @@ test_that("FetchGHLabels returns data frame with labels (#90)", {
   expect_identical(dfResult$Label, c("bug", "enhancement"))
   expect_identical(dfResult$Color, c("#d73a4a", "#a2eeef"))
 })
-
-

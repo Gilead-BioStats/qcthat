@@ -1,16 +1,10 @@
 #' Map test files to potential issues
 #'
-#' @description
-#' `r lifecycle::badge("experimental")`
+#' @description `r lifecycle::badge("experimental")`
 #'
 #' Identify potential issues for each test by matching commits that last
 #' modified the test with commits that closed issues. Tests tagged with
 #' `#noissue` are excluded from the results.
-#'
-#' When `envPkg` is supplied, source-line coverage via
-#' [covr::environment_coverage()] is used to discover additional potential
-#' issues from commits that touched source code exercised by each test, not
-#' just the test files themselves.
 #'
 #' @inheritParams shared-params
 #' @returns A [tibble::tibble()] with columns:
@@ -20,7 +14,9 @@
 #'   - `Issues`: List column containing integer vectors of issue numbers already
 #'   tagged in the test description.
 #'   - `PotentialIssues`: List column containing integer vectors of issue
-#'   numbers that might be related to each test based on commit history.
+#'   numbers that might be related to each test based on commit history of the
+#'   test (and of the functions exercised by the test, when `lglUseCoverage` is
+#'   `TRUE`).
 #' @export
 #'
 #' @examplesIf interactive()
@@ -28,12 +24,11 @@
 #'   MapTestFilesToPotentialIssues()
 #'
 #'   # With source-line coverage augmentation
-#'   env <- pkgload::load_all(quiet = TRUE, export_all = TRUE)$env
-#'   MapTestFilesToPotentialIssues(envPkg = env)
+#'   MapTestFilesToPotentialIssues(lglUseCoverage = TRUE)
 MapTestFilesToPotentialIssues <- function(
   dfFileTests = NULL,
   strTestDir = "tests/testthat",
-  envPkg = NULL,
+  lglUseCoverage = FALSE,
   dfIssueCommitsLong = NULL,
   strOwner = GetGHOwner(strTestDir),
   strRepo = GetGHRepo(strTestDir),
@@ -58,21 +53,44 @@ MapTestFilesToPotentialIssues <- function(
   ) |>
     GatherPotentialIssues()
 
-  if (!is.null(envPkg) && nrow(dfTestBlame)) {
-    dfTestCoveredLines <- MapTestsToCoveredLines(
-      envPkg,
+  if (lglUseCoverage && nrow(dfTestBlame)) {
+    dfTestBlame <- AugmentPotentialIssuesFromCoverage(
+      dfTestBlame = dfTestBlame,
       dfFileTests = dfFileTests,
-      strTestDir = strTestDir,
-      envCall = rlang::caller_env()
+      dfIssueCommitsLong = dfIssueCommitsLong,
+      strTestDir = strTestDir
     )
-    dfSourceIssues <- MapCoveredLinesToPotentialIssues(
-      dfTestCoveredLines,
-      dfIssueCommitsLong
-    )
-    dfTestBlame <- MergePotentialIssues(dfTestBlame, dfSourceIssues)
   }
 
   dfTestBlame
+}
+
+#' Augment test potential issues with source-line coverage
+#'
+#' @param dfTestBlame (`data.frame`) A [tibble::tibble()] as returned by
+#'   [GatherPotentialIssues()], with columns `Test`, `File`, `LineStart`,
+#'   `LineEnd`, `Issues`, and `PotentialIssues`.
+#' @inheritParams shared-params
+#' @inherit MapTestFilesToPotentialIssues return
+#' @keywords internal
+AugmentPotentialIssuesFromCoverage <- function(
+  dfTestBlame,
+  dfFileTests,
+  dfIssueCommitsLong,
+  strTestDir,
+  envCall = rlang::caller_env()
+) {
+  envPkg <- LoadPkgEnv(strTestDir, envCall = envCall)
+  dfTestCoveredLines <- MapTestsToCoveredLines(
+    envPkg,
+    dfFileTests = dfFileTests,
+    strTestDir = strTestDir
+  )
+  dfSourceIssues <- MapCoveredLinesToPotentialIssues(
+    dfTestCoveredLines,
+    dfIssueCommitsLong
+  )
+  MergePotentialIssues(dfTestBlame, dfSourceIssues)
 }
 
 #' Extract test-commit pairs in long format
@@ -181,7 +199,15 @@ MapTestsToPotentialIssues <- function(
 #'
 #' @param dfTestPotentialIssuesLong A [tibble::tibble()] in long format with one
 #'   row per test-issue pair, typically from [MapTestsToPotentialIssues()].
-#' @inherit MapTestFilesToPotentialIssues return
+#' @returns A [tibble::tibble()] with columns:
+#'   - `Test`: The `desc` field of the test from [testthat::test_that()].
+#'   - `File`: Path to the file where the test is defined, relative to the
+#'   package root.
+#'   - `Issues`: List column containing integer vectors of issue numbers already
+#'   tagged in the test description.
+#'   - `PotentialIssues`: List column containing integer vectors of issue
+#'   numbers that might be related to each test based on commit history of the
+#'   test.
 #' @keywords internal
 GatherPotentialIssues <- function(dfTestPotentialIssuesLong) {
   dplyr::summarize(

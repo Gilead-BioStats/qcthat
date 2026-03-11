@@ -34,8 +34,8 @@
 #' @param dfIssueCommitsLong (`data.frame` or `NULL`) Pre-computed issue-commit
 #'   mappings from [MapLongIssueCommits()]. If `NULL` (the default), fetched
 #'   automatically from the GitHub API. Provide this when calling
-#'   [MapTestFilesToPotentialIssues()] or [MapCoveredLinesToPotentialIssues()]
-#'   multiple times to avoid redundant API requests.
+#'   [MapTestFilesToPotentialIssues()] multiple times to avoid redundant API
+#'   requests.
 #' @param dfITM (`qcthat_IssueTestMatrix`) A `qcthat_IssueTestMatrix` object as
 #'   returned by [AsIssueTestMatrix()] (often via [QCPackage()]).
 #' @param dfLabels (`data.frame`) A data frame with columns `Label`,
@@ -53,11 +53,8 @@
 #'   Typically set to [rlang::caller_env()].
 #' @param envErrorMessage (`environment`) The environment to pass to
 #'   [glue::glue()] to resolve variables.
-#' @param envPkg (`environment` or `NULL`) A loaded package environment,
-#'   typically from `pkgload::load_all(export_all = TRUE)$env`. When provided,
-#'   source-line coverage via [covr::environment_coverage()] is used to discover
-#'   additional potential issues from commits that touched source code exercised
-#'   by each test. See [MapTestsToCoveredLines()].
+#' @param envPkg (`environment`) A loaded package environment, as returned by
+#'   [LoadPkgEnv()].
 #' @param fctDisposition (`factor`) Disposition factor with levels `"fail"`,
 #'   `"warn"`, `"skip"`, and `"pass"`.
 #' @param intIssue (`length-1 integer`) The issue with which a check is
@@ -115,6 +112,11 @@
 #' @param lglUpdate (`length-1 logical`) Whether to update an existing comment
 #'   or label if it already exists (rather than creating a new comment or
 #'   label).
+#' @param lglUseCoverage (`length-1 logical`) Whether to augment potential
+#'   issues with source-line coverage. When `TRUE`,
+#'   [covr::environment_coverage()] is used to discover issues from commits that
+#'   touched source code exercised by each test. Requires `covr` to be
+#'   installed. Defaults to `FALSE`.
 #' @param lglUseEmoji (`length-1 logical`) Whether to use emojis (if `TRUE` and
 #'   the emoji package is installed) or ASCII indicators (if `FALSE`) in the
 #'   output. By default, this is determined by the `qcthat.emoji` option, which

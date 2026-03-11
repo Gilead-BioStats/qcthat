@@ -26,7 +26,6 @@ A character vector of the preamble (if any) followed by the test
 code.
 }
 \description{
-Returns the test block from \code{intLineStart} to \code{intLineEnd}, prepended with
-any lines before the first \code{test_that()} call in the file (the "preamble").
+Extract test code with file preamble
 }
 \keyword{internal}

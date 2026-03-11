@@ -17,7 +17,6 @@ returned by \code{\link[=ExtractTestsFromFiles]{ExtractTestsFromFiles()}}.}
 A list of character vectors, one per test.
 }
 \description{
-Pre-computes the test code (including preamble) for every row in
-\code{dfFileTests}, using the already-read file contents.
+Extract test code blocks for all tests
 }
 \keyword{internal}

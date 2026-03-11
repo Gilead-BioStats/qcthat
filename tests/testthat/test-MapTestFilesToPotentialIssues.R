@@ -151,7 +151,7 @@ test_that("MapTestFilesToPotentialIssues handles tests with tagged issues (#53)"
   expect_identical(dfResult, dfExpected)
 })
 
-test_that("MapTestFilesToPotentialIssues handles empty test directory (#noissue)", {
+test_that("MapTestFilesToPotentialIssues handles empty test directory (#265)", {
   local_mocked_bindings(
     ExtractTestsFromFiles = function(strTestDir) {
       tibble::tibble(
@@ -185,7 +185,7 @@ test_that("MapTestFilesToPotentialIssues handles empty test directory (#noissue)
   expect_identical(dfResult, dfExpected)
 })
 
-test_that("MapTestFilesToPotentialIssues handles all tests tagged with #noissue (#noissue)", {
+test_that("MapTestFilesToPotentialIssues handles all tests tagged with #noissue (#265)", {
   local_mocked_bindings(
     ExtractTestsFromFiles = function(strTestDir) {
       tibble::tibble(
@@ -222,7 +222,7 @@ test_that("MapTestFilesToPotentialIssues handles all tests tagged with #noissue 
   expect_identical(dfResult, dfExpected)
 })
 
-test_that("MapTestFilesToPotentialIssues passes strTestDir parameter (#noissue)", {
+test_that("MapTestFilesToPotentialIssues passes strTestDir parameter (#265)", {
   local_mocked_bindings(
     ExtractTestsFromFiles = function(strTestDir) {
       expect_equal(strTestDir, "custom/test/dir")
@@ -246,7 +246,7 @@ test_that("MapTestFilesToPotentialIssues passes strTestDir parameter (#noissue)"
   expect_s3_class(dfResult, "tbl_df")
 })
 
-test_that("MapTestFilesToPotentialIssues passes GitHub parameters (#noissue)", {
+test_that("MapTestFilesToPotentialIssues passes GitHub parameters (#265)", {
   local_mocked_bindings(
     ExtractTestsFromFiles = function(strTestDir) {
       tibble::tibble(
@@ -270,7 +270,7 @@ test_that("MapTestFilesToPotentialIssues passes GitHub parameters (#noissue)", {
   expect_s3_class(dfResult, "tbl_df")
 })
 
-test_that("MapTestFilesToPotentialIssues merges source coverage issues when envPkg provided (#265)", {
+test_that("MapTestFilesToPotentialIssues merges source coverage issues when lglUseCoverage = TRUE (#265)", {
   local_mocked_bindings(
     ExtractTestsFromFiles = function(strTestDir) {
       tibble::tibble(
@@ -295,6 +295,7 @@ test_that("MapTestFilesToPotentialIssues merges source coverage issues when envP
       )
     },
     GetPkgRoot = function(strPkgRoot, ...) strPkgRoot,
+    LoadPkgEnv = function(strTestDir, ...) new.env(),
     MapTestsToCoveredLines = function(
       envPkg,
       dfFileTests,
@@ -325,12 +326,104 @@ test_that("MapTestFilesToPotentialIssues merges source coverage issues when envP
       )
     }
   )
-  mock_env <- new.env()
-  dfResult <- MapTestFilesToPotentialIssues(envPkg = mock_env)
+  dfResult <- MapTestFilesToPotentialIssues(lglUseCoverage = TRUE)
   # Test 1: git-blame had issue 1, source coverage added 1 and 3 → merged = 1, 3
   dfTest1 <- dfResult[dfResult$Test == "Test 1", ]
   expect_identical(dfTest1$PotentialIssues[[1]], c(1L, 3L))
   # Test 2: git-blame had issue 2, source coverage added 4 → merged = 2, 4
   dfTest2 <- dfResult[dfResult$Test == "Test 2", ]
   expect_identical(dfTest2$PotentialIssues[[1]], c(2L, 4L))
+})
+
+test_that("AugmentPotentialIssuesFromCoverage() passes strTestDir to LoadPkgEnv (#265)", {
+  local_mocked_bindings(
+    LoadPkgEnv = function(strTestDir, ...) {
+      expect_equal(strTestDir, "custom/test/dir")
+      new.env()
+    },
+    MapTestsToCoveredLines = function(
+      envPkg,
+      dfFileTests,
+      strTestDir,
+      envCall
+    ) {
+      EmptyTestCoveredLinesDF()
+    },
+    MapCoveredLinesToPotentialIssues = function(
+      dfTestCoveredLines,
+      dfIssueCommitsLong
+    ) {
+      EmptyTestPotentialIssues()
+    }
+  )
+  dfTestBlame <- tibble::tibble(
+    Test = "Test 1",
+    File = "test-example.R",
+    LineStart = 1L,
+    LineEnd = 5L,
+    Issues = list(integer()),
+    PotentialIssues = list(integer())
+  )
+  AugmentPotentialIssuesFromCoverage(
+    dfTestBlame = dfTestBlame,
+    dfFileTests = NULL,
+    dfIssueCommitsLong = tibble::tibble(Issue = integer(), Commits = list()),
+    strTestDir = "custom/test/dir"
+  )
+})
+
+test_that("AugmentPotentialIssuesFromCoverage() merges coverage issues with commit-based issues (#265)", {
+  local_mocked_bindings(
+    LoadPkgEnv = function(strTestDir, ...) new.env(),
+    MapTestsToCoveredLines = function(
+      envPkg,
+      dfFileTests,
+      strTestDir,
+      envCall
+    ) {
+      tibble::tibble(
+        Test = c("Test 1", "Test 2"),
+        File = c("test-example.R", "test-example.R"),
+        LineStart = c(1L, 5L),
+        LineEnd = c(3L, 7L),
+        Issues = list(integer(), integer()),
+        SourceFile = c("R/foo.R", "R/bar.R"),
+        Line = c(10L, 5L)
+      )
+    },
+    MapCoveredLinesToPotentialIssues = function(
+      dfTestCoveredLines,
+      dfIssueCommitsLong
+    ) {
+      tibble::tibble(
+        Test = c("Test 1", "Test 2"),
+        File = c("test-example.R", "test-example.R"),
+        LineStart = c(1L, 5L),
+        LineEnd = c(3L, 7L),
+        Issues = list(integer(), integer()),
+        PotentialIssues = list(c(1L, 3L), 4L)
+      )
+    }
+  )
+  dfTestBlame <- tibble::tibble(
+    Test = c("Test 1", "Test 2"),
+    File = c("test-example.R", "test-example.R"),
+    LineStart = c(1L, 5L),
+    LineEnd = c(3L, 7L),
+    Issues = list(integer(), integer()),
+    PotentialIssues = list(1L, 2L)
+  )
+  dfResult <- AugmentPotentialIssuesFromCoverage(
+    dfTestBlame = dfTestBlame,
+    dfFileTests = NULL,
+    dfIssueCommitsLong = tibble::tibble(
+      Issue = 1:4,
+      Commits = list("commit1", "commit2", "commit3", "commit4")
+    ),
+    strTestDir = "tests/testthat"
+  )
+  # Test 1: commit-based had issue 1; coverage added 1 and 3 → merged = 1, 3
+  expect_identical(dfResult$PotentialIssues[[1]], c(1L, 3L))
+  # Test 2: commit-based had issue 2; coverage added 4 → merged = 2, 4
+  expect_identical(dfResult$PotentialIssues[[2]], c(2L, 4L))
 })

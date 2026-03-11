@@ -35,8 +35,6 @@ A \code{\link[tibble:tibble]{tibble::tibble()}} with \code{SourceFile} (package-
 columns for covered lines, or \code{NULL} on failure.
 }
 \description{
-Runs \code{\link[covr:environment_coverage]{covr::environment_coverage()}} on a pre-written temporary test file,
-using \code{\link[testthat:local_test_directory]{testthat::local_test_directory()}} to ensure that \code{\link[testthat:test_path]{testthat::test_path()}}
-resolves correctly during the coverage run.
+Run coverage for a single test block
 }
 \keyword{internal}

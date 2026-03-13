@@ -6,7 +6,7 @@ test_that("ReadTestFileContents reads unique files into named list (#265)", {
       test_path("fixtures", "testFiles", "test-example2.R")
     )
   )
-  result <- ReadTestFileContents(dfFileTests, "tests/testthat")
+  result <- ReadTestFileContents(dfFileTests)
   expect_type(result, "list")
   expect_length(result, 2L)
   expect_named(result, unique(dfFileTests$File))
@@ -309,7 +309,7 @@ test_that("MapTestsToCoveredLines returns per-test covered lines (#265)", {
   )
   local_mocked_bindings(
     GetPkgRoot = function(strPkgRoot, envCall = rlang::caller_env()) "/pkg",
-    ReadTestFileContents = function(dfFileTests, strTestDir) {
+    ReadTestFileContents = function(dfFileTests) {
       list(
         "tests/testthat/test-foo.R" = c(
           'test_that("test A", {',
@@ -410,7 +410,7 @@ test_that("MapTestsToCoveredLines handles test with no coverage (#265)", {
   )
   local_mocked_bindings(
     GetPkgRoot = function(strPkgRoot, envCall = rlang::caller_env()) "/pkg",
-    ReadTestFileContents = function(dfFileTests, strTestDir) {
+    ReadTestFileContents = function(dfFileTests) {
       list(
         "tests/testthat/test-foo.R" = c(
           'test_that("empty test", {',

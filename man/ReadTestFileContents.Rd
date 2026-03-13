@@ -4,14 +4,11 @@
 \alias{ReadTestFileContents}
 \title{Read test file contents once per unique file}
 \usage{
-ReadTestFileContents(dfFileTests, strTestDir)
+ReadTestFileContents(dfFileTests)
 }
 \arguments{
 \item{dfFileTests}{(\code{data.frame}) A \code{\link[tibble:tibble]{tibble::tibble()}} with the structure
 returned by \code{\link[=ExtractTestsFromFiles]{ExtractTestsFromFiles()}}.}
-
-\item{strTestDir}{(\verb{length-1 character}) Path to the directory containing
-test files. Defaults to \code{"tests/testthat"}.}
 }
 \value{
 A named list of character vectors, keyed by file path.

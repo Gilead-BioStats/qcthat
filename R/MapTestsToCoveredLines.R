@@ -16,7 +16,6 @@ MapTestsToCoveredLines <- function(
   strTestDir = "tests/testthat",
   envCall = rlang::caller_env()
 ) {
-  rlang::check_installed("covr", "to trace source line coverage")
   dfFileTests <- dfFileTests %||%
     ExtractTestsFromFiles(strTestDir = strTestDir)
 
@@ -30,7 +29,7 @@ MapTestsToCoveredLines <- function(
   strPkgRoot <- GetPkgRoot(strTestDir, envCall = envCall)
   strAbsTestDir <- file.path(strPkgRoot, strTestDir)
   strSnapDir <- file.path(strTestDir, "_snaps")
-  chrFileContents <- ReadTestFileContents(dfFileTests, strTestDir)
+  chrFileContents <- ReadTestFileContents(dfFileTests)
 
   withr::local_envvar(R_TESTS = "", R_BROWSER = "false", R_PDFVIEWER = "false")
 
@@ -86,7 +85,7 @@ MapTestsToCoveredLines <- function(
 #' @inheritParams shared-params
 #' @returns A named list of character vectors, keyed by file path.
 #' @keywords internal
-ReadTestFileContents <- function(dfFileTests, strTestDir) {
+ReadTestFileContents <- function(dfFileTests) {
   chrUniquePaths <- unique(dfFileTests$File)
   purrr::set_names(
     purrr::map(chrUniquePaths, \(strPath) readLines(strPath, warn = FALSE)),
@@ -234,6 +233,7 @@ SetupTempSnapDir <- function(strTestFile, strSnapDir) {
 #' @keywords internal
 CoverSingleTestRaw <- function(envPkg, strTempFile) {
   # nocov start
+  rlang::check_installed("covr", "to trace source line coverage")
   tryCatch(
     covr::environment_coverage(envPkg, strTempFile),
     error = function(e) NULL

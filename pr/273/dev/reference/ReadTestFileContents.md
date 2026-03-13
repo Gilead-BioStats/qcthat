@@ -5,7 +5,7 @@ Read test file contents once per unique file
 ## Usage
 
 ``` r
-ReadTestFileContents(dfFileTests, strTestDir)
+ReadTestFileContents(dfFileTests)
 ```
 
 ## Arguments
@@ -16,11 +16,6 @@ ReadTestFileContents(dfFileTests, strTestDir)
   [`tibble::tibble()`](https://tibble.tidyverse.org/reference/tibble.html)
   with the structure returned by
   [`ExtractTestsFromFiles()`](https://gilead-biostats.github.io/qcthat/dev/reference/ExtractTestsFromFiles.md).
-
-- strTestDir:
-
-  (`length-1 character`) Path to the directory containing test files.
-  Defaults to `"tests/testthat"`.
 
 ## Value
 

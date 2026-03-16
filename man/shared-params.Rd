@@ -76,7 +76,8 @@ Typically set to \code{\link[rlang:stack]{rlang::caller_env()}}.}
 \item{envErrorMessage}{(\code{environment}) The environment to pass to
 \code{\link[glue:glue]{glue::glue()}} to resolve variables.}
 
-\item{fctDisposition}{(\code{factor}) Disposition factor with levels \code{c("fail", "skip", "pass")}.}
+\item{fctDisposition}{(\code{factor}) Disposition factor with levels \code{"fail"},
+\code{"warn"}, \code{"skip"}, and \code{"pass"}.}
 
 \item{intIssue}{(\verb{length-1 integer}) The issue with which a check is
 associated.}
@@ -196,7 +197,7 @@ expectation.}
 \item{strDirPath}{(\verb{length-1 character}) The path to a directory.}
 
 \item{strDisposition}{(\verb{length-1 character}) The result of a test, such as
-"pass", "fail", or "skip", or "accepted" or "pending" for UAT.}
+"pass", "fail", "warn", or "skip", or "accepted" or "pending" for UAT.}
 
 \item{strErrorSubclass}{(\verb{length-1 character}) A subclass for an error
 condition.}

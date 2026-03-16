@@ -10,7 +10,7 @@ ExtractDisposition(lTestResult)
 \item{lTestResult}{A single element from a \code{testthat_results} object.}
 }
 \value{
-The string \code{"pass"}, \code{"fail"}, or \code{"skip"}.
+The string \code{"fail"}, \code{"warn"}, \code{"skip"}, or \code{"pass"}.
 }
 \description{
 Extract disposition information from a single testthat result

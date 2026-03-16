@@ -22,13 +22,13 @@ test_that("CompileTestResults works for empty testthat_results (#32)", {
     tibble::tibble(
       Test = character(),
       File = character(),
-      Disposition = factor(levels = c("fail", "skip", "pass")),
+      Disposition = factor(levels = c("fail", "warn", "skip", "pass")),
       Issues = vctrs::list_of(.ptype = integer())
     )
   )
 })
 
-test_that("CompileTestResults returns the expected object (#32)", {
+test_that("CompileTestResults returns the expected object (#32, #130)", {
   lTestResults <- GenerateStandardTestResults()
   test_result <- CompileTestResults(lTestResults)
   expect_s3_class(test_result, "qcthat_TestResults")
@@ -51,7 +51,7 @@ test_that("CompileTestResults returns the expected object (#32)", {
       ),
       Disposition = factor(
         c("pass", "pass", "fail", "skip"),
-        levels = c("fail", "skip", "pass")
+        levels = c("fail", "warn", "skip", "pass")
       ),
       Issues = list(
         32L,
@@ -63,7 +63,7 @@ test_that("CompileTestResults returns the expected object (#32)", {
   )
 })
 
-test_that("ExtractDisposition() helper counts warnings as errors (#32)", {
+test_that("ExtractDisposition() helper counts warnings as warnings (#130)", {
   lTestResult <- list(
     results = list(
       structure(
@@ -72,7 +72,7 @@ test_that("ExtractDisposition() helper counts warnings as errors (#32)", {
       )
     )
   )
-  expect_equal(ExtractDisposition(lTestResult), "fail")
+  expect_equal(ExtractDisposition(lTestResult), "warn")
 })
 
 test_that("ExtractDisposition() helper errors informatively for weird results (#32)", {

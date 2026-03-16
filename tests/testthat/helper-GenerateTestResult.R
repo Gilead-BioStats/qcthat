@@ -1,7 +1,7 @@
 GenerateTestResult <- function(
   chrTestName,
   chrTestFile,
-  chrDisposition = c("pass", "fail", "skip"),
+  chrDisposition = c("pass", "fail", "warn", "skip"),
   intGHIssues = integer()
 ) {
   chrDisposition <- match.arg(chrDisposition)
@@ -9,6 +9,7 @@ GenerateTestResult <- function(
     chrDisposition,
     pass = c("expectation_success", "expectation", "condition"),
     fail = c("expectation_failure", "expectation", "error", "condition"),
+    warn = c("expectation_warning", "expectation", "warning", "condition"),
     skip = c("expectation_skip", "expectation", "condition")
   )
 

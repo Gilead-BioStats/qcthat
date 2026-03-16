@@ -55,6 +55,7 @@ modified the test with commits that closed issues. Tests tagged with
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">MapTestFilesToPotentialIssues</span><span class="op">(</span></span>
 <span>  dfFileTests <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  strTestDir <span class="op">=</span> <span class="st">"tests/testthat"</span>,</span>
+<span>  lglUseCoverage <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  dfIssueCommitsLong <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  strOwner <span class="op">=</span> <span class="fu"><a href="GetGHOwner.html">GetGHOwner</a></span><span class="op">(</span><span class="va">strTestDir</span><span class="op">)</span>,</span>
 <span>  strRepo <span class="op">=</span> <span class="fu"><a href="GetGHRepo.html">GetGHRepo</a></span><span class="op">(</span><span class="va">strTestDir</span><span class="op">)</span>,</span>
@@ -74,6 +75,14 @@ returned by <code><a href="ExtractTestsFromFiles.html">ExtractTestsFromFiles()</
 <dt id="arg-strtestdir">strTestDir<a class="anchor" aria-label="anchor" href="#arg-strtestdir"></a></dt>
 <dd><p>(<code>length-1 character</code>) Path to the directory containing
 test files. Defaults to <code>"tests/testthat"</code>.</p></dd>
+
+
+<dt id="arg-lglusecoverage">lglUseCoverage<a class="anchor" aria-label="anchor" href="#arg-lglusecoverage"></a></dt>
+<dd><p>(<code>length-1 logical</code>) Whether to augment potential
+issues with source-line coverage. When <code>TRUE</code>,
+<code><a href="http://covr.r-lib.org/reference/environment_coverage.html" class="external-link">covr::environment_coverage()</a></code> is used to discover issues from commits that
+touched source code exercised by each test. Requires <code>covr</code> to be
+installed. Defaults to <code>FALSE</code>.</p></dd>
 
 
 <dt id="arg-dfissuecommitslong">dfIssueCommitsLong<a class="anchor" aria-label="anchor" href="#arg-dfissuecommitslong"></a></dt>
@@ -105,7 +114,9 @@ package root.</p></li>
 <li><p><code>Issues</code>: List column containing integer vectors of issue numbers already
 tagged in the test description.</p></li>
 <li><p><code>PotentialIssues</code>: List column containing integer vectors of issue
-numbers that might be related to each test based on commit history.</p></li>
+numbers that might be related to each test based on commit history of the
+test (and of the functions exercised by the test, when <code>lglUseCoverage</code> is
+<code>TRUE</code>).</p></li>
 </ul></div>
 
     <div class="section level2">
@@ -113,6 +124,9 @@ numbers that might be related to each test based on commit history.</p></li>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span> <span class="co"># interactive()</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span>  <span class="fu">MapTestFilesToPotentialIssues</span><span class="op">(</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span>  <span class="co"># With source-line coverage augmentation</span></span></span>
+<span class="r-in"><span>  <span class="fu">MapTestFilesToPotentialIssues</span><span class="op">(</span>lglUseCoverage <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">}</span></span></span>
 </code></pre></div>
     </div>

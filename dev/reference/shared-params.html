@@ -167,6 +167,11 @@ Typically set to <code><a href="https://rlang.r-lib.org/reference/stack.html" cl
 <code><a href="https://glue.tidyverse.org/reference/glue.html" class="external-link">glue::glue()</a></code> to resolve variables.</p></dd>
 
 
+<dt id="arg-envpkg">envPkg<a class="anchor" aria-label="anchor" href="#arg-envpkg"></a></dt>
+<dd><p>(<code>environment</code>) A loaded package environment, as returned by
+<code><a href="LoadPkgEnv.html">LoadPkgEnv()</a></code>.</p></dd>
+
+
 <dt id="arg-fctdisposition">fctDisposition<a class="anchor" aria-label="anchor" href="#arg-fctdisposition"></a></dt>
 <dd><p>(<code>factor</code>) Disposition factor with levels <code>"fail"</code>,
 <code>"warn"</code>, <code>"skip"</code>, and <code>"pass"</code>.</p></dd>
@@ -300,6 +305,14 @@ report.</p></dd>
 <dd><p>(<code>length-1 logical</code>) Whether to update an existing comment
 or label if it already exists (rather than creating a new comment or
 label).</p></dd>
+
+
+<dt id="arg-lglusecoverage">lglUseCoverage<a class="anchor" aria-label="anchor" href="#arg-lglusecoverage"></a></dt>
+<dd><p>(<code>length-1 logical</code>) Whether to augment potential
+issues with source-line coverage. When <code>TRUE</code>,
+<code><a href="http://covr.r-lib.org/reference/environment_coverage.html" class="external-link">covr::environment_coverage()</a></code> is used to discover issues from commits that
+touched source code exercised by each test. Requires <code>covr</code> to be
+installed. Defaults to <code>FALSE</code>.</p></dd>
 
 
 <dt id="arg-lgluseemoji">lglUseEmoji<a class="anchor" aria-label="anchor" href="#arg-lgluseemoji"></a></dt>

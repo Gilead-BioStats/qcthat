@@ -33,4 +33,5 @@ with columns:
   already tagged in the test description.
 
 - `PotentialIssues`: List column containing integer vectors of issue
-  numbers that might be related to each test based on commit history.
+  numbers that might be related to each test based on commit history of
+  the test.

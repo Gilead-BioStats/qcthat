@@ -12,6 +12,7 @@ modified the test with commits that closed issues. Tests tagged with
 MapTestFilesToPotentialIssues(
   dfFileTests = NULL,
   strTestDir = "tests/testthat",
+  lglUseCoverage = FALSE,
   dfIssueCommitsLong = NULL,
   strOwner = GetGHOwner(strTestDir),
   strRepo = GetGHRepo(strTestDir),
@@ -32,6 +33,15 @@ MapTestFilesToPotentialIssues(
 
   (`length-1 character`) Path to the directory containing test files.
   Defaults to `"tests/testthat"`.
+
+- lglUseCoverage:
+
+  (`length-1 logical`) Whether to augment potential issues with
+  source-line coverage. When `TRUE`,
+  [`covr::environment_coverage()`](http://covr.r-lib.org/reference/environment_coverage.md)
+  is used to discover issues from commits that touched source code
+  exercised by each test. Requires `covr` to be installed. Defaults to
+  `FALSE`.
 
 - dfIssueCommitsLong:
 
@@ -70,7 +80,9 @@ with columns:
   already tagged in the test description.
 
 - `PotentialIssues`: List column containing integer vectors of issue
-  numbers that might be related to each test based on commit history.
+  numbers that might be related to each test based on commit history of
+  the test (and of the functions exercised by the test, when
+  `lglUseCoverage` is `TRUE`).
 
 ## Examples
 
@@ -78,5 +90,8 @@ with columns:
 if (FALSE) { # interactive()
 
   MapTestFilesToPotentialIssues()
+
+  # With source-line coverage augmentation
+  MapTestFilesToPotentialIssues(lglUseCoverage = TRUE)
 }
 ```

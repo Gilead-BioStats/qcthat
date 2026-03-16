@@ -137,6 +137,11 @@ Reused parameter definitions are gathered here for easier usage. Use
   [`glue::glue()`](https://glue.tidyverse.org/reference/glue.html) to
   resolve variables.
 
+- envPkg:
+
+  (`environment`) A loaded package environment, as returned by
+  [`LoadPkgEnv()`](https://gilead-biostats.github.io/qcthat/dev/reference/LoadPkgEnv.md).
+
 - fctDisposition:
 
   (`factor`) Disposition factor with levels `"fail"`, `"warn"`,
@@ -274,6 +279,15 @@ Reused parameter definitions are gathered here for easier usage. Use
 
   (`length-1 logical`) Whether to update an existing comment or label if
   it already exists (rather than creating a new comment or label).
+
+- lglUseCoverage:
+
+  (`length-1 logical`) Whether to augment potential issues with
+  source-line coverage. When `TRUE`,
+  [`covr::environment_coverage()`](http://covr.r-lib.org/reference/environment_coverage.md)
+  is used to discover issues from commits that touched source code
+  exercised by each test. Requires `covr` to be installed. Defaults to
+  `FALSE`.
 
 - lglUseEmoji:
 

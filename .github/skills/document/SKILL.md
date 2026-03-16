@@ -7,8 +7,8 @@ description: Document package functions. Use when asked to document functions.
 
 *All* functions should be documented in {roxygen2} `#'` style, including internal/unexported functions.
 
-- Run `devtools::document()` after changing any roxygen2 docs.
-- Use sentence case for all headings
+- Run `air format .` then `devtools::document()` after changing any roxygen2 docs.
+- Use sentence case for all headings.
 
 ## Shared parameters
 
@@ -22,35 +22,56 @@ The `aaa-shared.R` file:
 
 ## Parameter documentation format
 
-Parameters follow this format:
 ```r
 #' @param paramName (`TYPE`) One sentence description. Can include [cross_references()].
 #'   Additional details on continuation lines if needed.
 ```
 
-### Type notation examples
+Function-specific `@param` definitions always appear *before* any `@inheritParams` lines.
+
+### Type notation
 
 - "(`character`)" - Character vector
 - "(`length-1 character`)" - Single string
-- "(`length-1 integer`)" - Single integer  
+- "(`length-1 integer`)" - Single integer
 - "(`length-1 logical`)" - Single boolean
 - "(`data.frame`)" - Data frame
 - "(`list`)" - List object
 - "(`environment`)" - Environment object
 
-## Parameter naming conventions
+### Enumerated values
 
-**Hungarian-style prefixes** indicate parameter type:
-- `str*` - Single string (length-1 character): `strTitle`, `strBody`, `strOwner`
-- `chr*` - Character vector: `chrLabels`, `chrTests`, `chrMilestones`
-- `int*` - Integer: `intIssue`, `intPageMax`, `intLineStart`
-- `lgl*` - Logical: `lglUpdate`, `lglWarn`, `lglOverwrite`
-- `df*` - Data frame: `dfITM`, `dfRepoIssues`, `dfTestResults`
-- `l*` - List: `lTestResults`, `lCommentsRaw`, `lGHEventPayload`
-- `env*` - Environment: `envCall`, `envErrorMessage`
-- `dttm*` - Datetime/POSIXct: `dttmTimestamp`
-- `fct*` - Factor: `fctDisposition`
-- `obj*` - Object: `objShape`
+When a parameter takes one of a fixed set of values, document them with a bullet list:
+
+```r
+#' @param strState (`length-1 character`) State of issues to fetch. Can be
+#'   one of:
+#'   * `"open"`: Open issues only.
+#'   * `"closed"`: Closed issues only.
+#'   * `"all"`: All issues regardless of state.
+```
+
+## Exported functions
+
+```r
+#' Title in sentence case
+#'
+#' Description paragraph providing context and details.
+#'
+#' @param strParam (`TYPE`) Description.
+#' @inheritParams shared-params
+#'
+#' @returns Description of return value.
+#' @seealso [RelatedFunction()]
+#' @export
+#'
+#' @examples
+#' ExampleFunction()
+```
+
+- Blank `#'` lines separate: title/description, description/params, and `@export`/`@examples`.
+- `@seealso` (optional) goes between `@returns` and `@export`.
+- `@details` can supplement the description when needed.
 
 ## Return value documentation
 
@@ -131,7 +152,7 @@ filter.qcthat_IssueTestMatrix <- function(.data, ...) { ... }
 
 ## Internal functions
 
-Internal (unexporeted) functions use abbreviated documentation:
+Internal (unexported) functions use abbreviated documentation:
 
 ```r
 #' Title in sentence case

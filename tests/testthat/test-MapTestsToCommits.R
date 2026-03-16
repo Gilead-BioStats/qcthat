@@ -190,6 +190,52 @@ test_that("BlameFile works with no blame data (#noissue)", {
   expect_identical(dfResult, dfExpected)
 })
 
+test_that("BlameFiles blames multiple files and combines results (#noissue)", {
+  local_mocked_bindings(
+    BlameFileRaw = function(strFilePath, envCall = rlang::caller_env()) {
+      if (grepl("file-a.R$", strFilePath)) {
+        list(
+          hunks = list(
+            list(
+              final_commit_id = "aaa111",
+              final_start_line_number = 1L,
+              lines_in_hunk = 3L
+            )
+          )
+        )
+      } else {
+        list(
+          hunks = list(
+            list(
+              final_commit_id = "bbb222",
+              final_start_line_number = 1L,
+              lines_in_hunk = 2L
+            )
+          )
+        )
+      }
+    },
+    GetRelativePackagePath = function(strFilePath, envCall) strFilePath
+  )
+  dfResult <- BlameFiles(c("file-a.R", "file-b.R"))
+  dfExpected <- tibble::tibble(
+    File = c(rep("file-a.R", 3), rep("file-b.R", 2)),
+    Line = c(1:3, 1:2),
+    Commits = as.list(c(rep("aaa111", 3), rep("bbb222", 2)))
+  )
+  expect_identical(dfResult, dfExpected)
+})
+
+test_that("BlameFiles returns empty tibble for empty input (#noissue)", {
+  dfResult <- BlameFiles(character())
+  dfExpected <- tibble::tibble(
+    File = character(),
+    Line = integer(),
+    Commits = vctrs::list_of(.ptype = character())
+  )
+  expect_identical(dfResult, dfExpected)
+})
+
 test_that("GetRelativePackagePath finds the relative path (#201)", {
   skip_if(is_checking(), "Catch this one in the qcthat checks.")
   expect_equal(

@@ -76,6 +76,9 @@ Typically set to \code{\link[rlang:stack]{rlang::caller_env()}}.}
 \item{envErrorMessage}{(\code{environment}) The environment to pass to
 \code{\link[glue:glue]{glue::glue()}} to resolve variables.}
 
+\item{envPkg}{(\code{environment}) A loaded package environment, as returned by
+\code{\link[=LoadPkgEnv]{LoadPkgEnv()}}.}
+
 \item{fctDisposition}{(\code{factor}) Disposition factor with levels \code{"fail"},
 \code{"warn"}, \code{"skip"}, and \code{"pass"}.}
 
@@ -158,6 +161,12 @@ report.}
 \item{lglUpdate}{(\verb{length-1 logical}) Whether to update an existing comment
 or label if it already exists (rather than creating a new comment or
 label).}
+
+\item{lglUseCoverage}{(\verb{length-1 logical}) Whether to augment potential
+issues with source-line coverage. When \code{TRUE},
+\code{\link[covr:environment_coverage]{covr::environment_coverage()}} is used to discover issues from commits that
+touched source code exercised by each test. Requires \code{covr} to be
+installed. Defaults to \code{FALSE}.}
 
 \item{lglUseEmoji}{(\verb{length-1 logical}) Whether to use emojis (if \code{TRUE} and
 the emoji package is installed) or ASCII indicators (if \code{FALSE}) in the

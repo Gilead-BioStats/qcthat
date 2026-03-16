@@ -7,6 +7,7 @@
 MapTestFilesToPotentialIssues(
   dfFileTests = NULL,
   strTestDir = "tests/testthat",
+  lglUseCoverage = FALSE,
   dfIssueCommitsLong = NULL,
   strOwner = GetGHOwner(strTestDir),
   strRepo = GetGHRepo(strTestDir),
@@ -19,6 +20,12 @@ returned by \code{\link[=ExtractTestsFromFiles]{ExtractTestsFromFiles()}}.}
 
 \item{strTestDir}{(\verb{length-1 character}) Path to the directory containing
 test files. Defaults to \code{"tests/testthat"}.}
+
+\item{lglUseCoverage}{(\verb{length-1 logical}) Whether to augment potential
+issues with source-line coverage. When \code{TRUE},
+\code{\link[covr:environment_coverage]{covr::environment_coverage()}} is used to discover issues from commits that
+touched source code exercised by each test. Requires \code{covr} to be
+installed. Defaults to \code{FALSE}.}
 
 \item{dfIssueCommitsLong}{(\code{data.frame} or \code{NULL}) Pre-computed issue-commit
 mappings from \code{\link[=MapLongIssueCommits]{MapLongIssueCommits()}}. If \code{NULL} (the default), fetched
@@ -42,7 +49,9 @@ package root.
 \item \code{Issues}: List column containing integer vectors of issue numbers already
 tagged in the test description.
 \item \code{PotentialIssues}: List column containing integer vectors of issue
-numbers that might be related to each test based on commit history.
+numbers that might be related to each test based on commit history of the
+test (and of the functions exercised by the test, when \code{lglUseCoverage} is
+\code{TRUE}).
 }
 }
 \description{
@@ -56,5 +65,8 @@ modified the test with commits that closed issues. Tests tagged with
 \dontshow{if (interactive()) withAutoprint(\{ # examplesIf}
 
   MapTestFilesToPotentialIssues()
+
+  # With source-line coverage augmentation
+  MapTestFilesToPotentialIssues(lglUseCoverage = TRUE)
 \dontshow{\}) # examplesIf}
 }

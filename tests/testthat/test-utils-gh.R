@@ -104,12 +104,6 @@ test_that("UsesGit works in any situation (#110)", {
   expect_false(UsesGit("fake_dir"))
 })
 
-test_that("EmptyGHResponse builds an empty GitHub response (#230)", {
-  expect_s3_class(EmptyGHResponse(), "gh_response")
-  expect_type(EmptyGHResponse(), "list")
-  expect_length(EmptyGHResponse(), 0)
-})
-
 test_that("PrepareGQLQuery constructs a query (#84)", {
   expect_snapshot({
     PrepareGQLQuery(

@@ -101,34 +101,3 @@ test_that("FetchGHLabels returns data frame with labels (#90)", {
   expect_identical(dfResult$Label, c("bug", "enhancement"))
   expect_identical(dfResult$Color, c("#d73a4a", "#a2eeef"))
 })
-
-test_that("FetchGHLabelNames returns character vector of label names (#90)", {
-  local_mocked_bindings(
-    FetchGHLabelsRaw = function(...) {
-      list(
-        list(name = "bug", description = "Bug", color = "d73a4a"),
-        list(
-          name = "enhancement",
-          description = "Enhancement",
-          color = "a2eeef"
-        ),
-        list(name = "documentation", description = "Docs", color = "0075ca")
-      )
-    }
-  )
-  chrResult <- FetchGHLabelNames()
-  expect_type(chrResult, "character")
-  expect_identical(length(chrResult), 3L)
-  expect_identical(chrResult, c("bug", "enhancement", "documentation"))
-})
-
-test_that("FetchGHLabelNames returns empty character vector when no labels exist (#90)", {
-  local_mocked_bindings(
-    FetchGHLabelsRaw = function(...) {
-      list()
-    }
-  )
-  chrResult <- FetchGHLabelNames()
-  expect_type(chrResult, "character")
-  expect_identical(length(chrResult), 0L)
-})

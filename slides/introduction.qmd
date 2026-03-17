@@ -48,7 +48,6 @@ format:
 
 - FDA (etc) require documented proof that software produces reliable results
 - Adopting org often takes on burden of proof
-- For R packages: must connect requirements to tested functionality
 
 ::: notes
 - Atorus OpenVal for a collection of validated packages.
@@ -64,8 +63,8 @@ format:
 ## "Validation debt" delays releases and increases risk
 
 - Deferred qualification: harder to reconstruct what was tested and why
-- Manual docs drift out of sync with code
-- Teams avoid upgrading packages to dodge re-qualification
+- Manual qualification docs drift out of sync with code
+- Teams avoid using updates to dodge re-qualification
 
 # The standard R package lifecycle generates evidence but lacks traceability
 
@@ -77,7 +76,7 @@ format:
 
 ## CI/CD pipelines ensure code integrity on every commit
 
-- GitHub Actions run tests on every push
+- GitHub Actions run tests on every push (`usethis::use_github_action()`)
 - Failures caught long before code reaches production
 - Standard practice for well-maintained R packages
 
@@ -110,11 +109,11 @@ format:
 
 ## Connecting tests to issues is straightforward
 
-- Add `(#123)` (issue number) to `test_that()` description to tag test to issue
-- Tag multiple issues: `(#84, #132)`
-- Also acts as a clickable link in RStudio
+- Add `(#123)` or `(#84, #132)` (issue numbers) to `test_that()` description to tag test to issue
 
-## The "Issue-Test Matrix" shows the connections between issues and tests
+![](slide_images/test-tagged.png){width=100%}
+
+## `{qcthat}` Reports are easy to generate
 
 :::: columns
 
@@ -125,7 +124,6 @@ format:
 - Filter to subsets: `QCCompletedIssues()`, `QCPR()`, `QCMilestones()`
 
 :::
-
 ::: column
 
 ![](slide_images/gh_report_completed_zoom.png){width=100%}
@@ -133,6 +131,15 @@ format:
 :::
 
 ::::
+
+## The "Issue-Test Matrix" shows the connections between issues and tests
+
+![](slide_images/gh_report_completed_zoom.png){width=100%}
+
+::: notes
+- "Requirement", "Technical Task", and "Feature" are issue types in our GitHub repository.
+- If you're reading carefully, these tests sound hard to test.
+:::
 
 ## User Acceptance Testing (UAT) is integrated directly into tests
 

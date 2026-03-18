@@ -80,7 +80,7 @@ format:
 - Failures caught long before code reaches production
 - Standard practice for well-maintained R packages
 
-## Standard {testthat} scripts provide the evidence of implementation
+## Standard `{testthat}` scripts provide the evidence of implementation
 
 :::: columns
 
@@ -190,6 +190,6 @@ format:
 
 ## Contact us with questions and comments
 
-- {qcthat} package website: [gilead-biostats.github.io/qcthat](https://gilead-biostats.github.io/qcthat)
+- `{qcthat}` package website: [gilead-biostats.github.io/qcthat](https://gilead-biostats.github.io/qcthat)
 - Submit issues & discuss at [github.com/Gilead-BioStats/qcthat](https://github.com/Gilead-BioStats/qcthat)
 - Chat with us after the talk!

@@ -18,8 +18,7 @@ test_that("The pkgdown site has an intro slide deck (#166, #167, #168, #169)", {
     intIssue = 167,
     chrInstructions = "Load the website linked in this issue as 'PR pkgdown deployed'.",
     chrChecks = c(
-      "The top bar has a 'Slides' menu.",
-      "The menu has at least one entry.",
+      "The top bar has a 'Slides' link.",
       "Clicking that entry loads a rendered slide deck."
     )
   )
@@ -27,10 +26,9 @@ test_that("The pkgdown site has an intro slide deck (#166, #167, #168, #169)", {
     "The intro slide deck has appropriate titles.",
     intIssue = 168,
     chrInstructions = paste(
-      "1. Load the website linked in this issue as 'PR pkgdown deployed'.",
-      "2. Open the 'Slides' menu.",
-      "3. Click the deck titled 'Introduction'",
-      "4. Click the hamburger menu (3 lines) at the bottom-left of the deck.",
+      "1. Load the website linked in the PR attached to this issue as 'PR pkgdown deployed'.",
+      "2. Click 'Slides'.",
+      "3. Click the hamburger menu (3 lines) at the bottom-left of the deck.",
       sep = "\n"
     ),
     chrChecks = c("The titles make sense for this introduction to qcthat.")
@@ -39,10 +37,9 @@ test_that("The pkgdown site has an intro slide deck (#166, #167, #168, #169)", {
     "The intro slide deck has appropriate slides.",
     intIssue = 169,
     chrInstructions = paste(
-      "1. Load the website linked in this issue as 'PR pkgdown deployed'.",
-      "2. Open the 'Slides' menu.",
-      "3. Click the deck titled 'Introduction'.",
-      "4. Move through the deck with arrow keys.",
+      "1. Load the website linked in the PR attached to this issue as 'PR pkgdown deployed'.",
+      "2. Click 'Slides'.",
+      "3. Move through the deck with arrow keys.",
       sep = "\n"
     ),
     chrChecks = c("The slides make sense as an introduction to qcthat.")
@@ -54,14 +51,36 @@ test_that("The intro slide deck is ready to present (#170)", {
     "The intro slide deck is complete",
     intIssue = 170,
     chrInstructions = paste(
-      "1. Load the website linked in this issue as 'PR pkgdown deployed'.",
-      "2. Open the 'Slides' menu.",
-      "3. Click the deck titled 'Introduction'.",
-      "4. Move through the deck with arrow keys.",
+      "1. Load the website linked in the PR attached to this issue as 'PR pkgdown deployed'.",
+      "2. Click 'Slides'.",
+      "3. Move through the deck with arrow keys.",
       sep = "\n"
     ),
     chrChecks = c(
       "The slides work well for a presentation introducing the PHUSE US 2026 audience to `{qcthat}`."
+    )
+  )
+})
+
+test_that("README is straightforward (#236)", {
+  qcthat::ExpectUserAccepts(
+    "The README describes the core functionality of qcthat in a straightforward way.",
+    intIssue = 236,
+    chrInstructions = "Load README.Rmd in the PR attached to this issue, or the website deployed for that issue.",
+    chrChecks = c(
+      "The README describes the core functionality of qcthat in a straightforward way."
+    )
+  )
+})
+
+test_that("There's a vignette about getting started (#96)", {
+  qcthat::ExpectUserAccepts(
+    "The website includes a Setup article to get started",
+    intIssue = 96,
+    chrInstructions = "Load the website linked in the PR attached to this issue as 'PR pkgdown deployed'.",
+    chrChecks = c(
+      "The website has a 'Setup' article in the top bar.",
+      "The 'Setup' article describes how to get started with qcthat."
     )
   )
 })

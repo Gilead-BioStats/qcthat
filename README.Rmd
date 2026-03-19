@@ -38,7 +38,7 @@ pak::pak("Gilead-BioStats/qcthat")
 To utilize `{qcthat}`, you must 
 
 1. Use GitHub Issues to document requirements (see [Chapter 20: Software development practices from *R Packages (2e)* by Hadley Wickham and Jennifer Bryan](https://r-pkgs.org/software-development-practices.html) and `usethis::use_github()`).
-2. Use {testthat} to verify the implementation of those requirements (see the [Testing section of *R Packages (2e)* by Hadley Wickham and Jennifer Bryan](https://r-pkgs.org/testing-basics.html) and `usethis::use_testthat()`).
+2. Use `{testthat}` to verify the implementation of those requirements (see the [Testing section of *R Packages (2e)* by Hadley Wickham and Jennifer Bryan](https://r-pkgs.org/testing-basics.html) and `usethis::use_testthat()`).
 3. Link tests to issues by including `(#{issue_number})` in the test description, such as:
 
 ```{r, eval=FALSE}
@@ -190,7 +190,7 @@ Here we describe a business process for implementing quality control using `{qct
 
 ### Testing 🧑‍💻🧪
 
--   🧑‍💻🧪🤖: Where applicable, QCP or PD defines an automated test for every applicable user requirement to demonstrate that the information displayed by the report/application is fit for purpose and meets the stated requirement. Testing is performed by using common frameworks {testthat} and {shinytest2} depending on the development process. Tests are linked to the corresponding business requirements with "(#{issue_number})" in the description.
+-   🧑‍💻🧪🤖: Where applicable, QCP or PD defines an automated test for every applicable user requirement to demonstrate that the information displayed by the report/application is fit for purpose and meets the stated requirement. Testing is performed by using common frameworks `{testthat}` and `{shinytest2}` depending on the development process. Tests are linked to the corresponding business requirements with "(#{issue_number})" in the description.
 -   🧑‍💻🧪🤖: Testing strategy for each requirement is documented by updating the Business Requirement GitHub issues or by referencing the issue number in the commit message for test code. Testing is executed via automated services (such as GitHub Actions).
 
 ### Code Review 🧑‍💻🧪
@@ -222,5 +222,5 @@ New code should generally follow the [tidyverse style guide](https://style.tidyv
 
 ### Code of Conduct
 
-Please note that the {qcthat} project is released with a [Contributor Code of Conduct](https://gilead-biostats.github.io/qcthat/CODE_OF_CONDUCT.html). By contributing to this project, you agree to abide by its terms.
+Please note that the `{qcthat}` project is released with a [Contributor Code of Conduct](https://gilead-biostats.github.io/qcthat/CODE_OF_CONDUCT.html). By contributing to this project, you agree to abide by its terms.
 

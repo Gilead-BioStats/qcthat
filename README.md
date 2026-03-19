@@ -38,7 +38,7 @@ To utilize `{qcthat}`, you must
     Wickham and Jennifer
     Bryan](https://r-pkgs.org/software-development-practices.html) and
     `usethis::use_github()`).
-2.  Use {testthat} to verify the implementation of those requirements
+2.  Use `{testthat}` to verify the implementation of those requirements
     (see the [Testing section of *R Packages (2e)* by Hadley Wickham and
     Jennifer Bryan](https://r-pkgs.org/testing-basics.html) and
     `usethis::use_testthat()`).
@@ -225,7 +225,7 @@ core step are described in the following sections.
   every applicable user requirement to demonstrate that the information
   displayed by the report/application is fit for purpose and meets the
   stated requirement. Testing is performed by using common frameworks
-  {testthat} and {shinytest2} depending on the development process.
+  `{testthat}` and `{shinytest2}` depending on the development process.
   Tests are linked to the corresponding business requirements with
   “(#{issue_number})” in the description.
 - 🧑‍💻🧪🤖: Testing strategy for each requirement is documented by
@@ -284,7 +284,7 @@ guide](https://style.tidyverse.org/).
 
 ### Code of Conduct
 
-Please note that the {qcthat} project is released with a [Contributor
+Please note that the `{qcthat}` project is released with a [Contributor
 Code of
 Conduct](https://gilead-biostats.github.io/qcthat/CODE_OF_CONDUCT.html).
 By contributing to this project, you agree to abide by its terms.

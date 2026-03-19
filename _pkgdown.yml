@@ -11,13 +11,17 @@ template:
 navbar:
   bg: "primary"
   structure:
-    left: [intro, reference, slides, news]
+    left: [setup, process, reference, slides, news]
     right: [search, github]
   components:
+    setup:
+      text: Setup
+      href: articles/qcthat.html
+    process:
+      text: Business Process
+      href: articles/business_process.html
     slides:
       text: Slides
-      menu:
-      - text: Introduction
-        href: slides-introduction.html
-        target: _blank
+      href: slides-introduction.html
+      target: _blank
 

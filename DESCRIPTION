@@ -43,7 +43,9 @@ Suggests:
     emoji,
     git2r,
     httr2,
+    knitr,
     lifecycle,
+    rmarkdown,
     sessioninfo,
     usethis,
     withr
@@ -54,3 +56,4 @@ Encoding: UTF-8
 Language: en-US
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.3.3
+VignetteBuilder: knitr

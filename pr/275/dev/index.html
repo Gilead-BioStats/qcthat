@@ -41,13 +41,10 @@
 
     <div id="navbar" class="collapse navbar-collapse ms-3">
       <ul class="navbar-nav me-auto">
+<li class="nav-item"><a class="nav-link" href="articles/qcthat.html">Setup</a></li>
+<li class="nav-item"><a class="nav-link" href="articles/business_process.html">Business Process</a></li>
 <li class="nav-item"><a class="nav-link" href="reference/index.html">Reference</a></li>
-<li class="nav-item dropdown">
-  <button class="nav-link dropdown-toggle" type="button" id="dropdown-slides" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Slides</button>
-  <ul class="dropdown-menu" aria-labelledby="dropdown-slides">
-<li><a class="dropdown-item" href="slides-introduction.html" target="_blank">Introduction</a></li>
-  </ul>
-</li>
+<li class="nav-item"><a class="nav-link" href="slides-introduction.html" target="_blank">Slides</a></li>
 <li class="nav-item"><a class="nav-link" href="news/index.html">Changelog</a></li>
       </ul>
 <ul class="navbar-nav">
@@ -64,32 +61,23 @@
 <div class="row">
   <main id="main" class="col-md-9"><div class="section level1">
 <div class="page-header">
-<img src="logo.svg" class="logo" alt=""><h1 id="qcthat-">{qcthat} 
+<img src="logo.svg" class="logo" alt=""><h1 id="qcthat-">qcthat 
 <a class="anchor" aria-label="anchor" href="#qcthat-"></a>
 </h1>
 </div>
 <!-- badges: start -->
 
 <!-- badges: end -->
-<p><a href="https://gilead-biostats.github.io/qcthat/">qcthat</a> is a quality control framework for R packages. It has been developed for use in the <code>gsm</code> family of packages, such as <a href="https://github.com/Gilead-BioStats/gsm.core" class="external-link"><code>{gsm.core}</code></a>.</p>
+<p><a href="https://gilead-biostats.github.io/qcthat/">qcthat</a> is a quality control framework for R packages. It has been developed for use in the <code>gsm</code> family of packages, such as <a href="https://github.com/Gilead-BioStats/gsm.core" class="external-link"><code>gsm.core</code></a>.</p>
 <p>The goal of <a href="https://gilead-biostats.github.io/qcthat/">qcthat</a> is to produce qualification reports linking GitHub issues to evidence that those issues have been implemented. These reports can be used as part of a quality control and acceptance process for R packages, particularly those used in regulated environments such as clinical trials.</p>
 <div class="section level2">
-<h2 id="id_️-installation-and-setup">⚙️ Installation and Setup<a class="anchor" aria-label="anchor" href="#id_%EF%B8%8F-installation-and-setup"></a>
+<h2 id="id_️-installation">⚙️ Installation<a class="anchor" aria-label="anchor" href="#id_%EF%B8%8F-installation"></a>
 </h2>
 <p>You can install the development version of <a href="https://gilead-biostats.github.io/qcthat/">qcthat</a> from <a href="https://github.com/" class="external-link">GitHub</a> with:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># install.packages("pak")</span></span>
 <span><span class="fu">pak</span><span class="fu">::</span><span class="fu"><a href="https://pak.r-lib.org/reference/pak.html" class="external-link">pak</a></span><span class="op">(</span><span class="st">"Gilead-BioStats/qcthat"</span><span class="op">)</span></span></code></pre></div>
-<p>To utilize <a href="https://gilead-biostats.github.io/qcthat/">qcthat</a>, you must</p>
-<ol style="list-style-type: decimal">
-<li>Use GitHub Issues to document requirements (see <a href="https://r-pkgs.org/software-development-practices.html" class="external-link">Chapter 20: Software development practices from <em>R Packages (2e)</em> by Hadley Wickham and Jennifer Bryan</a> and <code><a href="https://usethis.r-lib.org/reference/use_github.html" class="external-link">usethis::use_github()</a></code>).</li>
-<li>Use <a href="https://testthat.r-lib.org" class="external-link">testthat</a> to verify the implementation of those requirements (see the <a href="https://r-pkgs.org/testing-basics.html" class="external-link">Testing section of <em>R Packages (2e)</em> by Hadley Wickham and Jennifer Bryan</a> and <code><a href="https://usethis.r-lib.org/reference/use_testthat.html" class="external-link">usethis::use_testthat()</a></code>).</li>
-<li>Link tests to issues by including <code>(#{issue_number})</code> in the test description, such as:</li>
-</ol>
-<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">test_that</span><span class="op">(</span><span class="st">"Users can view a matrix of GitHub issues and test results (#31)"</span>, <span class="op">{</span></span>
-<span>  <span class="co"># Expectations that prove that this worked.</span></span>
-<span><span class="op">}</span><span class="op">)</span></span></code></pre></div>
+<p>Learn more in <code><a href="articles/qcthat.html">vignette("qcthat")</a></code>.</p>
 </div>
 <div class="section level2">
 <h2 id="id_-example-report-process">📋 Example Report Process<a class="anchor" aria-label="anchor" href="#id_-example-report-process"></a>
@@ -97,184 +85,102 @@
 <p><code><a href="reference/Action_qcthat.html">Action_qcthat()</a></code> installs a GitHub action to generate QC reports. At its core, it uses the functions <code><a href="reference/QCPackage.html">QCPackage()</a></code>, <code><a href="reference/QCPR.html">QCPR()</a></code>, <code><a href="reference/QCCompletedIssues.html">QCCompletedIssues()</a></code>, and <code><a href="reference/QCMilestones.html">QCMilestones()</a></code> to generate a report like this:</p>
 <details><summary>
 ✅ A qcthat issue test matrix with 1 milestone, 19 issues, and 59 tests
-</summary><div class="sourceCode" id="cb3"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a>└─█─Milestone<span class="sc">:</span> <span class="fu">v1.0.0</span> (<span class="dv">19</span> issues, <span class="dv">59</span> tests)</span>
-<span id="cb3-2"><a href="#cb3-2" tabindex="-1"></a>  ├─☑️─Technical Task <span class="dv">101</span><span class="sc">:</span> Switch <span class="st">`</span><span class="at">lglShowIgnoredLabels</span><span class="st">`</span> default to <span class="cn">TRUE</span></span>
-<span id="cb3-3"><a href="#cb3-3" tabindex="-1"></a>  │ └─✅─Ignored issues are shown by <span class="fu">default</span> (<span class="co">#101)</span></span>
-<span id="cb3-4"><a href="#cb3-4" tabindex="-1"></a>  ├─☑️─Feature <span class="dv">80</span><span class="sc">:</span> Filter main qcthat report to only <span class="st">"closed (completed)"</span></span>
-<span id="cb3-5"><a href="#cb3-5" tabindex="-1"></a>  │ └─✅─QCCompletedIssues filters to completed <span class="fu">issues</span> (<span class="co">#80, #69)</span></span>
-<span id="cb3-6"><a href="#cb3-6" tabindex="-1"></a>  ├─☑️─Bug <span class="dv">77</span><span class="sc">:</span> GHA<span class="sc">-</span>generated report stability</span>
-<span id="cb3-7"><a href="#cb3-7" tabindex="-1"></a>  │ └─✅─Reports generated via GHA include information about the <span class="fu">issues</span> (<span class="co">#77, #37)</span></span>
-<span id="cb3-8"><a href="#cb3-8" tabindex="-1"></a>  ├─☑️─Feature <span class="dv">73</span><span class="sc">:</span> Add qcthis.yaml to a package</span>
-<span id="cb3-9"><a href="#cb3-9" tabindex="-1"></a>  │ ├─✅─InstallAction calls InstallFile with expected <span class="fu">parts</span> (<span class="co">#73)</span></span>
-<span id="cb3-10"><a href="#cb3-10" tabindex="-1"></a>  │ ├─✅─Action_qcthat targets the expected <span class="fu">action</span> (<span class="co">#55, #68, #69, #73, #88, #141, #157, #198)</span></span>
-<span id="cb3-11"><a href="#cb3-11" tabindex="-1"></a>  │ ├─✅─qcthatPath constructs <span class="fu">paths</span> (<span class="co">#73)</span></span>
-<span id="cb3-12"><a href="#cb3-12" tabindex="-1"></a>  │ └─✅─InstallFile copies files as <span class="fu">expected</span> (<span class="co">#73)</span></span>
-<span id="cb3-13"><a href="#cb3-13" tabindex="-1"></a>  ├─☑️─Technical Task <span class="dv">72</span><span class="sc">:</span> Add qc report to triggering PR as comment</span>
-<span id="cb3-14"><a href="#cb3-14" tabindex="-1"></a>  │ └─✅─CommentReport generates the expected <span class="fu">call</span> (<span class="co">#99, #72)</span></span>
-<span id="cb3-15"><a href="#cb3-15" tabindex="-1"></a>  ├─☑️─Requirement <span class="dv">69</span><span class="sc">:</span> Package QC Report Usability</span>
-<span id="cb3-16"><a href="#cb3-16" tabindex="-1"></a>  │ ├─✅─Action_qcthat targets the expected <span class="fu">action</span> (<span class="co">#55, #68, #69, #73, #88, #141, #157, #198)</span></span>
-<span id="cb3-17"><a href="#cb3-17" tabindex="-1"></a>  │ ├─✅─Can print without milestone <span class="fu">info</span> (<span class="co">#40, #69)</span></span>
-<span id="cb3-18"><a href="#cb3-18" tabindex="-1"></a>  │ ├─✅─QCPackage wraps the core qcthat <span class="fu">functions</span> (<span class="co">#46, #69)</span></span>
-<span id="cb3-19"><a href="#cb3-19" tabindex="-1"></a>  │ └─✅─QCCompletedIssues filters to completed <span class="fu">issues</span> (<span class="co">#80, #69)</span></span>
-<span id="cb3-20"><a href="#cb3-20" tabindex="-1"></a>  ├─☑️─Requirement <span class="dv">68</span><span class="sc">:</span> PR<span class="sc">/</span>Branch Report</span>
-<span id="cb3-21"><a href="#cb3-21" tabindex="-1"></a>  │ ├─✅─Action_qcthat targets the expected <span class="fu">action</span> (<span class="co">#55, #68, #69, #73, #88, #141, #157, #198)</span></span>
-<span id="cb3-22"><a href="#cb3-22" tabindex="-1"></a>  │ ├─✅─QCMergeGH filters to merge<span class="sc">-</span>associated <span class="fu">issues</span> (<span class="co">#68, #84)</span></span>
-<span id="cb3-23"><a href="#cb3-23" tabindex="-1"></a>  │ ├─✅─QCMergeLocal filters to ref<span class="sc">-</span>specific <span class="fu">issues</span> (<span class="co">#68, #84)</span></span>
-<span id="cb3-24"><a href="#cb3-24" tabindex="-1"></a>  │ ├─✅─QCPR filters to PR<span class="sc">-</span>related <span class="fu">issues</span> (<span class="co">#68, #84)</span></span>
-<span id="cb3-25"><a href="#cb3-25" tabindex="-1"></a>  │ └─✅─QCMilestones reports on specific <span class="fu">milestones</span> (<span class="co">#88, #68)</span></span>
-<span id="cb3-26"><a href="#cb3-26" tabindex="-1"></a>  ├─☑️─Feature <span class="dv">67</span><span class="sc">:</span> Ignore issues with <span class="st">`</span><span class="at">qcthat-nocov</span><span class="st">`</span> label</span>
-<span id="cb3-27"><a href="#cb3-27" tabindex="-1"></a>  │ ├─✅─CompileIssueTestMatrix excludes issues <span class="cf">in</span> <span class="fu">chrIgnoredLabels</span> (<span class="co">#67)</span></span>
-<span id="cb3-28"><a href="#cb3-28" tabindex="-1"></a>  │ ├─✅─<span class="fu">ExtractDisposition</span>() helper counts test errors as <span class="fu">failures</span> (<span class="co">#67)</span></span>
-<span id="cb3-29"><a href="#cb3-29" tabindex="-1"></a>  │ └─✅─Can report ignored issue <span class="fu">counts</span> (<span class="co">#67, #81)</span></span>
-<span id="cb3-30"><a href="#cb3-30" tabindex="-1"></a>  ├─☑️─Feature <span class="dv">55</span><span class="sc">:</span> GHA<span class="sc">:</span> Report of associated issues</span>
-<span id="cb3-31"><a href="#cb3-31" tabindex="-1"></a>  │ └─✅─Action_qcthat targets the expected <span class="fu">action</span> (<span class="co">#55, #68, #69, #73, #88, #141, #157, #198)</span></span>
-<span id="cb3-32"><a href="#cb3-32" tabindex="-1"></a>  ├─☑️─Feature <span class="dv">46</span><span class="sc">:</span> Wrapper to run everything</span>
-<span id="cb3-33"><a href="#cb3-33" tabindex="-1"></a>  │ └─✅─QCPackage wraps the core qcthat <span class="fu">functions</span> (<span class="co">#46, #69)</span></span>
-<span id="cb3-34"><a href="#cb3-34" tabindex="-1"></a>  ├─☑️─Feature <span class="dv">40</span><span class="sc">:</span> Print Without Milestones</span>
-<span id="cb3-35"><a href="#cb3-35" tabindex="-1"></a>  │ └─✅─Can print without milestone <span class="fu">info</span> (<span class="co">#40, #69)</span></span>
-<span id="cb3-36"><a href="#cb3-36" tabindex="-1"></a>  ├─☑️─Bug <span class="dv">96</span><span class="sc">:</span> Don<span class="st">'t include ignored labels in `QCIssues()` warnings</span></span>
-<span id="cb3-37"><a href="#cb3-37" tabindex="-1"></a><span class="st">  │ └─✅─QCIssues doesn'</span>t warn about ignored <span class="fu">issues</span> (<span class="co">#96)</span></span>
-<span id="cb3-38"><a href="#cb3-38" tabindex="-1"></a>  ├─☑️─Bug <span class="dv">95</span><span class="sc">:</span> Install qcthat as part of Action installation</span>
-<span id="cb3-39"><a href="#cb3-39" tabindex="-1"></a>  │ └─✅─qcthat is installed as part of the <span class="fu">GHA</span> (<span class="co">#95)</span></span>
-<span id="cb3-40"><a href="#cb3-40" tabindex="-1"></a>  ├─☑️─Feature <span class="dv">90</span><span class="sc">:</span> Function to create qcthat<span class="sc">-</span>nocov label</span>
-<span id="cb3-41"><a href="#cb3-41" tabindex="-1"></a>  │ ├─✅─CreateGHLabel reports success conditional on <span class="fu">lglVerbose</span> (<span class="co">#90)</span></span>
-<span id="cb3-42"><a href="#cb3-42" tabindex="-1"></a>  │ ├─✅─CreateGHLabel throws an error <span class="cf">if</span> the API doesn<span class="st">'t report the expected result (#90)</span></span>
-<span id="cb3-43"><a href="#cb3-43" tabindex="-1"></a><span class="st">  │ ├─✅─CreateGHLabel attempts to update existing label (#90)</span></span>
-<span id="cb3-44"><a href="#cb3-44" tabindex="-1"></a><span class="st">  │ ├─✅─MaybeUpdateGHLabel decides based on lglUpdate (#90)</span></span>
-<span id="cb3-45"><a href="#cb3-45" tabindex="-1"></a><span class="st">  │ ├─✅─UpdateGHLabel makes the expected call (#90)</span></span>
-<span id="cb3-46"><a href="#cb3-46" tabindex="-1"></a><span class="st">  │ ├─✅─UpdateGHLabel throws an error if the API doesn'</span>t report the expected <span class="fu">result</span> (<span class="co">#90)</span></span>
-<span id="cb3-47"><a href="#cb3-47" tabindex="-1"></a>  │ ├─✅─EmptyLabelsDF returns the expected <span class="fu">structure</span> (<span class="co">#90)</span></span>
-<span id="cb3-48"><a href="#cb3-48" tabindex="-1"></a>  │ ├─✅─EnframeGHLabels returns <span class="cn">NULL</span> <span class="cf">for</span> empty <span class="fu">list</span> (<span class="co">#90)</span></span>
-<span id="cb3-49"><a href="#cb3-49" tabindex="-1"></a>  │ ├─✅─EnframeGHLabels converts raw labels to data <span class="fu">frame</span> (<span class="co">#90)</span></span>
-<span id="cb3-50"><a href="#cb3-50" tabindex="-1"></a>  │ ├─✅─EnframeGHLabels adds hash to color <span class="fu">codes</span> (<span class="co">#90)</span></span>
-<span id="cb3-51"><a href="#cb3-51" tabindex="-1"></a>  │ ├─✅─FetchGHLabelsRaw calls the correct API <span class="fu">endpoint</span> (<span class="co">#90)</span></span>
-<span id="cb3-52"><a href="#cb3-52" tabindex="-1"></a>  │ ├─✅─FetchGHLabels returns empty data frame when no labels <span class="fu">exist</span> (<span class="co">#90)</span></span>
-<span id="cb3-53"><a href="#cb3-53" tabindex="-1"></a>  │ ├─✅─FetchGHLabels returns data frame with <span class="fu">labels</span> (<span class="co">#90)</span></span>
-<span id="cb3-54"><a href="#cb3-54" tabindex="-1"></a>  │ ├─✅─Default helpers return expected <span class="fu">values</span> (<span class="co">#90)</span></span>
-<span id="cb3-55"><a href="#cb3-55" tabindex="-1"></a>  │ ├─✅─SetupGHLabels creates missing <span class="fu">labels</span> (<span class="co">#90)</span></span>
-<span id="cb3-56"><a href="#cb3-56" tabindex="-1"></a>  │ ├─✅─PrepareDFLabels normalizes <span class="fu">correctly</span> (<span class="co">#90)</span></span>
-<span id="cb3-57"><a href="#cb3-57" tabindex="-1"></a>  │ ├─✅─Helper functions normalize strings <span class="fu">correctly</span> (<span class="co">#90)</span></span>
-<span id="cb3-58"><a href="#cb3-58" tabindex="-1"></a>  │ └─✅─ValidateDFLabels checks <span class="cf">for</span> required <span class="fu">columns</span> (<span class="co">#90)</span></span>
-<span id="cb3-59"><a href="#cb3-59" tabindex="-1"></a>  ├─☑️─Feature <span class="dv">88</span><span class="sc">:</span> Report by Milestone</span>
-<span id="cb3-60"><a href="#cb3-60" tabindex="-1"></a>  │ ├─✅─Action_qcthat targets the expected <span class="fu">action</span> (<span class="co">#55, #68, #69, #73, #88, #141, #157, #198)</span></span>
-<span id="cb3-61"><a href="#cb3-61" tabindex="-1"></a>  │ ├─✅─QCMilestones reports on specific <span class="fu">milestones</span> (<span class="co">#88, #68)</span></span>
-<span id="cb3-62"><a href="#cb3-62" tabindex="-1"></a>  │ ├─✅─QCMilestones warns about unknown <span class="fu">milestones</span> (<span class="co">#88)</span></span>
-<span id="cb3-63"><a href="#cb3-63" tabindex="-1"></a>  │ └─✅─QCMilestones errors with no valid <span class="fu">milestones</span> (<span class="co">#88)</span></span>
-<span id="cb3-64"><a href="#cb3-64" tabindex="-1"></a>  ├─☑️─Feature <span class="dv">86</span><span class="sc">:</span> Function to report on specific issues</span>
-<span id="cb3-65"><a href="#cb3-65" tabindex="-1"></a>  │ ├─✅─QCIssues reports on specific <span class="fu">issues</span> (<span class="co">#86)</span></span>
-<span id="cb3-66"><a href="#cb3-66" tabindex="-1"></a>  │ ├─✅─QCIssues warns about unknown <span class="fu">issues</span> (<span class="co">#86)</span></span>
-<span id="cb3-67"><a href="#cb3-67" tabindex="-1"></a>  │ └─✅─QCIssues errors with no valid <span class="fu">issues</span> (<span class="co">#86)</span></span>
-<span id="cb3-68"><a href="#cb3-68" tabindex="-1"></a>  ├─☑️─Feature <span class="dv">85</span><span class="sc">:</span> Report Issue<span class="sc">-</span>Test Coverage <span class="cf">in</span> Footer</span>
-<span id="cb3-69"><a href="#cb3-69" tabindex="-1"></a>  │ ├─✅─Printing an IssueTestMatrix outputs a user<span class="sc">-</span>friendly <span class="fu">tree</span> (<span class="co">#31, #36, #60, #85)</span></span>
-<span id="cb3-70"><a href="#cb3-70" tabindex="-1"></a>  │ └─✅─MakeITRCoverageFooter deals with all <span class="fu">cases</span> (<span class="co">#85)</span></span>
-<span id="cb3-71"><a href="#cb3-71" tabindex="-1"></a>  ├─☑️─Feature <span class="dv">84</span><span class="sc">:</span> <span class="fu">Function</span>(s) to filter report to issues associated with PR<span class="sc">/</span>branch</span>
-<span id="cb3-72"><a href="#cb3-72" tabindex="-1"></a>  │ ├─✅─FetchMergeCommitSHAs returns unique, sorted <span class="fu">SHAs</span> (<span class="co">#84, #133)</span></span>
-<span id="cb3-73"><a href="#cb3-73" tabindex="-1"></a>  │ ├─✅─FetchAllMergePRNumbers returns unique, sorted PR <span class="fu">numbers</span> (<span class="co">#84)</span></span>
-<span id="cb3-74"><a href="#cb3-74" tabindex="-1"></a>  │ ├─✅─FetchAllMergePRNumbers returns empty vector <span class="cf">for</span> no matching <span class="fu">PRs</span> (<span class="co">#84)</span></span>
-<span id="cb3-75"><a href="#cb3-75" tabindex="-1"></a>  │ ├─✅─FetchPRRefs returns source and target <span class="fu">refs</span> (<span class="co">#84, #133, #149)</span></span>
-<span id="cb3-76"><a href="#cb3-76" tabindex="-1"></a>  │ ├─✅─FetchRepoPRs returns an empty df when no issues <span class="fu">found</span> (<span class="co">#84)</span></span>
-<span id="cb3-77"><a href="#cb3-77" tabindex="-1"></a>  │ ├─✅─FetchRepoPRs returns a formatted df <span class="cf">for</span> real <span class="fu">PRs</span> (<span class="co">#84)</span></span>
-<span id="cb3-78"><a href="#cb3-78" tabindex="-1"></a>  │ ├─✅─GuessPRNumber delegates to its sub<span class="sc">-</span><span class="fu">functions</span> (<span class="co">#84)</span></span>
-<span id="cb3-79"><a href="#cb3-79" tabindex="-1"></a>  │ ├─✅─GetGHAPRNumber returns <span class="cn">NULL</span> <span class="cf">for</span> bad <span class="fu">arg</span> (<span class="co">#84, #163)</span></span>
-<span id="cb3-80"><a href="#cb3-80" tabindex="-1"></a>  │ ├─✅─GetGHAPRNumber extracts PR number from lGHEventPayload when <span class="fu">available</span> (<span class="co">#84, #163)</span></span>
-<span id="cb3-81"><a href="#cb3-81" tabindex="-1"></a>  │ ├─✅─GetGHAPRNumber returns <span class="cn">NULL</span> <span class="cf">for</span> bad extracted PR <span class="fu">number</span> (<span class="co">#84, #163)</span></span>
-<span id="cb3-82"><a href="#cb3-82" tabindex="-1"></a>  │ ├─✅─FetchRefPRNumber fetches PR number <span class="cf">for</span> a <span class="fu">branch</span> (<span class="co">#84, #132)</span></span>
-<span id="cb3-83"><a href="#cb3-83" tabindex="-1"></a>  │ ├─✅─QCMergeGH filters to merge<span class="sc">-</span>associated <span class="fu">issues</span> (<span class="co">#68, #84)</span></span>
-<span id="cb3-84"><a href="#cb3-84" tabindex="-1"></a>  │ ├─✅─QCMergeLocal filters to ref<span class="sc">-</span>specific <span class="fu">issues</span> (<span class="co">#68, #84)</span></span>
-<span id="cb3-85"><a href="#cb3-85" tabindex="-1"></a>  │ ├─✅─FindKeywordIssues extracts issues that will be closed by <span class="fu">commits</span> (<span class="co">#84)</span></span>
-<span id="cb3-86"><a href="#cb3-86" tabindex="-1"></a>  │ ├─✅─QCPR errors informatively <span class="cf">for</span> bad <span class="fu">intPRNumber</span> (<span class="co">#84)</span></span>
-<span id="cb3-87"><a href="#cb3-87" tabindex="-1"></a>  │ ├─✅─QCPR filters to PR<span class="sc">-</span>related <span class="fu">issues</span> (<span class="co">#68, #84)</span></span>
-<span id="cb3-88"><a href="#cb3-88" tabindex="-1"></a>  │ ├─✅─PrepareGQLQuery constructs a <span class="fu">query</span> (<span class="co">#84)</span></span>
-<span id="cb3-89"><a href="#cb3-89" tabindex="-1"></a>  │ └─✅─GQLWrapper wraps a query <span class="fu">correctly</span> (<span class="co">#84)</span></span>
-<span id="cb3-90"><a href="#cb3-90" tabindex="-1"></a>  └─☑️─Requirement <span class="dv">81</span><span class="sc">:</span> Report issue test coverage</span>
-<span id="cb3-91"><a href="#cb3-91" tabindex="-1"></a>    └─✅─Can report ignored issue <span class="fu">counts</span> (<span class="co">#67, #81)</span></span>
-<span id="cb3-92"><a href="#cb3-92" tabindex="-1"></a><span class="co"># Issue state: 📥 = open, ☑️ = closed (completed), ⛔ = closed (won't fix)</span></span>
-<span id="cb3-93"><a href="#cb3-93" tabindex="-1"></a><span class="co"># Test disposition: ✅ = passed, ❌ = failed, 🚫 = skipped</span></span></code></pre></div>
+</summary><div class="sourceCode" id="cb2"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a>└─█─Milestone<span class="sc">:</span> <span class="fu">v1.0.0</span> (<span class="dv">19</span> issues, <span class="dv">59</span> tests)</span>
+<span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a>  ├─☑️─Technical Task <span class="dv">101</span><span class="sc">:</span> Switch <span class="st">`</span><span class="at">lglShowIgnoredLabels</span><span class="st">`</span> default to <span class="cn">TRUE</span></span>
+<span id="cb2-3"><a href="#cb2-3" tabindex="-1"></a>  │ └─✅─Ignored issues are shown by <span class="fu">default</span> (<span class="co">#101)</span></span>
+<span id="cb2-4"><a href="#cb2-4" tabindex="-1"></a>  ├─☑️─Feature <span class="dv">80</span><span class="sc">:</span> Filter main qcthat report to only <span class="st">"closed (completed)"</span></span>
+<span id="cb2-5"><a href="#cb2-5" tabindex="-1"></a>  │ └─✅─QCCompletedIssues filters to completed <span class="fu">issues</span> (<span class="co">#80, #69)</span></span>
+<span id="cb2-6"><a href="#cb2-6" tabindex="-1"></a>  ├─☑️─Bug <span class="dv">77</span><span class="sc">:</span> GHA<span class="sc">-</span>generated report stability</span>
+<span id="cb2-7"><a href="#cb2-7" tabindex="-1"></a>  │ └─✅─Reports generated via GHA include information about the <span class="fu">issues</span> (<span class="co">#77, #37)</span></span>
+<span id="cb2-8"><a href="#cb2-8" tabindex="-1"></a>  ├─☑️─Feature <span class="dv">73</span><span class="sc">:</span> Add qcthis.yaml to a package</span>
+<span id="cb2-9"><a href="#cb2-9" tabindex="-1"></a>  │ ├─✅─InstallAction calls InstallFile with expected <span class="fu">parts</span> (<span class="co">#73)</span></span>
+<span id="cb2-10"><a href="#cb2-10" tabindex="-1"></a>  │ ├─✅─Action_qcthat targets the expected <span class="fu">action</span> (<span class="co">#55, #68, #69, #73, #88, #141, #157, #198)</span></span>
+<span id="cb2-11"><a href="#cb2-11" tabindex="-1"></a>  │ ├─✅─qcthatPath constructs <span class="fu">paths</span> (<span class="co">#73)</span></span>
+<span id="cb2-12"><a href="#cb2-12" tabindex="-1"></a>  │ └─✅─InstallFile copies files as <span class="fu">expected</span> (<span class="co">#73)</span></span>
+<span id="cb2-13"><a href="#cb2-13" tabindex="-1"></a>  ├─☑️─Technical Task <span class="dv">72</span><span class="sc">:</span> Add qc report to triggering PR as comment</span>
+<span id="cb2-14"><a href="#cb2-14" tabindex="-1"></a>  │ └─✅─CommentReport generates the expected <span class="fu">call</span> (<span class="co">#99, #72)</span></span>
+<span id="cb2-15"><a href="#cb2-15" tabindex="-1"></a>  ├─☑️─Requirement <span class="dv">69</span><span class="sc">:</span> Package QC Report Usability</span>
+<span id="cb2-16"><a href="#cb2-16" tabindex="-1"></a>  │ ├─✅─Action_qcthat targets the expected <span class="fu">action</span> (<span class="co">#55, #68, #69, #73, #88, #141, #157, #198)</span></span>
+<span id="cb2-17"><a href="#cb2-17" tabindex="-1"></a>  │ ├─✅─Can print without milestone <span class="fu">info</span> (<span class="co">#40, #69)</span></span>
+<span id="cb2-18"><a href="#cb2-18" tabindex="-1"></a>  │ ├─✅─QCPackage wraps the core qcthat <span class="fu">functions</span> (<span class="co">#46, #69)</span></span>
+<span id="cb2-19"><a href="#cb2-19" tabindex="-1"></a>  │ └─✅─QCCompletedIssues filters to completed <span class="fu">issues</span> (<span class="co">#80, #69)</span></span>
+<span id="cb2-20"><a href="#cb2-20" tabindex="-1"></a>  ├─☑️─Requirement <span class="dv">68</span><span class="sc">:</span> PR<span class="sc">/</span>Branch Report</span>
+<span id="cb2-21"><a href="#cb2-21" tabindex="-1"></a>  │ ├─✅─Action_qcthat targets the expected <span class="fu">action</span> (<span class="co">#55, #68, #69, #73, #88, #141, #157, #198)</span></span>
+<span id="cb2-22"><a href="#cb2-22" tabindex="-1"></a>  │ ├─✅─QCMergeGH filters to merge<span class="sc">-</span>associated <span class="fu">issues</span> (<span class="co">#68, #84)</span></span>
+<span id="cb2-23"><a href="#cb2-23" tabindex="-1"></a>  │ ├─✅─QCMergeLocal filters to ref<span class="sc">-</span>specific <span class="fu">issues</span> (<span class="co">#68, #84)</span></span>
+<span id="cb2-24"><a href="#cb2-24" tabindex="-1"></a>  │ ├─✅─QCPR filters to PR<span class="sc">-</span>related <span class="fu">issues</span> (<span class="co">#68, #84)</span></span>
+<span id="cb2-25"><a href="#cb2-25" tabindex="-1"></a>  │ └─✅─QCMilestones reports on specific <span class="fu">milestones</span> (<span class="co">#88, #68)</span></span>
+<span id="cb2-26"><a href="#cb2-26" tabindex="-1"></a>  ├─☑️─Feature <span class="dv">67</span><span class="sc">:</span> Ignore issues with <span class="st">`</span><span class="at">qcthat-nocov</span><span class="st">`</span> label</span>
+<span id="cb2-27"><a href="#cb2-27" tabindex="-1"></a>  │ ├─✅─CompileIssueTestMatrix excludes issues <span class="cf">in</span> <span class="fu">chrIgnoredLabels</span> (<span class="co">#67)</span></span>
+<span id="cb2-28"><a href="#cb2-28" tabindex="-1"></a>  │ ├─✅─<span class="fu">ExtractDisposition</span>() helper counts test errors as <span class="fu">failures</span> (<span class="co">#67)</span></span>
+<span id="cb2-29"><a href="#cb2-29" tabindex="-1"></a>  │ └─✅─Can report ignored issue <span class="fu">counts</span> (<span class="co">#67, #81)</span></span>
+<span id="cb2-30"><a href="#cb2-30" tabindex="-1"></a>  ├─☑️─Feature <span class="dv">55</span><span class="sc">:</span> GHA<span class="sc">:</span> Report of associated issues</span>
+<span id="cb2-31"><a href="#cb2-31" tabindex="-1"></a>  │ └─✅─Action_qcthat targets the expected <span class="fu">action</span> (<span class="co">#55, #68, #69, #73, #88, #141, #157, #198)</span></span>
+<span id="cb2-32"><a href="#cb2-32" tabindex="-1"></a>  ├─☑️─Feature <span class="dv">46</span><span class="sc">:</span> Wrapper to run everything</span>
+<span id="cb2-33"><a href="#cb2-33" tabindex="-1"></a>  │ └─✅─QCPackage wraps the core qcthat <span class="fu">functions</span> (<span class="co">#46, #69)</span></span>
+<span id="cb2-34"><a href="#cb2-34" tabindex="-1"></a>  ├─☑️─Feature <span class="dv">40</span><span class="sc">:</span> Print Without Milestones</span>
+<span id="cb2-35"><a href="#cb2-35" tabindex="-1"></a>  │ └─✅─Can print without milestone <span class="fu">info</span> (<span class="co">#40, #69)</span></span>
+<span id="cb2-36"><a href="#cb2-36" tabindex="-1"></a>  ├─☑️─Bug <span class="dv">96</span><span class="sc">:</span> Don<span class="st">'t include ignored labels in `QCIssues()` warnings</span></span>
+<span id="cb2-37"><a href="#cb2-37" tabindex="-1"></a><span class="st">  │ └─✅─QCIssues doesn'</span>t warn about ignored <span class="fu">issues</span> (<span class="co">#96)</span></span>
+<span id="cb2-38"><a href="#cb2-38" tabindex="-1"></a>  ├─☑️─Bug <span class="dv">95</span><span class="sc">:</span> Install qcthat as part of Action installation</span>
+<span id="cb2-39"><a href="#cb2-39" tabindex="-1"></a>  │ └─✅─qcthat is installed as part of the <span class="fu">GHA</span> (<span class="co">#95)</span></span>
+<span id="cb2-40"><a href="#cb2-40" tabindex="-1"></a>  ├─☑️─Feature <span class="dv">90</span><span class="sc">:</span> Function to create qcthat<span class="sc">-</span>nocov label</span>
+<span id="cb2-41"><a href="#cb2-41" tabindex="-1"></a>  │ ├─✅─CreateGHLabel reports success conditional on <span class="fu">lglVerbose</span> (<span class="co">#90)</span></span>
+<span id="cb2-42"><a href="#cb2-42" tabindex="-1"></a>  │ ├─✅─CreateGHLabel throws an error <span class="cf">if</span> the API doesn<span class="st">'t report the expected result (#90)</span></span>
+<span id="cb2-43"><a href="#cb2-43" tabindex="-1"></a><span class="st">  │ ├─✅─CreateGHLabel attempts to update existing label (#90)</span></span>
+<span id="cb2-44"><a href="#cb2-44" tabindex="-1"></a><span class="st">  │ ├─✅─MaybeUpdateGHLabel decides based on lglUpdate (#90)</span></span>
+<span id="cb2-45"><a href="#cb2-45" tabindex="-1"></a><span class="st">  │ ├─✅─UpdateGHLabel makes the expected call (#90)</span></span>
+<span id="cb2-46"><a href="#cb2-46" tabindex="-1"></a><span class="st">  │ ├─✅─UpdateGHLabel throws an error if the API doesn'</span>t report the expected <span class="fu">result</span> (<span class="co">#90)</span></span>
+<span id="cb2-47"><a href="#cb2-47" tabindex="-1"></a>  │ ├─✅─EmptyLabelsDF returns the expected <span class="fu">structure</span> (<span class="co">#90)</span></span>
+<span id="cb2-48"><a href="#cb2-48" tabindex="-1"></a>  │ ├─✅─EnframeGHLabels returns <span class="cn">NULL</span> <span class="cf">for</span> empty <span class="fu">list</span> (<span class="co">#90)</span></span>
+<span id="cb2-49"><a href="#cb2-49" tabindex="-1"></a>  │ ├─✅─EnframeGHLabels converts raw labels to data <span class="fu">frame</span> (<span class="co">#90)</span></span>
+<span id="cb2-50"><a href="#cb2-50" tabindex="-1"></a>  │ ├─✅─EnframeGHLabels adds hash to color <span class="fu">codes</span> (<span class="co">#90)</span></span>
+<span id="cb2-51"><a href="#cb2-51" tabindex="-1"></a>  │ ├─✅─FetchGHLabelsRaw calls the correct API <span class="fu">endpoint</span> (<span class="co">#90)</span></span>
+<span id="cb2-52"><a href="#cb2-52" tabindex="-1"></a>  │ ├─✅─FetchGHLabels returns empty data frame when no labels <span class="fu">exist</span> (<span class="co">#90)</span></span>
+<span id="cb2-53"><a href="#cb2-53" tabindex="-1"></a>  │ ├─✅─FetchGHLabels returns data frame with <span class="fu">labels</span> (<span class="co">#90)</span></span>
+<span id="cb2-54"><a href="#cb2-54" tabindex="-1"></a>  │ ├─✅─Default helpers return expected <span class="fu">values</span> (<span class="co">#90)</span></span>
+<span id="cb2-55"><a href="#cb2-55" tabindex="-1"></a>  │ ├─✅─SetupGHLabels creates missing <span class="fu">labels</span> (<span class="co">#90)</span></span>
+<span id="cb2-56"><a href="#cb2-56" tabindex="-1"></a>  │ ├─✅─PrepareDFLabels normalizes <span class="fu">correctly</span> (<span class="co">#90)</span></span>
+<span id="cb2-57"><a href="#cb2-57" tabindex="-1"></a>  │ ├─✅─Helper functions normalize strings <span class="fu">correctly</span> (<span class="co">#90)</span></span>
+<span id="cb2-58"><a href="#cb2-58" tabindex="-1"></a>  │ └─✅─ValidateDFLabels checks <span class="cf">for</span> required <span class="fu">columns</span> (<span class="co">#90)</span></span>
+<span id="cb2-59"><a href="#cb2-59" tabindex="-1"></a>  ├─☑️─Feature <span class="dv">88</span><span class="sc">:</span> Report by Milestone</span>
+<span id="cb2-60"><a href="#cb2-60" tabindex="-1"></a>  │ ├─✅─Action_qcthat targets the expected <span class="fu">action</span> (<span class="co">#55, #68, #69, #73, #88, #141, #157, #198)</span></span>
+<span id="cb2-61"><a href="#cb2-61" tabindex="-1"></a>  │ ├─✅─QCMilestones reports on specific <span class="fu">milestones</span> (<span class="co">#88, #68)</span></span>
+<span id="cb2-62"><a href="#cb2-62" tabindex="-1"></a>  │ ├─✅─QCMilestones warns about unknown <span class="fu">milestones</span> (<span class="co">#88)</span></span>
+<span id="cb2-63"><a href="#cb2-63" tabindex="-1"></a>  │ └─✅─QCMilestones errors with no valid <span class="fu">milestones</span> (<span class="co">#88)</span></span>
+<span id="cb2-64"><a href="#cb2-64" tabindex="-1"></a>  ├─☑️─Feature <span class="dv">86</span><span class="sc">:</span> Function to report on specific issues</span>
+<span id="cb2-65"><a href="#cb2-65" tabindex="-1"></a>  │ ├─✅─QCIssues reports on specific <span class="fu">issues</span> (<span class="co">#86)</span></span>
+<span id="cb2-66"><a href="#cb2-66" tabindex="-1"></a>  │ ├─✅─QCIssues warns about unknown <span class="fu">issues</span> (<span class="co">#86)</span></span>
+<span id="cb2-67"><a href="#cb2-67" tabindex="-1"></a>  │ └─✅─QCIssues errors with no valid <span class="fu">issues</span> (<span class="co">#86)</span></span>
+<span id="cb2-68"><a href="#cb2-68" tabindex="-1"></a>  ├─☑️─Feature <span class="dv">85</span><span class="sc">:</span> Report Issue<span class="sc">-</span>Test Coverage <span class="cf">in</span> Footer</span>
+<span id="cb2-69"><a href="#cb2-69" tabindex="-1"></a>  │ ├─✅─Printing an IssueTestMatrix outputs a user<span class="sc">-</span>friendly <span class="fu">tree</span> (<span class="co">#31, #36, #60, #85)</span></span>
+<span id="cb2-70"><a href="#cb2-70" tabindex="-1"></a>  │ └─✅─MakeITRCoverageFooter deals with all <span class="fu">cases</span> (<span class="co">#85)</span></span>
+<span id="cb2-71"><a href="#cb2-71" tabindex="-1"></a>  ├─☑️─Feature <span class="dv">84</span><span class="sc">:</span> <span class="fu">Function</span>(s) to filter report to issues associated with PR<span class="sc">/</span>branch</span>
+<span id="cb2-72"><a href="#cb2-72" tabindex="-1"></a>  │ ├─✅─FetchMergeCommitSHAs returns unique, sorted <span class="fu">SHAs</span> (<span class="co">#84, #133)</span></span>
+<span id="cb2-73"><a href="#cb2-73" tabindex="-1"></a>  │ ├─✅─FetchAllMergePRNumbers returns unique, sorted PR <span class="fu">numbers</span> (<span class="co">#84)</span></span>
+<span id="cb2-74"><a href="#cb2-74" tabindex="-1"></a>  │ ├─✅─FetchAllMergePRNumbers returns empty vector <span class="cf">for</span> no matching <span class="fu">PRs</span> (<span class="co">#84)</span></span>
+<span id="cb2-75"><a href="#cb2-75" tabindex="-1"></a>  │ ├─✅─FetchPRRefs returns source and target <span class="fu">refs</span> (<span class="co">#84, #133, #149)</span></span>
+<span id="cb2-76"><a href="#cb2-76" tabindex="-1"></a>  │ ├─✅─FetchRepoPRs returns an empty df when no issues <span class="fu">found</span> (<span class="co">#84)</span></span>
+<span id="cb2-77"><a href="#cb2-77" tabindex="-1"></a>  │ ├─✅─FetchRepoPRs returns a formatted df <span class="cf">for</span> real <span class="fu">PRs</span> (<span class="co">#84)</span></span>
+<span id="cb2-78"><a href="#cb2-78" tabindex="-1"></a>  │ ├─✅─GuessPRNumber delegates to its sub<span class="sc">-</span><span class="fu">functions</span> (<span class="co">#84)</span></span>
+<span id="cb2-79"><a href="#cb2-79" tabindex="-1"></a>  │ ├─✅─GetGHAPRNumber returns <span class="cn">NULL</span> <span class="cf">for</span> bad <span class="fu">arg</span> (<span class="co">#84, #163)</span></span>
+<span id="cb2-80"><a href="#cb2-80" tabindex="-1"></a>  │ ├─✅─GetGHAPRNumber extracts PR number from lGHEventPayload when <span class="fu">available</span> (<span class="co">#84, #163)</span></span>
+<span id="cb2-81"><a href="#cb2-81" tabindex="-1"></a>  │ ├─✅─GetGHAPRNumber returns <span class="cn">NULL</span> <span class="cf">for</span> bad extracted PR <span class="fu">number</span> (<span class="co">#84, #163)</span></span>
+<span id="cb2-82"><a href="#cb2-82" tabindex="-1"></a>  │ ├─✅─FetchRefPRNumber fetches PR number <span class="cf">for</span> a <span class="fu">branch</span> (<span class="co">#84, #132)</span></span>
+<span id="cb2-83"><a href="#cb2-83" tabindex="-1"></a>  │ ├─✅─QCMergeGH filters to merge<span class="sc">-</span>associated <span class="fu">issues</span> (<span class="co">#68, #84)</span></span>
+<span id="cb2-84"><a href="#cb2-84" tabindex="-1"></a>  │ ├─✅─QCMergeLocal filters to ref<span class="sc">-</span>specific <span class="fu">issues</span> (<span class="co">#68, #84)</span></span>
+<span id="cb2-85"><a href="#cb2-85" tabindex="-1"></a>  │ ├─✅─FindKeywordIssues extracts issues that will be closed by <span class="fu">commits</span> (<span class="co">#84)</span></span>
+<span id="cb2-86"><a href="#cb2-86" tabindex="-1"></a>  │ ├─✅─QCPR errors informatively <span class="cf">for</span> bad <span class="fu">intPRNumber</span> (<span class="co">#84)</span></span>
+<span id="cb2-87"><a href="#cb2-87" tabindex="-1"></a>  │ ├─✅─QCPR filters to PR<span class="sc">-</span>related <span class="fu">issues</span> (<span class="co">#68, #84)</span></span>
+<span id="cb2-88"><a href="#cb2-88" tabindex="-1"></a>  │ ├─✅─PrepareGQLQuery constructs a <span class="fu">query</span> (<span class="co">#84)</span></span>
+<span id="cb2-89"><a href="#cb2-89" tabindex="-1"></a>  │ └─✅─GQLWrapper wraps a query <span class="fu">correctly</span> (<span class="co">#84)</span></span>
+<span id="cb2-90"><a href="#cb2-90" tabindex="-1"></a>  └─☑️─Requirement <span class="dv">81</span><span class="sc">:</span> Report issue test coverage</span>
+<span id="cb2-91"><a href="#cb2-91" tabindex="-1"></a>    └─✅─Can report ignored issue <span class="fu">counts</span> (<span class="co">#67, #81)</span></span>
+<span id="cb2-92"><a href="#cb2-92" tabindex="-1"></a><span class="co"># Issue state: 📥 = open, ☑️ = closed (completed), ⛔ = closed (won't fix)</span></span>
+<span id="cb2-93"><a href="#cb2-93" tabindex="-1"></a><span class="co"># Test disposition: ✅ = passed, ❌ = failed, 🚫 = skipped</span></span></code></pre></div>
 </details><p>✅ All tests passed</p>
 <p>🟢 All issues have at least one test</p>
 <p>🙈 2 issues with label “qcthat-nocov” were ignored</p>
-</div>
-<div class="section level2">
-<h2 id="id_-example-business-process">📄 Example Business Process<a class="anchor" aria-label="anchor" href="#id_-example-business-process"></a>
-</h2>
-<p>Here we describe a business process for implementing quality control using <a href="https://gilead-biostats.github.io/qcthat/">qcthat</a>. This process is intended to ensure that program development, testing, review, and acceptance are conducted in a structured manner. Additional (optional) configuration details for each core step are described in the following sections.</p>
-<div class="section level3">
-<h3 id="roles">Roles<a class="anchor" aria-label="anchor" href="#roles"></a>
-</h3>
-<ul>
-<li>👑 or TL: Team Lead</li>
-<li>🧑‍💻 or PD: Program Developer</li>
-<li>🧪 or QCP: Quality Control Programmer</li>
-<li>💼 or USR: User or Requester</li>
-<li>🤖 or AUTO: Automated System</li>
-</ul>
-</div>
-<div class="section level3">
-<h3 id="overview">Overview<a class="anchor" aria-label="anchor" href="#overview"></a>
-</h3>
-<ol style="list-style-type: decimal">
-<li>
-<strong>🧑‍💻 File Issues:</strong> Program developer documents feature/programming requirements using Github Issues.</li>
-<li>
-<strong>🧑‍💻 Write Code:</strong> Program developer updates code and associated documentation in R package.</li>
-<li>
-<strong>🧪 Write Tests:</strong> Quality Control Programmer writes needed tests and includes a link to the issue by including <code>(#{issue_number})</code> in the test description.</li>
-<li>
-<strong>🤖 Release Package:</strong> Upon a GitHub release, all tests are automatically run and a summary report linking issues with associated tests is created and attached to the release.</li>
-</ol>
-</div>
-<div class="section level3">
-<h3 id="intake-">Intake 🧑‍💻💼<a class="anchor" aria-label="anchor" href="#intake-"></a>
-</h3>
-<ul>
-<li>🧑‍💻💼: PD receives feature/programming request from USR.</li>
-<li>🧑‍💻💼: PD documents feature/programming request from USR using Github Issues.</li>
-<li>🧑‍💻: PD creates an issue for each Business Requirement.</li>
-<li>🧑‍💻: PD creates and links separate issues or sub-issues to document technical requirements and implementation details for each business requirement.</li>
-</ul>
-</div>
-<div class="section level3">
-<h3 id="code-development-">Code Development 🧑‍💻👑🧪💼<a class="anchor" aria-label="anchor" href="#code-development-"></a>
-</h3>
-<ul>
-<li>🧑‍💻: PD develops or modifies program using the user requirements.</li>
-<li>👑🧑‍💻🧪💼: All stakeholders (PD, TL, QCP and USR) add comments and reactions on the issue to finalize scope as needed.</li>
-<li>👑💼: USR and/or TL documents approval of business requirements via comment or a “thumbs up” reaction as needed.</li>
-<li>🧑‍💻: PD provides clear description of changes with every commit comment. If developer chooses to provide a message addressing a specific change, the commit comment should be a descriptive, concise, single-line summary of the change. If more context is needed, PD should add a comment to an issue in GitHub.</li>
-</ul>
-</div>
-<div class="section level3">
-<h3 id="testing-">Testing 🧑‍💻🧪<a class="anchor" aria-label="anchor" href="#testing-"></a>
-</h3>
-<ul>
-<li>🧑‍💻🧪🤖: Where applicable, QCP or PD defines an automated test for every applicable user requirement to demonstrate that the information displayed by the report/application is fit for purpose and meets the stated requirement. Testing is performed by using common frameworks <a href="https://testthat.r-lib.org" class="external-link">testthat</a> and <a href="https://rstudio.github.io/shinytest2/" class="external-link">shinytest2</a> depending on the development process. Tests are linked to the corresponding business requirements with “(#{issue_number})” in the description.</li>
-<li>🧑‍💻🧪🤖: Testing strategy for each requirement is documented by updating the Business Requirement GitHub issues or by referencing the issue number in the commit message for test code. Testing is executed via automated services (such as GitHub Actions).</li>
-</ul>
-</div>
-<div class="section level3">
-<h3 id="code-review-">Code Review 🧑‍💻🧪<a class="anchor" aria-label="anchor" href="#code-review-"></a>
-</h3>
-<ul>
-<li>🧑‍💻: Upon completion of code development and testing, the PD initiates a Pull Request (PR). All relevant issues and tests are linked to the PR.</li>
-<li>🧪: QCP determines appropriate level of review. Verifies the code and/or output against the user requirements and documents the method and results.</li>
-<li>🧑‍💻🧪: All questions and necessary code adjustments are addressed in the process of code review.</li>
-</ul>
-</div>
-<div class="section level3">
-<h3 id="qc-and-acceptance-">QC and Acceptance 👑🧪<a class="anchor" aria-label="anchor" href="#qc-and-acceptance-"></a>
-</h3>
-<ul>
-<li>👑: Once the PD has addressed all required feedback, the TL conducts a final review of the code changes and documentation. TL verifies that all tests have passed, the website is successfully deployed (if applicable), and the release pull request (PR) correctly targets the primary branch.</li>
-<li>👑🧪: When the qualification of the program is completed, QCP confirms and documents the result and acceptance. Final acceptance of the utility program or interactive report is documented by the TL or QCP through formal approval of the Pull Request (PR) within the SCM system. Once the request is approved, the finalized code is merged into the main code base and ready for release.</li>
-</ul>
-</div>
-<div class="section level3">
-<h3 id="release-">Release 🧑‍💻🧪<a class="anchor" aria-label="anchor" href="#release-"></a>
-</h3>
-<ul>
-<li>Upon acceptance, the PD or QCP creates a formal release in accordance with established version control conventions. This serves as documentation and as an equivalent of program deployment into a production environment.</li>
-</ul>
-</div>
 </div>
 <div class="section level2">
 <h2 id="id_-contributing">🙋 Contributing<a class="anchor" aria-label="anchor" href="#id_-contributing"></a>

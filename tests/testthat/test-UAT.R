@@ -73,10 +73,10 @@ test_that("README is straightforward (#236)", {
   )
 })
 
-test_that("There's a vignette about getting started (#96)", {
+test_that("There's a vignette about getting started (#98)", {
   qcthat::ExpectUserAccepts(
     "The website includes a Setup article to get started",
-    intIssue = 96,
+    intIssue = 98,
     chrInstructions = "Load the website linked in the PR attached to this issue as 'PR pkgdown deployed'.",
     chrChecks = c(
       "The website has a 'Setup' article in the top bar.",

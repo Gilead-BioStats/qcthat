@@ -29,9 +29,10 @@ To utilize [qcthat](https://gilead-biostats.github.io/qcthat/), you must
     Wickham and Jennifer
     Bryan](https://r-pkgs.org/software-development-practices.html) and
     [`usethis::use_github()`](https://usethis.r-lib.org/reference/use_github.html)).
-2.  Use {testthat} to verify the implementation of those requirements
-    (see the [Testing section of *R Packages (2e)* by Hadley Wickham and
-    Jennifer Bryan](https://r-pkgs.org/testing-basics.html) and
+2.  Use [testthat](https://testthat.r-lib.org) to verify the
+    implementation of those requirements (see the [Testing section of *R
+    Packages (2e)* by Hadley Wickham and Jennifer
+    Bryan](https://r-pkgs.org/testing-basics.html) and
     [`usethis::use_testthat()`](https://usethis.r-lib.org/reference/use_testthat.html)).
 3.  Link tests to issues by including `(#{issue_number})` in the test
     description, such as:
@@ -217,9 +218,10 @@ sections.
   every applicable user requirement to demonstrate that the information
   displayed by the report/application is fit for purpose and meets the
   stated requirement. Testing is performed by using common frameworks
-  {testthat} and {shinytest2} depending on the development process.
-  Tests are linked to the corresponding business requirements with
-  “(#{issue_number})” in the description.
+  [testthat](https://testthat.r-lib.org) and
+  [shinytest2](https://rstudio.github.io/shinytest2/) depending on the
+  development process. Tests are linked to the corresponding business
+  requirements with “(#{issue_number})” in the description.
 - 🧑‍💻🧪🤖: Testing strategy for each requirement is documented by
   updating the Business Requirement GitHub issues or by referencing the
   issue number in the commit message for test code. Testing is executed
@@ -276,8 +278,8 @@ guide](https://style.tidyverse.org/).
 
 ### Code of Conduct
 
-Please note that the {qcthat} project is released with a [Contributor
-Code of
+Please note that the [qcthat](https://gilead-biostats.github.io/qcthat/)
+project is released with a [Contributor Code of
 Conduct](https://gilead-biostats.github.io/qcthat/CODE_OF_CONDUCT.html).
 By contributing to this project, you agree to abide by its terms.
 

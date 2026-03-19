@@ -1,25 +1,23 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# {qcthat} ✅
+# {qcthat} <a href="https://gilead-biostats.github.io/qcthat/"><img src="man/figures/logo.svg" align="right" height="318" alt="qcthat website" /></a>
 
 <!-- badges: start -->
 
-[![R-CMD-check](https://github.com/Gilead-BioStats/qcthat/workflows/R-CMD-check-main/badge.svg)](https://github.com/Gilead-BioStats/qcthat/actions)
+[![R-CMD-check](https://github.com/Gilead-BioStats/qcthat/workflows/R-CMD-check/badge.svg)](https://github.com/Gilead-BioStats/qcthat/actions)
 [![Codecov test
 coverage](https://codecov.io/gh/Gilead-BioStats/qcthat/graph/badge.svg)](https://app.codecov.io/gh/Gilead-BioStats/qcthat)
 
 <!-- badges: end -->
 
-`{qcthat}` is a quality control framework for R packages, particularly
-those used in Clinical Trials. It is being adapted from the
-qualification framework used in the `gsm` family of packages, such as
-[`{gsm.core}`](https://github.com/Gilead-BioStats/gsm.core) and
-[`{gsm.app}`](https://github.com/Gilead-BioStats/gsm.app).
+`{qcthat}` is a quality control framework for R packages. It has been
+developed for use in the `gsm` family of packages, such as
+[`{gsm.core}`](https://github.com/Gilead-BioStats/gsm.core).
 
-The goal of `{qcthat}` is to provide a qualification report linking
-GitHub issues to evidence that those issues have been implemented. This
-report can be used as part of a quality control and acceptance process
+The goal of `{qcthat}` is to produce qualification reports linking
+GitHub issues to evidence that those issues have been implemented. These
+reports can be used as part of a quality control and acceptance process
 for R packages, particularly those used in regulated environments such
 as clinical trials.
 
@@ -38,11 +36,13 @@ To utilize `{qcthat}`, you must
 1.  Use GitHub Issues to document requirements (see [Chapter 20:
     Software development practices from *R Packages (2e)* by Hadley
     Wickham and Jennifer
-    Bryan](https://r-pkgs.org/software-development-practices.html)).
+    Bryan](https://r-pkgs.org/software-development-practices.html) and
+    `usethis::use_github()`).
 2.  Use {testthat} to verify the implementation of those requirements
     (see the [Testing section of *R Packages (2e)* by Hadley Wickham and
-    Jennifer Bryan](https://r-pkgs.org/testing-basics.html)).
-3.  Link tests to issues by including `#{issue_number}` in the test
+    Jennifer Bryan](https://r-pkgs.org/testing-basics.html) and
+    `usethis::use_testthat()`).
+3.  Link tests to issues by including `(#{issue_number})` in the test
     description, such as:
 
 ``` r
@@ -53,121 +53,119 @@ test_that("Users can view a matrix of GitHub issues and test results (#31)", {
 
 ## 📋 Example Report Process
 
-A sample [GitHub Action to generate a report is included in this
-repository](https://github.com/Gilead-BioStats/qcthat/blob/dev/.github/workflows/qcthis.yaml)
-(coming soon to the package itself). This is the process that it
-follows:
+`Action_qcthat()` installs a GitHub action to generate QC reports. At
+its core, it uses the functions `QCPackage()`, `QCPR()`,
+`QCCompletedIssues()`, and `QCMilestones()` to generate a report like
+this:
 
-### Capture {testthat} test results
+<details>
 
-Run the local testthat tests with `stop_on_failure = FALSE`, and assign
-the result to a variable. We use the “silent” reporter to avoid
-unnecessary output.
+<summary>
 
-``` r
-lTestResults <- testthat::test_local(
-  stop_on_failure = FALSE,
-  reporter = "silent"
-)
-```
+✅ A qcthat issue test matrix with 1 milestone, 19 issues, and 59 tests
+</summary>
 
-The resulting object is a list with class `"testthat_results"`. {qcthat}
-parses that object to link test results to issues.
-
-### Generate Issue-Test Matrix
-
-Use `qcthat::FetchRepoIssues()` to get the issues for the repository
-connected to the active project, and compile the test results with
-`qcthat::CompileTestResults()`. Together these data frames are used by
-`qcthat::CompileIssueTestMatrix()` to create a nested tibble with class
-`"qcthat_IssueTestMatrix"` which links issues to tests. Printing the
-`"qcthat_IssueTestMatrix"` object produces a human-readable summary of
-the results.
-
-``` r
-IssueTestMatrix <- qcthat::CompileIssueTestMatrix(
-  dfRepoIssues = qcthat::FetchRepoIssues(),
-  dfTestResults = qcthat::CompileTestResults(lTestResults)
-)
-print(IssueTestMatrix)
-```
-
-For example, this is the output for a recent report for this {qcthat}
-repository (issues nested under milestones other than v0.2.0 have been
-removed).
-
-    ✅ A qcthat issue test matrix with 6 milestones, 43 issues, and 31 tests
-    ├─█─Milestone: v0.1 (1 issue, 0 tests)
-    ├─█─Milestone: v0.1.9 (10 issues, 0 tests)
-    ├─█─Milestone: v0.2.0 (17 issues, 11 tests)
-    │ ├─☑️─Bug 61: Show "won't fix" for "duplicate"
-    │ │ └─✅─Issues closed as duplicates display the proper symbol (#61)
-    │ ├─☑️─Feature 60: Show summary of report
-    │ │ ├─✅─Printing an IssueTestMatrix outputs a user-friendly tree (#31, #36, #60)
-    │ │ └─✅─Disposition indicators deal with all cases (#60)
-    │ ├─⛔─Bug 57: Check GitHub results
-    │ │ └─(no tests)
-    │ ├─☑️─Technical Task 49: Unnest IssueTestMatrix for easier filtering
-    │ │ └─✅─CompileIssueTestMatrix combines issues and test results into an IssueTestMatrix tibble (#35, #49)
-    │ ├─☑️─Bug 47: Fetch *all* repo issues
-    │ │ └─(no tests)
-    │ ├─☑️─Bug 45: Deal with length-0 results
-    │ │ └─✅─ExtractDisposition() helper errors informatively for missing results within lTestResult object (#45)
-    │ ├─☑️─Documentation Task 43: Log Process in README
-    │ │ └─(no tests)
-    │ ├─☑️─Feature 37: Package QC Report GHA
-    │ │ └─(no tests)
-    │ ├─☑️─Feature 36: Print IssueTestMatrix
-    │ │ └─✅─Printing an IssueTestMatrix outputs a user-friendly tree (#31, #36, #60)
-    │ ├─☑️─Feature 35: Generate Issue-Test Matrix
-    │ │ ├─✅─CompileIssueTestMatrix returns an empty IssueTestMatrix with empty input (#35)
-    │ │ └─✅─CompileIssueTestMatrix combines issues and test results into an IssueTestMatrix tibble (#35, #49)
-    │ ├─☑️─Feature 34: Get repo issues
-    │ │ ├─✅─FetchRepoIssues returns an empty df when no issues found (#34)
-    │ │ └─✅─FetchRepoIssues returns a formatted df for real issues (#34)
-    │ ├─☑️─Feature 32: Extract test information from test results
-    │ │ ├─✅─CompileTestResults errors informatively for bad input (#32)
-    │ │ ├─✅─CompileTestResults works for empty testthat_results (#32)
-    │ │ └─✅─CompileTestResults returns the expected object (#32)
-    │ ├─📥─Requirement 31: Generate package QC report
-    │ │ └─✅─Printing an IssueTestMatrix outputs a user-friendly tree (#31, #36, #60)
-    │ ├─📥─Technical Task 30: Update basic infrastructure
-    │ │ └─(no tests)
-    │ ├─☑️─Documentation Task 24: Outline business process for business requirements and testing
-    │ │ └─(no tests)
-    │ ├─☑️─Technical Task 20: Fix pkgdown github workflows
-    │ │ └─(no tests)
-    │ └─⛔─Requirement 18: Capture requirements via issues
-    │   └─(no tests)
-    ├─█─Milestone: v0.3.0 (7 issues, 0 tests)
-    ├─█─Milestone: v0.4.0 (5 issues, 0 tests)
-    ├─█─Milestone: v0.5.0 (3 issues, 0 tests)
-    └─█─Milestone: <none> (0 issues, 20 tests)
-      └─█─<no issue>
-        ├─✅─ExtractDisposition() helper counts warnings as errors
-        ├─✅─ExtractDisposition() helper errors informatively for weird results
-        ├─✅─Printing a generic qcthat_object returns input invisibly
-        ├─✅─MakeKeyItem works
-        ├─✅─ChooseEmoji switches to ASCII if emoji not allowed
-        ├─✅─GetChrCode returns the expected code
-        ├─✅─FinalizeTree adds tree characters correctly
-        ├─✅─Printing an IssueTestMatrix returns input invisibly
-        ├─✅─Printing a Milestone returns input invisibly
-        ├─✅─Printing a Milestone outputs a user-friendly tree
-        ├─✅─Printing a SingleIssueTestResults returns input invisibly
-        ├─✅─Printing a SingleIssueTestResults outputs a user-friendly tree
-        ├─✅─AsExpected works with empty dfs
-        ├─✅─AsExpected works with non-empty dfs
-        ├─✅─AsExpectedFlat works with NULL
-        ├─✅─AsExpectedFlat works with empty lists
-        ├─✅─AsExpectedFlat works with non-empty data.frames
-        ├─✅─AsRowDFList splits and transforms correctly
-        ├─✅─CountNonNA counts unique non-NA values correctly
-        └─✅─SimplePluralize returns correct singular/plural forms
+    └─█─Milestone: v1.0.0 (19 issues, 59 tests)
+      ├─☑️─Technical Task 101: Switch `lglShowIgnoredLabels` default to TRUE
+      │ └─✅─Ignored issues are shown by default (#101)
+      ├─☑️─Feature 80: Filter main qcthat report to only "closed (completed)"
+      │ └─✅─QCCompletedIssues filters to completed issues (#80, #69)
+      ├─☑️─Bug 77: GHA-generated report stability
+      │ └─✅─Reports generated via GHA include information about the issues (#77, #37)
+      ├─☑️─Feature 73: Add qcthis.yaml to a package
+      │ ├─✅─InstallAction calls InstallFile with expected parts (#73)
+      │ ├─✅─Action_qcthat targets the expected action (#55, #68, #69, #73, #88, #141, #157, #198)
+      │ ├─✅─qcthatPath constructs paths (#73)
+      │ └─✅─InstallFile copies files as expected (#73)
+      ├─☑️─Technical Task 72: Add qc report to triggering PR as comment
+      │ └─✅─CommentReport generates the expected call (#99, #72)
+      ├─☑️─Requirement 69: Package QC Report Usability
+      │ ├─✅─Action_qcthat targets the expected action (#55, #68, #69, #73, #88, #141, #157, #198)
+      │ ├─✅─Can print without milestone info (#40, #69)
+      │ ├─✅─QCPackage wraps the core qcthat functions (#46, #69)
+      │ └─✅─QCCompletedIssues filters to completed issues (#80, #69)
+      ├─☑️─Requirement 68: PR/Branch Report
+      │ ├─✅─Action_qcthat targets the expected action (#55, #68, #69, #73, #88, #141, #157, #198)
+      │ ├─✅─QCMergeGH filters to merge-associated issues (#68, #84)
+      │ ├─✅─QCMergeLocal filters to ref-specific issues (#68, #84)
+      │ ├─✅─QCPR filters to PR-related issues (#68, #84)
+      │ └─✅─QCMilestones reports on specific milestones (#88, #68)
+      ├─☑️─Feature 67: Ignore issues with `qcthat-nocov` label
+      │ ├─✅─CompileIssueTestMatrix excludes issues in chrIgnoredLabels (#67)
+      │ ├─✅─ExtractDisposition() helper counts test errors as failures (#67)
+      │ └─✅─Can report ignored issue counts (#67, #81)
+      ├─☑️─Feature 55: GHA: Report of associated issues
+      │ └─✅─Action_qcthat targets the expected action (#55, #68, #69, #73, #88, #141, #157, #198)
+      ├─☑️─Feature 46: Wrapper to run everything
+      │ └─✅─QCPackage wraps the core qcthat functions (#46, #69)
+      ├─☑️─Feature 40: Print Without Milestones
+      │ └─✅─Can print without milestone info (#40, #69)
+      ├─☑️─Bug 96: Don't include ignored labels in `QCIssues()` warnings
+      │ └─✅─QCIssues doesn't warn about ignored issues (#96)
+      ├─☑️─Bug 95: Install qcthat as part of Action installation
+      │ └─✅─qcthat is installed as part of the GHA (#95)
+      ├─☑️─Feature 90: Function to create qcthat-nocov label
+      │ ├─✅─CreateGHLabel reports success conditional on lglVerbose (#90)
+      │ ├─✅─CreateGHLabel throws an error if the API doesn't report the expected result (#90)
+      │ ├─✅─CreateGHLabel attempts to update existing label (#90)
+      │ ├─✅─MaybeUpdateGHLabel decides based on lglUpdate (#90)
+      │ ├─✅─UpdateGHLabel makes the expected call (#90)
+      │ ├─✅─UpdateGHLabel throws an error if the API doesn't report the expected result (#90)
+      │ ├─✅─EmptyLabelsDF returns the expected structure (#90)
+      │ ├─✅─EnframeGHLabels returns NULL for empty list (#90)
+      │ ├─✅─EnframeGHLabels converts raw labels to data frame (#90)
+      │ ├─✅─EnframeGHLabels adds hash to color codes (#90)
+      │ ├─✅─FetchGHLabelsRaw calls the correct API endpoint (#90)
+      │ ├─✅─FetchGHLabels returns empty data frame when no labels exist (#90)
+      │ ├─✅─FetchGHLabels returns data frame with labels (#90)
+      │ ├─✅─Default helpers return expected values (#90)
+      │ ├─✅─SetupGHLabels creates missing labels (#90)
+      │ ├─✅─PrepareDFLabels normalizes correctly (#90)
+      │ ├─✅─Helper functions normalize strings correctly (#90)
+      │ └─✅─ValidateDFLabels checks for required columns (#90)
+      ├─☑️─Feature 88: Report by Milestone
+      │ ├─✅─Action_qcthat targets the expected action (#55, #68, #69, #73, #88, #141, #157, #198)
+      │ ├─✅─QCMilestones reports on specific milestones (#88, #68)
+      │ ├─✅─QCMilestones warns about unknown milestones (#88)
+      │ └─✅─QCMilestones errors with no valid milestones (#88)
+      ├─☑️─Feature 86: Function to report on specific issues
+      │ ├─✅─QCIssues reports on specific issues (#86)
+      │ ├─✅─QCIssues warns about unknown issues (#86)
+      │ └─✅─QCIssues errors with no valid issues (#86)
+      ├─☑️─Feature 85: Report Issue-Test Coverage in Footer
+      │ ├─✅─Printing an IssueTestMatrix outputs a user-friendly tree (#31, #36, #60, #85)
+      │ └─✅─MakeITRCoverageFooter deals with all cases (#85)
+      ├─☑️─Feature 84: Function(s) to filter report to issues associated with PR/branch
+      │ ├─✅─FetchMergeCommitSHAs returns unique, sorted SHAs (#84, #133)
+      │ ├─✅─FetchAllMergePRNumbers returns unique, sorted PR numbers (#84)
+      │ ├─✅─FetchAllMergePRNumbers returns empty vector for no matching PRs (#84)
+      │ ├─✅─FetchPRRefs returns source and target refs (#84, #133, #149)
+      │ ├─✅─FetchRepoPRs returns an empty df when no issues found (#84)
+      │ ├─✅─FetchRepoPRs returns a formatted df for real PRs (#84)
+      │ ├─✅─GuessPRNumber delegates to its sub-functions (#84)
+      │ ├─✅─GetGHAPRNumber returns NULL for bad arg (#84, #163)
+      │ ├─✅─GetGHAPRNumber extracts PR number from lGHEventPayload when available (#84, #163)
+      │ ├─✅─GetGHAPRNumber returns NULL for bad extracted PR number (#84, #163)
+      │ ├─✅─FetchRefPRNumber fetches PR number for a branch (#84, #132)
+      │ ├─✅─QCMergeGH filters to merge-associated issues (#68, #84)
+      │ ├─✅─QCMergeLocal filters to ref-specific issues (#68, #84)
+      │ ├─✅─FindKeywordIssues extracts issues that will be closed by commits (#84)
+      │ ├─✅─QCPR errors informatively for bad intPRNumber (#84)
+      │ ├─✅─QCPR filters to PR-related issues (#68, #84)
+      │ ├─✅─PrepareGQLQuery constructs a query (#84)
+      │ └─✅─GQLWrapper wraps a query correctly (#84)
+      └─☑️─Requirement 81: Report issue test coverage
+        └─✅─Can report ignored issue counts (#67, #81)
     # Issue state: 📥 = open, ☑️ = closed (completed), ⛔ = closed (won't fix)
     # Test disposition: ✅ = passed, ❌ = failed, 🚫 = skipped
 
-    ✅ All tests passed
+</details>
+
+✅ All tests passed
+
+🟢 All issues have at least one test
+
+🙈 2 issues with label “qcthat-nocov” were ignored
 
 ## 📄 Example Business Process
 

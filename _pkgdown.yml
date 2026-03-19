@@ -4,7 +4,7 @@ template:
   bslib:
     bg: "white"
     fg: "black"
-    primary: "#dc3545"
+    primary: "#59488f"
     base_font: {google: "Montserrat"}
     heading_font: {google: "Montserrat"}
     code_font: {google: "JetBrains Mono"}

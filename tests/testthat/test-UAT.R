@@ -12,7 +12,7 @@ test_that("The required R version is within the normal support window (#146)", {
   )
 })
 
-test_that("The pkgdown site has an intro slide deck (#166, #167, #168, #169, #170)", {
+test_that("The pkgdown site has an intro slide deck (#166, #167, #168, #169)", {
   qcthat::ExpectUserAccepts(
     "The pkgdown site has a slide deck.",
     intIssue = 167,
@@ -47,6 +47,9 @@ test_that("The pkgdown site has an intro slide deck (#166, #167, #168, #169, #17
     ),
     chrChecks = c("The slides make sense as an introduction to qcthat.")
   )
+})
+
+test_that("The intro slide deck is ready to present (#170)", {
   qcthat::ExpectUserAccepts(
     "The intro slide deck is complete",
     intIssue = 170,

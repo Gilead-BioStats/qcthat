@@ -33,8 +33,9 @@ format:
 ::::
 
 ::: notes
-- We'll talk a bit later about all the reports that are available right now, including Milestones and UAT which aren't shown in this screenshot.
+- We'll talk a bit later about all the reports that are available, including Milestones and UAT which aren't shown in this screenshot.
 - The QR code takes you to the latest release. Scroll down to see its attached reports.
+- Note the triangle to expand/collapse the reports
 :::
 
 # R package qualification is necessary but challenging
@@ -69,7 +70,8 @@ format:
 ::::
 
 ::: notes
-- Talk about GitHub
+- A lot of you are probably in the process of transitioning to R right now.
+- Talk about GitHub, some of its features.
 :::
 
 ## Qualification is often a manual, retrospective burden
@@ -150,12 +152,17 @@ format:
 
 ::::
 
+::: notes
+- Milestone = GitHub option for grouping issues.
+:::
+
 ## The "Issue-Test Matrix" shows the connections between issues and tests
 
 ![](slide_images/gh_report_completed_zoom.png){width=100%}
 
 ::: notes
 - "Requirement", "Technical Task", and "Feature" are issue types in our GitHub repository.
+- We *only* work with GitHub right now, but if you use something else (GitLab, Atlassian, etc) I'd love to work with you to generalize.
 - If you're reading carefully, these tests sound hard to test.
 :::
 
@@ -183,6 +190,11 @@ format:
   - UAT
 - Reviewers see qualification status *before* merging
 - Reports update automatically as the PR changes
+
+::: notes
+- "Pull request" is weird terminology, but it basically means "proposed changes to the code."
+- You can mentally replace "Pull Request" and "PR" with "proposed change".
+:::
 
 ## Immutable artifacts are automatically attached to GitHub Releases
 

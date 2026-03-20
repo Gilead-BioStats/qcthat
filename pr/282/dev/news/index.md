@@ -1,5 +1,7 @@
 # Changelog
 
+## qcthat (development version)
+
 ## qcthat 1.1.2
 
 This patch release focuses on introducing the world to qcthat.

@@ -1,3 +1,5 @@
+# qcthat (development version)
+
 # qcthat 1.1.1
 
 This patch release contains improvements and bug fixes discovered while applying the experimental AI agent features released in qcthat v1.1.0. These changes are tracked in #241.

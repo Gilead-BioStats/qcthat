@@ -1,6 +1,30 @@
 # Changelog
 
-## qcthat (development version)
+## qcthat 1.1.2
+
+This patch release focuses on introducing the world to qcthat.
+
+### Documentation improvements
+
+- Two new vignettes have been added,
+  [`vignette("qcthat")`](https://gilead-biostats.github.io/qcthat/dev/articles/qcthat.md)
+  and
+  [`vignette("business_process")`](https://gilead-biostats.github.io/qcthat/dev/articles/business_process.md).
+  They were split off and refined from information that was previously
+  in the README
+  ([\#98](https://github.com/Gilead-BioStats/qcthat/issues/98),
+  [\#236](https://github.com/Gilead-BioStats/qcthat/issues/236)).
+- The slide deck on the pkgdown site has been finalized ahead of PHUSE
+  US Connect 2026
+  ([\#170](https://github.com/Gilead-BioStats/qcthat/issues/170)).
+
+### Bug fixes
+
+- Warnings in tests now produce warnings rather than errors
+  ([\#130](https://github.com/Gilead-BioStats/qcthat/issues/130)).
+- Tests are no longer double-counted when they are associated with
+  multiple issues
+  ([\#180](https://github.com/Gilead-BioStats/qcthat/issues/180)).
 
 ## qcthat 1.1.1
 

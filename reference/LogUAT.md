@@ -35,7 +35,7 @@ LogUAT(
 - strDisposition:
 
   (`length-1 character`) The result of a test, such as "pass", "fail",
-  or "skip", or "accepted" or "pending" for UAT.
+  "warn", or "skip", or "accepted" or "pending" for UAT.
 
 - strOwner:
 

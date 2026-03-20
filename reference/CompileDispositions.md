@@ -21,4 +21,4 @@ CompileDispositions(lTestResults)
 
 ## Value
 
-A factor with levels `pass`, `fail`, and `skip`.
+A factor with levels `"fail"`, `"warn"`, `"skip"`, and `"pass"`.

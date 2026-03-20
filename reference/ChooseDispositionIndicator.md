@@ -15,8 +15,8 @@ ChooseDispositionIndicator(
 
 - chrDisposition:
 
-  (`character`) Test disposition. Generally one of `"pass"`, `"fail"`,
-  or `"skip"`.
+  (`character`) Test disposition. Generally one of `"fail"`, `"warn"`,
+  `"skip"`, or `"pass"`.
 
 - lglUseEmoji:
 

@@ -15,7 +15,8 @@ ChooseOverallDispositionIndicator(
 
 - fctDisposition:
 
-  (`factor`) Disposition factor with levels `c("fail", "skip", "pass")`.
+  (`factor`) Disposition factor with levels `"fail"`, `"warn"`,
+  `"skip"`, and `"pass"`.
 
 - lglUseEmoji:
 

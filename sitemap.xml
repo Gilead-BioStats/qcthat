@@ -4,6 +4,9 @@
 <url><loc>https://gilead-biostats.github.io/qcthat/CODE_OF_CONDUCT.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/qcthat/CONTRIBUTING.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/qcthat/LICENSE.html</loc></url>
+<url><loc>https://gilead-biostats.github.io/qcthat/articles/business_process.html</loc></url>
+<url><loc>https://gilead-biostats.github.io/qcthat/articles/index.html</loc></url>
+<url><loc>https://gilead-biostats.github.io/qcthat/articles/qcthat.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/qcthat/authors.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/qcthat/index.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/qcthat/introduction_files/libs/revealjs/plugin/notes/speaker-view.html</loc></url>
@@ -22,8 +25,10 @@
 <url><loc>https://gilead-biostats.github.io/qcthat/reference/AsSingleIssueTestResults.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/qcthat/reference/AsTestResultsDF.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/qcthat/reference/AttachReleaseReports.html</loc></url>
+<url><loc>https://gilead-biostats.github.io/qcthat/reference/AugmentPotentialIssuesFromCoverage.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/qcthat/reference/BlameFile.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/qcthat/reference/BlameFileRaw.html</loc></url>
+<url><loc>https://gilead-biostats.github.io/qcthat/reference/BlameFiles.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/qcthat/reference/BuildCommitPRQuery.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/qcthat/reference/BuildIssuePRRefsQuery.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/qcthat/reference/BuildPRCommitsFragment.html</loc></url>
@@ -61,6 +66,8 @@
 <url><loc>https://gilead-biostats.github.io/qcthat/reference/ConstructUATBody.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/qcthat/reference/ConstructUATBodyPiece.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/qcthat/reference/CountNonNA.html</loc></url>
+<url><loc>https://gilead-biostats.github.io/qcthat/reference/CoverSingleTest.html</loc></url>
+<url><loc>https://gilead-biostats.github.io/qcthat/reference/CoverSingleTestRaw.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/qcthat/reference/CreateChildIssue.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/qcthat/reference/CreateGHLabel.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/qcthat/reference/CreateGHLabelImpl.html</loc></url>
@@ -72,7 +79,6 @@
 <url><loc>https://gilead-biostats.github.io/qcthat/reference/EmptyCommentsDF.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/qcthat/reference/EmptyCommentsDFRaw.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/qcthat/reference/EmptyFileTestsDF.html</loc></url>
-<url><loc>https://gilead-biostats.github.io/qcthat/reference/EmptyGHResponse.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/qcthat/reference/EmptyIssueDetailsDF.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/qcthat/reference/EmptyIssueTestMatrix.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/qcthat/reference/EmptyIssuesDF.html</loc></url>
@@ -80,6 +86,7 @@
 <url><loc>https://gilead-biostats.github.io/qcthat/reference/EmptyLabelsDF.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/qcthat/reference/EmptyPRsDF.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/qcthat/reference/EmptyPRsDFRaw.html</loc></url>
+<url><loc>https://gilead-biostats.github.io/qcthat/reference/EmptyTestCoveredLinesDF.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/qcthat/reference/EmptyTestIssueContextDF.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/qcthat/reference/EmptyTestPotentialIssues.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/qcthat/reference/EmptyTestResultsDF.html</loc></url>
@@ -93,6 +100,7 @@
 <url><loc>https://gilead-biostats.github.io/qcthat/reference/ExpandLines.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/qcthat/reference/ExpandTestResultsByIssue.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/qcthat/reference/ExpectUserAccepts.html</loc></url>
+<url><loc>https://gilead-biostats.github.io/qcthat/reference/ExtractAllTestCode.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/qcthat/reference/ExtractDisposition.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/qcthat/reference/ExtractGHClosingIssues.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/qcthat/reference/ExtractLabels.html</loc></url>
@@ -101,6 +109,7 @@
 <url><loc>https://gilead-biostats.github.io/qcthat/reference/ExtractPRCommitSHAs.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/qcthat/reference/ExtractQcthatCommentID.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/qcthat/reference/ExtractTestIssues.html</loc></url>
+<url><loc>https://gilead-biostats.github.io/qcthat/reference/ExtractTestWithPreamble.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/qcthat/reference/ExtractTestsFromFile.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/qcthat/reference/ExtractTestsFromFiles.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/qcthat/reference/FetchAllIssuePRRefs.html</loc></url>
@@ -108,7 +117,6 @@
 <url><loc>https://gilead-biostats.github.io/qcthat/reference/FetchAllMergePRNumbers.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/qcthat/reference/FetchAllPRCommitSHAs.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/qcthat/reference/FetchAllPRIssueNumbers.html</loc></url>
-<url><loc>https://gilead-biostats.github.io/qcthat/reference/FetchGHLabelNames.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/qcthat/reference/FetchGHLabels.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/qcthat/reference/FetchGHLabelsRaw.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/qcthat/reference/FetchGQL.html</loc></url>
@@ -189,23 +197,28 @@
 <url><loc>https://gilead-biostats.github.io/qcthat/reference/JoinLineCommits.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/qcthat/reference/ListTestFiles.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/qcthat/reference/LoadGHEventPayload.html</loc></url>
+<url><loc>https://gilead-biostats.github.io/qcthat/reference/LoadPkgEnv.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/qcthat/reference/LoadUATIssues.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/qcthat/reference/LogUAT.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/qcthat/reference/MakeITRCoverageFooter.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/qcthat/reference/MakeITRDispositionFooter.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/qcthat/reference/MakeITRIgnoredLabelsFooter.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/qcthat/reference/MakeKeyItem.html</loc></url>
+<url><loc>https://gilead-biostats.github.io/qcthat/reference/MapCoveredLinesToPotentialIssues.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/qcthat/reference/MapIssueClosersToCommits.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/qcthat/reference/MapLongIssueCommits.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/qcthat/reference/MapRepoIssuesToCommits.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/qcthat/reference/MapTestFilesToPotentialIssues.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/qcthat/reference/MapTestsToCommits.html</loc></url>
+<url><loc>https://gilead-biostats.github.io/qcthat/reference/MapTestsToCoveredLines.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/qcthat/reference/MapTestsToPotentialIssues.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/qcthat/reference/MaybeRerunAllQCPRWorkflows.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/qcthat/reference/MaybeRerunQCPRWorkflow.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/qcthat/reference/MaybeUpdateGHLabel.html</loc></url>
+<url><loc>https://gilead-biostats.github.io/qcthat/reference/MergePotentialIssues.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/qcthat/reference/NormalizeDescriptionPrefix.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/qcthat/reference/NormalizeLabelPrefix.html</loc></url>
+<url><loc>https://gilead-biostats.github.io/qcthat/reference/NormalizeTallyPaths.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/qcthat/reference/NullIfEmpty.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/qcthat/reference/OnCran.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/qcthat/reference/PrepareDFLabels.html</loc></url>
@@ -222,6 +235,7 @@
 <url><loc>https://gilead-biostats.github.io/qcthat/reference/ReadExistingFileLines.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/qcthat/reference/ReadFileLines.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/qcthat/reference/ReadTestCode.html</loc></url>
+<url><loc>https://gilead-biostats.github.io/qcthat/reference/ReadTestFileContents.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/qcthat/reference/RecodeValues.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/qcthat/reference/RemovePRsFromIssues.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/qcthat/reference/ReorderDFByVector.html</loc></url>
@@ -231,9 +245,11 @@
 <url><loc>https://gilead-biostats.github.io/qcthat/reference/SaveUATIssues.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/qcthat/reference/SeparateParentColumn.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/qcthat/reference/SetupGHLabels.html</loc></url>
+<url><loc>https://gilead-biostats.github.io/qcthat/reference/SetupTempSnapDir.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/qcthat/reference/SimplePluralize.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/qcthat/reference/Skill_TagTestsWithIssues.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/qcthat/reference/SubsetFileLines.html</loc></url>
+<url><loc>https://gilead-biostats.github.io/qcthat/reference/TallyCoverage.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/qcthat/reference/TibblifyIssueCloser.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/qcthat/reference/TitleUAIssue.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/qcthat/reference/TriggerUAT.html</loc></url>
@@ -243,6 +259,7 @@
 <url><loc>https://gilead-biostats.github.io/qcthat/reference/UpdateReleaseBody.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/qcthat/reference/UsesGit.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/qcthat/reference/ValidateDFLabels.html</loc></url>
+<url><loc>https://gilead-biostats.github.io/qcthat/reference/WriteAllTempTestFiles.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/qcthat/reference/index.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/qcthat/reference/printing.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/qcthat/reference/qcthat-package.html</loc></url>

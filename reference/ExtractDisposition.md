@@ -16,4 +16,4 @@ ExtractDisposition(lTestResult)
 
 ## Value
 
-The string `"pass"`, `"fail"`, or `"skip"`.
+The string `"fail"`, `"warn"`, `"skip"`, or `"pass"`.

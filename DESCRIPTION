@@ -1,6 +1,6 @@
 Package: qcthat
 Title: Lightweight R Package Quality Control
-Version: 1.1.1.9000
+Version: 1.1.2
 Authors@R: c(
     person("Jeremy", "Wildfire", , "jwildfire@gmail.com", role = c("aut", "cre")),
     person("Jon", "Harmon", , "jon.harmon@atorusresearch.com", role = "aut",

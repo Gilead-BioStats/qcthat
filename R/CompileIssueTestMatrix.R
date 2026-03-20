@@ -28,8 +28,8 @@
 #'   - `Test`: The `desc` field of the test from [testthat::test_that()].
 #'   - `File`: Path to the file where the test is defined, relative to the
 #'   package root.
-#'   - `Disposition`: Factor with levels `pass`, `fail`, and `skip` indicating
-#'   the overall outcome of the test.
+#'   - `Disposition`: Factor with levels `"fail"`, `"warn"`, `"skip"`, and
+#'   `"pass"` indicating the overall outcome of the test.
 #' @export
 #' @examplesIf interactive()
 #' lTestResults <- testthat::test_local(

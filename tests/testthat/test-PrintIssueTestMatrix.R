@@ -24,7 +24,15 @@ test_that("Printing an IssueTestMatrix outputs a user-friendly tree (#31, #36, #
 })
 
 test_that("Disposition indicators deal with all cases (#60)", {
-  expect_null(MakeITRDispositionFooter(NA_character_))
+  expect_null(
+    MakeITRDispositionFooter(
+      tibble::tibble(
+        Test = "Test",
+        File = "test-test.R",
+        Disposition = NA_character_
+      )
+    )
+  )
   expect_null(ChooseOverallDispositionMessage(NA_character_))
   expect_identical(
     ChooseOverallDispositionMessage("pass"),
@@ -33,6 +41,10 @@ test_that("Disposition indicators deal with all cases (#60)", {
   expect_identical(
     ChooseOverallDispositionMessage("skip"),
     "1 test was skipped"
+  )
+  expect_identical(
+    ChooseOverallDispositionMessage("warn"),
+    "1 test generated warnings"
   )
   expect_identical(
     ChooseOverallDispositionMessage("weird status"),
@@ -99,4 +111,13 @@ test_that("Ignored issues are shown by default (#101)", {
   expect_unformatted_snapshot({
     print(dfITM, lglShowIgnoredLabels = FALSE)
   })
+})
+
+test_that("Test failure counts make sense (#180, #31)", {
+  qcthat::ExpectUserAccepts(
+    "Test failures only count once per test",
+    180,
+    chrInstructions = "Load the qcthat report in the PR associated with this issue",
+    chrChecks = "While this issue is open, the report says that 1 test has failed, not 2."
+  )
 })

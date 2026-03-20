@@ -23,6 +23,23 @@ GetPkgRoot <- function(strPkgRoot, envCall = rlang::caller_env()) {
   # nocov end
 }
 
+#' Load the package environment for coverage tracing
+#'
+#' Thin wrapper around [pkgload::load_all()] so it can be mocked in tests.
+#'
+#' @inheritParams shared-params
+#' @returns The loaded package environment.
+#' @keywords internal
+LoadPkgEnv <- function(strTestDir, envCall = rlang::caller_env()) {
+  # nocov start
+  pkgload::load_all(
+    path = GetPkgRoot(strTestDir, envCall = envCall),
+    quiet = TRUE,
+    export_all = TRUE
+  )$env
+  # nocov end
+}
+
 #' Find a path within qcthat
 #'
 #' Exists primarily to make it easier to mock this for testing.

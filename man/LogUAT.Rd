@@ -25,7 +25,7 @@ user-acceptance testing.}
 expectation.}
 
 \item{strDisposition}{(\verb{length-1 character}) The result of a test, such as
-"pass", "fail", or "skip", or "accepted" or "pending" for UAT.}
+"pass", "fail", "warn", or "skip", or "accepted" or "pending" for UAT.}
 
 \item{strOwner}{(\verb{length-1 character}) GitHub username or organization name.}
 

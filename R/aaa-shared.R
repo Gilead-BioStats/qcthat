@@ -53,8 +53,10 @@
 #'   Typically set to [rlang::caller_env()].
 #' @param envErrorMessage (`environment`) The environment to pass to
 #'   [glue::glue()] to resolve variables.
-#' @param fctDisposition (`factor`) Disposition factor with levels `c("fail",
-#'   "skip", "pass")`.
+#' @param envPkg (`environment`) A loaded package environment, as returned by
+#'   [LoadPkgEnv()].
+#' @param fctDisposition (`factor`) Disposition factor with levels `"fail"`,
+#'   `"warn"`, `"skip"`, and `"pass"`.
 #' @param intIssue (`length-1 integer`) The issue with which a check is
 #'   associated.
 #' @param intIssues (`integer`) A vector of issue numbers from a
@@ -110,6 +112,11 @@
 #' @param lglUpdate (`length-1 logical`) Whether to update an existing comment
 #'   or label if it already exists (rather than creating a new comment or
 #'   label).
+#' @param lglUseCoverage (`length-1 logical`) Whether to augment potential
+#'   issues with source-line coverage. When `TRUE`,
+#'   [covr::environment_coverage()] is used to discover issues from commits that
+#'   touched source code exercised by each test. Requires `covr` to be
+#'   installed. Defaults to `FALSE`.
 #' @param lglUseEmoji (`length-1 logical`) Whether to use emojis (if `TRUE` and
 #'   the emoji package is installed) or ASCII indicators (if `FALSE`) in the
 #'   output. By default, this is determined by the `qcthat.emoji` option, which
@@ -136,7 +143,7 @@
 #'   expectation.
 #' @param strDirPath (`length-1 character`) The path to a directory.
 #' @param strDisposition (`length-1 character`) The result of a test, such as
-#'   "pass", "fail", or "skip", or "accepted" or "pending" for UAT.
+#'   "pass", "fail", "warn", or "skip", or "accepted" or "pending" for UAT.
 #' @param strErrorSubclass (`length-1 character`) A subclass for an error
 #'   condition.
 #' @param strExtension (`length-1 character`) The file extension to use for the

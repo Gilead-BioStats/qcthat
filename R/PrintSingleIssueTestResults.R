@@ -89,7 +89,7 @@ FormatBody.qcthat_SingleIssueTestResults <- function(
 #' Choose emoji to indicate test disposition
 #'
 #' @param chrDisposition (`character`) Test disposition. Generally one of
-#'   `"pass"`, `"fail"`, or `"skip"`.
+#'   `"fail"`, `"warn"`, `"skip"`, or `"pass"`.
 #' @inheritParams printing
 #' @returns A character vector of the same length as `chrDisposition`, with each
 #'   element being the emoji or ASCII indicator for the corresponding test
@@ -103,6 +103,7 @@ ChooseDispositionIndicator <- function(
     chrDisposition,
     "pass" ~ ChooseEmoji("passed", lglUseEmoji = lglUseEmoji),
     "fail" ~ ChooseEmoji("failed", lglUseEmoji = lglUseEmoji),
+    "warn" ~ ChooseEmoji("warned", lglUseEmoji = lglUseEmoji),
     "skip" ~ ChooseEmoji("skipped", lglUseEmoji = lglUseEmoji),
     default = "[?]"
   )

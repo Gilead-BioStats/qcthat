@@ -11,12 +11,16 @@ Add issue references (e.g., `(#123)`) to test descriptions to connect tests to f
 
 Pre-compute issue-commit mappings once with `MapLongIssueCommits()` and pass to `MapTestFilesToPotentialIssues()`. Do not skip this—its output is used in `PrepareTestIssueContext()`, your sole source of context for remaining steps.
 
+Pass `lglUseCoverage = TRUE` to `MapTestFilesToPotentialIssues()` to augment test-file blame with source-line coverage from `covr`. Omit `lglUseCoverage` (defaults to `FALSE`) if the user tells you to "skip R source checks".
+
 ```r
 library(qcthat)
 dfFileTests <- ExtractTestsFromFiles()
 dfIssueCommitsLong <- MapLongIssueCommits()
 # If timeout, split: split(dfFileTests, dfFileTests$File) and process per file
-dfPotentialIssues <- MapTestFilesToPotentialIssues(dfFileTests, dfIssueCommitsLong = dfIssueCommitsLong)
+dfPotentialIssues <- MapTestFilesToPotentialIssues(
+  dfFileTests, lglUseCoverage = TRUE, dfIssueCommitsLong = dfIssueCommitsLong
+)
 dfTestIssueContext <- PrepareTestIssueContext(dfPotentialIssues)
 ```
 

@@ -127,14 +127,6 @@ CallGHAPI <- function(
   # nocov end
 }
 
-#' A classed GitHub response for testing
-#'
-#' @returns An empty list with class "gh_response".
-#' @keywords internal
-EmptyGHResponse <- function() {
-  structure(list(), class = c("gh_response", "list"))
-}
-
 #' Wrapper for GitHub GraphQL API calls
 #'
 #' @inheritParams shared-params

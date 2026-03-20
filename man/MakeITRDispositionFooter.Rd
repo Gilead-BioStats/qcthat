@@ -4,13 +4,10 @@
 \alias{MakeITRDispositionFooter}
 \title{Add a summary message to ITR footer}
 \usage{
-MakeITRDispositionFooter(
-  fctDisposition,
-  lglUseEmoji = getOption("qcthat.emoji", TRUE)
-)
+MakeITRDispositionFooter(x, lglUseEmoji = getOption("qcthat.emoji", TRUE))
 }
 \arguments{
-\item{fctDisposition}{(\code{factor}) Disposition factor with levels \code{c("fail", "skip", "pass")}.}
+\item{x}{(\code{qcthat_Object}) The qcthat object to format.}
 
 \item{lglUseEmoji}{(\verb{length-1 logical}) Whether to use emojis (if \code{TRUE} and
 the emoji package is installed) or ASCII indicators (if \code{FALSE}) in the

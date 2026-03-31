@@ -24,7 +24,8 @@ test_that("FetchRepoIssues returns an empty df when no issues found (#34)", {
       ParentRepo = character(),
       ParentNumber = integer(),
       CreatedAt = as.POSIXct(character()),
-      ClosedAt = as.POSIXct(character())
+      ClosedAt = as.POSIXct(character()),
+      Assignees = vctrs::list_of(.ptype = character())
     )
   )
 })
@@ -67,7 +68,8 @@ test_that("FetchRepoIssues returns a formatted df for real issues (#34)", {
     ClosedAt = as.POSIXct(
       dplyr::if_else(.data$State == "closed", "2025-10-16 15:53:00", NA),
       tz = "UTC"
-    )
+    ),
+    Assignees = list(NULL)
   )
   expect_equal(test_result, expected_result)
 })

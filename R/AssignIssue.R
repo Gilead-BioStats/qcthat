@@ -65,7 +65,14 @@ AssignIssue.numeric <- function(
     strRepo = strRepo,
     strGHToken = strGHToken
   )
-  AssignIssue.data.frame(dfIssue)
+  AssignIssue.data.frame(
+    dfIssue,
+    chrAssignees = chrAssignees,
+    lglOpenOnAssign = lglOpenOnAssign,
+    strOwner = strOwner,
+    strRepo = strRepo,
+    strGHToken = strGHToken
+  )
 }
 
 #' @export
@@ -77,7 +84,16 @@ AssignIssue.gh_response <- function(
   strRepo = GetGHRepo(),
   strGHToken = gh::gh_token()
 ) {
-  AssignIssue.data.frame(CompileIssuesDF(dfIssue)) # nocov
+  # nocov start
+  AssignIssue.data.frame(
+    CompileIssuesDF(dfIssue),
+    chrAssignees = chrAssignees,
+    lglOpenOnAssign = lglOpenOnAssign,
+    strOwner = strOwner,
+    strRepo = strRepo,
+    strGHToken = strGHToken
+  )
+  # nocov end
 }
 
 #' @export
@@ -89,7 +105,16 @@ AssignIssue.default <- function(
   strRepo = GetGHRepo(),
   strGHToken = gh::gh_token()
 ) {
-  AssignIssue.data.frame(AsIssuesDF(dfIssue)) # nocov
+  # nocov start
+  AssignIssue.data.frame(
+    AsIssuesDF(tibble::as_tibble(dfIssue)),
+    chrAssignees = chrAssignees,
+    lglOpenOnAssign = lglOpenOnAssign,
+    strOwner = strOwner,
+    strRepo = strRepo,
+    strGHToken = strGHToken
+  )
+  # nocov end
 }
 
 #' Update a GitHub issue (implementation)

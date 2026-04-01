@@ -101,6 +101,7 @@ UpdateIssueRaw <- function(
   ))
   # Clear cache so future calls see the new issue.
   if (length(lIssue)) {
+    lIssue <- list(lIssue)
     ClearGHCache()
   }
   return(lIssue)

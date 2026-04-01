@@ -10,6 +10,7 @@ test_that("CheckUAIssue passes when the issue is closed (#65, #111)", {
       strDescription = "The thing renders",
       intIssue = 12L,
       chrChecks = c("check1", "check2"),
+      chrAssignees = "",
       strOwner = "owner",
       strRepo = "repo"
     )
@@ -30,6 +31,7 @@ test_that("CheckUAIssue fails when the issue is open (#65, #111)", {
         intIssue = 12L,
         chrChecks = c("check1", "check2"),
         lglReportFailure = TRUE,
+        chrAssignees = "",
         strOwner = "owner",
         strRepo = "repo"
       )
@@ -52,6 +54,7 @@ test_that("CheckUAIssue fails when the child issue can't be created (#137)", {
         intIssue = 12L,
         chrChecks = c("check1", "check2"),
         lglReportFailure = TRUE,
+        chrAssignees = "",
         strOwner = "owner",
         strRepo = "repo"
       )
@@ -72,6 +75,7 @@ test_that("CheckUAIssue fails when weird things happen (#137)", {
         intIssue = 12L,
         chrChecks = c("check1", "check2"),
         lglReportFailure = TRUE,
+        chrAssignees = "",
         strOwner = "owner",
         strRepo = "repo"
       )
@@ -93,6 +97,7 @@ test_that("CheckUAIssue returns silently when the issue isn't closed and lglRepo
     strDescription = strDescription,
     intIssue = 12L,
     chrChecks = chrChecks,
+    chrAssignees = "",
     strOwner = "owner",
     strRepo = "repo",
     lglReportFailure = FALSE
@@ -195,7 +200,7 @@ test_that("CheckUAIssue errors when online but GitHub fetch fails (#230)", {
   )
 })
 
-test_that("CheckUAIssue assigns issues when assignees area available", {
+test_that("CheckUAIssue assigns issues when assignees are available", {
   local_mocked_bindings(
     FetchUAIssue = function(...) {
       list(Issue = 123L, State = "closed", Url = "http://example.com/issue/123")
@@ -212,6 +217,7 @@ test_that("CheckUAIssue assigns issues when assignees area available", {
     strDescription = "The thing renders",
     intIssue = 123L,
     chrChecks = c("check1", "check2"),
+    chrAssignees = "",
     lglReportFailure = TRUE,
     strOwner = "owner",
     strRepo = "repo"

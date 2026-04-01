@@ -176,6 +176,13 @@ EnframeIssues <- function(lIssuesNonPR) {
       ))
     )
 
+  if ("Labels" %in% colnames(dfIssues)) {
+    dfIssues$Labels <- unclass(dfIssues$Labels)
+  }
+  if ("Assignees" %in% colnames(dfIssues)) {
+    dfIssues$Assignees <- unclass(dfIssues$Assignees)
+  }
+
   # Bind to the "standard" empty to ensure all columns are present.
   dplyr::bind_rows(
     EmptyIssuesDFRaw(),

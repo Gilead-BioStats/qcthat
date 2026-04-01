@@ -34,7 +34,7 @@ test_that("UpdateIssueRaw makes the expected API call (#193)", {
     "Called ClearGHCache()"
   )
   expect_mapequal(
-    test_result,
+    test_result[[1]],
     list(
       issue_number = 123,
       title = "New title",

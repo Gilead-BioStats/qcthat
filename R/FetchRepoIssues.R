@@ -25,6 +25,8 @@
 #'   - `CreatedAt`: `POSIXct` timestamp of when the issue was created.
 #'   - `ClosedAt`: `POSIXct` timestamp of when the issue was closed, or `NA` if
 #'   the issue is still open.
+#'   - `Assignees`: List column of character vectors of GitHub usernames of
+#'   issue assignees.
 #' @export
 #' @examplesIf interactive()
 #'
@@ -104,7 +106,8 @@ CompileIssuesDF <- function(lIssuesNonPR, envCall = rlang::caller_env()) {
       Milestone = ExtractName(.data$Milestone, "title"),
       Type = dplyr::coalesce(ExtractName(.data$Type, "name"), "Issue"),
       CreatedAt = as.POSIXct(.data$CreatedAt, tz = "UTC"),
-      ClosedAt = as.POSIXct(.data$ClosedAt, tz = "UTC")
+      ClosedAt = as.POSIXct(.data$ClosedAt, tz = "UTC"),
+      Assignees = ExtractUsers(.data$Assignees)
     ) |>
     SeparateParentColumn() |>
     AsIssuesDF()
@@ -142,7 +145,8 @@ EmptyIssuesDF <- function() {
     ParentRepo = character(),
     ParentNumber = integer(),
     CreatedAt = as.POSIXct(character()),
-    ClosedAt = as.POSIXct(character())
+    ClosedAt = as.POSIXct(character()),
+    Assignees = vctrs::list_of(.ptype = character())
   )
 }
 
@@ -167,9 +171,17 @@ EnframeIssues <- function(lIssuesNonPR) {
         Url = "html_url",
         ParentUrl = "parent_issue_url",
         CreatedAt = "created_at",
-        ClosedAt = "closed_at"
+        ClosedAt = "closed_at",
+        Assignees = "assignees"
       ))
     )
+
+  if ("Labels" %in% colnames(dfIssues)) {
+    dfIssues$Labels <- unclass(dfIssues$Labels)
+  }
+  if ("Assignees" %in% colnames(dfIssues)) {
+    dfIssues$Assignees <- unclass(dfIssues$Assignees)
+  }
 
   # Bind to the "standard" empty to ensure all columns are present.
   dplyr::bind_rows(
@@ -196,7 +208,8 @@ EmptyIssuesDFRaw <- function() {
     Url = character(),
     ParentUrl = character(),
     CreatedAt = character(),
-    ClosedAt = character()
+    ClosedAt = character(),
+    Assignees = vctrs::list_of(.ptype = character())
   )
 }
 
@@ -210,6 +223,13 @@ ExtractLabels <- function(lLabels) {
   purrr::map(lLabels, function(lLabelSet) {
     chrExtractedLabels <- purrr::map_chr(lLabelSet, "name")
     return(NullIfEmpty(chrExtractedLabels))
+  })
+}
+
+ExtractUsers <- function(lUsers) {
+  purrr::map(lUsers, function(lUserSet) {
+    chrExtractedUsers <- purrr::map_chr(lUserSet, "login")
+    return(NullIfEmpty(chrExtractedUsers))
   })
 }
 

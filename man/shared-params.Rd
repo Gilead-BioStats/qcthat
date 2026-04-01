@@ -4,6 +4,13 @@
 \alias{shared-params}
 \title{Parameters used in multiple functions}
 \arguments{
+\item{chrAssignees}{(\code{character}) GitHub usernames to which the issue
+associated with an expectation should be assigned. Whenever the issue is
+assigned to a new user, it will be re-opened. Elements of this vector will
+be split on commas, so you can provide multiple assignees in a single
+string. This is helpful if you would like to set up assignees via the
+\code{"qcthat_UAT_ASSIGNEES"} environment variable, which is checked by default.}
+
 \item{chrChecks}{(\code{character}) Items for the user to check. These will be
 preceded by checkboxes in the associated issue.}
 
@@ -260,6 +267,10 @@ contains changes. Defaults to the active branch in this repository.}
 \item{strState}{(\verb{length-1 character}) State of issues or pull requests to
 fetch. Must be one of \code{"open"}, \code{"closed"}, or \code{"all"}. Defaults to
 \code{"open"} for pull requests and \code{"all"} for issues.}
+
+\item{strStateReason}{(\verb{length-1 character}) The reason for the state change
+(for \code{"closed"} \code{strState}). Must be one of \code{"completed"}, \code{"not_planned"},
+\code{"duplicate"}, \code{"reopened."}, or \code{NULL}.}
 
 \item{strTagName}{(\verb{length-1 character}) Name of the GitHub tag.}
 

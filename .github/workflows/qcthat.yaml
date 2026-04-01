@@ -44,6 +44,7 @@ env:
   qcthat_MILESTONE_REPORT: true
   qcthat_RELEASE_REPORT: true
   qcthat_FAIL_FOR_TEST_FAILURES: true
+  qcthat_UAT_ASSIGNEES: ${{ (github.event_name == 'pull_request' && github.base_ref == 'main' && 'jwildfire') || (github.event_name == 'pull_request' && github.base_ref != 'main' && 'lauramaxwell,nandriychuk') || '' }}
 
 jobs:
   qcthat:

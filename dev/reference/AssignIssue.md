@@ -1,21 +1,43 @@
-# Fetch repository issues
+# Assign a GitHub issue to one or more users
 
-Download (non-pull-request) issues in a repository and parse them into a
-tidy
-[`tibble::tibble()`](https://tibble.tidyverse.org/reference/tibble.html).
+Update the assignee list for a GitHub issue. If any members of
+`chrAssignees` are not already assigned to the issue, they will be added
+as assignees, and the issue will be opened if `lglOpenOnAssign` is
+`TRUE`.
 
 ## Usage
 
 ``` r
-FetchRepoIssues(
+AssignIssue(
+  dfIssue,
+  chrAssignees = character(),
+  lglOpenOnAssign = TRUE,
   strOwner = GetGHOwner(),
   strRepo = GetGHRepo(),
-  strGHToken = gh::gh_token(),
-  strState = c("all", "open", "closed")
+  strGHToken = gh::gh_token()
 )
 ```
 
 ## Arguments
+
+- dfIssue:
+
+  (`data.frame`, `numeric`, `gh_response`, or other) The issue to
+  assign, as returned by
+  [`FetchIssueDetails()`](https://gilead-biostats.github.io/qcthat/dev/reference/FetchIssueDetails.md),
+  or something that can be coerced to such a `data.frame`.
+
+- chrAssignees:
+
+  (`character`) GitHub usernames to whom the issue should be assigned
+  (in addition to any current assignees). Elements will be split on
+  commas, so a single string can be read from an environment variable
+  and passed here.
+
+- lglOpenOnAssign:
+
+  (`length-1 logical`) Whether to open the issue if it is currently
+  closed and at least one assignee is new.
 
 - strOwner:
 
@@ -29,12 +51,6 @@ FetchRepoIssues(
 
   (`length-1 character`) GitHub token with permissions appropriate to
   the action being performed.
-
-- strState:
-
-  (`length-1 character`) State of issues or pull requests to fetch. Must
-  be one of `"open"`, `"closed"`, or `"all"`. Defaults to `"open"` for
-  pull requests and `"all"` for issues.
 
 ## Value
 
@@ -77,12 +93,3 @@ with columns:
 
 - `Assignees`: List column of character vectors of GitHub usernames of
   issue assignees.
-
-## Examples
-
-``` r
-if (FALSE) { # interactive()
-
-  FetchRepoIssues()
-}
-```

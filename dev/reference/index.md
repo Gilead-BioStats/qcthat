@@ -4,6 +4,8 @@
 
 - [`Action_qcthat()`](https://gilead-biostats.github.io/qcthat/dev/reference/Action_qcthat.md)
   : Use a GitHub Action to manage qcthat
+- [`AssignIssue()`](https://gilead-biostats.github.io/qcthat/dev/reference/AssignIssue.md)
+  : Assign a GitHub issue to one or more users
 - [`AttachReleaseReports()`](https://gilead-biostats.github.io/qcthat/dev/reference/AttachReleaseReports.md)
   : Attach QC reports to a GitHub release
 - [`CommentAllReports()`](https://gilead-biostats.github.io/qcthat/dev/reference/CommentAllReports.md)
@@ -85,6 +87,8 @@
   **\[experimental\]** : Use an AI skill to tag tests with issues
 - [`TriggerUAT()`](https://gilead-biostats.github.io/qcthat/dev/reference/TriggerUAT.md)
   **\[experimental\]** : Trigger the UAT cycle for closed issues
+- [`UpdateIssue()`](https://gilead-biostats.github.io/qcthat/dev/reference/UpdateIssue.md)
+  : Update a GitHub issue
 - [`print(`*`<qcthat_Object>`*`)`](https://gilead-biostats.github.io/qcthat/dev/reference/printing.md)
   [`format(`*`<qcthat_Object>`*`)`](https://gilead-biostats.github.io/qcthat/dev/reference/printing.md)
   : Printing qcthat objects

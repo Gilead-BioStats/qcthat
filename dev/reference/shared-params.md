@@ -5,6 +5,16 @@ Reused parameter definitions are gathered here for easier usage. Use
 
 ## Arguments
 
+- chrAssignees:
+
+  (`character`) GitHub usernames to which the issue associated with an
+  expectation should be assigned. Whenever the issue is assigned to a
+  new user, it will be re-opened. Elements of this vector will be split
+  on commas, so you can provide multiple assignees in a single string.
+  This is helpful if you would like to set up assignees via the
+  `"qcthat_UAT_ASSIGNEES"` environment variable, which is checked by
+  default.
+
 - chrChecks:
 
   (`character`) Items for the user to check. These will be preceded by
@@ -436,6 +446,12 @@ Reused parameter definitions are gathered here for easier usage. Use
   (`length-1 character`) State of issues or pull requests to fetch. Must
   be one of `"open"`, `"closed"`, or `"all"`. Defaults to `"open"` for
   pull requests and `"all"` for issues.
+
+- strStateReason:
+
+  (`length-1 character`) The reason for the state change (for `"closed"`
+  `strState`). Must be one of `"completed"`, `"not_planned"`,
+  `"duplicate"`, `"reopened."`, or `NULL`.
 
 - strTagName:
 

@@ -47,7 +47,16 @@
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
 
 
-<dl><dt id="arg-chrchecks">chrChecks<a class="anchor" aria-label="anchor" href="#arg-chrchecks"></a></dt>
+<dl><dt id="arg-chrassignees">chrAssignees<a class="anchor" aria-label="anchor" href="#arg-chrassignees"></a></dt>
+<dd><p>(<code>character</code>) GitHub usernames to which the issue
+associated with an expectation should be assigned. Whenever the issue is
+assigned to a new user, it will be re-opened. Elements of this vector will
+be split on commas, so you can provide multiple assignees in a single
+string. This is helpful if you would like to set up assignees via the
+<code>"qcthat_UAT_ASSIGNEES"</code> environment variable, which is checked by default.</p></dd>
+
+
+<dt id="arg-chrchecks">chrChecks<a class="anchor" aria-label="anchor" href="#arg-chrchecks"></a></dt>
 <dd><p>(<code>character</code>) Items for the user to check. These will be
 preceded by checkboxes in the associated issue.</p></dd>
 
@@ -466,6 +475,12 @@ contains changes. Defaults to the active branch in this repository.</p></dd>
 <dd><p>(<code>length-1 character</code>) State of issues or pull requests to
 fetch. Must be one of <code>"open"</code>, <code>"closed"</code>, or <code>"all"</code>. Defaults to
 <code>"open"</code> for pull requests and <code>"all"</code> for issues.</p></dd>
+
+
+<dt id="arg-strstatereason">strStateReason<a class="anchor" aria-label="anchor" href="#arg-strstatereason"></a></dt>
+<dd><p>(<code>length-1 character</code>) The reason for the state change
+(for <code>"closed"</code> <code>strState</code>). Must be one of <code>"completed"</code>, <code>"not_planned"</code>,
+<code>"duplicate"</code>, <code>"reopened."</code>, or <code>NULL</code>.</p></dd>
 
 
 <dt id="arg-strtagname">strTagName<a class="anchor" aria-label="anchor" href="#arg-strtagname"></a></dt>

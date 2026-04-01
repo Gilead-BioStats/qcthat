@@ -1,21 +1,32 @@
-# Fetch repository issues
+# Update a GitHub issue (implementation)
 
-Download (non-pull-request) issues in a repository and parse them into a
-tidy
-[`tibble::tibble()`](https://tibble.tidyverse.org/reference/tibble.html).
+Update a GitHub issue (implementation)
 
 ## Usage
 
 ``` r
-FetchRepoIssues(
+AssignIssueImpl(
+  dfIssue,
+  chrAssignees = character(),
+  lglOpenOnAssign = TRUE,
   strOwner = GetGHOwner(),
   strRepo = GetGHRepo(),
   strGHToken = gh::gh_token(),
-  strState = c("all", "open", "closed")
+  envCall = rlang::caller_env()
 )
 ```
 
 ## Arguments
+
+- chrAssignees:
+
+  (`character`) GitHub usernames to which the issue associated with an
+  expectation should be assigned. Whenever the issue is assigned to a
+  new user, it will be re-opened. Elements of this vector will be split
+  on commas, so you can provide multiple assignees in a single string.
+  This is helpful if you would like to set up assignees via the
+  `"qcthat_UAT_ASSIGNEES"` environment variable, which is checked by
+  default.
 
 - strOwner:
 
@@ -30,11 +41,11 @@ FetchRepoIssues(
   (`length-1 character`) GitHub token with permissions appropriate to
   the action being performed.
 
-- strState:
+- envCall:
 
-  (`length-1 character`) State of issues or pull requests to fetch. Must
-  be one of `"open"`, `"closed"`, or `"all"`. Defaults to `"open"` for
-  pull requests and `"all"` for issues.
+  (`environment`) The environment to use for error reporting. Typically
+  set to
+  [`rlang::caller_env()`](https://rlang.r-lib.org/reference/stack.html).
 
 ## Value
 
@@ -77,12 +88,3 @@ with columns:
 
 - `Assignees`: List column of character vectors of GitHub usernames of
   issue assignees.
-
-## Examples
-
-``` r
-if (FALSE) { # interactive()
-
-  FetchRepoIssues()
-}
-```

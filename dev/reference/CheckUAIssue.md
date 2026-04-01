@@ -1,14 +1,11 @@
-# Does a user accept the feature?
+# Check the status of a UAT issue
 
-**\[experimental\]**
-
-Create and track a sub-issue to track user acceptance that an issue is
-complete.
+Check the status of a UAT issue
 
 ## Usage
 
 ``` r
-ExpectUserAccepts(
+CheckUAIssue(
   strDescription,
   intIssue,
   chrInstructions = character(),
@@ -72,4 +69,4 @@ ExpectUserAccepts(
 
 ## Value
 
-The input `chrChecks`, invisibly.
+The value of `envQcthat$UATIssues`, invisibly (called for side effects).

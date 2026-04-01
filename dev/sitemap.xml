@@ -23,6 +23,8 @@
 <url><loc>https://gilead-biostats.github.io/qcthat/dev/reference/AsRowDFList.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/qcthat/dev/reference/AsSingleIssueTestResults.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/qcthat/dev/reference/AsTestResultsDF.html</loc></url>
+<url><loc>https://gilead-biostats.github.io/qcthat/dev/reference/AssignIssue.html</loc></url>
+<url><loc>https://gilead-biostats.github.io/qcthat/dev/reference/AssignIssueImpl.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/qcthat/dev/reference/AttachReleaseReports.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/qcthat/dev/reference/AugmentPotentialIssuesFromCoverage.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/qcthat/dev/reference/BlameFile.html</loc></url>
@@ -35,6 +37,7 @@
 <url><loc>https://gilead-biostats.github.io/qcthat/dev/reference/BuildPRIssuesQuery.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/qcthat/dev/reference/CallGHAPI.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/qcthat/dev/reference/CheckFileLineOrder.html</loc></url>
+<url><loc>https://gilead-biostats.github.io/qcthat/dev/reference/CheckUAIssue.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/qcthat/dev/reference/ChooseCoverageFooter.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/qcthat/dev/reference/ChooseDispositionIndicator.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/qcthat/dev/reference/ChooseEmoji.html</loc></url>
@@ -247,6 +250,7 @@
 <url><loc>https://gilead-biostats.github.io/qcthat/dev/reference/SetupTempSnapDir.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/qcthat/dev/reference/SimplePluralize.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/qcthat/dev/reference/Skill_TagTestsWithIssues.html</loc></url>
+<url><loc>https://gilead-biostats.github.io/qcthat/dev/reference/SplitFlattenCommas.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/qcthat/dev/reference/SubsetFileLines.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/qcthat/dev/reference/TallyCoverage.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/qcthat/dev/reference/TibblifyIssueCloser.html</loc></url>
@@ -254,7 +258,9 @@
 <url><loc>https://gilead-biostats.github.io/qcthat/dev/reference/TriggerUAT.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/qcthat/dev/reference/UpdateCommentRaw.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/qcthat/dev/reference/UpdateGHLabel.html</loc></url>
+<url><loc>https://gilead-biostats.github.io/qcthat/dev/reference/UpdateIssue.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/qcthat/dev/reference/UpdateIssueComment.html</loc></url>
+<url><loc>https://gilead-biostats.github.io/qcthat/dev/reference/UpdateIssueRaw.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/qcthat/dev/reference/UpdateReleaseBody.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/qcthat/dev/reference/UsesGit.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/qcthat/dev/reference/ValidateDFLabels.html</loc></url>

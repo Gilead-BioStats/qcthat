@@ -8,18 +8,21 @@ template:
     base_font: {google: "Montserrat"}
     heading_font: {google: "Montserrat"}
     code_font: {google: "JetBrains Mono"}
+articles:
+  - title: Getting Started
+    contents:
+      - qcthat
+  - title: Workflows
+    contents:
+      - business_process
+      - expect_user_accepts
+
 navbar:
   bg: "primary"
   structure:
-    left: [setup, process, reference, slides, news]
+    left: [articles, reference, slides, news]
     right: [search, github]
   components:
-    setup:
-      text: Setup
-      href: articles/qcthat.html
-    process:
-      text: Business Process
-      href: articles/business_process.html
     slides:
       text: Slides
       href: slides-introduction.html

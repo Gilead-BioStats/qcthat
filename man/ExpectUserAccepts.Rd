@@ -48,11 +48,61 @@ string. This is helpful if you would like to set up assignees via the
 appropriate to the action being performed.}
 }
 \value{
-The input \code{chrChecks}, invisibly.
+The input \code{strDescription}, invisibly.
 }
 \description{
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
 
-Create and track a sub-issue to track user acceptance that an issue is
-complete.
+Create a GitHub sub-issue assigned to a human reviewer to track user
+acceptance that the work described in a parent issue is complete. Use this
+inside a \code{\link[testthat:test_that]{testthat::test_that()}} block to extend test coverage to changes
+that require human judgment, such as aesthetic or layout changes to a report.
+}
+\details{
+When called outside of CRAN, inside a git repository, and with an internet
+connection, \code{ExpectUserAccepts()} performs the following steps:
+\enumerate{
+\item Looks for an existing child issue of \code{intIssue} labeled \code{"qcthat-uat"}
+whose title matches \code{strDescription}.
+\item If no such issue exists, creates one as a sub-issue with the title
+\code{"qcthat Acceptance for #N: {strDescription}"}, a body containing
+\code{chrInstructions} and checkbox items from \code{chrChecks}, and the
+\code{"qcthat-uat"} label.
+\item Assigns the issue to \code{chrAssignees} (re-opening it if it was closed and a
+new assignee is added).
+\item Checks the issue state:
+\itemize{
+\item \strong{Closed}: calls \code{\link[testthat:fail]{testthat::pass()}}.
+\item \strong{Open}: calls \code{\link[testthat:fail]{testthat::fail()}} only when \code{lglReportFailure} is
+\code{TRUE} (controlled by the \code{qcthat_UAT} environment variable via
+\code{\link[=IsCheckingUAT]{IsCheckingUAT()}}).
+}
+\item Logs the result for use in UAT reports (see \code{\link[=CommentUAT]{CommentUAT()}}).
+}
+
+When any guard condition is not met (on CRAN, not a git repo, or offline),
+the function silently returns \code{strDescription} without side effects.
+}
+\examples{
+\dontrun{
+test_that("report uses updated brand colors (#42)", {
+  ExpectUserAccepts(
+    strDescription = "Report header uses updated brand colors",
+    intIssue = 42L,
+    chrChecks = c(
+      "Header background is #59488f",
+      "Logo is centered and not clipped"
+    ),
+    chrAssignees = "design-reviewer"
+  )
+})
+}
+}
+\seealso{
+\itemize{
+\item \code{\link[=IsCheckingUAT]{IsCheckingUAT()}} to check whether UAT failure reporting is active.
+\item \code{\link[=TriggerUAT]{TriggerUAT()}} for the GitHub Actions side of the UAT cycle.
+\item \code{\link[=CommentUAT]{CommentUAT()}} for posting UAT status reports on pull requests.
+\item \code{vignette("expect_user_accepts")} for a full walkthrough.
+}
 }

@@ -84,3 +84,15 @@ test_that("There's a vignette about getting started (#98)", {
     )
   )
 })
+
+test_that("Vignette for ExpectUserAccepts (#293)",{
+  qcthat::ExpectUserAccepts(
+    strDescription = "The website includes an article how to use ExpectUserAccepts",
+    intIssue = 293,
+    chrInstructions =  "Load the website linked in the PR attached to this issue as 'PR pkgdown deployed'.",
+    chrChecks = c(
+      "The website has a 'User acceptance testing with ExpectUserAccepts' under Articles.",
+      "The 'User acceptance testing with ExpectUserAccepts' article describes how to correctly use ExpectUserAccepts."
+    )
+  )
+})

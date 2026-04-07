@@ -46,3 +46,10 @@ Add or update a comment on a GitHub pull request (or issue) with a report of
 issues that require user acceptance, formatted in GitHub markdown. Note: This
 should only be called \emph{after} the test suite has ran.
 }
+\seealso{
+Other UAT functions: 
+\code{\link{ExpectUserAccepts}()},
+\code{\link{IsCheckingUAT}()},
+\code{\link{TriggerUAT}()}
+}
+\concept{UAT functions}

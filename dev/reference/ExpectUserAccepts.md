@@ -2,8 +2,12 @@
 
 **\[experimental\]**
 
-Create and track a sub-issue to track user acceptance that an issue is
-complete.
+Create a GitHub sub-issue assigned to a human reviewer to track user
+acceptance that the work described in a parent issue is complete. Use
+this inside a
+[`testthat::test_that()`](https://testthat.r-lib.org/reference/test_that.html)
+block to extend test coverage to changes that require human judgment,
+such as aesthetic or layout changes to a report.
 
 ## Usage
 
@@ -72,4 +76,66 @@ ExpectUserAccepts(
 
 ## Value
 
-The input `chrChecks`, invisibly.
+The input `strDescription`, invisibly.
+
+## Details
+
+When called outside of CRAN, inside a git repository, and with an
+internet connection, `ExpectUserAccepts()` performs the following steps:
+
+1.  Looks for an existing child issue of `intIssue` labeled
+    `"qcthat-uat"` whose title matches `strDescription`.
+
+2.  If no such issue exists, creates one as a sub-issue with the title
+    `"qcthat Acceptance for #N: {strDescription}"`, a body containing
+    `chrInstructions` and checkbox items from `chrChecks`, and the
+    `"qcthat-uat"` label.
+
+3.  Assigns the issue to `chrAssignees` (re-opening it if it was closed
+    and a new assignee is added).
+
+4.  Checks the issue state:
+
+    - **Closed**: calls
+      [`testthat::pass()`](https://testthat.r-lib.org/reference/fail.html).
+
+    - **Open**: calls
+      [`testthat::fail()`](https://testthat.r-lib.org/reference/fail.html)
+      only when `lglReportFailure` is `TRUE` (controlled by the
+      `qcthat_UAT` environment variable via
+      [`IsCheckingUAT()`](https://gilead-biostats.github.io/qcthat/dev/reference/IsCheckingUAT.md)).
+
+5.  Logs the result for use in UAT reports (see
+    [`CommentUAT()`](https://gilead-biostats.github.io/qcthat/dev/reference/CommentUAT.md)).
+
+When any guard condition is not met (on CRAN, not a git repo, or
+offline), the function silently returns `strDescription` without side
+effects.
+
+## See also
+
+- [`vignette("expect_user_accepts")`](https://gilead-biostats.github.io/qcthat/dev/articles/expect_user_accepts.md)
+  for a full walk-through of the UAT system.
+
+Other UAT functions:
+[`CommentUAT()`](https://gilead-biostats.github.io/qcthat/dev/reference/CommentUAT.md),
+[`IsCheckingUAT()`](https://gilead-biostats.github.io/qcthat/dev/reference/IsCheckingUAT.md),
+[`TriggerUAT()`](https://gilead-biostats.github.io/qcthat/dev/reference/TriggerUAT.md)
+
+## Examples
+
+``` r
+if (FALSE) { # \dontrun{
+test_that("report uses updated brand colors (#42)", {
+  ExpectUserAccepts(
+    strDescription = "Report header uses updated brand colors",
+    intIssue = 42L,
+    chrChecks = c(
+      "Header background is #59488f",
+      "Logo is centered and not clipped"
+    ),
+    chrAssignees = "design-reviewer"
+  )
+})
+} # }
+```

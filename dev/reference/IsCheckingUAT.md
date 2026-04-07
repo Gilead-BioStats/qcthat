@@ -20,6 +20,13 @@ IsCheckingUAT(strUATEnvVar = "qcthat_UAT")
 `TRUE` if the specified environment variable is set to `"TRUE"`
 (case-insensitive), `FALSE` otherwise.
 
+## See also
+
+Other UAT functions:
+[`CommentUAT()`](https://gilead-biostats.github.io/qcthat/dev/reference/CommentUAT.md),
+[`ExpectUserAccepts()`](https://gilead-biostats.github.io/qcthat/dev/reference/ExpectUserAccepts.md),
+[`TriggerUAT()`](https://gilead-biostats.github.io/qcthat/dev/reference/TriggerUAT.md)
+
 ## Examples
 
 ``` r

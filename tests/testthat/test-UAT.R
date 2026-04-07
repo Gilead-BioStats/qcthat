@@ -85,7 +85,7 @@ test_that("There's a vignette about getting started (#98)", {
   )
 })
 
-test_that("Vignette for ExpectUserAccepts (#293)", {
+test_that("Vignette exists for ExpectUserAccepts (#293)", {
   qcthat::ExpectUserAccepts(
     strDescription = "The website includes an article how to use ExpectUserAccepts",
     intIssue = 293,

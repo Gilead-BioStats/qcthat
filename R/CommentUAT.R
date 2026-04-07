@@ -9,6 +9,7 @@
 #'
 #' @inheritParams shared-params
 #' @returns Invisibly returns the result of [CommentIssue()].
+#' @family UAT functions
 #' @export
 CommentUAT <- function(
   intPRNumber = GuessPRNumber(

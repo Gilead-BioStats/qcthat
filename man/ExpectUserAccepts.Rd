@@ -100,9 +100,12 @@ test_that("report uses updated brand colors (#42)", {
 }
 \seealso{
 \itemize{
-\item \code{\link[=IsCheckingUAT]{IsCheckingUAT()}} to check whether UAT failure reporting is active.
-\item \code{\link[=TriggerUAT]{TriggerUAT()}} for the GitHub Actions side of the UAT cycle.
-\item \code{\link[=CommentUAT]{CommentUAT()}} for posting UAT status reports on pull requests.
-\item \code{vignette("expect_user_accepts")} for a full walkthrough.
+\item \code{vignette("expect_user_accepts")} for a full walk-through of the UAT system.
 }
+
+Other UAT functions: 
+\code{\link{CommentUAT}()},
+\code{\link{IsCheckingUAT}()},
+\code{\link{TriggerUAT}()}
 }
+\concept{UAT functions}

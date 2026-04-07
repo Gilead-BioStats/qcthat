@@ -34,11 +34,9 @@
 #'
 #' @returns The input `strDescription`, invisibly.
 #'
+#' @family UAT functions
 #' @seealso
-#' * [IsCheckingUAT()] to check whether UAT failure reporting is active.
-#' * [TriggerUAT()] for the GitHub Actions side of the UAT cycle.
-#' * [CommentUAT()] for posting UAT status reports on pull requests.
-#' * `vignette("expect_user_accepts")` for a full walkthrough.
+#' * `vignette("expect_user_accepts")` for a full walk-through of the UAT system.
 #'
 #' @export
 #'
@@ -114,6 +112,7 @@ IsOnline <- function() {
 #'   variable to check.
 #' @returns `TRUE` if the specified environment variable is set to `"TRUE"`
 #'   (case-insensitive), `FALSE` otherwise.
+#' @family UAT functions
 #' @export
 #' @examples
 #' CurrentValue <- Sys.getenv("qcthat_UAT")

@@ -14,6 +14,7 @@
 #' @returns A `data.frame` of PRs that referenced the issue (invisibly). This
 #'   function is called for its side effects.
 #'
+#' @family UAT functions
 #' @export
 TriggerUAT <- function(
   intClosedIssue = GuessIssueNumber(),

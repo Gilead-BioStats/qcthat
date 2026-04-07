@@ -10,7 +10,7 @@ tests to GitHub issues that a reviewer can close to indicate acceptance.
 
 This extends the test coverage that
 [qcthat](https://gilead-biostats.github.io/qcthat/) tracks to include
-things that only a person can verify — which is often exactly what
+things that only a person can verify, which is often exactly what
 matters most to stakeholders.
 
 The workflow involves three roles:
@@ -29,10 +29,10 @@ header uses outdated brand colors. A developer creates branch `fix-42`,
 implements the CSS changes, and needs sign-off from a non-technical
 reviewer before the fix is considered complete.
 
-The developer adds a test:
+The developer 🧑‍💻 adds a test:
 
 ``` r
-test_that("report header uses the updated brand colors (#42)", {
+test_that("Report header uses the updated brand colors (#42)", {
   ExpectUserAccepts(
     strDescription = "Report header uses updated brand colors",
     intIssue = 42L,
@@ -47,13 +47,20 @@ test_that("report header uses the updated brand colors (#42)", {
 })
 ```
 
-- `strDescription` — a short summary that becomes the sub-issue title.
-- `intIssue` — the parent GitHub issue number (`#42`).
-- `chrInstructions` — optional context for the reviewer, such as a link
+- `strDescription`: a short summary that becomes the sub-issue title.
+- `intIssue`: the parent GitHub issue number (`#42`). Even if the
+  enclosing `test_that()` links to multiple issues, this must be a
+  single issue number.
+- `chrInstructions`: optional context for the reviewer, such as a link
   to a preview deployment.
-- `chrChecks` — checkbox items the reviewer will see in the sub-issue
+- `chrChecks`: checkbox items the reviewer will see in the sub-issue
   body.
-- `chrAssignees` — GitHub username(s) of the reviewer(s) to assign.
+- `chrAssignees`: GitHub username(s) of the reviewer(s) to assign. This
+  parameter defaults to a `qcthat_UAT_ASSIGNEES` environment variable,
+  allowing you to set assignees dynamically in automated checks. We
+  recommend leaving the assignee blank in the individual test then
+  setting it dynamically through the GitHub action, as described in
+  [Environment variables](#environment-variables).
 
 ## What happens behind the scenes
 
@@ -79,7 +86,7 @@ performs the following steps:
     - The `qcthat-uat` label
 
 4.  **Assignment.** Assigns the specified GitHub user(s). If the issue
-    was previously closed and a new assignee is added, it is
+    was previously closed and a new assignee is added, the issue is
     automatically re-opened.
 
 5.  **State check.**
@@ -90,7 +97,10 @@ performs the following steps:
       [`testthat::fail()`](https://testthat.r-lib.org/reference/fail.html),
       but only when `lglReportFailure` is `TRUE`. By default this is
       controlled by the `qcthat_UAT` environment variable (see
-      [Environment variables](#environment-variables)).
+      [Environment variables](#environment-variables)). When
+      `lglReportFailure` is `FALSE`, the expectation is skipped (returns
+      `NULL` without signalling a condition, so other expectations in
+      the same `test_that()` block will still run).
 
 6.  **Logging.** Records the result to an internal registry used by
     [`CommentUAT()`](https://gilead-biostats.github.io/qcthat/dev/reference/CommentUAT.md)
@@ -101,9 +111,9 @@ the `qcthat_UAT` environment variable is not set. It only reports
 failures in the GitHub Actions workflow where `qcthat_UAT: true` is
 configured.
 
-## The reviewer’s workflow
+## The reviewer’s 💼 workflow
 
-1.  💼 The reviewer receives a GitHub notification for the assigned
+1.  The reviewer receives a GitHub notification for the assigned
     sub-issue.
 2.  The issue body lists the checks as checkboxes and includes any
     instructions.
@@ -114,7 +124,7 @@ configured.
 5.  If changes are needed, the reviewer **comments** with required
     changes and leaves the issue open.
 
-## GitHub Actions integration
+## GitHub Actions 🤖 integration
 
 The `qcthat.yaml` workflow (installed via
 [`use_qcthat()`](https://gilead-biostats.github.io/qcthat/dev/reference/use_qcthat.md))
@@ -156,8 +166,9 @@ locally.
   specific page in the report.
 - Multiple
   [`ExpectUserAccepts()`](https://gilead-biostats.github.io/qcthat/dev/reference/ExpectUserAccepts.md)
-  calls can exist in the same test file, each tracking a different
-  aspect of the same issue or different issues.
+  calls can exist in the same test file (even withing the same
+  `test_that()` block), each tracking a different aspect of the same
+  issue or different issues.
 - You can set assignees via the `qcthat_UAT_ASSIGNEES` environment
   variable in your workflow YAML instead of hard-coding usernames. This
   allows different assignees per branch target:

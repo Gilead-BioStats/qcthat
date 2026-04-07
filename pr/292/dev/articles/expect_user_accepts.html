@@ -38,7 +38,14 @@
 
     <div id="navbar" class="collapse navbar-collapse ms-3">
       <ul class="navbar-nav me-auto">
-<li class="active nav-item"><a class="nav-link" href="../articles/index.html">Articles</a></li>
+<li class="nav-item"><a class="nav-link" href="../articles/qcthat.html">Setup</a></li>
+<li class="active nav-item dropdown">
+  <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
+  <ul class="dropdown-menu" aria-labelledby="dropdown-articles">
+<li><a class="dropdown-item" href="../articles/business_process.html">Business process</a></li>
+    <li><a class="dropdown-item" href="../articles/expect_user_accepts.html">User acceptance testing with ExpectUserAccepts</a></li>
+  </ul>
+</li>
 <li class="nav-item"><a class="nav-link" href="../reference/index.html">Reference</a></li>
 <li class="nav-item"><a class="nav-link" href="../slides-introduction.html" target="_blank">Slides</a></li>
 <li class="nav-item"><a class="nav-link" href="../news/index.html">Changelog</a></li>
@@ -76,7 +83,7 @@ meets expectations. <code><a href="../reference/ExpectUserAccepts.html">ExpectUs
 connecting <a href="https://testthat.r-lib.org" class="external-link">testthat</a> tests to GitHub issues that a
 reviewer can close to indicate acceptance.</p>
 <p>This extends the test coverage that <a href="https://gilead-biostats.github.io/qcthat/">qcthat</a> tracks to
-include things that only a person can verify — which is often exactly
+include things that only a person can verify, which is often exactly
 what matters most to stakeholders.</p>
 <p>The workflow involves three roles:</p>
 <ul>
@@ -95,9 +102,9 @@ HTML report header uses outdated brand colors. A developer creates
 branch <code>fix-42</code>, implements the CSS changes, and needs
 sign-off from a non-technical reviewer before the fix is considered
 complete.</p>
-<p>The developer adds a test:</p>
+<p>The developer 🧑‍💻 adds a test:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">test_that</span><span class="op">(</span><span class="st">"report header uses the updated brand colors (#42)"</span>, <span class="op">{</span></span>
+<code class="sourceCode R"><span><span class="fu">test_that</span><span class="op">(</span><span class="st">"Report header uses the updated brand colors (#42)"</span>, <span class="op">{</span></span>
 <span>  <span class="fu"><a href="../reference/ExpectUserAccepts.html">ExpectUserAccepts</a></span><span class="op">(</span></span>
 <span>    strDescription <span class="op">=</span> <span class="st">"Report header uses updated brand colors"</span>,</span>
 <span>    intIssue <span class="op">=</span> <span class="fl">42L</span>,</span>
@@ -112,20 +119,26 @@ complete.</p>
 <span><span class="op">}</span><span class="op">)</span></span></code></pre></div>
 <ul>
 <li>
-<code>strDescription</code> — a short summary that becomes the
+<code>strDescription</code>: a short summary that becomes the
 sub-issue title.</li>
 <li>
-<code>intIssue</code> — the parent GitHub issue number
-(<code>#42</code>).</li>
+<code>intIssue</code>: the parent GitHub issue number
+(<code>#42</code>). Even if the enclosing <code>test_that()</code> links
+to multiple issues, this must be a single issue number.</li>
 <li>
-<code>chrInstructions</code> — optional context for the reviewer,
+<code>chrInstructions</code>: optional context for the reviewer,
 such as a link to a preview deployment.</li>
 <li>
-<code>chrChecks</code> — checkbox items the reviewer will see in the
+<code>chrChecks</code>: checkbox items the reviewer will see in the
 sub-issue body.</li>
 <li>
-<code>chrAssignees</code> — GitHub username(s) of the reviewer(s) to
-assign.</li>
+<code>chrAssignees</code>: GitHub username(s) of the reviewer(s) to
+assign. This parameter defaults to a <code>qcthat_UAT_ASSIGNEES</code>
+environment variable, allowing you to set assignees dynamically in
+automated checks. We recommend leaving the assignee blank in the
+individual test then setting it dynamically through the GitHub action,
+as described in <a href="#environment-variables">Environment
+variables</a>.</li>
 </ul>
 </div>
 <div class="section level2">
@@ -155,7 +168,7 @@ items from <code>chrChecks</code>
 </li>
 <li><p><strong>Assignment.</strong> Assigns the specified GitHub
 user(s). If the issue was previously closed and a new assignee is added,
-it is automatically re-opened.</p></li>
+the issue is automatically re-opened.</p></li>
 <li>
 <p><strong>State check.</strong></p>
 <ul>
@@ -164,7 +177,11 @@ it is automatically re-opened.</p></li>
 <li>If the sub-issue is <strong>open</strong>:
 <code><a href="https://testthat.r-lib.org/reference/fail.html" class="external-link">testthat::fail()</a></code>, but only when
 <code>lglReportFailure</code> is <code>TRUE</code>. By default this is
-controlled by the <code>qcthat_UAT</code> environment variable (see <a href="#environment-variables">Environment variables</a>).</li>
+controlled by the <code>qcthat_UAT</code> environment variable (see <a href="#environment-variables">Environment variables</a>). When
+<code>lglReportFailure</code> is <code>FALSE</code>, the expectation is
+skipped (returns <code>NULL</code> without signalling a condition, so
+other expectations in the same <code>test_that()</code> block will still
+run).</li>
 </ul>
 </li>
 <li><p><strong>Logging.</strong> Records the result to an internal
@@ -177,10 +194,10 @@ set. It only reports failures in the GitHub Actions workflow where
 <code>qcthat_UAT: true</code> is configured.</p>
 </div>
 <div class="section level2">
-<h2 id="the-reviewers-workflow">The reviewer’s workflow<a class="anchor" aria-label="anchor" href="#the-reviewers-workflow"></a>
+<h2 id="the-reviewers-workflow">The reviewer’s 💼 workflow<a class="anchor" aria-label="anchor" href="#the-reviewers-workflow"></a>
 </h2>
 <ol style="list-style-type: decimal">
-<li>💼 The reviewer receives a GitHub notification for the assigned
+<li>The reviewer receives a GitHub notification for the assigned
 sub-issue.</li>
 <li>The issue body lists the checks as checkboxes and includes any
 instructions.</li>
@@ -193,7 +210,7 @@ required changes and leaves the issue open.</li>
 </ol>
 </div>
 <div class="section level2">
-<h2 id="github-actions-integration">GitHub Actions integration<a class="anchor" aria-label="anchor" href="#github-actions-integration"></a>
+<h2 id="github-actions-integration">GitHub Actions 🤖 integration<a class="anchor" aria-label="anchor" href="#github-actions-integration"></a>
 </h2>
 <p>The <code>qcthat.yaml</code> workflow (installed via
 <code><a href="../reference/use_qcthat.html">use_qcthat()</a></code>) handles the automated side:</p>
@@ -256,8 +273,9 @@ sub-issue title.</li>
 <li>Use <code>chrInstructions</code> to link the reviewer to a preview
 deployment or specific page in the report.</li>
 <li>Multiple <code><a href="../reference/ExpectUserAccepts.html">ExpectUserAccepts()</a></code> calls can exist in the
-same test file, each tracking a different aspect of the same issue or
-different issues.</li>
+same test file (even withing the same <code>test_that()</code> block),
+each tracking a different aspect of the same issue or different
+issues.</li>
 <li>You can set assignees via the <code>qcthat_UAT_ASSIGNEES</code>
 environment variable in your workflow YAML instead of hard-coding
 usernames. This allows different assignees per branch target:</li>

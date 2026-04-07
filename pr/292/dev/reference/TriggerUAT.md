@@ -41,3 +41,10 @@ TriggerUAT(
 
 A `data.frame` of PRs that referenced the issue (invisibly). This
 function is called for its side effects.
+
+## See also
+
+Other UAT functions:
+[`CommentUAT()`](https://gilead-biostats.github.io/qcthat/dev/reference/CommentUAT.md),
+[`ExpectUserAccepts()`](https://gilead-biostats.github.io/qcthat/dev/reference/ExpectUserAccepts.md),
+[`IsCheckingUAT()`](https://gilead-biostats.github.io/qcthat/dev/reference/IsCheckingUAT.md)

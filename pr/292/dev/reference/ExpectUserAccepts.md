@@ -114,17 +114,13 @@ effects.
 
 ## See also
 
-- [`IsCheckingUAT()`](https://gilead-biostats.github.io/qcthat/dev/reference/IsCheckingUAT.md)
-  to check whether UAT failure reporting is active.
-
-- [`TriggerUAT()`](https://gilead-biostats.github.io/qcthat/dev/reference/TriggerUAT.md)
-  for the GitHub Actions side of the UAT cycle.
-
-- [`CommentUAT()`](https://gilead-biostats.github.io/qcthat/dev/reference/CommentUAT.md)
-  for posting UAT status reports on pull requests.
-
 - [`vignette("expect_user_accepts")`](https://gilead-biostats.github.io/qcthat/dev/articles/expect_user_accepts.md)
-  for a full walkthrough.
+  for a full walk-through of the UAT system.
+
+Other UAT functions:
+[`CommentUAT()`](https://gilead-biostats.github.io/qcthat/dev/reference/CommentUAT.md),
+[`IsCheckingUAT()`](https://gilead-biostats.github.io/qcthat/dev/reference/IsCheckingUAT.md),
+[`TriggerUAT()`](https://gilead-biostats.github.io/qcthat/dev/reference/TriggerUAT.md)
 
 ## Examples
 

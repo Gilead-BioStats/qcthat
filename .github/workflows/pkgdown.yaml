@@ -24,7 +24,7 @@ jobs:
         uses: actions/checkout@v5
 
       - name: Build and deploy pkgdown site
-        uses: gilead-biostats/gsm.utils/.github/actions/pkgdown-assets@fix-67-render_menus
+        uses: gilead-biostats/gsm.utils/.github/actions/pkgdown-assets@actions-v1
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           verbose: false

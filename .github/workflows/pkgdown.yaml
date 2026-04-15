@@ -21,10 +21,40 @@ jobs:
 
     steps:
       - name: Check out repo
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6
 
-      - name: Build and deploy pkgdown site
-        uses: gilead-biostats/gsm.utils/.github/actions/pkgdown-assets@actions-v1
+      - name: Install R and dependencies
+        uses: gilead-biostats/gsm.utils/actions/install@actions-v1
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
+          needs: website
+          extra-packages: any::pkgdown gilead-biostats/gsm.utils@actions-v1 local::.
+
+      - name: Build pkgdown assets and add associated menus
+        uses: gilead-biostats/gsm.utils/actions/pkgdown-build_assets@actions-v1
+        with:
           verbose: false
+
+      - name: Set Development Mode Env Var
+        if: github.ref_name != 'main'
+        shell: bash
+        run: |
+          echo "PKGDOWN_DEV_MODE=devel" >> $GITHUB_ENV
+
+      - name: Build site
+        run: pkgdown::build_site_github_pages(new_process = FALSE, install = FALSE)
+        shell: Rscript {0}
+
+      - name: Deploy PR preview 🧪
+        uses: gilead-biostats/gsm.utils/actions/pkgdown-pr_preview@actions-v1
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          pkgdown_dev_mode: ${{ env.PKGDOWN_DEV_MODE }}
+
+      - name: Deploy non-preview 📃
+        if: github.event_name != 'pull_request'
+        shell: bash
+        run: |
+          git config --local user.email "actions@github.com"
+          git config --local user.name "GitHub Actions"
+          Rscript -e 'pkgdown::deploy_to_branch(new_process = FALSE)'

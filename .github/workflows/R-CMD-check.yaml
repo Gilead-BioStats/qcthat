@@ -36,10 +36,8 @@ jobs:
 
       - name: Remove astgrepr from DESCRIPTION (not available for R < 4.2)
         if: matrix.config.r == 'oldrel-4'
-        shell: Rscript {0}
-        run: |
-          desc <- readLines("DESCRIPTION")
-          writeLines(desc[!grepl("astgrepr", desc)], "DESCRIPTION")
+        shell: bash
+        run: sed -i.bak '/astgrepr/d' DESCRIPTION && rm DESCRIPTION.bak
 
       - name: Install R and dependencies
         uses: gilead-biostats/gsm.utils/actions/install@actions-v1

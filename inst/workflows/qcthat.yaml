@@ -55,13 +55,14 @@ jobs:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
 
     steps:
-      - uses: actions/checkout@v5
+      - name: Check out repo
+        uses: actions/checkout@v6
 
       - name: Install R and dependencies
         uses: gilead-biostats/gsm.utils/actions/install@actions-v1
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          extra-packages: local::. Gilead-BioStats/qcthat@main
+          extra-packages: Gilead-BioStats/qcthat@main local::.
           use-public-rspm: true
 
       - name: Manage User Acceptance Testing

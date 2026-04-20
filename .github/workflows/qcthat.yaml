@@ -63,7 +63,7 @@ jobs:
         uses: gilead-biostats/gsm.utils/actions/install@actions-v1
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          extra-packages: local::.
+          extra-packages: Gilead-BioStats/qcthat@main local::.
           use-public-rspm: true
 
       - name: Manage User Acceptance Testing

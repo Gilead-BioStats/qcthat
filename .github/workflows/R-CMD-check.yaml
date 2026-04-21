@@ -21,7 +21,6 @@ jobs:
         uses: gilead-biostats/gsm.utils/actions/setup-matrix-with-dev@fix-74-R-CMD-check
         with:
           pkg-use: 'wide'
-          prod-config: 'ubuntu-latest-4.3.3'
 
   R-CMD-check:
     needs: setup-matrix

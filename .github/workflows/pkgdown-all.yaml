@@ -55,7 +55,7 @@ jobs:
           http-user-agent: ''
           use-public-rspm: false
           needs: website
-          extra-packages: any::pkgdown gilead-biostats/gsm.utils@actions-v1 local::.
+          extra-packages: any::pkgdown gilead-biostats/gsm.utils@dev local::.
           optional-packages: ''
           cache-version: '1'
 

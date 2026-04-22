@@ -39,7 +39,7 @@ jobs:
 
     steps:
       - name: Check out repo
-        uses: actions/checkout@v6
+        uses: gilead-biostats/gsm.utils/actions/checkout@fix-78-comment-pr
 
       - name: Remove astgrepr from DESCRIPTION (not available for R < 4.2)
         if: matrix.config.r == 'oldrel-4'
@@ -61,7 +61,5 @@ jobs:
         shell: bash
         run: mv DESCRIPTION.bak DESCRIPTION
 
-      - uses: r-lib/actions/check-r-package@v2
-        with:
-          upload-snapshots: true
-          build_args: 'c("--no-manual","--compact-vignettes=gs+qpdf")'
+      - name: Check package
+        uses: gilead-biostats/gsm.utils/actions/check-r-package@fix-78-comment-pr

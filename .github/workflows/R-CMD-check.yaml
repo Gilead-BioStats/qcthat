@@ -18,14 +18,13 @@ jobs:
     steps:
       - name: Define matrix based on target branch
         id: set-matrix
-        uses: gilead-biostats/gsm.utils/actions/setup-matrix-with-dev@actions-v1
+        uses: gilead-biostats/gsm.utils/setup-matrix-with-dev@fix-78-comment-pr
         with:
           pkg-use: 'wide'
 
   R-CMD-check:
     needs: setup-matrix
     runs-on: ${{ matrix.config.os }}
-
     name: ${{ matrix.config.os }} (${{ matrix.config.r }})
 
     strategy:
@@ -39,7 +38,7 @@ jobs:
 
     steps:
       - name: Check out repo
-        uses: gilead-biostats/gsm.utils/actions/checkout@fix-78-comment-pr
+        uses: gilead-biostats/gsm.utils/checkout@fix-78-comment-pr
 
       - name: Remove astgrepr from DESCRIPTION (not available for R < 4.2)
         if: matrix.config.r == 'oldrel-4'
@@ -47,7 +46,7 @@ jobs:
         run: sed -i.bak '/astgrepr/d' DESCRIPTION
 
       - name: Install R and dependencies
-        uses: gilead-biostats/gsm.utils/actions/install@actions-v1
+        uses: gilead-biostats/gsm.utils/install@fix-78-comment-pr
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           r-version: ${{ matrix.config.r }}
@@ -62,4 +61,6 @@ jobs:
         run: mv DESCRIPTION.bak DESCRIPTION
 
       - name: Check package
-        uses: gilead-biostats/gsm.utils/actions/check-r-package@fix-78-comment-pr
+        uses: gilead-biostats/gsm.utils/check-r-package@fix-78-comment-pr
+        with:
+          error-on: ${{ matrix.config.error-on || '"warning"' }}

@@ -19,11 +19,11 @@ on:
         options:
           - deploy
           - cleanup
-      pr_number:
+      pr-number:
         description: "Pull request number. Leave blank to deploy to a branch."
         required: false
         type: string
-      pkgdown_dev_mode:
+      pkgdown-dev-mode:
         description: "Whether pkgdown should operate in dev mode."
         required: false
         type: boolean
@@ -31,7 +31,6 @@ on:
 
 jobs:
   pkgdown-assets:
-    # Run on push, PR opened/synchronize/reopened, and workflow_dispatch deploy mode. Skip on PR closed.
     if: |
       (github.event_name == 'push') ||
       (github.event_name == 'pull_request' && github.event.action != 'closed') ||
@@ -45,38 +44,26 @@ jobs:
 
     steps:
       - name: Check out repo
-        uses: actions/checkout@v6
+        uses: gilead-biostats/gsm.utils/checkout@fix-78-comment-pr
 
       - name: Install R and dependencies
-        uses: gilead-biostats/gsm.utils/actions/install@actions-v1
+        uses: gilead-biostats/gsm.utils/install@fix-78-comment-pr
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           r-version: release
-          http-user-agent: ''
-          use-public-rspm: false
           needs: website
           extra-packages: any::pkgdown gilead-biostats/gsm.utils@dev local::.
-          optional-packages: ''
           cache-version: '1'
 
       - name: Build and deploy site
-        uses: gilead-biostats/gsm.utils/actions/pkgdown-deploy@actions-v1
+        uses: gilead-biostats/gsm.utils/pkgdown-deploy@fix-78-comment-pr
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          assets_dir: pkgdown/assets
-          source_dir: pkgdown/menus
-          pkgdown_yml: _pkgdown.yml
-          root_dir: .
-          verbose: false
-          repository_name: ${{ github.event.repository.name }}
-          repository_owner: ${{ github.repository_owner }}
-          event_name: ${{ inputs.pr_number && 'pull_request' || github.event_name }}
-          pr_number: ${{ inputs.pr_number || github.event.number }}
-          is_fork: ${{ github.event.pull_request.head.repo.full_name != github.repository }}
-          pkgdown_dev_mode: ${{ inputs.pkgdown_dev_mode == true || (github.event_name != 'workflow_dispatch' && github.ref_name != 'main') }}
+          event-name: ${{ inputs.pr-number && 'pull_request' || github.event_name }}
+          pr-number: ${{ inputs.pr-number || github.event.number }}
+          pkgdown-dev-mode: ${{ inputs.pkgdown-dev-mode == true || (github.event_name != 'workflow_dispatch' && github.ref_name != 'main') }}
 
   clean-pr-preview:
-    # Run ONLY when a pull request is closed OR workflow_dispatch cleanup mode.
     if: |
       (github.event_name == 'pull_request' && github.event.action == 'closed' && github.event.pull_request.head.repo.full_name == github.repository) ||
       (github.event_name == 'workflow_dispatch' && inputs.mode == 'cleanup')
@@ -86,10 +73,7 @@ jobs:
 
     steps:
       - name: Clean up PR preview
-        uses: gilead-biostats/gsm.utils/actions/pkgdown-cleanup@actions-v1
+        uses: gilead-biostats/gsm.utils/pkgdown-cleanup@fix-78-comment-pr
         with:
-          repository_name: ${{ github.event.repository.name }}
-          repository_owner: ${{ github.repository_owner }}
           token: ${{ secrets.GITHUB_TOKEN }}
-          ref: gh-pages
-          pr_number: ${{ inputs.pr_number || github.event.number }}
+          pr-number: ${{ inputs.pr-number || github.event.number }}

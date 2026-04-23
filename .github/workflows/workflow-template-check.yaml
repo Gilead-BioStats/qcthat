@@ -17,6 +17,3 @@ permissions:
 jobs:
   check-workflows:
     uses: Gilead-BioStats/gsm.utils/.github/workflows/workflow-template-checker.yaml@fix-78-comment-pr
-    secrets:
-      # Explicitly pass the GITHUB_TOKEN so the reusable workflow can leave PR comments
-      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

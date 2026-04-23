@@ -78,30 +78,26 @@ jobs:
               echo "curl -sL $BASE_URL/workflow_templates/$name -o .github/workflows/$name" >> "$CURLS_FILE"
 
               # Append the individual details and individual bash block
-              cat << EOF >> "$DETAILS_FILE"
-    ### \`$name\`
-    $ISSUE_MSG
-
-    \`\`\`bash
-    curl -sL $BASE_URL/workflow_templates/$name -o .github/workflows/$name
-    \`\`\`
-
-    EOF
+              echo "### \`$name\`" >> "$DETAILS_FILE"
+              echo "$ISSUE_MSG" >> "$DETAILS_FILE"
+              echo "" >> "$DETAILS_FILE"
+              echo "\`\`\`bash" >> "$DETAILS_FILE"
+              echo "curl -sL $BASE_URL/workflow_templates/$name -o .github/workflows/$name" >> "$DETAILS_FILE"
+              echo "\`\`\`" >> "$DETAILS_FILE"
+              echo "" >> "$DETAILS_FILE"
             fi
           done < manifest_workflows.jsonl
 
           # Assemble the final markdown comment
           if [ "$HAS_ERRORS" = "true" ]; then
-            cat << EOF > "$BODY_FILE"
-    # ⚠️ Workflow Template Compliance Issues
-
-    One or more workflows must be updated. Run the following command to update them all at once:
-
-    \`\`\`bash
-    mkdir -p .github/workflows
-    EOF
+            echo "# ⚠️ Workflow Template Compliance Issues" > "$BODY_FILE"
+            echo "" >> "$BODY_FILE"
+            echo "One or more workflows must be updated. Run the following command to update them all at once:" >> "$BODY_FILE"
+            echo "" >> "$BODY_FILE"
+            echo "\`\`\`bash" >> "$BODY_FILE"
+            echo "mkdir -p .github/workflows" >> "$BODY_FILE"
             cat "$CURLS_FILE" >> "$BODY_FILE"
-            echo '```' >> "$BODY_FILE"
+            echo "\`\`\`" >> "$BODY_FILE"
             echo "" >> "$BODY_FILE"
             echo "## Details" >> "$BODY_FILE"
             echo "" >> "$BODY_FILE"

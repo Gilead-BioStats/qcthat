@@ -27,13 +27,14 @@ jobs:
         run: |
           BASE_URL="https://raw.githubusercontent.com/Gilead-BioStats/gsm.utils/fix-78-comment-pr"
           MANIFEST_URL="$BASE_URL/gha_version.json"
-          BLOB_BASE_URL="https://github.com/gilead-biostats/gsm.utils/blob/fix-78-comment-pr/workflow_templates"
 
           echo "Downloading manifest from $MANIFEST_URL..."
           curl -sL -f "$MANIFEST_URL" -o gha_version.json || { echo "::error::Failed to download manifest"; exit 1; }
 
           BODY_FILE="comment_body.md"
-          touch "$BODY_FILE"
+          CURLS_FILE="curls_block.txt"
+          DETAILS_FILE="details_block.md"
+          touch "$BODY_FILE" "$CURLS_FILE" "$DETAILS_FILE"
           HAS_ERRORS="false"
 
           # Use jq to iterate over workflows
@@ -71,34 +72,41 @@ jobs:
             fi
 
             if [ -n "$ISSUE_MSG" ]; then
-              if [ "$HAS_ERRORS" = "false" ]; then
-                echo "# ⚠️ Workflow Template Compliance Issues" > "$BODY_FILE"
-                echo "" >> "$BODY_FILE"
-                echo "The following workflows require updates to match the canonical templates:" >> "$BODY_FILE"
-                echo "" >> "$BODY_FILE"
-                HAS_ERRORS="true"
-              fi
+              HAS_ERRORS="true"
 
-              echo "## \`$name\`" >> "$BODY_FILE"
-              echo "$ISSUE_MSG" >> "$BODY_FILE"
-              echo "" >> "$BODY_FILE"
-              echo "**Option 1: Terminal**" >> "$BODY_FILE"
-              echo '```bash' >> "$BODY_FILE"
-              echo "mkdir -p .github/workflows && curl -sL $BASE_URL/workflow_templates/$name -o .github/workflows/$name" >> "$BODY_FILE"
-              echo '```' >> "$BODY_FILE"
-              echo "**Option 2: R Console**" >> "$BODY_FILE"
-              echo '```r' >> "$BODY_FILE"
-              echo "usethis::use_github_action(url = \"$BLOB_BASE_URL/$name\")" >> "$BODY_FILE"
-              echo '```' >> "$BODY_FILE"
-              echo "**Option 3: Manual Copy/Paste**" >> "$BODY_FILE"
-              echo "[View Raw File]($BASE_URL/workflow_templates/$name)" >> "$BODY_FILE"
-              echo "" >> "$BODY_FILE"
-              echo "---" >> "$BODY_FILE"
-              echo "" >> "$BODY_FILE"
+              # Append the curl command to the all-in-one block
+              echo "curl -sL $BASE_URL/workflow_templates/$name -o .github/workflows/$name" >> "$CURLS_FILE"
+
+              # Append the individual details and individual bash block
+              cat << EOF >> "$DETAILS_FILE"
+    ### \`$name\`
+    $ISSUE_MSG
+
+    \`\`\`bash
+    curl -sL $BASE_URL/workflow_templates/$name -o .github/workflows/$name
+    \`\`\`
+
+    EOF
             fi
           done < manifest_workflows.jsonl
 
-          if [ "$HAS_ERRORS" = "false" ]; then
+          # Assemble the final markdown comment
+          if [ "$HAS_ERRORS" = "true" ]; then
+            cat << EOF > "$BODY_FILE"
+    # ⚠️ Workflow Template Compliance Issues
+
+    One or more workflows must be updated. Run the following command to update them all at once:
+
+    \`\`\`bash
+    mkdir -p .github/workflows
+    EOF
+            cat "$CURLS_FILE" >> "$BODY_FILE"
+            echo '```' >> "$BODY_FILE"
+            echo "" >> "$BODY_FILE"
+            echo "## Details" >> "$BODY_FILE"
+            echo "" >> "$BODY_FILE"
+            cat "$DETAILS_FILE" >> "$BODY_FILE"
+          else
             echo "## ✅ All workflows are valid!" > "$BODY_FILE"
           fi
 

@@ -1,5 +1,5 @@
 # name: workflow-template-check.yaml
-# version: 0.3.2
+# version: 0.3.3
 # Description: Check if GitHub Actions workflows match gsm.utils templates
 
 name: Workflow Template Compliance Check
@@ -72,14 +72,14 @@ jobs:
 
             if [ -n "$ISSUE_MSG" ]; then
               if [ "$HAS_ERRORS" = "false" ]; then
-                echo "### ⚠️ Workflow Template Compliance Issues" > "$BODY_FILE"
+                echo "# ⚠️ Workflow Template Compliance Issues" > "$BODY_FILE"
                 echo "" >> "$BODY_FILE"
                 echo "The following workflows require updates to match the canonical templates:" >> "$BODY_FILE"
                 echo "" >> "$BODY_FILE"
                 HAS_ERRORS="true"
               fi
 
-              echo "#### \`$name\`" >> "$BODY_FILE"
+              echo "## \`$name\`" >> "$BODY_FILE"
               echo "$ISSUE_MSG" >> "$BODY_FILE"
               echo "" >> "$BODY_FILE"
               echo "**Option 1: Terminal**" >> "$BODY_FILE"
@@ -99,7 +99,7 @@ jobs:
           done < manifest_workflows.jsonl
 
           if [ "$HAS_ERRORS" = "false" ]; then
-            echo "### ✅ All workflows are valid!" > "$BODY_FILE"
+            echo "## ✅ All workflows are valid!" > "$BODY_FILE"
           fi
 
           echo "has_errors=$HAS_ERRORS" >> $GITHUB_OUTPUT

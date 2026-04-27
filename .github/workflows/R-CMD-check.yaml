@@ -1,0 +1,47 @@
+# name: R-CMD-check.yaml
+# version: 0.3.5
+# Workflow derived from https://github.com/r-lib/actions/tree/v2/examples
+# Description: R CMD check for PRs
+on:
+  pull_request:
+    branches: [main, dev]
+name: R-CMD-check
+permissions: read-all
+jobs:
+  setup-matrix:
+    runs-on: ubuntu-latest
+    outputs:
+      matrix: ${{ steps.set-matrix.outputs.matrix }}
+    steps:
+      - name: Define matrix based on target branch
+        id: set-matrix
+        uses: gilead-biostats/gsm.utils/setup-matrix-with-dev@fix-78-comment-pr
+        with:
+          pkg-use: 'public'
+  R-CMD-check:
+    needs: setup-matrix
+    runs-on: ${{ matrix.config.os }}
+    name: ${{ matrix.config.os }} (${{ matrix.config.r }})
+    strategy:
+      fail-fast: false
+      matrix:
+        config: ${{ fromJSON(needs.setup-matrix.outputs.matrix) }}
+    env:
+      GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
+      R_KEEP_PKG_SOURCE: yes
+    steps:
+      - name: Check out repo
+        uses: gilead-biostats/gsm.utils/checkout@fix-78-comment-pr
+      - name: Install R and dependencies
+        uses: gilead-biostats/gsm.utils/install@fix-78-comment-pr
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          r-version: ${{ matrix.config.r }}
+          http-user-agent: ${{ matrix.config.http-user-agent }}
+          use-public-rspm: true
+          extra-packages: any::rcmdcheck
+          needs: check
+      - name: Check package
+        uses: gilead-biostats/gsm.utils/check-r-package@fix-78-comment-pr
+        with:
+          error-on: ${{ matrix.config.error-on || '"warning"' }}

@@ -31,8 +31,7 @@ on:
 
 jobs:
   call-pkgdown-core:
-    # Adjust this path if your core workflow is saved elsewhere
-    uses: ./.github/workflows/pkgdown-core.yaml
+    uses: Gilead-BioStats/gsm.utils/.github/workflows/pkgdown-core.yaml@fix-78-comment-pr
     with:
       mode: ${{ inputs.mode || 'deploy' }}
       pr-number: ${{ inputs.pr-number || '' }}

@@ -33,7 +33,9 @@ jobs:
   call-pkgdown-core:
     uses: Gilead-BioStats/gsm.utils/.github/workflows/pkgdown-core.yaml@fix-78-comment-pr
     with:
-      mode: ${{ inputs.mode || 'deploy' }}
-      pr-number: ${{ inputs.pr-number || '' }}
+      # These inputs only actually matter for workflow_dispatch; otherwise
+      # they're automatically determined.
+      mode: ${{ inputs.mode }}
+      pr-number: ${{ inputs.pr-number }}
       pkgdown-dev-mode: ${{ inputs.pkgdown-dev-mode == true }}
     secrets: inherit

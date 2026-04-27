@@ -1,6 +1,6 @@
 # name: pkgdown-all.yaml
-# version: 0.3.1
-# Description: Deploy pkgdown site with assets, and clean up PR previews on close.
+# version: 0.3.2
+# Description: Triggers the core pkgdown deployment and cleanup workflows.
 
 name: pkgdown-all
 
@@ -30,50 +30,11 @@ on:
         default: false
 
 jobs:
-  pkgdown-assets:
-    if: |
-      (github.event_name == 'push') ||
-      (github.event_name == 'pull_request' && github.event.action != 'closed') ||
-      (github.event_name == 'workflow_dispatch' && inputs.mode == 'deploy')
-    runs-on: ubuntu-latest
-    env:
-      GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
-    permissions:
-      contents: write
-      pull-requests: write
-
-    steps:
-      - name: Check out repo
-        uses: gilead-biostats/gsm.utils/checkout@fix-78-comment-pr
-
-      - name: Install R and dependencies
-        uses: gilead-biostats/gsm.utils/install@fix-78-comment-pr
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          r-version: release
-          needs: website
-          extra-packages: any::pkgdown gilead-biostats/gsm.utils@dev local::.
-          cache-version: '1'
-
-      - name: Build and deploy site
-        uses: gilead-biostats/gsm.utils/pkgdown-deploy@fix-78-comment-pr
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          event-name: ${{ inputs.pr-number && 'pull_request' || github.event_name }}
-          pr-number: ${{ inputs.pr-number || github.event.number }}
-          pkgdown-dev-mode: ${{ inputs.pkgdown-dev-mode == true || (github.event_name != 'workflow_dispatch' && github.ref_name != 'main') }}
-
-  clean-pr-preview:
-    if: |
-      (github.event_name == 'pull_request' && github.event.action == 'closed' && github.event.pull_request.head.repo.full_name == github.repository) ||
-      (github.event_name == 'workflow_dispatch' && inputs.mode == 'cleanup')
-    runs-on: ubuntu-latest
-    permissions:
-      contents: write
-
-    steps:
-      - name: Clean up PR preview
-        uses: gilead-biostats/gsm.utils/pkgdown-cleanup@fix-78-comment-pr
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          pr-number: ${{ inputs.pr-number || github.event.number }}
+  call-pkgdown-core:
+    # Adjust this path if your core workflow is saved elsewhere
+    uses: ./.github/workflows/pkgdown-core.yaml
+    with:
+      mode: ${{ inputs.mode || 'deploy' }}
+      pr-number: ${{ inputs.pr-number || '' }}
+      pkgdown-dev-mode: ${{ inputs.pkgdown-dev-mode == true }}
+    secrets: inherit

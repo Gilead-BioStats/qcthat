@@ -1,7 +1,7 @@
 # name: test-coverage.yaml
-# version: 0.3.1
+# version: 0.3.5
 # Description: Compute test coverage and publish coverage-summary.json artifact
-
+name: test-coverage
 on:
   push:
     branches: [main, dev]
@@ -10,22 +10,10 @@ on:
   release:
     types: [published]
   workflow_dispatch:
-
-name: test-coverage
-
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
-
 jobs:
-  coverage:
-    runs-on: ubuntu-latest
-    permissions:
-      contents: write
-      pull-requests: write
-
-    steps:
-      - name: Compute test coverage
-        uses: gilead-biostats/gsm.utils/coverage@fix-78-comment-pr
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
+  call-test-coverage-core:
+    uses: Gilead-BioStats/gsm.utils/.github/workflows/test-coverage-core.yaml@fix-78-comment-pr
+    secrets: inherit

@@ -40,11 +40,6 @@ jobs:
       - name: Check out repo
         uses: gilead-biostats/gsm.utils/checkout@fix-78-comment-pr
 
-      - name: Remove astgrepr from DESCRIPTION (not available for R < 4.2)
-        if: matrix.config.r == 'oldrel-4'
-        shell: bash
-        run: sed -i.bak '/astgrepr/d' DESCRIPTION
-
       - name: Install R and dependencies
         uses: gilead-biostats/gsm.utils/install@fix-78-comment-pr
         with:
@@ -54,11 +49,6 @@ jobs:
           use-public-rspm: true
           extra-packages: any::rcmdcheck
           needs: check
-
-      - name: Restore DESCRIPTION file
-        if: matrix.config.r == 'oldrel-4'
-        shell: bash
-        run: mv DESCRIPTION.bak DESCRIPTION
 
       - name: Check package
         uses: gilead-biostats/gsm.utils/check-r-package@fix-78-comment-pr

@@ -59,7 +59,7 @@ jobs:
         uses: actions/checkout@v6
 
       - name: Install R and dependencies
-        uses: gilead-biostats/gsm.utils/actions/install@actions-v1
+        uses: gilead-biostats/gsm.utils/install@actions-v1
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           extra-packages: Gilead-BioStats/qcthat@main local::.

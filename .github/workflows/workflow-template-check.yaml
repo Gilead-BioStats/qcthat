@@ -1,5 +1,5 @@
 # name: workflow-template-check.yaml
-# version: 0.3.5
+# version: 0.3.6
 # Description: Check if GitHub Actions workflows match gsm.utils templates
 name: Workflow Template Compliance Check
 on:

@@ -1,5 +1,5 @@
 # name: test-coverage.yaml
-# version: 0.3.5
+# version: 0.3.6
 # Description: Compute test coverage and publish coverage-summary.json artifact
 name: test-coverage
 on:

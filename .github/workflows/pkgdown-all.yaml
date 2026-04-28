@@ -26,7 +26,7 @@ on:
         default: false
 jobs:
   call-pkgdown-core:
-    uses: Gilead-BioStats/gsm.utils/.github/workflows/pkgdown-core.yaml@fix-78-comment-pr
+    uses: Gilead-BioStats/gsm.utils/.github/workflows/pkgdown-core.yaml@actions-v1
     with:
       # These inputs only actually matter for workflow_dispatch; otherwise
       # they're automatically determined.

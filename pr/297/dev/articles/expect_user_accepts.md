@@ -32,6 +32,7 @@ reviewer before the fix is considered complete.
 The developer 🧑‍💻 adds a test:
 
 ``` r
+
 test_that("Report header uses the updated brand colors (#42)", {
   ExpectUserAccepts(
     strDescription = "Report header uses updated brand colors",
@@ -150,10 +151,10 @@ close a GitHub issue.
 
 ## Environment variables
 
-| Variable               | Purpose                                                                                                                                                                   | Default                          |
-|------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------|----------------------------------|
-| `qcthat_UAT`           | Set to `"TRUE"` to make open UAT issues report as test failures. Checked by [`IsCheckingUAT()`](https://gilead-biostats.github.io/qcthat/dev/reference/IsCheckingUAT.md). | `""` (failures are not reported) |
-| `qcthat_UAT_ASSIGNEES` | Comma-separated GitHub usernames for default assignees.                                                                                                                   | `""`                             |
+| Variable | Purpose | Default |
+|----|----|----|
+| `qcthat_UAT` | Set to `"TRUE"` to make open UAT issues report as test failures. Checked by [`IsCheckingUAT()`](https://gilead-biostats.github.io/qcthat/dev/reference/IsCheckingUAT.md). | `""` (failures are not reported) |
+| `qcthat_UAT_ASSIGNEES` | Comma-separated GitHub usernames for default assignees. | `""` |
 
 Both are typically set in `.github/workflows/qcthat.yaml` rather than
 locally.
@@ -174,6 +175,7 @@ locally.
   allows different assignees per branch target:
 
 ``` r
+
 # In your workflow YAML:
 # qcthat_UAT_ASSIGNEES: "design-reviewer,product-owner"
 

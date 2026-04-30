@@ -18,6 +18,7 @@ You can install the development version of
 [GitHub](https://github.com/) with:
 
 ``` r
+
 # install.packages("pak")
 pak::pak("Gilead-BioStats/qcthat")
 ```

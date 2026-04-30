@@ -24,3 +24,4 @@ In addition to the QC measures described in linked "Features" and "Technical Tas
 [ ] Qualification Test via Double Programming
 [ ] Unit Tests
 [ ] User Tests (e.g. visual comparison)
+

@@ -20,6 +20,6 @@ navbar:
       href: articles/qcthat.html
     slides:
       text: Slides
-      href: slides-introduction.html
+      href: slides/introduction.html
       target: _blank
 

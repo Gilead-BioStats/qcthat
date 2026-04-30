@@ -200,7 +200,7 @@ test_that("CheckUAIssue errors when online but GitHub fetch fails (#230)", {
   )
 })
 
-test_that("CheckUAIssue assigns issues when assignees are available", {
+test_that("CheckUAIssue assigns issues when assignees are available (#193)", {
   local_mocked_bindings(
     FetchUAIssue = function(...) {
       list(Issue = 123L, State = "closed", Url = "http://example.com/issue/123")

@@ -25,3 +25,4 @@ In addition to standard QC (e.g., code reviews, automated checks) the following 
 [ ] Qualification Test via Double Programming
 [ ] Unit Tests
 [ ] User Tests (e.g. visual comparison)
+

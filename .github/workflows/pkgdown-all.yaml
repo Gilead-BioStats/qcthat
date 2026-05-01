@@ -1,5 +1,5 @@
 # name: pkgdown-all.yaml
-# version: 0.3.6
+# version: 0.3.7
 # Description: Triggers the core pkgdown deployment and cleanup workflows.
 name: pkgdown-all
 on:
@@ -33,4 +33,5 @@ jobs:
       mode: ${{ inputs.mode }}
       pr-number: ${{ inputs.pr-number }}
       pkgdown-dev-mode: ${{ inputs.pkgdown-dev-mode == true }}
-    secrets: inherit
+    secrets:
+      token: ${{ secrets.GITHUB_TOKEN }}

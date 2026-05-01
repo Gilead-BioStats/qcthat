@@ -39,7 +39,6 @@ Imports:
     vctrs
 Suggests: 
     astgrepr,
-    chromote,
     covr,
     emoji,
     git2r,

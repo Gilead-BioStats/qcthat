@@ -10,6 +10,7 @@ permissions:
   # Required to write comments on the pull request, commit files, and push
   pull-requests: write
   contents: write
+  workflows: write
 jobs:
   check-workflows:
     uses: Gilead-BioStats/gsm.utils/.github/workflows/workflow-template-checker.yaml@fix-107-action_permissions

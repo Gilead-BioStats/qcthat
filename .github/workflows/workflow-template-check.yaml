@@ -12,4 +12,4 @@ permissions:
   contents: read
 jobs:
   check-workflows:
-    uses: Gilead-BioStats/gsm.utils/.github/workflows/workflow-template-checker.yaml@actions-v1
+    uses: Gilead-BioStats/gsm.utils/.github/workflows/workflow-template-checker.yaml@fix-107-action_permissions

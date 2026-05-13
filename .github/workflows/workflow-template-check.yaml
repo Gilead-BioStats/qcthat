@@ -1,15 +1,16 @@
 # name: workflow-template-check.yaml
-# version: 0.3.6
-# Description: Check if GitHub Actions workflows match gsm.utils templates
+# version: 0.3.7
+# Description: Ensure that GitHub Actions workflows match gsm.utils templates
 name: Workflow Template Compliance Check
 on:
   pull_request:
     branches: [main, release, dev]
     types: [opened, synchronize, reopened]
 permissions:
-  # Required to write comments on the pull request and view files
+  # Required to write comments on the pull request, commit files, and push
   pull-requests: write
-  contents: read
+  contents: write
 jobs:
   check-workflows:
     uses: Gilead-BioStats/gsm.utils/.github/workflows/workflow-template-checker.yaml@fix-107-action_permissions
+    secrets: inherit

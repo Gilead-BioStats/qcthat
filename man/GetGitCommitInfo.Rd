@@ -10,10 +10,10 @@ GetGitCommitInfo(strRef, strPkgRoot = ".")
 \item{strRef}{(\verb{length-1 character}) A branch, tag, or commit SHA.}
 
 \item{strPkgRoot}{(\verb{length-1 character}) The path to a directory in the
-package. Will be expanded using \code{\link[gert:git_repo]{gert::git_find()}}.}
+package. Will be expanded using \code{\link[gert:git_find]{gert::git_find()}}.}
 }
 \value{
-The result of \code{\link[gert:git_commit]{gert::git_commit_info()}}.
+The result of \code{\link[gert:git_commit_info]{gert::git_commit_info()}}.
 }
 \description{
 Wrapper around gert::git_commit_info() for mocking

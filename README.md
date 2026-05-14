@@ -5,9 +5,21 @@
 
 <!-- badges: start -->
 
-[![R-CMD-check](https://github.com/Gilead-BioStats/qcthat/workflows/R-CMD-check/badge.svg)](https://github.com/Gilead-BioStats/qcthat/actions)
-[![Codecov test
-coverage](https://codecov.io/gh/Gilead-BioStats/qcthat/graph/badge.svg)](https://app.codecov.io/gh/Gilead-BioStats/qcthat)
+<div class="pkgdown-release">
+
+[![R-CMD-check](https://github.com/Gilead-BioStats/gsm.utils/actions/workflows/R-CMD-check.yaml/badge.svg?branch=main)](https://github.com/Gilead-BioStats/gsm.utils/actions/workflows/R-CMD-check.yaml)
+[![test-coverage](https://github.com/Gilead-BioStats/gsm.utils/actions/workflows/test-coverage.yaml/badge.svg?branch=main)](https://github.com/Gilead-BioStats/gsm.utils/actions/workflows/test-coverage.yaml)
+[![pkgdown-all](https://github.com/Gilead-BioStats/gsm.utils/actions/workflows/pkgdown-all.yaml/badge.svg?branch=main)](https://github.com/Gilead-BioStats/gsm.utils/actions/workflows/pkgdown-all.yaml)
+
+</div>
+
+<div class="pkgdown-devel">
+
+[![R-CMD-check](https://github.com/Gilead-BioStats/gsm.utils/actions/workflows/R-CMD-check.yaml/badge.svg?branch=dev)](https://github.com/Gilead-BioStats/gsm.utils/actions/workflows/R-CMD-check.yaml)
+[![test-coverage](https://github.com/Gilead-BioStats/gsm.utils/actions/workflows/test-coverage.yaml/badge.svg?branch=dev)](https://github.com/Gilead-BioStats/gsm.utils/actions/workflows/test-coverage.yaml)
+[![pkgdown-all](https://github.com/Gilead-BioStats/gsm.utils/actions/workflows/pkgdown-all.yaml/badge.svg?branch=dev)](https://github.com/Gilead-BioStats/gsm.utils/actions/workflows/pkgdown-all.yaml)
+
+</div>
 
 <!-- badges: end -->
 
@@ -23,13 +35,25 @@ as clinical trials.
 
 ## ⚙️ Installation
 
-You can install the development version of `{qcthat}` from
+You can install the latest release of gsm.utils from
 [GitHub](https://github.com/) with:
 
 ``` r
 # install.packages("pak")
-pak::pak("Gilead-BioStats/qcthat")
+pak::pak("Gilead-BioStats/gsm.utils@*release")
 ```
+
+<div class="pkgdown-devel">
+
+You can install the development version of gsm.utils from
+[GitHub](https://github.com/) with:
+
+``` r
+# install.packages("pak")
+pak::pak("Gilead-BioStats/gsm.utils")
+```
+
+</div>
 
 Learn more in `vignette("qcthat")`.
 

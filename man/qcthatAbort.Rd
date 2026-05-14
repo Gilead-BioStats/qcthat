@@ -21,7 +21,7 @@ Can include \code{\link[glue:glue]{glue::glue()}} syntax. Formatted via \code{\l
 condition.}
 
 \item{envCall}{(\code{environment}) The environment to use for error reporting.
-Typically set to \code{\link[rlang:stack]{rlang::caller_env()}}.}
+Typically set to \code{\link[rlang:caller_env]{rlang::caller_env()}}.}
 
 \item{envErrorMessage}{(\code{environment}) The environment to pass to
 \code{\link[glue:glue]{glue::glue()}} to resolve variables.}

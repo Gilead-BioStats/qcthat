@@ -72,7 +72,7 @@ whose title matches \code{strDescription}.
 new assignee is added).
 \item Checks the issue state:
 \itemize{
-\item \strong{Closed}: calls \code{\link[testthat:fail]{testthat::pass()}}.
+\item \strong{Closed}: calls \code{\link[testthat:pass]{testthat::pass()}}.
 \item \strong{Open}: calls \code{\link[testthat:fail]{testthat::fail()}} only when \code{lglReportFailure} is
 \code{TRUE} (controlled by the \code{qcthat_UAT} environment variable via
 \code{\link[=IsCheckingUAT]{IsCheckingUAT()}}).
@@ -103,9 +103,9 @@ test_that("report uses updated brand colors (#42)", {
 \item \code{vignette("expect_user_accepts")} for a full walk-through of the UAT system.
 }
 
-Other UAT functions: 
-\code{\link{CommentUAT}()},
-\code{\link{IsCheckingUAT}()},
-\code{\link{TriggerUAT}()}
+Other UAT functions:
+\code{\link[=CommentUAT]{CommentUAT()}},
+\code{\link[=IsCheckingUAT]{IsCheckingUAT()}},
+\code{\link[=TriggerUAT]{TriggerUAT()}}
 }
 \concept{UAT functions}

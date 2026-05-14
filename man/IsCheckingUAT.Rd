@@ -27,9 +27,9 @@ IsCheckingUAT()
 Sys.setenv(qcthat_UAT = CurrentValue)
 }
 \seealso{
-Other UAT functions: 
-\code{\link{CommentUAT}()},
-\code{\link{ExpectUserAccepts}()},
-\code{\link{TriggerUAT}()}
+Other UAT functions:
+\code{\link[=CommentUAT]{CommentUAT()}},
+\code{\link[=ExpectUserAccepts]{ExpectUserAccepts()}},
+\code{\link[=TriggerUAT]{TriggerUAT()}}
 }
 \concept{UAT functions}

@@ -30,7 +30,7 @@ string. This is helpful if you would like to set up assignees via the
 appropriate to the action being performed.}
 
 \item{envCall}{(\code{environment}) The environment to use for error reporting.
-Typically set to \code{\link[rlang:stack]{rlang::caller_env()}}.}
+Typically set to \code{\link[rlang:caller_env]{rlang::caller_env()}}.}
 }
 \value{
 A \code{qcthat_Issues} object, which is a \code{\link[tibble:tibble]{tibble::tibble()}} with

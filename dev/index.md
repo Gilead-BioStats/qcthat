@@ -13,8 +13,16 @@ those used in regulated environments such as clinical trials.
 
 ## ⚙️ Installation
 
-You can install the development version of
-[qcthat](https://gilead-biostats.github.io/qcthat/) from
+You can install the latest release of qcthat from
+[GitHub](https://github.com/) with:
+
+``` r
+
+# install.packages("pak")
+pak::pak("Gilead-BioStats/qcthat@*release")
+```
+
+You can install the development version of qcthat from
 [GitHub](https://github.com/) with:
 
 ``` r

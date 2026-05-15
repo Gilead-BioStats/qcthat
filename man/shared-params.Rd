@@ -78,7 +78,7 @@ issues as returned by \code{\link[=FetchRepoIssues]{FetchRepoIssues()}}.}
 results as returned by \code{\link[=CompileTestResults]{CompileTestResults()}}.}
 
 \item{envCall}{(\code{environment}) The environment to use for error reporting.
-Typically set to \code{\link[rlang:stack]{rlang::caller_env()}}.}
+Typically set to \code{\link[rlang:caller_env]{rlang::caller_env()}}.}
 
 \item{envErrorMessage}{(\code{environment}) The environment to pass to
 \code{\link[glue:glue]{glue::glue()}} to resolve variables.}
@@ -133,7 +133,7 @@ result of \code{\link[=LoadGHEventPayload]{LoadGHEventPayload()}}.}
 \code{\link[=RemovePRsFromIssues]{RemovePRsFromIssues()}}.}
 
 \item{lTestResults}{(\code{testthat_results}) A testthat test results object,
-typically obtained by running something like \code{\link[testthat:test_package]{testthat::test_local()}} with
+typically obtained by running something like \code{\link[testthat:test_local]{testthat::test_local()}} with
 \code{stop_on_failure = FALSE} and a reporter that doesn't cause issues in
 parallel testing, like \code{reporter = "silent"}, and assigning it to a name.}
 
@@ -245,7 +245,7 @@ label.}
 \item{strOwner}{(\verb{length-1 character}) GitHub username or organization name.}
 
 \item{strPkgRoot}{(\verb{length-1 character}) The path to a directory in the
-package. Will be expanded using \code{\link[gert:git_repo]{gert::git_find()}}.}
+package. Will be expanded using \code{\link[gert:git_find]{gert::git_find()}}.}
 
 \item{strPRHeadRef}{(\verb{length-1 character}) The branch name (head ref) of the
 PR.}

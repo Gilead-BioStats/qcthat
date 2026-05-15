@@ -22,7 +22,7 @@ returned by \code{\link[=ExtractTestsFromFiles]{ExtractTestsFromFiles()}}.}
 test files. Defaults to \code{"tests/testthat"}.}
 
 \item{envCall}{(\code{environment}) The environment to use for error reporting.
-Typically set to \code{\link[rlang:stack]{rlang::caller_env()}}.}
+Typically set to \code{\link[rlang:caller_env]{rlang::caller_env()}}.}
 }
 \value{
 A \code{\link[tibble:tibble]{tibble::tibble()}} with one row per (test, source line) pair:

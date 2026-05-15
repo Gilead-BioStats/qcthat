@@ -1,5 +1,5 @@
 # name: r-releaser-caller.yaml
-# version: 0.3.7
+# version: 0.3.8
 # Description: R package release workflow
 name: Release
 
@@ -11,6 +11,9 @@ on:
       tag:
         description: Tag to release
         required: true
+permissions:
+  contents: write
+  pull-requests: write
 
 jobs:
   call-release-workflow:

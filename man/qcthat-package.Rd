@@ -6,6 +6,8 @@
 \alias{qcthat-package}
 \title{qcthat: Lightweight R Package Quality Control}
 \description{
+\if{html}{\figure{logo.svg}{options: style='float: right' alt='logo' width='120'}}
+
 A lightweight quality control framework for R packages, particularly those used in regulated environments such as clinical trials. Integrates formal quality control reports into package development workflows using 'testthat' and 'GitHub'.
 }
 \seealso{
@@ -22,6 +24,7 @@ Useful links:
 
 Authors:
 \itemize{
+  \item Jeremy Wildfire \email{jwildfire@gmail.com}
   \item Jon Harmon \email{jon.harmon@atorusresearch.com} (\href{https://orcid.org/0000-0003-4781-4346}{ORCID})
   \item Natalia Andriychuk \email{Natalia.Andriychuk@gilead.com}
   \item Matt Roumaya \email{Matt.Roumaya@atorusresearch.com} (\href{https://orcid.org/0000-0002-8009-2771}{ORCID})

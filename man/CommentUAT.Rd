@@ -27,7 +27,7 @@ label).}
 long) of a GitHub Actions workflow run.}
 
 \item{strPkgRoot}{(\verb{length-1 character}) The path to a directory in the
-package. Will be expanded using \code{\link[gert:git_repo]{gert::git_find()}}.}
+package. Will be expanded using \code{\link[gert:git_find]{gert::git_find()}}.}
 
 \item{strOwner}{(\verb{length-1 character}) GitHub username or organization name.}
 
@@ -47,9 +47,9 @@ issues that require user acceptance, formatted in GitHub markdown. Note: This
 should only be called \emph{after} the test suite has ran.
 }
 \seealso{
-Other UAT functions: 
-\code{\link{ExpectUserAccepts}()},
-\code{\link{IsCheckingUAT}()},
-\code{\link{TriggerUAT}()}
+Other UAT functions:
+\code{\link[=ExpectUserAccepts]{ExpectUserAccepts()}},
+\code{\link[=IsCheckingUAT]{IsCheckingUAT()}},
+\code{\link[=TriggerUAT]{TriggerUAT()}}
 }
 \concept{UAT functions}

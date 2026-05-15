@@ -31,7 +31,7 @@ will be merged into. Defaults to the default branch of this repository.}
 numbers in commit messages. Defaults to the \href{https://docs.github.com/en/issues/tracking-your-work-with-issues/using-issues/linking-a-pull-request-to-an-issue#linking-a-pull-request-to-an-issue-using-a-keyword}{GitHub issue-linking keywords}}
 
 \item{strPkgRoot}{(\verb{length-1 character}) The path to a directory in the
-package. Will be expanded using \code{\link[gert:git_repo]{gert::git_find()}}.}
+package. Will be expanded using \code{\link[gert:git_find]{gert::git_find()}}.}
 
 \item{strOwner}{(\verb{length-1 character}) GitHub username or organization name.}
 

@@ -13,22 +13,22 @@ those used in regulated environments such as clinical trials.
 
 ## ⚙️ Installation
 
-You can install the latest release of gsm.utils from
+You can install the latest release of qcthat from
 [GitHub](https://github.com/) with:
 
 ``` r
 
 # install.packages("pak")
-pak::pak("Gilead-BioStats/gsm.utils@*release")
+pak::pak("Gilead-BioStats/qcthat@*release")
 ```
 
-You can install the development version of gsm.utils from
+You can install the development version of qcthat from
 [GitHub](https://github.com/) with:
 
 ``` r
 
 # install.packages("pak")
-pak::pak("Gilead-BioStats/gsm.utils")
+pak::pak("Gilead-BioStats/qcthat")
 ```
 
 Learn more in

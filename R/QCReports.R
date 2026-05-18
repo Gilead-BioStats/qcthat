@@ -196,20 +196,10 @@ QCMilestones <- function(
     )
   chrMissingMilestones <- chrMilestones[!chrMilestones %in% dfITM$Milestone]
   if (length(chrMissingMilestones)) {
-    if (length(chrMissingMilestones) == length(chrMilestones)) {
-      qcthatAbort(
-        c(
-          "{.arg chrMilestones} must refer to at least one milestone in the issue-test matrix.",
-          i = "Unknown milestones: {chrMissingMilestones}"
-        ),
-        strErrorSubclass = "unknown_milestones",
-        envCall = envCall
-      )
-    }
     if (lglWarn) {
       cli::cli_warn(
         c(
-          "Some {.arg chrMilestones} are not in the issue-test matrix.",
+          "{cli::qty(chrMissingMilestones)} {?One/Some} {.arg chrMilestone{?s}} {?is/are} not in the issue-test matrix.",
           i = "Unknown milestones: {chrMissingMilestones}"
         ),
         class = CompileConditionClasses("unknown_milestones", "warning"),

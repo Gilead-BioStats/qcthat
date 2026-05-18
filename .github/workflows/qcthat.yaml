@@ -57,7 +57,7 @@ jobs:
 
     steps:
       - name: Check out repo
-        uses: actions/checkout@v6
+        uses: gilead-biostats/gsm.utils/checkout@actions-v1
 
       - name: Install R and dependencies
         uses: gilead-biostats/gsm.utils/install@actions-v1

@@ -1,5 +1,6 @@
-# Workflow derived from
-# https://github.com/Gilead-BioStats/qcthat/tree/v1.1.3/inst/workflows/qcthat.yaml.
+# name: qcthat
+# version: 0.1.0
+# Description: Generate qcthat quality control reports for pull requests and releases and manage user acceptance testing.
 on:
   pull_request:
     types: [opened, edited, reopened, synchronize, milestoned]
@@ -11,18 +12,14 @@ on:
     inputs:
       pr:
         description: PR number to which reports should be added (leave blank for none).
-        required: false
       milestone:
-        description: Milestone name to use for the milestone report (leave blank for none).
-        required: false
+        description: Milestone name to use to target the milestone report (leave blank for none).
       tag:
         description: Release tag to which the report should be attached (leave blank for none).
-        required: false
       issueNumber:
         description: The closed issue number to process to update user acceptance testing information.
-        required: false
 
-name: qcthat Quality Control
+name: qcthat
 
 permissions:
   # read: Required for generating reports and updating UAT status.
@@ -44,6 +41,7 @@ env:
   qcthat_MILESTONE_REPORT: true
   qcthat_RELEASE_REPORT: true
   qcthat_FAIL_FOR_TEST_FAILURES: true
+  qcthat_UAT_ASSIGNEES: ${{ (github.event_name == 'pull_request' && github.base_ref == 'main' && 'jwildfire') || (github.event_name == 'pull_request' && github.base_ref != 'main' && 'lauramaxwell,nandriychuk') || '' }}
 
 jobs:
   qcthat:
@@ -56,7 +54,7 @@ jobs:
 
     steps:
       - name: Check out repo
-        uses: actions/checkout@v6
+        uses: gilead-biostats/gsm.utils/checkout@actions-v1
 
       - name: Install R and dependencies
         uses: gilead-biostats/gsm.utils/install@actions-v1

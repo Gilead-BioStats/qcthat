@@ -16,6 +16,8 @@ on:
         description: Milestone name to use to target the milestone report (leave blank for none).
       tag:
         description: Release tag to which the report should be attached (leave blank for none).
+      qcthat-ref:
+        description: A specific qcthat GitHub reference, such as a tag ("@v1.0.0"), branch ("@dev"), commit ("@480c247"), or pull request number ("#312") to use for reports and UAT management. Defaults to the latest release, "@*release".
       issue-number:
         description: The closed issue number to process to update user acceptance testing information.
 
@@ -57,3 +59,4 @@ jobs:
       milestone: ${{ github.event.pull_request.milestone.title || inputs.milestone || '' }}
       tag: ${{ github.event.release.tag_name || inputs.tag || '' }}
       issue-number: ${{ github.event.issue.number || inputs.issue-number || '' }}
+      qcthat-ref: ${{ inputs.qcthat-ref || '@*release' }}

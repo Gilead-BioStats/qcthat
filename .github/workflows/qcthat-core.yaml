@@ -73,11 +73,13 @@ permissions:
   actions: write
 
 jobs:
-  qcthat:
+  qcthat-uat:
     runs-on: ubuntu-latest
     if: >-
-      (inputs.event-name == 'issues' && inputs.has-uat-label) ||
-      inputs.event-name != 'issues'
+      inputs.manage-uat && (
+        (inputs.event-name == 'issues' && inputs.has-uat-label) ||
+        (inputs.event-name == 'workflow_dispatch' && inputs.issue-number != '')
+      )
     env:
       GITHUB_PAT: ${{ secrets.token || github.token }}
 
@@ -109,11 +111,6 @@ jobs:
           use-public-rspm: true
 
       - name: Manage User Acceptance Testing
-        if: >-
-          inputs.manage-uat && (
-            (inputs.event-name == 'issues' && inputs.has-uat-label) ||
-            (inputs.event-name == 'workflow_dispatch' && inputs.issue-number != '')
-          )
         run: |
           qcthat::TriggerUAT(
             intClosedIssue = ${{ inputs.issue-number }},
@@ -122,6 +119,41 @@ jobs:
             strGHToken = "${{ secrets.token || github.token }}"
           )
         shell: Rscript {0}
+
+  qcthat-reports:
+    runs-on: ubuntu-latest
+    if: >-
+      inputs.event-name != 'issues' &&
+      !(inputs.event-name == 'workflow_dispatch' && inputs.issue-number != '')
+    env:
+      GITHUB_PAT: ${{ secrets.token || github.token }}
+
+    steps:
+      - name: Determine checkout ref
+        id: get-ref
+        if: inputs.event-name == 'workflow_dispatch'
+        env:
+          GH_TOKEN: ${{ secrets.token || github.token }}
+        run: |
+          if [ -n "${{ inputs.pr-number }}" ]; then
+            ref=$(gh pr view ${{ inputs.pr-number }} --repo ${{ github.repository }} --json headRefName --jq '.headRefName')
+            echo "ref=$ref" >> $GITHUB_OUTPUT
+          elif [ -n "${{ inputs.tag }}" ]; then
+            echo "ref=${{ inputs.tag }}" >> $GITHUB_OUTPUT
+          fi
+        shell: bash
+
+      - name: Check out repo
+        uses: gilead-biostats/gsm.utils/checkout@actions-v1
+        with:
+          ref: ${{ steps.get-ref.outputs.ref }}
+
+      - name: Install R and dependencies
+        uses: gilead-biostats/gsm.utils/install@actions-v1
+        with:
+          token: ${{ secrets.token || github.token }}
+          extra-packages: Gilead-BioStats/qcthat@main local::.
+          use-public-rspm: true
 
       - name: Generate Issue-Test Matrix
         if: >-

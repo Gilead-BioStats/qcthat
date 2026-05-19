@@ -141,21 +141,11 @@ jobs:
             inputs.event-name == 'release' ||
             (inputs.event-name == 'workflow_dispatch' && inputs.issue-number == '')
           )
-        run: |
-          # Generate the full matrix for the package
-          IssueTestMatrix <- qcthat::QCPackage(
-            strPkgRoot = ".",
-            strOwner = "${{ github.repository_owner }}",
-            strRepo = "${{ github.event.repository.name }}",
-            strGHToken = "${{ secrets.token || github.token }}",
-            chrIgnoredLabels = qcthat::DefaultIgnoreLabels()
-          )
-          print(IssueTestMatrix)
-
-          # Save the matrix and UAT data for subsequent steps
-          saveRDS(IssueTestMatrix, "ITM.rds")
-          qcthat::SaveUATIssues()
-        shell: Rscript {0}
+        uses: gilead-biostats/qcthat/generate-itm@federated-action
+        with:
+          owner: ${{ github.repository_owner }}
+          repo: ${{ github.event.repository.name }}
+          token: ${{ secrets.token || github.token }}
 
       - name: Update PR Reports
         if: >-

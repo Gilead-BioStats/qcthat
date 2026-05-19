@@ -84,24 +84,8 @@ jobs:
       GITHUB_PAT: ${{ secrets.token || github.token }}
 
     steps:
-      - name: Determine checkout ref
-        id: get-ref
-        if: inputs.event-name == 'workflow_dispatch'
-        env:
-          GH_TOKEN: ${{ secrets.token || github.token }}
-        run: |
-          if [ -n "${{ inputs.pr-number }}" ]; then
-            ref=$(gh pr view ${{ inputs.pr-number }} --repo ${{ github.repository }} --json headRefName --jq '.headRefName')
-            echo "ref=$ref" >> $GITHUB_OUTPUT
-          elif [ -n "${{ inputs.tag }}" ]; then
-            echo "ref=${{ inputs.tag }}" >> $GITHUB_OUTPUT
-          fi
-        shell: bash
-
       - name: Check out repo
         uses: gilead-biostats/gsm.utils/checkout@actions-v1
-        with:
-          ref: ${{ steps.get-ref.outputs.ref }}
 
       - name: Install R and dependencies
         uses: gilead-biostats/gsm.utils/install@actions-v1
@@ -132,16 +116,11 @@ jobs:
       - name: Determine checkout ref
         id: get-ref
         if: inputs.event-name == 'workflow_dispatch'
-        env:
-          GH_TOKEN: ${{ secrets.token || github.token }}
-        run: |
-          if [ -n "${{ inputs.pr-number }}" ]; then
-            ref=$(gh pr view ${{ inputs.pr-number }} --repo ${{ github.repository }} --json headRefName --jq '.headRefName')
-            echo "ref=$ref" >> $GITHUB_OUTPUT
-          elif [ -n "${{ inputs.tag }}" ]; then
-            echo "ref=${{ inputs.tag }}" >> $GITHUB_OUTPUT
-          fi
-        shell: bash
+        uses: gilead-biostats/qcthat/determine-ref@federated-action
+        with:
+          pr-number: ${{ inputs.pr-number }}
+          tag: ${{ inputs.tag }}
+          token: ${{ secrets.token || github.token }}
 
       - name: Check out repo
         uses: gilead-biostats/gsm.utils/checkout@actions-v1

@@ -26,7 +26,6 @@ runs:
       run: |
         # Generate the full matrix for the package
         IssueTestMatrix <- qcthat::QCPackage(
-          strPkgRoot = ".",
           strOwner = "${{ inputs.owner }}",
           strRepo = "${{ inputs.repo }}",
           strGHToken = "${{ inputs.token }}",

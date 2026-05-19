@@ -135,12 +135,6 @@ jobs:
           use-public-rspm: true
 
       - name: Generate Issue-Test Matrix
-        if: >-
-          (inputs.generate-pr-report || inputs.generate-release-report || inputs.fail-for-test-failures) && (
-            inputs.event-name == 'pull_request' ||
-            inputs.event-name == 'release' ||
-            (inputs.event-name == 'workflow_dispatch' && inputs.issue-number == '')
-          )
         uses: gilead-biostats/qcthat/generate-itm@federated-action
         with:
           owner: ${{ github.repository_owner }}
@@ -166,7 +160,6 @@ jobs:
             dfITM = issueTestMatrix,
             lglUpdate = TRUE,
             strRunID = "${{ github.run_id }}",
-            strPkgRoot = ".",
             strOwner = "${{ github.repository_owner }}",
             strRepo = "${{ github.event.repository.name }}",
             strGHToken = "${{ secrets.token || github.token }}",
@@ -189,7 +182,6 @@ jobs:
             chrMilestones = "${{ inputs.milestone }}",
             dfITM = issueTestMatrix,
             strRunID = "${{ github.run_id }}",
-            strPkgRoot = ".",
             strOwner = "${{ github.repository_owner }}",
             strRepo = "${{ github.event.repository.name }}",
             strGHToken = "${{ secrets.token || github.token }}",
@@ -208,8 +200,6 @@ jobs:
           issueTestMatrix <- readRDS("ITM.rds")
           dfPR <- qcthat::QCPR(
             intPRNumber = ${{ inputs.pr-number }},
-            intPageMax = 100L,
-            strPkgRoot = ".",
             strOwner = "${{ github.repository_owner }}",
             strRepo = "${{ github.event.repository.name }}",
             strGHToken = "${{ secrets.token || github.token }}",
@@ -234,7 +224,6 @@ jobs:
         run: |
           issueTestMatrix <- readRDS("ITM.rds")
           dfCompleted <- qcthat::QCCompletedIssues(
-            strPkgRoot = ".",
             strOwner = "${{ github.repository_owner }}",
             strRepo = "${{ github.event.repository.name }}",
             strGHToken = "${{ secrets.token || github.token }}",

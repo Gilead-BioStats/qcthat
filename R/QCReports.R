@@ -199,7 +199,7 @@ QCMilestones <- function(
     if (lglWarn) {
       cli::cli_warn(
         c(
-          "{cli::qty(chrMissingMilestones)} {?One element of/Some elements of} {.arg chrMilestone} {?is/are} not in the issue-test matrix.",
+          "{cli::qty(chrMissingMilestones)} {?One element of/Some elements of} {.arg chrMilestones} {?is/are} not in the issue-test matrix.",
           i = "Unknown milestones: {chrMissingMilestones}"
         ),
         class = CompileConditionClasses("unknown_milestones", "warning"),

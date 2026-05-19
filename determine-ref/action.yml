@@ -31,6 +31,10 @@ runs:
       shell: bash
       run: |
         if [ -n "${{ inputs.pr-number }}" ]; then
+          if ! [[ "${{ inputs.pr-number }}" =~ ^[0-9]+$ ]]; then
+            echo "Error: pr-number must contain only digits."
+            exit 1
+          fi
           ref=$(gh pr view ${{ inputs.pr-number }} --repo ${{ github.repository }} --json headRefName --jq '.headRefName')
           echo "ref=$ref" >> $GITHUB_OUTPUT
         elif [ -n "${{ inputs.tag }}" ]; then

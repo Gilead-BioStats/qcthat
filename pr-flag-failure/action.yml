@@ -10,6 +10,10 @@ inputs:
     description: GitHub token.
     required: false
     default: ${{ github.token }}
+  uat-assignees:
+    description: Comma-separated list of GitHub usernames to assign as UAT testers.
+    required: false
+    default: ''
 
 runs:
   using: "composite"
@@ -17,6 +21,7 @@ runs:
     - name: Flag failure for PR
       env:
         GITHUB_PAT: ${{ inputs.token }}
+        qcthat_UAT_ASSIGNEES: ${{ inputs.uat-assignees }}
       shell: Rscript {0}
       run: |
         issueTestMatrix <- readRDS("ITM.rds")

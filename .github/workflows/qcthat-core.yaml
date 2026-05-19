@@ -82,6 +82,7 @@ jobs:
       )
     env:
       GITHUB_PAT: ${{ secrets.token || github.token }}
+      qcthat_UAT_ASSIGNEES: ${{ inputs.uat-assignees }}
 
     steps:
       - name: Check out repo
@@ -155,6 +156,7 @@ jobs:
           milestone: ${{ inputs.milestone }}
           run-id: ${{ github.run_id }}
           token: ${{ secrets.token || github.token }}
+          uat-assignees: ${{ inputs.uat-assignees }}
 
       - name: Update Release Reports
         if: >-
@@ -179,6 +181,7 @@ jobs:
         with:
           pr-number: ${{ inputs.pr-number }}
           token: ${{ secrets.token || github.token }}
+          uat-assignees: ${{ inputs.uat-assignees }}
 
       - name: Flag failure for completed
         if: >-

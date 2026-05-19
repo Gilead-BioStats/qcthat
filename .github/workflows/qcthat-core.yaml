@@ -53,6 +53,10 @@ on:
         description: The closed issue number to process to update user acceptance testing information.
         type: string
         default: ''
+      qcthat-ref:
+        description: A specific qcthat GitHub reference, such as a tag ("@v1.0.0"), branch ("@dev"), commit ("@480c247"), or pull request number ("#312") to use for reports and UAT management. Defaults to the latest release, "@*release".
+        type: string
+        default: '@*release'
     secrets:
       token:
         description: "GitHub token, set to secrets.GITHUB_TOKEN"
@@ -92,7 +96,7 @@ jobs:
         uses: gilead-biostats/gsm.utils/install@actions-v1
         with:
           token: ${{ secrets.token || github.token }}
-          extra-packages: Gilead-BioStats/qcthat@main local::.
+          extra-packages: Gilead-BioStats/qcthat${{ inputs.qcthat-ref }} local::.
           use-public-rspm: true
 
       - name: Manage User Acceptance Testing
@@ -132,7 +136,7 @@ jobs:
         uses: gilead-biostats/gsm.utils/install@actions-v1
         with:
           token: ${{ secrets.token || github.token }}
-          extra-packages: Gilead-BioStats/qcthat@main local::.
+          extra-packages: Gilead-BioStats/qcthat${{ inputs.qcthat-ref }} local::.
           use-public-rspm: true
 
       - name: Generate Issue-Test Matrix

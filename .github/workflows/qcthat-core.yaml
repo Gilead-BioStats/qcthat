@@ -141,10 +141,10 @@ jobs:
           qcthat::LoadUATIssues()
           qcthat::CommentAllReports(
             intPRNumber = ${{ inputs.pr-number }},
-            lglCompleted = ${{ inputs.generate-completed-report }},
-            lglMilestone = ${{ inputs.generate-milestone-report }},
-            lglPR = ${{ inputs.generate-pr-report }},
-            lglUAT = ${{ inputs.manage-uat }},
+            lglCompleted = ${{ inputs.generate-completed-report && 'TRUE' || 'FALSE' }},
+            lglMilestone = ${{ inputs.generate-milestone-report && 'TRUE' || 'FALSE' }},
+            lglPR = ${{ inputs.generate-pr-report && 'TRUE' || 'FALSE' }},
+            lglUAT = ${{ inputs.manage-uat && 'TRUE' || 'FALSE' }},
             chrMilestones = "${{ inputs.milestone }}",
             dfITM = issueTestMatrix,
             lglUpdate = TRUE,
@@ -167,8 +167,8 @@ jobs:
           issueTestMatrix <- readRDS("ITM.rds")
           qcthat::LoadUATIssues()
           qcthat::AttachReleaseReports(
-            lglCompleted = ${{ inputs.generate-completed-report }},
-            lglMilestone = ${{ inputs.generate-milestone-report }},
+            lglCompleted = ${{ inputs.generate-completed-report && 'TRUE' || 'FALSE' }},
+            lglMilestone = ${{ inputs.generate-milestone-report && 'TRUE' || 'FALSE' }},
             chrMilestones = "${{ inputs.milestone }}",
             dfITM = issueTestMatrix,
             strRunID = "${{ github.run_id }}",

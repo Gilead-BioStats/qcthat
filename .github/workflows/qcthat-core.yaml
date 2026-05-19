@@ -1,0 +1,232 @@
+on:
+  workflow_call:
+    inputs:
+      manage-uat:
+        description: Whether to manage User Acceptance Testing.
+        type: boolean
+        default: true
+      generate-pr-report:
+        description: Whether to generate PR reports.
+        type: boolean
+        default: true
+      generate-completed-report:
+        description: Whether to generate completed issue reports.
+        type: boolean
+        default: true
+      generate-milestone-report:
+        description: Whether to generate milestone reports.
+        type: boolean
+        default: true
+      generate-release-report:
+        description: Whether to generate release reports.
+        type: boolean
+        default: true
+      fail-for-test-failures:
+        description: Whether to fail the workflow for test failures.
+        type: boolean
+        default: true
+      uat-assignees:
+        description: Comma-separated list of GitHub usernames to assign as UAT testers.
+        type: string
+        default: ''
+      event-name:
+        description: The triggering event name (github.event_name from the caller).
+        type: string
+        required: true
+      has-uat-label:
+        description: Whether the triggering issue has the qcthat-uat label.
+        type: boolean
+        default: false
+      pr-number:
+        description: PR number to which reports should be added (leave blank for none).
+        type: string
+        default: ''
+      milestone:
+        description: Milestone name to use to target the milestone report (leave blank for none).
+        type: string
+        default: ''
+      tag:
+        description: Release tag to which the report should be attached (leave blank for none).
+        type: string
+        default: ''
+      issue-number:
+        description: The closed issue number to process to update user acceptance testing information.
+        type: string
+        default: ''
+    secrets:
+      token:
+        description: "GitHub token, set to secrets.GITHUB_TOKEN"
+        required: false
+
+name: qcthat-core
+
+permissions:
+  # read: Required for generating reports and updating UAT status.
+  # write: Required for initiating the UAT process.
+  issues: write
+  # read: Required for updating UAT status.
+  # write: Required for adding reports to pull requests.
+  pull-requests: write
+  # write: Required for attaching reports to releases.
+  contents: write
+  # write: Required for updating UAT status.
+  actions: write
+
+jobs:
+  qcthat:
+    runs-on: ubuntu-latest
+    if: >-
+      (inputs.event-name == 'issues' && inputs.has-uat-label) ||
+      inputs.event-name != 'issues'
+    env:
+      GITHUB_PAT: ${{ secrets.token || github.token }}
+
+    steps:
+      - name: Check out repo
+        uses: gilead-biostats/gsm.utils/checkout@actions-v1
+
+      - name: Install R and dependencies
+        uses: gilead-biostats/gsm.utils/install@actions-v1
+        with:
+          token: ${{ secrets.token || github.token }}
+          extra-packages: Gilead-BioStats/qcthat@main local::.
+          use-public-rspm: true
+
+      - name: Manage User Acceptance Testing
+        if: >-
+          inputs.manage-uat && (
+            (inputs.event-name == 'issues' && inputs.has-uat-label) ||
+            (inputs.event-name == 'workflow_dispatch' && inputs.issue-number != '')
+          )
+        run: |
+          qcthat::TriggerUAT(
+            intClosedIssue = ${{ inputs.issue-number }},
+            strOwner = "${{ github.repository_owner }}",
+            strRepo = "${{ github.event.repository.name }}",
+            strGHToken = "${{ secrets.token || github.token }}"
+          )
+        shell: Rscript {0}
+
+      - name: Generate Issue-Test Matrix
+        if: >-
+          (inputs.generate-pr-report || inputs.generate-release-report || inputs.fail-for-test-failures) && (
+            inputs.event-name == 'pull_request' ||
+            inputs.event-name == 'release' ||
+            (inputs.event-name == 'workflow_dispatch' && inputs.issue-number == '')
+          )
+        run: |
+          # Generate the full matrix for the package
+          IssueTestMatrix <- qcthat::QCPackage(
+            strPkgRoot = ".",
+            strOwner = "${{ github.repository_owner }}",
+            strRepo = "${{ github.event.repository.name }}",
+            strGHToken = "${{ secrets.token || github.token }}",
+            chrIgnoredLabels = qcthat::DefaultIgnoreLabels()
+          )
+          print(IssueTestMatrix)
+
+          # Save the matrix and UAT data for subsequent steps
+          saveRDS(IssueTestMatrix, "ITM.rds")
+          qcthat::SaveUATIssues()
+        shell: Rscript {0}
+
+      - name: Update PR Reports
+        if: >-
+          inputs.generate-pr-report && (
+            inputs.event-name == 'pull_request' ||
+            (inputs.event-name == 'workflow_dispatch' && inputs.pr-number != '')
+          )
+        run: |
+          issueTestMatrix <- readRDS("ITM.rds")
+          qcthat::LoadUATIssues()
+          qcthat::CommentAllReports(
+            intPRNumber = ${{ inputs.pr-number }},
+            lglCompleted = ${{ inputs.generate-completed-report }},
+            lglMilestone = ${{ inputs.generate-milestone-report }},
+            lglPR = ${{ inputs.generate-pr-report }},
+            lglUAT = ${{ inputs.manage-uat }},
+            chrMilestones = "${{ inputs.milestone }}",
+            dfITM = issueTestMatrix,
+            lglUpdate = TRUE,
+            strRunID = "${{ github.run_id }}",
+            strPkgRoot = ".",
+            strOwner = "${{ github.repository_owner }}",
+            strRepo = "${{ github.event.repository.name }}",
+            strGHToken = "${{ secrets.token || github.token }}",
+            lglWarn = TRUE,
+            chrIgnoredLabels = qcthat::DefaultIgnoreLabels()
+          )
+        shell: Rscript {0}
+
+      - name: Update Release Reports
+        if: >-
+          inputs.generate-release-report && (
+            inputs.event-name == 'release' || inputs.tag != ''
+          )
+        run: |
+          issueTestMatrix <- readRDS("ITM.rds")
+          qcthat::LoadUATIssues()
+          qcthat::AttachReleaseReports(
+            lglCompleted = ${{ inputs.generate-completed-report }},
+            lglMilestone = ${{ inputs.generate-milestone-report }},
+            chrMilestones = "${{ inputs.milestone }}",
+            dfITM = issueTestMatrix,
+            strRunID = "${{ github.run_id }}",
+            strPkgRoot = ".",
+            strOwner = "${{ github.repository_owner }}",
+            strRepo = "${{ github.event.repository.name }}",
+            strGHToken = "${{ secrets.token || github.token }}",
+            lglWarn = TRUE,
+            chrIgnoredLabels = qcthat::DefaultIgnoreLabels()
+          )
+        shell: Rscript {0}
+
+      - name: Flag failure for PR
+        if: >-
+          inputs.fail-for-test-failures && (
+            inputs.event-name == 'pull_request' ||
+            (inputs.event-name == 'workflow_dispatch' && inputs.pr-number != '')
+          )
+        run: |
+          issueTestMatrix <- readRDS("ITM.rds")
+          dfPR <- qcthat::QCPR(
+            intPRNumber = ${{ inputs.pr-number }},
+            intPageMax = 100L,
+            strPkgRoot = ".",
+            strOwner = "${{ github.repository_owner }}",
+            strRepo = "${{ github.event.repository.name }}",
+            strGHToken = "${{ secrets.token || github.token }}",
+            lglWarn = TRUE,
+            chrIgnoredLabels = qcthat::DefaultIgnoreLabels(),
+            dfITM = issueTestMatrix
+          )
+          if (any(dfPR$Disposition == "fail", na.rm = TRUE)) {
+            cli::cli_abort(
+              "One or more tests failed or were skipped for PR-associated issues."
+            )
+          }
+        shell: Rscript {0}
+
+      - name: Flag failure for completed
+        if: >-
+          inputs.fail-for-test-failures && (
+            inputs.event-name == 'pull_request' ||
+            inputs.event-name == 'release' ||
+            (inputs.event-name == 'workflow_dispatch' && inputs.issue-number == '')
+          )
+        run: |
+          issueTestMatrix <- readRDS("ITM.rds")
+          dfCompleted <- qcthat::QCCompletedIssues(
+            strPkgRoot = ".",
+            strOwner = "${{ github.repository_owner }}",
+            strRepo = "${{ github.event.repository.name }}",
+            strGHToken = "${{ secrets.token || github.token }}",
+            chrIgnoredLabels = qcthat::DefaultIgnoreLabels(),
+            dfITM = issueTestMatrix
+          )
+          if (any(dfCompleted$Disposition == "fail", na.rm = TRUE)) {
+            cli::cli_abort(
+              "One or more tests failed or were skipped for completed issues."
+            )
+          }
+        shell: Rscript {0}

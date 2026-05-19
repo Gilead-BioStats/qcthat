@@ -3,14 +3,6 @@ description: >
   Generates the Issue-Test Matrix for the package and saves it to ITM.rds.
 
 inputs:
-  owner:
-    description: GitHub repository owner.
-    required: false
-    default: ${{ github.repository_owner }}
-  repo:
-    description: GitHub repository name.
-    required: false
-    default: ${{ github.event.repository.name }}
   token:
     description: GitHub token.
     required: false
@@ -26,8 +18,8 @@ runs:
       run: |
         # Generate the full matrix for the package
         IssueTestMatrix <- qcthat::QCPackage(
-          strOwner = "${{ inputs.owner }}",
-          strRepo = "${{ inputs.repo }}",
+          strOwner = "${{ github.repository_owner }}",
+          strRepo = "${{ github.event.repository.name }}",
           strGHToken = "${{ inputs.token }}",
           chrIgnoredLabels = qcthat::DefaultIgnoreLabels()
         )

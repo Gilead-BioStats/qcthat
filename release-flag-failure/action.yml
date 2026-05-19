@@ -1,0 +1,31 @@
+name: Flag failure for completed
+description: >
+  Fails the workflow if any tests failed or were skipped for completed issues.
+
+inputs:
+  token:
+    description: GitHub token.
+    required: false
+    default: ${{ github.token }}
+
+runs:
+  using: "composite"
+  steps:
+    - name: Flag failure for completed
+      env:
+        GITHUB_PAT: ${{ inputs.token }}
+      shell: Rscript {0}
+      run: |
+        issueTestMatrix <- readRDS("ITM.rds")
+        dfCompleted <- qcthat::QCCompletedIssues(
+          strOwner = "${{ github.repository_owner }}",
+          strRepo = "${{ github.event.repository.name }}",
+          strGHToken = "${{ inputs.token }}",
+          chrIgnoredLabels = qcthat::DefaultIgnoreLabels(),
+          dfITM = issueTestMatrix
+        )
+        if (any(dfCompleted$Disposition == "fail", na.rm = TRUE)) {
+          cli::cli_abort(
+            "One or more tests failed or were skipped for completed issues."
+          )
+        }

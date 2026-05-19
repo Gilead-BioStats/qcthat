@@ -1,0 +1,36 @@
+name: Flag failure for PR
+description: >
+  Fails the workflow if any tests failed or were skipped for PR-associated issues.
+
+inputs:
+  pr-number:
+    description: PR number to check.
+    required: true
+  token:
+    description: GitHub token.
+    required: false
+    default: ${{ github.token }}
+
+runs:
+  using: "composite"
+  steps:
+    - name: Flag failure for PR
+      env:
+        GITHUB_PAT: ${{ inputs.token }}
+      shell: Rscript {0}
+      run: |
+        issueTestMatrix <- readRDS("ITM.rds")
+        dfPR <- qcthat::QCPR(
+          intPRNumber = ${{ inputs.pr-number }},
+          strOwner = "${{ github.repository_owner }}",
+          strRepo = "${{ github.event.repository.name }}",
+          strGHToken = "${{ inputs.token }}",
+          lglWarn = TRUE,
+          chrIgnoredLabels = qcthat::DefaultIgnoreLabels(),
+          dfITM = issueTestMatrix
+        )
+        if (any(dfPR$Disposition == "fail", na.rm = TRUE)) {
+          cli::cli_abort(
+            "One or more tests failed or were skipped for PR-associated issues."
+          )
+        }

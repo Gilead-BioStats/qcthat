@@ -137,8 +137,6 @@ jobs:
       - name: Generate Issue-Test Matrix
         uses: gilead-biostats/qcthat/generate-itm@federated-action
         with:
-          owner: ${{ github.repository_owner }}
-          repo: ${{ github.event.repository.name }}
           token: ${{ secrets.token || github.token }}
 
       - name: Update PR Reports
@@ -147,48 +145,29 @@ jobs:
             inputs.event-name == 'pull_request' ||
             (inputs.event-name == 'workflow_dispatch' && inputs.pr-number != '')
           )
-        run: |
-          issueTestMatrix <- readRDS("ITM.rds")
-          qcthat::LoadUATIssues()
-          qcthat::CommentAllReports(
-            intPRNumber = ${{ inputs.pr-number }},
-            lglCompleted = ${{ inputs.generate-completed-report && 'TRUE' || 'FALSE' }},
-            lglMilestone = ${{ inputs.generate-milestone-report && 'TRUE' || 'FALSE' }},
-            lglPR = ${{ inputs.generate-pr-report && 'TRUE' || 'FALSE' }},
-            lglUAT = ${{ inputs.manage-uat && 'TRUE' || 'FALSE' }},
-            chrMilestones = "${{ inputs.milestone }}",
-            dfITM = issueTestMatrix,
-            lglUpdate = TRUE,
-            strRunID = "${{ github.run_id }}",
-            strOwner = "${{ github.repository_owner }}",
-            strRepo = "${{ github.event.repository.name }}",
-            strGHToken = "${{ secrets.token || github.token }}",
-            lglWarn = TRUE,
-            chrIgnoredLabels = qcthat::DefaultIgnoreLabels()
-          )
-        shell: Rscript {0}
+        uses: gilead-biostats/qcthat/pr-report@federated-action
+        with:
+          pr-number: ${{ inputs.pr-number }}
+          generate-completed-report: ${{ inputs.generate-completed-report }}
+          generate-milestone-report: ${{ inputs.generate-milestone-report }}
+          generate-pr-report: ${{ inputs.generate-pr-report }}
+          manage-uat: ${{ inputs.manage-uat }}
+          milestone: ${{ inputs.milestone }}
+          run-id: ${{ github.run_id }}
+          token: ${{ secrets.token || github.token }}
 
       - name: Update Release Reports
         if: >-
           inputs.generate-release-report && (
             inputs.event-name == 'release' || inputs.tag != ''
           )
-        run: |
-          issueTestMatrix <- readRDS("ITM.rds")
-          qcthat::LoadUATIssues()
-          qcthat::AttachReleaseReports(
-            lglCompleted = ${{ inputs.generate-completed-report && 'TRUE' || 'FALSE' }},
-            lglMilestone = ${{ inputs.generate-milestone-report && 'TRUE' || 'FALSE' }},
-            chrMilestones = "${{ inputs.milestone }}",
-            dfITM = issueTestMatrix,
-            strRunID = "${{ github.run_id }}",
-            strOwner = "${{ github.repository_owner }}",
-            strRepo = "${{ github.event.repository.name }}",
-            strGHToken = "${{ secrets.token || github.token }}",
-            lglWarn = TRUE,
-            chrIgnoredLabels = qcthat::DefaultIgnoreLabels()
-          )
-        shell: Rscript {0}
+        uses: gilead-biostats/qcthat/release-report@federated-action
+        with:
+          generate-completed-report: ${{ inputs.generate-completed-report }}
+          generate-milestone-report: ${{ inputs.generate-milestone-report }}
+          milestone: ${{ inputs.milestone }}
+          run-id: ${{ github.run_id }}
+          token: ${{ secrets.token || github.token }}
 
       - name: Flag failure for PR
         if: >-
@@ -196,23 +175,10 @@ jobs:
             inputs.event-name == 'pull_request' ||
             (inputs.event-name == 'workflow_dispatch' && inputs.pr-number != '')
           )
-        run: |
-          issueTestMatrix <- readRDS("ITM.rds")
-          dfPR <- qcthat::QCPR(
-            intPRNumber = ${{ inputs.pr-number }},
-            strOwner = "${{ github.repository_owner }}",
-            strRepo = "${{ github.event.repository.name }}",
-            strGHToken = "${{ secrets.token || github.token }}",
-            lglWarn = TRUE,
-            chrIgnoredLabels = qcthat::DefaultIgnoreLabels(),
-            dfITM = issueTestMatrix
-          )
-          if (any(dfPR$Disposition == "fail", na.rm = TRUE)) {
-            cli::cli_abort(
-              "One or more tests failed or were skipped for PR-associated issues."
-            )
-          }
-        shell: Rscript {0}
+        uses: gilead-biostats/qcthat/pr-flag-failure@federated-action
+        with:
+          pr-number: ${{ inputs.pr-number }}
+          token: ${{ secrets.token || github.token }}
 
       - name: Flag failure for completed
         if: >-
@@ -221,18 +187,6 @@ jobs:
             inputs.event-name == 'release' ||
             (inputs.event-name == 'workflow_dispatch' && inputs.issue-number == '')
           )
-        run: |
-          issueTestMatrix <- readRDS("ITM.rds")
-          dfCompleted <- qcthat::QCCompletedIssues(
-            strOwner = "${{ github.repository_owner }}",
-            strRepo = "${{ github.event.repository.name }}",
-            strGHToken = "${{ secrets.token || github.token }}",
-            chrIgnoredLabels = qcthat::DefaultIgnoreLabels(),
-            dfITM = issueTestMatrix
-          )
-          if (any(dfCompleted$Disposition == "fail", na.rm = TRUE)) {
-            cli::cli_abort(
-              "One or more tests failed or were skipped for completed issues."
-            )
-          }
-        shell: Rscript {0}
+        uses: gilead-biostats/qcthat/release-flag-failure@federated-action
+        with:
+          token: ${{ secrets.token || github.token }}

@@ -38,7 +38,7 @@ jobs:
     if: >-
       (github.event_name == 'issues' && contains(github.event.issue.labels.*.name, 'qcthat-uat')) ||
       github.event_name != 'issues'
-    uses: Gilead-BioStats/qcthat/.github/workflows/qcthat-core.yaml@actions
+    uses: Gilead-BioStats/qcthat/.github/workflows/qcthat-core.yaml@federated-action
     secrets:
       token: ${{ secrets.GITHUB_TOKEN }}
     with:

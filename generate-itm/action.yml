@@ -5,7 +5,6 @@ description: >
 inputs:
   token:
     description: GitHub token.
-    required: false
     default: ${{ github.token }}
 
 runs:

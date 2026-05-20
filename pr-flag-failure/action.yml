@@ -11,13 +11,12 @@ inputs:
     default: ${{ github.token }}
   uat-assignees:
     description: Comma-separated list of GitHub usernames to assign as UAT testers.
-    default: ''
   fail-for-test-failures:
     description: Whether to fail the workflow for test failures.
-    default: true
+    default: 'true'
   fail-for-missing-tests:
     description: Whether to fail the workflow if PR-associated issues lack tests.
-    default: true
+    default: 'true'
 
 runs:
   using: "composite"

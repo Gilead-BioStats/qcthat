@@ -5,23 +5,17 @@ description: >
 inputs:
   generate-completed-report:
     description: Whether to generate completed issue reports.
-    required: false
     default: 'true'
   generate-milestone-report:
     description: Whether to generate milestone reports.
-    required: false
     default: 'true'
   milestone:
     description: Milestone name to use to target the milestone report (leave blank for none).
-    required: false
-    default: ''
   run-id:
     description: The GitHub Actions run ID.
-    required: false
     default: ${{ github.run_id }}
   token:
     description: GitHub token.
-    required: false
     default: ${{ github.token }}
 
 runs:

@@ -5,15 +5,10 @@ description: >
 inputs:
   pr-number:
     description: PR number to check out (leave blank for none).
-    required: false
-    default: ''
   tag:
     description: Release tag to check out (leave blank for none).
-    required: false
-    default: ''
   token:
     description: GitHub token.
-    required: false
     default: ${{ github.token }}
 
 outputs:

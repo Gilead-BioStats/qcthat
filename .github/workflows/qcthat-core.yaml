@@ -32,7 +32,6 @@ on:
       uat-assignees:
         description: Comma-separated list of GitHub usernames to assign as UAT testers.
         type: string
-        default: ''
       has-uat-label:
         description: Whether the triggering issue has the qcthat-uat label.
         type: boolean
@@ -40,19 +39,15 @@ on:
       pr-number:
         description: PR number to which reports should be added (leave blank for none).
         type: string
-        default: ''
       milestone:
         description: Milestone name to use to target the milestone report (leave blank for none).
         type: string
-        default: ''
       tag:
         description: Release tag to which the report should be attached (leave blank for none).
         type: string
-        default: ''
       issue-number:
         description: The closed issue number to process to update user acceptance testing information.
         type: string
-        default: ''
       qcthat-ref:
         description: A specific qcthat GitHub reference, such as a tag ("@v1.0.0"), branch ("@dev"), commit ("@480c247"), or pull request number ("#312") to use for reports and UAT management. Defaults to the latest release, "@*release".
         type: string
@@ -60,7 +55,6 @@ on:
     secrets:
       token:
         description: "GitHub token, set to secrets.GITHUB_TOKEN"
-        required: false
 
 name: qcthat-core
 

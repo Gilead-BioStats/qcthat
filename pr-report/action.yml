@@ -8,36 +8,26 @@ inputs:
     required: true
   generate-completed-report:
     description: Whether to generate completed issue reports.
-    required: false
     default: 'true'
   generate-milestone-report:
     description: Whether to generate milestone reports.
-    required: false
     default: 'true'
   generate-pr-report:
     description: Whether to generate PR reports.
-    required: false
     default: 'true'
   manage-uat:
     description: Whether to manage User Acceptance Testing.
-    required: false
     default: 'true'
   milestone:
     description: Milestone name to use to target the milestone report (leave blank for none).
-    required: false
-    default: ''
   run-id:
     description: The GitHub Actions run ID.
-    required: false
     default: ${{ github.run_id }}
   token:
     description: GitHub token.
-    required: false
     default: ${{ github.token }}
   uat-assignees:
     description: Comma-separated list of GitHub usernames to assign as UAT testers.
-    required: false
-    default: ''
 
 runs:
   using: "composite"

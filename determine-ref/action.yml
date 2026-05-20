@@ -11,10 +11,6 @@ inputs:
     description: Release tag to check out (leave blank for none).
     required: false
     default: ''
-  token:
-    description: GitHub token.
-    required: false
-    default: ${{ github.token }}
 
 outputs:
   ref:
@@ -26,8 +22,6 @@ runs:
   steps:
     - name: Determine checkout ref
       id: get-ref
-      env:
-        GH_TOKEN: ${{ inputs.token }}
       shell: bash
       run: |
         if [ -n "${{ inputs.pr-number }}" ]; then

@@ -125,7 +125,6 @@ jobs:
         with:
           pr-number: ${{ inputs.pr-number }}
           tag: ${{ inputs.tag }}
-          token: ${{ secrets.token || github.token }}
 
       - name: Check out repo
         uses: gilead-biostats/gsm.utils/checkout@actions-v1

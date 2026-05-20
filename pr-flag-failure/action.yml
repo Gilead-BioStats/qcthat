@@ -39,7 +39,7 @@ runs:
           dfITM = issueTestMatrix
         )
         if ( 
-          ${{ inputs.fail-for-test-failures == 'true' }} && 
+          ${{ inputs.fail-for-test-failures == 'true' && 'TRUE' || 'FALSE' }} && 
             any(dfPR$Disposition == "fail", na.rm = TRUE)
         ) {
           cli::cli_abort(
@@ -47,7 +47,7 @@ runs:
           )
         }
         if (
-          ${{ inputs.fail-for-missing-tests == 'true' }} && 
+          ${{ inputs.fail-for-missing-tests == 'true' && 'TRUE' || 'FALSE' }} && 
             anyNA(dfPR[["Test"]])
         ) {
           cli::cli_abort(

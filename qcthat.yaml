@@ -51,6 +51,7 @@ jobs:
       generate-milestone-report: true
       generate-release-report: true
       fail-for-test-failures: true
+      fail-for-missing-tests: true
       uat-assignees: ${{ (github.event_name == 'pull_request' && github.base_ref == 'main' && 'jwildfire') || (github.event_name == 'pull_request' && github.base_ref != 'main' && 'lauramaxwell,nandriychuk') || '' }}
       # Event context passed through to the core workflow
       event-name: ${{ github.event_name }}

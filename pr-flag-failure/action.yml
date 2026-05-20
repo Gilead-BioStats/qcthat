@@ -8,12 +8,16 @@ inputs:
     required: true
   token:
     description: GitHub token.
-    required: false
     default: ${{ github.token }}
   uat-assignees:
     description: Comma-separated list of GitHub usernames to assign as UAT testers.
-    required: false
     default: ''
+  fail-for-test-failures:
+    description: Whether to fail the workflow for test failures.
+    default: true
+  fail-for-missing-tests:
+    description: Whether to fail the workflow if PR-associated issues lack tests.
+    default: true
 
 runs:
   using: "composite"
@@ -34,8 +38,13 @@ runs:
           chrIgnoredLabels = qcthat::DefaultIgnoreLabels(),
           dfITM = issueTestMatrix
         )
-        if (any(dfPR$Disposition == "fail", na.rm = TRUE)) {
+        if ( ${{ inputs.fail-for-test-failures }} && any(dfPR$Disposition == "fail", na.rm = TRUE)) {
           cli::cli_abort(
             "One or more tests failed or were skipped for PR-associated issues."
+          )
+        }
+        if (${{ inputs.fail-for-missing-tests }} && anyNA(dfPR[["Test"]])) {
+          cli::cli_abort(
+            "One or more PR-associated issues lack tests."
           )
         }

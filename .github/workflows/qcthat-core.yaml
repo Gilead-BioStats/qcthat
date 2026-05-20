@@ -25,6 +25,10 @@ on:
         description: Whether to fail the workflow for test failures.
         type: boolean
         default: true
+      fail-for-missing-tests:
+        description: Whether to fail the workflow if PR-associated issues lack tests.
+        type: boolean
+        default: true
       uat-assignees:
         description: Comma-separated list of GitHub usernames to assign as UAT testers.
         type: string
@@ -177,7 +181,7 @@ jobs:
 
       - name: Flag failure for PR
         if: >-
-          inputs.fail-for-test-failures && (
+          (inputs.fail-for-test-failures || inputs.fail-for-missing-tests) && (
             inputs.event-name == 'pull_request' ||
             (inputs.event-name == 'workflow_dispatch' && inputs.pr-number != '')
           )
@@ -186,6 +190,8 @@ jobs:
           pr-number: ${{ inputs.pr-number }}
           token: ${{ secrets.token || github.token }}
           uat-assignees: ${{ inputs.uat-assignees }}
+          fail-for-test-failures: ${{ inputs.fail-for-test-failures }}
+          fail-for-missing-tests: ${{ inputs.fail-for-missing-tests }}
 
       - name: Flag failure for completed
         if: >-

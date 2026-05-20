@@ -51,12 +51,12 @@ runs:
         issueTestMatrix <- readRDS("ITM.rds")
         qcthat::LoadUATIssues()
         qcthat::CommentAllReports(
-          intPRNumber = ${{ inputs.pr-number }},
+          intPRNumber = ${{ inputs.pr-number != '' && inputs.pr-number || 'NULL' }},
           lglCompleted = ${{ inputs.generate-completed-report == 'true' && 'TRUE' || 'FALSE' }},
           lglMilestone = ${{ inputs.generate-milestone-report == 'true' && 'TRUE' || 'FALSE' }},
           lglPR = ${{ inputs.generate-pr-report == 'true' && 'TRUE' || 'FALSE' }},
           lglUAT = ${{ inputs.manage-uat == 'true' && 'TRUE' || 'FALSE' }},
-          chrMilestones = "${{ inputs.milestone }}",
+          chrMilestones = ${{ inputs.milestone != '' && format('"{0}"', inputs.milestone) || 'NULL' }},
           dfITM = issueTestMatrix,
           lglUpdate = TRUE,
           strRunID = "${{ inputs.run-id }}",

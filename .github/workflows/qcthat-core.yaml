@@ -99,6 +99,10 @@ jobs:
           extra-packages: Gilead-BioStats/qcthat${{ inputs.qcthat-ref }} local::.
           use-public-rspm: true
 
+      - name: Session info
+        run: sessionInfo()
+        shell: Rscript {0}
+
       - name: Manage User Acceptance Testing
         run: |
           qcthat::TriggerUAT(
@@ -138,6 +142,10 @@ jobs:
           token: ${{ secrets.token || github.token }}
           extra-packages: Gilead-BioStats/qcthat${{ inputs.qcthat-ref }} local::.
           use-public-rspm: true
+
+      - name: Session info
+        run: sessionInfo()
+        shell: Rscript {0}
 
       - name: Generate Issue-Test Matrix
         uses: gilead-biostats/qcthat/generate-itm@federated-action

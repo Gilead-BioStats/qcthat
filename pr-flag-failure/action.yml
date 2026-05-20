@@ -38,12 +38,18 @@ runs:
           chrIgnoredLabels = qcthat::DefaultIgnoreLabels(),
           dfITM = issueTestMatrix
         )
-        if ( ${{ inputs.fail-for-test-failures }} && any(dfPR$Disposition == "fail", na.rm = TRUE)) {
+        if ( 
+          ${{ inputs.fail-for-test-failures == 'true' }} && 
+            any(dfPR$Disposition == "fail", na.rm = TRUE)
+        ) {
           cli::cli_abort(
             "One or more tests failed or were skipped for PR-associated issues."
           )
         }
-        if (${{ inputs.fail-for-missing-tests }} && anyNA(dfPR[["Test"]])) {
+        if (
+          ${{ inputs.fail-for-missing-tests == 'true' }} && 
+            anyNA(dfPR[["Test"]])
+        ) {
           cli::cli_abort(
             "One or more PR-associated issues lack tests."
           )

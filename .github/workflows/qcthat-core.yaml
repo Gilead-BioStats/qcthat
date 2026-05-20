@@ -125,7 +125,7 @@ jobs:
       - name: Determine checkout ref
         id: get-ref
         if: inputs.event-name == 'workflow_dispatch'
-        uses: gilead-biostats/gsm.utils/determine-ref@actions-v1
+        uses: gilead-biostats/gsm.utils/determine-ref@fix-118-determine-ref
         with:
           pr-number: ${{ inputs.pr-number }}
           tag: ${{ inputs.tag }}

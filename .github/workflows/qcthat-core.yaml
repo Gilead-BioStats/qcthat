@@ -121,10 +121,11 @@ jobs:
       - name: Determine checkout ref
         id: get-ref
         if: inputs.event-name == 'workflow_dispatch'
-        uses: gilead-biostats/qcthat/determine-ref@federated-action
+        uses: gilead-biostats/gsm.utils/determine-ref@actions-v1
         with:
           pr-number: ${{ inputs.pr-number }}
           tag: ${{ inputs.tag }}
+          token: ${{ secrets.token || github.token }}
 
       - name: Check out repo
         uses: gilead-biostats/gsm.utils/checkout@actions-v1

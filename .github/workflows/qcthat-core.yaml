@@ -33,10 +33,6 @@ on:
         description: Comma-separated list of GitHub usernames to assign as UAT testers.
         type: string
         default: ''
-      event-name:
-        description: The triggering event name (github.event_name from the caller).
-        type: string
-        required: true
       has-uat-label:
         description: Whether the triggering issue has the qcthat-uat label.
         type: boolean
@@ -85,8 +81,8 @@ jobs:
     runs-on: ubuntu-latest
     if: >-
       inputs.manage-uat && (
-        (inputs.event-name == 'issues' && inputs.has-uat-label) ||
-        (inputs.event-name == 'workflow_dispatch' && inputs.issue-number != '')
+        (github.event_name == 'issues' && inputs.has-uat-label) ||
+        (github.event_name == 'workflow_dispatch' && inputs.issue-number != '')
       )
     env:
       GITHUB_PAT: ${{ secrets.token || github.token }}
@@ -116,16 +112,16 @@ jobs:
   qcthat-reports:
     runs-on: ubuntu-latest
     if: >-
-      inputs.event-name != 'issues' &&
-      !(inputs.event-name == 'workflow_dispatch' && inputs.issue-number != '')
+      github.event_name != 'issues' &&
+      !(github.event_name == 'workflow_dispatch' && inputs.issue-number != '')
     env:
       GITHUB_PAT: ${{ secrets.token || github.token }}
 
     steps:
       - name: Determine checkout ref
         id: get-ref
-        if: inputs.event-name == 'workflow_dispatch'
-        uses: gilead-biostats/gsm.utils/determine-ref@fix-118-determine-ref
+        if: github.event_name == 'workflow_dispatch'
+        uses: gilead-biostats/gsm.utils/determine-ref@actions-v1
         with:
           pr-number: ${{ inputs.pr-number }}
           tag: ${{ inputs.tag }}
@@ -151,8 +147,8 @@ jobs:
       - name: Update PR Reports
         if: >-
           inputs.generate-pr-report && (
-            inputs.event-name == 'pull_request' ||
-            (inputs.event-name == 'workflow_dispatch' && inputs.pr-number != '')
+            github.event_name == 'pull_request' ||
+            (github.event_name == 'workflow_dispatch' && inputs.pr-number != '')
           )
         uses: gilead-biostats/qcthat/pr-report@federated-action
         with:
@@ -169,7 +165,7 @@ jobs:
       - name: Update Release Reports
         if: >-
           inputs.generate-release-report && (
-            inputs.event-name == 'release' || inputs.tag != ''
+            github.event_name == 'release' || inputs.tag != ''
           )
         uses: gilead-biostats/qcthat/release-report@federated-action
         with:
@@ -182,8 +178,8 @@ jobs:
       - name: Flag failure for PR
         if: >-
           (inputs.fail-for-test-failures || inputs.fail-for-missing-tests) && (
-            inputs.event-name == 'pull_request' ||
-            (inputs.event-name == 'workflow_dispatch' && inputs.pr-number != '')
+            github.event_name == 'pull_request' ||
+            (github.event_name == 'workflow_dispatch' && inputs.pr-number != '')
           )
         uses: gilead-biostats/qcthat/pr-flag-failure@federated-action
         with:
@@ -196,9 +192,9 @@ jobs:
       - name: Flag failure for completed
         if: >-
           inputs.fail-for-test-failures && (
-            inputs.event-name == 'pull_request' ||
-            inputs.event-name == 'release' ||
-            (inputs.event-name == 'workflow_dispatch' && inputs.issue-number == '')
+            github.event_name == 'pull_request' ||
+            github.event_name == 'release' ||
+            (github.event_name == 'workflow_dispatch' && inputs.issue-number == '')
           )
         uses: gilead-biostats/qcthat/release-flag-failure@federated-action
         with:

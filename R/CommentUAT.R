@@ -20,6 +20,7 @@ CommentUAT <- function(
   ),
   lglUpdate = TRUE,
   strRunID = Sys.getenv("GITHUB_RUN_ID"),
+  strJobID = Sys.getenv("GITHUB_JOB"),
   strPkgRoot = ".",
   strOwner = GetGHOwner(strPkgRoot),
   strRepo = GetGHRepo(strPkgRoot),
@@ -38,6 +39,7 @@ CommentUAT <- function(
     strBody = FormatUATGH(intIssues),
     lglUpdate = lglUpdate,
     strRunID = strRunID,
+    strJobID = strJobID,
     strOwner = strOwner,
     strRepo = strRepo,
     strGHToken = strGHToken

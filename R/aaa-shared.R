@@ -160,6 +160,8 @@
 #' @param strFilePath (`length-1 character`) A file path.
 #' @param strGHToken (`length-1 character`) GitHub token with permissions
 #'   appropriate to the action being performed.
+#' @param strJobID (`length-1 character`) ID (typically numeric but can be very
+#'   long) of a GitHub Actions workflow run job.
 #' @param strLabel (`length-1 character`) The name of the label to create or
 #'   update.
 #' @param strLabelColor (`length-1 character`) The hex color code for the label

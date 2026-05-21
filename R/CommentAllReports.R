@@ -20,6 +20,7 @@ CommentAllReports <- function(
   dfITM = NULL,
   lglUpdate = TRUE,
   strRunID = Sys.getenv("GITHUB_RUN_ID"),
+  strJobID = Sys.getenv("GITHUB_JOB"),
   strPkgRoot = ".",
   strOwner = GetGHOwner(strPkgRoot),
   strRepo = GetGHRepo(strPkgRoot),
@@ -108,6 +109,7 @@ CommentAllReports <- function(
       strBody = paste(chrBody, collapse = "\n\n\n"),
       lglUpdate = lglUpdate,
       strRunID = strRunID,
+      strJobID = strJobID,
       strOwner = strOwner,
       strRepo = strRepo,
       strGHToken = strGHToken

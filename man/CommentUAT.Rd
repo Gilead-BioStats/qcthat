@@ -9,6 +9,7 @@ CommentUAT(
     strRepo, strGHToken = strGHToken),
   lglUpdate = TRUE,
   strRunID = Sys.getenv("GITHUB_RUN_ID"),
+  strJobID = Sys.getenv("GITHUB_JOB"),
   strPkgRoot = ".",
   strOwner = GetGHOwner(strPkgRoot),
   strRepo = GetGHRepo(strPkgRoot),
@@ -25,6 +26,9 @@ label).}
 
 \item{strRunID}{(\verb{length-1 character}) ID (typically numeric but can be very
 long) of a GitHub Actions workflow run.}
+
+\item{strJobID}{(\verb{length-1 character}) ID (typically numeric but can be very
+long) of a GitHub Actions workflow run job.}
 
 \item{strPkgRoot}{(\verb{length-1 character}) The path to a directory in the
 package. Will be expanded using \code{\link[gert:git_find]{gert::git_find()}}.}

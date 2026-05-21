@@ -1,4 +1,4 @@
-# CommentReport generates the expected call (#99, #72)
+# CommentReport generates the expected call (#99, #72, #295)
 
     Code
       CommentReport(dfITM, strReportType = "Testing", intPRNumber = 99, strRunID = "",
@@ -46,6 +46,9 @@
       ⛓️‍💥 1 test is not linked to any issue
       
       $strRunID
+      [1] ""
+      
+      $strJobID
       [1] ""
       
       $lglUpdate

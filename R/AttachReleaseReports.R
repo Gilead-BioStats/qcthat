@@ -17,6 +17,7 @@ AttachReleaseReports <- function(
   chrMilestones = GuessMilestones(),
   dfITM = NULL,
   strRunID = Sys.getenv("GITHUB_RUN_ID"),
+  strJobName = Sys.getenv("GITHUB_JOB"),
   strPkgRoot = ".",
   strOwner = GetGHOwner(),
   strRepo = GetGHRepo(),
@@ -77,6 +78,7 @@ AttachReleaseReports <- function(
         strBody = CompileReleaseReportsMarkdown(
           chrBody,
           strRunID = strRunID,
+          strJobName = strJobName,
           strOwner = strOwner,
           strRepo = strRepo,
           strGHToken = strGHToken

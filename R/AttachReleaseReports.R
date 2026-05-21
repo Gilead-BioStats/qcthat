@@ -150,8 +150,7 @@ CompileReleaseReportsMarkdown <- function(
     strRunID = strRunID,
     strJobID = strJobID,
     strOwner = strOwner,
-    strRepo = strRepo,
-    strGHToken = strGHToken
+    strRepo = strRepo
   )
   strTime <- PrettyTimestamp()
   chrBody <- c(

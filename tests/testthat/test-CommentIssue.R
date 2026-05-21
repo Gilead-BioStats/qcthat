@@ -321,3 +321,27 @@ test_that("FetchSessionInfoStepNumber returns the correct step number (#150, #29
     2L
   )
 })
+
+test_that("FetchJobID converts a job name and run id to a job ID (#295)", {
+  local_mocked_bindings(
+    CallGHAPI = function(...) {
+      list(
+        jobs = list(
+          list(name = "Build", id = 111),
+          list(name = "Test Job", id = 222),
+          list(name = "Deploy", id = 333)
+        )
+      )
+    }
+  )
+  expect_equal(
+    FetchJobID(
+      strRunID = "runID",
+      strJobName = "Test Job",
+      strOwner = "owner",
+      strRepo = "repo",
+      strGHToken = "token"
+    ),
+    222
+  )
+})

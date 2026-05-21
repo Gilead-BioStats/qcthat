@@ -206,6 +206,11 @@ ConstructJobURL <- function(
   }
 }
 
+#' Fetch the GitHub Actions job ID for a given run ID and job name
+#'
+#' @inheritParams shared-params
+#' @returns The GitHub Actions job ID, or `NULL` if not found.
+#' @keywords internal
 FetchJobID <- function(
   strRunID = character(),
   strJobName = character(),

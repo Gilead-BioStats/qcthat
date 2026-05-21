@@ -2,7 +2,7 @@
 
 Determine the issue number associated with the current GitHub event, if
 the workflow was triggered by an `"issues"` event, or by a
-`"workflow_dispatch"` event with `"issueNumber"` input
+`"workflow_dispatch"` event with `"issue-number"` input
 
 ## Usage
 
@@ -20,5 +20,5 @@ GuessIssueNumber(lGHEventPayload = LoadGHEventPayload())
 ## Value
 
 An integer representing the issue number (if the event payload contains
-`issue$number` or `inputs$issueNumber`), or `NULL` if the event is not
-an `"issues"` event or the issue number cannot be found.
+`issue[["number"]]` or `inputs[["issue-number"]]`), or `NULL` if the
+event is not an `"issues"` event or the issue number cannot be found.

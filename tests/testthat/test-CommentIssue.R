@@ -3,7 +3,8 @@ test_that("CommentIssue compiles the body as expected (#83, #172, #295)", {
     CommentIssueRaw = function(strBodyCompiled, ...) strBodyCompiled,
     PrettyTimestamp = function() "TIMESTAMP",
     ConstructJobURL = function(...) "JOB URL",
-    LinkSessionInfo = function(...) "SESSION INFO"
+    LinkSessionInfo = function(...) "SESSION INFO",
+    FetchJobID = function(...) "jobID"
   )
   test_result <- CommentIssue(
     intIssue = 1,
@@ -26,7 +27,8 @@ test_that("CommentIssue updates when told to do so (#83, #100, #123, #295)", {
     UpdateIssueComment = function(...) "Success",
     PrettyTimestamp = function() "TIMESTAMP",
     ConstructJobURL = function(...) "JOB URL",
-    LinkSessionInfo = function(...) "SESSION INFO"
+    LinkSessionInfo = function(...) "SESSION INFO",
+    FetchJobID = function(...) "JOB_ID"
   )
   test_result <- CommentIssue(
     intIssue = 1,
@@ -221,7 +223,8 @@ test_that("CommentIssue includes job URL when available (#150, #295)", {
         NULL
       )
     },
-    LinkSessionInfo = function(...) "SESSION INFO"
+    LinkSessionInfo = function(...) "SESSION INFO",
+    FetchJobID = function(...) "JOB_ID"
   )
   expect_snapshot({
     CommentIssue(
@@ -266,7 +269,8 @@ test_that("CommentIssue includes session info (#150, #295)", {
     CommentIssueRaw = function(strBodyCompiled, ...) strBodyCompiled,
     PrettyTimestamp = function() "TIMESTAMP",
     ConstructJobURL = function(strRunID, strJobID, ...) "JOB URL",
-    FetchSessionInfoStepNumber = function(...) 1L
+    FetchSessionInfoStepNumber = function(...) 1L,
+    FetchJobID = function(...) "JOB_ID"
   )
   expect_snapshot({
     CommentIssue(
@@ -275,7 +279,7 @@ test_that("CommentIssue includes session info (#150, #295)", {
       strBody = "body",
       lglUpdate = FALSE,
       strRunID = "runID",
-      strJobID = "jobID",
+      strJobName = "jobID",
       strOwner = "owner",
       strRepo = "repo",
       strGHToken = "token"
@@ -295,7 +299,7 @@ test_that("ConstructJobURL returns the correct URL when both run and job IDs are
   )
 })
 
-test_that("FetchSessionInfoStpNumber returns the correct step number (#150, #295)", {
+test_that("FetchSessionInfoStepNumber returns the correct step number (#150, #295)", {
   local_mocked_bindings(
     CallGHAPI = function(...) {
       list(

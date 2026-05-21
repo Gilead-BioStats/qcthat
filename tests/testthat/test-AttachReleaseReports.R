@@ -118,14 +118,15 @@ test_that("CompileReleaseReportsMarkdown stitches together parts for releases (#
       "runurl/joburl"
     },
     PrettyTimestamp = function() "timestamp",
-    FormatSessionInfo = function() "sessioninfo"
+    FormatSessionInfo = function() "sessioninfo",
+    FetchJobID = function(...) "jobid"
   )
   expect_equal(
     {
       CompileReleaseReportsMarkdown(
         chrBody = c("Body part 1", "Body part 2"),
         strRunID = "runid",
-        strJobID = "jobid",
+        strJobName = "jobname",
         strOwner = "owner",
         strRepo = "repo",
         strGHToken = "token"

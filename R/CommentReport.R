@@ -16,7 +16,7 @@ CommentReport <- function(
   ),
   lglUpdate = TRUE,
   strRunID = Sys.getenv("GITHUB_RUN_ID"),
-  strJobID = Sys.getenv("GITHUB_JOB"),
+  strJobName = Sys.getenv("GITHUB_JOB"),
   strOwner = GetGHOwner(),
   strRepo = GetGHRepo(),
   strGHToken = gh::gh_token()
@@ -29,7 +29,7 @@ CommentReport <- function(
     ),
     strBody = FormatReportGH(dfITM),
     strRunID = strRunID,
-    strJobID = strJobID,
+    strJobName = strJobName,
     lglUpdate = lglUpdate,
     strOwner = strOwner,
     strRepo = strRepo,

@@ -2,7 +2,7 @@
 
     Code
       CommentReport(dfITM, strReportType = "Testing", intPRNumber = 99, strRunID = "",
-        strOwner = "owner", strRepo = "repo", strGHToken = "token")
+        strJobName = "", strOwner = "owner", strRepo = "repo", strGHToken = "token")
     Output
       [[1]]
       [1] 99
@@ -48,7 +48,7 @@
       $strRunID
       [1] ""
       
-      $strJobID
+      $strJobName
       [1] ""
       
       $lglUpdate

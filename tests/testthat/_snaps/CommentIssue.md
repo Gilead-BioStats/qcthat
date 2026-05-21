@@ -54,7 +54,7 @@
 
     Code
       CommentIssue(intIssue = 123, strTitle = "title", strBody = "body", lglUpdate = FALSE,
-        strRunID = "runID", strJobID = "jobID", strOwner = "owner", strRepo = "repo",
+        strRunID = "runID", strJobName = "jobID", strOwner = "owner", strRepo = "repo",
         strGHToken = "token")
     Output
       ## title

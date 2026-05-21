@@ -132,11 +132,18 @@ UpdateReleaseBody <- function(
 CompileReleaseReportsMarkdown <- function(
   chrBody,
   strRunID = Sys.getenv("GITHUB_RUN_ID"),
-  strJobID = Sys.getenv("GITHUB_JOB"),
+  strJobName = Sys.getenv("GITHUB_JOB"),
   strOwner = GetGHOwner(),
   strRepo = GetGHRepo(),
   strGHToken = gh::gh_token()
 ) {
+  strJobID <- FetchJobID(
+    strRunID = strRunID,
+    strJobName = strJobName,
+    strOwner = strOwner,
+    strRepo = strRepo,
+    strGHToken = strGHToken
+  )
   strJobURL <- ConstructJobURL(
     strRunID = strRunID,
     strJobID = strJobID,

@@ -19,11 +19,18 @@ CommentIssue <- function(
   strCommentID = rlang::hash(strTitle),
   lglUpdate = TRUE,
   strRunID = Sys.getenv("GITHUB_RUN_ID"),
-  strJobID = Sys.getenv("GITHUB_JOB"),
+  strJobName = Sys.getenv("GITHUB_JOB"),
   strOwner = GetGHOwner(),
   strRepo = GetGHRepo(),
   strGHToken = gh::gh_token()
 ) {
+  strJobID <- FetchJobID(
+    strRunID = strRunID,
+    strJobName = strJobName,
+    strOwner = strOwner,
+    strRepo = strRepo,
+    strGHToken = strGHToken
+  )
   strJobURL <- ConstructJobURL(
     strRunID = strRunID,
     strJobID = strJobID,
@@ -196,6 +203,37 @@ ConstructJobURL <- function(
     return(glue::glue(
       "https://github.com/{strOwner}/{strRepo}/actions/runs/{strRunID}/job/{strJobID}"
     ))
+  }
+}
+
+FetchJobID <- function(
+  strRunID = character(),
+  strJobName = character(),
+  strOwner = GetGHOwner(),
+  strRepo = GetGHRepo(),
+  strGHToken = gh::gh_token()
+) {
+  if (
+    length(strRunID) &&
+      nzchar(strRunID) &&
+      length(strJobName) &&
+      nzchar(strJobName)
+  ) {
+    lJobs <- CallGHAPI(
+      "GET /repos/{owner}/{repo}/actions/runs/{run_id}/jobs",
+      strOwner = strOwner,
+      strRepo = strRepo,
+      run_id = strRunID,
+      strGHToken = strGHToken
+    )$jobs
+
+    intJobIndex <- purrr::detect_index(lJobs, \(job) {
+      stringr::str_ends(tolower(job[["name"]]), tolower(strJobName))
+    })
+
+    if (intJobIndex > 0) {
+      return(lJobs[[intJobIndex]][["id"]])
+    }
   }
 }
 

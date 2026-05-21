@@ -15,6 +15,7 @@ test_that("CommentReport generates the expected call (#99, #72, #295)", {
       strReportType = "Testing",
       intPRNumber = 99,
       strRunID = "",
+      strJobName = "",
       strOwner = "owner",
       strRepo = "repo",
       strGHToken = "token"

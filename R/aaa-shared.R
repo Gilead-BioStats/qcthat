@@ -160,6 +160,7 @@
 #' @param strFilePath (`length-1 character`) A file path.
 #' @param strGHToken (`length-1 character`) GitHub token with permissions
 #'   appropriate to the action being performed.
+#' @param strJSONPath (`length-1 character`) File path to save or read JSON.
 #' @param strJobID (`length-1 character`) ID (typically numeric but can be very
 #'   long) of a GitHub Actions workflow run job.
 #' @param strJobName (`length-1 character`) Name of a GitHub Actions workflow

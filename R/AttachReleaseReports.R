@@ -89,7 +89,7 @@ AttachReleaseReports <- function(
       )
     }
   }
-  return(invisible(dfITM))
+  return(invisible(strReleaseID))
 }
 
 #' Update the body of a GitHub release

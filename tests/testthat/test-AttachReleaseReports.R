@@ -78,7 +78,7 @@ test_that("AttachReleaseReports makes the expected calls (#152, #160)", {
     },
     "UpdateReleaseBody called"
   )
-  expect_equal(returned_value, "testdf")
+  expect_equal(returned_value, "releaseID")
 
   local_mocked_bindings(
     UpdateReleaseBody = function(strReleaseID, strBody, ...) {
@@ -107,7 +107,7 @@ test_that("AttachReleaseReports makes the expected calls (#152, #160)", {
     },
     "UpdateReleaseBody called"
   )
-  expect_equal(returned_value, "testdf")
+  expect_equal(returned_value, "releaseID")
 })
 
 test_that("CompileReleaseReportsMarkdown stitches together parts for releases (#152, #295)", {

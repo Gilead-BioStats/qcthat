@@ -136,7 +136,14 @@ MaybeRerunQCPRWorkflow <- function(
     strRepo = strRepo,
     strGHToken = strGHToken
   )
-  if (length(lPRQCPRReportRuns)) {
+  # Recheck PR to make sure it's still open before rerunning.
+  lglPRIsOpen <- CheckPRIsOpen(
+    intPRNumber = intPRNumber,
+    strOwner = strOwner,
+    strRepo = strRepo,
+    strGHToken = strGHToken
+  )
+  if (lglPRIsOpen && length(lPRQCPRReportRuns)) {
     RerunWorkflowIfFinished(
       lPRActionRuns = lPRQCPRReportRuns,
       strCommitSHA = strCommitSHA,
@@ -255,5 +262,29 @@ RerunWorkflow <- function(
     strRepo = strRepo,
     strGHToken = strGHToken,
     run_id = strRunID
+  )
+}
+
+#' Check if a pull request is open
+#'
+#' @inheritParams shared-params
+#' @returns `TRUE` if the pull request is open, `FALSE` otherwise.
+#' @keywords internal
+CheckPRIsOpen <- function(
+  intPRNumber,
+  strOwner = GetGHOwner(),
+  strRepo = GetGHRepo(),
+  strGHToken = gh::gh_token()
+) {
+  ClearGHCache()
+  lPR <- CallGHAPI(
+    "GET /repos/{owner}/{repo}/pulls/{pull_number}",
+    strOwner = strOwner,
+    strRepo = strRepo,
+    strGHToken = strGHToken,
+    pull_number = intPRNumber
+  )
+  return(
+    tolower(lPR[["state"]]) == "open"
   )
 }

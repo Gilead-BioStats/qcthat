@@ -386,6 +386,11 @@ Reused parameter definitions are gathered here for easier usage. Use
   (`length-1 character`) GitHub token with permissions appropriate to
   the action being performed.
 
+- strJobID:
+
+  (`length-1 character`) ID (typically numeric but can be very long) of
+  a GitHub Actions workflow run job.
+
 - strLabel:
 
   (`length-1 character`) The name of the label to create or update.

@@ -1,14 +1,12 @@
-# Compile release reports in GitHub markdown
+# Fetch the session info step number for a GitHub Actions job
 
-Compile release reports in GitHub markdown
+Fetch the session info step number for a GitHub Actions job
 
 ## Usage
 
 ``` r
-CompileReleaseReportsMarkdown(
-  chrBody,
-  strRunID = Sys.getenv("GITHUB_RUN_ID"),
-  strJobID = Sys.getenv("GITHUB_JOB"),
+FetchSessionInfoStepNumber(
+  strJobID,
   strOwner = GetGHOwner(),
   strRepo = GetGHRepo(),
   strGHToken = gh::gh_token()
@@ -16,11 +14,6 @@ CompileReleaseReportsMarkdown(
 ```
 
 ## Arguments
-
-- strRunID:
-
-  (`length-1 character`) ID (typically numeric but can be very long) of
-  a GitHub Actions workflow run.
 
 - strJobID:
 
@@ -42,4 +35,4 @@ CompileReleaseReportsMarkdown(
 
 ## Value
 
-A single string containing the compiled markdown.
+The step number of the session info step, or `NULL` if not found.

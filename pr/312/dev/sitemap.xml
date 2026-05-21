@@ -65,6 +65,7 @@
 <url><loc>https://gilead-biostats.github.io/qcthat/dev/reference/CompileTestResults.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/qcthat/dev/reference/CompletelyFlatten.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/qcthat/dev/reference/ConnectChildIssueByID.html</loc></url>
+<url><loc>https://gilead-biostats.github.io/qcthat/dev/reference/ConstructJobURL.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/qcthat/dev/reference/ConstructUATBody.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/qcthat/dev/reference/ConstructUATBodyPiece.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/qcthat/dev/reference/CountNonNA.html</loc></url>
@@ -148,9 +149,7 @@
 <url><loc>https://gilead-biostats.github.io/qcthat/dev/reference/FetchRepoIssueClosersRawBatch.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/qcthat/dev/reference/FetchRepoIssues.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/qcthat/dev/reference/FetchRepoPRs.html</loc></url>
-<url><loc>https://gilead-biostats.github.io/qcthat/dev/reference/FetchRunInfoRaw.html</loc></url>
-<url><loc>https://gilead-biostats.github.io/qcthat/dev/reference/FetchRunJobsRaw.html</loc></url>
-<url><loc>https://gilead-biostats.github.io/qcthat/dev/reference/FetchRunURL.html</loc></url>
+<url><loc>https://gilead-biostats.github.io/qcthat/dev/reference/FetchSessionInfoStepNumber.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/qcthat/dev/reference/FetchUAIssue.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/qcthat/dev/reference/FetchUniqueIssueDetails.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/qcthat/dev/reference/FetchVectorFromGQL.html</loc></url>
@@ -197,6 +196,7 @@
 <url><loc>https://gilead-biostats.github.io/qcthat/dev/reference/IsOnline.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/qcthat/dev/reference/IsTimelineNodeFromRepo.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/qcthat/dev/reference/JoinLineCommits.html</loc></url>
+<url><loc>https://gilead-biostats.github.io/qcthat/dev/reference/LinkSessionInfo.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/qcthat/dev/reference/ListTestFiles.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/qcthat/dev/reference/LoadGHEventPayload.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/qcthat/dev/reference/LoadPkgEnv.html</loc></url>

@@ -1,14 +1,13 @@
-# Compile release reports in GitHub markdown
+# Construct the URL for the session info step of a GitHub Actions job
 
-Compile release reports in GitHub markdown
+Construct the URL for the session info step of a GitHub Actions job
 
 ## Usage
 
 ``` r
-CompileReleaseReportsMarkdown(
-  chrBody,
-  strRunID = Sys.getenv("GITHUB_RUN_ID"),
-  strJobID = Sys.getenv("GITHUB_JOB"),
+LinkSessionInfo(
+  strRunID = character(),
+  strJobID = character(),
   strOwner = GetGHOwner(),
   strRepo = GetGHRepo(),
   strGHToken = gh::gh_token()
@@ -42,4 +41,5 @@ CompileReleaseReportsMarkdown(
 
 ## Value
 
-A single string containing the compiled markdown.
+A string containing the URL for the session info step (if any) in the
+specified GitHub Actions job.

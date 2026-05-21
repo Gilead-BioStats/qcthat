@@ -1,17 +1,15 @@
-# Compile release reports in GitHub markdown
+# Construct the URL for a GitHub Actions job
 
-Compile release reports in GitHub markdown
+Construct the URL for a GitHub Actions job
 
 ## Usage
 
 ``` r
-CompileReleaseReportsMarkdown(
-  chrBody,
-  strRunID = Sys.getenv("GITHUB_RUN_ID"),
-  strJobID = Sys.getenv("GITHUB_JOB"),
+ConstructJobURL(
+  strRunID = character(),
+  strJobID = character(),
   strOwner = GetGHOwner(),
-  strRepo = GetGHRepo(),
-  strGHToken = gh::gh_token()
+  strRepo = GetGHRepo()
 )
 ```
 
@@ -35,11 +33,6 @@ CompileReleaseReportsMarkdown(
 
   (`length-1 character`) GitHub repository name.
 
-- strGHToken:
-
-  (`length-1 character`) GitHub token with permissions appropriate to
-  the action being performed.
-
 ## Value
 
-A single string containing the compiled markdown.
+A string containing the URL for the specified GitHub Actions job.

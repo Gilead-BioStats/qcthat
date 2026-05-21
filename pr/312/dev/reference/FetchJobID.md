@@ -1,14 +1,13 @@
-# Compile release reports in GitHub markdown
+# Fetch the GitHub Actions job ID for a given run ID and job name
 
-Compile release reports in GitHub markdown
+Fetch the GitHub Actions job ID for a given run ID and job name
 
 ## Usage
 
 ``` r
-CompileReleaseReportsMarkdown(
-  chrBody,
-  strRunID = Sys.getenv("GITHUB_RUN_ID"),
-  strJobName = Sys.getenv("GITHUB_JOB"),
+FetchJobID(
+  strRunID = character(),
+  strJobName = character(),
   strOwner = GetGHOwner(),
   strRepo = GetGHRepo(),
   strGHToken = gh::gh_token()
@@ -41,4 +40,4 @@ CompileReleaseReportsMarkdown(
 
 ## Value
 
-A single string containing the compiled markdown.
+The GitHub Actions job ID, or `NULL` if not found.

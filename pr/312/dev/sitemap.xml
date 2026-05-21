@@ -130,6 +130,7 @@
 <url><loc>https://gilead-biostats.github.io/qcthat/dev/reference/FetchIssueDetailsRaw.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/qcthat/dev/reference/FetchIssueDetailsSingle.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/qcthat/dev/reference/FetchIssueUAChildren.html</loc></url>
+<url><loc>https://gilead-biostats.github.io/qcthat/dev/reference/FetchJobID.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/qcthat/dev/reference/FetchMergeCommitBatchRaw.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/qcthat/dev/reference/FetchMergeCommitSHAs.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/qcthat/dev/reference/FetchMergeIssueClosers.html</loc></url>

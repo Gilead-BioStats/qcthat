@@ -23,7 +23,7 @@ test_that("GetGHAPRNumber extracts PR number from lGHEventPayload when available
     42
   )
   expect_equal(
-    GetGHAPRNumber(list(inputs = list(pr = 42))),
+    GetGHAPRNumber(list(inputs = list(`pr-number` = 42))),
     42
   )
 })

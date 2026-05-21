@@ -17,7 +17,7 @@ test_that("GetGHAPRNumber returns NULL for bad arg (#84, #163)", {
   expect_null(GetGHAPRNumber(list()))
 })
 
-test_that("GetGHAPRNumber extracts PR number from lGHEventPayload when available (#84, #163)", {
+test_that("GetGHAPRNumber extracts PR number from lGHEventPayload when available (#84, #163, #310)", {
   expect_equal(
     GetGHAPRNumber(list(pull_request = list(number = 42))),
     42

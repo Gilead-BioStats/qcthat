@@ -161,7 +161,7 @@ test_that("AttachReleaseReports runs properly on release (#181)", {
 
 test_that("FormatSessionInfo formats session info for release reports (#152, #295)", {
   local_mocked_bindings(
-    GetRawSessionInfo = function() {
+    GetSessionInfo = function() {
       c("Session info line 1", "Session info line 2")
     }
   )

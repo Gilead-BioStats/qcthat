@@ -173,7 +173,7 @@ CompileReleaseReportsMarkdown <- function(
 #' @returns A string containing the session info formatted in GitHub markdown.
 #' @keywords internal
 FormatSessionInfo <- function() {
-  lSess <- GetRawSessionInfo()
+  lSess <- GetSessionInfo()
   oldCliWidth <- options(cli.width = 80)
   on.exit(options(oldCliWidth), add = TRUE)
   glue::glue(
@@ -185,13 +185,20 @@ FormatSessionInfo <- function() {
   )
 }
 
-#' Get raw session info
+#' Get session info from available reporting functions
+#'
+#' Retrieve session info using either `sessioninfo::session_info()` (if the
+#' `sessioninfo` package is installed) or `utils::sessionInfo()`. The former
+#' provides more detailed information about the R session and installed
+#' packages.
 #'
 #' @returns The raw session info as returned by either
 #'   [sessioninfo::session_info()] (if the `sessioninfo` package is installed)
 #'   or [sessionInfo()].
-#' @keywords internal
-GetRawSessionInfo <- function() {
+#' @export
+#' @examples
+#' GetSessionInfo()
+GetSessionInfo <- function() {
   # nocov start
   if (rlang::is_installed("utils")) {
     if (rlang::is_installed("sessioninfo")) {

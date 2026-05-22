@@ -155,6 +155,7 @@
 <url><loc>https://gilead-biostats.github.io/qcthat/dev/reference/FetchUAIssue.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/qcthat/dev/reference/FetchUniqueIssueDetails.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/qcthat/dev/reference/FetchVectorFromGQL.html</loc></url>
+<url><loc>https://gilead-biostats.github.io/qcthat/dev/reference/FileExists.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/qcthat/dev/reference/FinalizeTree.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/qcthat/dev/reference/FindKeywordIssues.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/qcthat/dev/reference/FindTests.html</loc></url>
@@ -266,6 +267,7 @@
 <url><loc>https://gilead-biostats.github.io/qcthat/dev/reference/UpdateIssueComment.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/qcthat/dev/reference/UpdateIssueRaw.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/qcthat/dev/reference/UpdateReleaseBody.html</loc></url>
+<url><loc>https://gilead-biostats.github.io/qcthat/dev/reference/UseActionInProject.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/qcthat/dev/reference/UsesGit.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/qcthat/dev/reference/ValidateDFLabels.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/qcthat/dev/reference/WriteAllTempTestFiles.html</loc></url>

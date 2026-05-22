@@ -184,8 +184,8 @@
 <url><loc>https://gilead-biostats.github.io/qcthat/dev/reference/GetGitCommitInfo.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/qcthat/dev/reference/GetGitLog.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/qcthat/dev/reference/GetPkgRoot.html</loc></url>
-<url><loc>https://gilead-biostats.github.io/qcthat/dev/reference/GetRawSessionInfo.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/qcthat/dev/reference/GetRelativePackagePath.html</loc></url>
+<url><loc>https://gilead-biostats.github.io/qcthat/dev/reference/GetSessionInfo.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/qcthat/dev/reference/GlueEscaped.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/qcthat/dev/reference/GuessIssueNumber.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/qcthat/dev/reference/GuessMilestones.html</loc></url>

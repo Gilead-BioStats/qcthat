@@ -42,6 +42,8 @@
   : Find the owner of the target repository
 - [`GetGHRepo()`](https://gilead-biostats.github.io/qcthat/dev/reference/GetGHRepo.md)
   : Find the name of the target repository
+- [`GetSessionInfo()`](https://gilead-biostats.github.io/qcthat/dev/reference/GetSessionInfo.md)
+  : Get session info from available reporting functions
 - [`GuessIssueNumber()`](https://gilead-biostats.github.io/qcthat/dev/reference/GuessIssueNumber.md)
   : Guess the relevant issue number from the GitHub event
 - [`GuessMilestones()`](https://gilead-biostats.github.io/qcthat/dev/reference/GuessMilestones.md)

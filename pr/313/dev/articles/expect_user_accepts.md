@@ -1,0 +1,193 @@
+# User acceptance testing with ExpectUserAccepts
+
+Some quality requirements can’t be verified by automated tests.
+Aesthetic changes to an HTML report, layout adjustments, or visual
+design updates require a human to look at the result and confirm it
+meets expectations.
+[`ExpectUserAccepts()`](https://gilead-biostats.github.io/qcthat/dev/reference/ExpectUserAccepts.md)
+bridges this gap by connecting [testthat](https://testthat.r-lib.org)
+tests to GitHub issues that a reviewer can close to indicate acceptance.
+
+This extends the test coverage that
+[qcthat](https://gilead-biostats.github.io/qcthat/) tracks to include
+things that only a person can verify, which is often exactly what
+matters most to stakeholders.
+
+The workflow involves three roles:
+
+- 🧑‍💻 **PD** (Program Developer): writes the code fix and the acceptance
+  test
+- 💼 **USR** (User/Reviewer): inspects the result and closes the issue
+  to accept
+- 🤖 **AUTO** (Automated System): re-runs the test suite when the issue
+  is closed
+
+## The scenario
+
+Suppose issue `#42` documents an aesthetic problem: the HTML report
+header uses outdated brand colors. A developer creates branch `fix-42`,
+implements the CSS changes, and needs sign-off from a non-technical
+reviewer before the fix is considered complete.
+
+The developer 🧑‍💻 adds a test:
+
+``` r
+
+test_that("Report header uses the updated brand colors (#42)", {
+  ExpectUserAccepts(
+    strDescription = "Report header uses updated brand colors",
+    intIssue = 42L,
+    chrInstructions = "Open the report at https://example.com/preview and inspect the header.",
+    chrChecks = c(
+      "Header background is #59488f",
+      "Logo is centered and not clipped",
+      "Font renders as Montserrat on the title"
+    ),
+    chrAssignees = "design-reviewer"
+  )
+})
+```
+
+- `strDescription`: a short summary that becomes the sub-issue title.
+- `intIssue`: the parent GitHub issue number (`#42`). Even if the
+  enclosing `test_that()` links to multiple issues, this must be a
+  single issue number.
+- `chrInstructions`: optional context for the reviewer, such as a link
+  to a preview deployment.
+- `chrChecks`: checkbox items the reviewer will see in the sub-issue
+  body.
+- `chrAssignees`: GitHub username(s) of the reviewer(s) to assign. This
+  parameter defaults to a `qcthat_UAT_ASSIGNEES` environment variable,
+  allowing you to set assignees dynamically in automated checks. We
+  recommend leaving the assignee blank in the individual test then
+  setting it dynamically through the GitHub action, as described in
+  [Environment variables](#environment-variables).
+
+## What happens behind the scenes
+
+When the test runs,
+[`ExpectUserAccepts()`](https://gilead-biostats.github.io/qcthat/dev/reference/ExpectUserAccepts.md)
+performs the following steps:
+
+1.  **Guard checks.** The function only executes when not on CRAN,
+    inside a git repository, and online. Otherwise it silently returns
+    without side effects.
+
+2.  **Issue lookup.** Searches for an existing child issue of `#42` with
+    the `qcthat-uat` label and a matching title
+    (`"qcthat Acceptance for #42: Report header uses updated brand colors"`).
+
+3.  **Issue creation.** If no matching child issue exists, creates one
+    as a sub-issue of `#42` with:
+
+    - The title above
+    - A body containing: *“Close this issue to indicate your
+      acceptance.”*, the `chrInstructions` text, and checkbox items from
+      `chrChecks`
+    - The `qcthat-uat` label
+
+4.  **Assignment.** Assigns the specified GitHub user(s). If the issue
+    was previously closed and a new assignee is added, the issue is
+    automatically re-opened.
+
+5.  **State check.**
+
+    - If the sub-issue is **closed**:
+      [`testthat::pass()`](https://testthat.r-lib.org/reference/fail.html).
+    - If the sub-issue is **open**:
+      [`testthat::fail()`](https://testthat.r-lib.org/reference/fail.html),
+      but only when `lglReportFailure` is `TRUE`. By default this is
+      controlled by the `qcthat_UAT` environment variable (see
+      [Environment variables](#environment-variables)). When
+      `lglReportFailure` is `FALSE`, the expectation is skipped (returns
+      `NULL` without signalling a condition, so other expectations in
+      the same `test_that()` block will still run).
+
+6.  **Logging.** Records the result to an internal registry used by
+    [`CommentUAT()`](https://gilead-biostats.github.io/qcthat/dev/reference/CommentUAT.md)
+    to post status reports on pull requests.
+
+During local development, the test **does not fail** by default because
+the `qcthat_UAT` environment variable is not set. It only reports
+failures in the GitHub Actions workflow where `qcthat_UAT: true` is
+configured.
+
+## The reviewer’s 💼 workflow
+
+1.  The reviewer receives a GitHub notification for the assigned
+    sub-issue.
+2.  The issue body lists the checks as checkboxes and includes any
+    instructions.
+3.  The reviewer inspects the report (e.g., on a deployed preview or
+    locally) and works through the checklist.
+4.  If satisfied, the reviewer **closes the issue** to indicate
+    acceptance.
+5.  If changes are needed, the reviewer **comments** with required
+    changes and leaves the issue open.
+
+## GitHub Actions 🤖 integration
+
+The `qcthat.yaml` workflow (installed via
+[`use_qcthat()`](https://gilead-biostats.github.io/qcthat/dev/reference/use_qcthat.md))
+handles the automated side:
+
+1.  When a `qcthat-uat` labeled issue is **closed**, the workflow fires
+    on the `issues: [closed]` event.
+2.  The workflow runs
+    [`TriggerUAT()`](https://gilead-biostats.github.io/qcthat/dev/reference/TriggerUAT.md),
+    which finds open pull requests referencing the closed issue.
+3.  If no workflow run is already in progress for those PRs, the QC
+    workflow is re-triggered.
+4.  On re-run, the test suite executes again. This time
+    [`ExpectUserAccepts()`](https://gilead-biostats.github.io/qcthat/dev/reference/ExpectUserAccepts.md)
+    sees the sub-issue is closed and calls
+    [`testthat::pass()`](https://testthat.r-lib.org/reference/fail.html).
+5.  The UAT report comment on the PR is updated to reflect the accepted
+    state.
+
+This means the reviewer does not need to understand R,
+[testthat](https://testthat.r-lib.org), or the CI system. They just
+close a GitHub issue.
+
+## Environment variables
+
+| Variable | Purpose | Default |
+|----|----|----|
+| `qcthat_UAT` | Set to `"TRUE"` to make open UAT issues report as test failures. Checked by [`IsCheckingUAT()`](https://gilead-biostats.github.io/qcthat/dev/reference/IsCheckingUAT.md). | `""` (failures are not reported) |
+| `qcthat_UAT_ASSIGNEES` | Comma-separated GitHub usernames for default assignees. | `""` |
+
+Both are typically set in `.github/workflows/qcthat.yaml` rather than
+locally.
+
+## Tips
+
+- Keep `strDescription` short and specific — it becomes the sub-issue
+  title.
+- Use `chrInstructions` to link the reviewer to a preview deployment or
+  specific page in the report.
+- Multiple
+  [`ExpectUserAccepts()`](https://gilead-biostats.github.io/qcthat/dev/reference/ExpectUserAccepts.md)
+  calls can exist in the same test file (even withing the same
+  `test_that()` block), each tracking a different aspect of the same
+  issue or different issues.
+- You can set assignees via the `qcthat_UAT_ASSIGNEES` environment
+  variable in your workflow YAML instead of hard-coding usernames. This
+  allows different assignees per branch target:
+
+``` r
+
+# In your workflow YAML:
+# qcthat_UAT_ASSIGNEES: "design-reviewer,product-owner"
+
+# In your test — uses the env var by default:
+test_that("dashboard layout matches mockup (#55)", {
+  ExpectUserAccepts(
+    strDescription = "Dashboard layout matches mockup",
+    intIssue = 55L,
+    chrChecks = c(
+      "Sidebar collapses on mobile",
+      "Charts are responsive"
+    )
+  )
+})
+```

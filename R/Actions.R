@@ -43,20 +43,27 @@ UseActionInProject <- function(
   strPkgRoot = "."
 ) {
   # nocov start
-  strSourceURL <- fs::path(
-    "Gilead-BioStats/qcthat/.github/workflows/",
-    strActionFilename
-  )
+  strWorkflowDir <- fs::path(".github/workflows")
+  strWorkflowPath <- fs::path(strWorkflowDir, strActionFilename)
   usethis::with_project(
     strPkgRoot,
-    usethis::use_github_action(
-      url = strSourceURL,
-      ref = "federated-action",
-      open = FALSE,
-      ignore = FALSE
-    )
+    {
+      fs::dir_create(strWorkflowDir)
+      usethis::use_github_file(
+        "Gilead-BioStats/qcthat",
+        path = strActionFilename,
+        ref = "actions",
+        open = FALSE,
+        ignore = FALSE,
+        save_as = strWorkflowPath
+      )
+    }
   )
-  invisible(strSourceURL)
+  invisible(fs::path(
+    "https://raw.githubusercontent.com/",
+    "Gilead-BioStats/qcthat/actions/",
+    strActionFilename
+  ))
   # nocov end
 }
 

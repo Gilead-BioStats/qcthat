@@ -9,24 +9,55 @@ InstallAction <- function(
   strPkgRoot = ".",
   envCall = rlang::caller_env()
 ) {
-  # Note: I intended for this to be a wrapper around
-  # usethis::use_github_action(), but the url of the action would have to be
-  # hard-coded, and I don't want to point at dev (or, worse, hack it to point at
-  # this branch while I develop this feature). I'd rather keep the action
-  # associated with a specific release, to avoid weird bugs. That DOES mean we
-  # need to update the package in order to update the action, but I think I
-  # prefer that. (@jonthegeek, 2025-11-07)
-  if (strActionName != "qcthat") {
-    strActionName <- NormalizeLabelPrefix(strActionName)
-  }
-  InstallFile(
-    chrSourcePath = c("workflows", strActionName),
-    chrTargetPath = c(".github", "workflows", strActionName),
-    strExtension = "yaml",
-    lglOverwrite = lglOverwrite,
-    strPkgRoot = strPkgRoot,
-    envCall = envCall
+  strActionFilename <- fs::path_ext_set(strActionName, "yaml")
+  strInstallPath <- fs::path(
+    strPkgRoot,
+    ".github",
+    "workflows",
+    strActionFilename
   )
+  if (!lglOverwrite && FileExists(strInstallPath)) {
+    qcthatAbort(
+      c(
+        "A GitHub Action YAML file already exists at {.path {strInstallPath}}. ",
+        i = "Set `lglOverwrite = TRUE` to overwrite it."
+      ),
+      strErrorSubclass = "action_exists",
+      envCall = envCall
+    )
+  }
+  UseActionInProject(strActionFilename, strPkgRoot)
+  return(invisible(strInstallPath))
+}
+
+#' Use a GitHub Action in a project
+#'
+#' @param strActionFilename (`length-1 character`) The filename of the GitHub
+#'   Action YAML file.
+#' @param strPkgRoot (`length-1 character`) The root directory of the package.
+#' @returns (`length-1 character`) The URL of the GitHub Action YAML file that
+#'   was added.
+#' @keywords internal
+UseActionInProject <- function(
+  strActionFilename,
+  strPkgRoot = "."
+) {
+  # nocov start
+  strSourceURL <- fs::path(
+    "Gilead-BioStats/qcthat/.github/workflows/",
+    strActionFilename
+  )
+  usethis::with_project(
+    strPkgRoot,
+    usethis::use_github_action(
+      url = strSourceURL,
+      ref = "federated-action",
+      open = FALSE,
+      ignore = FALSE
+    )
+  )
+  invisible(strSourceURL)
+  # nocov end
 }
 
 #' Use a GitHub Action to manage qcthat

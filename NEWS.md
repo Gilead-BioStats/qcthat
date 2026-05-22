@@ -17,6 +17,8 @@ This patch release streamlines and hones the GitHub Action installed via `Action
 * `vignette("expect_user_accepts")` added to describe the "User acceptance testing with ExpectUserAccepts" process (#293).
 * qcthat installs the dev version of gh to avoid issues with GitHub PATs caused by recent changes to the GitHub API.
 
+* `ExpectUserAccepts()` now updates the body of existing `qcthat-uat` issues when `chrChecks` or `chrInstructions` change (#290).
+
 # qcthat 1.1.2
 
 This patch release focuses on introducing the world to qcthat.

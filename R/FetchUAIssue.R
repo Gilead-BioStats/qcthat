@@ -43,6 +43,20 @@ FetchUAIssue <- function(
       strRepo = strRepo,
       strGHToken = strGHToken
     )
+  } else {
+    strExpectedBody <- BodyUAIssue(
+      chrChecks = chrChecks,
+      chrInstructions = chrInstructions
+    )
+    if (!isTRUE(dfMatchingIssue$Body == strExpectedBody)) {
+      UpdateIssue(
+        intIssue = dfMatchingIssue$Issue,
+        strBody = strExpectedBody,
+        strOwner = strOwner,
+        strRepo = strRepo,
+        strGHToken = strGHToken
+      )
+    }
   }
   return(as.list(dfMatchingIssue))
 }
@@ -97,4 +111,23 @@ FetchIssueChildren <- function(
 #' @keywords internal
 TitleUAIssue <- function(strDescription, intIssue) {
   glue::glue("qcthat Acceptance for #{intIssue}: {strDescription}")
+}
+
+#' Generate a body for a UAT issue
+#'
+#' @inheritParams shared-params
+#' @returns A string body for the UAT issue.
+#' @keywords internal
+BodyUAIssue <- function(
+  chrChecks = character(),
+  chrInstructions = character()
+) {
+  stringr::str_flatten(
+    c(
+      "Close this issue to indicate your acceptance.",
+      chrInstructions,
+      glue::glue("- [ ] {chrChecks}", sep = "\n")
+    ),
+    collapse = "\n\n"
+  )
 }

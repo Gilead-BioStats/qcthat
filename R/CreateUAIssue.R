@@ -13,13 +13,9 @@ CreateUAIssue <- function(
   strGHToken = gh::gh_token()
 ) {
   strTitle <- TitleUAIssue(strDescription, intIssue)
-  strBody <- stringr::str_flatten(
-    c(
-      "Close this issue to indicate your acceptance.",
-      chrInstructions,
-      glue::glue("- [ ] {chrChecks}", sep = "\n")
-    ),
-    collapse = "\n\n"
+  strBody <- BodyUAIssue(
+    chrChecks = chrChecks,
+    chrInstructions = chrInstructions
   )
   tryCatch(
     {

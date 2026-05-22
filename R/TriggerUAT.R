@@ -285,6 +285,6 @@ CheckPRIsOpen <- function(
     pull_number = intPRNumber
   )
   return(
-    tolower(lPR[["state"]]) == "open"
+    isTRUE(tolower(lPR[["state"]]) == "open")
   )
 }

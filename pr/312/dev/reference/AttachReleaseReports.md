@@ -102,4 +102,4 @@ AttachReleaseReports(
 
 ## Value
 
-`dfITM`, invisibly.
+The resolved `strReleaseID`, invisibly.

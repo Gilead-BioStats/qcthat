@@ -1,4 +1,4 @@
-# name: qcthat
+# name: qcthat.yaml
 # version: 0.1.0
 # Description: Generate qcthat quality control reports for pull requests and releases and manage user acceptance testing.
 on:

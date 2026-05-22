@@ -1,31 +1,43 @@
-test_that("InstallAction calls InstallFile with expected parts (#73)", {
+test_that("Action_qcthat calls InstallAction with the expected arguments (#205, #303)", {
   local_mocked_bindings(
-    InstallFile = function(
-      chrSourcePath,
-      chrTargetPath,
-      strExtension,
-      lglOverwrite,
-      strPkgRoot,
-      envCall
-    ) {
-      expect_identical(
-        chrSourcePath,
-        c("workflows", "qcthat-testAction")
-      )
-      expect_identical(
-        chrTargetPath,
-        c(".github", "workflows", "qcthat-testAction")
-      )
-      expect_identical(strExtension, "yaml")
-      expect_identical(lglOverwrite, FALSE)
-      expect_identical(strPkgRoot, ".")
-      expect_type(envCall, "environment")
-      "mocked_path"
+    InstallAction = function(strActionName, ...) {
+      list(strActionName = strActionName, ...)
     }
   )
-  expect_identical(
-    InstallAction(strActionName = "testAction"),
-    "mocked_path"
+  expect_equal(
+    Action_qcthat(lglOverwrite = TRUE, strPkgRoot = "test-pkg"),
+    list(
+      strActionName = "qcthat",
+      strPkgRoot = "test-pkg",
+      lglOverwrite = TRUE
+    )
+  )
+})
+
+test_that("Action_qcthat fails if a YAML file already exists and lglOverwrite is FALSE (#205, #303)", {
+  local_mocked_bindings(
+    FileExists = function(strPath) {
+      TRUE
+    }
+  )
+  expect_error(
+    Action_qcthat(lglOverwrite = FALSE, strPkgRoot = "test-pkg"),
+    class = "qcthat-error-action_exists"
+  )
+})
+
+test_that("InstallAction returns the installation path invisibly (#205, #303)", {
+  local_mocked_bindings(
+    FileExists = function(strPath) {
+      FALSE
+    },
+    UseActionInProject = function(...) {
+      # Do nothing
+    }
+  )
+  expect_equal(
+    InstallAction("test-action", lglOverwrite = TRUE, strPkgRoot = "test-pkg"),
+    invisible(fs::path("test-pkg", ".github", "workflows", "test-action.yaml"))
   )
 })
 

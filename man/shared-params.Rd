@@ -230,6 +230,14 @@ any effect.}
 \item{strGHToken}{(\verb{length-1 character}) GitHub token with permissions
 appropriate to the action being performed.}
 
+\item{strJSONPath}{(\verb{length-1 character}) File path to save or read JSON.}
+
+\item{strJobID}{(\verb{length-1 character}) ID (typically numeric but can be very
+long) of a GitHub Actions workflow run job.}
+
+\item{strJobName}{(\verb{length-1 character}) Name of a GitHub Actions workflow
+job.}
+
 \item{strLabel}{(\verb{length-1 character}) The name of the label to create or
 update.}
 

@@ -12,6 +12,7 @@ AttachReleaseReports(
   chrMilestones = GuessMilestones(),
   dfITM = NULL,
   strRunID = Sys.getenv("GITHUB_RUN_ID"),
+  strJobName = Sys.getenv("GITHUB_JOB"),
   strPkgRoot = ".",
   strOwner = GetGHOwner(),
   strRepo = GetGHRepo(),
@@ -40,6 +41,9 @@ returned by \code{\link[=AsIssueTestMatrix]{AsIssueTestMatrix()}} (often via \co
 \item{strRunID}{(\verb{length-1 character}) ID (typically numeric but can be very
 long) of a GitHub Actions workflow run.}
 
+\item{strJobName}{(\verb{length-1 character}) Name of a GitHub Actions workflow
+job.}
+
 \item{strPkgRoot}{(\verb{length-1 character}) The path to a directory in the
 package. Will be expanded using \code{\link[gert:git_find]{gert::git_find()}}.}
 
@@ -61,7 +65,7 @@ included in the filter (but the report still returns results). Defaults to
 Typically set to \code{\link[rlang:caller_env]{rlang::caller_env()}}.}
 }
 \value{
-\code{dfITM}, invisibly.
+The resolved \code{strReleaseID}, invisibly.
 }
 \description{
 Update a GitHub release with one or more QC reports, formatted in GitHub

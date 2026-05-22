@@ -31,13 +31,13 @@ GuessPRNumber <- function(
 #' @inheritParams shared-params
 #' @returns An integer pull request number, or `NULL` if the GitHub Actions
 #'   event payload does not include a pull request number (for example, when
-#'   the workflow was not triggered by a pull_request event or no `inputs.pr`
-#'   value was provided).
+#'   the workflow was not triggered by a pull_request event or no
+#'   `inputs.pr-number` value was provided).
 #' @keywords internal
 GetGHAPRNumber <- function(lGHEventPayload = LoadGHEventPayload()) {
   if (is.list(lGHEventPayload)) {
-    intPRNumber <- lGHEventPayload$pull_request$number %||%
-      lGHEventPayload$inputs$pr
+    intPRNumber <- lGHEventPayload[["pull_request"]][["number"]] %||%
+      lGHEventPayload[["inputs"]][["pr-number"]]
     intPRNumber <- suppressWarnings(as.integer(intPRNumber))
     if (length(intPRNumber) && !is.na(intPRNumber)) {
       return(intPRNumber)
@@ -68,13 +68,13 @@ FetchRefPRNumber <- function(
     strGHToken = strGHToken,
     strState = "all"
   ) |>
-    dplyr::filter(.data$HeadRef == strSourceRef)
+    dplyr::filter(.data[["HeadRef"]] == strSourceRef)
 
   if (!NROW(dfPRs)) {
     return(integer())
   }
   if (NROW(dfPRs) == 1L) {
-    return(dfPRs$PR)
+    return(dfPRs[["PR"]])
   }
   cli::cli_warn(
     c(
@@ -101,12 +101,12 @@ ChooseRefPRNumber <- function(dfPRs, strSourceRef = GetActiveBranch()) {
       class = "qcthat-error-invalid_pr_dataframe"
     )
   }
-  if (any(dfPRs$State == "open", na.rm = TRUE)) {
-    dfPRs <- dplyr::filter(dfPRs, .data$State == "open")
+  if (any(dfPRs[["State"]] == "open", na.rm = TRUE)) {
+    dfPRs <- dplyr::filter(dfPRs, .data[["State"]] == "open")
   }
   if (NROW(dfPRs)) {
-    intPR <- dplyr::arrange(dfPRs, dplyr::desc(.data$CreatedAt)) |>
-      dplyr::pull(.data$PR)
+    intPR <- dplyr::arrange(dfPRs, dplyr::desc(.data[["CreatedAt"]])) |>
+      dplyr::pull(.data[["PR"]])
     return(intPR[[1]])
   }
 }

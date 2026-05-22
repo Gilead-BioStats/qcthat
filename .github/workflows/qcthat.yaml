@@ -1,4 +1,4 @@
-# name: qcthat
+# name: qcthat.yaml
 # version: 0.1.0
 # Description: Generate qcthat quality control reports for pull requests and releases and manage user acceptance testing.
 on:
@@ -40,7 +40,7 @@ jobs:
     if: >-
       (github.event_name == 'issues' && contains(github.event.issue.labels.*.name, 'qcthat-uat')) ||
       github.event_name != 'issues'
-    uses: Gilead-BioStats/qcthat/.github/workflows/qcthat-core.yaml@federated-action
+    uses: Gilead-BioStats/qcthat/.github/workflows/qcthat-core.yaml@actions
     secrets:
       token: ${{ secrets.GITHUB_TOKEN }}
     with:

@@ -1,0 +1,42 @@
+name: Update Release Reports
+description: >
+  Attaches qcthat reports to a GitHub release.
+
+inputs:
+  generate-completed-report:
+    description: Whether to generate completed issue reports.
+    default: 'true'
+  generate-milestone-report:
+    description: Whether to generate milestone reports.
+    default: 'true'
+  milestone:
+    description: Milestone name to use to target the milestone report (leave blank for none).
+  run-id:
+    description: The GitHub Actions run ID.
+    default: ${{ github.run_id }}
+  token:
+    description: GitHub token.
+    default: ${{ github.token }}
+
+runs:
+  using: "composite"
+  steps:
+    - name: Update Release Reports
+      env:
+        GITHUB_PAT: ${{ inputs.token }}
+      shell: Rscript {0}
+      run: |
+        issueTestMatrix <- readRDS("ITM.rds")
+        qcthat::LoadUATIssues()
+        qcthat::AttachReleaseReports(
+          lglCompleted = ${{ inputs.generate-completed-report == 'true' && 'TRUE' || 'FALSE' }},
+          lglMilestone = ${{ inputs.generate-milestone-report == 'true' && 'TRUE' || 'FALSE' }},
+          chrMilestones = "${{ inputs.milestone }}",
+          dfITM = issueTestMatrix,
+          strRunID = "${{ inputs.run-id }}",
+          strOwner = "${{ github.repository_owner }}",
+          strRepo = "${{ github.event.repository.name }}",
+          strGHToken = "${{ inputs.token }}",
+          lglWarn = TRUE,
+          chrIgnoredLabels = qcthat::DefaultIgnoreLabels()
+        )

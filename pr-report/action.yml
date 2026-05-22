@@ -1,0 +1,58 @@
+name: Update PR Reports
+description: >
+  Adds or updates qcthat reports as a comment on a pull request.
+
+inputs:
+  pr-number:
+    description: PR number to which reports should be added.
+    required: true
+  generate-completed-report:
+    description: Whether to generate completed issue reports.
+    default: 'true'
+  generate-milestone-report:
+    description: Whether to generate milestone reports.
+    default: 'true'
+  generate-pr-report:
+    description: Whether to generate PR reports.
+    default: 'true'
+  manage-uat:
+    description: Whether to manage User Acceptance Testing.
+    default: 'true'
+  milestone:
+    description: Milestone name to use to target the milestone report (leave blank for none).
+  run-id:
+    description: The GitHub Actions run ID.
+    default: ${{ github.run_id }}
+  token:
+    description: GitHub token.
+    default: ${{ github.token }}
+  uat-assignees:
+    description: Comma-separated list of GitHub usernames to assign as UAT testers.
+
+runs:
+  using: "composite"
+  steps:
+    - name: Update PR Reports
+      env:
+        GITHUB_PAT: ${{ inputs.token }}
+        qcthat_UAT_ASSIGNEES: ${{ inputs.uat-assignees }}
+      shell: Rscript {0}
+      run: |
+        issueTestMatrix <- readRDS("ITM.rds")
+        qcthat::LoadUATIssues()
+        qcthat::CommentAllReports(
+          intPRNumber = ${{ inputs.pr-number != '' && inputs.pr-number || 'NULL' }},
+          lglCompleted = ${{ inputs.generate-completed-report == 'true' && 'TRUE' || 'FALSE' }},
+          lglMilestone = ${{ inputs.generate-milestone-report == 'true' && 'TRUE' || 'FALSE' }},
+          lglPR = ${{ inputs.generate-pr-report == 'true' && 'TRUE' || 'FALSE' }},
+          lglUAT = ${{ inputs.manage-uat == 'true' && 'TRUE' || 'FALSE' }},
+          chrMilestones = ${{ inputs.milestone != '' && format('"{0}"', inputs.milestone) || 'NULL' }},
+          dfITM = issueTestMatrix,
+          lglUpdate = TRUE,
+          strRunID = "${{ inputs.run-id }}",
+          strOwner = "${{ github.repository_owner }}",
+          strRepo = "${{ github.event.repository.name }}",
+          strGHToken = "${{ inputs.token }}",
+          lglWarn = TRUE,
+          chrIgnoredLabels = qcthat::DefaultIgnoreLabels()
+        )

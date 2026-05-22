@@ -1,0 +1,37 @@
+name: Determine checkout ref
+description: >
+  Determines the git ref to check out based on a PR number or release tag.
+
+inputs:
+  pr-number:
+    description: PR number to check out (leave blank for none).
+  tag:
+    description: Release tag to check out (leave blank for none).
+  token:
+    description: GitHub token.
+    default: ${{ github.token }}
+
+outputs:
+  ref:
+    description: The git ref to check out.
+    value: ${{ steps.get-ref.outputs.ref }}
+
+runs:
+  using: "composite"
+  steps:
+    - name: Determine checkout ref
+      id: get-ref
+      env:
+        GH_TOKEN: ${{ inputs.token }}
+      shell: bash
+      run: |
+        if [ -n "${{ inputs.pr-number }}" ]; then
+          if ! [[ "${{ inputs.pr-number }}" =~ ^[0-9]+$ ]]; then
+            echo "Error: pr-number must contain only digits."
+            exit 1
+          fi
+          ref=$(gh pr view ${{ inputs.pr-number }} --repo ${{ github.repository }} --json headRefName --jq '.headRefName')
+          echo "ref=$ref" >> $GITHUB_OUTPUT
+        elif [ -n "${{ inputs.tag }}" ]; then
+          echo "ref=${{ inputs.tag }}" >> $GITHUB_OUTPUT
+        fi

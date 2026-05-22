@@ -1,0 +1,29 @@
+name: Generate Issue-Test Matrix
+description: >
+  Generates the Issue-Test Matrix for the package and saves it to ITM.rds.
+
+inputs:
+  token:
+    description: GitHub token.
+    default: ${{ github.token }}
+
+runs:
+  using: "composite"
+  steps:
+    - name: Generate Issue-Test Matrix
+      env:
+        GITHUB_PAT: ${{ inputs.token }}
+      shell: Rscript {0}
+      run: |
+        # Generate the full matrix for the package
+        IssueTestMatrix <- qcthat::QCPackage(
+          strOwner = "${{ github.repository_owner }}",
+          strRepo = "${{ github.event.repository.name }}",
+          strGHToken = "${{ inputs.token }}",
+          chrIgnoredLabels = qcthat::DefaultIgnoreLabels()
+        )
+        print(IssueTestMatrix)
+
+        # Save the matrix and UAT data for subsequent steps
+        saveRDS(IssueTestMatrix, "ITM.rds")
+        qcthat::SaveUATIssues()

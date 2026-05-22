@@ -1,0 +1,203 @@
+on:
+  workflow_call:
+    inputs:
+      manage-uat:
+        description: Whether to manage User Acceptance Testing.
+        type: boolean
+        default: true
+      generate-pr-report:
+        description: Whether to generate PR reports.
+        type: boolean
+        default: true
+      generate-completed-report:
+        description: Whether to generate completed issue reports.
+        type: boolean
+        default: true
+      generate-milestone-report:
+        description: Whether to generate milestone reports.
+        type: boolean
+        default: true
+      generate-release-report:
+        description: Whether to generate release reports.
+        type: boolean
+        default: true
+      fail-for-test-failures:
+        description: Whether to fail the workflow for test failures.
+        type: boolean
+        default: true
+      fail-for-missing-tests:
+        description: Whether to fail the workflow if PR-associated issues lack tests.
+        type: boolean
+        default: true
+      uat-assignees:
+        description: Comma-separated list of GitHub usernames to assign as UAT testers.
+        type: string
+      has-uat-label:
+        description: Whether the triggering issue has the qcthat-uat label.
+        type: boolean
+        default: false
+      pr-number:
+        description: PR number to which reports should be added (leave blank for none).
+        type: string
+      milestone:
+        description: Milestone name to use to target the milestone report (leave blank for none).
+        type: string
+      tag:
+        description: Release tag to which the report should be attached (leave blank for none).
+        type: string
+      issue-number:
+        description: The closed issue number to process to update user acceptance testing information.
+        type: string
+      qcthat-ref:
+        description: A specific qcthat GitHub reference, such as a tag ("@v1.0.0"), branch ("@dev"), commit ("@480c247"), or pull request number ("#312") to use for reports and UAT management. Defaults to the latest release, "@*release".
+        type: string
+        default: '@*release'
+    secrets:
+      token:
+        description: "GitHub token, set to secrets.GITHUB_TOKEN"
+
+name: qcthat-core
+
+permissions:
+  # read: Required for generating reports and updating UAT status.
+  # write: Required for initiating the UAT process.
+  issues: write
+  # read: Required for updating UAT status.
+  # write: Required for adding reports to pull requests.
+  pull-requests: write
+  # write: Required for attaching reports to releases.
+  contents: write
+  # write: Required for updating UAT status.
+  actions: write
+
+jobs:
+  qcthat-uat:
+    runs-on: ubuntu-latest
+    if: >-
+      inputs.manage-uat && (
+        (github.event_name == 'issues' && inputs.has-uat-label) ||
+        (github.event_name == 'workflow_dispatch' && inputs.issue-number != '')
+      )
+    env:
+      GITHUB_PAT: ${{ secrets.token || github.token }}
+      qcthat_UAT_ASSIGNEES: ${{ inputs.uat-assignees }}
+
+    steps:
+      - name: Check out repo
+        uses: gilead-biostats/gsm.utils/checkout@actions-v1
+
+      - name: Install R and dependencies
+        uses: gilead-biostats/gsm.utils/install@actions-v1
+        with:
+          token: ${{ secrets.token || github.token }}
+          extra-packages: Gilead-BioStats/qcthat${{ inputs.qcthat-ref }} local::.
+          use-public-rspm: true
+
+      - name: Session info
+        run: sessionInfo()
+        shell: Rscript {0}
+
+      - name: Manage User Acceptance Testing
+        run: |
+          qcthat::TriggerUAT(
+            intClosedIssue = ${{ inputs.issue-number }},
+            strOwner = "${{ github.repository_owner }}",
+            strRepo = "${{ github.event.repository.name }}",
+            strGHToken = "${{ secrets.token || github.token }}"
+          )
+        shell: Rscript {0}
+
+  qcthat-reports:
+    runs-on: ubuntu-latest
+    if: >-
+      github.event_name != 'issues' &&
+      !(github.event_name == 'workflow_dispatch' && inputs.issue-number != '')
+    env:
+      GITHUB_PAT: ${{ secrets.token || github.token }}
+
+    steps:
+      - name: Determine checkout ref
+        id: get-ref
+        if: github.event_name == 'workflow_dispatch'
+        uses: gilead-biostats/gsm.utils/determine-ref@actions-v1
+        with:
+          pr-number: ${{ inputs.pr-number }}
+          tag: ${{ inputs.tag }}
+          token: ${{ secrets.token || github.token }}
+
+      - name: Check out repo
+        uses: gilead-biostats/gsm.utils/checkout@actions-v1
+        with:
+          ref: ${{ steps.get-ref.outputs.ref }}
+
+      - name: Install R and dependencies
+        uses: gilead-biostats/gsm.utils/install@actions-v1
+        with:
+          token: ${{ secrets.token || github.token }}
+          extra-packages: Gilead-BioStats/qcthat${{ inputs.qcthat-ref }} local::.
+          use-public-rspm: true
+
+      - name: Session info
+        run: sessionInfo()
+        shell: Rscript {0}
+
+      - name: Generate Issue-Test Matrix
+        uses: gilead-biostats/qcthat/generate-itm@actions
+        with:
+          token: ${{ secrets.token || github.token }}
+
+      - name: Update PR Reports
+        if: >-
+          inputs.generate-pr-report && (
+            github.event_name == 'pull_request' ||
+            (github.event_name == 'workflow_dispatch' && inputs.pr-number != '')
+          )
+        uses: gilead-biostats/qcthat/pr-report@actions
+        with:
+          pr-number: ${{ inputs.pr-number }}
+          generate-completed-report: ${{ inputs.generate-completed-report }}
+          generate-milestone-report: ${{ inputs.generate-milestone-report }}
+          generate-pr-report: ${{ inputs.generate-pr-report }}
+          manage-uat: ${{ inputs.manage-uat }}
+          milestone: ${{ inputs.milestone }}
+          run-id: ${{ github.run_id }}
+          token: ${{ secrets.token || github.token }}
+          uat-assignees: ${{ inputs.uat-assignees }}
+
+      - name: Update Release Reports
+        if: >-
+          inputs.generate-release-report && (
+            github.event_name == 'release' || inputs.tag != ''
+          )
+        uses: gilead-biostats/qcthat/release-report@actions
+        with:
+          generate-completed-report: ${{ inputs.generate-completed-report }}
+          generate-milestone-report: ${{ inputs.generate-milestone-report }}
+          milestone: ${{ inputs.milestone }}
+          run-id: ${{ github.run_id }}
+          token: ${{ secrets.token || github.token }}
+
+      - name: Flag failure for PR
+        if: >-
+          (inputs.fail-for-test-failures || inputs.fail-for-missing-tests) && (
+            github.event_name == 'pull_request' ||
+            (github.event_name == 'workflow_dispatch' && inputs.pr-number != '')
+          )
+        uses: gilead-biostats/qcthat/pr-flag-failure@actions
+        with:
+          pr-number: ${{ inputs.pr-number }}
+          token: ${{ secrets.token || github.token }}
+          uat-assignees: ${{ inputs.uat-assignees }}
+          fail-for-test-failures: ${{ inputs.fail-for-test-failures }}
+          fail-for-missing-tests: ${{ inputs.fail-for-missing-tests }}
+
+      - name: Flag failure for completed
+        if: >-
+          inputs.fail-for-test-failures && (
+            github.event_name == 'pull_request' ||
+            github.event_name == 'release' ||
+            (github.event_name == 'workflow_dispatch' && inputs.issue-number == '')
+          )
+        uses: gilead-biostats/qcthat/release-flag-failure@actions
+        with:
+          token: ${{ secrets.token || github.token }}

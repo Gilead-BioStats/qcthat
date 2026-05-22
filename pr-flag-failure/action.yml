@@ -1,0 +1,55 @@
+name: Flag failure for PR
+description: >
+  Fails the workflow if any tests failed or were skipped for PR-associated issues.
+
+inputs:
+  pr-number:
+    description: PR number to check.
+    required: true
+  token:
+    description: GitHub token.
+    default: ${{ github.token }}
+  uat-assignees:
+    description: Comma-separated list of GitHub usernames to assign as UAT testers.
+  fail-for-test-failures:
+    description: Whether to fail the workflow for test failures.
+    default: 'true'
+  fail-for-missing-tests:
+    description: Whether to fail the workflow if PR-associated issues lack tests.
+    default: 'true'
+
+runs:
+  using: "composite"
+  steps:
+    - name: Flag failure for PR
+      env:
+        GITHUB_PAT: ${{ inputs.token }}
+        qcthat_UAT_ASSIGNEES: ${{ inputs.uat-assignees }}
+      shell: Rscript {0}
+      run: |
+        issueTestMatrix <- readRDS("ITM.rds")
+        dfPR <- qcthat::QCPR(
+          intPRNumber = ${{ inputs.pr-number }},
+          strOwner = "${{ github.repository_owner }}",
+          strRepo = "${{ github.event.repository.name }}",
+          strGHToken = "${{ inputs.token }}",
+          lglWarn = TRUE,
+          chrIgnoredLabels = qcthat::DefaultIgnoreLabels(),
+          dfITM = issueTestMatrix
+        )
+        if ( 
+          ${{ inputs.fail-for-test-failures == 'true' && 'TRUE' || 'FALSE' }} && 
+            any(dfPR$Disposition == "fail", na.rm = TRUE)
+        ) {
+          cli::cli_abort(
+            "One or more tests failed or were skipped for PR-associated issues."
+          )
+        }
+        if (
+          ${{ inputs.fail-for-missing-tests == 'true' && 'TRUE' || 'FALSE' }} && 
+            anyNA(dfPR[["Test"]])
+        ) {
+          cli::cli_abort(
+            "One or more PR-associated issues lack tests."
+          )
+        }

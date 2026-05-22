@@ -4,7 +4,7 @@
 #' markdown.
 #'
 #' @inheritParams shared-params
-#' @returns `dfITM`, invisibly.
+#' @returns The resolved `strReleaseID`, invisibly.
 #' @export
 AttachReleaseReports <- function(
   strReleaseID = GuessReleaseID(

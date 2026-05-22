@@ -65,7 +65,7 @@ included in the filter (but the report still returns results). Defaults to
 Typically set to \code{\link[rlang:caller_env]{rlang::caller_env()}}.}
 }
 \value{
-\code{dfITM}, invisibly.
+The resolved \code{strReleaseID}, invisibly.
 }
 \description{
 Update a GitHub release with one or more QC reports, formatted in GitHub

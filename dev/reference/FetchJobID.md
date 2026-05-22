@@ -1,12 +1,13 @@
-# Fetch raw run info for a GitHub Actions run
+# Fetch the GitHub Actions job ID for a given run ID and job name
 
-Fetch raw run info for a GitHub Actions run
+Fetch the GitHub Actions job ID for a given run ID and job name
 
 ## Usage
 
 ``` r
-FetchRunInfoRaw(
-  strRunID,
+FetchJobID(
+  strRunID = character(),
+  strJobName = character(),
   strOwner = GetGHOwner(),
   strRepo = GetGHRepo(),
   strGHToken = gh::gh_token()
@@ -19,6 +20,10 @@ FetchRunInfoRaw(
 
   (`length-1 character`) ID (typically numeric but can be very long) of
   a GitHub Actions workflow run.
+
+- strJobName:
+
+  (`length-1 character`) Name of a GitHub Actions workflow job.
 
 - strOwner:
 
@@ -35,5 +40,4 @@ FetchRunInfoRaw(
 
 ## Value
 
-A list with the raw run object as returned by
-[`gh::gh()`](https://gh.r-lib.org/reference/gh.html).
+The GitHub Actions job ID, or `NULL` if not found.

@@ -1,12 +1,13 @@
-# Fetch raw job info for a GitHub Actions run
+# Construct the URL for the session info step of a GitHub Actions job
 
-Fetch raw job info for a GitHub Actions run
+Construct the URL for the session info step of a GitHub Actions job
 
 ## Usage
 
 ``` r
-FetchRunJobsRaw(
-  strRunID,
+LinkSessionInfo(
+  strRunID = character(),
+  strJobID = character(),
   strOwner = GetGHOwner(),
   strRepo = GetGHRepo(),
   strGHToken = gh::gh_token()
@@ -19,6 +20,11 @@ FetchRunJobsRaw(
 
   (`length-1 character`) ID (typically numeric but can be very long) of
   a GitHub Actions workflow run.
+
+- strJobID:
+
+  (`length-1 character`) ID (typically numeric but can be very long) of
+  a GitHub Actions workflow run job.
 
 - strOwner:
 
@@ -35,5 +41,5 @@ FetchRunJobsRaw(
 
 ## Value
 
-A list of raw job objects as returned by
-[`gh::gh()`](https://gh.r-lib.org/reference/gh.html).
+A string containing the URL for the session info step (if any) in the
+specified GitHub Actions job.

@@ -42,6 +42,8 @@
   : Find the owner of the target repository
 - [`GetGHRepo()`](https://gilead-biostats.github.io/qcthat/dev/reference/GetGHRepo.md)
   : Find the name of the target repository
+- [`GetSessionInfo()`](https://gilead-biostats.github.io/qcthat/dev/reference/GetSessionInfo.md)
+  : Get session info from available reporting functions
 - [`GuessIssueNumber()`](https://gilead-biostats.github.io/qcthat/dev/reference/GuessIssueNumber.md)
   : Guess the relevant issue number from the GitHub event
 - [`GuessMilestones()`](https://gilead-biostats.github.io/qcthat/dev/reference/GuessMilestones.md)
@@ -79,6 +81,10 @@
   : Generate a QC report of issues associated with a GitHub pull request
 - [`QCPackage()`](https://gilead-biostats.github.io/qcthat/dev/reference/QCPackage.md)
   : Generate a QC report for a package
+- [`ReadJSONAsIssueTestMatrix()`](https://gilead-biostats.github.io/qcthat/dev/reference/ReadJSONAsIssueTestMatrix.md)
+  : Read a JSON file as an IssueTestMatrix
+- [`SaveAsJSON()`](https://gilead-biostats.github.io/qcthat/dev/reference/SaveAsJSON.md)
+  : Save an object as JSON
 - [`SaveUATIssues()`](https://gilead-biostats.github.io/qcthat/dev/reference/SaveUATIssues.md)
   : Save UAT issues to disk
 - [`SetupGHLabels()`](https://gilead-biostats.github.io/qcthat/dev/reference/SetupGHLabels.md)

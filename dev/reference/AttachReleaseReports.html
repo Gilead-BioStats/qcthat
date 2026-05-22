@@ -59,6 +59,7 @@ markdown.</p>
 <span>  chrMilestones <span class="op">=</span> <span class="fu"><a href="GuessMilestones.html">GuessMilestones</a></span><span class="op">(</span><span class="op">)</span>,</span>
 <span>  dfITM <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  strRunID <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Sys.getenv.html" class="external-link">Sys.getenv</a></span><span class="op">(</span><span class="st">"GITHUB_RUN_ID"</span><span class="op">)</span>,</span>
+<span>  strJobName <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Sys.getenv.html" class="external-link">Sys.getenv</a></span><span class="op">(</span><span class="st">"GITHUB_JOB"</span><span class="op">)</span>,</span>
 <span>  strPkgRoot <span class="op">=</span> <span class="st">"."</span>,</span>
 <span>  strOwner <span class="op">=</span> <span class="fu"><a href="GetGHOwner.html">GetGHOwner</a></span><span class="op">(</span><span class="op">)</span>,</span>
 <span>  strRepo <span class="op">=</span> <span class="fu"><a href="GetGHRepo.html">GetGHRepo</a></span><span class="op">(</span><span class="op">)</span>,</span>
@@ -103,6 +104,11 @@ returned by <code><a href="AsIssueTestMatrix.html">AsIssueTestMatrix()</a></code
 long) of a GitHub Actions workflow run.</p></dd>
 
 
+<dt id="arg-strjobname">strJobName<a class="anchor" aria-label="anchor" href="#arg-strjobname"></a></dt>
+<dd><p>(<code>length-1 character</code>) Name of a GitHub Actions workflow
+job.</p></dd>
+
+
 <dt id="arg-strpkgroot">strPkgRoot<a class="anchor" aria-label="anchor" href="#arg-strpkgroot"></a></dt>
 <dd><p>(<code>length-1 character</code>) The path to a directory in the
 package. Will be expanded using <code><a href="https://docs.ropensci.org/gert/reference/git_repo.html" class="external-link">gert::git_find()</a></code>.</p></dd>
@@ -139,7 +145,7 @@ Typically set to <code><a href="https://rlang.r-lib.org/reference/stack.html" cl
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
-    <p><code>dfITM</code>, invisibly.</p>
+    <p>The resolved <code>strReleaseID</code>, invisibly.</p>
     </div>
 
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>

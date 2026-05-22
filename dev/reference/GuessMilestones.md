@@ -21,5 +21,6 @@ GuessMilestones(lGHEventPayload = LoadGHEventPayload())
 ## Value
 
 A character vector of milestone names (if the event payload contains
-`pull_request$milestone$title`, `release$name`, `release$tag_name`, or
-`inputs$milestone`), or `NULL` if no milestone names can found.
+`pull_request$milestone$title`, `release$name`, `release$tag_name`,
+`inputs$milestone`, or `inputs$tag`), or `NULL` if no milestone names
+can be found.

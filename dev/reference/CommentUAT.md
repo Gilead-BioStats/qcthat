@@ -15,6 +15,7 @@ CommentUAT(
     strRepo, strGHToken = strGHToken),
   lglUpdate = TRUE,
   strRunID = Sys.getenv("GITHUB_RUN_ID"),
+  strJobName = Sys.getenv("GITHUB_JOB"),
   strPkgRoot = ".",
   strOwner = GetGHOwner(strPkgRoot),
   strRepo = GetGHRepo(strPkgRoot),
@@ -38,6 +39,10 @@ CommentUAT(
 
   (`length-1 character`) ID (typically numeric but can be very long) of
   a GitHub Actions workflow run.
+
+- strJobName:
+
+  (`length-1 character`) Name of a GitHub Actions workflow job.
 
 - strPkgRoot:
 

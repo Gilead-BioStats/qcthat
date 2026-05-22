@@ -1,12 +1,12 @@
-# Fetch the URL for a GitHub Actions run
+# Check if a pull request is open
 
-Fetch the URL for a GitHub Actions run
+Check if a pull request is open
 
 ## Usage
 
 ``` r
-FetchRunURL(
-  strRunID = character(),
+CheckPRIsOpen(
+  intPRNumber,
   strOwner = GetGHOwner(),
   strRepo = GetGHRepo(),
   strGHToken = gh::gh_token()
@@ -15,10 +15,10 @@ FetchRunURL(
 
 ## Arguments
 
-- strRunID:
+- intPRNumber:
 
-  (`length-1 character`) ID (typically numeric but can be very long) of
-  a GitHub Actions workflow run.
+  (`length-1 integer`) The number of the pull request to fetch
+  information about and/or post results to.
 
 - strOwner:
 
@@ -35,5 +35,4 @@ FetchRunURL(
 
 ## Value
 
-A string containing the URL for the specified GitHub Actions run,
-linking to the specific job when there is only one job.
+`TRUE` if the pull request is open, `FALSE` otherwise.

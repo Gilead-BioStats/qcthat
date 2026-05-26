@@ -49,7 +49,7 @@ FetchUAIssue <- function(
       chrInstructions = chrInstructions
     )
     if (!isTRUE(dfMatchingIssue$Body == strExpectedBody)) {
-      UpdateIssue(
+      dfMatchingIssue <- UpdateIssue(
         intIssue = dfMatchingIssue$Issue,
         strBody = strExpectedBody,
         strOwner = strOwner,

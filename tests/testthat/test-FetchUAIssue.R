@@ -1,13 +1,17 @@
-test_that("FetchUAIssue returns the issue as a list if found (#111)", {
+test_that("FetchUAIssue returns the issue as a list if found (#111, #290)", {
   local_mocked_bindings(
     FetchIssueUAChildren = function(...) {
       data.frame(
-        Number = 123:124,
+        Issue = 123:124,
         Title = c(
           TitleUAIssue("The thing renders", 12L),
           "Wrong item"
         ),
         State = "closed",
+        Body = c(
+          BodyUAIssue(chrChecks = c("check1", "check2")),
+          NA_character_
+        ),
         Url = paste0("http://example.com/issue/", 123:124)
       )
     }
@@ -20,9 +24,10 @@ test_that("FetchUAIssue returns the issue as a list if found (#111)", {
   expect_identical(
     result,
     list(
-      Number = 123L,
+      Issue = 123L,
       Title = TitleUAIssue("The thing renders", 12L),
       State = "closed",
+      Body = BodyUAIssue(chrChecks = c("check1", "check2")),
       Url = "http://example.com/issue/123"
     )
   )
@@ -137,17 +142,99 @@ test_that("TitleUAIssue gives the expected title (#111)", {
   )
 })
 
-test_that("FetchUAIssue returns closed child if multiple children (#230)", {
+test_that("BodyUAIssue returns the expected body string (#290)", {
+  expect_equal(
+    BodyUAIssue(
+      chrChecks = c("Check 1", "Check 2"),
+      chrInstructions = "These are instructions"
+    ),
+    "Close this issue to indicate your acceptance.\n\nThese are instructions\n\n- [ ] Check 1\n\n- [ ] Check 2"
+  )
+})
+
+test_that("BodyUAIssue returns the expected body when no args are given (#290)", {
+  expect_equal(
+    BodyUAIssue(),
+    "Close this issue to indicate your acceptance."
+  )
+})
+
+test_that("FetchUAIssue updates the issue body when it does not match (#290)", {
   local_mocked_bindings(
     FetchIssueUAChildren = function(...) {
       data.frame(
-        Number = 123:125,
+        Issue = 123L,
+        Title = TitleUAIssue("The thing renders", 12L),
+        State = "open",
+        Body = "outdated body",
+        Url = "http://example.com/issue/123"
+      )
+    },
+    UpdateIssue = function(intIssue, strBody, ...) {
+      data.frame(
+        Issue = intIssue,
+        Title = TitleUAIssue("The thing renders", 12L),
+        State = "open",
+        Body = strBody,
+        Url = "http://example.com/issue/123"
+      )
+    }
+  )
+  result <- FetchUAIssue(
+    strDescription = "The thing renders",
+    intIssue = 12L,
+    chrChecks = c("check1", "check2")
+  )
+  expect_identical(
+    result,
+    list(
+      Issue = 123L,
+      Title = TitleUAIssue("The thing renders", 12L),
+      State = "open",
+      Body = BodyUAIssue(chrChecks = c("check1", "check2")),
+      Url = "http://example.com/issue/123"
+    )
+  )
+})
+
+test_that("FetchUAIssue does not update body when it already matches (#290)", {
+  local_mocked_bindings(
+    FetchIssueUAChildren = function(...) {
+      data.frame(
+        Issue = 123L,
+        Title = TitleUAIssue("The thing renders", 12L),
+        State = "open",
+        Body = BodyUAIssue(chrChecks = c("check1", "check2")),
+        Url = "http://example.com/issue/123"
+      )
+    },
+    UpdateIssue = function(...) stop("UpdateIssue should not be called")
+  )
+  expect_no_error(
+    FetchUAIssue(
+      strDescription = "The thing renders",
+      intIssue = 12L,
+      chrChecks = c("check1", "check2")
+    )
+  )
+})
+
+test_that("FetchUAIssue returns closed child if multiple children (#230, #290)", {
+  local_mocked_bindings(
+    FetchIssueUAChildren = function(...) {
+      data.frame(
+        Issue = 123:125,
         Title = c(
           TitleUAIssue("The thing renders", 12L),
           TitleUAIssue("The thing renders", 12L),
           "Wrong item"
         ),
         State = c("open", "closed", "closed"),
+        Body = c(
+          BodyUAIssue(chrChecks = c("check1", "check2")),
+          BodyUAIssue(chrChecks = c("check1", "check2")),
+          NA_character_
+        ),
         Url = paste0("http://example.com/issue/", 123:125)
       )
     }
@@ -160,9 +247,10 @@ test_that("FetchUAIssue returns closed child if multiple children (#230)", {
   expect_identical(
     result,
     list(
-      Number = 124L,
+      Issue = 124L,
       Title = TitleUAIssue("The thing renders", 12L),
       State = "closed",
+      Body = BodyUAIssue(chrChecks = c("check1", "check2")),
       Url = "http://example.com/issue/124"
     )
   )

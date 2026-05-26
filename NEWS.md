@@ -1,5 +1,7 @@
 # qcthat (development version)
 
+* `ExpectUserAccepts()` now updates the body of existing `qcthat-uat` issues when `chrChecks` or `chrInstructions` change (#290).
+
 # qcthat 1.1.2
 
 This patch release focuses on introducing the world to qcthat.

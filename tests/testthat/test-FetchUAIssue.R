@@ -160,7 +160,6 @@ test_that("BodyUAIssue returns the expected body when no args are given (#290)",
 })
 
 test_that("FetchUAIssue updates the issue body when it does not match (#290)", {
-  update_called_with <- NULL
   local_mocked_bindings(
     FetchIssueUAChildren = function(...) {
       data.frame(
@@ -172,7 +171,6 @@ test_that("FetchUAIssue updates the issue body when it does not match (#290)", {
       )
     },
     UpdateIssue = function(intIssue, strBody, ...) {
-      update_called_with <<- list(intIssue = intIssue, strBody = strBody)
       data.frame(
         Issue = intIssue,
         Title = TitleUAIssue("The thing renders", 12L),
@@ -182,15 +180,20 @@ test_that("FetchUAIssue updates the issue body when it does not match (#290)", {
       )
     }
   )
-  FetchUAIssue(
+  result <- FetchUAIssue(
     strDescription = "The thing renders",
     intIssue = 12L,
     chrChecks = c("check1", "check2")
   )
-  expect_equal(update_called_with$intIssue, 123L)
-  expect_equal(
-    update_called_with$strBody,
-    BodyUAIssue(chrChecks = c("check1", "check2"))
+  expect_identical(
+    result,
+    list(
+      Issue = 123L,
+      Title = TitleUAIssue("The thing renders", 12L),
+      State = "open",
+      Body = BodyUAIssue(chrChecks = c("check1", "check2")),
+      Url = "http://example.com/issue/123"
+    )
   )
 })
 

@@ -34,9 +34,9 @@ GetSessionInfo()
 #>  collate  C
 #>  ctype    C.UTF-8
 #>  tz       UTC
-#>  date     2026-05-22
+#>  date     2026-05-26
 #>  pandoc   3.8.3 @ /opt/hostedtoolcache/pandoc/3.8.3/x64/ (via rmarkdown)
-#>  quarto   1.9.37 @ /usr/local/bin/quarto
+#>  quarto   1.9.38 @ /usr/local/bin/quarto
 #> 
 #> ─ Packages ───────────────────────────────────────────────────────────────────
 #>  package     * version    date (UTC) lib source
@@ -53,7 +53,7 @@ GetSessionInfo()
 #>  checkmate     2.3.4      2026-02-03 [1] RSPM
 #>  class         7.3-23     2025-01-01 [3] CRAN (R 4.6.0)
 #>  cli           3.6.6      2026-04-09 [1] RSPM
-#>  clipr         0.8.0      2022-02-22 [1] RSPM
+#>  clipr         0.8.1      2026-05-25 [1] RSPM
 #>  cluster       2.1.8.2    2026-02-05 [3] CRAN (R 4.6.0)
 #>  codetools     0.2-20     2024-03-31 [3] CRAN (R 4.6.0)
 #>  compiler      4.6.0      2026-04-24 [3] local
@@ -76,7 +76,7 @@ GetSessionInfo()
 #>  fs            2.1.0      2026-04-18 [1] RSPM
 #>  generics      0.1.4      2025-05-09 [1] RSPM
 #>  gert          2.3.1      2026-01-11 [1] RSPM
-#>  gh            1.5.0.9000 2026-05-22 [1] Github (jharmon-gilead/gh@6400826)
+#>  gh            1.5.0.9000 2026-05-26 [1] Github (r-lib/gh@abc15b7)
 #>  git2r         0.36.2     2025-03-29 [1] RSPM
 #>  gitcreds      0.1.2      2022-09-08 [1] RSPM
 #>  glue          1.8.1      2026-04-17 [1] RSPM
@@ -118,7 +118,7 @@ GetSessionInfo()
 #>  processx      3.9.0      2026-04-22 [1] RSPM
 #>  ps            1.9.3      2026-04-20 [1] RSPM
 #>  purrr         1.2.2      2026-04-10 [1] RSPM
-#>  qcthat      * 1.1.2.9000 2026-05-22 [1] local
+#>  qcthat      * 1.1.2.9000 2026-05-26 [1] local
 #>  quarto        1.5.1      2025-09-04 [1] RSPM
 #>  R6            2.6.1      2025-02-15 [1] RSPM
 #>  ragg          1.5.2      2026-03-23 [1] RSPM

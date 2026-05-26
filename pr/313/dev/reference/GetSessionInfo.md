@@ -76,7 +76,7 @@ GetSessionInfo()
 #>  fs            2.1.0      2026-04-18 [1] RSPM
 #>  generics      0.1.4      2025-05-09 [1] RSPM
 #>  gert          2.3.1      2026-01-11 [1] RSPM
-#>  gh            1.5.0.9000 2026-05-26 [1] Github (r-lib/gh@58942f6)
+#>  gh            1.5.0.9000 2026-05-26 [1] Github (r-lib/gh@3092377)
 #>  git2r         0.36.2     2025-03-29 [1] RSPM
 #>  gitcreds      0.1.2      2022-09-08 [1] RSPM
 #>  glue          1.8.1      2026-04-17 [1] RSPM

@@ -8,7 +8,7 @@ GetGHOwner(strPkgRoot = ".")
 }
 \arguments{
 \item{strPkgRoot}{(\verb{length-1 character}) The path to a directory in the
-package. Will be expanded using \code{\link[gert:git_repo]{gert::git_find()}}.}
+package. Will be expanded using \code{\link[gert:git_find]{gert::git_find()}}.}
 }
 \value{
 A length-1 \code{character} vector representing the GitHub owner of the

@@ -29,6 +29,8 @@ otherwise \code{NA}.
 \item \code{CreatedAt}: \code{POSIXct} timestamp of when the issue was created.
 \item \code{ClosedAt}: \code{POSIXct} timestamp of when the issue was closed, or \code{NA} if
 the issue is still open.
+\item \code{Assignees}: List column of character vectors of GitHub usernames of
+issue assignees.
 }
 }
 \description{

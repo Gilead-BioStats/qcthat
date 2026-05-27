@@ -243,3 +243,9 @@ test_that("CollapseGluedData collapses glued data frames into a single string (#
     "Hello, World!\nGoodbye, Everyone!"
   )
 })
+
+test_that("SplitFlattenCommas splits strings by commas (#noissue)", {
+  expect_identical(SplitFlattenCommas("a,b,c"), c("a", "b", "c"))
+  expect_identical(SplitFlattenCommas("a, b, c"), c("a", "b", "c"))
+  expect_identical(SplitFlattenCommas(c("c, d", "a,b")), c("a", "b", "c", "d"))
+})

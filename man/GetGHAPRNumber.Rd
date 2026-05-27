@@ -13,8 +13,8 @@ result of \code{\link[=LoadGHEventPayload]{LoadGHEventPayload()}}.}
 \value{
 An integer pull request number, or \code{NULL} if the GitHub Actions
 event payload does not include a pull request number (for example, when
-the workflow was not triggered by a pull_request event or no \code{inputs.pr}
-value was provided).
+the workflow was not triggered by a pull_request event or no
+\code{inputs.pr-number} value was provided).
 }
 \description{
 Get the PR number for a GitHub Action

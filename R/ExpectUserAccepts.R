@@ -3,75 +3,79 @@
 #' @description
 #' `r lifecycle::badge("experimental")`
 #'
-#' Create and track a sub-issue to track user acceptance that an issue is
-#' complete.
+#' Create a GitHub sub-issue assigned to a human reviewer to track user
+#' acceptance that the work described in a parent issue is complete. Use this
+#' inside a [testthat::test_that()] block to extend test coverage to changes
+#' that require human judgment, such as aesthetic or layout changes to a report.
+#'
+#' @details
+#' When called outside of CRAN, inside a git repository, and with an internet
+#' connection, `ExpectUserAccepts()` performs the following steps:
+#'
+#' 1. Looks for an existing child issue of `intIssue` labeled `"qcthat-uat"`
+#'    whose title matches `strDescription`.
+#' 2. If no such issue exists, creates one as a sub-issue with the title
+#'    `"qcthat Acceptance for #N: {strDescription}"`, a body containing
+#'    `chrInstructions` and checkbox items from `chrChecks`, and the
+#'    `"qcthat-uat"` label.
+#' 3. Assigns the issue to `chrAssignees` (re-opening it if it was closed and a
+#'    new assignee is added).
+#' 4. Checks the issue state:
+#'    - **Closed**: calls [testthat::pass()].
+#'    - **Open**: calls [testthat::fail()] only when `lglReportFailure` is
+#'      `TRUE` (controlled by the `qcthat_UAT` environment variable via
+#'      [IsCheckingUAT()]).
+#' 5. Logs the result for use in UAT reports (see [CommentUAT()]).
+#'
+#' When any guard condition is not met (on CRAN, not a git repo, or offline),
+#' the function silently returns `strDescription` without side effects.
 #'
 #' @inheritParams shared-params
-#' @returns The input `chrChecks`, invisibly.
+#'
+#' @returns The input `strDescription`, invisibly.
+#'
+#' @family UAT functions
+#' @seealso
+#' * `vignette("expect_user_accepts")` for a full walk-through of the UAT system.
+#'
 #' @export
+#'
+#' @examples
+#' \dontrun{
+#' test_that("report uses updated brand colors (#42)", {
+#'   ExpectUserAccepts(
+#'     strDescription = "Report header uses updated brand colors",
+#'     intIssue = 42L,
+#'     chrChecks = c(
+#'       "Header background is #59488f",
+#'       "Logo is centered and not clipped"
+#'     ),
+#'     chrAssignees = "design-reviewer"
+#'   )
+#' })
+#' }
 ExpectUserAccepts <- function(
   strDescription,
   intIssue,
   chrInstructions = character(),
   chrChecks = character(),
   lglReportFailure = IsCheckingUAT(),
+  chrAssignees = Sys.getenv("qcthat_UAT_ASSIGNEES"),
   strOwner = GetGHOwner(),
   strRepo = GetGHRepo(),
   strGHToken = gh::gh_token()
 ) {
   if (!OnCran() && UsesGit() && IsOnline()) {
-    lUAIssue <- FetchUAIssue(
+    CheckUAIssue(
       strDescription = strDescription,
       intIssue = intIssue,
       chrInstructions = chrInstructions,
       chrChecks = chrChecks,
+      lglReportFailure = lglReportFailure,
+      chrAssignees = chrAssignees,
       strOwner = strOwner,
       strRepo = strRepo,
       strGHToken = strGHToken
-    )
-    strState <- lUAIssue[["State"]] %||% "NULL"
-    switch(
-      strState,
-      closed = {
-        strDisposition <- "accepted"
-        testthat::pass()
-      },
-      open = {
-        strDisposition <- "pending"
-        if (isTRUE(lglReportFailure)) {
-          testthat::fail(c(
-            "User must accept the checks and close the issue.",
-            cli::format_inline(
-              "User-acceptance issue: {.url {lUAIssue[['Url']]}}"
-            )
-          ))
-        }
-      },
-      failed_to_create = {
-        strDisposition <- "failed_to_create"
-        if (isTRUE(lglReportFailure)) {
-          testthat::fail(c(
-            "Failed to create user-acceptance issue.",
-            "This may be due to GitHub being down or an issue with authentication or permissions."
-          ))
-        }
-      },
-      {
-        strDisposition <- "error"
-        if (isTRUE(lglReportFailure)) {
-          testthat::fail(c(
-            "Unexpected state for user-acceptance issue: {.str {lUAIssue[['State']]}}."
-          ))
-        }
-      }
-    )
-    LogUAT(
-      intParentIssue = intIssue,
-      intUATIssue = lUAIssue[["Issue"]],
-      strDescription = strDescription,
-      strDisposition = strDisposition,
-      strOwner = strOwner,
-      strRepo = strRepo
     )
   }
   return(invisible(strDescription))
@@ -108,6 +112,7 @@ IsOnline <- function() {
 #'   variable to check.
 #' @returns `TRUE` if the specified environment variable is set to `"TRUE"`
 #'   (case-insensitive), `FALSE` otherwise.
+#' @family UAT functions
 #' @export
 #' @examples
 #' CurrentValue <- Sys.getenv("qcthat_UAT")
@@ -118,37 +123,4 @@ IsOnline <- function() {
 #' Sys.setenv(qcthat_UAT = CurrentValue)
 IsCheckingUAT <- function(strUATEnvVar = "qcthat_UAT") {
   identical(toupper(Sys.getenv(strUATEnvVar)), "TRUE")
-}
-
-#' Log ExpectUserAccepts results
-#'
-#' @inheritParams shared-params
-#' @returns The value of `envQcthat$UATIssues`, invisibly
-#' @keywords internal
-LogUAT <- function(
-  intParentIssue,
-  intUATIssue,
-  strDescription,
-  strDisposition,
-  strOwner = GetGHOwner(),
-  strRepo = GetGHRepo(),
-  dttmTimestamp = Sys.time()
-) {
-  dfUpdatedIssue <- tibble::tibble(
-    ParentIssue = intParentIssue,
-    UATIssue = intUATIssue,
-    Description = strDescription,
-    Disposition = strDisposition,
-    Owner = strOwner,
-    Repo = strRepo,
-    Timestamp = dttmTimestamp
-  )
-
-  envQcthat$UATIssues <- envQcthat$UATIssues |>
-    dplyr::anti_join(
-      dfUpdatedIssue,
-      # Don't use UATIssue in the join, because it's NULL in some situations.
-      by = c("ParentIssue", "Description", "Owner", "Repo")
-    ) |>
-    dplyr::bind_rows(dfUpdatedIssue)
 }

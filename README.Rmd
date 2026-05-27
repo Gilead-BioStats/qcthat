@@ -17,8 +17,21 @@ knitr::opts_chunk$set(
 
 <!-- badges: start -->
 
-[![R-CMD-check](https://github.com/Gilead-BioStats/qcthat/workflows/R-CMD-check/badge.svg)](https://github.com/Gilead-BioStats/qcthat/actions) 
-[![Codecov test coverage](https://codecov.io/gh/Gilead-BioStats/qcthat/graph/badge.svg)](https://app.codecov.io/gh/Gilead-BioStats/qcthat)
+<div class="pkgdown-release">
+
+[![R-CMD-check](https://github.com/Gilead-BioStats/qcthat/actions/workflows/R-CMD-check.yaml/badge.svg?branch=main)](https://github.com/Gilead-BioStats/qcthat/actions/workflows/R-CMD-check.yaml)
+[![test-coverage](https://github.com/Gilead-BioStats/qcthat/actions/workflows/test-coverage.yaml/badge.svg?branch=main)](https://github.com/Gilead-BioStats/qcthat/actions/workflows/test-coverage.yaml)
+[![pkgdown-all](https://github.com/Gilead-BioStats/qcthat/actions/workflows/pkgdown-all.yaml/badge.svg?branch=main)](https://github.com/Gilead-BioStats/qcthat/actions/workflows/pkgdown-all.yaml)
+
+</div>
+
+<div class="pkgdown-devel">
+
+[![R-CMD-check](https://github.com/Gilead-BioStats/qcthat/actions/workflows/R-CMD-check.yaml/badge.svg?branch=dev)](https://github.com/Gilead-BioStats/qcthat/actions/workflows/R-CMD-check.yaml)
+[![test-coverage](https://github.com/Gilead-BioStats/qcthat/actions/workflows/test-coverage.yaml/badge.svg?branch=dev)](https://github.com/Gilead-BioStats/qcthat/actions/workflows/test-coverage.yaml)
+[![pkgdown-all](https://github.com/Gilead-BioStats/qcthat/actions/workflows/pkgdown-all.yaml/badge.svg?branch=dev)](https://github.com/Gilead-BioStats/qcthat/actions/workflows/pkgdown-all.yaml)
+
+</div>
 
 <!-- badges: end -->
 
@@ -28,12 +41,24 @@ The goal of `{qcthat}` is to produce qualification reports linking GitHub issues
 
 ## ⚙️ Installation
 
-You can install the development version of `{qcthat}` from [GitHub](https://github.com/) with:
+You can install the latest release of qcthat from [GitHub](https://github.com/) with:
+
+``` r
+# install.packages("pak")
+pak::pak("Gilead-BioStats/qcthat@*release")
+```
+
+<div class="pkgdown-devel">
+
+You can install the development version of qcthat from
+[GitHub](https://github.com/) with:
 
 ``` r
 # install.packages("pak")
 pak::pak("Gilead-BioStats/qcthat")
 ```
+
+</div>
 
 Learn more in `vignette("qcthat")`.
 

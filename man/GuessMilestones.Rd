@@ -12,8 +12,9 @@ result of \code{\link[=LoadGHEventPayload]{LoadGHEventPayload()}}.}
 }
 \value{
 A character vector of milestone names (if the event payload contains
-\code{pull_request$milestone$title}, \code{release$name}, \code{release$tag_name}, or
-\code{inputs$milestone}), or \code{NULL} if no milestone names can found.
+\code{pull_request$milestone$title}, \code{release$name}, \code{release$tag_name},
+\code{inputs$milestone}, or \code{inputs$tag}), or \code{NULL} if no milestone names can
+be found.
 }
 \description{
 Determine the name of any milestones associated with the current GitHub

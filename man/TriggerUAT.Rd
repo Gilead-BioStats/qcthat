@@ -33,3 +33,10 @@ re-trigger the UAT cycle. If all issues referenced in the UAT comment of a
 linked PR are closed (and it is not already running the QCPR workflow), rerun
 the QCPR workflow (\code{qcthat.yaml}) if available.
 }
+\seealso{
+Other UAT functions:
+\code{\link[=CommentUAT]{CommentUAT()}},
+\code{\link[=ExpectUserAccepts]{ExpectUserAccepts()}},
+\code{\link[=IsCheckingUAT]{IsCheckingUAT()}}
+}
+\concept{UAT functions}

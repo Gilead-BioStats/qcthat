@@ -118,6 +118,6 @@ test_that("Test failure counts make sense (#180, #31)", {
     "Test failures only count once per test",
     180,
     chrInstructions = "Load the qcthat report in the PR associated with this issue",
-    chrChecks = "While this issue is open, the report says that 1 test has failed, not 2."
+    chrChecks = "The number of test failures reported matches the number of *unique* tests that are referenced in the report as failing."
   )
 })

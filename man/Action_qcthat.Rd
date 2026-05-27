@@ -11,7 +11,7 @@ Action_qcthat(lglOverwrite = FALSE, strPkgRoot = ".")
 already exist.}
 
 \item{strPkgRoot}{(\verb{length-1 character}) The path to a directory in the
-package. Will be expanded using \code{\link[gert:git_repo]{gert::git_find()}}.}
+package. Will be expanded using \code{\link[gert:git_find]{gert::git_find()}}.}
 }
 \value{
 The path to the created GitHub Action YAML file (invisibly).

@@ -3,6 +3,12 @@
 #' Reused parameter definitions are gathered here for easier usage. Use
 #' `@inheritParams shared-params` to document parameters defined here.
 #'
+#' @param chrAssignees (`character`) GitHub usernames to which the issue
+#'   associated with an expectation should be assigned. Whenever the issue is
+#'   assigned to a new user, it will be re-opened. Elements of this vector will
+#'   be split on commas, so you can provide multiple assignees in a single
+#'   string. This is helpful if you would like to set up assignees via the
+#'   `"qcthat_UAT_ASSIGNEES"` environment variable, which is checked by default.
 #' @param chrChecks (`character`) Items for the user to check. These will be
 #'   preceded by checkboxes in the associated issue.
 #' @param chrClass (`character`) Class name(s) to assign to the object.
@@ -154,6 +160,11 @@
 #' @param strFilePath (`length-1 character`) A file path.
 #' @param strGHToken (`length-1 character`) GitHub token with permissions
 #'   appropriate to the action being performed.
+#' @param strJSONPath (`length-1 character`) File path to save or read JSON.
+#' @param strJobID (`length-1 character`) ID (typically numeric but can be very
+#'   long) of a GitHub Actions workflow run job.
+#' @param strJobName (`length-1 character`) Name of a GitHub Actions workflow
+#'   job.
 #' @param strLabel (`length-1 character`) The name of the label to create or
 #'   update.
 #' @param strLabelColor (`length-1 character`) The hex color code for the label
@@ -179,6 +190,9 @@
 #' @param strState (`length-1 character`) State of issues or pull requests to
 #'   fetch. Must be one of `"open"`, `"closed"`, or `"all"`. Defaults to
 #'   `"open"` for pull requests and `"all"` for issues.
+#' @param strStateReason (`length-1 character`) The reason for the state change
+#'   (for `"closed"` `strState`). Must be one of `"completed"`, `"not_planned"`,
+#'   `"duplicate"`, `"reopened."`, or `NULL`.
 #' @param strTagName (`length-1 character`) Name of the GitHub tag.
 #' @param strTargetDir (`length-1 character`) Path to the directory where the
 #'   file should be added.

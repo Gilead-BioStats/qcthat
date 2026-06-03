@@ -90,7 +90,8 @@ test_that("FetchPRUATCommentIssues extracts issues correctly (#114)", {
 test_that("MaybeRerunQCPRWorkflow delegates to RerunWorkflowIfFinished (#114)", {
   local_mocked_bindings(
     FetchPRActionRuns = function(...) list(obj = 1),
-    RerunWorkflowIfFinished = function(...) TRUE
+    RerunWorkflowIfFinished = function(...) TRUE,
+    CheckPRIsOpen = function(...) TRUE
   )
   expect_true(MaybeRerunQCPRWorkflow(1, "ref", "sha"))
 })
@@ -98,7 +99,8 @@ test_that("MaybeRerunQCPRWorkflow delegates to RerunWorkflowIfFinished (#114)", 
 test_that("MaybeRerunQCPRWorkflow does nothing if no runs found (#114)", {
   local_mocked_bindings(
     FetchPRActionRuns = function(...) list(),
-    RerunWorkflowIfFinished = function(...) stop("Should not be called")
+    RerunWorkflowIfFinished = function(...) stop("Should not be called"),
+    CheckPRIsOpen = function(...) TRUE
   )
   expect_no_error(MaybeRerunQCPRWorkflow(1, "ref", "sha"))
 })
@@ -210,4 +212,15 @@ test_that("The UAT workflow triggers properly when all UAT issues connected to a
       chrInstructions = "Close this issue after the PR report for this functionality runs."
     )
   }
+})
+
+test_that("CheckPRIsOpen confirms that a PR is open (#299)", {
+  local_mocked_bindings(
+    CallGHAPI = function(...) list(state = "open")
+  )
+  expect_true(CheckPRIsOpen(1))
+  local_mocked_bindings(
+    CallGHAPI = function(...) list(state = "closed")
+  )
+  expect_false(CheckPRIsOpen(1))
 })

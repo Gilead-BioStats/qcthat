@@ -27,7 +27,8 @@ test_that("CompileIssueTestMatrix returns an empty IssueTestMatrix with empty in
       "ClosedAt",
       "Test",
       "File",
-      "Disposition"
+      "Disposition",
+      "Assignees"
     )
   )
 })

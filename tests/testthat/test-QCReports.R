@@ -167,7 +167,7 @@ test_that("QCMilestones warns about unknown milestones (#88)", {
   expect_identical(test_result, expected_result)
 })
 
-test_that("QCMilestones errors with no valid milestones (#88)", {
+test_that("QCMilestones warns with no valid milestones (#88, #306)", {
   local_mocked_bindings(
     QCPackage = function(...) {
       tibble::tibble(
@@ -178,9 +178,9 @@ test_that("QCMilestones errors with no valid milestones (#88)", {
       )
     }
   )
-  expect_error(
+  expect_warning(
     QCMilestones("C"),
     "Unknown milestones: C",
-    class = "qcthat-error-unknown_milestones"
+    class = "qcthat-warning-unknown_milestones"
   )
 })

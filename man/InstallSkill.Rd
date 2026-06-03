@@ -20,10 +20,10 @@ file should be added.}
 already exist.}
 
 \item{strPkgRoot}{(\verb{length-1 character}) The path to a directory in the
-package. Will be expanded using \code{\link[gert:git_repo]{gert::git_find()}}.}
+package. Will be expanded using \code{\link[gert:git_find]{gert::git_find()}}.}
 
 \item{envCall}{(\code{environment}) The environment to use for error reporting.
-Typically set to \code{\link[rlang:stack]{rlang::caller_env()}}.}
+Typically set to \code{\link[rlang:caller_env]{rlang::caller_env()}}.}
 }
 \value{
 The path to the created skill file (invisibly).

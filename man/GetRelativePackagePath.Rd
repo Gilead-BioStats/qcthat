@@ -10,7 +10,7 @@ GetRelativePackagePath(strFilePath, envCall = rlang::caller_env())
 \item{strFilePath}{(\verb{length-1 character}) A file path.}
 
 \item{envCall}{(\code{environment}) The environment to use for error reporting.
-Typically set to \code{\link[rlang:stack]{rlang::caller_env()}}.}
+Typically set to \code{\link[rlang:caller_env]{rlang::caller_env()}}.}
 }
 \value{
 The path to a file, relative to the root of the package that the

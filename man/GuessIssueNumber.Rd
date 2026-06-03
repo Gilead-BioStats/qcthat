@@ -12,11 +12,11 @@ result of \code{\link[=LoadGHEventPayload]{LoadGHEventPayload()}}.}
 }
 \value{
 An integer representing the issue number (if the event payload
-contains \code{issue$number} or \code{inputs$issueNumber}), or \code{NULL} if the event is
-not an \code{"issues"} event or the issue number cannot be found.
+contains \code{issue[["number"]]} or \code{inputs[["issue-number"]]}), or \code{NULL} if
+the event is not an \code{"issues"} event or the issue number cannot be found.
 }
 \description{
 Determine the issue number associated with the current GitHub event, if the
 workflow was triggered by an \code{"issues"} event, or by a \code{"workflow_dispatch"}
-event with \code{"issueNumber"} input
+event with \code{"issue-number"} input
 }

@@ -10,6 +10,7 @@ ExpectUserAccepts(
   chrInstructions = character(),
   chrChecks = character(),
   lglReportFailure = IsCheckingUAT(),
+  chrAssignees = Sys.getenv("qcthat_UAT_ASSIGNEES"),
   strOwner = GetGHOwner(),
   strRepo = GetGHRepo(),
   strGHToken = gh::gh_token()
@@ -32,6 +33,13 @@ preceded by checkboxes in the associated issue.}
 (default unless a "qcthat_UAT" environment variable is "true"), or fail
 (and show as a failure in testthat tests).}
 
+\item{chrAssignees}{(\code{character}) GitHub usernames to which the issue
+associated with an expectation should be assigned. Whenever the issue is
+assigned to a new user, it will be re-opened. Elements of this vector will
+be split on commas, so you can provide multiple assignees in a single
+string. This is helpful if you would like to set up assignees via the
+\code{"qcthat_UAT_ASSIGNEES"} environment variable, which is checked by default.}
+
 \item{strOwner}{(\verb{length-1 character}) GitHub username or organization name.}
 
 \item{strRepo}{(\verb{length-1 character}) GitHub repository name.}
@@ -40,11 +48,64 @@ preceded by checkboxes in the associated issue.}
 appropriate to the action being performed.}
 }
 \value{
-The input \code{chrChecks}, invisibly.
+The input \code{strDescription}, invisibly.
 }
 \description{
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
 
-Create and track a sub-issue to track user acceptance that an issue is
-complete.
+Create a GitHub sub-issue assigned to a human reviewer to track user
+acceptance that the work described in a parent issue is complete. Use this
+inside a \code{\link[testthat:test_that]{testthat::test_that()}} block to extend test coverage to changes
+that require human judgment, such as aesthetic or layout changes to a report.
 }
+\details{
+When called outside of CRAN, inside a git repository, and with an internet
+connection, \code{ExpectUserAccepts()} performs the following steps:
+\enumerate{
+\item Looks for an existing child issue of \code{intIssue} labeled \code{"qcthat-uat"}
+whose title matches \code{strDescription}.
+\item If no such issue exists, creates one as a sub-issue with the title
+\code{"qcthat Acceptance for #N: {strDescription}"}, a body containing
+\code{chrInstructions} and checkbox items from \code{chrChecks}, and the
+\code{"qcthat-uat"} label.
+\item Assigns the issue to \code{chrAssignees} (re-opening it if it was closed and a
+new assignee is added).
+\item Checks the issue state:
+\itemize{
+\item \strong{Closed}: calls \code{\link[testthat:pass]{testthat::pass()}}.
+\item \strong{Open}: calls \code{\link[testthat:fail]{testthat::fail()}} only when \code{lglReportFailure} is
+\code{TRUE} (controlled by the \code{qcthat_UAT} environment variable via
+\code{\link[=IsCheckingUAT]{IsCheckingUAT()}}).
+}
+\item Logs the result for use in UAT reports (see \code{\link[=CommentUAT]{CommentUAT()}}).
+}
+
+When any guard condition is not met (on CRAN, not a git repo, or offline),
+the function silently returns \code{strDescription} without side effects.
+}
+\examples{
+\dontrun{
+test_that("report uses updated brand colors (#42)", {
+  ExpectUserAccepts(
+    strDescription = "Report header uses updated brand colors",
+    intIssue = 42L,
+    chrChecks = c(
+      "Header background is #59488f",
+      "Logo is centered and not clipped"
+    ),
+    chrAssignees = "design-reviewer"
+  )
+})
+}
+}
+\seealso{
+\itemize{
+\item \code{vignette("expect_user_accepts")} for a full walk-through of the UAT system.
+}
+
+Other UAT functions:
+\code{\link[=CommentUAT]{CommentUAT()}},
+\code{\link[=IsCheckingUAT]{IsCheckingUAT()}},
+\code{\link[=TriggerUAT]{TriggerUAT()}}
+}
+\concept{UAT functions}

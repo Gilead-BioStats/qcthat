@@ -8,7 +8,7 @@ GetGitLog(strGitRef, strPkgRoot = ".", intMaxCommits = 1e+05)
 }
 \arguments{
 \item{strPkgRoot}{(\verb{length-1 character}) The path to a directory in the
-package. Will be expanded using \code{\link[gert:git_repo]{gert::git_find()}}.}
+package. Will be expanded using \code{\link[gert:git_find]{gert::git_find()}}.}
 
 \item{intMaxCommits}{(\verb{length-1 integer}) The maximum number of commits to
 return from git logs. Leaving this at the default should almost always be
@@ -17,7 +17,7 @@ history and this function is slow.}
 }
 \value{
 A data frame of commits that are in \code{strGitRef}, as returned by
-\code{\link[gert:git_commit]{gert::git_log()}}.
+\code{\link[gert:git_log]{gert::git_log()}}.
 }
 \description{
 List commits in a git reference

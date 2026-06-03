@@ -23,6 +23,15 @@ GetPkgRoot <- function(strPkgRoot, envCall = rlang::caller_env()) {
   # nocov end
 }
 
+#' Wrapper for test mocking
+#'
+#' @param strPath (`length-1 character`) Path to check for existence.
+#' @returns (`logical`) Whether the file exists.
+#' @keywords internal
+FileExists <- function(strPath) {
+  fs::file_exists(strPath) # nocov
+}
+
 #' Load the package environment for coverage tracing
 #'
 #' Thin wrapper around [pkgload::load_all()] so it can be mocked in tests.

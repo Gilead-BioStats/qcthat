@@ -122,7 +122,8 @@ test_that("FetchIssueChildren returns a DF of issue children (#111)", {
       Type = c("Issue", "Issue"),
       Url = c(NA_character_, NA_character_),
       CreatedAt = as.POSIXct(c(NA, NA), tz = "UTC"),
-      ClosedAt = as.POSIXct(c(NA, NA), tz = "UTC")
+      ClosedAt = as.POSIXct(c(NA, NA), tz = "UTC"),
+      Assignees = list(NULL, NULL)
     )
   )
 })

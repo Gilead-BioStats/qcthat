@@ -1,7 +1,7 @@
-test_that("CommentReport generates the expected call (#99, #72)", {
+test_that("CommentReport generates the expected call (#99, #72, #295)", {
   local_mocked_bindings(
     CommentIssue = function(...) list(...),
-    FormatSessionInfo = function() ""
+    LinkSessionInfo = function(...) "SESSINO INFO LINK"
   )
   dfRepoIssues <- GenerateSampleDFRepoIssues()
   dfTestResults <- GenerateSampleDFTestResults()
@@ -15,6 +15,7 @@ test_that("CommentReport generates the expected call (#99, #72)", {
       strReportType = "Testing",
       intPRNumber = 99,
       strRunID = "",
+      strJobName = "",
       strOwner = "owner",
       strRepo = "repo",
       strGHToken = "token"

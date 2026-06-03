@@ -16,10 +16,10 @@ GuessReleaseID <- function(
   strGHToken = gh::gh_token()
 ) {
   if (is.list(lGHEventPayload)) {
-    strReleaseID <- lGHEventPayload$release$id
+    strReleaseID <- lGHEventPayload[["release"]][["id"]]
     if (!length(strReleaseID)) {
-      strTagName <- lGHEventPayload$release$tag_name %||%
-        lGHEventPayload$inputs$tag
+      strTagName <- lGHEventPayload[["release"]][["tag_name"]] %||%
+        lGHEventPayload[["inputs"]][["tag"]]
       if (length(strTagName)) {
         lRelease <- FetchRawReleaseByTagName(
           strTagName = strTagName,
@@ -27,7 +27,7 @@ GuessReleaseID <- function(
           strRepo = strRepo,
           strGHToken = strGHToken
         )
-        strReleaseID <- lRelease$id
+        strReleaseID <- lRelease[["id"]]
       }
     }
     return(strReleaseID)

@@ -14,7 +14,8 @@ GenerateRawRepoIssues <- function(
       html_url = paste0(
         "https://github.com/Gilead-BioStats/fakerepo/issues/",
         i
-      )
+      ),
+      assignees = list()
     )
     if (i %% 3 == 0) {
       lIssuesRaw[[i]]$state_reason <- "completed"

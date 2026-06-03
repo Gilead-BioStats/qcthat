@@ -6,14 +6,21 @@
 #'
 #' @inheritParams shared-params
 #' @returns A character vector of milestone names (if the event payload contains
-#'   `pull_request$milestone$title`, `release$name`, `release$tag_name`, or
-#'   `inputs$milestone`), or `NULL` if no milestone names can found.
+#'   `pull_request$milestone$title`, `release$name`, `release$tag_name`,
+#'   `inputs$milestone`, or `inputs$tag`), or `NULL` if no milestone names can
+#'   be found.
 #' @export
 GuessMilestones <- function(lGHEventPayload = LoadGHEventPayload()) {
   if (is.list(lGHEventPayload)) {
-    chrMilestones <- lGHEventPayload$pull_request$milestone$title %||%
-      c(lGHEventPayload$release$name, lGHEventPayload$release$tag_name) %||%
-      lGHEventPayload$inputs$milestone
+    chrMilestones <- lGHEventPayload[["pull_request"]][["milestone"]][[
+      "title"
+    ]] %||%
+      c(
+        lGHEventPayload[["release"]][["name"]],
+        lGHEventPayload[["release"]][["tag_name"]]
+      ) %||%
+      lGHEventPayload[["inputs"]][["milestone"]] %||%
+      lGHEventPayload[["inputs"]][["tag"]]
     chrMilestones <- sort(unique(
       chrMilestones[!is.na(chrMilestones) & nzchar(chrMilestones)]
     ))

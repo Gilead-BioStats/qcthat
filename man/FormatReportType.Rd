@@ -25,7 +25,7 @@ such as \code{\link[=QCPR]{QCPR()}}.}
 such as \code{"Completed Issues"} or \code{"PR-Associated Issues"}.}
 
 \item{strPkgRoot}{(\verb{length-1 character}) The path to a directory in the
-package. Will be expanded using \code{\link[gert:git_repo]{gert::git_find()}}.}
+package. Will be expanded using \code{\link[gert:git_find]{gert::git_find()}}.}
 
 \item{strOwner}{(\verb{length-1 character}) GitHub username or organization name.}
 
@@ -43,7 +43,7 @@ returned by \code{\link[=AsIssueTestMatrix]{AsIssueTestMatrix()}} (often via \co
 \item{lOtherArgs}{(\code{list}) Additional arguments to pass to \code{fnReport}.}
 
 \item{envCall}{(\code{environment}) The environment to use for error reporting.
-Typically set to \code{\link[rlang:stack]{rlang::caller_env()}}.}
+Typically set to \code{\link[rlang:caller_env]{rlang::caller_env()}}.}
 }
 \value{
 A string containing the report formatted in GitHub markdown.

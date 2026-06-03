@@ -8,10 +8,10 @@ CollapseGluedData(dfData, ..., strSep = "\\n")
 }
 \arguments{
 \item{dfData}{(\code{data.frame} or \code{list}) Data frame or list to use as the data
-source for \code{\link[glue:glue]{glue::glue_data()}}.}
+source for \code{\link[glue:glue_data]{glue::glue_data()}}.}
 
 \item{...}{Expressions to evaluate within the context of \code{dfData}, passed to
-\code{\link[glue:glue]{glue::glue_data()}}.}
+\code{\link[glue:glue_data]{glue::glue_data()}}.}
 
 \item{strSep}{(\verb{length-1 character}) Separator to use between glued values.
 Defaults to a newline, which is common for formatting multiple lines of

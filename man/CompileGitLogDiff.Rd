@@ -19,7 +19,7 @@ contains changes. Defaults to the active branch in this repository.}
 will be merged into. Defaults to the default branch of this repository.}
 
 \item{strPkgRoot}{(\verb{length-1 character}) The path to a directory in the
-package. Will be expanded using \code{\link[gert:git_repo]{gert::git_find()}}.}
+package. Will be expanded using \code{\link[gert:git_find]{gert::git_find()}}.}
 
 \item{intMaxCommits}{(\verb{length-1 integer}) The maximum number of commits to
 return from git logs. Leaving this at the default should almost always be

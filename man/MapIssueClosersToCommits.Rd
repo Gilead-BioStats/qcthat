@@ -17,7 +17,7 @@ MapIssueClosersToCommits(
 \code{\link[=FetchRepoIssueClosers]{FetchRepoIssueClosers()}}.}
 
 \item{strPkgRoot}{(\verb{length-1 character}) The path to a directory in the
-package. Will be expanded using \code{\link[gert:git_repo]{gert::git_find()}}.}
+package. Will be expanded using \code{\link[gert:git_find]{gert::git_find()}}.}
 
 \item{strOwner}{(\verb{length-1 character}) GitHub username or organization name.}
 

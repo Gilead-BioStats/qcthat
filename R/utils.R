@@ -184,3 +184,16 @@ CollapseGluedData <- function(dfData, ..., strSep = "\n") {
     sep = strSep
   )
 }
+
+#' Flatten a character vector of comma-separated values
+#'
+#' @param chrVector (`character`) The character vector to split. If any element
+#'   contains commas, it will be split, and spaces around the commas will be
+#'   removed.
+#' @returns A character vector with the elements of `chrVector` split by commas
+#'   and flattened into a single vector.
+#' @keywords internal
+SplitFlattenCommas <- function(chrVector) {
+  stringr::str_split(chrVector, "\\s*,\\s*") |>
+    CompletelyFlatten()
+}

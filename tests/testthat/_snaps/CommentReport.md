@@ -1,8 +1,8 @@
-# CommentReport generates the expected call (#99, #72)
+# CommentReport generates the expected call (#99, #72, #295)
 
     Code
       CommentReport(dfITM, strReportType = "Testing", intPRNumber = 99, strRunID = "",
-        strOwner = "owner", strRepo = "repo", strGHToken = "token")
+        strJobName = "", strOwner = "owner", strRepo = "repo", strGHToken = "token")
     Output
       [[1]]
       [1] 99
@@ -46,6 +46,9 @@
       ⛓️‍💥 1 test is not linked to any issue
       
       $strRunID
+      [1] ""
+      
+      $strJobName
       [1] ""
       
       $lglUpdate

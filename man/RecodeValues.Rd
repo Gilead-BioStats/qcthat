@@ -10,10 +10,10 @@ RecodeValues(x, ..., default = NULL)
 \item{x}{(\code{vector}) The vector to recode.}
 
 \item{...}{Recode pairs in the form of \code{old ~ new}. See \code{\link[dplyr:case_match]{dplyr::case_match()}}
-or \code{\link[dplyr:recode-and-replace-values]{dplyr::recode_values()}} for details.}
+or \code{\link[dplyr:recode_values]{dplyr::recode_values()}} for details.}
 
 \item{default}{(\code{scalar}) The default value to use for unmatched cases. See
-\code{\link[dplyr:case_match]{dplyr::case_match()}} or \code{\link[dplyr:recode-and-replace-values]{dplyr::recode_values()}} for details.}
+\code{\link[dplyr:case_match]{dplyr::case_match()}} or \code{\link[dplyr:recode_values]{dplyr::recode_values()}} for details.}
 }
 \value{
 A vector with the same size as \code{x} with values recoded according to

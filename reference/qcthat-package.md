@@ -21,6 +21,8 @@ Useful links:
 
 Authors:
 
+- Jeremy Wildfire <jwildfire@gmail.com>
+
 - Jon Harmon <jon.harmon@atorusresearch.com>
   ([ORCID](https://orcid.org/0000-0003-4781-4346))
 

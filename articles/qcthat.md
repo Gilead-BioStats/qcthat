@@ -16,6 +16,7 @@ To utilize [qcthat](https://gilead-biostats.github.io/qcthat/), you must
     description, such as:
 
 ``` r
+
 test_that("Users can view a matrix of GitHub issues and test results (#31)", {
   # Expectations that prove that this worked.
 })
@@ -24,6 +25,7 @@ test_that("Users can view a matrix of GitHub issues and test results (#31)", {
 ## Activating {qcthat}
 
 ``` r
+
 qcthat::use_qcthat()
 ```
 
@@ -46,6 +48,7 @@ from within your package directory to:
 ## Bootstrapping test tags with AI
 
 ``` r
+
 qcthat::Skill_TagTestsWithIssues()
 ```
 

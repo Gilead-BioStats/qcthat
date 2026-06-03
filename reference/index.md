@@ -4,6 +4,8 @@
 
 - [`Action_qcthat()`](https://gilead-biostats.github.io/qcthat/reference/Action_qcthat.md)
   : Use a GitHub Action to manage qcthat
+- [`AssignIssue()`](https://gilead-biostats.github.io/qcthat/reference/AssignIssue.md)
+  : Assign a GitHub issue to one or more users
 - [`AttachReleaseReports()`](https://gilead-biostats.github.io/qcthat/reference/AttachReleaseReports.md)
   : Attach QC reports to a GitHub release
 - [`CommentAllReports()`](https://gilead-biostats.github.io/qcthat/reference/CommentAllReports.md)
@@ -40,6 +42,8 @@
   : Find the owner of the target repository
 - [`GetGHRepo()`](https://gilead-biostats.github.io/qcthat/reference/GetGHRepo.md)
   : Find the name of the target repository
+- [`GetSessionInfo()`](https://gilead-biostats.github.io/qcthat/reference/GetSessionInfo.md)
+  : Get session info from available reporting functions
 - [`GuessIssueNumber()`](https://gilead-biostats.github.io/qcthat/reference/GuessIssueNumber.md)
   : Guess the relevant issue number from the GitHub event
 - [`GuessMilestones()`](https://gilead-biostats.github.io/qcthat/reference/GuessMilestones.md)
@@ -77,6 +81,10 @@
   : Generate a QC report of issues associated with a GitHub pull request
 - [`QCPackage()`](https://gilead-biostats.github.io/qcthat/reference/QCPackage.md)
   : Generate a QC report for a package
+- [`ReadJSONAsIssueTestMatrix()`](https://gilead-biostats.github.io/qcthat/reference/ReadJSONAsIssueTestMatrix.md)
+  : Read a JSON file as an IssueTestMatrix
+- [`SaveAsJSON()`](https://gilead-biostats.github.io/qcthat/reference/SaveAsJSON.md)
+  : Save an object as JSON
 - [`SaveUATIssues()`](https://gilead-biostats.github.io/qcthat/reference/SaveUATIssues.md)
   : Save UAT issues to disk
 - [`SetupGHLabels()`](https://gilead-biostats.github.io/qcthat/reference/SetupGHLabels.md)
@@ -85,6 +93,8 @@
   **\[experimental\]** : Use an AI skill to tag tests with issues
 - [`TriggerUAT()`](https://gilead-biostats.github.io/qcthat/reference/TriggerUAT.md)
   **\[experimental\]** : Trigger the UAT cycle for closed issues
+- [`UpdateIssue()`](https://gilead-biostats.github.io/qcthat/reference/UpdateIssue.md)
+  : Update a GitHub issue
 - [`print(`*`<qcthat_Object>`*`)`](https://gilead-biostats.github.io/qcthat/reference/printing.md)
   [`format(`*`<qcthat_Object>`*`)`](https://gilead-biostats.github.io/qcthat/reference/printing.md)
   : Printing qcthat objects

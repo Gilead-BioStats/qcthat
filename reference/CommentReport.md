@@ -13,6 +13,7 @@ CommentReport(
     strGHToken),
   lglUpdate = TRUE,
   strRunID = Sys.getenv("GITHUB_RUN_ID"),
+  strJobName = Sys.getenv("GITHUB_JOB"),
   strOwner = GetGHOwner(),
   strRepo = GetGHRepo(),
   strGHToken = gh::gh_token()
@@ -48,6 +49,10 @@ CommentReport(
 
   (`length-1 character`) ID (typically numeric but can be very long) of
   a GitHub Actions workflow run.
+
+- strJobName:
+
+  (`length-1 character`) Name of a GitHub Actions workflow job.
 
 - strOwner:
 

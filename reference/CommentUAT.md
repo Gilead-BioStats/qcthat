@@ -15,6 +15,7 @@ CommentUAT(
     strRepo, strGHToken = strGHToken),
   lglUpdate = TRUE,
   strRunID = Sys.getenv("GITHUB_RUN_ID"),
+  strJobName = Sys.getenv("GITHUB_JOB"),
   strPkgRoot = ".",
   strOwner = GetGHOwner(strPkgRoot),
   strRepo = GetGHRepo(strPkgRoot),
@@ -39,6 +40,10 @@ CommentUAT(
   (`length-1 character`) ID (typically numeric but can be very long) of
   a GitHub Actions workflow run.
 
+- strJobName:
+
+  (`length-1 character`) Name of a GitHub Actions workflow job.
+
 - strPkgRoot:
 
   (`length-1 character`) The path to a directory in the package. Will be
@@ -62,3 +67,10 @@ CommentUAT(
 
 Invisibly returns the result of
 [`CommentIssue()`](https://gilead-biostats.github.io/qcthat/reference/CommentIssue.md).
+
+## See also
+
+Other UAT functions:
+[`ExpectUserAccepts()`](https://gilead-biostats.github.io/qcthat/reference/ExpectUserAccepts.md),
+[`IsCheckingUAT()`](https://gilead-biostats.github.io/qcthat/reference/IsCheckingUAT.md),
+[`TriggerUAT()`](https://gilead-biostats.github.io/qcthat/reference/TriggerUAT.md)

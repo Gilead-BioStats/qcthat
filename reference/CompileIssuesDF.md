@@ -46,3 +46,6 @@ with columns:
 
 - `ClosedAt`: `POSIXct` timestamp of when the issue was closed, or `NA`
   if the issue is still open.
+
+- `Assignees`: List column of character vectors of GitHub usernames of
+  issue assignees.

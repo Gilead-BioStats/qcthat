@@ -34,7 +34,7 @@ GetSessionInfo()
 #>  collate  C
 #>  ctype    C.UTF-8
 #>  tz       UTC
-#>  date     2026-05-26
+#>  date     2026-06-23
 #>  pandoc   3.8.3 @ /opt/hostedtoolcache/pandoc/3.8.3/x64/ (via rmarkdown)
 #>  quarto   1.9.38 @ /usr/local/bin/quarto
 #> 
@@ -49,7 +49,7 @@ GetSessionInfo()
 #>  brio          1.1.5      2024-04-24 [1] RSPM
 #>  bslib         0.11.0     2026-05-16 [1] RSPM
 #>  cachem        1.1.0      2024-05-16 [1] RSPM
-#>  callr         3.7.6      2024-03-25 [1] RSPM
+#>  callr         3.8.0      2026-06-05 [1] RSPM
 #>  checkmate     2.3.4      2026-02-03 [1] RSPM
 #>  class         7.3-23     2025-01-01 [3] CRAN (R 4.6.0)
 #>  cli           3.6.6      2026-04-09 [1] RSPM
@@ -76,14 +76,14 @@ GetSessionInfo()
 #>  fs            2.1.0      2026-04-18 [1] RSPM
 #>  generics      0.1.4      2025-05-09 [1] RSPM
 #>  gert          2.3.1      2026-01-11 [1] RSPM
-#>  gh            1.5.0.9000 2026-05-26 [1] Github (r-lib/gh@abc15b7)
+#>  gh            1.6.0.9000 2026-06-23 [1] Github (r-lib/gh@e5e7f37)
 #>  git2r         0.36.2     2025-03-29 [1] RSPM
 #>  gitcreds      0.1.2      2022-09-08 [1] RSPM
 #>  glue          1.8.1      2026-04-17 [1] RSPM
 #>  graphics    * 4.6.0      2026-04-24 [3] local
 #>  grDevices   * 4.6.0      2026-04-24 [3] local
 #>  grid          4.6.0      2026-04-24 [3] local
-#>  gsm.utils     0.3.1      2026-05-15 [1] Github (gilead-biostats/gsm.utils@4ddd5c0)
+#>  gsm.utils     0.4.0      2026-06-23 [1] Github (gilead-biostats/gsm.utils@b020480)
 #>  here          1.0.2      2025-09-15 [1] RSPM
 #>  highr         0.12       2026-03-06 [1] RSPM
 #>  htmltools     0.5.9      2025-12-04 [1] RSPM
@@ -106,19 +106,20 @@ GetSessionInfo()
 #>  mime          0.13       2025-03-17 [1] RSPM
 #>  nlme          3.1-169    2026-03-27 [3] CRAN (R 4.6.0)
 #>  nnet          7.3-20     2025-01-01 [3] CRAN (R 4.6.0)
-#>  openssl       2.4.1      2026-05-14 [1] RSPM
-#>  pak           0.9.5      2026-04-27 [2] local
+#>  openssl       2.4.2      2026-06-09 [1] RSPM
+#>  otel          0.2.0      2025-08-29 [1] RSPM
+#>  pak           0.10.0     2026-06-07 [2] local
 #>  parallel      4.6.0      2026-04-24 [3] local
 #>  pillar        1.11.1     2025-09-17 [1] RSPM
 #>  pkgbuild      1.4.8      2025-05-26 [1] RSPM
 #>  pkgconfig     2.0.3      2019-09-22 [1] RSPM
-#>  pkgdown       2.2.0      2025-11-06 [1] RSPM
-#>  pkgload       1.5.2      2026-04-22 [1] RSPM
+#>  pkgdown       2.2.0      2025-11-06 [1] any (@2.2.0)
+#>  pkgload       1.5.3      2026-06-15 [1] RSPM
 #>  praise        1.0.0      2015-08-11 [1] RSPM
 #>  processx      3.9.0      2026-04-22 [1] RSPM
 #>  ps            1.9.3      2026-04-20 [1] RSPM
 #>  purrr         1.2.2      2026-04-10 [1] RSPM
-#>  qcthat      * 1.1.2.9000 2026-05-26 [1] local
+#>  qcthat      * 1.1.3      2026-06-23 [1] local
 #>  quarto        1.5.1      2025-09-04 [1] RSPM
 #>  R6            2.6.1      2025-02-15 [1] RSPM
 #>  ragg          1.5.2      2026-03-23 [1] RSPM
@@ -130,11 +131,11 @@ GetSessionInfo()
 #>  rpart         4.1.27     2026-03-27 [3] CRAN (R 4.6.0)
 #>  rprojroot     2.1.1      2025-08-26 [1] RSPM
 #>  rrapply       1.2.8      2025-11-25 [1] RSPM
-#>  rstudioapi    0.18.0     2026-01-16 [1] RSPM
+#>  rstudioapi    0.19.0     2026-06-11 [1] RSPM
 #>  rvest         1.0.5      2025-08-29 [1] RSPM
 #>  sass          0.4.10     2025-04-11 [1] RSPM
 #>  selectr       0.5-1      2025-12-17 [1] RSPM
-#>  sessioninfo   1.2.3      2025-02-05 [1] RSPM
+#>  sessioninfo   1.2.4      2026-06-04 [1] RSPM
 #>  spatial       7.3-18     2025-01-01 [3] CRAN (R 4.6.0)
 #>  splines       4.6.0      2026-04-24 [3] local
 #>  stats       * 4.6.0      2026-04-24 [3] local
@@ -150,7 +151,7 @@ GetSessionInfo()
 #>  tibble        3.3.1      2026-01-11 [1] RSPM
 #>  tidyr         1.3.2      2025-12-19 [1] RSPM
 #>  tidyselect    1.2.1      2024-03-11 [1] RSPM
-#>  tinytex       0.59       2026-03-28 [1] RSPM
+#>  tinytex       0.60       2026-06-16 [1] RSPM
 #>  tools         4.6.0      2026-04-24 [3] local
 #>  usethis       3.2.1      2025-09-06 [1] RSPM
 #>  utf8          1.2.6      2025-06-08 [1] RSPM
@@ -158,11 +159,11 @@ GetSessionInfo()
 #>  vctrs         0.7.3      2026-04-11 [1] RSPM
 #>  waldo         0.6.2      2025-07-11 [1] RSPM
 #>  whisker       0.4.1      2022-12-05 [1] RSPM
-#>  withr         3.0.2      2024-10-28 [1] RSPM
-#>  xfun          0.57       2026-03-20 [1] RSPM
-#>  xml2          1.5.2      2026-01-17 [1] RSPM
+#>  withr         3.0.3      2026-06-19 [1] RSPM
+#>  xfun          0.59       2026-06-19 [1] RSPM
+#>  xml2          1.6.0      2026-06-22 [1] RSPM
 #>  yaml          2.3.12     2025-12-10 [1] RSPM
-#>  zip           2.3.3      2025-05-13 [1] RSPM
+#>  zip           3.0.0      2026-06-10 [1] RSPM
 #> 
 #>  [1] /home/runner/work/_temp/Library
 #>  [2] /opt/R/4.6.0/lib/R/site-library

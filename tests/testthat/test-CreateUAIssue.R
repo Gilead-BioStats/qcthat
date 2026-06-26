@@ -1,4 +1,4 @@
-test_that("CreateUAIssue constructs the expected call (#111)", {
+test_that("CreateUAIssue constructs the expected call (#111, #290)", {
   local_mocked_bindings(
     CreateChildIssue = function(...) list(...)
   )
@@ -17,7 +17,10 @@ test_that("CreateUAIssue constructs the expected call (#111)", {
     list(
       intIssue,
       TitleUAIssue(strDescription, intIssue),
-      "Close this issue to indicate your acceptance.\n\nThese are instructions\n\n- [ ] Check 1\n\n- [ ] Check 2",
+      BodyUAIssue(
+        chrChecks = c("Check 1", "Check 2"),
+        chrInstructions = "These are instructions"
+      ),
       chrLabels = "qcthat-uat",
       strOwner = "test-owner",
       strRepo = "test-repo",

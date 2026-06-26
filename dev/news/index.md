@@ -49,12 +49,19 @@ This patch release streamlines and hones the GitHub Action installed via
   via the `uat-assignees` input, automatically triggering different UAT
   reviewers at different stages of development
   ([\#193](https://github.com/Gilead-BioStats/qcthat/issues/193)).
+
 - [`vignette("expect_user_accepts")`](https://gilead-biostats.github.io/qcthat/dev/articles/expect_user_accepts.md)
   added to describe the “User acceptance testing with ExpectUserAccepts”
   process
   ([\#293](https://github.com/Gilead-BioStats/qcthat/issues/293)).
+
 - qcthat installs the dev version of gh to avoid issues with GitHub PATs
   caused by recent changes to the GitHub API.
+
+- [`ExpectUserAccepts()`](https://gilead-biostats.github.io/qcthat/dev/reference/ExpectUserAccepts.md)
+  now updates the body of existing `qcthat-uat` issues when `chrChecks`
+  or `chrInstructions` change
+  ([\#290](https://github.com/Gilead-BioStats/qcthat/issues/290)).
 
 ## qcthat 1.1.2
 

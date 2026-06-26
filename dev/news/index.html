@@ -57,11 +57,10 @@
 </ul></div>
 <div class="section level3">
 <h3 id="other-changes-1-1-3">Other changes<a class="anchor" aria-label="anchor" href="#other-changes-1-1-3"></a></h3>
-<ul><li>
-<code><a href="../reference/ExpectUserAccepts.html">ExpectUserAccepts()</a></code> now automatically assigns UAT issues to GitHub usernames passed as <code>chrAssignees</code>, defaulting to the value of a <code>qcthat_UAT_ASSIGNEES</code> environment variable. This variable can be set in the GitHub action via the <code>uat-assignees</code> input, automatically triggering different UAT reviewers at different stages of development (<a href="https://github.com/Gilead-BioStats/qcthat/issues/193" class="external-link">#193</a>).</li>
-<li>
-<code><a href="../articles/expect_user_accepts.html">vignette("expect_user_accepts")</a></code> added to describe the “User acceptance testing with ExpectUserAccepts” process (<a href="https://github.com/Gilead-BioStats/qcthat/issues/293" class="external-link">#293</a>).</li>
-<li>qcthat installs the dev version of gh to avoid issues with GitHub PATs caused by recent changes to the GitHub API.</li>
+<ul><li><p><code><a href="../reference/ExpectUserAccepts.html">ExpectUserAccepts()</a></code> now automatically assigns UAT issues to GitHub usernames passed as <code>chrAssignees</code>, defaulting to the value of a <code>qcthat_UAT_ASSIGNEES</code> environment variable. This variable can be set in the GitHub action via the <code>uat-assignees</code> input, automatically triggering different UAT reviewers at different stages of development (<a href="https://github.com/Gilead-BioStats/qcthat/issues/193" class="external-link">#193</a>).</p></li>
+<li><p><code><a href="../articles/expect_user_accepts.html">vignette("expect_user_accepts")</a></code> added to describe the “User acceptance testing with ExpectUserAccepts” process (<a href="https://github.com/Gilead-BioStats/qcthat/issues/293" class="external-link">#293</a>).</p></li>
+<li><p>qcthat installs the dev version of gh to avoid issues with GitHub PATs caused by recent changes to the GitHub API.</p></li>
+<li><p><code><a href="../reference/ExpectUserAccepts.html">ExpectUserAccepts()</a></code> now updates the body of existing <code>qcthat-uat</code> issues when <code>chrChecks</code> or <code>chrInstructions</code> change (<a href="https://github.com/Gilead-BioStats/qcthat/issues/290" class="external-link">#290</a>).</p></li>
 </ul></div>
 </div>
     <div class="section level2">

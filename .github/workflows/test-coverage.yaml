@@ -18,6 +18,6 @@ permissions:
   pull-requests: write
 jobs:
   call-test-coverage-core:
-    uses: Gilead-BioStats/gsm.utils/.github/workflows/test-coverage-core.yaml@actions-v1
+    uses: Gilead-BioStats/gsm.utils/.github/workflows/test-coverage-core.yaml@fix-130-app-tokens
     secrets:
       token: ${{ secrets.GITHUB_TOKEN }}

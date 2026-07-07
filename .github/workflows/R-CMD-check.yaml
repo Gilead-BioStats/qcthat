@@ -36,7 +36,7 @@ jobs:
         id: token
         with:
           app-id: ${{ secrets.CM_BOT_APP_ID }}
-          private-key: ${{ secrets.CM_BOT_PRIVATE_KEY }}
+          app-private-key: ${{ secrets.CM_BOT_PRIVATE_KEY }}
           owner: ${{ github.repository_owner }}
       - name: Check out repo
         uses: gilead-biostats/gsm.utils/checkout@actions-v1

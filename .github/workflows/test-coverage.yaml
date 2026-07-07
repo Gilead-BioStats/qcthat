@@ -1,5 +1,5 @@
 # name: test-coverage.yaml
-# version: 0.3.8
+# version: 0.4.0
 # Description: Compute test coverage and publish coverage-summary.json artifact
 name: test-coverage
 on:
@@ -21,3 +21,5 @@ jobs:
     uses: Gilead-BioStats/gsm.utils/.github/workflows/test-coverage-core.yaml@fix-130-app-tokens
     secrets:
       token: ${{ secrets.GITHUB_TOKEN }}
+      app-id: ${{ secrets.CM_BOT_APP_ID }}
+      app-private-key: ${{ secrets.CM_BOT_PRIVATE_KEY }}

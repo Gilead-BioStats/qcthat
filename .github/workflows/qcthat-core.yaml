@@ -87,7 +87,7 @@ jobs:
 
     steps:
       - name: Generate token
-        uses: gilead-biostats/gsm.utils/generate-token@fix-130-app-tokens
+        uses: gilead-biostats/gsm.utils/generate-token@actions-v1
         id: token
         with:
           app-id: ${{ secrets.qcthat-app-id }}
@@ -125,7 +125,7 @@ jobs:
 
     steps:
       - name: Generate token
-        uses: gilead-biostats/gsm.utils/generate-token@fix-130-app-tokens
+        uses: gilead-biostats/gsm.utils/generate-token@actions-v1
         id: token
         with:
           app-id: ${{ secrets.qcthat-app-id }}

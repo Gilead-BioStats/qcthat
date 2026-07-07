@@ -1,5 +1,5 @@
 # name: pkgdown-all.yaml
-# version: 0.4.0
+# version: 0.4.0.9000
 # Description: Triggers the core pkgdown deployment and cleanup workflows.
 name: pkgdown-all
 on:

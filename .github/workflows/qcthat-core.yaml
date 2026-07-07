@@ -55,6 +55,10 @@ on:
     secrets:
       token:
         description: "GitHub token, set to secrets.GITHUB_TOKEN"
+      qcthat-app-id:
+        required: false
+      qcthat-app-private-key:
+        required: false
 
 name: qcthat-core
 
@@ -79,24 +83,30 @@ jobs:
         (github.event_name == 'workflow_dispatch' && inputs.issue-number != '')
       )
     env:
-      GITHUB_PAT: ${{ secrets.token || github.token }}
       qcthat_UAT_ASSIGNEES: ${{ inputs.uat-assignees }}
 
     steps:
+      - name: Generate token
+        uses: gilead-biostats/gsm.utils/generate-token@actions-v1
+        id: token
+        with:
+          app-id: ${{ secrets.qcthat-app-id }}
+          app-private-key: ${{ secrets.qcthat-app-private-key }}
+          owner: ${{ github.repository_owner }}
+          fallback-token: ${{ secrets.token || github.token }}
+      - name: Set GITHUB_PAT
+        run: echo "GITHUB_PAT=${{ steps.token.outputs.token }}" >> $GITHUB_ENV
       - name: Check out repo
         uses: gilead-biostats/gsm.utils/checkout@actions-v1
-
       - name: Install R and dependencies
         uses: gilead-biostats/gsm.utils/install@actions-v1
         with:
-          token: ${{ secrets.token || github.token }}
+          token: ${{ steps.token.outputs.token }}
           extra-packages: Gilead-BioStats/qcthat${{ inputs.qcthat-ref }} local::.
           use-public-rspm: true
-
       - name: Session info
         run: sessionInfo()
         shell: Rscript {0}
-
       - name: Manage User Acceptance Testing
         run: |
           qcthat::TriggerUAT(
@@ -112,10 +122,18 @@ jobs:
     if: >-
       github.event_name != 'issues' &&
       !(github.event_name == 'workflow_dispatch' && inputs.issue-number != '')
-    env:
-      GITHUB_PAT: ${{ secrets.token || github.token }}
 
     steps:
+      - name: Generate token
+        uses: gilead-biostats/gsm.utils/generate-token@actions-v1
+        id: token
+        with:
+          app-id: ${{ secrets.qcthat-app-id }}
+          app-private-key: ${{ secrets.qcthat-app-private-key }}
+          owner: ${{ github.repository_owner }}
+          fallback-token: ${{ secrets.token || github.token }}
+      - name: Set GITHUB_PAT
+        run: echo "GITHUB_PAT=${{ steps.token.outputs.token }}" >> $GITHUB_ENV
       - name: Determine checkout ref
         id: get-ref
         if: github.event_name == 'workflow_dispatch'
@@ -123,29 +141,24 @@ jobs:
         with:
           pr-number: ${{ inputs.pr-number }}
           tag: ${{ inputs.tag }}
-          token: ${{ secrets.token || github.token }}
-
+          token: ${{ steps.token.outputs.token }}
       - name: Check out repo
         uses: gilead-biostats/gsm.utils/checkout@actions-v1
         with:
           ref: ${{ steps.get-ref.outputs.ref }}
-
       - name: Install R and dependencies
         uses: gilead-biostats/gsm.utils/install@actions-v1
         with:
-          token: ${{ secrets.token || github.token }}
+          token: ${{ steps.token.outputs.token }}
           extra-packages: Gilead-BioStats/qcthat${{ inputs.qcthat-ref }} local::.
           use-public-rspm: true
-
       - name: Session info
         run: sessionInfo()
         shell: Rscript {0}
-
       - name: Generate Issue-Test Matrix
         uses: gilead-biostats/qcthat/generate-itm@actions
         with:
-          token: ${{ secrets.token || github.token }}
-
+          token: ${{ steps.token.outputs.token }}
       - name: Update PR Reports
         if: >-
           inputs.generate-pr-report && (
@@ -161,9 +174,8 @@ jobs:
           manage-uat: ${{ inputs.manage-uat }}
           milestone: ${{ inputs.milestone }}
           run-id: ${{ github.run_id }}
-          token: ${{ secrets.token || github.token }}
+          token: ${{ steps.token.outputs.token }}
           uat-assignees: ${{ inputs.uat-assignees }}
-
       - name: Update Release Reports
         if: >-
           inputs.generate-release-report && (
@@ -175,7 +187,7 @@ jobs:
           generate-milestone-report: ${{ inputs.generate-milestone-report }}
           milestone: ${{ inputs.milestone }}
           run-id: ${{ github.run_id }}
-          token: ${{ secrets.token || github.token }}
+          token: ${{ steps.token.outputs.token }}
 
       - name: Flag failure for PR
         if: >-
@@ -186,7 +198,7 @@ jobs:
         uses: gilead-biostats/qcthat/pr-flag-failure@actions
         with:
           pr-number: ${{ inputs.pr-number }}
-          token: ${{ secrets.token || github.token }}
+          token: ${{ steps.token.outputs.token }}
           uat-assignees: ${{ inputs.uat-assignees }}
           fail-for-test-failures: ${{ inputs.fail-for-test-failures }}
           fail-for-missing-tests: ${{ inputs.fail-for-missing-tests }}
@@ -200,4 +212,4 @@ jobs:
           )
         uses: gilead-biostats/qcthat/release-flag-failure@actions
         with:
-          token: ${{ secrets.token || github.token }}
+          token: ${{ steps.token.outputs.token }}

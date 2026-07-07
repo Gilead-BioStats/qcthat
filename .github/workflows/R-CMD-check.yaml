@@ -1,5 +1,5 @@
 # name: R-CMD-check.yaml
-# version: 0.4.0
+# version: 0.4.0.9000
 # Workflow derived from https://github.com/r-lib/actions/tree/v2/examples
 # Description: R CMD check for PRs
 on:
@@ -19,7 +19,7 @@ jobs:
         id: set-matrix
         uses: gilead-biostats/gsm.utils/setup-matrix-with-dev@actions-v1
         with:
-          pkg-use: 'wide'
+          pkg-use: 'public'
   R-CMD-check:
     needs: [setup-matrix]
     runs-on: ${{ matrix.config.os }}

@@ -1,5 +1,5 @@
 # name: R-CMD-check.yaml
-# version: 0.4.0.9000
+# version: 0.4.1
 # Workflow derived from https://github.com/r-lib/actions/tree/v2/examples
 # Description: R CMD check for PRs
 on:
@@ -32,7 +32,7 @@ jobs:
       R_KEEP_PKG_SOURCE: yes
     steps:
       - name: Generate token
-        uses: gilead-biostats/gsm.utils/generate-token@fix-130-app-tokens
+        uses: gilead-biostats/gsm.utils/generate-token@actions-v1
         id: token
         with:
           app-id: ${{ secrets.CM_BOT_APP_ID }}

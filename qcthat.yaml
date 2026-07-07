@@ -43,8 +43,8 @@ jobs:
     uses: Gilead-BioStats/qcthat/.github/workflows/qcthat-core.yaml@app-tokens
     secrets:
       token: ${{ secrets.GITHUB_TOKEN }}
-      CM_BOT_APP_ID: ${{ secrets.CM_BOT_APP_ID }}
-      CM_BOT_PRIVATE_KEY: ${{ secrets.CM_BOT_PRIVATE_KEY }}
+      qcthat-app-id: ${{ secrets.CM_BOT_APP_ID }}
+      qcthat-app-private-key: ${{ secrets.CM_BOT_PRIVATE_KEY }}
     with:
       # Configuration variables for controlling workflow behavior
       manage-uat: true
@@ -62,4 +62,3 @@ jobs:
       tag: ${{ github.event.release.tag_name || inputs.tag || '' }}
       issue-number: ${{ github.event.issue.number || inputs.issue-number || '' }}
       qcthat-ref: ${{ inputs.qcthat-ref || '@*release' }}
-      use-app: false

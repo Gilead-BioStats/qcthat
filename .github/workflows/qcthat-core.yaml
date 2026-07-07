@@ -52,16 +52,12 @@ on:
         description: A specific qcthat GitHub reference, such as a tag ("@v1.0.0"), branch ("@dev"), commit ("@480c247"), or pull request number ("#312") to use for reports and UAT management. Defaults to the latest release, "@*release".
         type: string
         default: '@*release'
-      use-app:
-        description: "Whether to generate a GitHub App token instead of using the default token."
-        type: boolean
-        default: false
     secrets:
       token:
         description: "GitHub token, set to secrets.GITHUB_TOKEN"
-      CM_BOT_APP_ID:
+      qcthat-app-id:
         required: false
-      CM_BOT_PRIVATE_KEY:
+      qcthat-app-private-key:
         required: false
 
 name: qcthat-core
@@ -94,9 +90,8 @@ jobs:
         uses: gilead-biostats/gsm.utils/generate-token@fix-130-app-tokens
         id: token
         with:
-          use-app: ${{ inputs.use-app && 'true' || 'false' }}
-          app-id: ${{ secrets.CM_BOT_APP_ID }}
-          private-key: ${{ secrets.CM_BOT_PRIVATE_KEY }}
+          app-id: ${{ secrets.qcthat-app-id }}
+          app-private-key: ${{ secrets.qcthat-app-private-key }}
           owner: ${{ github.repository_owner }}
           fallback-token: ${{ secrets.token || github.token }}
       - name: Set GITHUB_PAT
@@ -133,9 +128,8 @@ jobs:
         uses: gilead-biostats/gsm.utils/generate-token@fix-130-app-tokens
         id: token
         with:
-          use-app: ${{ inputs.use-app && 'true' || 'false' }}
-          app-id: ${{ secrets.CM_BOT_APP_ID }}
-          private-key: ${{ secrets.CM_BOT_PRIVATE_KEY }}
+          app-id: ${{ secrets.qcthat-app-id }}
+          app-private-key: ${{ secrets.qcthat-app-private-key }}
           owner: ${{ github.repository_owner }}
           fallback-token: ${{ secrets.token || github.token }}
       - name: Set GITHUB_PAT

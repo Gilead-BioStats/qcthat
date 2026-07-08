@@ -34,7 +34,7 @@ GetSessionInfo()
 #>  collate  C
 #>  ctype    C.UTF-8
 #>  tz       UTC
-#>  date     2026-07-07
+#>  date     2026-07-08
 #>  pandoc   3.8.3 @ /opt/hostedtoolcache/pandoc/3.8.3/x64/ (via rmarkdown)
 #>  quarto   1.9.38 @ /usr/local/bin/quarto
 #> 
@@ -113,13 +113,13 @@ GetSessionInfo()
 #>  pillar        1.11.1  2025-09-17 [1] RSPM
 #>  pkgbuild      1.4.8   2025-05-26 [1] RSPM
 #>  pkgconfig     2.0.3   2019-09-22 [1] RSPM
-#>  pkgdown       2.2.0   2025-11-06 [1] RSPM
+#>  pkgdown       2.2.1   2026-07-07 [1] RSPM
 #>  pkgload       1.5.3   2026-06-15 [1] RSPM
 #>  praise        1.0.0   2015-08-11 [1] RSPM
 #>  processx      3.9.0   2026-04-22 [1] RSPM
 #>  ps            1.9.3   2026-04-20 [1] RSPM
 #>  purrr         1.2.2   2026-04-10 [1] RSPM
-#>  qcthat      * 1.1.3   2026-07-07 [1] local
+#>  qcthat      * 1.1.3   2026-07-08 [1] local
 #>  quarto        1.5.1   2025-09-04 [1] RSPM
 #>  R6            2.6.1   2025-02-15 [1] RSPM
 #>  ragg          1.5.2   2026-03-23 [1] RSPM

@@ -19,7 +19,7 @@ jobs:
         id: set-matrix
         uses: gilead-biostats/gsm.utils/setup-matrix-with-dev@actions-v1
         with:
-          pkg-use: 'public'
+          pkg-use: 'wide'
   R-CMD-check:
     needs: [setup-matrix]
     runs-on: ${{ matrix.config.os }}

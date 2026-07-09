@@ -1,5 +1,5 @@
 # name: qcthat.yaml
-# version: 0.1.0
+# version: 0.2.1
 # Description: Generate qcthat quality control reports for pull requests and releases and manage user acceptance testing.
 on:
   pull_request:
@@ -43,6 +43,8 @@ jobs:
     uses: Gilead-BioStats/qcthat/.github/workflows/qcthat-core.yaml@actions
     secrets:
       token: ${{ secrets.GITHUB_TOKEN }}
+      qcthat-app-id: ${{ secrets.CM_BOT_APP_ID }}
+      qcthat-app-private-key: ${{ secrets.CM_BOT_PRIVATE_KEY }}
     with:
       # Configuration variables for controlling workflow behavior
       manage-uat: true

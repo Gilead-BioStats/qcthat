@@ -6,6 +6,15 @@ test_that("CommentIssue compiles the body as expected (#83, #172, #295)", {
     LinkSessionInfo = function(...) "SESSION INFO",
     FetchJobID = function(...) "jobID"
   )
+  local_mocked_bindings(
+    hash = function(x, ...) {
+      if (x == "Test Title") {
+        return("0b0a574c2bcc14f97e3ee223d93f0032")
+      }
+      return("some-other-hash")
+    },
+    .package = "rlang"
+  )
   test_result <- CommentIssue(
     intIssue = 1,
     strTitle = "Test Title",
@@ -226,6 +235,15 @@ test_that("CommentIssue includes job URL when available (#150, #295)", {
     LinkSessionInfo = function(...) "SESSION INFO",
     FetchJobID = function(...) "JOB_ID"
   )
+  local_mocked_bindings(
+    hash = function(x, ...) {
+      if (x == "title") {
+        return("946fc7c6b977b18bcbc64ba0eb6216ae")
+      }
+      return("some-other-hash")
+    },
+    .package = "rlang"
+  )
   expect_snapshot({
     CommentIssue(
       intIssue = 123,
@@ -271,6 +289,15 @@ test_that("CommentIssue includes session info (#150, #295)", {
     ConstructJobURL = function(strRunID, strJobID, ...) "JOB URL",
     FetchSessionInfoStepNumber = function(...) 1L,
     FetchJobID = function(...) "JOB_ID"
+  )
+  local_mocked_bindings(
+    hash = function(x, ...) {
+      if (x == "title") {
+        return("946fc7c6b977b18bcbc64ba0eb6216ae")
+      }
+      return("some-other-hash")
+    },
+    .package = "rlang"
   )
   expect_snapshot({
     CommentIssue(

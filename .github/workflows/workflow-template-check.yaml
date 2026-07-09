@@ -1,5 +1,5 @@
 # name: workflow-template-check.yaml
-# version: 0.3.6
+# version: 0.4.1
 # Description: Check if GitHub Actions workflows match gsm.utils templates
 name: Workflow Template Compliance Check
 on:
@@ -13,3 +13,6 @@ permissions:
 jobs:
   check-workflows:
     uses: Gilead-BioStats/gsm.utils/.github/workflows/workflow-template-checker.yaml@actions-v1
+    secrets:
+      app-id: ${{ secrets.CM_BOT_APP_ID }}
+      app-private-key: ${{ secrets.CM_BOT_PRIVATE_KEY }}

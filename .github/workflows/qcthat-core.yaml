@@ -158,7 +158,7 @@ jobs:
         run: sessionInfo()
         shell: Rscript {0}
       - name: Generate Issue-Test Matrix
-        uses: gilead-biostats/qcthat/generate-itm@actions
+        uses: gilead-biostats/qcthat/generate-itm@shell-and-main
         with:
           token: ${{ steps.token.outputs.token }}
       - name: Update PR Reports
@@ -167,7 +167,7 @@ jobs:
             github.event_name == 'pull_request' ||
             (github.event_name == 'workflow_dispatch' && inputs.pr-number != '')
           )
-        uses: gilead-biostats/qcthat/pr-report@actions
+        uses: gilead-biostats/qcthat/pr-report@shell-and-main
         with:
           pr-number: ${{ inputs.pr-number }}
           generate-completed-report: ${{ inputs.generate-completed-report }}
@@ -183,7 +183,7 @@ jobs:
           inputs.generate-release-report && (
             github.event_name == 'release' || inputs.tag != ''
           )
-        uses: gilead-biostats/qcthat/release-report@actions
+        uses: gilead-biostats/qcthat/release-report@shell-and-main
         with:
           generate-completed-report: ${{ inputs.generate-completed-report }}
           generate-milestone-report: ${{ inputs.generate-milestone-report }}
@@ -197,7 +197,7 @@ jobs:
             github.event_name == 'pull_request' ||
             (github.event_name == 'workflow_dispatch' && inputs.pr-number != '')
           )
-        uses: gilead-biostats/qcthat/pr-flag-failure@actions
+        uses: gilead-biostats/qcthat/pr-flag-failure@shell-and-main
         with:
           pr-number: ${{ inputs.pr-number }}
           token: ${{ steps.token.outputs.token }}
@@ -212,6 +212,6 @@ jobs:
             github.event_name == 'release' ||
             (github.event_name == 'workflow_dispatch' && inputs.issue-number == '')
           )
-        uses: gilead-biostats/qcthat/release-flag-failure@actions
+        uses: gilead-biostats/qcthat/release-flag-failure@shell-and-main
         with:
           token: ${{ steps.token.outputs.token }}

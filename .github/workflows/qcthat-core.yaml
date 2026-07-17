@@ -49,9 +49,9 @@ on:
         description: The closed issue number to process to update user acceptance testing information.
         type: string
       qcthat-ref:
-        description: A specific qcthat GitHub reference, such as a tag ("@v1.0.0"), branch ("@dev"), commit ("@480c247"), or pull request number ("#312") to use for reports and UAT management. Defaults to "@main".
+        description: A specific qcthat GitHub reference, such as a tag ("@v1.0.0"), branch ("@dev"), commit ("@480c247"), or pull request number ("#312") to use for reports and UAT management. Defaults to "@*release".
         type: string
-        default: '@main'
+        default: '@*release'
     secrets:
       token:
         description: "GitHub token, set to secrets.GITHUB_TOKEN"

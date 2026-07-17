@@ -186,6 +186,7 @@ jobs:
           generate-completed-report: ${{ inputs.generate-completed-report }}
           generate-milestone-report: ${{ inputs.generate-milestone-report }}
           milestone: ${{ inputs.milestone }}
+          tag: ${{ inputs.tag }}
           run-id: ${{ github.run_id }}
           token: ${{ steps.token.outputs.token }}
 

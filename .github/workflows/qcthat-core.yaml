@@ -87,7 +87,7 @@ jobs:
 
     steps:
       - name: Generate token
-        uses: gilead-biostats/gsm.utils/generate-token@actions-v1
+        uses: gilead-biostats/gsm.utils/generate-token@fix-bash-runner
         id: token
         with:
           app-id: ${{ secrets.qcthat-app-id }}
@@ -98,9 +98,9 @@ jobs:
         shell: bash
         run: echo "GITHUB_PAT=${{ steps.token.outputs.token }}" >> $GITHUB_ENV
       - name: Check out repo
-        uses: gilead-biostats/gsm.utils/checkout@actions-v1
+        uses: gilead-biostats/gsm.utils/checkout@fix-bash-runner
       - name: Install R and dependencies
-        uses: gilead-biostats/gsm.utils/install@actions-v1
+        uses: gilead-biostats/gsm.utils/install@fix-bash-runner
         with:
           token: ${{ steps.token.outputs.token }}
           extra-packages: Gilead-BioStats/qcthat${{ inputs.qcthat-ref }} local::.
@@ -126,7 +126,7 @@ jobs:
 
     steps:
       - name: Generate token
-        uses: gilead-biostats/gsm.utils/generate-token@actions-v1
+        uses: gilead-biostats/gsm.utils/generate-token@fix-bash-runner
         id: token
         with:
           app-id: ${{ secrets.qcthat-app-id }}
@@ -139,17 +139,17 @@ jobs:
       - name: Determine checkout ref
         id: get-ref
         if: github.event_name == 'workflow_dispatch'
-        uses: gilead-biostats/gsm.utils/determine-ref@actions-v1
+        uses: gilead-biostats/gsm.utils/determine-ref@fix-bash-runner
         with:
           pr-number: ${{ inputs.pr-number }}
           tag: ${{ inputs.tag }}
           token: ${{ steps.token.outputs.token }}
       - name: Check out repo
-        uses: gilead-biostats/gsm.utils/checkout@actions-v1
+        uses: gilead-biostats/gsm.utils/checkout@fix-bash-runner
         with:
           ref: ${{ steps.get-ref.outputs.ref }}
       - name: Install R and dependencies
-        uses: gilead-biostats/gsm.utils/install@actions-v1
+        uses: gilead-biostats/gsm.utils/install@fix-bash-runner
         with:
           token: ${{ steps.token.outputs.token }}
           extra-packages: Gilead-BioStats/qcthat${{ inputs.qcthat-ref }} local::.

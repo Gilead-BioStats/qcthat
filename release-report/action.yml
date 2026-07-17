@@ -23,19 +23,28 @@ inputs:
 runs:
   using: "composite"
   steps:
+    - name: Reconcile chrMilestones
+      id: reconcile
+      shell: bash
+      run: |
+        chr_milestones="${{ inputs.milestone }}"
+        if [ -z "$chr_milestones" ]; then
+          chr_milestones="${{ inputs.tag }}"
+        fi
+        echo "chr-milestones=$chr_milestones" >> $GITHUB_OUTPUT
     - name: Update Release Reports
+      if: steps.reconcile.outputs.chr-milestones != ''
       env:
         GITHUB_PAT: ${{ inputs.token }}
+        CHR_MILESTONES: ${{ steps.reconcile.outputs.chr-milestones }}
       shell: Rscript {0}
       run: |
         issueTestMatrix <- readRDS("ITM.rds")
         qcthat::LoadUATIssues()
-        chrMilestones <- c("${{ inputs.milestone }}", "${{ inputs.tag }}")
-        chrMilestones <- chrMilestones[nzchar(chrMilestones)]
         qcthat::AttachReleaseReports(
           lglCompleted = ${{ inputs.generate-completed-report == 'true' && 'TRUE' || 'FALSE' }},
           lglMilestone = ${{ inputs.generate-milestone-report == 'true' && 'TRUE' || 'FALSE' }},
-          ${{ (inputs.milestone != '' || inputs.tag != '') && 'chrMilestones = chrMilestones,' || '' }}
+          chrMilestones = Sys.getenv("CHR_MILESTONES"),
           dfITM = issueTestMatrix,
           strRunID = "${{ inputs.run-id }}",
           strOwner = "${{ github.repository_owner }}",

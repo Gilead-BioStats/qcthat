@@ -3,7 +3,7 @@ name: "Feature Issue Template"
 about: "Propose and develop new user-facing functionality"
 title: "(fill in)"
 type: Feature
-Project: Gilead-BioStats/41
+Project: Gilead-Public/41
 ---
 
 ## Summary

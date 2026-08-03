@@ -1,5 +1,5 @@
 # name: R-CMD-check.yaml
-# version: 0.4.1
+# version: 1.0.0
 # Workflow derived from https://github.com/r-lib/actions/tree/v2/examples
 # Description: R CMD check for PRs
 on:
@@ -17,9 +17,9 @@ jobs:
     steps:
       - name: Define matrix based on target branch
         id: set-matrix
-        uses: gilead-biostats/gsm.utils/setup-matrix-with-dev@actions-v1
+        uses: gilead-public/gsm.utils/setup-matrix-with-dev@actions-v1
         with:
-          pkg-use: 'wide'
+          pkg-use: 'public'
   R-CMD-check:
     needs: [setup-matrix]
     runs-on: ${{ matrix.config.os }}
@@ -32,18 +32,18 @@ jobs:
       R_KEEP_PKG_SOURCE: yes
     steps:
       - name: Generate token
-        uses: gilead-biostats/gsm.utils/generate-token@actions-v1
+        uses: gilead-public/gsm.utils/generate-token@actions-v1
         id: token
         with:
           app-id: ${{ secrets.CM_BOT_APP_ID }}
           app-private-key: ${{ secrets.CM_BOT_PRIVATE_KEY }}
           owner: ${{ github.repository_owner }}
       - name: Check out repo
-        uses: gilead-biostats/gsm.utils/checkout@actions-v1
+        uses: gilead-public/gsm.utils/checkout@actions-v1
         with:
           token: ${{ steps.token.outputs.token }}
       - name: Install R and dependencies
-        uses: gilead-biostats/gsm.utils/install@actions-v1
+        uses: gilead-public/gsm.utils/install@actions-v1
         with:
           token: ${{ steps.token.outputs.token }}
           r-version: ${{ matrix.config.r }}
@@ -52,8 +52,9 @@ jobs:
           extra-packages: any::rcmdcheck
           needs: check
       - name: Set GITHUB_PAT
+        shell: bash
         run: echo "GITHUB_PAT=${{ steps.token.outputs.token }}" >> $GITHUB_ENV
       - name: Check package
-        uses: gilead-biostats/gsm.utils/check-r-package@actions-v1
+        uses: gilead-public/gsm.utils/check-r-package@actions-v1
         with:
           error-on: ${{ matrix.config.error-on || '"warning"' }}

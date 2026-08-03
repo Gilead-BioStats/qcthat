@@ -7,17 +7,17 @@
 
 <div class="pkgdown-release">
 
-[![R-CMD-check](https://github.com/Gilead-BioStats/qcthat/actions/workflows/R-CMD-check.yaml/badge.svg?branch=main)](https://github.com/Gilead-BioStats/qcthat/actions/workflows/R-CMD-check.yaml)
-[![test-coverage](https://github.com/Gilead-BioStats/qcthat/actions/workflows/test-coverage.yaml/badge.svg?branch=main)](https://github.com/Gilead-BioStats/qcthat/actions/workflows/test-coverage.yaml)
-[![pkgdown-all](https://github.com/Gilead-BioStats/qcthat/actions/workflows/pkgdown-all.yaml/badge.svg?branch=main)](https://github.com/Gilead-BioStats/qcthat/actions/workflows/pkgdown-all.yaml)
+[![R-CMD-check](https://github.com/Gilead-Public/qcthat/actions/workflows/R-CMD-check.yaml/badge.svg?branch=main)](https://github.com/Gilead-Public/qcthat/actions/workflows/R-CMD-check.yaml)
+[![test-coverage](https://github.com/Gilead-Public/qcthat/actions/workflows/test-coverage.yaml/badge.svg?branch=main)](https://github.com/Gilead-Public/qcthat/actions/workflows/test-coverage.yaml)
+[![pkgdown-all](https://github.com/Gilead-Public/qcthat/actions/workflows/pkgdown-all.yaml/badge.svg?branch=main)](https://github.com/Gilead-Public/qcthat/actions/workflows/pkgdown-all.yaml)
 
 </div>
 
 <div class="pkgdown-devel">
 
-[![R-CMD-check](https://github.com/Gilead-BioStats/qcthat/actions/workflows/R-CMD-check.yaml/badge.svg?branch=dev)](https://github.com/Gilead-BioStats/qcthat/actions/workflows/R-CMD-check.yaml)
-[![test-coverage](https://github.com/Gilead-BioStats/qcthat/actions/workflows/test-coverage.yaml/badge.svg?branch=dev)](https://github.com/Gilead-BioStats/qcthat/actions/workflows/test-coverage.yaml)
-[![pkgdown-all](https://github.com/Gilead-BioStats/qcthat/actions/workflows/pkgdown-all.yaml/badge.svg?branch=dev)](https://github.com/Gilead-BioStats/qcthat/actions/workflows/pkgdown-all.yaml)
+[![R-CMD-check](https://github.com/Gilead-Public/qcthat/actions/workflows/R-CMD-check.yaml/badge.svg?branch=dev)](https://github.com/Gilead-Public/qcthat/actions/workflows/R-CMD-check.yaml)
+[![test-coverage](https://github.com/Gilead-Public/qcthat/actions/workflows/test-coverage.yaml/badge.svg?branch=dev)](https://github.com/Gilead-Public/qcthat/actions/workflows/test-coverage.yaml)
+[![pkgdown-all](https://github.com/Gilead-Public/qcthat/actions/workflows/pkgdown-all.yaml/badge.svg?branch=dev)](https://github.com/Gilead-Public/qcthat/actions/workflows/pkgdown-all.yaml)
 
 </div>
 
@@ -40,7 +40,7 @@ You can install the latest release of qcthat from
 
 ``` r
 # install.packages("pak")
-pak::pak("Gilead-BioStats/qcthat@*release")
+pak::pak("Gilead-Public/qcthat@*release")
 ```
 
 <div class="pkgdown-devel">
@@ -50,7 +50,7 @@ You can install the development version of qcthat from
 
 ``` r
 # install.packages("pak")
-pak::pak("Gilead-BioStats/qcthat")
+pak::pak("Gilead-Public/qcthat")
 ```
 
 </div>
@@ -180,7 +180,7 @@ generalizable and extensible to all sorts of repository structures is
 challenging, and your input is greatly appreciated.
 
 Before submitting a pull request, make sure to file an
-[issue](https://github.com/Gilead-BioStats/qcthat/issues), which should
+[issue](https://github.com/Gilead-Public/qcthat/issues), which should
 generally fall under one of the following categories:
 
 - Bugfix: something is broken.

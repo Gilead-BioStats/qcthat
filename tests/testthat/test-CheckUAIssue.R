@@ -207,7 +207,7 @@ test_that("CheckUAIssue assigns issues when assignees are available (#193)", {
     },
     AssignIssue = function(lUAIssue, chrAssignees, ...) {
       lUAIssue$Assignees <- chrAssignees
-      lUAIssue$State = "open"
+      lUAIssue$State <- "open"
       return(lUAIssue)
     }
   )

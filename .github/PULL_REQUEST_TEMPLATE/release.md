@@ -8,7 +8,7 @@
 ## Milestone
 <!--- Link to the milestone for the release. ---> 
 <!--- Make sure all relevant issues/PRs are included on the linked pages. --->
-Milestone: [v0.2.0](https://github.com/Gilead-BioStats/qcthat/milestone/2)
+Milestone: [v0.2.0](https://github.com/Gilead-Public/qcthat/milestone/2)
 
 # Overall Risk Assessment 
 <!--- Complete the following Risk Assessment for this Release-->

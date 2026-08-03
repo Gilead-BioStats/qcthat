@@ -1,5 +1,5 @@
 # name: pkgdown-all.yaml
-# version: 0.4.1
+# version: 1.0.0
 # Description: Triggers the core pkgdown deployment and cleanup workflows.
 name: pkgdown-all
 on:
@@ -29,7 +29,7 @@ permissions:
   pull-requests: write
 jobs:
   call-pkgdown-core:
-    uses: Gilead-BioStats/gsm.utils/.github/workflows/pkgdown-core.yaml@actions-v1
+    uses: gilead-public/gsm.utils/.github/workflows/pkgdown-core.yaml@actions-v1
     with:
       # These inputs only actually matter for workflow_dispatch; otherwise
       # they're automatically determined.

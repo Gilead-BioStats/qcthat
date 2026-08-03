@@ -30,7 +30,7 @@ CreateRepoIssueRaw(
 - ...:
 
   Additional parameters passed to
-  [`CallGHAPI()`](https://gilead-biostats.github.io/qcthat/dev/reference/CallGHAPI.md).
+  [`CallGHAPI()`](https://gilead-public.github.io/qcthat/dev/reference/CallGHAPI.md).
 
 - chrLabels:
 

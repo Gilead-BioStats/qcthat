@@ -14,9 +14,9 @@ FormatReportGH(dfITM)
 
   (`qcthat_IssueTestMatrix`) A `qcthat_IssueTestMatrix` object as
   returned by
-  [`AsIssueTestMatrix()`](https://gilead-biostats.github.io/qcthat/dev/reference/AsIssueTestMatrix.md)
+  [`AsIssueTestMatrix()`](https://gilead-public.github.io/qcthat/dev/reference/AsIssueTestMatrix.md)
   (often via
-  [`QCPackage()`](https://gilead-biostats.github.io/qcthat/dev/reference/QCPackage.md)).
+  [`QCPackage()`](https://gilead-public.github.io/qcthat/dev/reference/QCPackage.md)).
 
 ## Value
 

@@ -77,7 +77,7 @@ Reused parameter definitions are gathered here for easier usage. Use
 - chrTests:
 
   (`character`) A vector of test descriptions from a
-  [`CompileIssueTestMatrix()`](https://gilead-biostats.github.io/qcthat/dev/reference/CompileIssueTestMatrix.md)
+  [`CompileIssueTestMatrix()`](https://gilead-public.github.io/qcthat/dev/reference/CompileIssueTestMatrix.md)
   matrix or extracted from test files.
 
 - dttmTimestamp:
@@ -89,31 +89,31 @@ Reused parameter definitions are gathered here for easier usage. Use
   (`data.frame`) A
   [`tibble::tibble()`](https://tibble.tidyverse.org/reference/tibble.html)
   with the structure returned by
-  [`ExtractTestsFromFiles()`](https://gilead-biostats.github.io/qcthat/dev/reference/ExtractTestsFromFiles.md).
+  [`ExtractTestsFromFiles()`](https://gilead-public.github.io/qcthat/dev/reference/ExtractTestsFromFiles.md).
 
 - dfIssueCommitsLong:
 
   (`data.frame` or `NULL`) Pre-computed issue-commit mappings from
-  [`MapLongIssueCommits()`](https://gilead-biostats.github.io/qcthat/dev/reference/MapLongIssueCommits.md).
+  [`MapLongIssueCommits()`](https://gilead-public.github.io/qcthat/dev/reference/MapLongIssueCommits.md).
   If `NULL` (the default), fetched automatically from the GitHub API.
   Provide this when calling
-  [`MapTestFilesToPotentialIssues()`](https://gilead-biostats.github.io/qcthat/dev/reference/MapTestFilesToPotentialIssues.md)
+  [`MapTestFilesToPotentialIssues()`](https://gilead-public.github.io/qcthat/dev/reference/MapTestFilesToPotentialIssues.md)
   multiple times to avoid redundant API requests.
 
 - dfITM:
 
   (`qcthat_IssueTestMatrix`) A `qcthat_IssueTestMatrix` object as
   returned by
-  [`AsIssueTestMatrix()`](https://gilead-biostats.github.io/qcthat/dev/reference/AsIssueTestMatrix.md)
+  [`AsIssueTestMatrix()`](https://gilead-public.github.io/qcthat/dev/reference/AsIssueTestMatrix.md)
   (often via
-  [`QCPackage()`](https://gilead-biostats.github.io/qcthat/dev/reference/QCPackage.md)).
+  [`QCPackage()`](https://gilead-public.github.io/qcthat/dev/reference/QCPackage.md)).
 
 - dfLabels:
 
   (`data.frame`) A data frame with columns `Label`, `Description`, and
   `Color`, specifying the labels to create. By default, this is the data
   frame returned by
-  [`DefaultIgnoreLabelsDF()`](https://gilead-biostats.github.io/qcthat/dev/reference/DefaultIgnoreLabelsDF.md).
+  [`DefaultIgnoreLabelsDF()`](https://gilead-public.github.io/qcthat/dev/reference/DefaultIgnoreLabelsDF.md).
   Descriptions of labels created via this function are prefixed with
   `"{qcthat}: "` to make it easier to search for them in your list of
   labels.
@@ -121,19 +121,19 @@ Reused parameter definitions are gathered here for easier usage. Use
 - dfPotentialIssues:
 
   (`tibble`) A data frame as returned by
-  [`MapTestFilesToPotentialIssues()`](https://gilead-biostats.github.io/qcthat/dev/reference/MapTestFilesToPotentialIssues.md).
+  [`MapTestFilesToPotentialIssues()`](https://gilead-public.github.io/qcthat/dev/reference/MapTestFilesToPotentialIssues.md).
 
 - dfRepoIssues:
 
   (`qcthat_Issues` or data frame) Data frame of GitHub issues as
   returned by
-  [`FetchRepoIssues()`](https://gilead-biostats.github.io/qcthat/dev/reference/FetchRepoIssues.md).
+  [`FetchRepoIssues()`](https://gilead-public.github.io/qcthat/dev/reference/FetchRepoIssues.md).
 
 - dfTestResults:
 
   (`qcthat_TestResults` or data frame) Data frame of test results as
   returned by
-  [`CompileTestResults()`](https://gilead-biostats.github.io/qcthat/dev/reference/CompileTestResults.md).
+  [`CompileTestResults()`](https://gilead-public.github.io/qcthat/dev/reference/CompileTestResults.md).
 
 - envCall:
 
@@ -150,7 +150,7 @@ Reused parameter definitions are gathered here for easier usage. Use
 - envPkg:
 
   (`environment`) A loaded package environment, as returned by
-  [`LoadPkgEnv()`](https://gilead-biostats.github.io/qcthat/dev/reference/LoadPkgEnv.md).
+  [`LoadPkgEnv()`](https://gilead-public.github.io/qcthat/dev/reference/LoadPkgEnv.md).
 
 - fctDisposition:
 
@@ -164,7 +164,7 @@ Reused parameter definitions are gathered here for easier usage. Use
 - intIssues:
 
   (`integer`) A vector of issue numbers from a
-  [`CompileIssueTestMatrix()`](https://gilead-biostats.github.io/qcthat/dev/reference/CompileIssueTestMatrix.md)
+  [`CompileIssueTestMatrix()`](https://gilead-public.github.io/qcthat/dev/reference/CompileIssueTestMatrix.md)
   matrix or from GitHub.
 
 - intLineEnd:
@@ -221,12 +221,12 @@ Reused parameter definitions are gathered here for easier usage. Use
 - lGHEventPayload:
 
   (`list`) The GitHub event payload. Defaults to the result of
-  [`LoadGHEventPayload()`](https://gilead-biostats.github.io/qcthat/dev/reference/LoadGHEventPayload.md).
+  [`LoadGHEventPayload()`](https://gilead-public.github.io/qcthat/dev/reference/LoadGHEventPayload.md).
 
 - lIssuesNonPR:
 
   (`list`) List of issue objects as returned by
-  [`RemovePRsFromIssues()`](https://gilead-biostats.github.io/qcthat/dev/reference/RemovePRsFromIssues.md).
+  [`RemovePRsFromIssues()`](https://gilead-public.github.io/qcthat/dev/reference/RemovePRsFromIssues.md).
 
 - lTestResults:
 
@@ -244,13 +244,13 @@ Reused parameter definitions are gathered here for easier usage. Use
 - lglCompleted:
 
   (`length-1 logical`) Whether to include the
-  [`QCCompletedIssues()`](https://gilead-biostats.github.io/qcthat/dev/reference/QCCompletedIssues.md)
+  [`QCCompletedIssues()`](https://gilead-public.github.io/qcthat/dev/reference/QCCompletedIssues.md)
   report.
 
 - lglMilestone:
 
   (`length-1 logical`) Whether to include the
-  [`QCMilestones()`](https://gilead-biostats.github.io/qcthat/dev/reference/QCMilestones.md)
+  [`QCMilestones()`](https://gilead-public.github.io/qcthat/dev/reference/QCMilestones.md)
   report.
 
 - lglOverwrite:
@@ -260,7 +260,7 @@ Reused parameter definitions are gathered here for easier usage. Use
 - lglPR:
 
   (`length-1 logical`) Whether to include the
-  [`QCPR()`](https://gilead-biostats.github.io/qcthat/dev/reference/QCPR.md)
+  [`QCPR()`](https://gilead-public.github.io/qcthat/dev/reference/QCPR.md)
   report.
 
 - lglReportFailure:
@@ -282,7 +282,7 @@ Reused parameter definitions are gathered here for easier usage. Use
 - lglUAT:
 
   (`length-1 logical`) Whether to include the
-  [`CommentUAT()`](https://gilead-biostats.github.io/qcthat/dev/reference/CommentUAT.md)
+  [`CommentUAT()`](https://gilead-public.github.io/qcthat/dev/reference/CommentUAT.md)
   report.
 
 - lglUpdate:

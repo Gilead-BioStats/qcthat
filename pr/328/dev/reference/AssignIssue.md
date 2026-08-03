@@ -24,7 +24,7 @@ AssignIssue(
 
   (`data.frame`, `numeric`, `gh_response`, or other) The issue to
   assign, as returned by
-  [`FetchIssueDetails()`](https://gilead-biostats.github.io/qcthat/dev/reference/FetchIssueDetails.md),
+  [`FetchIssueDetails()`](https://gilead-public.github.io/qcthat/dev/reference/FetchIssueDetails.md),
   or something that can be coerced to such a `data.frame`.
 
 - chrAssignees:

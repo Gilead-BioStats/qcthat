@@ -13,7 +13,7 @@ EnframeHunk(lHunk, strFilePath, envCall = rlang::caller_env())
 - lHunk:
 
   (`list`) A single element of `lBlameRaw$hunks` as returned by
-  [`BlameFileRaw()`](https://gilead-biostats.github.io/qcthat/dev/reference/BlameFileRaw.md).
+  [`BlameFileRaw()`](https://gilead-public.github.io/qcthat/dev/reference/BlameFileRaw.md).
 
 - strFilePath:
 

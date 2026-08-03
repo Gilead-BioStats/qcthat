@@ -1,11 +1,11 @@
 # qcthat
 
-[qcthat](https://gilead-biostats.github.io/qcthat/) is a quality control
+[qcthat](https://gilead-public.github.io/qcthat/) is a quality control
 framework for R packages. It has been developed for use in the `gsm`
 family of packages, such as
 [`gsm.core`](https://github.com/Gilead-BioStats/gsm.core).
 
-The goal of [qcthat](https://gilead-biostats.github.io/qcthat/) is to
+The goal of [qcthat](https://gilead-public.github.io/qcthat/) is to
 produce qualification reports linking GitHub issues to evidence that
 those issues have been implemented. These reports can be used as part of
 a quality control and acceptance process for R packages, particularly
@@ -32,18 +32,18 @@ pak::pak("Gilead-Public/qcthat")
 ```
 
 Learn more in
-[`vignette("qcthat")`](https://gilead-biostats.github.io/qcthat/dev/articles/qcthat.md).
+[`vignette("qcthat")`](https://gilead-public.github.io/qcthat/dev/articles/qcthat.md).
 
 ## 📋 Example Report Process
 
-[`Action_qcthat()`](https://gilead-biostats.github.io/qcthat/dev/reference/Action_qcthat.md)
+[`Action_qcthat()`](https://gilead-public.github.io/qcthat/dev/reference/Action_qcthat.md)
 installs a GitHub action to generate QC reports. At its core, it uses
 the functions
-[`QCPackage()`](https://gilead-biostats.github.io/qcthat/dev/reference/QCPackage.md),
-[`QCPR()`](https://gilead-biostats.github.io/qcthat/dev/reference/QCPR.md),
-[`QCCompletedIssues()`](https://gilead-biostats.github.io/qcthat/dev/reference/QCCompletedIssues.md),
+[`QCPackage()`](https://gilead-public.github.io/qcthat/dev/reference/QCPackage.md),
+[`QCPR()`](https://gilead-public.github.io/qcthat/dev/reference/QCPR.md),
+[`QCCompletedIssues()`](https://gilead-public.github.io/qcthat/dev/reference/QCCompletedIssues.md),
 and
-[`QCMilestones()`](https://gilead-biostats.github.io/qcthat/dev/reference/QCMilestones.md)
+[`QCMilestones()`](https://gilead-public.github.io/qcthat/dev/reference/QCMilestones.md)
 to generate a report like this:
 
 ✅ A qcthat issue test matrix with 1 milestone, 19 issues, and 59 tests
@@ -169,112 +169,112 @@ guide](https://style.tidyverse.org/).
 
 ### Code of Conduct
 
-Please note that the [qcthat](https://gilead-biostats.github.io/qcthat/)
+Please note that the [qcthat](https://gilead-public.github.io/qcthat/)
 project is released with a [Contributor Code of
-Conduct](https://gilead-biostats.github.io/qcthat/CODE_OF_CONDUCT.html).
+Conduct](https://gilead-public.github.io/qcthat/CODE_OF_CONDUCT.html).
 By contributing to this project, you agree to abide by its terms.
 
 # Package index
 
 ## All functions
 
-- [`Action_qcthat()`](https://gilead-biostats.github.io/qcthat/dev/reference/Action_qcthat.md)
+- [`Action_qcthat()`](https://gilead-public.github.io/qcthat/dev/reference/Action_qcthat.md)
   : Use a GitHub Action to manage qcthat
-- [`AssignIssue()`](https://gilead-biostats.github.io/qcthat/dev/reference/AssignIssue.md)
+- [`AssignIssue()`](https://gilead-public.github.io/qcthat/dev/reference/AssignIssue.md)
   : Assign a GitHub issue to one or more users
-- [`AttachReleaseReports()`](https://gilead-biostats.github.io/qcthat/dev/reference/AttachReleaseReports.md)
+- [`AttachReleaseReports()`](https://gilead-public.github.io/qcthat/dev/reference/AttachReleaseReports.md)
   : Attach QC reports to a GitHub release
-- [`CommentAllReports()`](https://gilead-biostats.github.io/qcthat/dev/reference/CommentAllReports.md)
+- [`CommentAllReports()`](https://gilead-public.github.io/qcthat/dev/reference/CommentAllReports.md)
   : Comment on a PR or issue with QC reports
-- [`CommentIssue()`](https://gilead-biostats.github.io/qcthat/dev/reference/CommentIssue.md)
+- [`CommentIssue()`](https://gilead-public.github.io/qcthat/dev/reference/CommentIssue.md)
   : Comment on a GitHub Issue
-- [`CommentReport()`](https://gilead-biostats.github.io/qcthat/dev/reference/CommentReport.md)
+- [`CommentReport()`](https://gilead-public.github.io/qcthat/dev/reference/CommentReport.md)
   : Comment on a PR or issue with a QC report
-- [`CommentUAT()`](https://gilead-biostats.github.io/qcthat/dev/reference/CommentUAT.md)
+- [`CommentUAT()`](https://gilead-public.github.io/qcthat/dev/reference/CommentUAT.md)
   **\[experimental\]** : Comment on a PR or issue with a UAT report
-- [`CompileIssueTestMatrix()`](https://gilead-biostats.github.io/qcthat/dev/reference/CompileIssueTestMatrix.md)
+- [`CompileIssueTestMatrix()`](https://gilead-public.github.io/qcthat/dev/reference/CompileIssueTestMatrix.md)
   : Create a nested tibble of issues and tests
-- [`CompileTestResults()`](https://gilead-biostats.github.io/qcthat/dev/reference/CompileTestResults.md)
+- [`CompileTestResults()`](https://gilead-public.github.io/qcthat/dev/reference/CompileTestResults.md)
   : Extract information from testthat results
-- [`DefaultIgnoreLabels()`](https://gilead-biostats.github.io/qcthat/dev/reference/DefaultIgnoreLabels.md)
+- [`DefaultIgnoreLabels()`](https://gilead-public.github.io/qcthat/dev/reference/DefaultIgnoreLabels.md)
   : Default labels to ignore
-- [`DefaultIgnoreLabelsDF()`](https://gilead-biostats.github.io/qcthat/dev/reference/DefaultIgnoreLabelsDF.md)
+- [`DefaultIgnoreLabelsDF()`](https://gilead-public.github.io/qcthat/dev/reference/DefaultIgnoreLabelsDF.md)
   : Default ignored labels as a tibble
-- [`ExpectUserAccepts()`](https://gilead-biostats.github.io/qcthat/dev/reference/ExpectUserAccepts.md)
+- [`ExpectUserAccepts()`](https://gilead-public.github.io/qcthat/dev/reference/ExpectUserAccepts.md)
   **\[experimental\]** : Does a user accept the feature?
-- [`ExtractTestsFromFiles()`](https://gilead-biostats.github.io/qcthat/dev/reference/ExtractTestsFromFiles.md)
+- [`ExtractTestsFromFiles()`](https://gilead-public.github.io/qcthat/dev/reference/ExtractTestsFromFiles.md)
   **\[experimental\]** : Extract test information from test files
-- [`FetchPRIssueNumbers()`](https://gilead-biostats.github.io/qcthat/dev/reference/FetchPRIssueNumbers.md)
+- [`FetchPRIssueNumbers()`](https://gilead-public.github.io/qcthat/dev/reference/FetchPRIssueNumbers.md)
   : Fetch all issues associated with a GitHub pull request
-- [`FetchRefPRNumber()`](https://gilead-biostats.github.io/qcthat/dev/reference/FetchRefPRNumber.md)
+- [`FetchRefPRNumber()`](https://gilead-public.github.io/qcthat/dev/reference/FetchRefPRNumber.md)
   : Fetch the pull request number for a branch or other git ref
-- [`FetchRepoIssueClosers()`](https://gilead-biostats.github.io/qcthat/dev/reference/FetchRepoIssueClosers.md)
+- [`FetchRepoIssueClosers()`](https://gilead-public.github.io/qcthat/dev/reference/FetchRepoIssueClosers.md)
   : Fetch repository issue closers
-- [`FetchRepoIssues()`](https://gilead-biostats.github.io/qcthat/dev/reference/FetchRepoIssues.md)
+- [`FetchRepoIssues()`](https://gilead-public.github.io/qcthat/dev/reference/FetchRepoIssues.md)
   : Fetch repository issues
-- [`FetchRepoPRs()`](https://gilead-biostats.github.io/qcthat/dev/reference/FetchRepoPRs.md)
+- [`FetchRepoPRs()`](https://gilead-public.github.io/qcthat/dev/reference/FetchRepoPRs.md)
   : Fetch repository pull requests
-- [`GetGHOwner()`](https://gilead-biostats.github.io/qcthat/dev/reference/GetGHOwner.md)
+- [`GetGHOwner()`](https://gilead-public.github.io/qcthat/dev/reference/GetGHOwner.md)
   : Find the owner of the target repository
-- [`GetGHRepo()`](https://gilead-biostats.github.io/qcthat/dev/reference/GetGHRepo.md)
+- [`GetGHRepo()`](https://gilead-public.github.io/qcthat/dev/reference/GetGHRepo.md)
   : Find the name of the target repository
-- [`GetSessionInfo()`](https://gilead-biostats.github.io/qcthat/dev/reference/GetSessionInfo.md)
+- [`GetSessionInfo()`](https://gilead-public.github.io/qcthat/dev/reference/GetSessionInfo.md)
   : Get session info from available reporting functions
-- [`GuessIssueNumber()`](https://gilead-biostats.github.io/qcthat/dev/reference/GuessIssueNumber.md)
+- [`GuessIssueNumber()`](https://gilead-public.github.io/qcthat/dev/reference/GuessIssueNumber.md)
   : Guess the relevant issue number from the GitHub event
-- [`GuessMilestones()`](https://gilead-biostats.github.io/qcthat/dev/reference/GuessMilestones.md)
+- [`GuessMilestones()`](https://gilead-public.github.io/qcthat/dev/reference/GuessMilestones.md)
   : Guess relevant milestone names from the GitHub event
-- [`GuessPRNumber()`](https://gilead-biostats.github.io/qcthat/dev/reference/GuessPRNumber.md)
+- [`GuessPRNumber()`](https://gilead-public.github.io/qcthat/dev/reference/GuessPRNumber.md)
   : Guess the most relevant pull request number
-- [`GuessReleaseID()`](https://gilead-biostats.github.io/qcthat/dev/reference/GuessReleaseID.md)
+- [`GuessReleaseID()`](https://gilead-public.github.io/qcthat/dev/reference/GuessReleaseID.md)
   : Guess the relevant release id from the GitHub event
-- [`IsCheckingUAT()`](https://gilead-biostats.github.io/qcthat/dev/reference/IsCheckingUAT.md)
+- [`IsCheckingUAT()`](https://gilead-public.github.io/qcthat/dev/reference/IsCheckingUAT.md)
   : Detect whether the user is specifically checking UAT issues
-- [`LoadGHEventPayload()`](https://gilead-biostats.github.io/qcthat/dev/reference/LoadGHEventPayload.md)
+- [`LoadGHEventPayload()`](https://gilead-public.github.io/qcthat/dev/reference/LoadGHEventPayload.md)
   : Load the GitHub event payload
-- [`LoadUATIssues()`](https://gilead-biostats.github.io/qcthat/dev/reference/LoadUATIssues.md)
+- [`LoadUATIssues()`](https://gilead-public.github.io/qcthat/dev/reference/LoadUATIssues.md)
   : Load UAT issues from disk
-- [`MapIssueClosersToCommits()`](https://gilead-biostats.github.io/qcthat/dev/reference/MapIssueClosersToCommits.md)
+- [`MapIssueClosersToCommits()`](https://gilead-public.github.io/qcthat/dev/reference/MapIssueClosersToCommits.md)
   : Add Commits list column to dfIssueClosers
-- [`MapLongIssueCommits()`](https://gilead-biostats.github.io/qcthat/dev/reference/MapLongIssueCommits.md)
+- [`MapLongIssueCommits()`](https://gilead-public.github.io/qcthat/dev/reference/MapLongIssueCommits.md)
   **\[experimental\]** : Map issues to commits in long format
-- [`MapTestFilesToPotentialIssues()`](https://gilead-biostats.github.io/qcthat/dev/reference/MapTestFilesToPotentialIssues.md)
+- [`MapTestFilesToPotentialIssues()`](https://gilead-public.github.io/qcthat/dev/reference/MapTestFilesToPotentialIssues.md)
   **\[experimental\]** : Map test files to potential issues
-- [`PrepareTestIssueContext()`](https://gilead-biostats.github.io/qcthat/dev/reference/PrepareTestIssueContext.md)
+- [`PrepareTestIssueContext()`](https://gilead-public.github.io/qcthat/dev/reference/PrepareTestIssueContext.md)
   **\[experimental\]** : Prepare test issue context for analysis
-- [`QCCompletedIssues()`](https://gilead-biostats.github.io/qcthat/dev/reference/QCCompletedIssues.md)
+- [`QCCompletedIssues()`](https://gilead-public.github.io/qcthat/dev/reference/QCCompletedIssues.md)
   : Generate a QC report of completed issues
-- [`QCIssues()`](https://gilead-biostats.github.io/qcthat/dev/reference/QCIssues.md)
+- [`QCIssues()`](https://gilead-public.github.io/qcthat/dev/reference/QCIssues.md)
   : Generate a QC report of specific issues
-- [`QCMergeGH()`](https://gilead-biostats.github.io/qcthat/dev/reference/QCMergeGH.md)
+- [`QCMergeGH()`](https://gilead-public.github.io/qcthat/dev/reference/QCMergeGH.md)
   : Generate a QC report of issues associated with a GitHub merge
-- [`QCMergeLocal()`](https://gilead-biostats.github.io/qcthat/dev/reference/QCMergeLocal.md)
+- [`QCMergeLocal()`](https://gilead-public.github.io/qcthat/dev/reference/QCMergeLocal.md)
   : Generate a QC report of issues probably related to changes between
   local git refs
-- [`QCMilestones()`](https://gilead-biostats.github.io/qcthat/dev/reference/QCMilestones.md)
+- [`QCMilestones()`](https://gilead-public.github.io/qcthat/dev/reference/QCMilestones.md)
   : Generate a QC report of a specific milestone or milestones
-- [`QCPR()`](https://gilead-biostats.github.io/qcthat/dev/reference/QCPR.md)
+- [`QCPR()`](https://gilead-public.github.io/qcthat/dev/reference/QCPR.md)
   : Generate a QC report of issues associated with a GitHub pull request
-- [`QCPackage()`](https://gilead-biostats.github.io/qcthat/dev/reference/QCPackage.md)
+- [`QCPackage()`](https://gilead-public.github.io/qcthat/dev/reference/QCPackage.md)
   : Generate a QC report for a package
-- [`ReadJSONAsIssueTestMatrix()`](https://gilead-biostats.github.io/qcthat/dev/reference/ReadJSONAsIssueTestMatrix.md)
+- [`ReadJSONAsIssueTestMatrix()`](https://gilead-public.github.io/qcthat/dev/reference/ReadJSONAsIssueTestMatrix.md)
   : Read a JSON file as an IssueTestMatrix
-- [`SaveAsJSON()`](https://gilead-biostats.github.io/qcthat/dev/reference/SaveAsJSON.md)
+- [`SaveAsJSON()`](https://gilead-public.github.io/qcthat/dev/reference/SaveAsJSON.md)
   : Save an object as JSON
-- [`SaveUATIssues()`](https://gilead-biostats.github.io/qcthat/dev/reference/SaveUATIssues.md)
+- [`SaveUATIssues()`](https://gilead-public.github.io/qcthat/dev/reference/SaveUATIssues.md)
   : Save UAT issues to disk
-- [`SetupGHLabels()`](https://gilead-biostats.github.io/qcthat/dev/reference/SetupGHLabels.md)
+- [`SetupGHLabels()`](https://gilead-public.github.io/qcthat/dev/reference/SetupGHLabels.md)
   : Setup qcthat labels in a GitHub repository
-- [`Skill_TagTestsWithIssues()`](https://gilead-biostats.github.io/qcthat/dev/reference/Skill_TagTestsWithIssues.md)
+- [`Skill_TagTestsWithIssues()`](https://gilead-public.github.io/qcthat/dev/reference/Skill_TagTestsWithIssues.md)
   **\[experimental\]** : Use an AI skill to tag tests with issues
-- [`TriggerUAT()`](https://gilead-biostats.github.io/qcthat/dev/reference/TriggerUAT.md)
+- [`TriggerUAT()`](https://gilead-public.github.io/qcthat/dev/reference/TriggerUAT.md)
   **\[experimental\]** : Trigger the UAT cycle for closed issues
-- [`UpdateIssue()`](https://gilead-biostats.github.io/qcthat/dev/reference/UpdateIssue.md)
+- [`UpdateIssue()`](https://gilead-public.github.io/qcthat/dev/reference/UpdateIssue.md)
   : Update a GitHub issue
-- [`print(`*`<qcthat_Object>`*`)`](https://gilead-biostats.github.io/qcthat/dev/reference/printing.md)
-  [`format(`*`<qcthat_Object>`*`)`](https://gilead-biostats.github.io/qcthat/dev/reference/printing.md)
+- [`print(`*`<qcthat_Object>`*`)`](https://gilead-public.github.io/qcthat/dev/reference/printing.md)
+  [`format(`*`<qcthat_Object>`*`)`](https://gilead-public.github.io/qcthat/dev/reference/printing.md)
   : Printing qcthat objects
-- [`use_qcthat()`](https://gilead-biostats.github.io/qcthat/dev/reference/use_qcthat.md)
+- [`use_qcthat()`](https://gilead-public.github.io/qcthat/dev/reference/use_qcthat.md)
   : Set up qcthat for a package
 
 # Articles
@@ -282,7 +282,7 @@ By contributing to this project, you agree to abide by its terms.
 ### All vignettes
 
 - [Business
-  process](https://gilead-biostats.github.io/qcthat/dev/articles/business_process.md):
+  process](https://gilead-public.github.io/qcthat/dev/articles/business_process.md):
 - [User acceptance testing with
-  ExpectUserAccepts](https://gilead-biostats.github.io/qcthat/dev/articles/expect_user_accepts.md):
-- [Setup](https://gilead-biostats.github.io/qcthat/dev/articles/qcthat.md):
+  ExpectUserAccepts](https://gilead-public.github.io/qcthat/dev/articles/expect_user_accepts.md):
+- [Setup](https://gilead-public.github.io/qcthat/dev/articles/qcthat.md):

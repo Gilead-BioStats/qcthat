@@ -42,4 +42,4 @@ CompileGitLogDiff(
 
 A data frame of commits that are in `strSourceRef` but not in
 `strTargetRef`, as returned by
-[`GetGitLog()`](https://gilead-biostats.github.io/qcthat/dev/reference/GetGitLog.md).
+[`GetGitLog()`](https://gilead-public.github.io/qcthat/dev/reference/GetGitLog.md).

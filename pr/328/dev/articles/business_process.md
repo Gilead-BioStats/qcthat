@@ -1,7 +1,7 @@
 # Business process
 
 Here we describe an example business process for implementing quality
-control using [qcthat](https://gilead-biostats.github.io/qcthat/). This
+control using [qcthat](https://gilead-public.github.io/qcthat/). This
 process is intended to ensure that program development, testing, review,
 and acceptance are conducted in a structured manner.
 
@@ -72,7 +72,7 @@ following sections.
   and/or output against the user requirements, and documents the method
   and results.
 - 🧪: For user-acceptance tests (see
-  [`ExpectUserAccepts()`](https://gilead-biostats.github.io/qcthat/dev/reference/ExpectUserAccepts.md)),
+  [`ExpectUserAccepts()`](https://gilead-public.github.io/qcthat/dev/reference/ExpectUserAccepts.md)),
   QCP documents approval of the feature by closing each UAT issue, or
   comments with required changes.
 - 🧑‍💻🧪: All questions and necessary code adjustments are addressed in
@@ -86,11 +86,11 @@ following sections.
   successfully deployed (if applicable), and the release pull request
   (PR) correctly targets the primary branch.
 - 🧪🤖: For user-acceptance tests (see
-  [`ExpectUserAccepts()`](https://gilead-biostats.github.io/qcthat/dev/reference/ExpectUserAccepts.md)),
+  [`ExpectUserAccepts()`](https://gilead-public.github.io/qcthat/dev/reference/ExpectUserAccepts.md)),
   QCP or an automated system re-opens UAT issues for requirements that
   require user approval.
 - 💼: For user-acceptance tests (see
-  [`ExpectUserAccepts()`](https://gilead-biostats.github.io/qcthat/dev/reference/ExpectUserAccepts.md)),
+  [`ExpectUserAccepts()`](https://gilead-public.github.io/qcthat/dev/reference/ExpectUserAccepts.md)),
   USR documents approval of the feature by closing each UAT issue, or
   comments with required changes.
 - 👑🧪🤖: When the qualification of the program is completed, QCP
@@ -106,6 +106,6 @@ following sections.
   with established version control conventions. This serves as
   documentation and as an equivalent of program deployment into a
   production environment.
-  [qcthat](https://gilead-biostats.github.io/qcthat/) attaches reports
-  to the release as specified in the action created with
-  [`Action_qcthat()`](https://gilead-biostats.github.io/qcthat/dev/reference/Action_qcthat.md).
+  [qcthat](https://gilead-public.github.io/qcthat/) attaches reports to
+  the release as specified in the action created with
+  [`Action_qcthat()`](https://gilead-public.github.io/qcthat/dev/reference/Action_qcthat.md).

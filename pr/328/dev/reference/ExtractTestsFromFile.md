@@ -25,4 +25,4 @@ ExtractTestsFromFile(strFilePath, envCall = rlang::caller_env())
 A
 [`tibble::tibble()`](https://tibble.tidyverse.org/reference/tibble.html)
 with the same structure as
-[`ExtractTestsFromFiles()`](https://gilead-biostats.github.io/qcthat/dev/reference/ExtractTestsFromFiles.md).
+[`ExtractTestsFromFiles()`](https://gilead-public.github.io/qcthat/dev/reference/ExtractTestsFromFiles.md).

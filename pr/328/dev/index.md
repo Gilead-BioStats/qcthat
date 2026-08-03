@@ -1,11 +1,11 @@
 # qcthat
 
-[qcthat](https://gilead-biostats.github.io/qcthat/) is a quality control
+[qcthat](https://gilead-public.github.io/qcthat/) is a quality control
 framework for R packages. It has been developed for use in the `gsm`
 family of packages, such as
 [`gsm.core`](https://github.com/Gilead-BioStats/gsm.core).
 
-The goal of [qcthat](https://gilead-biostats.github.io/qcthat/) is to
+The goal of [qcthat](https://gilead-public.github.io/qcthat/) is to
 produce qualification reports linking GitHub issues to evidence that
 those issues have been implemented. These reports can be used as part of
 a quality control and acceptance process for R packages, particularly
@@ -32,18 +32,18 @@ pak::pak("Gilead-Public/qcthat")
 ```
 
 Learn more in
-[`vignette("qcthat")`](https://gilead-biostats.github.io/qcthat/dev/articles/qcthat.md).
+[`vignette("qcthat")`](https://gilead-public.github.io/qcthat/dev/articles/qcthat.md).
 
 ## 📋 Example Report Process
 
-[`Action_qcthat()`](https://gilead-biostats.github.io/qcthat/dev/reference/Action_qcthat.md)
+[`Action_qcthat()`](https://gilead-public.github.io/qcthat/dev/reference/Action_qcthat.md)
 installs a GitHub action to generate QC reports. At its core, it uses
 the functions
-[`QCPackage()`](https://gilead-biostats.github.io/qcthat/dev/reference/QCPackage.md),
-[`QCPR()`](https://gilead-biostats.github.io/qcthat/dev/reference/QCPR.md),
-[`QCCompletedIssues()`](https://gilead-biostats.github.io/qcthat/dev/reference/QCCompletedIssues.md),
+[`QCPackage()`](https://gilead-public.github.io/qcthat/dev/reference/QCPackage.md),
+[`QCPR()`](https://gilead-public.github.io/qcthat/dev/reference/QCPR.md),
+[`QCCompletedIssues()`](https://gilead-public.github.io/qcthat/dev/reference/QCCompletedIssues.md),
 and
-[`QCMilestones()`](https://gilead-biostats.github.io/qcthat/dev/reference/QCMilestones.md)
+[`QCMilestones()`](https://gilead-public.github.io/qcthat/dev/reference/QCMilestones.md)
 to generate a report like this:
 
 ✅ A qcthat issue test matrix with 1 milestone, 19 issues, and 59 tests
@@ -169,7 +169,7 @@ guide](https://style.tidyverse.org/).
 
 ### Code of Conduct
 
-Please note that the [qcthat](https://gilead-biostats.github.io/qcthat/)
+Please note that the [qcthat](https://gilead-public.github.io/qcthat/)
 project is released with a [Contributor Code of
-Conduct](https://gilead-biostats.github.io/qcthat/CODE_OF_CONDUCT.html).
+Conduct](https://gilead-public.github.io/qcthat/CODE_OF_CONDUCT.html).
 By contributing to this project, you agree to abide by its terms.

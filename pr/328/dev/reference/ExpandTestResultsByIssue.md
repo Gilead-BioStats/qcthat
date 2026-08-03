@@ -14,10 +14,10 @@ ExpandTestResultsByIssue(dfTestResults)
 
   (`qcthat_TestResults` or data frame) Data frame of test results as
   returned by
-  [`CompileTestResults()`](https://gilead-biostats.github.io/qcthat/dev/reference/CompileTestResults.md).
+  [`CompileTestResults()`](https://gilead-public.github.io/qcthat/dev/reference/CompileTestResults.md).
 
 ## Value
 
 A tibble with `"Issues"` from
-[`AsTestResultsDF()`](https://gilead-biostats.github.io/qcthat/dev/reference/AsTestResultsDF.md)
+[`AsTestResultsDF()`](https://gilead-public.github.io/qcthat/dev/reference/AsTestResultsDF.md)
 unnested into `"Issue"`, and the `"Issue"` column first.

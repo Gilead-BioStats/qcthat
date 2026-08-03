@@ -24,5 +24,5 @@ MergePotentialIssues(dfA, dfB)
 A
 [`tibble::tibble()`](https://tibble.tidyverse.org/reference/tibble.html)
 with the same structure as
-[`MapTestFilesToPotentialIssues()`](https://gilead-biostats.github.io/qcthat/dev/reference/MapTestFilesToPotentialIssues.md),
+[`MapTestFilesToPotentialIssues()`](https://gilead-public.github.io/qcthat/dev/reference/MapTestFilesToPotentialIssues.md),
 with `PotentialIssues` unioned.

@@ -20,7 +20,7 @@ GuessReleaseID(
 - lGHEventPayload:
 
   (`list`) The GitHub event payload. Defaults to the result of
-  [`LoadGHEventPayload()`](https://gilead-biostats.github.io/qcthat/dev/reference/LoadGHEventPayload.md).
+  [`LoadGHEventPayload()`](https://gilead-public.github.io/qcthat/dev/reference/LoadGHEventPayload.md).
 
 - strOwner:
 

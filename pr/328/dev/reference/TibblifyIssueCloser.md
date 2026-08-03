@@ -13,7 +13,7 @@ TibblifyIssueCloser(lIssueCloser)
 - lIssueCloser:
 
   (`list`) A single element of a raw issue closer object as returned by
-  [`FetchRepoIssueClosersRaw()`](https://gilead-biostats.github.io/qcthat/dev/reference/FetchRepoIssueClosersRaw.md).
+  [`FetchRepoIssueClosersRaw()`](https://gilead-public.github.io/qcthat/dev/reference/FetchRepoIssueClosersRaw.md).
 
 ## Value
 

@@ -15,16 +15,16 @@
 ## Citation
 
 Source:
-[`DESCRIPTION`](https://github.com/Gilead-BioStats/qcthat/blob/fix-327-gilead-public/DESCRIPTION)
+[`DESCRIPTION`](https://github.com/Gilead-Public/qcthat/blob/fix-327-gilead-public/DESCRIPTION)
 
 Wildfire J, Harmon J, Andriychuk N, Roumaya M (2026). *qcthat:
 Lightweight R Package Quality Control*. R package version 1.1.3,
-<https://gilead-biostats.github.io/qcthat/>.
+<https://gilead-public.github.io/qcthat/>.
 
     @Manual{,
       title = {qcthat: Lightweight R Package Quality Control},
       author = {Jeremy Wildfire and Jon Harmon and Natalia Andriychuk and Matt Roumaya},
       year = {2026},
       note = {R package version 1.1.3},
-      url = {https://gilead-biostats.github.io/qcthat/},
+      url = {https://gilead-public.github.io/qcthat/},
     }

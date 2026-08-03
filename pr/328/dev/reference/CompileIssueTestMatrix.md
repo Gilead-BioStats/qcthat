@@ -1,9 +1,9 @@
 # Create a nested tibble of issues and tests
 
 Combine the data from
-[`CompileTestResults()`](https://gilead-biostats.github.io/qcthat/dev/reference/CompileTestResults.md)
+[`CompileTestResults()`](https://gilead-public.github.io/qcthat/dev/reference/CompileTestResults.md)
 and
-[`FetchRepoIssues()`](https://gilead-biostats.github.io/qcthat/dev/reference/FetchRepoIssues.md)
+[`FetchRepoIssues()`](https://gilead-public.github.io/qcthat/dev/reference/FetchRepoIssues.md)
 into a nested tibble organized by milestone, with each milestone
 containing issues and associated tests.
 
@@ -23,13 +23,13 @@ CompileIssueTestMatrix(
 
   (`qcthat_Issues` or data frame) Data frame of GitHub issues as
   returned by
-  [`FetchRepoIssues()`](https://gilead-biostats.github.io/qcthat/dev/reference/FetchRepoIssues.md).
+  [`FetchRepoIssues()`](https://gilead-public.github.io/qcthat/dev/reference/FetchRepoIssues.md).
 
 - dfTestResults:
 
   (`qcthat_TestResults` or data frame) Data frame of test results as
   returned by
-  [`CompileTestResults()`](https://gilead-biostats.github.io/qcthat/dev/reference/CompileTestResults.md).
+  [`CompileTestResults()`](https://gilead-public.github.io/qcthat/dev/reference/CompileTestResults.md).
 
 - chrIgnoredLabels:
 

@@ -18,7 +18,7 @@ MaybeRerunAllQCPRWorkflows(
 - dfOpenPRRefs:
 
   (`data.frame`) A tibble of PR references, as returned by
-  [`FetchAllIssuePRRefs()`](https://gilead-biostats.github.io/qcthat/dev/reference/FetchAllIssuePRRefs.md).
+  [`FetchAllIssuePRRefs()`](https://gilead-public.github.io/qcthat/dev/reference/FetchAllIssuePRRefs.md).
   Must contain columns `PR`, `HeadRef`, and `SHA`.
 
 - strOwner:

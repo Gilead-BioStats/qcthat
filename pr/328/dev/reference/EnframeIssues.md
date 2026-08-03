@@ -13,7 +13,7 @@ EnframeIssues(lIssuesNonPR)
 - lIssuesNonPR:
 
   (`list`) List of issue objects as returned by
-  [`RemovePRsFromIssues()`](https://gilead-biostats.github.io/qcthat/dev/reference/RemovePRsFromIssues.md).
+  [`RemovePRsFromIssues()`](https://gilead-public.github.io/qcthat/dev/reference/RemovePRsFromIssues.md).
 
 ## Value
 

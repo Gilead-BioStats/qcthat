@@ -1,7 +1,5 @@
 # qcthat (development version)
 
-* Direct links to `Gilead-BioStats` have been updated to `Gilead-Public` across documentation, workflows, and configuration (@jharmon-gilead, #327).
-
 # qcthat 1.1.3
 
 This patch release streamlines and hones the GitHub Action installed via `Action_qcthat()`.

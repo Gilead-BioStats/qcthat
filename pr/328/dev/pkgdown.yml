@@ -5,7 +5,7 @@ articles:
   business_process: business_process.html
   expect_user_accepts: expect_user_accepts.html
   qcthat: qcthat.html
-last_built: 2026-08-03T19:26Z
+last_built: 2026-08-03T19:46Z
 urls:
   reference: https://gilead-public.github.io/qcthat/reference
   article: https://gilead-public.github.io/qcthat/articles

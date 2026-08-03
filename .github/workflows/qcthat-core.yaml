@@ -87,7 +87,7 @@ jobs:
 
     steps:
       - name: Generate token
-        uses: gilead-biostats/gsm.utils/generate-token@actions-v1
+        uses: gilead-public/gsm.utils/generate-token@actions-v1
         id: token
         with:
           app-id: ${{ secrets.qcthat-app-id }}
@@ -97,12 +97,12 @@ jobs:
       - name: Set GITHUB_PAT
         run: echo "GITHUB_PAT=${{ steps.token.outputs.token }}" >> $GITHUB_ENV
       - name: Check out repo
-        uses: gilead-biostats/gsm.utils/checkout@actions-v1
+        uses: gilead-public/gsm.utils/checkout@actions-v1
       - name: Install R and dependencies
-        uses: gilead-biostats/gsm.utils/install@actions-v1
+        uses: gilead-public/gsm.utils/install@actions-v1
         with:
           token: ${{ steps.token.outputs.token }}
-          extra-packages: Gilead-BioStats/qcthat${{ inputs.qcthat-ref }} local::.
+          extra-packages: gilead-public/qcthat${{ inputs.qcthat-ref }} local::.
           use-public-rspm: true
       - name: Session info
         run: sessionInfo()
@@ -125,7 +125,7 @@ jobs:
 
     steps:
       - name: Generate token
-        uses: gilead-biostats/gsm.utils/generate-token@actions-v1
+        uses: gilead-public/gsm.utils/generate-token@actions-v1
         id: token
         with:
           app-id: ${{ secrets.qcthat-app-id }}
@@ -137,26 +137,26 @@ jobs:
       - name: Determine checkout ref
         id: get-ref
         if: github.event_name == 'workflow_dispatch'
-        uses: gilead-biostats/gsm.utils/determine-ref@actions-v1
+        uses: gilead-public/gsm.utils/determine-ref@actions-v1
         with:
           pr-number: ${{ inputs.pr-number }}
           tag: ${{ inputs.tag }}
           token: ${{ steps.token.outputs.token }}
       - name: Check out repo
-        uses: gilead-biostats/gsm.utils/checkout@actions-v1
+        uses: gilead-public/gsm.utils/checkout@actions-v1
         with:
           ref: ${{ steps.get-ref.outputs.ref }}
       - name: Install R and dependencies
-        uses: gilead-biostats/gsm.utils/install@actions-v1
+        uses: gilead-public/gsm.utils/install@actions-v1
         with:
           token: ${{ steps.token.outputs.token }}
-          extra-packages: Gilead-BioStats/qcthat${{ inputs.qcthat-ref }} local::.
+          extra-packages: gilead-public/qcthat${{ inputs.qcthat-ref }} local::.
           use-public-rspm: true
       - name: Session info
         run: sessionInfo()
         shell: Rscript {0}
       - name: Generate Issue-Test Matrix
-        uses: gilead-biostats/qcthat/generate-itm@actions
+        uses: $/generate-itm@actions
         with:
           token: ${{ steps.token.outputs.token }}
       - name: Update PR Reports
@@ -165,7 +165,7 @@ jobs:
             github.event_name == 'pull_request' ||
             (github.event_name == 'workflow_dispatch' && inputs.pr-number != '')
           )
-        uses: gilead-biostats/qcthat/pr-report@actions
+        uses: $/pr-report@actions
         with:
           pr-number: ${{ inputs.pr-number }}
           generate-completed-report: ${{ inputs.generate-completed-report }}
@@ -181,7 +181,7 @@ jobs:
           inputs.generate-release-report && (
             github.event_name == 'release' || inputs.tag != ''
           )
-        uses: gilead-biostats/qcthat/release-report@actions
+        uses: $/release-report@actions
         with:
           generate-completed-report: ${{ inputs.generate-completed-report }}
           generate-milestone-report: ${{ inputs.generate-milestone-report }}
@@ -196,7 +196,7 @@ jobs:
             github.event_name == 'pull_request' ||
             (github.event_name == 'workflow_dispatch' && inputs.pr-number != '')
           )
-        uses: gilead-biostats/qcthat/pr-flag-failure@actions
+        uses: $/pr-flag-failure@actions
         with:
           pr-number: ${{ inputs.pr-number }}
           token: ${{ steps.token.outputs.token }}
@@ -211,6 +211,6 @@ jobs:
             github.event_name == 'release' ||
             (github.event_name == 'workflow_dispatch' && inputs.issue-number == '')
           )
-        uses: gilead-biostats/qcthat/release-flag-failure@actions
+        uses: $/release-flag-failure@actions
         with:
           token: ${{ steps.token.outputs.token }}

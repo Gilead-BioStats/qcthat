@@ -156,7 +156,7 @@ jobs:
         run: sessionInfo()
         shell: Rscript {0}
       - name: Generate Issue-Test Matrix
-        uses: $/generate-itm@actions
+        uses: $/generate-itm
         with:
           token: ${{ steps.token.outputs.token }}
       - name: Update PR Reports
@@ -165,7 +165,7 @@ jobs:
             github.event_name == 'pull_request' ||
             (github.event_name == 'workflow_dispatch' && inputs.pr-number != '')
           )
-        uses: $/pr-report@actions
+        uses: $/pr-report
         with:
           pr-number: ${{ inputs.pr-number }}
           generate-completed-report: ${{ inputs.generate-completed-report }}
@@ -181,7 +181,7 @@ jobs:
           inputs.generate-release-report && (
             github.event_name == 'release' || inputs.tag != ''
           )
-        uses: $/release-report@actions
+        uses: $/release-report
         with:
           generate-completed-report: ${{ inputs.generate-completed-report }}
           generate-milestone-report: ${{ inputs.generate-milestone-report }}
@@ -196,7 +196,7 @@ jobs:
             github.event_name == 'pull_request' ||
             (github.event_name == 'workflow_dispatch' && inputs.pr-number != '')
           )
-        uses: $/pr-flag-failure@actions
+        uses: $/pr-flag-failure
         with:
           pr-number: ${{ inputs.pr-number }}
           token: ${{ steps.token.outputs.token }}
@@ -211,6 +211,6 @@ jobs:
             github.event_name == 'release' ||
             (github.event_name == 'workflow_dispatch' && inputs.issue-number == '')
           )
-        uses: $/release-flag-failure@actions
+        uses: $/release-flag-failure
         with:
           token: ${{ steps.token.outputs.token }}

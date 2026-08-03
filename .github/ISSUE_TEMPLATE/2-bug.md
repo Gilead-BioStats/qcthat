@@ -3,7 +3,7 @@ name: "Bugfix Issue Template"
 about: "Fix a bug in the code"
 title: "(fill in)"
 type: Bug
-Project: Gilead-Public/41
+Project: Gilead-BioStats/41
 ---
 
 ## Current Behavior

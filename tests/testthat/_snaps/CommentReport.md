@@ -8,7 +8,7 @@
       [1] 99
       
       $strTitle
-      [1] "[{qcthat}](https://gilead-biostats.github.io/qcthat/) Report: Testing"
+      [1] "[{qcthat}](https://gilead-public.github.io/qcthat/) Report: Testing"
       
       $strBody
       <details>

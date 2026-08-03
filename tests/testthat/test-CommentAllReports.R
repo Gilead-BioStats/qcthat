@@ -47,7 +47,7 @@ test_that("CommentAllReports generates the expected calls (#165)", {
       expect_equal(intIssue, 42)
       expect_equal(
         strTitle,
-        "[{qcthat}](https://gilead-biostats.github.io/qcthat/) Reports"
+        "[{qcthat}](https://gilead-public.github.io/qcthat/) Reports"
       )
       expect_equal(
         strBody,

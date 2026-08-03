@@ -8,7 +8,7 @@ format:
   revealjs:
     theme: dark
     logo: slide_images/favicon-96x96.png
-    footer: <a href="https://gilead-biostats.github.io/qcthat/">gilead-biostats.github.io/qcthat</a>
+    footer: <a href="https://gilead-public.github.io/qcthat/">gilead-public.github.io/qcthat</a>
     link-external-newwindow: true
     transition: slide
     incremental: false
@@ -238,6 +238,6 @@ format:
 
 ## Contact us with questions and comments
 
-- `{qcthat}` package website: [gilead-biostats.github.io/qcthat](https://gilead-biostats.github.io/qcthat)
+- `{qcthat}` package website: [gilead-public.github.io/qcthat](https://gilead-public.github.io/qcthat)
 - Submit issues & discuss at [github.com/Gilead-Public/qcthat](https://github.com/Gilead-Public/qcthat)
 - Chat with us after the talk!

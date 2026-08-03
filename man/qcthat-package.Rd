@@ -13,9 +13,9 @@ A lightweight quality control framework for R packages, particularly those used 
 \seealso{
 Useful links:
 \itemize{
-  \item \url{https://gilead-biostats.github.io/qcthat/}
-  \item \url{https://github.com/Gilead-BioStats/qcthat}
-  \item Report bugs at \url{https://github.com/Gilead-BioStats/qcthat/issues}
+  \item \url{https://gilead-public.github.io/qcthat/}
+  \item \url{https://github.com/Gilead-Public/qcthat}
+  \item Report bugs at \url{https://github.com/Gilead-Public/qcthat/issues}
 }
 
 }

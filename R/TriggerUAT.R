@@ -100,7 +100,7 @@ FetchPRUATCommentIssues <- function(
     dplyr::filter(
       .data$qcthatCommentID ==
         rlang::hash(
-          "[{qcthat}](https://gilead-biostats.github.io/qcthat/) Report: User Acceptance"
+          "[{qcthat}](https://gilead-public.github.io/qcthat/) Report: User Acceptance"
         )
     )
   if (NROW(dfComments) && nzchar(dfComments$Body[[1]])) {

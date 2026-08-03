@@ -105,7 +105,7 @@ CommentAllReports <- function(
   if (length(chrBody)) {
     CommentIssue(
       intIssue = intPRNumber,
-      strTitle = "[{qcthat}](https://gilead-biostats.github.io/qcthat/) Reports",
+      strTitle = "[{qcthat}](https://gilead-public.github.io/qcthat/) Reports",
       strBody = paste(chrBody, collapse = "\n\n\n"),
       lglUpdate = lglUpdate,
       strRunID = strRunID,

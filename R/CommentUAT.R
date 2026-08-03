@@ -35,7 +35,7 @@ CommentUAT <- function(
   )
   CommentIssue(
     intPRNumber,
-    strTitle = "[{qcthat}](https://gilead-biostats.github.io/qcthat/) Report: User Acceptance",
+    strTitle = "[{qcthat}](https://gilead-public.github.io/qcthat/) Report: User Acceptance",
     strBody = FormatUATGH(intIssues),
     lglUpdate = lglUpdate,
     strRunID = strRunID,

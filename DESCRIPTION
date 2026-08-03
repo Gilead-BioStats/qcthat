@@ -15,9 +15,9 @@ Description: A lightweight quality control framework for R packages,
     trials.  Integrates formal quality control reports into package
     development workflows using 'testthat' and 'GitHub'.
 License: Apache License (>= 2)
-URL: https://gilead-biostats.github.io/qcthat/,
-    https://github.com/Gilead-BioStats/qcthat
-BugReports: https://github.com/Gilead-BioStats/qcthat/issues
+URL: https://gilead-public.github.io/qcthat/,
+    https://github.com/Gilead-Public/qcthat
+BugReports: https://github.com/Gilead-Public/qcthat/issues
 Depends: 
     R (>= 4.1.0)
 Imports: 

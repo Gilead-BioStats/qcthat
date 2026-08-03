@@ -13,7 +13,7 @@ test_that("CommentUAT generates the expected call with 0 pending issues (#115)",
   expect_equal(test_result[[1]], 99)
   expect_equal(
     test_result$strTitle,
-    "[{qcthat}](https://gilead-biostats.github.io/qcthat/) Report: User Acceptance"
+    "[{qcthat}](https://gilead-public.github.io/qcthat/) Report: User Acceptance"
   )
   expect_equal(test_result$strBody, "No issues are awaiting UAT.")
 })
@@ -42,7 +42,7 @@ test_that("CommentUAT generates the expected call (#115, #185)", {
   expect_equal(test_result[[1]], 99)
   expect_equal(
     test_result$strTitle,
-    "[{qcthat}](https://gilead-biostats.github.io/qcthat/) Report: User Acceptance"
+    "[{qcthat}](https://gilead-public.github.io/qcthat/) Report: User Acceptance"
   )
   expect_snapshot({
     cat(test_result$strBody)

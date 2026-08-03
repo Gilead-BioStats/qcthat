@@ -1,7 +1,7 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# qcthat <a href="https://gilead-biostats.github.io/qcthat/"><img src="man/figures/logo.svg" align="right" height="318" alt="qcthat website" /></a>
+# qcthat <a href="https://gilead-public.github.io/qcthat/"><img src="man/figures/logo.svg" align="right" height="318" alt="qcthat website" /></a>
 
 <!-- badges: start -->
 
@@ -194,5 +194,5 @@ guide](https://style.tidyverse.org/).
 
 Please note that the `{qcthat}` project is released with a [Contributor
 Code of
-Conduct](https://gilead-biostats.github.io/qcthat/CODE_OF_CONDUCT.html).
+Conduct](https://gilead-public.github.io/qcthat/CODE_OF_CONDUCT.html).
 By contributing to this project, you agree to abide by its terms.

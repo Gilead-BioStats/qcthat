@@ -1,7 +1,7 @@
 # Default ignored labels as a tibble
 
 Returns a tibble of ignore labels (from
-[`DefaultIgnoreLabels()`](https://gilead-biostats.github.io/qcthat/dev/reference/DefaultIgnoreLabels.md)),
+[`DefaultIgnoreLabels()`](https://gilead-public.github.io/qcthat/dev/reference/DefaultIgnoreLabels.md)),
 their descriptions, and the colors of their labels.
 
 ## Usage

@@ -2,11 +2,11 @@
 
 A QC report combines information about GitHub issues associated with a
 package (see
-[`FetchRepoIssues()`](https://gilead-biostats.github.io/qcthat/dev/reference/FetchRepoIssues.md))
+[`FetchRepoIssues()`](https://gilead-public.github.io/qcthat/dev/reference/FetchRepoIssues.md))
 and testthat test results for the package (see
-[`CompileTestResults()`](https://gilead-biostats.github.io/qcthat/dev/reference/CompileTestResults.md))
+[`CompileTestResults()`](https://gilead-public.github.io/qcthat/dev/reference/CompileTestResults.md))
 using
-[`CompileIssueTestMatrix()`](https://gilead-biostats.github.io/qcthat/dev/reference/CompileIssueTestMatrix.md).
+[`CompileIssueTestMatrix()`](https://gilead-public.github.io/qcthat/dev/reference/CompileIssueTestMatrix.md).
 
 ## Usage
 
@@ -55,7 +55,7 @@ QCPackage(
 ## Value
 
 A `qcthat_IssueTestMatrix` object as returned by
-[`CompileIssueTestMatrix()`](https://gilead-biostats.github.io/qcthat/dev/reference/CompileIssueTestMatrix.md).
+[`CompileIssueTestMatrix()`](https://gilead-public.github.io/qcthat/dev/reference/CompileIssueTestMatrix.md).
 
 ## Examples
 

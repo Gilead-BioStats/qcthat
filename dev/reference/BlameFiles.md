@@ -25,5 +25,5 @@ BlameFiles(chrFilePaths, envCall = rlang::caller_env())
 A
 [`tibble::tibble()`](https://tibble.tidyverse.org/reference/tibble.html)
 with the same structure as
-[`BlameFile()`](https://gilead-biostats.github.io/qcthat/dev/reference/BlameFile.md),
+[`BlameFile()`](https://gilead-public.github.io/qcthat/dev/reference/BlameFile.md),
 row-bound across all files.

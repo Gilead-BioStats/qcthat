@@ -23,9 +23,9 @@ IsCheckingUAT(strUATEnvVar = "qcthat_UAT")
 ## See also
 
 Other UAT functions:
-[`CommentUAT()`](https://gilead-biostats.github.io/qcthat/dev/reference/CommentUAT.md),
-[`ExpectUserAccepts()`](https://gilead-biostats.github.io/qcthat/dev/reference/ExpectUserAccepts.md),
-[`TriggerUAT()`](https://gilead-biostats.github.io/qcthat/dev/reference/TriggerUAT.md)
+[`CommentUAT()`](https://gilead-public.github.io/qcthat/dev/reference/CommentUAT.md),
+[`ExpectUserAccepts()`](https://gilead-public.github.io/qcthat/dev/reference/ExpectUserAccepts.md),
+[`TriggerUAT()`](https://gilead-public.github.io/qcthat/dev/reference/TriggerUAT.md)
 
 ## Examples
 

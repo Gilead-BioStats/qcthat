@@ -71,9 +71,9 @@ QCPR(
 
   (`qcthat_IssueTestMatrix`) A `qcthat_IssueTestMatrix` object as
   returned by
-  [`AsIssueTestMatrix()`](https://gilead-biostats.github.io/qcthat/dev/reference/AsIssueTestMatrix.md)
+  [`AsIssueTestMatrix()`](https://gilead-public.github.io/qcthat/dev/reference/AsIssueTestMatrix.md)
   (often via
-  [`QCPackage()`](https://gilead-biostats.github.io/qcthat/dev/reference/QCPackage.md)).
+  [`QCPackage()`](https://gilead-public.github.io/qcthat/dev/reference/QCPackage.md)).
 
 - envCall:
 
@@ -84,12 +84,12 @@ QCPR(
 ## Value
 
 A `qcthat_IssueTestMatrix` object as returned by
-[`QCPackage()`](https://gilead-biostats.github.io/qcthat/dev/reference/QCPackage.md),
+[`QCPackage()`](https://gilead-public.github.io/qcthat/dev/reference/QCPackage.md),
 filtered to issues that will be closed by merging the pull request.
 
 ## See also
 
-[`QCMergeLocal()`](https://gilead-biostats.github.io/qcthat/dev/reference/QCMergeLocal.md)
+[`QCMergeLocal()`](https://gilead-public.github.io/qcthat/dev/reference/QCMergeLocal.md)
 to use local git data to guess connections between issues and the
 commits that closed them.
 

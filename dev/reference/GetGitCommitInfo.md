@@ -23,4 +23,4 @@ GetGitCommitInfo(strRef, strPkgRoot = ".")
 ## Value
 
 The result of
-[`gert::git_commit_info()`](https://docs.ropensci.org/gert/reference/git_commit.html).
+[`gert::git_commit_info()`](https://docs.ropensci.org/gert/reference/git_history.html).

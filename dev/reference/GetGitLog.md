@@ -26,4 +26,4 @@ GetGitLog(strGitRef, strPkgRoot = ".", intMaxCommits = 1e+05)
 ## Value
 
 A data frame of commits that are in `strGitRef`, as returned by
-[`gert::git_log()`](https://docs.ropensci.org/gert/reference/git_commit.html).
+[`gert::git_log()`](https://docs.ropensci.org/gert/reference/git_history.html).

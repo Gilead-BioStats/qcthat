@@ -2,10 +2,10 @@
 
 Install a GitHub Action into a package repository to manage qcthat
 Quality Control with
-[`TriggerUAT()`](https://gilead-biostats.github.io/qcthat/dev/reference/TriggerUAT.md),
-[`CommentAllReports()`](https://gilead-biostats.github.io/qcthat/dev/reference/CommentAllReports.md),
+[`TriggerUAT()`](https://gilead-public.github.io/qcthat/dev/reference/TriggerUAT.md),
+[`CommentAllReports()`](https://gilead-public.github.io/qcthat/dev/reference/CommentAllReports.md),
 and
-[`AttachReleaseReports()`](https://gilead-biostats.github.io/qcthat/dev/reference/AttachReleaseReports.md).
+[`AttachReleaseReports()`](https://gilead-public.github.io/qcthat/dev/reference/AttachReleaseReports.md).
 We recommend reviewing the generated action to determine whether you
 would like to turn any features off.
 

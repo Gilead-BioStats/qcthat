@@ -18,14 +18,14 @@ MapTestsToCoveredLines(
 - envPkg:
 
   (`environment`) A loaded package environment, as returned by
-  [`LoadPkgEnv()`](https://gilead-biostats.github.io/qcthat/dev/reference/LoadPkgEnv.md).
+  [`LoadPkgEnv()`](https://gilead-public.github.io/qcthat/dev/reference/LoadPkgEnv.md).
 
 - dfFileTests:
 
   (`data.frame`) A
   [`tibble::tibble()`](https://tibble.tidyverse.org/reference/tibble.html)
   with the structure returned by
-  [`ExtractTestsFromFiles()`](https://gilead-biostats.github.io/qcthat/dev/reference/ExtractTestsFromFiles.md).
+  [`ExtractTestsFromFiles()`](https://gilead-public.github.io/qcthat/dev/reference/ExtractTestsFromFiles.md).
 
 - strTestDir:
 

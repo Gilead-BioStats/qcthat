@@ -14,7 +14,7 @@ requests.
 - File an issue before opening a pull request.  
 - Use the appropriate issue template.  
 - Track your issue on the [`gsm` Roadmap Project
-  Board](https://github.com/orgs/Gilead-BioStats/projects/41).  
+  Board](https://github.com/orgs/Gilead-Public/projects/41).  
 - All code changes should be made in a branch and submitted as a PR
   following the guidelines linked above.
 

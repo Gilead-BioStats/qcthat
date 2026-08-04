@@ -5,7 +5,7 @@
 Fetches all closed issues for a repository and maps each to the commits
 that closed it, returning one row per issue-commit pair. This is an
 optional input to
-[`MapTestFilesToPotentialIssues()`](https://gilead-biostats.github.io/qcthat/dev/reference/MapTestFilesToPotentialIssues.md).
+[`MapTestFilesToPotentialIssues()`](https://gilead-public.github.io/qcthat/dev/reference/MapTestFilesToPotentialIssues.md).
 Pre-computing it once and passing the result via `dfIssueCommitsLong`
 avoids redundant API calls when processing multiple test files.
 

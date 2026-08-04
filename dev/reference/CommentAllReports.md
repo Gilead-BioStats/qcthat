@@ -38,25 +38,25 @@ CommentAllReports(
 - lglCompleted:
 
   (`length-1 logical`) Whether to include the
-  [`QCCompletedIssues()`](https://gilead-biostats.github.io/qcthat/dev/reference/QCCompletedIssues.md)
+  [`QCCompletedIssues()`](https://gilead-public.github.io/qcthat/dev/reference/QCCompletedIssues.md)
   report.
 
 - lglMilestone:
 
   (`length-1 logical`) Whether to include the
-  [`QCMilestones()`](https://gilead-biostats.github.io/qcthat/dev/reference/QCMilestones.md)
+  [`QCMilestones()`](https://gilead-public.github.io/qcthat/dev/reference/QCMilestones.md)
   report.
 
 - lglPR:
 
   (`length-1 logical`) Whether to include the
-  [`QCPR()`](https://gilead-biostats.github.io/qcthat/dev/reference/QCPR.md)
+  [`QCPR()`](https://gilead-public.github.io/qcthat/dev/reference/QCPR.md)
   report.
 
 - lglUAT:
 
   (`length-1 logical`) Whether to include the
-  [`CommentUAT()`](https://gilead-biostats.github.io/qcthat/dev/reference/CommentUAT.md)
+  [`CommentUAT()`](https://gilead-public.github.io/qcthat/dev/reference/CommentUAT.md)
   report.
 
 - chrMilestones:
@@ -67,9 +67,9 @@ CommentAllReports(
 
   (`qcthat_IssueTestMatrix`) A `qcthat_IssueTestMatrix` object as
   returned by
-  [`AsIssueTestMatrix()`](https://gilead-biostats.github.io/qcthat/dev/reference/AsIssueTestMatrix.md)
+  [`AsIssueTestMatrix()`](https://gilead-public.github.io/qcthat/dev/reference/AsIssueTestMatrix.md)
   (often via
-  [`QCPackage()`](https://gilead-biostats.github.io/qcthat/dev/reference/QCPackage.md)).
+  [`QCPackage()`](https://gilead-public.github.io/qcthat/dev/reference/QCPackage.md)).
 
 - lglUpdate:
 

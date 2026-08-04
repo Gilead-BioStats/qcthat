@@ -36,7 +36,7 @@ CreateChildIssue(
 - ...:
 
   Additional parameters passed to
-  [`CreateRepoIssueRaw()`](https://gilead-biostats.github.io/qcthat/dev/reference/CreateRepoIssueRaw.md).
+  [`CreateRepoIssueRaw()`](https://gilead-public.github.io/qcthat/dev/reference/CreateRepoIssueRaw.md).
 
 - chrLabels:
 

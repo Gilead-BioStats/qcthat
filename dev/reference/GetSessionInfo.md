@@ -34,9 +34,9 @@ GetSessionInfo()
 #>  collate  C
 #>  ctype    C.UTF-8
 #>  tz       UTC
-#>  date     2026-07-09
+#>  date     2026-08-04
 #>  pandoc   3.8.3 @ /opt/hostedtoolcache/pandoc/3.8.3/x64/ (via rmarkdown)
-#>  quarto   1.9.38 @ /usr/local/bin/quarto
+#>  quarto   1.10.18 @ /usr/local/bin/quarto
 #> 
 #> ─ Packages ───────────────────────────────────────────────────────────────────
 #>  package     * version date (UTC) lib source
@@ -47,7 +47,7 @@ GetSessionInfo()
 #>  base64enc     0.1-6   2026-02-02 [1] RSPM
 #>  boot          1.3-32  2025-08-29 [3] CRAN (R 4.6.1)
 #>  brio          1.1.5   2024-04-24 [1] RSPM
-#>  bslib         0.11.0  2026-05-16 [1] RSPM
+#>  bslib         0.12.0  2026-08-04 [1] RSPM
 #>  cachem        1.1.0   2024-05-16 [1] RSPM
 #>  callr         3.8.0   2026-06-05 [1] RSPM
 #>  checkmate     2.3.4   2026-02-03 [1] RSPM
@@ -63,7 +63,7 @@ GetSessionInfo()
 #>  curl          7.1.0   2026-04-22 [1] RSPM
 #>  datasets    * 4.6.1   2026-06-24 [3] local
 #>  desc          1.4.3   2023-12-10 [1] RSPM
-#>  diffobj       0.3.6   2025-04-21 [1] RSPM
+#>  diffobj       0.3.8   2026-07-17 [1] RSPM
 #>  digest        0.6.39  2025-11-19 [1] RSPM
 #>  downlit       0.4.5   2025-11-14 [1] RSPM
 #>  dplyr         1.2.1   2026-04-03 [1] RSPM
@@ -75,20 +75,20 @@ GetSessionInfo()
 #>  foreign       0.8-91  2026-01-29 [3] CRAN (R 4.6.1)
 #>  fs            2.1.0   2026-04-18 [1] RSPM
 #>  generics      0.1.4   2025-05-09 [1] RSPM
-#>  gert          2.3.1   2026-01-11 [1] RSPM
-#>  gh            1.6.0   2026-05-29 [1] RSPM
+#>  gert          2.4.0   2026-07-22 [1] RSPM
+#>  gh            1.6.1   2026-07-20 [1] RSPM
 #>  git2r         0.36.2  2025-03-29 [1] RSPM
 #>  gitcreds      0.1.2   2022-09-08 [1] RSPM
 #>  glue          1.8.1   2026-04-17 [1] RSPM
 #>  graphics    * 4.6.1   2026-06-24 [3] local
 #>  grDevices   * 4.6.1   2026-06-24 [3] local
 #>  grid          4.6.1   2026-06-24 [3] local
-#>  gsm.utils     0.4.0   2026-06-26 [1] Github (gilead-biostats/gsm.utils@b020480)
+#>  gsm.utils     0.4.0   2026-08-04 [1] Github (gilead-public/gsm.utils@b020480)
 #>  here          1.0.2   2025-09-15 [1] RSPM
 #>  highr         0.12    2026-03-06 [1] RSPM
 #>  htmltools     0.5.9   2025-12-04 [1] RSPM
 #>  httr          1.4.8   2026-02-13 [1] RSPM
-#>  httr2         1.2.3   2026-06-23 [1] RSPM
+#>  httr2         1.3.0   2026-07-13 [1] RSPM
 #>  ini           0.3.1   2018-05-20 [1] RSPM
 #>  jquerylib     0.1.4   2021-04-26 [1] RSPM
 #>  jsonlite      2.0.0   2025-03-27 [1] RSPM
@@ -108,7 +108,7 @@ GetSessionInfo()
 #>  nnet          7.3-20  2025-01-01 [3] CRAN (R 4.6.1)
 #>  openssl       2.4.2   2026-06-09 [1] RSPM
 #>  otel          0.2.0   2025-08-29 [1] RSPM
-#>  pak           0.10.0  2026-06-07 [2] local
+#>  pak           0.11.1  2026-07-22 [2] local
 #>  parallel      4.6.1   2026-06-24 [3] local
 #>  pillar        1.11.1  2025-09-17 [1] RSPM
 #>  pkgbuild      1.4.8   2025-05-26 [1] RSPM
@@ -119,7 +119,7 @@ GetSessionInfo()
 #>  processx      3.9.0   2026-04-22 [1] RSPM
 #>  ps            1.9.3   2026-04-20 [1] RSPM
 #>  purrr         1.2.2   2026-04-10 [1] RSPM
-#>  qcthat      * 1.1.3   2026-07-09 [1] local
+#>  qcthat      * 1.1.3   2026-08-04 [1] local
 #>  quarto        1.5.1   2025-09-04 [1] RSPM
 #>  R6            2.6.1   2025-02-15 [1] RSPM
 #>  ragg          1.5.2   2026-03-23 [1] RSPM
@@ -160,10 +160,10 @@ GetSessionInfo()
 #>  waldo         0.6.2   2025-07-11 [1] RSPM
 #>  whisker       0.4.1   2022-12-05 [1] RSPM
 #>  withr         3.0.3   2026-06-19 [1] RSPM
-#>  xfun          0.59    2026-06-19 [1] RSPM
+#>  xfun          0.60    2026-07-09 [1] RSPM
 #>  xml2          1.6.0   2026-06-22 [1] RSPM
 #>  yaml          2.3.12  2025-12-10 [1] RSPM
-#>  zip           3.0.0   2026-06-10 [1] RSPM
+#>  zip           3.0.1   2026-07-13 [1] RSPM
 #> 
 #>  [1] /home/runner/work/_temp/Library
 #>  [2] /opt/R/4.6.1/lib/R/site-library

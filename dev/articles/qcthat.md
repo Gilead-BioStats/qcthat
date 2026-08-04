@@ -1,6 +1,6 @@
 # Setup
 
-To utilize [qcthat](https://gilead-biostats.github.io/qcthat/), you must
+To utilize [qcthat](https://gilead-public.github.io/qcthat/), you must
 
 1.  Use GitHub Issues to document package requirements (see [Chapter 20:
     Software development practices from *R Packages (2e)* by Hadley
@@ -30,16 +30,16 @@ qcthat::use_qcthat()
 ```
 
 Run
-[`use_qcthat()`](https://gilead-biostats.github.io/qcthat/dev/reference/use_qcthat.md)
+[`use_qcthat()`](https://gilead-public.github.io/qcthat/dev/reference/use_qcthat.md)
 from within your package directory to:
 
 1.  Create GitHub labels
-    ([`SetupGHLabels()`](https://gilead-biostats.github.io/qcthat/dev/reference/SetupGHLabels.md))
+    ([`SetupGHLabels()`](https://gilead-public.github.io/qcthat/dev/reference/SetupGHLabels.md))
     with the default labels that
-    [qcthat](https://gilead-biostats.github.io/qcthat/) uses to assist
-    in reporting: qcthat-nocov, qcthat-uat.
+    [qcthat](https://gilead-public.github.io/qcthat/) uses to assist in
+    reporting: qcthat-nocov, qcthat-uat.
 2.  Install a GitHub Action
-    ([`Action_qcthat()`](https://gilead-biostats.github.io/qcthat/dev/reference/Action_qcthat.md))
+    ([`Action_qcthat()`](https://gilead-public.github.io/qcthat/dev/reference/Action_qcthat.md))
     that will automatically generate QC reports and user acceptance
     reports on pull requests and releases. You can customize the
     behavior of this action by modifying the YAML file in
@@ -53,7 +53,7 @@ qcthat::Skill_TagTestsWithIssues()
 ```
 
 Run
-[`Skill_TagTestsWithIssues()`](https://gilead-biostats.github.io/qcthat/dev/reference/Skill_TagTestsWithIssues.md)
+[`Skill_TagTestsWithIssues()`](https://gilead-public.github.io/qcthat/dev/reference/Skill_TagTestsWithIssues.md)
 to install an experimental `SKILL.md` file to help you use AI to tag
 your tests with GitHub issue numbers. Tell your agent to use the skill
 with “tag tests” with issues” (or by pointing to the installed skill

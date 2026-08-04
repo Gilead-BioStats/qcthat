@@ -2,9 +2,9 @@
 
 Set up qcthat labels and GitHub Action workflow for a package
 repository. This function combines
-[`SetupGHLabels()`](https://gilead-biostats.github.io/qcthat/dev/reference/SetupGHLabels.md)
+[`SetupGHLabels()`](https://gilead-public.github.io/qcthat/dev/reference/SetupGHLabels.md)
 and
-[`Action_qcthat()`](https://gilead-biostats.github.io/qcthat/dev/reference/Action_qcthat.md)
+[`Action_qcthat()`](https://gilead-public.github.io/qcthat/dev/reference/Action_qcthat.md)
 to create the necessary GitHub labels and install the GitHub Action
 workflow for managing qcthat Quality Control. We recommend reviewing the
 generated action to determine whether you would like to turn any
@@ -30,7 +30,7 @@ use_qcthat(
   (`data.frame`) A data frame with columns `Label`, `Description`, and
   `Color`, specifying the labels to create. By default, this is the data
   frame returned by
-  [`DefaultIgnoreLabelsDF()`](https://gilead-biostats.github.io/qcthat/dev/reference/DefaultIgnoreLabelsDF.md).
+  [`DefaultIgnoreLabelsDF()`](https://gilead-public.github.io/qcthat/dev/reference/DefaultIgnoreLabelsDF.md).
   Descriptions of labels created via this function are prefixed with
   `"{qcthat}: "` to make it easier to search for them in your list of
   labels.

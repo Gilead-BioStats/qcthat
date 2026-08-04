@@ -35,13 +35,13 @@ AttachReleaseReports(
 - lglCompleted:
 
   (`length-1 logical`) Whether to include the
-  [`QCCompletedIssues()`](https://gilead-biostats.github.io/qcthat/dev/reference/QCCompletedIssues.md)
+  [`QCCompletedIssues()`](https://gilead-public.github.io/qcthat/dev/reference/QCCompletedIssues.md)
   report.
 
 - lglMilestone:
 
   (`length-1 logical`) Whether to include the
-  [`QCMilestones()`](https://gilead-biostats.github.io/qcthat/dev/reference/QCMilestones.md)
+  [`QCMilestones()`](https://gilead-public.github.io/qcthat/dev/reference/QCMilestones.md)
   report.
 
 - chrMilestones:
@@ -52,9 +52,9 @@ AttachReleaseReports(
 
   (`qcthat_IssueTestMatrix`) A `qcthat_IssueTestMatrix` object as
   returned by
-  [`AsIssueTestMatrix()`](https://gilead-biostats.github.io/qcthat/dev/reference/AsIssueTestMatrix.md)
+  [`AsIssueTestMatrix()`](https://gilead-public.github.io/qcthat/dev/reference/AsIssueTestMatrix.md)
   (often via
-  [`QCPackage()`](https://gilead-biostats.github.io/qcthat/dev/reference/QCPackage.md)).
+  [`QCPackage()`](https://gilead-public.github.io/qcthat/dev/reference/QCPackage.md)).
 
 - strRunID:
 

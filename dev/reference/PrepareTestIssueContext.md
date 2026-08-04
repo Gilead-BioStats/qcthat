@@ -4,7 +4,7 @@
 
 Collect comprehensive information about tests and their potential
 related issues using
-[`MapTestFilesToPotentialIssues()`](https://gilead-biostats.github.io/qcthat/dev/reference/MapTestFilesToPotentialIssues.md),
+[`MapTestFilesToPotentialIssues()`](https://gilead-public.github.io/qcthat/dev/reference/MapTestFilesToPotentialIssues.md),
 and enrich with test code and enriched issue details from GitHub.
 
 ## Usage
@@ -24,7 +24,7 @@ PrepareTestIssueContext(
 - dfPotentialIssues:
 
   (`tibble`) A data frame as returned by
-  [`MapTestFilesToPotentialIssues()`](https://gilead-biostats.github.io/qcthat/dev/reference/MapTestFilesToPotentialIssues.md).
+  [`MapTestFilesToPotentialIssues()`](https://gilead-public.github.io/qcthat/dev/reference/MapTestFilesToPotentialIssues.md).
 
 - strTestDir:
 

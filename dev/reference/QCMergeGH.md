@@ -5,7 +5,7 @@ finds all pull requests associated with those commits, finds all issues
 associated with those pull requests (according to GitHub's graph of
 connections between issues and commits), and generates a QC report for
 those issues. This is a more robust check than
-[`QCMergeLocal()`](https://gilead-biostats.github.io/qcthat/dev/reference/QCMergeLocal.md).
+[`QCMergeLocal()`](https://gilead-public.github.io/qcthat/dev/reference/QCMergeLocal.md).
 Note: If the comparison involves more than 5000 commits, increase
 `intPageMax` to fetch additional commits in batches of 100.
 
@@ -80,9 +80,9 @@ QCMergeGH(
 
   (`qcthat_IssueTestMatrix`) A `qcthat_IssueTestMatrix` object as
   returned by
-  [`AsIssueTestMatrix()`](https://gilead-biostats.github.io/qcthat/dev/reference/AsIssueTestMatrix.md)
+  [`AsIssueTestMatrix()`](https://gilead-public.github.io/qcthat/dev/reference/AsIssueTestMatrix.md)
   (often via
-  [`QCPackage()`](https://gilead-biostats.github.io/qcthat/dev/reference/QCPackage.md)).
+  [`QCPackage()`](https://gilead-public.github.io/qcthat/dev/reference/QCPackage.md)).
 
 - envCall:
 
@@ -93,13 +93,13 @@ QCMergeGH(
 ## Value
 
 A `qcthat_IssueTestMatrix` object as returned by
-[`QCPackage()`](https://gilead-biostats.github.io/qcthat/dev/reference/QCPackage.md),
+[`QCPackage()`](https://gilead-public.github.io/qcthat/dev/reference/QCPackage.md),
 filtered to issues that are associated with pull requests that will be
 merged when `strSourceRef` is merged into `strTargetRef`.
 
 ## See also
 
-[`QCMergeLocal()`](https://gilead-biostats.github.io/qcthat/dev/reference/QCMergeLocal.md)
+[`QCMergeLocal()`](https://gilead-public.github.io/qcthat/dev/reference/QCMergeLocal.md)
 to use local git data to guess connections between issues and the
 commits that closed them.
 

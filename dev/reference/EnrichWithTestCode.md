@@ -13,7 +13,7 @@ EnrichWithTestCode(dfTestPotentialIssueDetails)
 - dfTestPotentialIssueDetails:
 
   (`tibble`) A data frame as returned by
-  [`EnrichWithIssueDetails()`](https://gilead-biostats.github.io/qcthat/dev/reference/EnrichWithIssueDetails.md).
+  [`EnrichWithIssueDetails()`](https://gilead-public.github.io/qcthat/dev/reference/EnrichWithIssueDetails.md).
 
 ## Value
 

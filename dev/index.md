@@ -1,11 +1,11 @@
 # qcthat
 
-[qcthat](https://gilead-biostats.github.io/qcthat/) is a quality control
+[qcthat](https://gilead-public.github.io/qcthat/) is a quality control
 framework for R packages. It has been developed for use in the `gsm`
 family of packages, such as
 [`gsm.core`](https://github.com/Gilead-BioStats/gsm.core).
 
-The goal of [qcthat](https://gilead-biostats.github.io/qcthat/) is to
+The goal of [qcthat](https://gilead-public.github.io/qcthat/) is to
 produce qualification reports linking GitHub issues to evidence that
 those issues have been implemented. These reports can be used as part of
 a quality control and acceptance process for R packages, particularly
@@ -19,7 +19,7 @@ You can install the latest release of qcthat from
 ``` r
 
 # install.packages("pak")
-pak::pak("Gilead-BioStats/qcthat@*release")
+pak::pak("Gilead-Public/qcthat@*release")
 ```
 
 You can install the development version of qcthat from
@@ -28,22 +28,22 @@ You can install the development version of qcthat from
 ``` r
 
 # install.packages("pak")
-pak::pak("Gilead-BioStats/qcthat")
+pak::pak("Gilead-Public/qcthat")
 ```
 
 Learn more in
-[`vignette("qcthat")`](https://gilead-biostats.github.io/qcthat/dev/articles/qcthat.md).
+[`vignette("qcthat")`](https://gilead-public.github.io/qcthat/dev/articles/qcthat.md).
 
 ## 📋 Example Report Process
 
-[`Action_qcthat()`](https://gilead-biostats.github.io/qcthat/dev/reference/Action_qcthat.md)
+[`Action_qcthat()`](https://gilead-public.github.io/qcthat/dev/reference/Action_qcthat.md)
 installs a GitHub action to generate QC reports. At its core, it uses
 the functions
-[`QCPackage()`](https://gilead-biostats.github.io/qcthat/dev/reference/QCPackage.md),
-[`QCPR()`](https://gilead-biostats.github.io/qcthat/dev/reference/QCPR.md),
-[`QCCompletedIssues()`](https://gilead-biostats.github.io/qcthat/dev/reference/QCCompletedIssues.md),
+[`QCPackage()`](https://gilead-public.github.io/qcthat/dev/reference/QCPackage.md),
+[`QCPR()`](https://gilead-public.github.io/qcthat/dev/reference/QCPR.md),
+[`QCCompletedIssues()`](https://gilead-public.github.io/qcthat/dev/reference/QCCompletedIssues.md),
 and
-[`QCMilestones()`](https://gilead-biostats.github.io/qcthat/dev/reference/QCMilestones.md)
+[`QCMilestones()`](https://gilead-public.github.io/qcthat/dev/reference/QCMilestones.md)
 to generate a report like this:
 
 ✅ A qcthat issue test matrix with 1 milestone, 19 issues, and 59 tests
@@ -157,7 +157,7 @@ generalizable and extensible to all sorts of repository structures is
 challenging, and your input is greatly appreciated.
 
 Before submitting a pull request, make sure to file an
-[issue](https://github.com/Gilead-BioStats/qcthat/issues), which should
+[issue](https://github.com/Gilead-Public/qcthat/issues), which should
 generally fall under one of the following categories:
 
 - Bugfix: something is broken.
@@ -169,7 +169,7 @@ guide](https://style.tidyverse.org/).
 
 ### Code of Conduct
 
-Please note that the [qcthat](https://gilead-biostats.github.io/qcthat/)
+Please note that the [qcthat](https://gilead-public.github.io/qcthat/)
 project is released with a [Contributor Code of
-Conduct](https://gilead-biostats.github.io/qcthat/CODE_OF_CONDUCT.html).
+Conduct](https://gilead-public.github.io/qcthat/CODE_OF_CONDUCT.html).
 By contributing to this project, you agree to abide by its terms.

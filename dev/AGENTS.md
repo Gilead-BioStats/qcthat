@@ -14,7 +14,7 @@ workflows using testthat and GitHub.
 | `R/` | Exported functions and internal helpers; see File Organization below |
 | `R/qcthat-package.R` | Auto-generated package-level documentation; do not edit |
 | `R/aaa-shared.R` | Shared `@inheritParams` definitions; do not edit without care |
-| `R/aaa-conditions.R` | [`qcthatAbort()`](https://gilead-biostats.github.io/qcthat/dev/reference/qcthatAbort.md) and condition class helpers |
+| `R/aaa-conditions.R` | [`qcthatAbort()`](https://gilead-public.github.io/qcthat/dev/reference/qcthatAbort.md) and condition class helpers |
 | `tests/testthat/` | Test suite; mirrors `R/` structure |
 | `man/` | Generated Rd files; do not edit manually |
 | `.github/skills/` | Agent skill files |
@@ -141,7 +141,7 @@ Load skills from @.github/skills when the user triggers them.
 Each exported function should be defined in its own file named
 `R/{FunctionName}.R` (PascalCase, matching the function name exactly).
 For example,
-[`FetchRepoIssues()`](https://gilead-biostats.github.io/qcthat/dev/reference/FetchRepoIssues.md)
+[`FetchRepoIssues()`](https://gilead-public.github.io/qcthat/dev/reference/FetchRepoIssues.md)
 belongs in `R/FetchRepoIssues.R`. Internal helper functions used
 exclusively by that exported function should also live in the same file.
 General-purpose helpers shared across multiple functions belong in

@@ -9,11 +9,11 @@ formal quality control reports into package development workflows using
 
 Useful links:
 
-- <https://gilead-biostats.github.io/qcthat/>
+- <https://gilead-public.github.io/qcthat/>
 
-- <https://github.com/Gilead-BioStats/qcthat>
+- <https://github.com/Gilead-Public/qcthat>
 
-- Report bugs at <https://github.com/Gilead-BioStats/qcthat/issues>
+- Report bugs at <https://github.com/Gilead-Public/qcthat/issues>
 
 ## Author
 

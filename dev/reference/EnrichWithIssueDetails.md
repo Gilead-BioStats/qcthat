@@ -13,7 +13,7 @@ EnrichWithIssueDetails(dfPotentialIssues, strOwner, strRepo, strGHToken)
 - dfPotentialIssues:
 
   (`tibble`) A data frame as returned by
-  [`MapTestFilesToPotentialIssues()`](https://gilead-biostats.github.io/qcthat/dev/reference/MapTestFilesToPotentialIssues.md).
+  [`MapTestFilesToPotentialIssues()`](https://gilead-public.github.io/qcthat/dev/reference/MapTestFilesToPotentialIssues.md).
 
 - strOwner:
 

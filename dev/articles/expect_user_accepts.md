@@ -4,12 +4,12 @@ Some quality requirements can’t be verified by automated tests.
 Aesthetic changes to an HTML report, layout adjustments, or visual
 design updates require a human to look at the result and confirm it
 meets expectations.
-[`ExpectUserAccepts()`](https://gilead-biostats.github.io/qcthat/dev/reference/ExpectUserAccepts.md)
+[`ExpectUserAccepts()`](https://gilead-public.github.io/qcthat/dev/reference/ExpectUserAccepts.md)
 bridges this gap by connecting [testthat](https://testthat.r-lib.org)
 tests to GitHub issues that a reviewer can close to indicate acceptance.
 
 This extends the test coverage that
-[qcthat](https://gilead-biostats.github.io/qcthat/) tracks to include
+[qcthat](https://gilead-public.github.io/qcthat/) tracks to include
 things that only a person can verify, which is often exactly what
 matters most to stakeholders.
 
@@ -66,7 +66,7 @@ test_that("Report header uses the updated brand colors (#42)", {
 ## What happens behind the scenes
 
 When the test runs,
-[`ExpectUserAccepts()`](https://gilead-biostats.github.io/qcthat/dev/reference/ExpectUserAccepts.md)
+[`ExpectUserAccepts()`](https://gilead-public.github.io/qcthat/dev/reference/ExpectUserAccepts.md)
 performs the following steps:
 
 1.  **Guard checks.** The function only executes when not on CRAN,
@@ -104,7 +104,7 @@ performs the following steps:
       the same `test_that()` block will still run).
 
 6.  **Logging.** Records the result to an internal registry used by
-    [`CommentUAT()`](https://gilead-biostats.github.io/qcthat/dev/reference/CommentUAT.md)
+    [`CommentUAT()`](https://gilead-public.github.io/qcthat/dev/reference/CommentUAT.md)
     to post status reports on pull requests.
 
 During local development, the test **does not fail** by default because
@@ -128,18 +128,18 @@ configured.
 ## GitHub Actions 🤖 integration
 
 The `qcthat.yaml` workflow (installed via
-[`use_qcthat()`](https://gilead-biostats.github.io/qcthat/dev/reference/use_qcthat.md))
+[`use_qcthat()`](https://gilead-public.github.io/qcthat/dev/reference/use_qcthat.md))
 handles the automated side:
 
 1.  When a `qcthat-uat` labeled issue is **closed**, the workflow fires
     on the `issues: [closed]` event.
 2.  The workflow runs
-    [`TriggerUAT()`](https://gilead-biostats.github.io/qcthat/dev/reference/TriggerUAT.md),
+    [`TriggerUAT()`](https://gilead-public.github.io/qcthat/dev/reference/TriggerUAT.md),
     which finds open pull requests referencing the closed issue.
 3.  If no workflow run is already in progress for those PRs, the QC
     workflow is re-triggered.
 4.  On re-run, the test suite executes again. This time
-    [`ExpectUserAccepts()`](https://gilead-biostats.github.io/qcthat/dev/reference/ExpectUserAccepts.md)
+    [`ExpectUserAccepts()`](https://gilead-public.github.io/qcthat/dev/reference/ExpectUserAccepts.md)
     sees the sub-issue is closed and calls
     [`testthat::pass()`](https://testthat.r-lib.org/reference/fail.html).
 5.  The UAT report comment on the PR is updated to reflect the accepted
@@ -153,7 +153,7 @@ close a GitHub issue.
 
 | Variable | Purpose | Default |
 |----|----|----|
-| `qcthat_UAT` | Set to `"TRUE"` to make open UAT issues report as test failures. Checked by [`IsCheckingUAT()`](https://gilead-biostats.github.io/qcthat/dev/reference/IsCheckingUAT.md). | `""` (failures are not reported) |
+| `qcthat_UAT` | Set to `"TRUE"` to make open UAT issues report as test failures. Checked by [`IsCheckingUAT()`](https://gilead-public.github.io/qcthat/dev/reference/IsCheckingUAT.md). | `""` (failures are not reported) |
 | `qcthat_UAT_ASSIGNEES` | Comma-separated GitHub usernames for default assignees. | `""` |
 
 Both are typically set in `.github/workflows/qcthat.yaml` rather than
@@ -166,7 +166,7 @@ locally.
 - Use `chrInstructions` to link the reviewer to a preview deployment or
   specific page in the report.
 - Multiple
-  [`ExpectUserAccepts()`](https://gilead-biostats.github.io/qcthat/dev/reference/ExpectUserAccepts.md)
+  [`ExpectUserAccepts()`](https://gilead-public.github.io/qcthat/dev/reference/ExpectUserAccepts.md)
   calls can exist in the same test file (even withing the same
   `test_that()` block), each tracking a different aspect of the same
   issue or different issues.

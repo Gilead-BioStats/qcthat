@@ -31,7 +31,7 @@ UpdateIssueRaw(
 - ...:
 
   Additional arguments to pass to
-  [`CallGHAPI()`](https://gilead-biostats.github.io/qcthat/dev/reference/CallGHAPI.md).
+  [`CallGHAPI()`](https://gilead-public.github.io/qcthat/dev/reference/CallGHAPI.md).
   Any `NULL` values are discarded.
 
 - strTitle:

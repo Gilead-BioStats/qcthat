@@ -13,15 +13,15 @@ MapCoveredLinesToPotentialIssues(dfTestCoveredLines, dfIssueCommitsLong)
 - dfTestCoveredLines:
 
   (`tibble`) Output of
-  [`MapTestsToCoveredLines()`](https://gilead-biostats.github.io/qcthat/dev/reference/MapTestsToCoveredLines.md).
+  [`MapTestsToCoveredLines()`](https://gilead-public.github.io/qcthat/dev/reference/MapTestsToCoveredLines.md).
 
 - dfIssueCommitsLong:
 
   (`data.frame` or `NULL`) Pre-computed issue-commit mappings from
-  [`MapLongIssueCommits()`](https://gilead-biostats.github.io/qcthat/dev/reference/MapLongIssueCommits.md).
+  [`MapLongIssueCommits()`](https://gilead-public.github.io/qcthat/dev/reference/MapLongIssueCommits.md).
   If `NULL` (the default), fetched automatically from the GitHub API.
   Provide this when calling
-  [`MapTestFilesToPotentialIssues()`](https://gilead-biostats.github.io/qcthat/dev/reference/MapTestFilesToPotentialIssues.md)
+  [`MapTestFilesToPotentialIssues()`](https://gilead-public.github.io/qcthat/dev/reference/MapTestFilesToPotentialIssues.md)
   multiple times to avoid redundant API requests.
 
 ## Value
@@ -29,4 +29,4 @@ MapCoveredLinesToPotentialIssues(dfTestCoveredLines, dfIssueCommitsLong)
 A
 [`tibble::tibble()`](https://tibble.tidyverse.org/reference/tibble.html)
 with the same structure as
-[`MapTestFilesToPotentialIssues()`](https://gilead-biostats.github.io/qcthat/dev/reference/MapTestFilesToPotentialIssues.md).
+[`MapTestFilesToPotentialIssues()`](https://gilead-public.github.io/qcthat/dev/reference/MapTestFilesToPotentialIssues.md).

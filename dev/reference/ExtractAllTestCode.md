@@ -15,12 +15,12 @@ ExtractAllTestCode(dfFileTests, chrFileContents)
   (`data.frame`) A
   [`tibble::tibble()`](https://tibble.tidyverse.org/reference/tibble.html)
   with the structure returned by
-  [`ExtractTestsFromFiles()`](https://gilead-biostats.github.io/qcthat/dev/reference/ExtractTestsFromFiles.md).
+  [`ExtractTestsFromFiles()`](https://gilead-public.github.io/qcthat/dev/reference/ExtractTestsFromFiles.md).
 
 - chrFileContents:
 
   (`list`) Named list of file contents from
-  [`ReadTestFileContents()`](https://gilead-biostats.github.io/qcthat/dev/reference/ReadTestFileContents.md).
+  [`ReadTestFileContents()`](https://gilead-public.github.io/qcthat/dev/reference/ReadTestFileContents.md).
 
 ## Value
 

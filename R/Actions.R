@@ -50,7 +50,7 @@ UseActionInProject <- function(
     {
       fs::dir_create(strWorkflowDir)
       usethis::use_github_file(
-        "Gilead-BioStats/qcthat",
+        "Gilead-Public/qcthat",
         path = strActionFilename,
         ref = "actions",
         open = FALSE,
@@ -61,7 +61,7 @@ UseActionInProject <- function(
   )
   invisible(fs::path(
     "https://raw.githubusercontent.com/",
-    "Gilead-BioStats/qcthat/actions/",
+    "Gilead-Public/qcthat/actions/",
     strActionFilename
   ))
   # nocov end

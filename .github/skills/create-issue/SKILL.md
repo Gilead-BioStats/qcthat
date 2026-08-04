@@ -10,14 +10,14 @@ Use `gh api graphql` with the `createIssue` mutation to create issues. This sets
 
 ## Looking up IDs
 
-The hardcoded IDs below are correct for this repo as of 2026-03-10. If they ever change, or if you're working in a fork or a repo other than "Gilead-BioStats/qcthat", re-run these queries to get fresh values (updating owner and name if necessary).
+The hardcoded IDs below are correct for this repo as of 2026-03-10. If they ever change, or if you're working in a fork or a repo other than "Gilead-Public/qcthat", re-run these queries to get fresh values (updating owner and name if necessary).
 
 ```bash
 # Repository node ID
-gh api graphql -f query='{ repository(owner: "Gilead-BioStats", name: "qcthat") { id } }'
+gh api graphql -f query='{ repository(owner: "Gilead-Public", name: "qcthat") { id } }'
 
 # Available issue type IDs
-gh api graphql -f query='{ repository(owner: "Gilead-BioStats", name: "qcthat") { issueTypes(first: 20) { nodes { id name } } } }'
+gh api graphql -f query='{ repository(owner: "Gilead-Public", name: "qcthat") { issueTypes(first: 20) { nodes { id name } } } }'
 ```
 
 ## Issue type

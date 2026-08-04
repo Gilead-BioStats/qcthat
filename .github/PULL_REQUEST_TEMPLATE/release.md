@@ -8,7 +8,7 @@
 ## Milestone
 <!--- Link to the milestone for the release. ---> 
 <!--- Make sure all relevant issues/PRs are included on the linked pages. --->
-Milestone: [v0.2.0](https://github.com/Gilead-BioStats/qcthat/milestone/2)
+Milestone: [v0.2.0](https://github.com/Gilead-Public/qcthat/milestone/2)
 
 # Overall Risk Assessment 
 <!--- Complete the following Risk Assessment for this Release-->
@@ -45,6 +45,6 @@ Notes:
 - [ ] Formatted code with `styler`
 - [ ] Run `spell_check()`
 - [ ] Completed QC of documentation including `README.md` and relevant Vignettes
-- [ ] Build site `pkgdown::build_site()` and check that all affected examples are displayed correctly and that all new functions occur on the "[Reference](https://gilead-biostats.github.io/qcthat/reference/index.html)" page. 
+- [ ] Build site `pkgdown::build_site()` and check that all affected examples are displayed correctly and that all new functions occur on the "[Reference](https://gilead-public.github.io/qcthat/reference/index.html)" page. 
 - [ ] Draft GitHub release created using automatic template and updated with additional details. Remember to click "release" after PR is merged.  
 

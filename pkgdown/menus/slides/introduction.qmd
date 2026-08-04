@@ -8,7 +8,7 @@ format:
   revealjs:
     theme: dark
     logo: slide_images/favicon-96x96.png
-    footer: <a href="https://gilead-biostats.github.io/qcthat/">gilead-biostats.github.io/qcthat</a>
+    footer: <a href="https://gilead-public.github.io/qcthat/">gilead-public.github.io/qcthat</a>
     link-external-newwindow: true
     transition: slide
     incremental: false
@@ -26,7 +26,7 @@ format:
 
 ::: {.column width="40%"}
 
-[![github.com/Gilead-BioStats/qcthat/releases/latest](slide_images/qr_latest_release.png){width=100%}](https://github.com/Gilead-BioStats/qcthat/releases/latest)
+[![github.com/Gilead-Public/qcthat/releases/latest](slide_images/qr_latest_release.png){width=100%}](https://github.com/Gilead-Public/qcthat/releases/latest)
 
 :::
 
@@ -210,7 +210,7 @@ format:
 
 ::: {.column width="40%"}
 
-[![github.com/Gilead-BioStats/qcthat/releases/latest](slide_images/qr_latest_release.png){width=100%}](https://github.com/Gilead-BioStats/qcthat/releases/latest)
+[![github.com/Gilead-Public/qcthat/releases/latest](slide_images/qr_latest_release.png){width=100%}](https://github.com/Gilead-Public/qcthat/releases/latest)
 
 :::
 
@@ -230,7 +230,7 @@ format:
 
 ## Setup takes minutes, not hours
 
-- `pak::pak("Gilead-BioStats/qcthat")`
+- `pak::pak("Gilead-Public/qcthat")`
 - `qcthat::use_qcthat()`
 - Tag your tests: `test_that("Thing works (#123)", ...)`
 - Experimental: `qcthat::Skill_TagTestsWithIssues()`
@@ -238,6 +238,6 @@ format:
 
 ## Contact us with questions and comments
 
-- `{qcthat}` package website: [gilead-biostats.github.io/qcthat](https://gilead-biostats.github.io/qcthat)
-- Submit issues & discuss at [github.com/Gilead-BioStats/qcthat](https://github.com/Gilead-BioStats/qcthat)
+- `{qcthat}` package website: [gilead-public.github.io/qcthat](https://gilead-public.github.io/qcthat)
+- Submit issues & discuss at [github.com/Gilead-Public/qcthat](https://github.com/Gilead-Public/qcthat)
 - Chat with us after the talk!

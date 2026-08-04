@@ -64,7 +64,7 @@ test_that("FetchPRUATCommentIssues extracts issues correctly (#114)", {
         return(
           tibble::tibble(
             qcthatCommentID = rlang::hash(
-              "[{qcthat}](https://gilead-biostats.github.io/qcthat/) Report: User Acceptance"
+              "[{qcthat}](https://gilead-public.github.io/qcthat/) Report: User Acceptance"
             ),
             Body = "Check these:\n- https://github.com/org/repo/issues/123\n- https://github.com/org/repo/issues/456"
           )

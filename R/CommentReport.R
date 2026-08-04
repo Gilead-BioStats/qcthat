@@ -24,7 +24,7 @@ CommentReport <- function(
   CommentIssue(
     intPRNumber,
     strTitle = paste(
-      "[{qcthat}](https://gilead-biostats.github.io/qcthat/) Report:",
+      "[{qcthat}](https://gilead-public.github.io/qcthat/) Report:",
       strReportType
     ),
     strBody = FormatReportGH(dfITM),

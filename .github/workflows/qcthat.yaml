@@ -40,7 +40,7 @@ jobs:
     if: >-
       (github.event_name == 'issues' && contains(github.event.issue.labels.*.name, 'qcthat-uat')) ||
       github.event_name != 'issues'
-    uses: gilead-public/qcthat/.github/workflows/qcthat-core.yaml@actions
+    uses: gilead-public/qcthat/.github/workflows/qcthat-core.yaml@fix-298-attach_release_report
     secrets:
       token: ${{ secrets.GITHUB_TOKEN }}
       qcthat-app-id: ${{ secrets.CM_BOT_APP_ID }}

@@ -53,3 +53,17 @@ runs:
           lglWarn = TRUE,
           chrIgnoredLabels = qcthat::DefaultIgnoreLabels()
         )
+    - name: Attach Issue-Test Matrix JSON
+      if: steps.reconcile.outputs.chr-milestones != ''
+      env:
+        GH_TOKEN: ${{ inputs.token }}
+        RELEASE_TAG: ${{ inputs.tag || github.event.release.tag_name }}
+      shell: bash
+      run: |
+        Rscript -e '
+          issueTestMatrix <- readRDS("ITM.rds")
+          qcthat::SaveAsJSON(issueTestMatrix, "dfITM.json")
+        '
+        gh release upload "$RELEASE_TAG" dfITM.json \
+          --repo "${{ github.repository_owner }}/${{ github.event.repository.name }}" \
+          --clobber
